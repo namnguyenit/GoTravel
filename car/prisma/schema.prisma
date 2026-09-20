@@ -92,6 +92,7 @@ model Route {
   operator    Operator    @relation(fields: [operatorId], references: [id], onDelete: Cascade)
   origin      String      // Điểm khởi hành (VD: Hà Nội)
   destination String      // Điểm đến (VD: Đà Nẵng)
+  status      RouteStatus @default(ACTIVE)
 
   stops       RouteStop[]
   trips       Trip[]
@@ -100,6 +101,11 @@ model Route {
   updatedAt   DateTime    @updatedAt @map("updated_at")
 
   @@map("routes")
+}
+
+enum RouteStatus {
+  ACTIVE   // Đang hoạt động
+  INACTIVE // Tạm khóa / Ngừng khai thác
 }
 
 // ============================================================================

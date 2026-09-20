@@ -15,6 +15,7 @@ import { AdminLayout } from "./modules/admin/presentation/layouts/AdminLayout";
 import { AdminOperatorListPage } from "./modules/admin/presentation/pages/AdminOperatorListPage";
 import { AdminOperatorApplicationsPage } from "./modules/admin/presentation/pages/AdminOperatorApplicationsPage";
 import { OperatorCarListPage } from "./modules/car/presentation/pages/OperatorCarListPage";
+import { OperatorRouteListPage } from "./modules/route/presentation/pages/OperatorRouteListPage";
 
 export const App: React.FC = () => {
   return (
@@ -49,6 +50,10 @@ export const App: React.FC = () => {
                 element={<OperatorDashboardPage />}
               />
               <Route path="/operator/cars" element={<OperatorCarListPage />} />
+              <Route
+                path="/operator/routes"
+                element={<OperatorRouteListPage />}
+              />
             </Route>
           </Route>
 

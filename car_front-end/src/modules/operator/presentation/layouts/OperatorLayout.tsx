@@ -1,6 +1,13 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Bus, LayoutDashboard, Car, ShieldCheck, User } from "lucide-react";
+import {
+  Bus,
+  LayoutDashboard,
+  Car,
+  ShieldCheck,
+  User,
+  MapPin,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export const OperatorLayout: React.FC = () => {
@@ -51,6 +58,18 @@ export const OperatorLayout: React.FC = () => {
           >
             <Car className="h-4 w-4" />
             <span>Quản lý xe khách</span>
+          </Link>
+
+          <Link
+            to="/operator/routes"
+            className={`flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              isActive("/operator/routes")
+                ? "bg-blue-50 font-semibold text-blue-600"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <MapPin className="h-4 w-4" />
+            <span>Quản lý tuyến đường</span>
           </Link>
 
           <Link

@@ -212,7 +212,7 @@ export const OperatorCarListPage: React.FC = () => {
           className="gap-2 bg-blue-600 font-semibold text-white shadow-xs hover:bg-blue-700"
         >
           <Plus className="h-4 w-4" />
-          <span>+ Thêm xe mới</span>
+          <span>Thêm xe mới</span>
         </Button>
       </div>
 

@@ -12,12 +12,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  Bus,
   PlusCircle,
   ShieldCheck,
   Car,
   Calendar,
   RefreshCw,
+  MapPin,
 } from "lucide-react";
 
 export const OperatorDashboardPage: React.FC = () => {
@@ -93,20 +93,20 @@ export const OperatorDashboardPage: React.FC = () => {
         <Card className="border-gray-200 shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-gray-600">
-              Chuyến xe Vận hành
+              Quản lý Tuyến đường
             </CardTitle>
-            <Bus className="h-5 w-5 text-blue-600" />
+            <MapPin className="h-5 w-5 text-blue-600" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-gray-900">
-              Lịch trình chuyến
+              Mạng lưới tuyến
             </div>
             <CardDescription className="mt-1 text-xs">
-              Quản lý danh sách chuyến xe và giá vé
+              Thiết lập lộ trình điểm đi, điểm đến và các trạm đón/trả
             </CardDescription>
-            <Link to="/" className="mt-3 inline-block">
+            <Link to="/operator/routes" className="mt-3 inline-block">
               <Button variant="outline" size="sm" className="text-xs">
-                Xem chuyến xe &rarr;
+                Xem tuyến đường &rarr;
               </Button>
             </Link>
           </CardContent>
