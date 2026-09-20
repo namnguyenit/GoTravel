@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   User,
   MapPin,
+  CalendarClock,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -70,6 +71,18 @@ export const OperatorLayout: React.FC = () => {
           >
             <MapPin className="h-4 w-4" />
             <span>Quản lý tuyến đường</span>
+          </Link>
+
+          <Link
+            to="/operator/trips"
+            className={`flex items-center space-x-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+              isActive("/operator/trips") || isActive("/trips")
+                ? "bg-blue-50 font-semibold text-blue-600"
+                : "text-gray-700 hover:bg-gray-100"
+            }`}
+          >
+            <CalendarClock className="h-4 w-4" />
+            <span>Quản lý chuyến xe</span>
           </Link>
 
           <Link

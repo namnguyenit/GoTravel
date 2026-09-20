@@ -94,6 +94,13 @@ export class RouteService implements IRouteService {
     };
   }
 
+  async getRouteById(id: string): Promise<RouteEntity | null> {
+    if (!id) return null;
+    const res = await this.getRoutes({ limit: 100 });
+    const found = res.data.find((r) => r.id === id);
+    return found || null;
+  }
+
   async createRoute(dto: CreateRouteDTO): Promise<RouteEntity> {
     const token = tokenStorage.getToken();
 

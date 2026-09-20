@@ -35,6 +35,7 @@ export interface GetRoutesResult {
 
 export interface IRouteService {
   getRoutes(params?: GetRoutesParams): Promise<GetRoutesResult>;
+  getRouteById(id: string): Promise<RouteEntity | null>;
   createRoute(dto: CreateRouteDTO): Promise<RouteEntity>;
   updateRouteStatus(id: string, status: RouteStatus): Promise<RouteEntity>;
 }
