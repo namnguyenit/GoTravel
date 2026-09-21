@@ -13,9 +13,11 @@ import {
 import { CreateTripDto } from '../dto/create-trip.dto';
 import { GetTripsQueryDto } from '../dto/get-trips-query.dto';
 import { UpdateTripStatusDto } from '../dto/update-trip-status.dto';
+import { SearchTripsQueryDto } from '../dto/search-trips-query.dto';
 import type { ICreateTripUseCase } from '../../application/port/create-trip.usecase.interface';
 import type { IGetTripsUseCase } from '../../application/port/get-trips.usecase.interface';
 import type { IUpdateTripStatusUseCase } from '../../application/port/update-trip-status.usecase.interface';
+import type { ISearchTripsUseCase } from '../../application/port/search-trips.usecase.interface';
 import { TripPresentationMapper } from '../mapper/trip-presentation.mapper';
 
 @Controller('trips')
@@ -27,7 +29,16 @@ export class TripController {
     private readonly getTripsUseCase: IGetTripsUseCase,
     @Inject('IUpdateTripStatusUseCase')
     private readonly updateTripStatusUseCase: IUpdateTripStatusUseCase,
+    @Inject('ISearchTripsUseCase')
+    private readonly searchTripsUseCase: ISearchTripsUseCase,
   ) {}
+
+  @Get('search')
+  async searchTrips(@Query() query: SearchTripsQueryDto) {
+    const input = TripPresentationMapper.toSearchTripsInput(query);
+    const result = await this.searchTripsUseCase.execute(input);
+    return TripPresentationMapper.toSearchTripsApiResponse(result);
+  }
 
   @Post()
   async createTrip(

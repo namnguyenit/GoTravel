@@ -16,6 +16,7 @@ import { UpdateRouteStatusDto } from '../dto/update-route-status.dto';
 import type { ICreateRouteUseCase } from '../../application/port/create-route.usecase.interface';
 import type { IGetRoutesUseCase } from '../../application/port/get-routes.usecase.interface';
 import type { IUpdateRouteStatusUseCase } from '../../application/port/update-route-status.usecase.interface';
+import type { IGetRouteLocationsUseCase } from '../../application/port/get-route-locations.usecase.interface';
 import { RoutePresentationMapper } from '../mapper/route-presentation.mapper';
 
 @Controller('routes')
@@ -27,7 +28,15 @@ export class RouteController {
     private readonly getRoutesUseCase: IGetRoutesUseCase,
     @Inject('IUpdateRouteStatusUseCase')
     private readonly updateRouteStatusUseCase: IUpdateRouteStatusUseCase,
+    @Inject('IGetRouteLocationsUseCase')
+    private readonly getRouteLocationsUseCase: IGetRouteLocationsUseCase,
   ) {}
+
+  @Get('locations')
+  async getLocations() {
+    const result = await this.getRouteLocationsUseCase.execute();
+    return RoutePresentationMapper.toGetRouteLocationsApiResponse(result);
+  }
 
   @Post()
   async createRoute(

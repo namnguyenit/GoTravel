@@ -151,4 +151,29 @@ export class PrismaRouteRepository implements IRouteRepository {
       total,
     };
   }
+
+  async getDistinctLocations(): Promise<string[]> {
+    const routes = await this.prisma.route.findMany({
+      where: {
+        status: 'ACTIVE',
+      },
+      select: {
+        origin: true,
+        destination: true,
+      },
+    });
+
+    const locationSet = new Set<string>();
+
+    for (const route of routes) {
+      if (route.origin && route.origin.trim()) {
+        locationSet.add(route.origin.trim());
+      }
+      if (route.destination && route.destination.trim()) {
+        locationSet.add(route.destination.trim());
+      }
+    }
+
+    return Array.from(locationSet).sort((a, b) => a.localeCompare(b, 'vi'));
+  }
 }

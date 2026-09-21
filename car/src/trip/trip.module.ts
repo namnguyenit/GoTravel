@@ -3,6 +3,7 @@ import { TripController } from './presentation/controller/trip.controller';
 import { CreateTripUseCase } from './application/usecase/create-trip.usecase';
 import { GetTripsUseCase } from './application/usecase/get-trips.usecase';
 import { UpdateTripStatusUseCase } from './application/usecase/update-trip-status.usecase';
+import { SearchTripsUseCase } from './application/usecase/search-trips.usecase';
 import { PrismaTripRepository } from './infrastructure/repository/prisma-trip.repository';
 
 @Module({
@@ -24,12 +25,17 @@ import { PrismaTripRepository } from './infrastructure/repository/prisma-trip.re
       provide: 'IUpdateTripStatusUseCase',
       useClass: UpdateTripStatusUseCase,
     },
+    {
+      provide: 'ISearchTripsUseCase',
+      useClass: SearchTripsUseCase,
+    },
   ],
   exports: [
     'ITripRepository',
     'ICreateTripUseCase',
     'IGetTripsUseCase',
     'IUpdateTripStatusUseCase',
+    'ISearchTripsUseCase',
   ],
 })
 export class TripModule {}

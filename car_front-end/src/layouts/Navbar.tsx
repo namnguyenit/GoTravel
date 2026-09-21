@@ -55,9 +55,9 @@ export const Navbar: React.FC = () => {
           {/* Navigation Links */}
           <nav className="flex space-x-6">
             <Link
-              to="/"
+              to="/search"
               className={`flex items-center space-x-1.5 text-sm font-medium transition-colors ${
-                isActive("/")
+                isActive("/search") || isActive("/")
                   ? "font-semibold text-blue-600"
                   : "text-gray-600 hover:text-blue-600"
               }`}

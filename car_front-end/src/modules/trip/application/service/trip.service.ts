@@ -3,15 +3,20 @@ import type {
   GetTripsParams,
   GetTripsResult,
   CreateTripDTO,
+  SearchTripsParams,
+  SearchTripsResult,
 } from "../port/trip.service.interface";
 import { TripEntity } from "../../domain/entity/trip.entity";
+import { CustomerTripEntity } from "../../domain/entity/customer-trip.entity";
 import {
   type TripStatus,
   TripStatusVO,
 } from "../../domain/value-object/trip-status.vo";
 import { TripTimeVO } from "../../domain/value-object/trip-time.vo";
 import { TripPriceVO } from "../../domain/value-object/trip-price.vo";
+import { TripSearchQueryVO } from "../../domain/value-object/trip-search-query.vo";
 import { tokenStorage } from "@/modules/auth/composition";
+import { routeService } from "@/modules/route/composition";
 
 export class TripService implements ITripService {
   private readonly apiBaseUrl: string;
@@ -244,5 +249,117 @@ export class TripService implements ITripService {
     const json = await res.json();
     const updatedData = json.data || json;
     return TripEntity.fromApiResponse(updatedData);
+  }
+
+  async searchTrips(params: SearchTripsParams): Promise<SearchTripsResult> {
+    // 1. Client-side Domain Validation
+    const validation = TripSearchQueryVO.validate(params);
+    if (!validation.isValid) {
+      const firstError = Object.values(validation.errors)[0];
+      throw new Error(firstError || "Tiêu chí tìm kiếm không hợp lệ.");
+    }
+
+    // 2. Build Query String
+    const query = new URLSearchParams();
+    query.append("origin", params.origin.trim());
+    query.append("destination", params.destination.trim());
+    query.append("departureDate", params.departureDate.trim());
+
+    if (params.type && params.type.trim()) {
+      query.append("type", params.type.trim());
+    }
+    if (params.minPrice !== undefined && params.minPrice !== null) {
+      query.append("minPrice", String(params.minPrice));
+    }
+    if (params.maxPrice !== undefined && params.maxPrice !== null) {
+      query.append("maxPrice", String(params.maxPrice));
+    }
+    if (params.operatorId && params.operatorId.trim()) {
+      query.append("operatorId", params.operatorId.trim());
+    }
+    if (params.sortBy) {
+      query.append("sortBy", params.sortBy);
+    }
+    if (params.sortOrder) {
+      query.append("sortOrder", params.sortOrder);
+    }
+    if (params.page) {
+      query.append("page", String(params.page));
+    }
+    if (params.limit) {
+      query.append("limit", String(params.limit));
+    }
+
+    // 3. Public API call (No Auth Token required)
+    const url = `${this.apiBaseUrl}/api/v1/trips/search?${query.toString()}`;
+    const res = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const errorJson = await res.json().catch(() => null);
+      const msg = Array.isArray(errorJson?.message)
+        ? errorJson.message.join(", ")
+        : errorJson?.message || "Tìm kiếm chuyến xe thất bại.";
+      throw new Error(msg);
+    }
+
+    const json = await res.json();
+    const responseData = json.data || json;
+
+    const rawList = Array.isArray(responseData?.data)
+      ? responseData.data
+      : Array.isArray(responseData)
+        ? responseData
+        : [];
+
+    let customerTrips = rawList.map((item: any) =>
+      CustomerTripEntity.fromApiResponse(item)
+    );
+
+    // Filter by departure time range if specified (EARLY_MORNING: 0h-6h, MORNING: 6h-12h, AFTERNOON: 12h-18h, EVENING: 18h-24h)
+    if (params.timeRange) {
+      customerTrips = customerTrips.filter((trip: CustomerTripEntity) => {
+        try {
+          const hour = new Date(trip.departureTime).getHours();
+          switch (params.timeRange) {
+            case "EARLY_MORNING":
+              return hour >= 0 && hour < 6;
+            case "MORNING":
+              return hour >= 6 && hour < 12;
+            case "AFTERNOON":
+              return hour >= 12 && hour < 18;
+            case "EVENING":
+              return hour >= 18 && hour < 24;
+            default:
+              return true;
+          }
+        } catch {
+          return true;
+        }
+      });
+    }
+
+    const rawPagination = responseData?.pagination || json?.pagination || {};
+    const pagination = {
+      page: Number(rawPagination.page) || params.page || 1,
+      limit: Number(rawPagination.limit) || params.limit || 10,
+      total:
+        Number(rawPagination.total ?? rawPagination.totalItems) ||
+        customerTrips.length,
+      totalPages: Number(rawPagination.totalPages) || 1,
+    };
+
+    return {
+      data: customerTrips,
+      pagination,
+    };
+  }
+
+  async getLocations(): Promise<string[]> {
+    return routeService.getLocations();
   }
 }

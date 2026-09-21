@@ -5,6 +5,7 @@ import { CreateRouteOutput } from '../../application/dto/create-route.output';
 import { GetRoutesInput } from '../../application/dto/get-routes.input';
 import { GetRoutesOutput } from '../../application/dto/get-routes.output';
 import { UpdateRouteStatusOutput } from '../../application/dto/update-route-status.output';
+import { GetRouteLocationsOutput } from '../../application/dto/get-route-locations.output';
 
 export class RoutePresentationMapper {
   public static toCreateRouteInput(dto: CreateRouteDto, userId: string): CreateRouteInput {
@@ -77,4 +78,16 @@ export class RoutePresentationMapper {
       },
     };
   }
+
+  public static toGetRouteLocationsApiResponse(output: GetRouteLocationsOutput) {
+    return {
+      success: true,
+      code: 'GET_ROUTE_LOCATIONS_SUCCESS',
+      message: 'Lấy danh sách địa điểm thành công.',
+      data: {
+        locations: output.locations,
+      },
+    };
+  }
 }
+

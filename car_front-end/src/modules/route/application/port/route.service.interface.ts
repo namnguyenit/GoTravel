@@ -38,4 +38,5 @@ export interface IRouteService {
   getRouteById(id: string): Promise<RouteEntity | null>;
   createRoute(dto: CreateRouteDTO): Promise<RouteEntity>;
   updateRouteStatus(id: string, status: RouteStatus): Promise<RouteEntity>;
+  getLocations(): Promise<string[]>;
 }

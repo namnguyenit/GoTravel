@@ -1,102 +1,164 @@
-﻿import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import {
-  Search,
-  MapPin,
-  Calendar,
   ShieldCheck,
   Clock,
   Award,
+  ArrowRight,
+  TrendingUp,
 } from "lucide-react";
+import { TripSearchForm } from "@/modules/trip/presentation/components/TripSearchForm";
+import { TripSearchQueryVO } from "@/modules/trip/domain/value-object/trip-search-query.vo";
+
+const POPULAR_ROUTES = [
+  {
+    origin: "Hồ Chí Minh",
+    destination: "Đà Lạt",
+    distance: "305 km",
+    duration: "6 giờ 30 phút",
+    price: "Từ 250.000 đ",
+    image:
+      "https://images.unsplash.com/photo-1549492423-400259a2e574?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    origin: "Hà Nội",
+    destination: "Đà Nẵng",
+    distance: "765 km",
+    duration: "14 giờ",
+    price: "Từ 420.000 đ",
+    image:
+      "https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    origin: "Hà Nội",
+    destination: "Sapa",
+    distance: "320 km",
+    duration: "5 giờ 30 phút",
+    price: "Từ 280.000 đ",
+    image:
+      "https://images.unsplash.com/photo-1528127269322-539801943592?auto=format&fit=crop&w=600&q=80",
+  },
+  {
+    origin: "Hồ Chí Minh",
+    destination: "Nha Trang",
+    distance: "430 km",
+    duration: "8 giờ 30 phút",
+    price: "Từ 300.000 đ",
+    image:
+      "https://images.unsplash.com/photo-1570789210967-2cac24afeb00?auto=format&fit=crop&w=600&q=80",
+  },
+];
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
-  const [from, setFrom] = useState("Hà Nội");
-  const [to, setTo] = useState("Đà Nẵng");
-  const [date, setDate] = useState("");
+  const todayStr = TripSearchQueryVO.getTodayDateString();
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    navigate(`/cars?search=${encodeURIComponent(to)}`);
+  const handleSearch = (criteria: {
+    origin: string;
+    destination: string;
+    departureDate: string;
+  }) => {
+    navigate(
+      `/search?origin=${encodeURIComponent(
+        criteria.origin
+      )}&destination=${encodeURIComponent(
+        criteria.destination
+      )}&departureDate=${encodeURIComponent(criteria.departureDate)}`
+    );
+  };
+
+  const handleQuickRouteSearch = (origin: string, destination: string) => {
+    navigate(
+      `/search?origin=${encodeURIComponent(
+        origin
+      )}&destination=${encodeURIComponent(
+        destination
+      )}&departureDate=${encodeURIComponent(todayStr)}`
+    );
   };
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 pb-12">
+      {/* Hero Banner with Search */}
       <div className="rounded-3xl bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 p-8 text-white shadow-xl sm:p-12">
-        <div className="max-w-3xl space-y-4">
-          <span className="inline-block rounded-full border border-blue-400/30 bg-blue-500/30 px-3 py-1 text-xs font-semibold text-blue-100 backdrop-blur-sm">
-            Hệ thống Đặt vé Xe khách Đường dài GoStay
+        <div className="max-w-3xl space-y-3">
+          <span className="inline-block rounded-full border border-blue-400/30 bg-blue-500/30 px-3.5 py-1 text-xs font-semibold text-blue-100 backdrop-blur-sm">
+            Hệ thống Đặt vé Xe khách Toàn quốc GoStay
           </span>
-          <h1 className="text-3xl font-extrabold tracking-tight sm:text-5xl">
+          <h1 className="text-3xl font-black tracking-tight sm:text-5xl">
             Đặt vé xe khách đường dài nhanh chóng & an toàn
           </h1>
-          <p className="text-base text-blue-100 sm:text-lg">
-            Hơn 1,000+ chuyến xe mỗi ngày nối liền các tỉnh thành Việt Nam với
-            trải nghiệm thoải mái nhất.
+          <p className="text-sm text-blue-100 sm:text-base">
+            Tra cứu hơn 1,000+ chuyến xe mỗi ngày nối liền các tỉnh thành Việt
+            Nam với giá vé niêm yết chính hãng và tình trạng ghế trống thời gian
+            thực.
           </p>
         </div>
 
-        <form
-          onSubmit={handleSearch}
-          className="mt-8 grid grid-cols-1 gap-4 rounded-2xl bg-white p-4 text-gray-900 shadow-2xl sm:grid-cols-4 sm:p-6"
-        >
-          <div>
-            <label className="mb-1 block text-xs font-semibold tracking-wider text-gray-500 uppercase">
-              Điểm đi
-            </label>
-            <div className="flex items-center space-x-2 rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-              <MapPin className="h-5 w-5 flex-shrink-0 text-blue-600" />
-              <input
-                type="text"
-                value={from}
-                onChange={(e) => setFrom(e.target.value)}
-                placeholder="Tỉnh/Thành đi"
-                className="w-full bg-transparent text-sm font-medium focus:outline-none"
-              />
-            </div>
-          </div>
+        {/* Form Search Component */}
+        <div className="mt-8 text-gray-900">
+          <TripSearchForm onSearch={handleSearch} />
+        </div>
+      </div>
 
-          <div>
-            <label className="mb-1 block text-xs font-semibold tracking-wider text-gray-500 uppercase">
-              Điểm đến
-            </label>
-            <div className="flex items-center space-x-2 rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-              <MapPin className="h-5 w-5 flex-shrink-0 text-red-500" />
-              <input
-                type="text"
-                value={to}
-                onChange={(e) => setTo(e.target.value)}
-                placeholder="Tỉnh/Thành đến"
-                className="w-full bg-transparent text-sm font-medium focus:outline-none"
-              />
-            </div>
+      {/* Popular Routes Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <TrendingUp className="h-5 w-5 text-blue-600" />
+            <h2 className="text-xl font-bold text-gray-900">
+              Tuyến đường phổ biến
+            </h2>
           </div>
+          <span className="text-xs text-gray-400">
+            Được tìm kiếm nhiều nhất
+          </span>
+        </div>
 
-          <div>
-            <label className="mb-1 block text-xs font-semibold tracking-wider text-gray-500 uppercase">
-              Ngày đi
-            </label>
-            <div className="flex items-center space-x-2 rounded-lg border border-gray-200 bg-gray-50 p-2.5">
-              <Calendar className="h-5 w-5 flex-shrink-0 text-blue-600" />
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full bg-transparent text-sm font-medium text-gray-700 focus:outline-none"
-              />
-            </div>
-          </div>
-
-          <div className="flex items-end">
-            <button
-              type="submit"
-              className="flex w-full items-center justify-center space-x-2 rounded-lg bg-blue-600 px-6 py-3 font-semibold text-white shadow-md transition-colors hover:bg-blue-700"
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {POPULAR_ROUTES.map((route, idx) => (
+            <div
+              key={idx}
+              onClick={() =>
+                handleQuickRouteSearch(route.origin, route.destination)
+              }
+              className="group cursor-pointer overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-xs transition-all hover:-translate-y-1 hover:border-blue-300 hover:shadow-lg"
             >
-              <Search className="h-5 w-5" />
-              <span>Tìm Chuyến Xe</span>
-            </button>
-          </div>
-        </form>
+              <div className="relative h-36 w-full overflow-hidden bg-gray-100">
+                <img
+                  src={route.image}
+                  alt={`${route.origin} - ${route.destination}`}
+                  className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                <div className="absolute right-3 bottom-2.5 left-3 text-white">
+                  <h4 className="truncate text-sm font-bold">
+                    {route.origin} ➔ {route.destination}
+                  </h4>
+                  <span className="text-[11px] text-gray-200">
+                    {route.duration}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between p-3.5">
+                <div>
+                  <span className="block text-[10px] font-semibold text-gray-400 uppercase">
+                    Giá vé
+                  </span>
+                  <span className="text-sm font-bold text-blue-600">
+                    {route.price}
+                  </span>
+                </div>
+
+                <span className="flex items-center text-xs font-semibold text-gray-500 group-hover:text-blue-600">
+                  Tìm vé
+                  <ArrowRight className="ml-1 h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">

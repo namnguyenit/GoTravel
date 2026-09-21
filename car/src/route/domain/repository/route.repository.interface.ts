@@ -22,5 +22,6 @@ export interface IRouteRepository {
   save(route: Route): Promise<Route>;
   updateStatus(id: string, status: RouteStatus): Promise<Route>;
   findManyByOperatorId(params: RouteFilterParams): Promise<RouteListQueryResult>;
+  getDistinctLocations(): Promise<string[]>;
 }
 

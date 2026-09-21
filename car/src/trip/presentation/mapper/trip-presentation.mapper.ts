@@ -1,12 +1,15 @@
 import { CreateTripDto } from '../dto/create-trip.dto';
 import { GetTripsQueryDto } from '../dto/get-trips-query.dto';
 import { UpdateTripStatusDto } from '../dto/update-trip-status.dto';
+import { SearchTripsQueryDto } from '../dto/search-trips-query.dto';
 import { CreateTripInput } from '../../application/dto/create-trip.input';
 import { CreateTripOutput } from '../../application/dto/create-trip.output';
 import { GetTripsInput } from '../../application/dto/get-trips.input';
 import { GetTripsOutput } from '../../application/dto/get-trips.output';
 import { UpdateTripStatusInput } from '../../application/dto/update-trip-status.input';
 import { UpdateTripStatusOutput } from '../../application/dto/update-trip-status.output';
+import { SearchTripsInput } from '../../application/dto/search-trips.input';
+import { SearchTripsOutput } from '../../application/dto/search-trips.output';
 
 export class TripPresentationMapper {
   public static toCreateTripInput(dto: CreateTripDto, userId: string): CreateTripInput {
@@ -96,6 +99,37 @@ export class TripPresentationMapper {
         status: output.status,
         createdAt: output.createdAt,
         updatedAt: output.updatedAt,
+      },
+    };
+  }
+
+  public static toSearchTripsInput(query: SearchTripsQueryDto): SearchTripsInput {
+    return {
+      origin: query.origin,
+      destination: query.destination,
+      departureDate: query.departureDate,
+      type: query.type,
+      minPrice: query.minPrice,
+      maxPrice: query.maxPrice,
+      operatorId: query.operatorId,
+      sortBy: query.sortBy,
+      sortOrder: query.sortOrder,
+      page: query.page,
+      limit: query.limit,
+    };
+  }
+
+  public static toSearchTripsApiResponse(output: SearchTripsOutput) {
+    return {
+      success: true,
+      code: 'SEARCH_TRIPS_SUCCESS',
+      message:
+        output.data.length > 0
+          ? 'Tìm kiếm chuyến xe thành công.'
+          : 'Không tìm thấy chuyến xe phù hợp với điều kiện tìm kiếm.',
+      data: {
+        pagination: output.pagination,
+        data: output.data,
       },
     };
   }

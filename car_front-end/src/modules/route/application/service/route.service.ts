@@ -12,6 +12,7 @@ import { tokenStorage } from "@/modules/auth/composition";
 
 export class RouteService implements IRouteService {
   private readonly apiBaseUrl: string;
+  private cachedLocations: string[] | null = null;
 
   constructor(apiBaseUrl: string) {
     this.apiBaseUrl = apiBaseUrl;
@@ -201,5 +202,31 @@ export class RouteService implements IRouteService {
     const json = await res.json();
     const updatedData = json.data || json;
     return RouteEntity.fromApiResponse(updatedData);
+  }
+
+  async getLocations(forceRefresh = false): Promise<string[]> {
+    if (!forceRefresh && this.cachedLocations !== null) {
+      return this.cachedLocations;
+    }
+
+    try {
+      const res = await fetch(`${this.apiBaseUrl}/api/v1/routes/locations`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!res.ok) {
+        return this.cachedLocations || [];
+      }
+
+      const json = await res.json();
+      const locations: string[] = json?.data?.locations || [];
+      this.cachedLocations = locations;
+      return locations;
+    } catch {
+      return this.cachedLocations || [];
+    }
   }
 }

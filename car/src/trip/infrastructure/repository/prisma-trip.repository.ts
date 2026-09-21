@@ -6,6 +6,9 @@ import {
   TripListQueryResult,
   RouteRef,
   CarRef,
+  CustomerTripSearchParams,
+  CustomerTripSearchResult,
+  CustomerTripItem,
 } from '../../domain/repository/trip.repository.interface';
 import { Trip } from '../../domain/entity/trip.entity';
 import { PrismaService } from '../../../prisma/prisma.service';
@@ -249,6 +252,145 @@ export class PrismaTripRepository implements ITripRepository {
         completedTrips,
         cancelledTrips,
       },
+    };
+  }
+
+  async searchCustomerTrips(
+    params: CustomerTripSearchParams,
+  ): Promise<CustomerTripSearchResult> {
+    const {
+      origin,
+      destination,
+      departureDate,
+      type,
+      minPrice,
+      maxPrice,
+      operatorId,
+      sortBy = 'departureTime',
+      sortOrder = 'asc',
+      page = 1,
+      limit = 10,
+    } = params;
+
+    const startOfDay = new Date(`${departureDate}T00:00:00.000Z`);
+    const endOfDay = new Date(`${departureDate}T23:59:59.999Z`);
+    const now = new Date();
+
+    const where: Prisma.TripWhereInput = {
+      status: 'SCHEDULED',
+      departureTime: {
+        gte: startOfDay > now ? startOfDay : now,
+        lte: endOfDay,
+      },
+      route: {
+        status: 'ACTIVE',
+        origin: { contains: origin, mode: 'insensitive' },
+        destination: { contains: destination, mode: 'insensitive' },
+      },
+      car: {
+        status: 'ACTIVE',
+      },
+    };
+
+    if (type) {
+      where.car = {
+        status: 'ACTIVE',
+        type: type as any,
+      };
+    }
+
+    if (minPrice !== undefined || maxPrice !== undefined) {
+      where.pricePerSeat = {};
+      if (minPrice !== undefined) {
+        where.pricePerSeat.gte = minPrice;
+      }
+      if (maxPrice !== undefined) {
+        where.pricePerSeat.lte = maxPrice;
+      }
+    }
+
+    if (operatorId) {
+      where.operatorId = operatorId;
+    }
+
+    const skip = (page - 1) * limit;
+
+    const [tripModels, total] = await Promise.all([
+      this.prisma.trip.findMany({
+        where,
+        orderBy: { [sortBy]: sortOrder },
+        skip,
+        take: limit,
+        include: {
+          operator: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+          route: {
+            include: {
+              stops: {
+                orderBy: { order: 'asc' },
+              },
+            },
+          },
+          car: true,
+          tickets: {
+            where: {
+              status: { in: ['BOOKED', 'PAID'] },
+            },
+          },
+        },
+      }),
+      this.prisma.trip.count({ where }),
+    ]);
+
+    const trips: CustomerTripItem[] = tripModels.map((item) => {
+      const bookedSeats = item.tickets ? item.tickets.length : 0;
+      const totalSeats = item.car.totalSeats;
+      const availableSeats = Math.max(0, totalSeats - bookedSeats);
+      const isSoldOut = availableSeats === 0;
+
+      return {
+        id: item.id,
+        departureTime: item.departureTime,
+        arrivalTime: item.arrivalTime,
+        pricePerSeat: item.pricePerSeat,
+        status: item.status as any,
+        operator: {
+          id: item.operator.id,
+          name: item.operator.name,
+        },
+        route: {
+          id: item.route.id,
+          origin: item.route.origin,
+          destination: item.route.destination,
+          stops: (item.route.stops || []).map((stop) => ({
+            id: stop.id,
+            name: stop.name,
+            order: stop.order,
+          })),
+        },
+        car: {
+          id: item.car.id,
+          name: item.car.name,
+          licensePlate: item.car.licensePlate,
+          type: item.car.type,
+          totalSeats: item.car.totalSeats,
+        },
+        seats: {
+          totalSeats,
+          bookedSeats,
+          availableSeats,
+          isSoldOut,
+        },
+      };
+    });
+
+    return {
+      trips,
+      total,
     };
   }
 }

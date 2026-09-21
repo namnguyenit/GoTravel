@@ -52,6 +52,21 @@ export const carRoutes = [
         }
     },
     {
+        url: '/api/v1/routes/locations',
+        target: (process.env.CAR_SERVICE_URL || "http://localhost:3333"),
+        auth: false, // Công khai - Không yêu cầu Token
+        pathRewrite: (path, req) => {
+            const parts = req.originalUrl.split('?');
+            let url = parts[0];
+            const query = parts[1] ? `?${parts[1]}` : '';
+
+            // Rewrite /api/v1/routes/locations -> /routes/locations
+            url = url.replace(/^\/api\/v1\/routes\/locations/, '/routes/locations');
+
+            return url + query;
+        }
+    },
+    {
         url: '/api/v1/routes',
         target: (process.env.CAR_SERVICE_URL || "http://localhost:3333"),
         auth: true, // Yêu cầu JWT Token (verifyUser & đính kèm header x-user-id)
@@ -62,6 +77,21 @@ export const carRoutes = [
 
             // Rewrite /api/v1/routes -> /routes
             url = url.replace(/^\/api\/v1\/routes/, '/routes');
+
+            return url + query;
+        }
+    },
+    {
+        url: '/api/v1/trips/search',
+        target: (process.env.CAR_SERVICE_URL || "http://localhost:3333"),
+        auth: false, // Công khai - Không yêu cầu Token
+        pathRewrite: (path, req) => {
+            const parts = req.originalUrl.split('?');
+            let url = parts[0];
+            const query = parts[1] ? `?${parts[1]}` : '';
+
+            // Rewrite /api/v1/trips/search -> /trips/search
+            url = url.replace(/^\/api\/v1\/trips\/search/, '/trips/search');
 
             return url + query;
         }

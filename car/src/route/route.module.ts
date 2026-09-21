@@ -3,6 +3,7 @@ import { RouteController } from './presentation/controller/route.controller';
 import { CreateRouteUseCase } from './application/usecase/create-route.usecase';
 import { GetRoutesUseCase } from './application/usecase/get-routes.usecase';
 import { UpdateRouteStatusUseCase } from './application/usecase/update-route-status.usecase';
+import { GetRouteLocationsUseCase } from './application/usecase/get-route-locations.usecase';
 import { PrismaRouteRepository } from './infrastructure/repository/prisma-route.repository';
 
 @Module({
@@ -24,12 +25,17 @@ import { PrismaRouteRepository } from './infrastructure/repository/prisma-route.
       provide: 'IUpdateRouteStatusUseCase',
       useClass: UpdateRouteStatusUseCase,
     },
+    {
+      provide: 'IGetRouteLocationsUseCase',
+      useClass: GetRouteLocationsUseCase,
+    },
   ],
   exports: [
     'IRouteRepository',
     'ICreateRouteUseCase',
     'IGetRoutesUseCase',
     'IUpdateRouteStatusUseCase',
+    'IGetRouteLocationsUseCase',
   ],
 })
 export class RouteModule {}

@@ -17,6 +17,7 @@ import { AdminOperatorApplicationsPage } from "./modules/admin/presentation/page
 import { OperatorCarListPage } from "./modules/car/presentation/pages/OperatorCarListPage";
 import { OperatorRouteListPage } from "./modules/route/presentation/pages/OperatorRouteListPage";
 import { OperatorTripListPage } from "./modules/trip/presentation/pages/OperatorTripListPage";
+import { CustomerTripSearchPage } from "./modules/trip/presentation/pages/CustomerTripSearchPage";
 
 export const App: React.FC = () => {
   return (
@@ -69,6 +70,7 @@ export const App: React.FC = () => {
               <MainLayout>
                 <Routes>
                   <Route path="/" element={<HomePage />} />
+                  <Route path="/search" element={<CustomerTripSearchPage />} />
                   <Route
                     path="/cars"
                     element={<Navigate to="/operator/cars" replace />}
