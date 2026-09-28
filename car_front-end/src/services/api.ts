@@ -1,8 +1,19 @@
-﻿const API_BASE_URL =
-  import.meta.env.VITE_API_GATEWAY_URL || "http://localhost:5555";
+const API_BASE_URL =
+  import.meta.env.VITE_API_GATEWAY_URL || "";
 
 export interface RequestOptions extends RequestInit {
   params?: Record<string, string | number | boolean | undefined>;
+}
+
+function getAuthToken(): string | null {
+  if (typeof document !== "undefined") {
+    const match = document.cookie.match(/(?:^|;\s*)access_token=([^;]*)/);
+    if (match) return decodeURIComponent(match[1]);
+    if (typeof localStorage !== "undefined") {
+      localStorage.removeItem("token");
+    }
+  }
+  return null;
 }
 
 export async function fetchApi<T>(
@@ -26,7 +37,7 @@ export async function fetchApi<T>(
     }
   }
 
-  const token = localStorage.getItem("token");
+  const token = getAuthToken();
 
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
@@ -35,6 +46,7 @@ export async function fetchApi<T>(
   };
 
   const response = await fetch(url, {
+    credentials: "include",
     ...restOptions,
     headers,
   });

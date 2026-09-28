@@ -93,6 +93,11 @@ const request = async (endpoint: string, options: RequestInit = {}) => {
 
   const handleAuthError = (currentToken: string | undefined) => {
     if (typeof window !== "undefined") {
+      const domain = window.location.hostname.includes("nonnet123.io.vn") ? ".nonnet123.io.vn" : undefined;
+      if (domain) {
+        Cookies.remove("access_token", { domain, path: "/" });
+      }
+      Cookies.remove("access_token", { path: "/" });
       Cookies.remove("access_token");
       Cookies.remove("refresh_token");
       Cookies.remove("user_roles");

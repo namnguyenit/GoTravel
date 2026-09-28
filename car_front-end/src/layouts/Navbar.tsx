@@ -165,12 +165,6 @@ export const Navbar: React.FC = () => {
                         <span>Trang cá nhân</span>
                       </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild className="cursor-pointer">
-                      <Link to="/login" className="flex w-full items-center">
-                        <LogIn className="mr-2 h-4 w-4 text-gray-600" />
-                        <span>Đăng nhập</span>
-                      </Link>
-                    </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem
                       onClick={logout}
@@ -184,7 +178,14 @@ export const Navbar: React.FC = () => {
               </div>
             ) : (
               <div className="flex items-center space-x-2 border-l border-gray-200 pl-3">
-                <Link to="/login">
+                <a
+                  href={
+                    (typeof window !== "undefined" && window.location.hostname.includes("nonnet123.io.vn")
+                      ? "https://auth.nonnet123.io.vn"
+                      : "http://localhost:3335") +
+                    `?redirect_uri=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "")}`
+                  }
+                >
                   <Button
                     variant="ghost"
                     size="sm"
@@ -193,15 +194,22 @@ export const Navbar: React.FC = () => {
                     <LogIn className="h-4 w-4" />
                     <span>Đăng nhập</span>
                   </Button>
-                </Link>
-                <Link to="/register">
+                </a>
+                <a
+                  href={
+                    (typeof window !== "undefined" && window.location.hostname.includes("nonnet123.io.vn")
+                      ? "https://auth.nonnet123.io.vn"
+                      : "http://localhost:3335") +
+                    `?mode=register&redirect_uri=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "")}`
+                  }
+                >
                   <Button
                     size="sm"
                     className="bg-blue-600 text-white shadow-sm hover:bg-blue-700"
                   >
                     <span>Đăng ký</span>
                   </Button>
-                </Link>
+                </a>
               </div>
             )}
           </div>

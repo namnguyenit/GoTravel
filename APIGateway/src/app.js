@@ -20,6 +20,21 @@ if (trustProxy !== undefined) {
 }
 
 app.use(cors());
+
+// GeoIP restriction: only allow Vietnam traffic through Cloudflare Tunnel
+app.use((req, res, next) => {
+    const cfCountry = req.headers['cf-ipcountry'];
+    if (cfCountry && cfCountry.toUpperCase() !== 'VN') {
+        console.warn(`[GeoBlock] Access denied for country ${cfCountry} on ${req.method} ${req.originalUrl}`);
+        return res.status(403).json({
+            success: false,
+            message: 'Access restricted: Only visitors from Vietnam (VN) are permitted.',
+            country: cfCountry
+        });
+    }
+    next();
+});
+
 app.use((req, res, next) => {
     delete req.headers["x-internal-service-token"];
     next();

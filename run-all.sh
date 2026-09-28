@@ -164,7 +164,7 @@ info "Jar: $jar_file"
 
 pm2 start java \
     --name "${APP_PREFIX}-${svc_name}" \
-    -- -jar "$jar_file"
+    -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
 
 log "$svc_name started"
 

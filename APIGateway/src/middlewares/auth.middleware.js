@@ -39,7 +39,15 @@ const getInternalServiceToken = () => {
 
 export const verifyJWT = (req, res, next) => {
     const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(' ')[1];
+    let token = authHeader && authHeader.split(' ')[1];
+
+    // Fallback: Check access_token cookie if Authorization header is missing
+    if (!token && req.headers.cookie) {
+        const match = req.headers.cookie.match(/(?:^|;\s*)(?:access_token|token)=([^;]+)/);
+        if (match) {
+            token = decodeURIComponent(match[1]);
+        }
+    }
 
     if (!token) {
         return buildErorRespone(res, GatewayError.MISSING_TOKEN);
@@ -77,6 +85,9 @@ export const verifyJWT = (req, res, next) => {
             }
             req.headers['x-user-id']= userId;
             req.headers['x-user-roles']= roles;
+            if (!authHeader && token) {
+                req.headers['authorization'] = `Bearer ${token}`;
+            }
             next();
         }catch (error){
             console.error("Lỗi Internal Gateway",error);

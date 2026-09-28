@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 type AuthView = "login" | "register" | "forgot-password" | "reset-password";
 
@@ -14,11 +14,41 @@ interface AuthModalContextProps {
 
 const AuthModalContext = createContext<AuthModalContextProps | undefined>(undefined);
 
+const getSSOUrl = (view: AuthView = "login") => {
+  const currentUrl = typeof window !== "undefined" ? window.location.href : "";
+  const isProd = typeof window !== "undefined" && window.location.hostname.includes("nonnet123.io.vn");
+  const authOrigin = isProd ? "https://auth.nonnet123.io.vn" : "http://localhost:3335";
+  const params = new URLSearchParams();
+  if (currentUrl) params.set("redirect_uri", currentUrl);
+  if (view === "register") params.set("mode", "register");
+  return `${authOrigin}?${params.toString()}`;
+};
+
 export const AuthModalProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [view, setView] = useState<AuthView>("login");
 
+  // Real-time Single Logout (SLO) / Login sync across tabs via BroadcastChannel
+  useEffect(() => {
+    if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+      const channel = new BroadcastChannel("gotravel_sso_channel");
+      channel.onmessage = (event) => {
+        if (event.data?.type === "SSO_LOGOUT" || event.data?.type === "SSO_LOGIN") {
+          window.location.reload();
+        }
+      };
+      return () => {
+        channel.close();
+      };
+    }
+  }, []);
+
   const openModal = (initialView: AuthView = "login") => {
+    // Chuyển hướng sang Cổng Đăng Nhập Tập Trung (Unified SSO Auth App)
+    if (typeof window !== "undefined") {
+      window.location.href = getSSOUrl(initialView);
+      return;
+    }
     setView(initialView);
     setIsOpen(true);
   };

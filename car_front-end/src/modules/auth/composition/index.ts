@@ -3,7 +3,7 @@ import { AuthService } from "../application/service/auth.service";
 import { LocalTokenStorage } from "../infrastructure/storage/token.storage";
 
 const GATEWAY_URL =
-  import.meta.env.VITE_API_GATEWAY_URL || "http://localhost:5555";
+  import.meta.env.VITE_API_GATEWAY_URL || "";
 
 export const tokenStorage = new LocalTokenStorage();
 

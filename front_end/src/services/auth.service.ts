@@ -16,6 +16,57 @@ type TokenData = JwtPayload & {
   scope?: string;
 };
 
+const getCookieOptions = (days = 30): Cookies.CookieAttributes => {
+  const options: Cookies.CookieAttributes = {
+    expires: days,
+    path: "/",
+    sameSite: "Lax",
+  };
+  if (typeof window !== "undefined") {
+    const hostname = window.location.hostname;
+    if (hostname.includes("nonnet123.io.vn")) {
+      options.domain = ".nonnet123.io.vn";
+    }
+    if (window.location.protocol === "https:") {
+      options.secure = true;
+    }
+  }
+  return options;
+};
+
+const removeAuthCookies = () => {
+  const isSecure = typeof window !== "undefined" && window.location.protocol === "https:";
+  const domain = typeof window !== "undefined" && window.location.hostname.includes("nonnet123.io.vn")
+    ? ".nonnet123.io.vn"
+    : undefined;
+    
+  const removeOpts: Cookies.CookieAttributes = {
+    path: "/",
+    sameSite: "Lax",
+    secure: isSecure,
+  };
+
+  if (domain) {
+    Cookies.remove("access_token", { ...removeOpts, domain });
+    let cookieStr = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=${domain}; SameSite=Lax`;
+    if (isSecure) cookieStr += "; Secure";
+    document.cookie = cookieStr;
+  }
+  Cookies.remove("access_token", removeOpts);
+  let localStr = `access_token=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax`;
+  if (isSecure) localStr += "; Secure";
+  document.cookie = localStr;
+
+  // Broadcast logout event to all tabs
+  try {
+    if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+      const channel = new BroadcastChannel("gotravel_sso_channel");
+      channel.postMessage({ type: "SSO_LOGOUT", timestamp: Date.now() });
+      channel.close();
+    }
+  } catch {}
+};
+
 const AuthService = {
   login: async (credentials: { username: string; password: string }) => {
     // Call login API via APIGateway
@@ -23,7 +74,7 @@ const AuthService = {
     
     // Gateway success response has: status, message, errorCode, data: { token }
     if (res.data && res.data.token) {
-      Cookies.set("access_token", res.data.token, { expires: 7 });
+      Cookies.set("access_token", res.data.token, getCookieOptions(30));
       
       // Lấy thêm thông tin user profile
       try {
@@ -52,7 +103,7 @@ const AuthService = {
   },
 
   logout: () => {
-    Cookies.remove("access_token");
+    removeAuthCookies();
     localStorage.removeItem("user_info");
   },
 
@@ -66,8 +117,8 @@ const AuthService = {
       const currentRoles = AuthService.getUserRoles().sort().join(",");
       const res = await Api.post("/v1/auth/refresh-roles", {});
       if (res?.data?.token) {
-        // Cập nhật token mới vào cookie
-        Cookies.set("access_token", res.data.token, { expires: 7 });
+        // Cập nhật token mới vào cookie chia sẻ domain
+        Cookies.set("access_token", res.data.token, getCookieOptions(30));
         // Lấy user info mới từ API
         try {
           const profileInfo = await Api.get("/v1/me");
@@ -87,6 +138,29 @@ const AuthService = {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("user_info");
       return user ? JSON.parse(user) : null;
+    }
+    return null;
+  },
+
+  fetchCurrentUser: async () => {
+    const token = Cookies.get("access_token");
+    if (!token) {
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("user_info");
+      }
+      return null;
+    }
+
+    try {
+      const profileInfo = await Api.get("/v1/me");
+      if (profileInfo && profileInfo.data) {
+        if (typeof window !== "undefined") {
+          localStorage.setItem("user_info", JSON.stringify(profileInfo.data));
+        }
+        return profileInfo.data;
+      }
+    } catch (err) {
+      console.error("Failed to fetch profile with SSO token", err);
     }
     return null;
   },

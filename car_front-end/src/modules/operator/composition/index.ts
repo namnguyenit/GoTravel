@@ -2,7 +2,7 @@ import type { IOperatorService } from "../application/port/operator.service.inte
 import { OperatorService } from "../application/service/operator.service";
 
 const GATEWAY_URL =
-  import.meta.env.VITE_API_GATEWAY_URL || "http://localhost:5555";
+  import.meta.env.VITE_API_GATEWAY_URL || "";
 
 export class OperatorModuleFactory {
   public static createOperatorService(

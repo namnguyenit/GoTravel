@@ -392,8 +392,3 @@ main() {
 }
 
 main "$@"
-
-1.  **Cài sẵn PM2 và Nginx:** Kịch bản giờ đây tự động cài sẵn `pm2` bằng NPM toàn cầu (`npm install -g pm2`) và `nginx` bằng APT. Kịch bản chạy (run script) của bạn sau này có thể gọi trực tiếp pm2 để start Gateway/Frontend mà không bị lỗi command not found.
-2.  **Khắc phục lỗi Keystore:** Keystore giờ được sinh trực tiếp vào thư mục mã nguồn: `Identity/src/main/resources/keystore.jks`. Nó không cần dùng quyền `sudo`, nhờ đó khi Service Identity chạy (dù bằng user thường), nó vẫn có đủ quyền đọc (Read) file này.
-3.  **Thay đổi package PostgreSQL an toàn hơn:** Chuyển `postgresql-16-postgis-3` thành `postgresql postgresql-contrib postgis`. Linux (Ubuntu/Debian) sẽ tự động tìm phiên bản module tương thích với nhau, nhờ vậy setup script sẽ không bị hỏng nếu bạn cài trên các máy ảo đời mới hay cũ hơn.
-4.  **Tối ưu Node.js Build Phase:** Trong phần build, tôi thêm một đoạn nhỏ nhận diện dự án NestJS (`search-and-recommendation`) để chạy `npm run build` tạo ra thư mục `dist/` trước khi kịch bản chạy được khởi động bằng PM2.

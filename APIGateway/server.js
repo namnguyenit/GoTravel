@@ -1,8 +1,5 @@
 import 'dotenv/config';
 
-process.title = '4. API Gateway (port 5555)';
-process.stdout.write('\x1b]0;4. API Gateway (port 5555)\x07');
-
 import app from './src/app.js'
 
 const PORT = process.env.GATEWAY_PORT || 5555;

@@ -2,7 +2,7 @@ import type { IAdminOperatorService } from "../application/port/admin-operator.s
 import { AdminOperatorService } from "../application/service/admin-operator.service";
 
 const GATEWAY_URL =
-  import.meta.env.VITE_API_GATEWAY_URL || "http://localhost:5555";
+  import.meta.env.VITE_API_GATEWAY_URL || "";
 
 export class AdminModuleFactory {
   public static createAdminOperatorService(

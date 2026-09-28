@@ -1,4 +1,5 @@
 const faker = require('@faker-js/faker').fakerVI; // Vietnamese locale
+if (!faker.internet.username) faker.internet.username = faker.internet.userName;
 
 // Image pools carefully curated from Unsplash (expanded)
 const IMAGE_POOLS = {

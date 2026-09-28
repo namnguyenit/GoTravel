@@ -1,0 +1,448 @@
+:root {
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --color-primary: #FF5A5F;
+  --color-primary-hover: #E35054;
+  --color-text-main: #222222;
+  --color-text-muted: #717171;
+  --color-border: #B0B0B0;
+  --color-border-light: #EBEBEB;
+  --color-divider: #DDDDDD;
+  --color-bg-page: #F7F7F7;
+  --color-bg-card: #FFFFFF;
+  --color-danger: #E53935;
+  --color-success: #008A05;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-bg-page);
+  color: var(--color-text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page Wrapper */
+.sso-page-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+}
+
+/* GoStay Style Auth Card */
+.gostay-auth-card {
+  width: 100%;
+  max-width: 568px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: cardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes cardFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Card Header */
+.card-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--color-border-light);
+  background: #FFFFFF;
+}
+
+.header-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: #222222;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.header-back-btn:hover {
+  background-color: #F7F7F7;
+}
+
+.header-modal-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  text-align: center;
+}
+
+/* Card Body */
+.card-content-body {
+  padding: 32px 32px 28px 32px;
+}
+
+@media (max-width: 500px) {
+  .card-content-body {
+    padding: 24px 20px;
+  }
+  .card-header-bar {
+    padding: 14px 16px;
+  }
+}
+
+/* Titles */
+.auth-main-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 6px;
+  letter-spacing: -0.4px;
+}
+
+.auth-sub-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+/* Service redirection notice pill */
+.service-destination-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFF5F5;
+  border: 1px solid #FFE0E0;
+  color: #C53030;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.service-destination-pill strong {
+  color: #9B1C1C;
+}
+
+/* Floating Label Inputs (GoStay / Airbnb pattern) */
+.floating-input-group {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.floating-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background-color: #FFFFFF;
+  padding: 20px 14px 6px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text-main);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.floating-input.has-icon-right {
+  padding-right: 44px;
+}
+
+.floating-input:focus {
+  border-color: #222222;
+  box-shadow: 0 0 0 1px #222222;
+}
+
+.floating-input::placeholder {
+  color: transparent;
+}
+
+.floating-label {
+  pointer-events: none;
+  position: absolute;
+  left: 14px;
+  top: 6px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  transform-origin: 0 0;
+  transition: all 0.15s ease;
+}
+
+.floating-input:placeholder-shown ~ .floating-label {
+  top: 14px;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.floating-input:focus ~ .floating-label {
+  top: 6px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Password Eye Button */
+.input-eye-button {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.input-eye-button:hover {
+  color: var(--color-text-main);
+}
+
+/* Form Row Grid */
+.form-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .form-row-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+/* Options / Forgot */
+.form-extra-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0 18px 0;
+  font-size: 13px;
+}
+
+.remember-me-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  user-select: none;
+}
+
+.remember-me-checkbox input {
+  accent-color: var(--color-primary);
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+}
+
+.text-action-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.15s ease;
+}
+
+.text-action-link:hover {
+  color: var(--color-text-muted);
+}
+
+/* Alerts */
+.msg-alert {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.msg-alert.danger {
+  background: #FEE2E2;
+  border: 1px solid #FECACA;
+  color: #B91C1C;
+}
+
+.msg-alert.success {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #047857;
+}
+
+/* Primary Submit Button (Signature GoStay Coral Red) */
+.gostay-submit-btn {
+  width: 100%;
+  height: 48px;
+  background-color: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background-color 0.15s ease, transform 0.08s ease;
+}
+
+.gostay-submit-btn:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+}
+
+.gostay-submit-btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.gostay-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Divider */
+.or-divider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 22px 0;
+}
+
+.or-divider-line {
+  flex: 1;
+  height: 1px;
+  background-color: var(--color-divider);
+}
+
+.or-divider-text {
+  padding: 0 16px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* Social Buttons */
+.social-auth-btn {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  background-color: #FFFFFF;
+  border: 1px solid #222222;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-main);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  margin-bottom: 12px;
+}
+
+.social-auth-btn:hover {
+  background-color: #F7F7F7;
+}
+
+.social-auth-btn span {
+  flex: 1;
+  text-align: center;
+}
+
+/* Switch View Footer */
+.switch-view-footer {
+  margin-top: 22px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-muted);
+}
+
+.switch-view-footer button {
+  font-weight: 600;
+  color: var(--color-text-main);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-left: 4px;
+  font-size: 14px;
+}
+
+.switch-view-footer button:hover {
+  color: var(--color-text-muted);
+}
+
+/* SSO Auto Redirect card */
+.sso-logged-in-box {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+.user-avatar-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #FFE4E6;
+  color: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 auto 16px auto;
+  border: 2px solid #FECDD3;
+}
+
+/* Spinner */
+.spinner-dot {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Page footer copyright */
+.sso-page-footer {
+  margin-top: 24px;
+  font-size: 13px;
+  color: #9CA3AF;
+  text-align: center;
+}

@@ -212,11 +212,30 @@ export default function MainLayoutClient({
   useEffect(() => {
     let isCancelled = false;
 
-    queueMicrotask(() => {
-      if (!isCancelled) {
-        setCurrentUser(AuthService.getCurrentUser() as CurrentUser);
+    const initUser = async () => {
+      const cached = AuthService.getCurrentUser() as CurrentUser;
+      const hasToken = AuthService.isAuthenticated();
+
+      if (!hasToken) {
+        if (cached && typeof window !== "undefined") {
+          localStorage.removeItem("user_info");
+        }
+        if (!isCancelled) setCurrentUser(null);
+        return;
       }
-    });
+
+      if (cached && !isCancelled) {
+        setCurrentUser(cached);
+      }
+
+      // Đồng bộ profile người dùng từ SSO token khi login từ trang Auth Portal hoặc GoCar
+      const freshUser = await AuthService.fetchCurrentUser();
+      if (!isCancelled && freshUser) {
+        setCurrentUser(freshUser as CurrentUser);
+      }
+    };
+
+    initUser();
 
     return () => {
       isCancelled = true;
@@ -282,7 +301,15 @@ export default function MainLayoutClient({
     });
   };
 
-  const openLogin = () => openModal("login");
+  const openLogin = () => {
+    if (typeof window !== "undefined") {
+      const isProd = window.location.hostname.includes("nonnet123.io.vn");
+      const authOrigin = isProd ? "https://auth.nonnet123.io.vn" : "http://localhost:3335";
+      window.location.href = `${authOrigin}?redirect_uri=${encodeURIComponent(window.location.href)}`;
+      return;
+    }
+    openModal("login");
+  };
 
   const openSearchPanel = (panel: SearchPanel) => {
     setIsDrawerOpen(false);
