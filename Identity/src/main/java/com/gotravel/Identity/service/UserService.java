@@ -4,6 +4,7 @@ import com.gotravel.Identity.enums.Approval_status;
 import com.gotravel.Identity.mapper.UserMapper;
 import com.gotravel.Identity.repository.HostProfileRepository;
 import com.gotravel.Identity.repository.RoleRepository;
+import com.gotravel.Identity.repository.TicketVendorProfileRepository;
 import com.gotravel.Identity.repository.UserRepository;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -23,6 +24,7 @@ import com.gotravel.Identity.entity.Role;
 import com.gotravel.Identity.entity.UserProfile;
 import com.gotravel.Identity.entity.HostProfile;
 import com.gotravel.Identity.entity.EnterpriseProfile;
+import com.gotravel.Identity.entity.TicketVendorProfile;
 import com.gotravel.Identity.enums.Provider;
 import com.gotravel.Identity.dto.request.*;
 import com.gotravel.Identity.dto.response.*;
@@ -45,6 +47,7 @@ public class UserService {
     final UserMapper userMapper;
     final RoleRepository roleRepository;
     final HostProfileRepository hostProfileRepository;
+    final TicketVendorProfileRepository ticketVendorProfileRepository;
     final com.gotravel.Identity.repository.EnterpriseProfileRepository enterpriseProfileRepository;
     final PasswordEncoder passwordEncoder;
     /**
@@ -122,6 +125,7 @@ public class UserService {
     public AdminIdentitySummaryResponse getAdminSummary() {
         long totalHosts = hostProfileRepository.count();
         long totalEnterprises = enterpriseProfileRepository.count();
+        long totalTicketVendors = ticketVendorProfileRepository.count();
 
         return AdminIdentitySummaryResponse.builder()
                 .totalAccounts(userRepository.count())
@@ -137,6 +141,10 @@ public class UserService {
                 .pendingEnterprises(enterpriseProfileRepository.countByApprovalStatus(Approval_status.PENDING))
                 .approvedEnterprises(enterpriseProfileRepository.countByApprovalStatus(Approval_status.APPROVED))
                 .rejectedEnterprises(enterpriseProfileRepository.countByApprovalStatus(Approval_status.REJECTED))
+                .totalTicketVendors(totalTicketVendors)
+                .pendingTicketVendors(ticketVendorProfileRepository.countByApprovalStatus(Approval_status.PENDING))
+                .approvedTicketVendors(ticketVendorProfileRepository.countByApprovalStatus(Approval_status.APPROVED))
+                .rejectedTicketVendors(ticketVendorProfileRepository.countByApprovalStatus(Approval_status.REJECTED))
                 .build();
     }
 
@@ -211,6 +219,12 @@ public class UserService {
         Role role = roleRepository.findById(roleName.toUpperCase())
                 .orElseThrow(() -> new AppException(UserErrorCode.ROLE_NOT_FOUND));
 
+        if ("TICKET_VENDOR".equalsIgnoreCase(roleName)
+                && (user.getTicketVendorProfile() == null
+                || user.getTicketVendorProfile().getApprovalStatus() != Approval_status.APPROVED)) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_AWAITING_APPROVAL);
+        }
+
         user.getRoles().add(role);
 
         if (roleName.equalsIgnoreCase("HOST") && user.getHostProfile() == null) {
@@ -245,6 +259,10 @@ public class UserService {
             } else if (roleName.equalsIgnoreCase("ENTERPRISE")) {
                 if (user.getEnterpriseProfile() != null) {
                     user.getEnterpriseProfile().setApprovalStatus(Approval_status.REJECTED);
+                }
+            } else if (roleName.equalsIgnoreCase("TICKET_VENDOR")) {
+                if (user.getTicketVendorProfile() != null) {
+                    user.getTicketVendorProfile().setApprovalStatus(Approval_status.REJECTED);
                 }
             }
             userRepository.save(user);
@@ -309,6 +327,7 @@ public class UserService {
         User user = findUserById(userId);
         HostProfileResponse hostApplication = null;
         EnterpriseProfileResponse enterpriseApplication = null;
+        TicketVendorProfileResponse ticketVendorApplication = null;
         List<UpgradeApplicationsResponse.ApplicationHistoryEntry> history = new ArrayList<>();
 
         if (user.getHostProfile() != null) {
@@ -323,6 +342,12 @@ public class UserService {
             history.addAll(buildApplicationHistory("ENTERPRISE", user.getEnterpriseProfile().getApprovalStatus(), user.getEnterpriseProfile().getCreatedAt(), user.getEnterpriseProfile().getUpdatedAt()));
         }
 
+        if (user.getTicketVendorProfile() != null) {
+            ticketVendorApplication = userMapper.toTicketVendorProfileResponse(user.getTicketVendorProfile());
+            history.addAll(buildApplicationHistory("TICKET_VENDOR", user.getTicketVendorProfile().getApprovalStatus(),
+                    user.getTicketVendorProfile().getCreatedAt(), user.getTicketVendorProfile().getUpdatedAt()));
+        }
+
         history.sort(Comparator.comparing(
                 UpgradeApplicationsResponse.ApplicationHistoryEntry::getOccurredAt,
                 Comparator.nullsLast(Comparator.reverseOrder())
@@ -331,8 +356,123 @@ public class UserService {
         return UpgradeApplicationsResponse.builder()
                 .hostApplication(hostApplication)
                 .enterpriseApplication(enterpriseApplication)
+                .ticketVendorApplication(ticketVendorApplication)
                 .history(history)
                 .build();
+    }
+
+    @Transactional
+    public TicketVendorProfileResponse submitTicketVendorApplication(
+            String userId,
+            TicketVendorApplicationRequest request,
+            MultipartFile frontImage,
+            MultipartFile backImage,
+            boolean updateExisting) {
+        User user = findUserById(userId);
+        TicketVendorProfile profile = user.getTicketVendorProfile();
+
+        if (updateExisting && profile == null) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_PROFILE_NOT_FOUND);
+        }
+        if (profile != null && profile.getApprovalStatus() == Approval_status.APPROVED) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_ALREADY_APPROVED);
+        }
+        if (!updateExisting && profile != null && profile.getApprovalStatus() == Approval_status.PENDING) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_AWAITING_APPROVAL);
+        }
+        if (profile == null) {
+            profile = TicketVendorProfile.builder().user(user).build();
+            user.setTicketVendorProfile(profile);
+        }
+
+        profile.setCompanyName(request.getCompanyName().trim());
+        profile.setCompanyAddress(request.getCompanyAddress().trim());
+        profile.setRepresentativeName(request.getRepresentativeName().trim());
+        profile.setRepresentativeIdNumber(request.getRepresentativeIdNumber().trim());
+        profile.setTaxCode(request.getTaxCode());
+        profile.setContactPhone(request.getContactPhone());
+
+        boolean hasFront = frontImage != null && !frontImage.isEmpty();
+        boolean hasBack = backImage != null && !backImage.isEmpty();
+        if (hasFront != hasBack) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_DOCUMENTS_REQUIRED);
+        }
+        if (hasFront) {
+            List<String> documentUrls = uploadSecureDocuments(userId, frontImage, backImage, "ticket-vendor-applications");
+            profile.setDocumentFrontUrl(documentUrls.get(0));
+            profile.setDocumentBackUrl(documentUrls.get(1));
+        }
+        if (profile.getDocumentFrontUrl() == null || profile.getDocumentBackUrl() == null) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_DOCUMENTS_REQUIRED);
+        }
+
+        profile.setApprovalStatus(Approval_status.PENDING);
+        profile.setRejectionReason(null);
+        user.getRoles().removeIf(role -> "TICKET_VENDOR".equals(role.getName()));
+        userRepository.save(user);
+        return userMapper.toTicketVendorProfileResponse(profile);
+    }
+
+    public TicketVendorProfileResponse getTicketVendorProfile(String userId) {
+        User user = findUserById(userId);
+        if (user.getTicketVendorProfile() == null) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_PROFILE_NOT_FOUND);
+        }
+        return userMapper.toTicketVendorProfileResponse(user.getTicketVendorProfile());
+    }
+
+    public PageResponse<UserResponse> getTicketVendorApplications(int page, int size, String status) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<TicketVendorProfile> profiles;
+        if (status == null || status.isBlank() || "ALL".equalsIgnoreCase(status)) {
+            profiles = ticketVendorProfileRepository.findAll(pageable);
+        } else {
+            Approval_status approvalStatus;
+            try {
+                approvalStatus = Approval_status.valueOf(status.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new AppException(UserErrorCode.INVALID_APPROVAL_STATUS);
+            }
+            profiles = ticketVendorProfileRepository.findAllByApprovalStatus(approvalStatus, pageable);
+        }
+        return PageResponse.<UserResponse>builder()
+                .content(profiles.getContent().stream().map(profile -> userMapper.userToUserResponse(profile.getUser())).toList())
+                .totalPages(profiles.getTotalPages())
+                .totalElements(profiles.getTotalElements())
+                .build();
+    }
+
+    @Transactional
+    public TicketVendorProfileResponse reviewTicketVendorApplication(String userId, ApprovalRequest request) {
+        User user = findUserById(userId);
+        TicketVendorProfile profile = user.getTicketVendorProfile();
+        if (profile == null) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_PROFILE_NOT_FOUND);
+        }
+
+        String status = request.getStatus() == null ? "" : request.getStatus().toUpperCase();
+        if (!"APPROVED".equals(status) && !"REJECTED".equals(status)) {
+            throw new AppException(UserErrorCode.INVALID_APPROVAL_STATUS);
+        }
+        if ("REJECTED".equals(status) && (request.getReason() == null || request.getReason().isBlank())) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_REJECTION_REASON_REQUIRED);
+        }
+        if (profile.getApprovalStatus() != Approval_status.PENDING) {
+            throw new AppException(UserErrorCode.TICKET_VENDOR_NOT_PENDING);
+        }
+
+        profile.setApprovalStatus(Approval_status.valueOf(status));
+        if (profile.getApprovalStatus() == Approval_status.APPROVED) {
+            Role role = roleRepository.findById("TICKET_VENDOR")
+                    .orElseThrow(() -> new AppException(UserErrorCode.ROLE_NOT_FOUND));
+            user.getRoles().add(role);
+            profile.setRejectionReason(null);
+        } else {
+            user.getRoles().removeIf(role -> "TICKET_VENDOR".equals(role.getName()));
+            profile.setRejectionReason(request.getReason().trim());
+        }
+        userRepository.save(user);
+        return userMapper.toTicketVendorProfileResponse(profile);
     }
 
     /**
@@ -878,6 +1018,7 @@ public class UserService {
 
         String hostStatus = user.getHostProfile() != null ? user.getHostProfile().getApprovalStatus().toString() : null;
         String enterpriseStatus = user.getEnterpriseProfile() != null ? user.getEnterpriseProfile().getApprovalStatus().toString() : null;
+        String ticketVendorStatus = user.getTicketVendorProfile() != null ? user.getTicketVendorProfile().getApprovalStatus().toString() : null;
 
         return UserStatusResponese.builder()
                 .isActive(isActive)
@@ -885,6 +1026,7 @@ public class UserService {
                 .isAllowed(isActive && !isDeleted)
                 .hostApprovalStatus(hostStatus)
                 .enterpriseApprovalStatus(enterpriseStatus)
+                .ticketVendorApprovalStatus(ticketVendorStatus)
                 .build();
     }
 
@@ -953,6 +1095,10 @@ public class UserService {
     }
 
     private List<String> uploadSecureDocuments(String userId, MultipartFile frontImage, MultipartFile backImage) {
+        return uploadSecureDocuments(userId, frontImage, backImage, "host-applications");
+    }
+
+    private List<String> uploadSecureDocuments(String userId, MultipartFile frontImage, MultipartFile backImage, String folder) {
         if (mediaServiceToken == null || mediaServiceToken.isBlank()) {
             throw new AppException(UserErrorCode.UPLOAD_IMAGE_FAILED);
         }
@@ -968,7 +1114,7 @@ public class UserService {
             MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
             body.add("files", toFilePart(frontImage, "front-image.jpg"));
             body.add("files", toFilePart(backImage, "back-image.jpg"));
-            body.add("folder", "host-applications/" + userId);
+            body.add("folder", folder + "/" + userId);
 
             HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
             RestTemplate restTemplate = new RestTemplate();

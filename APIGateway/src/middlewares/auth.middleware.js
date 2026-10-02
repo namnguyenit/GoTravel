@@ -62,11 +62,13 @@ export const verifyJWT = (req, res, next) => {
             return  buildErorRespone(res, GatewayError.INVALID_TOKEN);
         }
         const userId=decoded.sub;
-        const roles = decoded.scope;
+        const roles = typeof decoded.scope === "string" ? decoded.scope : "";
+        const hasTicketVendorRole = roles.split(/\s+/).includes("ROLE_TICKET_VENDOR");
         try{
-            let isAlow = userCache.get(userId);
+            // Vendor approval may be revoked; do not use the five-minute account cache for this role.
+            let userStatus = hasTicketVendorRole ? undefined : userCache.get(userId);
 
-            if (isAlow == undefined){
+            if (userStatus == undefined){
                 const response = await fetch(`${process.env.IDENTITY_SERVICE_URL}/api/users/internal/${userId}/status`, {
                     headers: {
                         "x-internal-service-token": getInternalServiceToken()
@@ -76,12 +78,16 @@ export const verifyJWT = (req, res, next) => {
                     throw new Error("Lỗi gọi Identity Service")
                 }
                 const data = await response.json();
-                isAlow = data.data.isAllowed;
+                userStatus = data.data;
 
-                userCache.set(userId, isAlow);
+                if (!hasTicketVendorRole) userCache.set(userId, userStatus);
             }
-            if (!isAlow){
+            if (!userStatus?.isAllowed){
                 return buildErorRespone(res, GatewayError.ACCOUNT_BANNED);
+            }
+            const isRoleRefresh = req.originalUrl?.split("?")[0] === "/api/v1/auth/refresh-roles";
+            if (hasTicketVendorRole && userStatus.ticketVendorApprovalStatus !== "APPROVED" && !isRoleRefresh) {
+                return buildErorRespone(res, GatewayError.INVALID_TOKEN);
             }
             req.headers['x-user-id']= userId;
             req.headers['x-user-roles']= roles;

@@ -23,4 +23,8 @@ public class AdminIdentitySummaryResponse {
     private long pendingEnterprises;
     private long approvedEnterprises;
     private long rejectedEnterprises;
+    private long totalTicketVendors;
+    private long pendingTicketVendors;
+    private long approvedTicketVendors;
+    private long rejectedTicketVendors;
 }

@@ -122,6 +122,8 @@ export const identityRoutes = [
             url = url.replace(/^\/api\/v1\/me\/upgrade-host$/, '/api/users/me/upgradetohost'); // POST, DELETE
             url = url.replace(/^\/api\/v1\/me\/upgrade-enterprise$/, '/api/users/me/upgradetoenterprise'); // POST
             url = url.replace(/^\/api\/v1\/me\/upgrade-applications$/, '/api/users/me/upgrade-applications'); // GET
+            url = url.replace(/^\/api\/v1\/me\/ticket-vendor-application$/, '/api/users/me/ticket-vendor-application'); // POST, PUT
+            url = url.replace(/^\/api\/v1\/me\/ticket-vendor-profile$/, '/api/users/me/ticket-vendor-profile'); // GET
 
             // --- Hồ sơ đặc thù ---
             url = url.replace(/^\/api\/v1\/me\/host-profile$/, '/api/users/me/host-profile'); // GET, PUT
@@ -172,6 +174,10 @@ export const identityRoutes = [
             url = url.replace(/^\/api\/v1\/admin\/enterprises\/all$/, '/api/users/enterprises/all'); // GET All Enterprises
             url = url.replace(/^\/api\/v1\/admin\/enterprises\/([^\/]+)\/approval$/, '/api/users/$1/approvalstatus'); // PUT Approve/Reject
             url = url.replace(/^\/api\/v1\/admin\/enterprises\/([^\/]+)\/success$/, '/api/users/$1/successupgradetoenterprise'); // POST Complete upgrade
+
+            // --- Hồ sơ nhà vận hành GoTicket ---
+            url = url.replace(/^\/api\/v1\/admin\/ticket-vendors\/?$/, '/api/users/ticket-vendors'); // GET Pending/All
+            url = url.replace(/^\/api\/v1\/admin\/ticket-vendors\/([^\/]+)\/approval$/, '/api/users/ticket-vendors/$1/approval'); // PUT Approve/Reject
 
             return url + query;
         }

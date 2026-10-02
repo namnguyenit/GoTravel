@@ -14,6 +14,7 @@ import java.util.List;
 public class UpgradeApplicationsResponse {
     HostProfileResponse hostApplication;
     EnterpriseProfileResponse enterpriseApplication;
+    TicketVendorProfileResponse ticketVendorApplication;
     List<ApplicationHistoryEntry> history;
 
     @Data

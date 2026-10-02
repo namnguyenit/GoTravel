@@ -3,16 +3,19 @@ package com.gotravel.Identity.service;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 import java.util.StringJoiner;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.gotravel.Identity.configuration.RsaKeyConfig;
 import com.gotravel.Identity.dto.request.AuthenticationRequest;
 import com.gotravel.Identity.dto.response.AuthenticationResponse;
 import com.gotravel.Identity.entity.User;
+import com.gotravel.Identity.enums.Approval_status;
 import com.gotravel.Identity.exception.AppException;
 import com.gotravel.Identity.exception.AuthErrorCode;
 import com.gotravel.Identity.exception.UserErrorCode;
@@ -43,6 +46,7 @@ public class AuthenticationService {
     // Inject cấu hình RsaKeyConfig
     RsaKeyConfig rsaKeyConfig;
 
+    @Transactional
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         var user = userRepository.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(UserErrorCode.USER_NOT_FOUND));
@@ -60,6 +64,8 @@ public class AuthenticationService {
             throw new AppException(AuthErrorCode.UNAUTHENTICATED);
         }
 
+        user.setLastLoginAt(Instant.now());
+        userRepository.save(user);
         var token = generateToken(user);
         return AuthenticationResponse.builder()
                 .token(token)
@@ -70,6 +76,7 @@ public class AuthenticationService {
      * Cấp JWT mới với roles mới nhất từ DB, dùng khi admin đã nâng quyền user.
      * Không cần password — chỉ cần userId (lấy từ JWT hiện tại đã xác thực).
      */
+    @Transactional(readOnly = true)
     public AuthenticationResponse refreshRoles(String userId) {
         var user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(UserErrorCode.USER_NOT_FOUND));
@@ -100,7 +107,7 @@ public class AuthenticationService {
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(user.getId())
                 .issuer("com.gotravel.identity")
-                .audience("gotravel-api")
+                .audience(List.of("gotravel-api", "goticket-api"))
                 .issueTime(new Date())
                 .expirationTime(new Date(
                         Instant.now().plus(30, ChronoUnit.DAYS).toEpochMilli()))
@@ -125,7 +132,11 @@ public class AuthenticationService {
     private String buildScope(User user) {
         StringJoiner stringJoiner = new StringJoiner(" ");
         if (!CollectionUtils.isEmpty(user.getRoles())) {
-            user.getRoles().forEach(role -> stringJoiner.add("ROLE_" + role.getName()));
+            user.getRoles().stream()
+                    .filter(role -> !"TICKET_VENDOR".equals(role.getName())
+                            || (user.getTicketVendorProfile() != null
+                            && user.getTicketVendorProfile().getApprovalStatus() == Approval_status.APPROVED))
+                    .forEach(role -> stringJoiner.add("ROLE_" + role.getName()));
         }
         return stringJoiner.toString();
     }

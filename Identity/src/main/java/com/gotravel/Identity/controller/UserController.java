@@ -82,6 +82,25 @@ public class UserController {
         return ApiRequest.success(SuccessCode.GET_ALL_HOSTS_SUCCESS, userService.getAllEnterprises(page, size));
     }
 
+    @GetMapping("/ticket-vendors")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiRequest<PageResponse<UserResponse>> getTicketVendorApplications(
+            @RequestParam(defaultValue = "PENDING") String status,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return ApiRequest.success(SuccessCode.GET_USERS_SUCCESS,
+                userService.getTicketVendorApplications(page, size, status));
+    }
+
+    @PutMapping("/ticket-vendors/{accountId}/approval")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ApiRequest<TicketVendorProfileResponse> reviewTicketVendorApplication(
+            @PathVariable String accountId,
+            @Valid @RequestBody ApprovalRequest request) {
+        return ApiRequest.success(SuccessCode.APPROVAL_STATUS_UPDATED_SUCCESS,
+                userService.reviewTicketVendorApplication(accountId, request));
+    }
+
 
     @GetMapping("/hosts/{accountId}")
     @PreAuthorize("hasRole('ADMIN')")
@@ -192,6 +211,36 @@ public class UserController {
     public ApiRequest<UpgradeApplicationsResponse> getMyUpgradeApplications() {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         return ApiRequest.success(SuccessCode.GET_USER_PROFILE_SUCCESS, userService.getMyUpgradeApplications(userId));
+    }
+
+    @PostMapping(value = "/me/ticket-vendor-application", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('USER')")
+    public ApiRequest<TicketVendorProfileResponse> applyToTicketVendor(
+            @Valid @ModelAttribute TicketVendorApplicationRequest request,
+            @RequestParam("frontImage") MultipartFile frontImage,
+            @RequestParam("backImage") MultipartFile backImage) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ApiRequest.success(SuccessCode.APPLICATION_SUBMITTED_SUCCESS,
+                userService.submitTicketVendorApplication(userId, request, frontImage, backImage, false));
+    }
+
+    @PutMapping(value = "/me/ticket-vendor-application", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PreAuthorize("hasRole('USER')")
+    public ApiRequest<TicketVendorProfileResponse> updateTicketVendorApplication(
+            @Valid @ModelAttribute TicketVendorApplicationRequest request,
+            @RequestParam(value = "frontImage", required = false) MultipartFile frontImage,
+            @RequestParam(value = "backImage", required = false) MultipartFile backImage) {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ApiRequest.success(SuccessCode.APPLICATION_SUBMITTED_SUCCESS,
+                userService.submitTicketVendorApplication(userId, request, frontImage, backImage, true));
+    }
+
+    @GetMapping("/me/ticket-vendor-profile")
+    @PreAuthorize("hasRole('USER')")
+    public ApiRequest<TicketVendorProfileResponse> getMyTicketVendorProfile() {
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+        return ApiRequest.success(SuccessCode.GET_USER_PROFILE_SUCCESS,
+                userService.getTicketVendorProfile(userId));
     }
 
     @PutMapping(value = "/me/upgradetohost", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

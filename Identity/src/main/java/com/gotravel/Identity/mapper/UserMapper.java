@@ -16,6 +16,7 @@ public interface UserMapper {
     @Mapping(target = "avatarUrl", source = "userProfile.avatarUrl")
     @Mapping(target = "hostProfile", expression = "java(user.getHostProfile() != null ? toHostProfileResponse(user.getHostProfile()) : null)")
     @Mapping(target = "enterpriseProfile", expression = "java(user.getEnterpriseProfile() != null ? toEnterpriseProfileResponse(user.getEnterpriseProfile()) : null)")
+    @Mapping(target = "ticketVendorProfile", expression = "java(user.getTicketVendorProfile() != null ? toTicketVendorProfileResponse(user.getTicketVendorProfile()) : null)")
     UserResponse userToUserResponse(User user);
 
     UserProfileResponse toUserProfileResponse(UserProfile userProfile);
@@ -34,6 +35,9 @@ public interface UserMapper {
     EnterpriseProfileResponse toEnterpriseProfileResponse(EnterpriseProfile enterpriseProfile);
 
     void updateEnterpriseProfileFromRequest(EnterpriseProfileRequest dto, @MappingTarget EnterpriseProfile profile);
+
+    @Mapping(target = "approvalStatus", expression = "java(profile.getApprovalStatus() != null ? profile.getApprovalStatus().toString() : null)")
+    TicketVendorProfileResponse toTicketVendorProfileResponse(TicketVendorProfile profile);
 
     default String mapRoleString(Role role) {
         return role != null ? role.getName() : null;

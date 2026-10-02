@@ -4,6 +4,7 @@ package com.gotravel.Identity.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import java.time.Instant;
 import java.util.Set;
 import com.gotravel.Identity.enums.Provider;
 
@@ -38,6 +39,11 @@ public class User{
     @Builder.Default
     Boolean isDeleted = false;
 
+    @Column(updatable = false)
+    Instant createdAt;
+
+    Instant lastLoginAt;
+
     @ManyToMany
     Set<Role> roles;
 
@@ -49,4 +55,14 @@ public class User{
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     EnterpriseProfile enterpriseProfile;
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    TicketVendorProfile ticketVendorProfile;
+
+    @PrePersist
+    void initializeCreatedAt() {
+        if (createdAt == null) {
+            createdAt = Instant.now();
+        }
+    }
 }
