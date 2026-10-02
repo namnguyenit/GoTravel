@@ -17,6 +17,8 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.Listing.CatalogandListing.client.IdentityClient;
+import com.Listing.CatalogandListing.dto.response.IdentityApiResponse;
+import com.Listing.CatalogandListing.dto.response.UserStatusResponse;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -64,6 +66,13 @@ class ListingServiceTest {
 
         when(listingMapper.toEntity(request)).thenReturn(mappedListing);
         when(listingRepository.save(any(Listing.class))).thenAnswer(invocation -> invocation.getArgument(0));
+        when(identityClient.checkUserStatus(hostId.toString())).thenReturn(
+                new IdentityApiResponse<>(true, 200, null, null,
+                        UserStatusResponse.builder()
+                                .isAllowed(true)
+                                .hostApprovalStatus("APPROVED")
+                                .build())
+        );
 
         ListingService service = new ListingService(
                 listingMapper,
@@ -74,6 +83,7 @@ class ListingServiceTest {
         );
 
         service.createListing(hostId.toString(), request);
+        verify(identityClient).checkUserStatus(hostId.toString());
 
         ArgumentCaptor<Listing> listingCaptor = ArgumentCaptor.forClass(Listing.class);
         verify(listingRepository).save(listingCaptor.capture());
