@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <title>GoTravel</title>
+  <rect x="2" y="2" width="60" height="60" rx="18" fill="#FF385C" />
+  <circle cx="32" cy="32" r="19" fill="none" stroke="#FFFFFF" stroke-width="3" opacity=".9" />
+  <path d="M39 25 34.6 34.6 25 39l4.4-9.6L39 25Z" fill="#FFFFFF" />
+  <path d="m39 25-4.4 9.6L32 32Z" fill="#FFD6DE" />
+  <circle cx="32" cy="32" r="2" fill="#E61E4F" />
+</svg>

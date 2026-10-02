@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import "./auth-theme.css";
 import {
   AuthService,
   getAuthToken,
@@ -11,14 +12,57 @@ import {
   EyeOff,
   AlertCircle,
   CheckCircle2,
+  ArrowRight,
+  ArrowUpRight,
+  Compass,
+  MapPin,
+  Plane,
+  Heart,
+  Star,
+  Sparkles,
 } from "lucide-react";
+
+type AuthView = "login" | "register" | "forgot-password" | "reset-password";
 
 export default function App() {
   // Query parameters: redirect_uri, mode, action
   const [redirectUri, setRedirectUri] = useState<string>("");
 
   // Views: 'login' | 'register' | 'forgot-password' | 'reset-password'
-  const [view, setView] = useState<"login" | "register" | "forgot-password" | "reset-password">("login");
+  const [view, setView] = useState<AuthView>("login");
+  const [isLeaving, setIsLeaving] = useState(false);
+  const [direction, setDirection] = useState<"forward" | "back">("forward");
+  const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const transitionTo = (nextView: AuthView) => {
+    if (nextView === view && !isLeaving) return;
+    if (transitionTimer.current) clearTimeout(transitionTimer.current);
+
+    const order: Record<AuthView, number> = {
+      login: 0,
+      register: 1,
+      "forgot-password": 1,
+      "reset-password": 2,
+    };
+    setDirection(order[nextView] >= order[view] ? "forward" : "back");
+
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setIsLeaving(false);
+      setView(nextView);
+      return;
+    }
+
+    setIsLeaving(true);
+    transitionTimer.current = setTimeout(() => {
+      setView(nextView);
+      setIsLeaving(false);
+      transitionTimer.current = null;
+    }, 220);
+  };
+
+  useEffect(() => () => {
+    if (transitionTimer.current) clearTimeout(transitionTimer.current);
+  }, []);
 
   // Loading & error/success messages
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,7 +73,6 @@ export default function App() {
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const [showLoginPassword, setShowLoginPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(true);
 
   // Register form states
   const [regUsername, setRegUsername] = useState("");
@@ -192,7 +235,7 @@ export default function App() {
     try {
       await AuthService.forgotPassword(forgotEmail.trim());
       setResetEmail(forgotEmail.trim());
-      setView("reset-password");
+      transitionTo("reset-password");
       setSuccess("Nếu email tồn tại, mã xác thực đã được gửi. Vui lòng kiểm tra hộp thư.");
     } catch (err: unknown) {
       const authError = err as { message?: string };
@@ -227,7 +270,7 @@ export default function App() {
       });
       setLoginUsername(resetEmail.trim());
       setLoginPassword("");
-      setView("login");
+      transitionTo("login");
       setSuccess("Đặt lại mật khẩu thành công. Bạn có thể đăng nhập bằng mật khẩu mới.");
     } catch (err: unknown) {
       const authError = err as { message?: string };
@@ -239,27 +282,59 @@ export default function App() {
 
   const title =
     view === "login"
-      ? "Chào mừng bạn trở lại"
+      ? "Đăng nhập"
       : view === "register"
-      ? "Tạo tài khoản mới"
+      ? "Tạo tài khoản"
       : view === "forgot-password"
       ? "Quên mật khẩu"
       : "Đặt lại mật khẩu";
 
   const description =
     view === "login"
-      ? "Vui lòng điền thông tin để đăng nhập vào tài khoản của bạn."
+      ? "Xem đặt chỗ, lưu địa điểm và tiếp tục kế hoạch của bạn."
       : view === "register"
-      ? "Mọi tiện ích du lịch chỉ cách bạn vài thao tác đơn giản."
+      ? "Đăng ký để đặt chỗ và lưu những nơi bạn muốn đến."
       : view === "forgot-password"
       ? "Nhập email tài khoản để nhận mã xác thực đặt lại mật khẩu."
       : "Nhập mã xác thực trong email và tạo mật khẩu mới.";
 
   return (
     <div className="sso-page-container">
-      <div className="gostay-auth-card">
-        {/* Header Bar - Clean matching GoStay modal */}
-        <div className="card-header-bar">
+      <div className="auth-shell">
+        <aside className="auth-story" aria-label="Khám phá GoTravel">
+          <div className="story-glow story-glow-one" aria-hidden="true" />
+          <div className="story-glow story-glow-two" aria-hidden="true" />
+          <div className="story-topline">
+            <span className="story-topline-icon"><Sparkles size={16} /></span>
+            <span>GoStay · GoCar · GoTravel</span>
+          </div>
+          <div className="story-copy">
+            <div className="story-eyebrow"><span className="story-live-dot" /> HÀNH TRÌNH CỦA BẠN BẮT ĐẦU TỪ ĐÂY</div>
+            <h1>Đi đâu cũng<br /><em>thấy thân quen.</em></h1>
+            <p>Tìm nơi ở, đặt xe và quản lý chuyến đi trong một tài khoản.</p>
+          </div>
+          <div className="journey-art" aria-hidden="true">
+            <div className="art-orbit orbit-one" />
+            <div className="art-orbit orbit-two" />
+            <div className="art-star star-one">✦</div>
+            <div className="art-star star-two">✧</div>
+            <div className="art-star star-three">✦</div>
+            <div className="floating-badge badge-top"><span className="badge-icon"><Sparkles size={16} /></span><span>GoStay<br /><strong>Chọn nơi ở hợp ý</strong></span></div>
+            <div className="destination-card">
+              <div className="destination-picture">
+                <div className="picture-shine" />
+                <div className="picture-favorite"><Heart size={14} fill="currentColor" /></div>
+              </div>
+              <div className="destination-info"><div><span>ĐIỂM ĐẾN ĐƯỢC YÊU THÍCH</span><strong>Đà Nẵng, Việt Nam</strong><small><Star size={11} fill="currentColor" /> 4.9 · Vạn trải nghiệm đang đợi</small></div><div className="destination-arrow"><ArrowUpRight size={19} /></div></div>
+            </div>
+            <div className="floating-badge badge-bottom"><span className="badge-icon pin"><MapPin size={17} /></span><span><strong>GoCar</strong><br />Di chuyển dễ dàng</span></div>
+            <div className="floating-plane"><Plane size={18} fill="currentColor" /></div>
+          </div>
+          <div className="story-bottom"><span className="story-line" /> KHÁM PHÁ THEO CÁCH CỦA BẠN <span className="story-bottom-star">✦</span></div>
+        </aside>
+        <main className="gostay-auth-card">
+          <div className="card-header-bar">
+          <div className="mobile-brand"><span className="brand-mark"><Compass size={20} strokeWidth={2.4} /></span><span className="brand-name">go<span>travel</span><i>.</i></span></div>
           <button
             type="button"
             className="header-back-btn"
@@ -269,29 +344,27 @@ export default function App() {
                 : "http://localhost:3000");
               window.location.href = backUrl;
             }}
+            aria-label="Quay lại dịch vụ trước đó"
             title="Quay lại"
           >
             <X size={18} />
           </button>
-          <h2 className="header-modal-title">Đăng nhập hoặc đăng ký</h2>
-          <div style={{ width: 32 }}></div>
         </div>
 
-        {/* Content Body */}
-        <div className="card-content-body">
+        <div className={`card-content-body${isLeaving ? " is-leaving" : ""}`} data-direction={direction} key={view} inert={isLeaving}>
           <h3 className="auth-main-title">{title}</h3>
           <p className="auth-sub-desc">{description}</p>
 
           {/* Status Alert Messages */}
           {error && (
-            <div className="msg-alert danger">
+            <div className="msg-alert danger" role="alert">
               <AlertCircle size={16} style={{ flexShrink: 0, marginTop: 2 }} />
               <div>{error}</div>
             </div>
           )}
 
           {success && (
-            <div className="msg-alert success">
+            <div className="msg-alert success" role="status">
               <CheckCircle2 size={16} style={{ flexShrink: 0, marginTop: 2 }} />
               <div>{success}</div>
             </div>
@@ -304,6 +377,7 @@ export default function App() {
                 <input
                   id="login_username"
                   type="text"
+                  autoComplete="username"
                   className="floating-input"
                   placeholder=" "
                   value={loginUsername}
@@ -320,6 +394,7 @@ export default function App() {
                 <input
                   id="login_password"
                   type={showLoginPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   className="floating-input has-icon-right"
                   placeholder=" "
                   value={loginPassword}
@@ -332,6 +407,7 @@ export default function App() {
                 <button
                   type="button"
                   className="input-eye-button"
+                  aria-label={showLoginPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                   onClick={() => setShowLoginPassword(!showLoginPassword)}
                 >
                   {showLoginPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -339,22 +415,13 @@ export default function App() {
               </div>
 
               <div className="form-extra-actions">
-                <label className="remember-me-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                  />
-                  <span>Duy trì đăng nhập (30 ngày)</span>
-                </label>
-
                 <button
                   type="button"
                   className="text-action-link"
                   onClick={() => {
                     setError("");
                     setSuccess("");
-                    setView("forgot-password");
+                    transitionTo("forgot-password");
                   }}
                 >
                   Quên mật khẩu?
@@ -368,34 +435,9 @@ export default function App() {
                     <span>Đang xử lý...</span>
                   </>
                 ) : (
-                  <span>Tiếp tục</span>
+                  <><span>Đăng nhập</span><ArrowRight size={18} /></>
                 )}
               </button>
-
-              <div className="or-divider">
-                <div className="or-divider-line"></div>
-                <span className="or-divider-text">hoặc</span>
-                <div className="or-divider-line"></div>
-              </div>
-
-              <div className="social-buttons-container">
-                <button type="button" className="social-auth-btn">
-                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" />
-                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" />
-                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" />
-                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
-                  </svg>
-                  <span>Tiếp tục với Google</span>
-                </button>
-
-                <button type="button" className="social-auth-btn">
-                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="#1877F2">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                  </svg>
-                  <span>Tiếp tục với Facebook</span>
-                </button>
-              </div>
 
               <div className="switch-view-footer">
                 <span>Chưa có tài khoản?</span>
@@ -404,7 +446,7 @@ export default function App() {
                   onClick={() => {
                     setError("");
                     setSuccess("");
-                    setView("register");
+                    transitionTo("register");
                   }}
                 >
                   Đăng ký ngay
@@ -500,6 +542,7 @@ export default function App() {
                 <input
                   id="reg_password"
                   type={showRegPassword ? "text" : "password"}
+                  autoComplete="new-password"
                   className="floating-input has-icon-right"
                   placeholder=" "
                   value={regPassword}
@@ -512,6 +555,7 @@ export default function App() {
                 <button
                   type="button"
                   className="input-eye-button"
+                  aria-label={showRegPassword ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
                   onClick={() => setShowRegPassword(!showRegPassword)}
                 >
                   {showRegPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -522,6 +566,7 @@ export default function App() {
                 <input
                   id="reg_confirm_password"
                   type={showRegConfirmPassword ? "text" : "password"}
+                  autoComplete="new-password"
                   className="floating-input has-icon-right"
                   placeholder=" "
                   value={regConfirmPassword}
@@ -534,6 +579,7 @@ export default function App() {
                 <button
                   type="button"
                   className="input-eye-button"
+                  aria-label={showRegConfirmPassword ? "Ẩn mật khẩu xác nhận" : "Hiện mật khẩu xác nhận"}
                   onClick={() => setShowRegConfirmPassword(!showRegConfirmPassword)}
                 >
                   {showRegConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -541,11 +587,7 @@ export default function App() {
               </div>
 
               <p style={{ fontSize: 11, color: "#717171", margin: "8px 0 14px 0", lineHeight: 1.4 }}>
-                Bằng cách chọn Đăng ký tài khoản, tôi đồng ý với các{" "}
-                <span style={{ fontWeight: 600, color: "#222", textDecoration: "underline" }}>
-                  Điều khoản
-                </span>{" "}
-                của GoTravel.
+                Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản của GoTravel.
               </p>
 
               <button type="submit" disabled={loading} className="gostay-submit-btn">
@@ -555,7 +597,7 @@ export default function App() {
                     <span>Đang xử lý...</span>
                   </>
                 ) : (
-                  <span>Đăng ký tài khoản</span>
+                  <><span>Tạo tài khoản</span><ArrowRight size={18} /></>
                 )}
               </button>
 
@@ -566,7 +608,7 @@ export default function App() {
                   onClick={() => {
                     setError("");
                     setSuccess("");
-                    setView("login");
+                    transitionTo("login");
                   }}
                 >
                   Đăng nhập
@@ -601,7 +643,7 @@ export default function App() {
                     <span>Đang gửi...</span>
                   </>
                 ) : (
-                  <span>Gửi mã xác thực</span>
+                  <><span>Gửi mã xác thực</span><ArrowRight size={18} /></>
                 )}
               </button>
 
@@ -611,7 +653,7 @@ export default function App() {
                   onClick={() => {
                     setError("");
                     setSuccess("");
-                    setView("login");
+                    transitionTo("login");
                   }}
                 >
                   Quay lại đăng nhập
@@ -658,6 +700,7 @@ export default function App() {
                 <input
                   id="reset_password"
                   type={showResetPassword ? "text" : "password"}
+                  autoComplete="new-password"
                   className="floating-input has-icon-right"
                   placeholder=" "
                   value={resetPassword}
@@ -670,6 +713,7 @@ export default function App() {
                 <button
                   type="button"
                   className="input-eye-button"
+                  aria-label={showResetPassword ? "Ẩn mật khẩu mới" : "Hiện mật khẩu mới"}
                   onClick={() => setShowResetPassword(!showResetPassword)}
                 >
                   {showResetPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -680,6 +724,7 @@ export default function App() {
                 <input
                   id="reset_confirm_password"
                   type={showResetPassword ? "text" : "password"}
+                  autoComplete="new-password"
                   className="floating-input"
                   placeholder=" "
                   value={resetConfirmPassword}
@@ -698,7 +743,7 @@ export default function App() {
                     <span>Đang xử lý...</span>
                   </>
                 ) : (
-                  <span>Đặt lại mật khẩu</span>
+                  <><span>Đặt lại mật khẩu</span><ArrowRight size={18} /></>
                 )}
               </button>
 
@@ -708,7 +753,7 @@ export default function App() {
                   onClick={() => {
                     setError("");
                     setSuccess("");
-                    setView("forgot-password");
+                    transitionTo("forgot-password");
                   }}
                 >
                   Gửi lại mã
@@ -719,7 +764,7 @@ export default function App() {
                   onClick={() => {
                     setError("");
                     setSuccess("");
-                    setView("login");
+                    transitionTo("login");
                   }}
                 >
                   Quay lại đăng nhập
@@ -728,6 +773,7 @@ export default function App() {
             </form>
           )}
         </div>
+        </main>
       </div>
 
       <div className="sso-page-footer">
