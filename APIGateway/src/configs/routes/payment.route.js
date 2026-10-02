@@ -38,6 +38,9 @@ export const paymentRoutes = [
         url: '/api/v1/public/payments',
         target: (process.env.PAYMENT_SERVICE_URL || "http://localhost:8085"),
         auth: false,
+        publicRequests: [
+            { method: 'POST', path: '/api/v1/public/payments/sepay-webhook' }
+        ],
         // POST /sepay-webhook → SePay gọi khi có biến động tài khoản
     },
 

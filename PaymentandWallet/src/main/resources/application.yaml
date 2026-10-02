@@ -7,6 +7,7 @@ spring:
       - optional:classpath:jwt.yaml
       - optional:classpath:sepay.yaml
 server:
+  address: ${SERVICE_BIND_HOST:127.0.0.1}
   port: 8085
 internal:
   service:

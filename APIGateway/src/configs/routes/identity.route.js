@@ -58,7 +58,8 @@ export const identityRoutes = [
     {
         url: '/.well-known/jwks.json',
         target: (process.env.IDENTITY_SERVICE_URL || "http://localhost:8080"),
-        auth: false
+        auth: false,
+        publicRequests: [{ method: 'GET', path: '/.well-known/jwks.json' }]
     },
 
     // ==========================================
@@ -79,6 +80,12 @@ export const identityRoutes = [
         url: '/api/v1/auth',
         target: (process.env.IDENTITY_SERVICE_URL || "http://localhost:8080"),
         auth: false,
+        publicRequests: [
+            { method: 'POST', path: '/api/v1/auth/login' },
+            { method: 'POST', path: '/api/v1/auth/register' },
+            { method: 'POST', path: '/api/v1/auth/forgot-password' },
+            { method: 'POST', path: '/api/v1/auth/reset-password' }
+        ],
         middlewares: authRateLimiters,
         pathRewrite: (path, req) => {
             const parts = req.originalUrl.split('?');

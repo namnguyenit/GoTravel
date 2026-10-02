@@ -1,6 +1,7 @@
 jwt:
+  key-id: ${JWT_KEY_ID}
   keystore:
-    path: "/keystore.jks"
-    password: "secret"
-    alias: "identity-key"
-    private-key-password: "secret"
+    path: ${JWT_KEYSTORE_PATH}
+    password: ${JWT_KEYSTORE_PASSWORD}
+    alias: ${JWT_KEY_ALIAS:identity-key}
+    private-key-password: ${JWT_PRIVATE_KEY_PASSWORD:${JWT_KEYSTORE_PASSWORD}}

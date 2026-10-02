@@ -1,5 +1,6 @@
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { allowPublicRequests } from "../middlewares/public-route.middleware.js";
 import {buildErorRespone, GatewayError} from "../utils/response.helper.js";
 
 import {identityRoutes} from "../configs/routes/identity.route.js";
@@ -20,6 +21,7 @@ export const setupProxy = (app) => {
 
     routes.forEach(route => {
         const middlewares = [
+            ...(!route.auth ? [allowPublicRequests(route.publicRequests)] : []),
             ...(route.middlewares || []),
             ...(route.auth ? [verifyJWT] : [])
         ];

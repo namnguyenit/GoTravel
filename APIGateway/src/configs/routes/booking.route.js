@@ -40,6 +40,9 @@ export const bookingRoutes = [
         url: '/api/v1/public/inventory',
         target: (process.env.BOOKING_SERVICE_URL || "http://localhost:8083"),
         auth: false,
+        publicRequests: [
+            { method: 'GET', path: /^\/api\/v1\/public\/inventory\/listings\/[0-9a-fA-F-]{36}\/availability$/ }
+        ],
         // GET /listings/{listingId}/availability?startDate=...&endDate=...
     },
 

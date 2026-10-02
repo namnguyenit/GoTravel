@@ -6,6 +6,7 @@ spring:
       - optional:classpath:database.yaml
       - optional:classpath:jwt.yaml
 server:
+  address: ${SERVICE_BIND_HOST:127.0.0.1}
   port: 8083
 internal:
   service:

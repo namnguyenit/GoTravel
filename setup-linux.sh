@@ -195,32 +195,55 @@ setup_redis() {
 }
 
 generate_keystore() {
-  local keystore_path="$PROJECT_DIR/Identity/src/main/resources/keystore.jks"
+  (
+    umask 077
+    local secret_dir="$PROJECT_DIR/Identity/.secrets"
+    local keystore_path="$secret_dir/identity-signing.jks"
+    local env_path="$PROJECT_DIR/Identity/.env"
+    local keytool_bin="${KEYTOOL_BIN:-keytool}"
 
-  if [[ -f "$keystore_path" ]]; then
-    if keytool -list -keystore "$keystore_path" -storetype JKS -storepass secret 2>/dev/null | grep -q '^identity-key,'; then
-      log "Identity keystore already exists"
-      return
+    if [[ -e "$keystore_path" || -e "$env_path" ]]; then
+      if [[ -f "$keystore_path" && -f "$env_path" ]]; then
+        log "Identity JWT keystore already exists outside Git"
+        return
+      fi
+      error "Incomplete Identity JWT secrets; inspect $secret_dir and $env_path before retrying"
+      return 1
     fi
 
-    warn "Existing Identity keystore does not match expected alias. Recreating."
-    rm -f "$keystore_path"
-  fi
+    mkdir -p "$secret_dir"
+    if command -v setfacl >/dev/null 2>&1; then
+      setfacl -b -k "$secret_dir"
+    fi
+    chmod 700 "$secret_dir"
+    local temp_dir
+    temp_dir="$(mktemp -d "$secret_dir/.generate-XXXXXXXX")"
+    trap 'rm -rf "$temp_dir"' EXIT
 
-  info "Generating Identity JWT keystore"
-  mkdir -p "$(dirname "$keystore_path")"
-  keytool -genkeypair \
-    -alias identity-key \
-    -keyalg RSA \
-    -keysize 2048 \
-    -storetype JKS \
-    -keystore "$keystore_path" \
-    -storepass secret \
-    -keypass secret \
-    -dname "CN=GoStay, OU=GoStay, O=GoStay, L=Hanoi, ST=Hanoi, C=VN" \
-    -validity 3650 >/dev/null
-  chmod 644 "$keystore_path"
-  log "Keystore generated at $keystore_path"
+    local jwt_password jwt_key_id
+    jwt_password="$(openssl rand -hex 32)"
+    jwt_key_id="identity-$(openssl rand -hex 12)"
+    JWT_KEYSTORE_PASSWORD="$jwt_password" "$keytool_bin" -genkeypair \
+      -alias identity-key \
+      -keyalg RSA \
+      -keysize 3072 \
+      -storetype JKS \
+      -keystore "$temp_dir/identity-signing.jks" \
+      -storepass:env JWT_KEYSTORE_PASSWORD \
+      -keypass:env JWT_KEYSTORE_PASSWORD \
+      -dname "CN=GoTravel Identity, O=GoTravel, C=VN" \
+      -validity 3650 >/dev/null
+
+    printf 'JWT_KEYSTORE_PATH=%q\nJWT_KEYSTORE_PASSWORD=%s\nJWT_KEY_ID=%s\nJWT_KEY_ALIAS=identity-key\n' \
+      "$keystore_path" "$jwt_password" "$jwt_key_id" > "$temp_dir/.env"
+    if command -v setfacl >/dev/null 2>&1; then
+      setfacl -b "$temp_dir/identity-signing.jks" "$temp_dir/.env"
+    fi
+    chmod 600 "$temp_dir/identity-signing.jks" "$temp_dir/.env"
+    mv "$temp_dir/identity-signing.jks" "$keystore_path"
+    mv "$temp_dir/.env" "$env_path"
+    log "Identity JWT keystore generated outside Git; restart every JWT verifier when deploying"
+  )
 }
 
 generate_env_files() {
@@ -230,6 +253,8 @@ generate_env_files() {
 
   cat > APIGateway/.env <<EOF
 GATEWAY_PORT=${GATEWAY_PORT}
+GATEWAY_BIND_HOST=127.0.0.1
+TRUST_PROXY=loopback
 IDENTITY_SERVICE_URL=http://localhost:8080
 MEDIA_SERVICE_URL=http://localhost:${MEDIA_PORT}
 CATALOG_SERVICE_URL=http://localhost:8082
@@ -243,6 +268,7 @@ EOF
 
   cat > cloudinary-service/.env <<EOF
 MEDIA_PORT=${MEDIA_PORT}
+MEDIA_BIND_HOST=127.0.0.1
 IDENTITY_SERVICE_URL=http://localhost:8080
 INTERNAL_SERVICE_TOKEN=${INTERNAL_TOKEN}
 CLOUDINARY_CLOUD_NAME=your_cloud_name
@@ -253,6 +279,7 @@ EOF
 
   cat > search-and-recommendation/.env <<EOF
 PORT=${SEARCH_PORT}
+SERVICE_BIND_HOST=127.0.0.1
 NODE_ENV=production
 CATALOG_DB_HOST=localhost
 CATALOG_DB_PORT=5432

@@ -25,7 +25,7 @@ public class JwksController {
     public Map<String, Object> keys() {
         // Dùng thư viện Nimbus đóng gói sẵn thành chuẩn JSON Web Key xuất ra
         RSAKey rsaKey = new RSAKey.Builder(rsaKeyConfig.getPublicKey())
-                .keyID("identity-key") // Đặt cho nó 1 cái TÊN, nếu đổi khóa, JWT và ID ở đây phải khớp.
+                .keyID(rsaKeyConfig.getKeyId())
                 .build();
         JWKSet jwkSet = new JWKSet(rsaKey);
         

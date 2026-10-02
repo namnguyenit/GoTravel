@@ -5,19 +5,11 @@ import { buildErrorResponse, buildSuccessResponse, GatewayError, GatewaySuccess 
 
 const app = express();
 
-const parseTrustProxy = (value) => {
-    if (!value) return undefined;
-    if (value === "true") return true;
-    if (value === "false") return false;
-
-    const numericValue = Number(value);
-    return Number.isNaN(numericValue) ? value : numericValue;
-};
-
-const trustProxy = parseTrustProxy(process.env.TRUST_PROXY);
-if (trustProxy !== undefined) {
-    app.set("trust proxy", trustProxy);
+const trustedProxy = process.env.TRUST_PROXY?.trim() || "loopback";
+if (trustedProxy === "true" || /^\d+$/.test(trustedProxy)) {
+    throw new Error("TRUST_PROXY must name trusted proxy IPs or subnets, not all proxies or a hop count");
 }
+app.set("trust proxy", trustedProxy === "false" ? false : trustedProxy);
 
 app.use(cors());
 
@@ -37,6 +29,9 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
     delete req.headers["x-internal-service-token"];
+    delete req.headers["x-internal-token"];
+    delete req.headers["x-user-id"];
+    delete req.headers["x-user-roles"];
     next();
 });
 

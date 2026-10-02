@@ -31,6 +31,9 @@ postman/
 **/yarn-debug.log*
 **/yarn-error.log*
 **/.env
+Identity/.secrets/
+**/*.jks
+**/*.p12
 
 # Java/Spring Boot (Identity)
 **/target/

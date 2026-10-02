@@ -55,6 +55,7 @@ export const carRoutes = [
         url: '/api/v1/routes/locations',
         target: (process.env.CAR_SERVICE_URL || "http://localhost:3333"),
         auth: false, // Công khai - Không yêu cầu Token
+        publicRequests: [{ method: 'GET', path: '/api/v1/routes/locations' }],
         pathRewrite: (path, req) => {
             const parts = req.originalUrl.split('?');
             let url = parts[0];
@@ -85,6 +86,7 @@ export const carRoutes = [
         url: '/api/v1/trips/search',
         target: (process.env.CAR_SERVICE_URL || "http://localhost:3333"),
         auth: false, // Công khai - Không yêu cầu Token
+        publicRequests: [{ method: 'GET', path: '/api/v1/trips/search' }],
         pathRewrite: (path, req) => {
             const parts = req.originalUrl.split('?');
             let url = parts[0];

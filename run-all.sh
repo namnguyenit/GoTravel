@@ -162,9 +162,25 @@ fi
 info "Starting $svc_name"
 info "Jar: $jar_file"
 
-pm2 start java \
-    --name "${APP_PREFIX}-${svc_name}" \
-    -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
+if [ "$svc_name" = "identity" ]; then
+    if [ ! -f "$dir/.env" ]; then
+        error "Identity/.env is missing; run ./setup-linux.sh keystore first"
+        return 1
+    fi
+    (
+        set -a
+        # Identity/.env contains the untracked JWT signing credentials.
+        source "$dir/.env"
+        set +a
+        pm2 start java \
+            --name "${APP_PREFIX}-${svc_name}" \
+            -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
+    )
+else
+    pm2 start java \
+        --name "${APP_PREFIX}-${svc_name}" \
+        -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
+fi
 
 log "$svc_name started"
 

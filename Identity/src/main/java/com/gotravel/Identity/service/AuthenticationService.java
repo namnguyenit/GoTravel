@@ -100,7 +100,7 @@ public class AuthenticationService {
         // Chuyển sang thuật toán RSA256, phải gắn kèm keyID để người phân loại (ở ngoài
         // ai thích lấy thì gọi key này)
         JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.RS256)
-                .keyID("identity-key")
+                .keyID(rsaKeyConfig.getKeyId())
                 .type(JOSEObjectType.JWT)
                 .build();
 

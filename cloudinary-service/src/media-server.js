@@ -31,6 +31,7 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.MEDIA_PORT || 5001;
-app.listen(PORT, () => {
-    console.log(`🖼️ Media Service chạy tại: http://localhost:${PORT}`);
+const HOST = process.env.MEDIA_BIND_HOST || '127.0.0.1';
+app.listen(PORT, HOST, () => {
+    console.log(`🖼️ Media Service chạy tại: http://${HOST}:${PORT}`);
 });

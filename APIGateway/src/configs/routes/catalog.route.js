@@ -39,6 +39,11 @@ export const catalogRoutes = [
         url: '/api/v1/catalog/listings',
         target: (process.env.CATALOG_SERVICE_URL || "http://localhost:8082"),
         auth: false,
+        publicRequests: [
+            { method: 'GET', path: '/api/v1/catalog/listings/landmarks' },
+            { method: 'GET', path: /^\/api\/v1\/catalog\/listings\/[0-9a-fA-F-]{36}$/ },
+            { method: 'GET', path: /^\/api\/v1\/catalog\/listings\/[0-9a-fA-F-]{36}\/reviews$/ }
+        ],
         // GET /{listingId}          → Chi tiết listing
         // GET /{listingId}/reviews  → Reviews của listing
     },
