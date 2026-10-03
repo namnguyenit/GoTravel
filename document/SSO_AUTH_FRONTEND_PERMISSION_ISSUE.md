@@ -8,6 +8,8 @@
 
 Bản sửa của hai tệp đã được chuẩn bị, kiểm tra TypeScript và đưa vào commit Git qua vùng staging. Do giới hạn ACL, bản sao trong thư mục làm việc trên máy chủ vẫn là phiên bản cũ; `git status` có thể hiện hai tệp này là thay đổi sau commit. **Chưa khởi động lại Gateway hoặc cổng SSO trên máy chủ cho tới khi hai tệp cục bộ được đồng bộ.**
 
+Các tệp `.env` cục bộ của Gateway/media/search đang giữ token nội bộ cũ. Khi triển khai, cần tạo token ngẫu nhiên mới và cấu hình cùng một giá trị cho các dịch vụ gọi nội bộ, cấu hình `CSRF_SECRET` riêng cho Gateway, rồi khởi động lại các dịch vụ theo một đợt phối hợp. Không dùng lại token cũ trong lịch sử Git.
+
 ## Nhờ Nhân hỗ trợ
 
 Nhân có thể cấp quyền ghi có phạm vi hẹp từ thư mục gốc dự án:

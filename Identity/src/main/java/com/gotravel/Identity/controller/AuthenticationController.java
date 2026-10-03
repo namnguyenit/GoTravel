@@ -56,7 +56,7 @@ public class AuthenticationController {
     @PostMapping("/refresh-roles")
     public ApiRequest<AuthenticationResponse> refreshRoles() {
         Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        var result = authenticationService.refreshRoles(jwt.getSubject(), jwt.getExpiresAt());
+        var result = authenticationService.refreshRoles(jwt.getSubject(), jwt.getIssuedAt(), jwt.getExpiresAt());
         return ApiRequest.success(SuccessCode.LOGIN_SUCCESS, result);
     }
 }

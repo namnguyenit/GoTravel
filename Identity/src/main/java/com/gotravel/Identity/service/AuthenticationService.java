@@ -77,7 +77,7 @@ public class AuthenticationService {
      * Không cần password — chỉ cần userId (lấy từ JWT hiện tại đã xác thực).
      */
     @Transactional(readOnly = true)
-    public AuthenticationResponse refreshRoles(String userId, Instant originalExpiry) {
+    public AuthenticationResponse refreshRoles(String userId, Instant originalIssuedAt, Instant originalExpiry) {
         var user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(UserErrorCode.USER_NOT_FOUND));
 
@@ -89,10 +89,15 @@ public class AuthenticationService {
             throw new AppException(UserErrorCode.BANED_USER);
         }
 
-        if (originalExpiry == null || !originalExpiry.isAfter(Instant.now())) {
+        if (originalIssuedAt == null || originalExpiry == null) {
             throw new AppException(AuthErrorCode.UNAUTHENTICATED);
         }
-        var token = generateToken(user, originalExpiry);
+        Instant maximumExpiry = originalIssuedAt.plus(8, ChronoUnit.HOURS);
+        Instant expiresAt = originalExpiry.isBefore(maximumExpiry) ? originalExpiry : maximumExpiry;
+        if (!expiresAt.isAfter(Instant.now())) {
+            throw new AppException(AuthErrorCode.UNAUTHENTICATED);
+        }
+        var token = generateToken(user, expiresAt);
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();
