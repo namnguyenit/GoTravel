@@ -1,84 +1,584 @@
 <!doctype html>
 <html lang="vi">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="color-scheme" content="light">
-  <title>Gateway Console · GoTravel</title>
-  <link rel="stylesheet" href="/admin/gateway/style.css">
-  <script defer src="/admin/gateway/app.js"></script>
-</head>
-<body>
-  <div id="login-view" class="login-shell hidden">
-    <div class="login-aside">
-      <div class="brand brand-light"><span class="brand-mark">G</span><span>GoTravel <strong>Gateway</strong></span></div>
-      <div class="aside-content">
-        <span class="eyebrow">HỆ THỐNG QUẢN TRỊ API</span>
-        <h1>Kiểm soát mọi luồng kết nối từ một nơi.</h1>
-        <p>Đăng nhập bằng tài khoản quản trị SSO để theo dõi service và cấu hình đường dẫn API. Mỗi thay đổi được áp dụng ngay sau khi lưu.</p>
-        <div class="aside-line"><span class="pulse"></span> Cấu hình được xác thực trước khi áp dụng</div>
-      </div>
-      <span class="aside-foot">GoTravel Platform · Internal console</span>
-    </div>
-    <main class="login-main">
-      <div class="login-card">
-        <span class="eyebrow dark">ADMIN ACCESS</span>
-        <h2>Đăng nhập Gateway</h2>
-        <p>Sử dụng tài khoản SSO có quyền quản trị.</p>
-        <form id="login-form">
-          <label for="username">Tên đăng nhập</label>
-          <input id="username" name="username" autocomplete="username" required>
-          <label for="password">Mật khẩu</label>
-          <input id="password" name="password" type="password" autocomplete="current-password" required>
-          <button class="primary full" type="submit">Đăng nhập</button>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="color-scheme" content="light" />
+    <title>Gateway Studio · GoTravel</title>
+    <link rel="stylesheet" href="/admin/gateway/style.css" />
+    <script defer src="/admin/gateway/app.js"></script>
+  </head>
+  <body>
+    <section id="login-view" class="login-shell hidden">
+      <aside class="login-story">
+        <div class="brand">
+          <span class="brand-mark">G</span> GoTravel <b>Gateway</b>
+        </div>
+        <div>
+          <span class="eyebrow">GATEWAY STUDIO</span>
+          <h1>Mọi kết nối.<br />Một nơi điều khiển.</h1>
+          <p>
+            Cấu hình luồng API, service và chính sách truy cập ngay trong một
+            workspace. Thay đổi được lưu trên SQLite và áp dụng khi Gateway xác
+            nhận.
+          </p>
+          <div class="story-flow">
+            <span>Client</span><i>→</i><span>Gateway</span><i>→</i
+            ><span>Services</span>
+          </div>
+        </div>
+        <small>GoTravel Platform · Administration</small>
+      </aside>
+      <main class="login-main">
+        <form id="login-form" class="login-card">
+          <span class="eyebrow">ADMIN WORKSPACE</span>
+          <h2>Đăng nhập Gateway</h2>
+          <p>Dùng tài khoản SSO có quyền quản trị.</p>
+          <label
+            >Tên đăng nhập<input
+              id="username"
+              autocomplete="username"
+              required /></label
+          ><label
+            >Mật khẩu<input
+              id="password"
+              type="password"
+              autocomplete="current-password"
+              required /></label
+          ><button class="primary" type="submit">Mở workspace →</button>
+          <div id="login-error" class="notice error hidden" role="alert"></div>
+          <small>Phiên được bảo vệ bằng cookie HttpOnly và CSRF.</small>
         </form>
-        <div id="login-error" class="message error hidden" role="alert"></div>
-        <p class="login-note">Phiên xác thực được lưu trong cookie HttpOnly. Mật khẩu không được lưu trên trình duyệt.</p>
+      </main>
+    </section>
+    <div id="dashboard-view" class="workspace hidden">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">G</span><span>GoTravel <b>Gateway</b></span>
+        </div>
+        <span class="nav-title">CONTROL PLANE</span>
+        <nav>
+          <button class="nav-item active" data-view="routes">
+            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 7h16m-4-4 4 4-4 4M20 17H4m4-4-4 4 4 4" />
+            </svg>
+            <span>Ánh xạ API</span><small id="nav-route-count">0</small></button
+          ><button class="nav-item" data-view="services">
+            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="7" rx="2" />
+              <rect x="3" y="14" width="18" height="7" rx="2" />
+              <path d="M7 6.5h.01M7 17.5h.01" />
+            </svg>
+            <span>Services</span></button
+          ><button class="nav-item" data-view="settings">
+            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3 3 7v6c0 4 5 7 9 8 4-1 9-4 9-8V7zM8 12l3 3 5-6" />
+            </svg>
+            <span>Chính sách</span></button
+          ><button class="nav-item" data-view="history">
+            <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M3 11a9 9 0 1 1 2.6 7M3 3v8h8M12 7v5l3 2" />
+            </svg>
+            <span>Lịch sử phiên bản</span>
+          </button>
+        </nav>
+        <div class="sidebar-note">
+          <span class="status-dot"></span><b>SQLite configuration</b>
+          <p>Lưu cấu hình và áp dụng trực tiếp lên luồng proxy.</p>
+        </div>
+        <div class="operator">
+          <span class="avatar">A</span>
+          <div><b>Quản trị viên</b><small id="session-user">SSO</small></div>
+          <button id="logout-button" title="Đăng xuất" aria-label="Đăng xuất">
+            ↪
+          </button>
+        </div>
+      </aside>
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <div class="breadcrumb">
+              GoTravel Platform <span>/</span> Gateway Studio
+            </div>
+            <h1 id="page-title">Ánh xạ API</h1>
+          </div>
+          <div class="toolbar">
+            <span id="realtime-state" class="live-label">● Đang kết nối</span
+            ><span id="version-label" class="version">v1</span
+            ><button id="refresh-button" class="secondary">↻ Làm mới</button>
+          </div>
+        </header>
+        <div id="notice" class="notice hidden" role="status"></div>
+        <div class="metrics">
+          <article>
+            <small>ROUTE ĐANG BẬT</small><b id="metric-routes">—</b
+            ><span id="metric-total">—</span>
+          </article>
+          <article>
+            <small>SERVICE KẾT NỐI</small><b id="metric-services">—</b
+            ><span>Kiểm tra kết nối TCP</span>
+          </article>
+          <article>
+            <small>XÁC THỰC JWT</small><b id="metric-protected">—</b
+            ><span>Route yêu cầu phiên hợp lệ</span>
+          </article>
+          <article>
+            <small>CẬP NHẬT GẦN NHẤT</small
+            ><b id="metric-updated" class="date-metric">—</b
+            ><span id="metric-version">SQLite · phiên bản 1</span>
+          </article>
+        </div>
+        <section id="view-routes" class="view">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">ROUTING WORKSPACE</span>
+              <h2>Nhìn rõ từng đường đi của API</h2>
+              <p>
+                Chọn một route để mở ánh xạ, chính sách và cấu hình chi tiết.
+              </p>
+            </div>
+            <div class="actions">
+              <button id="export-button" class="secondary">
+                ↓ Xuất cấu hình</button
+              ><button id="import-button" class="secondary">↑ Nhập</button
+              ><button id="add-route-button" class="primary">
+                + Thêm route
+              </button>
+            </div>
+          </div>
+          <div class="flow-guide">
+            <div>
+              <small>CLIENT REQUEST</small><b>Method + đường dẫn Gateway</b>
+            </div>
+            <span>→</span>
+            <div>
+              <small>ROUTE POLICY</small
+              ><b>Khớp đường dẫn · xác thực · giới hạn</b>
+            </div>
+            <span>→</span>
+            <div>
+              <small>LOCAL / UPSTREAM</small
+              ><b>Địa chỉ service + đường dẫn backend</b>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="filterbar">
+              <input
+                id="route-search"
+                type="search"
+                placeholder="Tìm tên route, đường dẫn hoặc service…"
+                aria-label="Tìm route"
+              /><select id="route-service-filter" aria-label="Lọc service">
+                <option value="">Tất cả service</option></select
+              ><select id="route-auth-filter" aria-label="Lọc xác thực">
+                <option value="">Mọi chính sách</option>
+                <option value="jwt">JWT</option>
+                <option value="public">Công khai</option>
+              </select>
+            </div>
+            <div class="table-wrap">
+              <table class="route-table">
+                <thead>
+                  <tr>
+                    <th>Route / phương thức</th>
+                    <th>Đường dẫn Gateway</th>
+                    <th></th>
+                    <th>Backend đích</th>
+                    <th>Chính sách</th>
+                    <th>Trạng thái</th>
+                  </tr>
+                </thead>
+                <tbody id="route-body"></tbody>
+              </table>
+            </div>
+            <div id="route-empty" class="empty hidden">
+              Không có route phù hợp.
+            </div>
+            <div class="panel-foot">
+              <span id="route-result-count"></span
+              ><span>Thay đổi chỉ được áp dụng sau khi lưu thành công.</span>
+            </div>
+          </div>
+        </section>
+        <section id="view-services" class="view hidden">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">UPSTREAM REGISTRY</span>
+              <h2>Service và địa chỉ backend</h2>
+              <p>
+                Đổi địa chỉ tại đây sẽ cập nhật tất cả route liên quan ngay sau
+                khi lưu.
+              </p>
+            </div>
+            <button id="add-service-button" class="primary">
+              + Thêm service
+            </button>
+          </div>
+          <div id="service-grid" class="service-grid"></div>
+        </section>
+        <section id="view-settings" class="view hidden">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">GATEWAY POLICIES</span>
+              <h2>Chính sách phiên và truy cập</h2>
+              <p>Điều chỉnh chính sách trong phiên làm việc hiện tại.</p>
+            </div>
+          </div>
+          <form id="settings-form" class="panel settings-form">
+            <div class="settings-columns">
+              <div>
+                <h3>SSO và trình duyệt</h3>
+                <label
+                  >Origin được phép<textarea
+                    id="setting-origins"
+                    rows="7"
+                    placeholder="Mỗi dòng một origin chính xác"
+                  ></textarea
+                  ><small
+                    >Ví dụ: https://gostay.nonnet123.io.vn. Origin của console
+                    hiện tại luôn được phép.</small
+                  ></label
+                ><label
+                  >Domain cookie SSO<input
+                    id="setting-cookie"
+                    required /></label
+                ><label
+                  >Thời gian phiên cookie (phút)<input
+                    id="setting-session"
+                    type="number"
+                    min="5"
+                    max="480"
+                    required
+                /></label>
+              </div>
+              <div>
+                <h3>Đăng nhập và vị trí truy cập</h3>
+                <div class="form-row">
+                  <label
+                    >Số lần đăng nhập<input
+                      id="setting-login-limit"
+                      type="number"
+                      min="1"
+                      max="30"
+                      required /></label
+                  ><label
+                    >Cửa sổ (giây)<input
+                      id="setting-login-window"
+                      type="number"
+                      min="60"
+                      max="86400"
+                      required
+                  /></label>
+                </div>
+                <label class="check-label"
+                  ><input id="setting-geo" type="checkbox" /> Bật giới hạn quốc
+                  gia qua Cloudflare</label
+                ><label
+                  >Quốc gia được phép<input
+                    id="setting-countries"
+                    placeholder="VN, SG"
+                /></label>
+                <p class="hint">
+                  Header quốc gia chỉ được dùng cho yêu cầu qua proxy được tin
+                  cậy. Các khóa ký JWT và token nội bộ được quản lý bằng biến
+                  môi trường.
+                </p>
+              </div>
+            </div>
+            <div class="form-actions">
+              <button class="primary" type="submit">Lưu chính sách</button>
+            </div>
+          </form>
+        </section>
+        <section id="view-history" class="view hidden">
+          <div class="section-title">
+            <div>
+              <span class="eyebrow">CONFIGURATION HISTORY</span>
+              <h2>Lịch sử cấu hình</h2>
+              <p>
+                Khôi phục một bản trước đó sẽ tạo phiên bản mới; lịch sử hiện có
+                được giữ lại.
+              </p>
+            </div>
+          </div>
+          <div class="panel table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Phiên bản</th>
+                  <th>Thời gian</th>
+                  <th>Người thực hiện</th>
+                  <th>Thay đổi</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="history-body"></tbody>
+            </table>
+          </div>
+        </section>
+        <footer id="footer-state">
+          Gateway Studio · SQLite · Cấu hình được xác thực trước khi áp dụng
+        </footer>
+      </main>
+    </div>
+    <input
+      id="import-file"
+      type="file"
+      accept="application/json,.json"
+      hidden
+    />
+    <div id="drawer-backdrop" class="backdrop hidden"></div>
+    <aside
+      id="route-drawer"
+      class="drawer hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Cấu hình route"
+    >
+      <div class="drawer-header">
+        <div>
+          <span class="eyebrow">ROUTE CONFIGURATION</span>
+          <h2 id="editor-title">Cấu hình route</h2>
+        </div>
+        <button class="icon-button close-drawer" aria-label="Đóng">×</button>
       </div>
-    </main>
-  </div>
-
-  <div id="dashboard-view" class="dashboard hidden">
-    <aside class="sidebar">
-      <div class="brand"><span class="brand-mark">G</span><span>GoTravel <strong>Gateway</strong></span></div>
-      <span class="nav-caption">WORKSPACE</span>
-      <a class="nav-item active" href="#overview"><span class="nav-glyph">◫</span> Tổng quan</a>
-      <a class="nav-item" href="#routes"><span class="nav-glyph">⇄</span> Route động</a>
-      <a class="nav-item" href="#services"><span class="nav-glyph">▣</span> Services</a>
-      <a class="nav-item" href="#system"><span class="nav-glyph">☷</span> Route hệ thống</a>
-      <div class="sidebar-bottom">
-        <div class="operator-card"><span class="avatar">A</span><span><strong>Quản trị viên</strong><small id="session-user">SSO</small></span></div>
-        <button id="logout-button" class="sidebar-link" type="button">↪ &nbsp; Đăng xuất</button>
+      <div class="mapping-preview">
+        <div><small>GATEWAY</small><b id="flow-source">—</b></div>
+        <span>↓</span>
+        <div><small>LOCAL / BACKEND</small><b id="flow-target">—</b></div>
       </div>
+      <nav class="editor-tabs">
+        <button data-tab="mapping" class="active" type="button">Ánh xạ</button
+        ><button data-tab="security" type="button">Xác thực & giới hạn</button
+        ><button data-tab="advanced" type="button">Query & headers</button
+        ><button data-tab="preview" type="button">Thử ánh xạ</button>
+      </nav>
+      <form id="route-form">
+        <div id="tab-mapping" class="editor-tab">
+          <label
+            >Tên route<input
+              id="route-name"
+              minlength="3"
+              maxlength="160"
+              required /></label
+          ><label
+            >Mô tả<textarea
+              id="route-description"
+              rows="2"
+              maxlength="1000"
+            ></textarea></label
+          ><label
+            >Service đích<select id="route-service" required></select
+            ><small id="service-target-hint"></small
+          ></label>
+          <div class="form-row">
+            <label
+              >Kiểu khớp<select id="route-match">
+                <option value="exact">Endpoint chính xác</option>
+                <option value="prefix">Tiền tố + phần đường dẫn còn lại</option>
+              </select></label
+            ><label
+              >Ưu tiên<input
+                id="route-priority"
+                type="number"
+                min="-1000"
+                max="1000"
+                value="0"
+              /><small>Số lớn được xét trước.</small></label
+            >
+          </div>
+          <label
+            >Đường dẫn Gateway<input
+              id="route-source"
+              spellcheck="false"
+              placeholder="/api/v1/tickets/orders/:id"
+              required /></label
+          ><label
+            >Đường dẫn backend<input
+              id="route-upstream"
+              spellcheck="false"
+              placeholder="/api/v1/orders/:id"
+              required
+            /><small
+              >Với prefix, phần đường dẫn còn lại được nối tự động.</small
+            ></label
+          ><label>HTTP methods</label>
+          <div id="route-methods" class="method-options"></div>
+          <div id="param-types" class="param-types"></div>
+          <label class="check-label"
+            ><input id="route-enabled" type="checkbox" checked /> Bật route và
+            áp dụng sau khi lưu</label
+          >
+        </div>
+        <div id="tab-security" class="editor-tab hidden">
+          <label
+            >Xác thực<select id="route-auth">
+              <option value="jwt">JWT · yêu cầu phiên SSO hợp lệ</option>
+              <option value="public">Công khai · chỉ endpoint chính xác</option>
+            </select></label
+          ><label
+            >Quyền được phép<input
+              id="route-roles"
+              placeholder="ROLE_ADMIN, ROLE_HOST"
+            /><small
+              >Để trống: mọi tài khoản hợp lệ. Có nhiều quyền: chỉ cần một quyền
+              khớp.</small
+            ></label
+          ><label class="check-label"
+            ><input id="route-forward-auth" type="checkbox" checked /> Chuyển
+            JWT đã xác thực tới backend</label
+          >
+          <h3>Giới hạn tần suất</h3>
+          <label class="check-label"
+            ><input id="route-rate-enabled" type="checkbox" /> Bật giới hạn theo
+            IP / route</label
+          >
+          <div class="form-row">
+            <label
+              >Số request<input
+                id="route-rate-limit"
+                type="number"
+                min="1"
+                max="100000" /></label
+            ><label
+              >Cửa sổ (giây)<input
+                id="route-rate-window"
+                type="number"
+                min="1"
+                max="86400"
+            /></label>
+          </div>
+          <h3>Kết nối backend</h3>
+          <label
+            >Timeout (ms)<input
+              id="route-timeout"
+              type="number"
+              min="100"
+              max="120000" /></label
+          ><label class="check-label"
+            ><input id="route-change-origin" type="checkbox" checked /> Đặt Host
+            theo địa chỉ backend (changeOrigin)</label
+          >
+        </div>
+        <div id="tab-advanced" class="editor-tab hidden">
+          <h3>Query parameters</h3>
+          <label class="check-label"
+            ><input id="route-preserve-query" type="checkbox" checked /> Giữ
+            query của request gốc</label
+          >
+          <div
+            id="query-set"
+            class="kv-editor"
+            data-title="Thêm / ghi đè query"
+          ></div>
+          <label
+            >Query cần xóa<input id="query-remove" placeholder="debug, token"
+          /></label>
+          <h3>Request headers</h3>
+          <div
+            id="request-headers"
+            class="kv-editor"
+            data-title="Thêm / ghi đè header gửi backend"
+          ></div>
+          <label
+            >Header request cần xóa<input
+              id="request-remove"
+              placeholder="x-debug"
+          /></label>
+          <h3>Response headers</h3>
+          <div
+            id="response-headers"
+            class="kv-editor"
+            data-title="Thêm / ghi đè header trả client"
+          ></div>
+          <label
+            >Header response cần xóa<input
+              id="response-remove"
+              placeholder="x-powered-by"
+          /></label>
+          <p class="hint">
+            Gateway luôn lọc cookie, header nội bộ và header danh tính từ
+            client. Không thể ghi đè các header này bằng cấu hình.
+          </p>
+        </div>
+        <div id="tab-preview" class="editor-tab hidden">
+          <h3>Request mẫu</h3>
+          <p class="hint">
+            Kiểm tra route được chọn và URL đích sau rewrite. Không gửi request
+            tới backend.
+          </p>
+          <div class="form-row preview-row">
+            <select id="preview-method" aria-label="Method mẫu"></select
+            ><input
+              id="preview-url"
+              aria-label="URL mẫu"
+              placeholder="/api/v1/tickets/orders/123?page=1"
+            />
+          </div>
+          <button id="preview-button" class="secondary" type="button">
+            Kiểm tra ánh xạ →
+          </button>
+          <div id="preview-result" class="preview-result hidden"></div>
+        </div>
+        <div id="editor-error" class="notice error hidden" role="alert"></div>
+        <div class="drawer-actions">
+          <div>
+            <button id="delete-route" class="danger hidden" type="button">
+              Xóa</button
+            ><button id="clone-route" class="secondary hidden" type="button">
+              Nhân bản
+            </button>
+          </div>
+          <button id="save-route" class="primary" type="submit">
+            Lưu và áp dụng
+          </button>
+        </div>
+      </form>
     </aside>
-
-    <main class="main-content">
-      <header class="topbar"><div><span class="breadcrumb">GoTravel Platform <span>/</span> API Gateway</span><h1>Gateway Console</h1></div><div class="top-actions"><span class="live-badge"><span class="pulse"></span> LIVE CONFIG</span><button id="refresh-button" class="secondary" type="button">↻ &nbsp; Làm mới</button></div></header>
-      <div id="notice" class="message hidden" role="status"></div>
-      <section id="overview" class="intro"><div><span class="eyebrow dark">CONTROL CENTER</span><h2>Quản lý đường đi của API</h2><p>Theo dõi trạng thái các service, kiểm tra route hiện có và xuất bản luồng mới ngay sau khi lưu.</p></div><button id="add-route-button" class="primary" type="button">＋ &nbsp; Thêm route</button></section>
-      <section class="metrics" aria-label="Chỉ số Gateway"><div class="metric"><span>Service khả dụng</span><strong id="metric-services">—</strong><small>Đang nhận kết nối</small></div><div class="metric"><span>Route động</span><strong id="metric-routes">—</strong><small>Được quản lý tại đây</small></div><div class="metric"><span>Route đang bật</span><strong id="metric-enabled">—</strong><small>Đang thực thi</small></div><div class="metric"><span>Phiên bản cấu hình</span><strong id="metric-version">—</strong><small id="metric-updated">Chưa có thay đổi</small></div></section>
-
-      <section id="routes" class="panel"><div class="section-heading"><div><span class="eyebrow dark">DYNAMIC ROUTES</span><h2>Luồng API đã định nghĩa</h2><p>Chỉ các route có xác thực JWT mới được tạo tại đây.</p></div><input id="route-search" class="search" type="search" placeholder="Tìm tên, đường dẫn, service…" aria-label="Tìm route"></div><div class="table-wrap"><table><thead><tr><th>Route</th><th>Phương thức</th><th>Service</th><th>Trạng thái</th><th></th></tr></thead><tbody id="dynamic-body"></tbody></table></div><div id="route-empty" class="empty hidden">Chưa có route động. Chọn <strong>Thêm route</strong> để tạo luồng đầu tiên.</div></section>
-
-      <section id="services" class="panel"><div class="section-heading"><div><span class="eyebrow dark">UPSTREAMS</span><h2>Trạng thái service</h2><p>Khả dụng được xác định bằng kết nối TCP tới địa chỉ đã cấu hình.</p></div></div><div id="service-grid" class="service-grid"></div></section>
-
-      <section id="system" class="panel"><div class="section-heading"><div><span class="eyebrow dark">SYSTEM ROUTES</span><h2>Route cố định</h2><p>Được định nghĩa bằng code và chỉ hiển thị để tham khảo.</p></div><input id="static-search" class="search" type="search" placeholder="Tìm route hệ thống…" aria-label="Tìm route hệ thống"></div><div class="table-wrap"><table><thead><tr><th>Tiền tố</th><th>Service</th><th>Xác thực</th><th>Endpoint công khai</th></tr></thead><tbody id="static-body"></tbody></table></div></section>
-      <footer>Cấu hình route được lưu trên server Gateway. Thay đổi có hiệu lực ngay khi API xác nhận lưu thành công.</footer>
-    </main>
-  </div>
-
-  <div id="editor-backdrop" class="drawer-backdrop hidden"></div>
-  <aside id="editor" class="drawer hidden" aria-label="Chỉnh sửa route" aria-modal="true" role="dialog">
-    <div class="drawer-header"><div><span class="eyebrow dark">ROUTE CONFIGURATION</span><h2 id="editor-title">Thêm route</h2></div><button id="close-editor" class="icon-button" type="button" aria-label="Đóng">×</button></div>
-    <form id="route-form">
-      <label for="route-name">Tên route</label><input id="route-name" maxlength="80" minlength="3" required placeholder="Ví dụ: Đơn vé GoTicket">
-      <div class="form-row"><div><label for="route-method">HTTP method</label><select id="route-method"><option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option></select></div><div><label for="route-service">Service đích</label><select id="route-service" required></select></div></div>
-      <label for="route-source">Đường dẫn Gateway</label><input id="route-source" required spellcheck="false" placeholder="/api/v1/tickets/orders/:id"><small>Phải bắt đầu bằng /api/v1/ và không trùng route hệ thống.</small>
-      <label for="route-upstream">Đường dẫn tại service</label><input id="route-upstream" required spellcheck="false" placeholder="/api/v1/orders/:id"><small>Tham số như :id phải có trong đường dẫn Gateway.</small>
-      <label class="switch-row" for="route-enabled"><span><strong>Bật route</strong><small>Luồng được thực thi ngay sau khi lưu.</small></span><input id="route-enabled" type="checkbox" checked></label>
-      <div id="editor-error" class="message error hidden" role="alert"></div>
-      <div class="drawer-actions"><button id="delete-route" class="danger hidden" type="button">Xóa route</button><button id="save-route" class="primary" type="submit">Lưu và áp dụng</button></div>
-    </form>
-  </aside>
-</body>
+    <aside
+      id="service-drawer"
+      class="drawer small-drawer hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Cấu hình service"
+    >
+      <div class="drawer-header">
+        <div>
+          <span class="eyebrow">SERVICE CONFIGURATION</span>
+          <h2 id="service-title">Service</h2>
+        </div>
+        <button class="icon-button close-drawer" aria-label="Đóng">×</button>
+      </div>
+      <form id="service-form">
+        <label
+          >Mã service<input
+            id="service-key"
+            required
+            pattern="[a-z][a-z0-9-]{1,39}"
+            placeholder="ticket" /></label
+        ><label>Tên hiển thị<input id="service-name" required /></label
+        ><label
+          >URL backend<input
+            id="service-target"
+            placeholder="http://127.0.0.1:8087"
+          /><small
+            >Chỉ origin HTTP(S), không kèm đường dẫn. Host phải thuộc danh sách
+            server cho phép.</small
+          ></label
+        ><label
+          >Mô tả<textarea id="service-description" rows="3"></textarea></label
+        ><label class="check-label"
+          ><input id="service-enabled" type="checkbox" checked /> Bật
+          service</label
+        >
+        <p id="service-impact" class="hint"></p>
+        <div id="service-error" class="notice error hidden" role="alert"></div>
+        <div class="drawer-actions">
+          <button id="delete-service" class="danger hidden" type="button">
+            Xóa service</button
+          ><button class="primary" type="submit">Lưu và áp dụng</button>
+        </div>
+      </form>
+    </aside>
+  </body>
 </html>

@@ -1,205 +1,253 @@
-import { randomUUID } from 'node:crypto';
-import { existsSync, readFileSync } from 'node:fs';
-import { mkdir, rename, rm, writeFile } from 'node:fs/promises';
-import { dirname, join, resolve } from 'node:path';
-import { userInfo } from 'node:os';
+import Database from "better-sqlite3";
+import { mkdirSync, existsSync, readFileSync, chmodSync } from "node:fs";
+import { dirname, join, resolve } from "node:path";
+import { userInfo } from "node:os";
+import { EventEmitter } from "node:events";
+import { seedConfiguration, newRoute } from "./seed-config.js";
+import {
+  validateConfiguration,
+  compileConfiguration,
+  RouteValidationError,
+} from "./config-validation.js";
+export { RouteValidationError } from "./config-validation.js";
 
-export const serviceDefinitions = [
-    { key: 'identity', name: 'Identity', env: 'IDENTITY_SERVICE_URL', fallback: 'http://localhost:8080' },
-    { key: 'media', name: 'Media', env: 'MEDIA_SERVICE_URL', fallback: 'http://localhost:5001' },
-    { key: 'catalog', name: 'Catalog & Listing', env: 'CATALOG_SERVICE_URL', fallback: 'http://localhost:8082' },
-    { key: 'booking', name: 'Booking & Inventory', env: 'BOOKING_SERVICE_URL', fallback: 'http://localhost:8083' },
-    { key: 'cart', name: 'Cart & Order', env: 'CART_SERVICE_URL', fallback: 'http://localhost:8084' },
-    { key: 'payment', name: 'Payment & Wallet', env: 'PAYMENT_SERVICE_URL', fallback: 'http://localhost:8085' },
-    { key: 'search', name: 'Search & Recommendation', env: 'SEARCH_SERVICE_URL', fallback: 'http://localhost:8086' },
-    { key: 'car', name: 'GoCar', env: 'CAR_SERVICE_URL', fallback: 'http://localhost:3333' },
-    { key: 'ticket', name: 'GoTicket', env: 'TICKET_SERVICE_URL' },
-];
-
-export const getServiceTargets = () => serviceDefinitions.map(({ key, name, env, fallback }) => {
-    const configured = process.env[env] || fallback;
-    if (!configured) return { key, name, target: null };
-    try {
-        const url = new URL(configured);
-        if (!['http:', 'https:'].includes(url.protocol) || url.username || url.password ||
-            url.pathname !== '/' || url.search || url.hash) throw new Error('Invalid upstream URL');
-        return { key, name, target: url.origin };
-    } catch {
-        return { key, name, target: null };
+export function createRouteRegistry(options = {}) {
+  const legacyFile = options.legacyFile ?? process.env.GATEWAY_ROUTES_FILE;
+  const dbPath =
+    options.dbPath ||
+    process.env.GATEWAY_CONFIG_DB ||
+    (legacyFile
+      ? join(dirname(resolve(legacyFile)), "gateway.sqlite")
+      : join(
+          userInfo().homedir,
+          ".local/share/gotravel-gateway/gateway.sqlite",
+        ));
+  if (dbPath !== ":memory:")
+    mkdirSync(dirname(resolve(dbPath)), { recursive: true, mode: 0o770 });
+  const db = new Database(dbPath);
+  if (db.pragma("user_version", { simple: true }) > 1) {
+    db.close();
+    throw new Error("Gateway database schema is newer than this application");
+  }
+  db.pragma("busy_timeout = 5000");
+  db.pragma("journal_mode = WAL");
+  db.pragma("foreign_keys = ON");
+  db.exec(`
+        CREATE TABLE IF NOT EXISTS meta (id INTEGER PRIMARY KEY CHECK(id=1), version INTEGER NOT NULL, updated_at TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS services (key TEXT PRIMARY KEY, config TEXT NOT NULL CHECK(json_valid(config)));
+        CREATE TABLE IF NOT EXISTS routes (id TEXT PRIMARY KEY, service_key TEXT NOT NULL REFERENCES services(key), config TEXT NOT NULL CHECK(json_valid(config)));
+        CREATE INDEX IF NOT EXISTS routes_service ON routes(service_key);
+        CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY CHECK(id=1), config TEXT NOT NULL CHECK(json_valid(config)));
+        CREATE TABLE IF NOT EXISTS revisions (version INTEGER PRIMARY KEY, created_at TEXT NOT NULL, actor TEXT NOT NULL, reason TEXT NOT NULL, snapshot TEXT NOT NULL CHECK(json_valid(snapshot)));
+        PRAGMA user_version=1;
+    `);
+  const events = new EventEmitter();
+  events.setMaxListeners(100);
+  const meta = db.prepare(
+    "SELECT version, updated_at AS updatedAt FROM meta WHERE id=1",
+  );
+  const insertService = db.prepare(
+    "INSERT INTO services(key,config) VALUES (?,?)",
+  );
+  const insertRoute = db.prepare(
+    "INSERT INTO routes(id,service_key,config) VALUES (?,?,?)",
+  );
+  const readConfig = () => ({
+    services: db
+      .prepare("SELECT config FROM services ORDER BY key")
+      .all()
+      .map((x) => JSON.parse(x.config)),
+    routes: db
+      .prepare("SELECT config FROM routes ORDER BY rowid")
+      .all()
+      .map((x) => JSON.parse(x.config)),
+    settings: JSON.parse(
+      db.prepare("SELECT config FROM settings WHERE id=1").get().config,
+    ),
+  });
+  const permissions = () => {
+    if (dbPath === ":memory:") return;
+    for (const path of [dbPath, `${dbPath}-wal`, `${dbPath}-shm`]) {
+      if (existsSync(path)) {
+        try {
+          chmodSync(path, 0o660);
+        } catch (error) {
+          if (error.code !== "EPERM") throw error;
+        }
+      }
     }
-});
-
-const defaultFile = join(userInfo().homedir, '.local', 'share', 'gotravel-gateway', 'routes.json');
-const METHODS = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE']);
-const ID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const LITERAL_PATTERN = /^[A-Za-z0-9._-]+$/;
-const PARAM_PATTERN = /^:([A-Za-z][A-Za-z0-9_]*)$/;
-
-export class RouteValidationError extends Error {
-    constructor(message, status = 400, code = 'INVALID_GATEWAY_ROUTE') {
-        super(message);
-        this.status = status;
-        this.code = code;
+  };
+  const persist = (config, version, actor, reason) => {
+    const updatedAt = new Date().toISOString();
+    db.exec("DELETE FROM routes; DELETE FROM services;");
+    config.services.forEach((x) => insertService.run(x.key, JSON.stringify(x)));
+    config.routes.forEach((x) =>
+      insertRoute.run(x.id, x.serviceKey, JSON.stringify(x)),
+    );
+    db.prepare("INSERT OR REPLACE INTO settings(id,config) VALUES(1,?)").run(
+      JSON.stringify(config.settings),
+    );
+    db.prepare(
+      "INSERT OR REPLACE INTO meta(id,version,updated_at) VALUES(1,?,?)",
+    ).run(version, updatedAt);
+    db.prepare(
+      "INSERT INTO revisions(version,created_at,actor,reason,snapshot) VALUES(?,?,?,?,?)",
+    ).run(version, updatedAt, actor, reason, JSON.stringify(config));
+    db.prepare("DELETE FROM revisions WHERE version < ?").run(
+      Math.max(1, version - 99),
+    );
+    return { version, updatedAt, ...config };
+  };
+  db.transaction(() => {
+    if (meta.get()) return;
+    let config = options.seed || seedConfiguration();
+    if (legacyFile && existsSync(legacyFile)) {
+      const legacy = JSON.parse(readFileSync(legacyFile, "utf8"));
+      if (!Array.isArray(legacy.routes))
+        throw new Error(
+          "Invalid legacy routes file; refusing to discard configuration",
+        );
+      config.routes.push(
+        ...legacy.routes
+          .map((x) =>
+            newRoute({ ...x, methods: [x.method], method: undefined }),
+          )
+          .map(({ method, ...x }) => x),
+      );
     }
+    config = validateConfiguration(config);
+    persist(config, 1, "migration", "Khởi tạo SQLite từ các route hiện có");
+  }).immediate();
+  permissions();
+  let cached;
+  let dispatch;
+  const current = () => {
+    const current = meta.get();
+    if (!cached || cached.version !== current.version) {
+      // A read transaction keeps meta, services, routes and settings on one
+      // SQLite snapshot when another process commits concurrently.
+      const refreshed = db.transaction(() => ({
+        ...meta.get(),
+        ...readConfig(),
+      }))();
+      const { version, updatedAt, ...data } = refreshed;
+      const config = validateConfiguration(data);
+      dispatch = compileConfiguration(config);
+      cached = { version, updatedAt, ...config };
+    }
+    return cached;
+  };
+  const snapshot = () => structuredClone(current());
+  snapshot();
+  const mutate = (
+    version,
+    update,
+    actor = "unknown",
+    reason = "Cập nhật cấu hình",
+  ) => {
+    if (!Number.isSafeInteger(version))
+      throw new RouteValidationError("Thiếu phiên bản cấu hình.");
+    const result = db
+      .transaction(() => {
+        if (meta.get().version !== version)
+          throw new RouteValidationError(
+            "Cấu hình đã đổi ở phiên khác. Hãy tải lại trước khi lưu.",
+            409,
+            "GATEWAY_CONFIG_CONFLICT",
+          );
+        const config = validateConfiguration(update(readConfig()));
+        compileConfiguration(config);
+        return persist(
+          config,
+          version + 1,
+          String(actor).slice(0, 200),
+          String(reason).slice(0, 500),
+        );
+      })
+      .immediate();
+    permissions();
+    cached = null;
+    snapshot();
+    events.emit("change", {
+      version: result.version,
+      updatedAt: result.updatedAt,
+    });
+    return result;
+  };
+  return {
+    dbPath,
+    snapshot,
+    version: () => current().version,
+    getSettings: () => structuredClone(current().settings),
+    mutate,
+    match: (method, url) => {
+      current();
+      return dispatch(method, url);
+    },
+    getService: (key) =>
+      structuredClone(current().services.find((x) => x.key === key)),
+    replace: (version, config, actor) =>
+      mutate(version, () => config, actor, "Thay toàn bộ cấu hình"),
+    revisions: () =>
+      db
+        .prepare(
+          "SELECT version,created_at AS createdAt,actor,reason FROM revisions ORDER BY version DESC LIMIT 100",
+        )
+        .all(),
+    restore: (version, revision, actor) => {
+      const row = db
+        .prepare("SELECT snapshot FROM revisions WHERE version=?")
+        .get(revision);
+      if (!row) throw new RouteValidationError("Phiên bản không tồn tại.", 404);
+      return mutate(
+        version,
+        () => JSON.parse(row.snapshot),
+        actor,
+        `Khôi phục từ v${revision}`,
+      );
+    },
+    preview: ({ method, url, route }) => {
+      if (
+        typeof url !== "string" ||
+        url.length > 4000 ||
+        !url.startsWith("/") ||
+        !["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"].includes(
+          method,
+        )
+      )
+        throw new RouteValidationError("Request mẫu không hợp lệ.");
+      let config = snapshot();
+      if (route)
+        config.routes = [
+          ...config.routes.filter((x) => x.id !== route.id),
+          route,
+        ];
+      const { services, routes, settings } = config;
+      const matched = compileConfiguration(
+        validateConfiguration({ services, routes, settings }),
+      )(method, url);
+      return matched
+        ? {
+            routeId: matched.route.id,
+            name: matched.route.name,
+            method,
+            gatewayPath: url,
+            backendUrl: matched.backendUrl,
+            serviceKey: matched.service.key,
+            serviceEnabled: matched.service.enabled,
+            auth: matched.route.auth,
+            roles: matched.route.roles,
+            timeoutMs: matched.route.timeoutMs,
+          }
+        : { matched: false, method, gatewayPath: url };
+    },
+    subscribe: (callback) => {
+      events.on("change", callback);
+      return () => events.off("change", callback);
+    },
+    close: () => {
+      events.removeAllListeners();
+      db.close();
+    },
+  };
 }
-
-const pathSegments = (value, field) => {
-    if (typeof value !== 'string' || value.length < 2 || value.length > 180 ||
-        !value.startsWith('/') || value.endsWith('/') || value.includes('//') ||
-        /[?#%\s]/.test(value) || value.includes('\\')) {
-        throw new RouteValidationError(`${field} phải là đường dẫn tuyệt đối, không chứa query, khoảng trắng hoặc ký tự mã hóa.`);
-    }
-    const segments = value.slice(1).split('/');
-    if (segments.length > 12 || segments.some((segment) =>
-        segment === '.' || segment === '..' ||
-        (!LITERAL_PATTERN.test(segment) && !PARAM_PATTERN.test(segment)))) {
-        throw new RouteValidationError(`${field} chứa đoạn đường dẫn không hợp lệ.`);
-    }
-    return segments;
-};
-
-const hasPrefix = (path, prefix) => path === prefix || path.startsWith(`${prefix}/`);
-
-const normalizeRoute = (input, staticRoutes, targets, allowUnavailable = false) => {
-    if (!input || typeof input !== 'object' || Array.isArray(input)) {
-        throw new RouteValidationError('Route phải là một đối tượng.');
-    }
-    const allowedFields = new Set(['id', 'name', 'method', 'sourcePath', 'upstreamPath', 'serviceKey', 'enabled']);
-    if (Object.keys(input).some((field) => !allowedFields.has(field))) {
-        throw new RouteValidationError('Route chứa trường cấu hình không được hỗ trợ.');
-    }
-    const { id, name, method, sourcePath, upstreamPath, serviceKey, enabled } = input;
-    if (typeof id !== 'string' || !ID_PATTERN.test(id)) throw new RouteValidationError('ID route không hợp lệ.');
-    if (typeof name !== 'string' || name.trim().length < 3 || name.trim().length > 80) {
-        throw new RouteValidationError('Tên route phải dài từ 3 đến 80 ký tự.');
-    }
-    if (!METHODS.has(method)) throw new RouteValidationError('HTTP method không được hỗ trợ.');
-    if (typeof enabled !== 'boolean') throw new RouteValidationError('Trạng thái route không hợp lệ.');
-    const service = targets.find((candidate) => candidate.key === serviceKey);
-    if (!service) throw new RouteValidationError('Service đích không được hỗ trợ.');
-    if (!allowUnavailable && enabled && !service.target) {
-        throw new RouteValidationError('Service đích chưa được cấu hình URL hợp lệ.');
-    }
-    const sourceSegments = pathSegments(sourcePath, 'Đường dẫn Gateway');
-    const targetSegments = pathSegments(upstreamPath, 'Đường dẫn service');
-    if (sourceSegments[0] !== 'api' || sourceSegments[1] !== 'v1' || sourceSegments.length < 3) {
-        throw new RouteValidationError('Đường dẫn Gateway phải bắt đầu bằng /api/v1/.');
-    }
-    if (sourceSegments.slice(0, 3).some((segment) => segment.startsWith(':')) ||
-        targetSegments.slice(0, 3).some((segment) => segment.startsWith(':'))) {
-        throw new RouteValidationError('Namespace ba đoạn đầu phải cố định, không dùng tham số.');
-    }
-    if (sourceSegments.some((segment) => segment.toLowerCase() === 'internal') ||
-        targetSegments.some((segment) => segment.toLowerCase() === 'internal')) {
-        throw new RouteValidationError('Không được công khai đường dẫn nội bộ qua Gateway.');
-    }
-    const reserved = ['/api/v1/auth', '/api/v1/gateway-admin', '/api/v1/internal',
-        ...staticRoutes.map((route) => route.url)];
-    if (reserved.some((prefix) => hasPrefix(sourcePath, prefix))) {
-        throw new RouteValidationError('Đường dẫn Gateway trùng namespace của route hệ thống.');
-    }
-    const sourceParams = sourceSegments.filter((segment) => segment.startsWith(':')).map((segment) => segment.slice(1));
-    const targetParams = targetSegments.filter((segment) => segment.startsWith(':')).map((segment) => segment.slice(1));
-    if (new Set(sourceParams).size !== sourceParams.length ||
-        targetParams.some((param) => !sourceParams.includes(param))) {
-        throw new RouteValidationError('Tham số đường dẫn service phải có trong đường dẫn Gateway và không được lặp.');
-    }
-    return { id, name: name.trim(), method, sourcePath, upstreamPath, serviceKey, enabled };
-};
-
-const compile = (route) => {
-    const names = [];
-    const pattern = route.sourcePath.slice(1).split('/').map((segment) => {
-        if (segment.startsWith(':')) {
-            names.push(segment.slice(1));
-            return '([^/]+)';
-        }
-        return segment.replaceAll('.', '\\.');
-    }).join('/');
-    return { ...route, pattern: new RegExp(`^/${pattern}$`), names };
-};
-
-const overlaps = (left, right) => {
-    if (left.method !== right.method) return false;
-    const first = left.sourcePath.split('/');
-    const second = right.sourcePath.split('/');
-    return first.length === second.length && first.every((segment, index) =>
-        segment === second[index] || segment.startsWith(':') || second[index].startsWith(':'));
-};
-
-export const createRouteRegistry = ({ staticRoutes = [], filePath = process.env.GATEWAY_ROUTES_FILE || defaultFile } = {}) => {
-    const location = resolve(filePath);
-    const targets = getServiceTargets();
-    const validateRoutes = (routes, allowUnavailable = false) => {
-        if (!Array.isArray(routes) || routes.length > 100) {
-            throw new RouteValidationError('Danh sách route phải có tối đa 100 mục.');
-        }
-        const normalized = routes.map((route) => normalizeRoute(route, staticRoutes, targets, allowUnavailable));
-        const ids = new Set();
-        for (const route of normalized) {
-            if (ids.has(route.id)) {
-                throw new RouteValidationError('ID route bị trùng.');
-            }
-            ids.add(route.id);
-        }
-        for (let index = 0; index < normalized.length; index += 1) {
-            if (normalized.slice(index + 1).some((other) => overlaps(normalized[index], other))) {
-                throw new RouteValidationError('Các route có cùng method và đường dẫn trùng hoặc chồng lấn.');
-            }
-        }
-        return normalized;
-    };
-
-    let state = { version: 0, updatedAt: null, routes: [] };
-    if (existsSync(location)) {
-        const stored = JSON.parse(readFileSync(location, 'utf8'));
-        if (!Number.isSafeInteger(stored.version) || stored.version < 0) {
-            throw new RouteValidationError('Phiên bản dữ liệu route không hợp lệ.');
-        }
-        state = { version: stored.version, updatedAt: stored.updatedAt || null,
-            routes: validateRoutes(stored.routes, true) };
-    }
-    let compiled = state.routes.map(compile);
-    let queue = Promise.resolve();
-
-    return {
-        snapshot: () => ({ version: state.version, updatedAt: state.updatedAt,
-            routes: state.routes.map((route) => ({ ...route })) }),
-        match: (method, path) => {
-            for (const route of compiled) {
-                if (!route.enabled || route.method !== method) continue;
-                const match = route.pattern.exec(path);
-                if (!match) continue;
-                const values = Object.fromEntries(route.names.map((name, index) => [name, match[index + 1]]));
-                const destination = route.upstreamPath.replace(/:([A-Za-z][A-Za-z0-9_]*)/g,
-                    (_, name) => encodeURIComponent(values[name]));
-                return { serviceKey: route.serviceKey, destination };
-            }
-            return null;
-        },
-        replace: (expectedVersion, routes) => {
-            const work = queue.then(async () => {
-                if (expectedVersion !== state.version) {
-                    throw new RouteValidationError('Cấu hình đã được thay đổi ở phiên khác. Hãy tải lại trước khi lưu.', 409, 'GATEWAY_ROUTE_CONFLICT');
-                }
-                const normalized = validateRoutes(routes);
-                const next = { version: state.version + 1, updatedAt: new Date().toISOString(), routes: normalized };
-                await mkdir(dirname(location), { recursive: true, mode: 0o700 });
-                const temp = `${location}.${randomUUID()}.tmp`;
-                try {
-                    await writeFile(temp, `${JSON.stringify(next, null, 2)}\n`, { flag: 'wx', mode: 0o660 });
-                    await rename(temp, location);
-                } catch (error) {
-                    await rm(temp, { force: true });
-                    throw error;
-                }
-                state = next;
-                compiled = normalized.map(compile);
-                return { version: state.version, updatedAt: state.updatedAt,
-                    routes: state.routes.map((route) => ({ ...route })) };
-            });
-            queue = work.catch(() => {});
-            return work;
-        },
-    };
-};

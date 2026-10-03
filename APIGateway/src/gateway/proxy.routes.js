@@ -1,45 +1,107 @@
 import { createProxyMiddleware } from "http-proxy-middleware";
+import { createDynamicLimiter } from "../middlewares/dynamic-rate-limit.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
-import { allowPublicRequests } from "../middlewares/public-route.middleware.js";
-import {buildErorRespone, GatewayError} from "../utils/response.helper.js";
+import { RouteValidationError } from "./config-validation.js";
 
-import {identityRoutes} from "../configs/routes/identity.route.js";
-import {mediaRoutes } from "../configs/routes/media.route.js";
-import {catalogRoutes} from "../configs/routes/catalog.route.js";
-import {bookingRoutes} from "../configs/routes/booking.route.js";
-import {cartRoutes} from "../configs/routes/cart.route.js";
-import {paymentRoutes} from "../configs/routes/payment.route.js";
-import {searchRoutes} from "../configs/routes/search.route.js";
-import {carRoutes} from "../configs/routes/car.route.js";
-
-export const configuredRoutes = [
-    ...identityRoutes, ...mediaRoutes, ...catalogRoutes, ...bookingRoutes,
-    ...cartRoutes, ...paymentRoutes, ...searchRoutes, ...carRoutes
-].sort((a, b) => b.url.length - a.url.length);
-
-export const setupProxy = (app) => {
-    configuredRoutes.forEach(route => {
-        const middlewares = [
-            ...(!route.auth ? [allowPublicRequests(route.publicRequests)] : []),
-            ...(route.middlewares || []),
-            ...(route.auth ? [verifyJWT] : []),
-            (req, res, next) => {
-                delete req.headers.cookie;
-                delete req.headers['x-csrf-token'];
-                next();
-            }
-        ];
-
-        app.use(route.url, middlewares, createProxyMiddleware({
-            target: route.target,
-            changeOrigin: true,
-            pathRewrite: route.pathRewrite || ((path, req) => req.originalUrl),
-            onError: (err, req, res) => {
-                console.error(`[Proxy Error] Chết kết nối tới ${route.target}${req.url} - Lý do: ${err.message}`);
-                if (!res.headersSent){
-                    return buildErorRespone(res, GatewayError.SERVICE_UNAVAILABLE)
-                }
-            }
-        }));
-    });
+export function setupProxy(app, registry) {
+  const proxies = new Map();
+  const limiter = createDynamicLimiter();
+  let version = -1;
+  app.use((req, res, next) => {
+    const currentVersion = registry.version();
+    if (currentVersion !== version) {
+      // Existing requests keep their proxy closure; subsequent requests use
+      // the committed snapshot. No server restart or partially updated state.
+      proxies.clear();
+      version = currentVersion;
+    }
+    let matched;
+    try {
+      matched = registry.match(req.method, req.originalUrl);
+    } catch (error) {
+      if (error instanceof RouteValidationError)
+        return res
+          .status(error.status)
+          .json({ status: error.status, message: error.message });
+      return next(error);
+    }
+    if (!matched) return next();
+    const { route, service, destination } = matched;
+    if (!service?.enabled || !service.target)
+      return res.status(503).json({
+        status: 503,
+        message: "Service đích đang tắt hoặc chưa được cấu hình.",
+      });
+    const forward = () => {
+      const proxyKey = `${currentVersion}:${route.id}`;
+      let proxy = proxies.get(proxyKey);
+      if (!proxy) {
+        proxy = createProxyMiddleware({
+          target: service.target,
+          changeOrigin: route.changeOrigin,
+          proxyTimeout: route.timeoutMs,
+          timeout: route.timeoutMs + 1000,
+          pathRewrite: (_path, request) => request.gatewayDestination,
+          on: {
+            proxyRes: (response) => {
+              // Browser sessions are created exclusively by the SSO handlers.
+              delete response.headers["set-cookie"];
+              for (const key of Object.keys(response.headers))
+                if (key.startsWith("access-control-"))
+                  delete response.headers[key];
+              route.headers.removeResponse.forEach(
+                (key) => delete response.headers[key],
+              );
+              Object.assign(response.headers, route.headers.response);
+            },
+            error: (error, request, response) => {
+              const timedOut =
+                Date.now() - request.gatewayStartedAt >= route.timeoutMs ||
+                error.code === "ETIMEDOUT";
+              if (!response.headersSent)
+                response.writeHead(timedOut ? 504 : 503, {
+                  "content-type": "application/json",
+                });
+              if (!response.writableEnded)
+                response.end(
+                  JSON.stringify({
+                    status: timedOut ? 504 : 503,
+                    message: timedOut
+                      ? "Backend phản hồi quá thời gian cho phép."
+                      : "Không thể kết nối backend.",
+                  }),
+                );
+            },
+          },
+        });
+        proxies.set(proxyKey, proxy);
+      }
+      req.gatewayDestination = destination;
+      req.gatewayStartedAt = Date.now();
+      delete req.headers.cookie;
+      delete req.headers["x-csrf-token"];
+      if (route.auth === "public" || !route.forwardAuthorization)
+        delete req.headers.authorization;
+      route.headers.removeRequest.forEach((key) => delete req.headers[key]);
+      Object.assign(req.headers, route.headers.request);
+      proxy(req, res, next);
+    };
+    const authenticate = () => {
+      if (route.auth === "public") return forward();
+      verifyJWT(req, res, () => {
+        const roles = req.auth.roles.split(/\s+/);
+        if (
+          route.roles.length &&
+          !route.roles.some((role) => roles.includes(role))
+        )
+          return res.status(403).json({
+            status: 403,
+            message: "Tài khoản không có quyền truy cập route này.",
+          });
+        forward();
+      });
+    };
+    if (!route.rateLimit.enabled) return authenticate();
+    return limiter(req, res, authenticate, route.id, route.rateLimit);
+  });
 }
