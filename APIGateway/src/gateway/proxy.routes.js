@@ -12,14 +12,13 @@ import {paymentRoutes} from "../configs/routes/payment.route.js";
 import {searchRoutes} from "../configs/routes/search.route.js";
 import {carRoutes} from "../configs/routes/car.route.js";
 
+export const configuredRoutes = [
+    ...identityRoutes, ...mediaRoutes, ...catalogRoutes, ...bookingRoutes,
+    ...cartRoutes, ...paymentRoutes, ...searchRoutes, ...carRoutes
+].sort((a, b) => b.url.length - a.url.length);
+
 export const setupProxy = (app) => {
-    const routes = [
-        ...identityRoutes, ...mediaRoutes, ...catalogRoutes, ...bookingRoutes, ...cartRoutes, ...paymentRoutes, ...searchRoutes, ...carRoutes
-    ];
-
-    routes.sort((a, b) => b.url.length  - a.url.length);
-
-    routes.forEach(route => {
+    configuredRoutes.forEach(route => {
         const middlewares = [
             ...(!route.auth ? [allowPublicRequests(route.publicRequests)] : []),
             ...(route.middlewares || []),

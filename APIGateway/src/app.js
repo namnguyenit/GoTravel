@@ -1,7 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import {setupProxy} from './gateway/proxy.routes.js';
+import { fileURLToPath } from 'node:url';
+import { configuredRoutes, setupProxy } from './gateway/proxy.routes.js';
 import { setupSessionRoutes } from './gateway/session.routes.js';
+import { createRouteRegistry } from './gateway/route-registry.js';
+import { setupDynamicProxy, setupGatewayAdmin } from './gateway/gateway-admin.routes.js';
 import { isAllowedOrigin, protectCookieRequests } from './middlewares/csrf.middleware.js';
 import { buildErrorResponse, buildSuccessResponse, GatewayError, GatewaySuccess } from './utils/response.helper.js';
 
@@ -50,7 +53,24 @@ app.use((req, res, next) => {
 });
 
 setupSessionRoutes(app);
+const routeRegistry = createRouteRegistry({ staticRoutes: configuredRoutes });
+setupGatewayAdmin(app, routeRegistry, configuredRoutes);
 setupProxy(app);
+setupDynamicProxy(app, routeRegistry);
+
+const adminUi = fileURLToPath(new URL('./admin-ui/', import.meta.url));
+app.use('/admin/gateway', (_req, res, next) => {
+    res.set({
+        'Cache-Control': 'no-store',
+        'Content-Security-Policy': "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
+        'X-Content-Type-Options': 'nosniff',
+        'X-Frame-Options': 'DENY',
+        'Referrer-Policy': 'no-referrer'
+    });
+    next();
+});
+app.get('/admin/gateway', (_req, res) => res.sendFile(`${adminUi}/index.html`));
+app.use('/admin/gateway', express.static(adminUi, { index: false, dotfiles: 'deny' }));
 
 app.get('/health', (req, res) => {
     // Log ra console để ghi nhận có request (tạo activity log)
