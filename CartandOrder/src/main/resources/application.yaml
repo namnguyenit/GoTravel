@@ -10,7 +10,7 @@ server:
   port: 8084
 internal:
   service:
-    token: ${INTERNAL_SERVICE_TOKEN:gostay-internal-secret-token-12345}
+    token: ${INTERNAL_SERVICE_TOKEN:}
 services:
   catalog:
     url: ${CATALOG_SERVICE_URL:http://localhost:8082}

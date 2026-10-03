@@ -24,8 +24,8 @@ export default function HostLayout({ children }: { children: React.ReactNode }) 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
-    const checkAuth = () => {
-      if (!AuthService.isAuthenticated()) {
+    const checkAuth = async () => {
+      if (!await AuthService.getSession()) {
         router.push("/");
         return;
       }

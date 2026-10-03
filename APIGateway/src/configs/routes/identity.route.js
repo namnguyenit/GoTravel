@@ -63,16 +63,9 @@ export const identityRoutes = [
     },
 
     // ==========================================
-    // 2a. REFRESH ROLES (Auth - Yêu cầu JWT hợp lệ)
-    // Route này phải trước /api/v1/auth để sorting theo URL length ưu tiên đúng
+    // 2a. Browser session routes (login, session, refresh-roles, logout)
+    // are handled by the Gateway before proxying so JWT never reaches JavaScript.
     // ==========================================
-    {
-        url: '/api/v1/auth/refresh-roles',
-        target: (process.env.IDENTITY_SERVICE_URL || "http://localhost:8080"),
-        auth: true,
-        pathRewrite: () => '/api/auth/refresh-roles'
-    },
-
     // ==========================================
     // 2b. NHÓM AUTH (Đăng nhập, Đăng ký - Không Auth)
     // ==========================================
@@ -81,7 +74,6 @@ export const identityRoutes = [
         target: (process.env.IDENTITY_SERVICE_URL || "http://localhost:8080"),
         auth: false,
         publicRequests: [
-            { method: 'POST', path: '/api/v1/auth/login' },
             { method: 'POST', path: '/api/v1/auth/register' },
             { method: 'POST', path: '/api/v1/auth/forgot-password' },
             { method: 'POST', path: '/api/v1/auth/reset-password' }
@@ -93,9 +85,7 @@ export const identityRoutes = [
             const query = parts[1] ? `?${parts[1]}` : '';
 
             // Phiên dịch URL từ Frontend sang Backend
-            if (url === '/api/v1/auth/login') return '/api/auth/login' + query;
             if (url === '/api/v1/auth/register') return '/api/users' + query; // Nối vào @PostMapping("/api/users")
-            if (url === '/api/v1/auth/refresh-roles') return '/api/auth/refresh-roles' + query;
             if (url === '/api/v1/auth/forgot-password') return '/api/auth/forgot-password' + query;
             if (url === '/api/v1/auth/reset-password') return '/api/auth/reset-password' + query;
 

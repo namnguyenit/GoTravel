@@ -19,5 +19,4 @@ media:
     token: ${MEDIA_INTERNAL_SERVICE_TOKEN:}
 internal:
   service:
-    token: ${INTERNAL_SERVICE_TOKEN:gostay-internal-secret-token-12345}
-
+    token: ${INTERNAL_SERVICE_TOKEN:}

@@ -66,7 +66,7 @@ public class AuthenticationService {
 
         user.setLastLoginAt(Instant.now());
         userRepository.save(user);
-        var token = generateToken(user);
+        var token = generateToken(user, Instant.now().plus(8, ChronoUnit.HOURS));
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();
@@ -77,7 +77,7 @@ public class AuthenticationService {
      * Không cần password — chỉ cần userId (lấy từ JWT hiện tại đã xác thực).
      */
     @Transactional(readOnly = true)
-    public AuthenticationResponse refreshRoles(String userId) {
+    public AuthenticationResponse refreshRoles(String userId, Instant originalExpiry) {
         var user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(UserErrorCode.USER_NOT_FOUND));
 
@@ -89,14 +89,17 @@ public class AuthenticationService {
             throw new AppException(UserErrorCode.BANED_USER);
         }
 
-        var token = generateToken(user);
+        if (originalExpiry == null || !originalExpiry.isAfter(Instant.now())) {
+            throw new AppException(AuthErrorCode.UNAUTHENTICATED);
+        }
+        var token = generateToken(user, originalExpiry);
         return AuthenticationResponse.builder()
                 .token(token)
                 .build();
     }
 
     // BƯỚC 3: SỬA HÀM TẠO TOKEN ĐỂ DÙNG PRIVATE KEY KÝ VÀO.
-    private String generateToken(User user) {
+    private String generateToken(User user, Instant expiresAt) {
         // Chuyển sang thuật toán RSA256, phải gắn kèm keyID để người phân loại (ở ngoài
         // ai thích lấy thì gọi key này)
         JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.RS256)
@@ -109,8 +112,7 @@ public class AuthenticationService {
                 .issuer("com.gotravel.identity")
                 .audience(List.of("gotravel-api", "goticket-api"))
                 .issueTime(new Date())
-                .expirationTime(new Date(
-                        Instant.now().plus(30, ChronoUnit.DAYS).toEpochMilli()))
+                .expirationTime(Date.from(expiresAt))
                 .claim("scope", buildScope(user))
                 .build();
 

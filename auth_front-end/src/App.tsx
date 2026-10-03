@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import "./auth-theme.css";
 import {
   AuthService,
-  getAuthToken,
-  isTokenValid,
   clearAuthCookie,
 } from "./services/auth.service";
 import {
@@ -115,19 +113,21 @@ export default function App() {
 
     // Handle logout action
     if (action === "logout" || window.location.pathname === "/logout") {
-      clearAuthCookie();
-      setSuccess("Bạn đã đăng xuất an toàn khỏi toàn bộ hệ thống GoTravel.");
+      void clearAuthCookie()
+        .then(() => setSuccess("Bạn đã đăng xuất an toàn khỏi toàn bộ hệ thống GoTravel."))
+        .catch(() => setError("Không thể đăng xuất lúc này. Vui lòng thử lại."));
       return;
     }
 
     // NẾU NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP: Tự động chuyển hướng ngay về GoTravel / redirect_uri
-    const token = getAuthToken();
-    if (token && isTokenValid(token)) {
-      const destination = target || (window.location.hostname.includes("nonnet123.io.vn")
-        ? "https://gostay.nonnet123.io.vn"
-        : "http://localhost:3000");
-      window.location.replace(destination);
-    }
+    void AuthService.getMe().then((profile) => {
+      if (profile) {
+        const destination = target || (window.location.hostname.includes("nonnet123.io.vn")
+          ? "https://gostay.nonnet123.io.vn"
+          : "http://localhost:3000");
+        window.location.replace(destination);
+      }
+    });
   }, []);
 
   // Completion handoff to redirect_uri or GoStay

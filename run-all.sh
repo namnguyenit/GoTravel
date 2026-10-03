@@ -171,15 +171,25 @@ if [ "$svc_name" = "identity" ]; then
         set -a
         # Identity/.env contains the untracked JWT signing credentials.
         source "$dir/.env"
+        if [ -f "$PROJECT_DIR/Identity/.secrets/internal.env" ]; then
+            source "$PROJECT_DIR/Identity/.secrets/internal.env"
+        fi
         set +a
         pm2 start java \
             --name "${APP_PREFIX}-${svc_name}" \
             -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
     )
 else
-    pm2 start java \
-        --name "${APP_PREFIX}-${svc_name}" \
-        -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
+    (
+        set -a
+        if [ -f "$PROJECT_DIR/Identity/.secrets/internal.env" ]; then
+            source "$PROJECT_DIR/Identity/.secrets/internal.env"
+        fi
+        set +a
+        pm2 start java \
+            --name "${APP_PREFIX}-${svc_name}" \
+            -- -Xms64m -Xmx256m -Xss384k -XX:+UseG1GC -jar "$jar_file"
+    )
 fi
 
 log "$svc_name started"

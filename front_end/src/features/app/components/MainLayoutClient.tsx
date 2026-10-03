@@ -203,8 +203,8 @@ export default function MainLayoutClient({
     pathName.startsWith("/orders") ||
     pathName.startsWith("/disputes");
 
-  const handleLogout = () => {
-    AuthService.logout();
+  const handleLogout = async () => {
+    await AuthService.logout();
     setCurrentUser(null);
     window.location.href = "/";
   };
@@ -214,9 +214,9 @@ export default function MainLayoutClient({
 
     const initUser = async () => {
       const cached = AuthService.getCurrentUser() as CurrentUser;
-      const hasToken = AuthService.isAuthenticated();
+      const session = await AuthService.getSession();
 
-      if (!hasToken) {
+      if (!session) {
         if (cached && typeof window !== "undefined") {
           localStorage.removeItem("user_info");
         }

@@ -2,6 +2,7 @@ import jwt  from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 import NodeCache from "node-cache";
 import { buildErorRespone, GatewayError} from "../utils/response.helper.js";
+import { readCookie } from './csrf.middleware.js';
 
 const client = jwksClient({
     jwksUri: `${process.env.IDENTITY_SERVICE_URL}/.well-known/jwks.json`,
@@ -39,15 +40,9 @@ const getInternalServiceToken = () => {
 
 export const verifyJWT = (req, res, next) => {
     const authHeader = req.headers["authorization"];
-    let token = authHeader && authHeader.split(' ')[1];
-
-    // Fallback: Check access_token cookie if Authorization header is missing
-    if (!token && req.headers.cookie) {
-        const match = req.headers.cookie.match(/(?:^|;\s*)(?:access_token|token)=([^;]+)/);
-        if (match) {
-            token = decodeURIComponent(match[1]);
-        }
-    }
+    const bearer = typeof authHeader === 'string' && /^Bearer [^\s]+$/.test(authHeader) ? authHeader.slice(7) : undefined;
+    const cookieToken = readCookie(req, 'access_token');
+    const token = bearer || cookieToken;
 
     if (!token) {
         return buildErorRespone(res, GatewayError.MISSING_TOKEN);
@@ -56,7 +51,8 @@ export const verifyJWT = (req, res, next) => {
     jwt.verify(token, getKey , { 
         algorithms: ["RS256"],
         issuer: "com.gotravel.identity",
-        audience: "gotravel-api"
+        audience: "gotravel-api",
+        maxAge: '8h'
     }, async (err, decoded) => {
         if (err){
             return  buildErorRespone(res, GatewayError.INVALID_TOKEN);
@@ -91,6 +87,7 @@ export const verifyJWT = (req, res, next) => {
             }
             req.headers['x-user-id']= userId;
             req.headers['x-user-roles']= roles;
+            req.auth = { sub: userId, roles, exp: decoded.exp, source: bearer ? 'bearer' : 'cookie' };
             if (!authHeader && token) {
                 req.headers['authorization'] = `Bearer ${token}`;
             }

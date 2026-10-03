@@ -41,7 +41,7 @@ public class PasswordResetService {
     @Value("${communication.service.forgot-password-url:http://localhost:5001/api/v1/communications/email/forgot-password}")
     String forgotPasswordEmailUrl;
 
-    @Value("${communication.service.token:gostay-internal-secret-token-12345}")
+    @Value("${communication.service.token:}")
     String communicationToken;
 
     @Value("${password-reset.otp-expiration-minutes:10}")

@@ -1,6 +1,7 @@
 package com.gotravel.Identity.controller;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,9 +55,8 @@ public class AuthenticationController {
      */
     @PostMapping("/refresh-roles")
     public ApiRequest<AuthenticationResponse> refreshRoles() {
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        var result = authenticationService.refreshRoles(userId);
+        Jwt jwt = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var result = authenticationService.refreshRoles(jwt.getSubject(), jwt.getExpiresAt());
         return ApiRequest.success(SuccessCode.LOGIN_SUCCESS, result);
     }
 }
-

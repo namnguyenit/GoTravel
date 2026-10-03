@@ -23,7 +23,12 @@ export const setupProxy = (app) => {
         const middlewares = [
             ...(!route.auth ? [allowPublicRequests(route.publicRequests)] : []),
             ...(route.middlewares || []),
-            ...(route.auth ? [verifyJWT] : [])
+            ...(route.auth ? [verifyJWT] : []),
+            (req, res, next) => {
+                delete req.headers.cookie;
+                delete req.headers['x-csrf-token'];
+                next();
+            }
         ];
 
         app.use(route.url, middlewares, createProxyMiddleware({

@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import {setupProxy} from './gateway/proxy.routes.js';
+import { setupSessionRoutes } from './gateway/session.routes.js';
+import { isAllowedOrigin, protectCookieRequests } from './middlewares/csrf.middleware.js';
 import { buildErrorResponse, buildSuccessResponse, GatewayError, GatewaySuccess } from './utils/response.helper.js';
 
 const app = express();
@@ -11,7 +13,10 @@ if (trustedProxy === "true" || /^\d+$/.test(trustedProxy)) {
 }
 app.set("trust proxy", trustedProxy === "false" ? false : trustedProxy);
 
-app.use(cors());
+app.use(cors({
+    origin: (origin, callback) => callback(null, !origin || isAllowedOrigin(origin)),
+    credentials: true
+}));
 
 // GeoIP restriction: only allow Vietnam traffic through Cloudflare Tunnel
 app.use((req, res, next) => {
@@ -28,12 +33,13 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    delete req.headers["x-internal-service-token"];
-    delete req.headers["x-internal-token"];
-    delete req.headers["x-user-id"];
-    delete req.headers["x-user-roles"];
+    for (const name of Object.keys(req.headers)) {
+        if (/^(x-internal-|x-user-)/i.test(name)) delete req.headers[name];
+    }
     next();
 });
+
+app.use(protectCookieRequests);
 
 app.use((req, res, next) => {
     if (req.path === "/api/v1/internal" || req.path.startsWith("/api/v1/internal/")) {
@@ -43,6 +49,7 @@ app.use((req, res, next) => {
     next();
 });
 
+setupSessionRoutes(app);
 setupProxy(app);
 
 app.get('/health', (req, res) => {

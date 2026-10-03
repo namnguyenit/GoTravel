@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
+import { timingSafeEqual } from 'node:crypto';
 import jwksClient from "jwks-rsa";
 import { throwError } from "../utils/throwError.js";
 
 const identityServiceUrl = process.env.IDENTITY_SERVICE_URL || "http://localhost:8080";
-const defaultInternalServiceToken = "gostay-internal-secret-token-12345";
 
 const client = jwksClient({
     jwksUri: `${identityServiceUrl}/.well-known/jwks.json`,
@@ -24,12 +24,22 @@ function getKey(header, callback) {
 
 export const verifyMediaJWT = (req, res, next) => {
     const internalServiceToken =
-        process.env.INTERNAL_SERVICE_TOKEN ||
         process.env.MEDIA_INTERNAL_SERVICE_TOKEN ||
-        defaultInternalServiceToken;
+        process.env.INTERNAL_SERVICE_TOKEN;
     const providedServiceToken = req.headers["x-internal-service-token"];
 
-    if (internalServiceToken && providedServiceToken === internalServiceToken) {
+    if (providedServiceToken && !internalServiceToken) {
+        return res.status(503).json({ success: false, code: 'INTERNAL_TOKEN_NOT_CONFIGURED', message: 'Internal service token is not configured' });
+    }
+
+    const matchesInternalToken = typeof providedServiceToken === 'string' && typeof internalServiceToken === 'string'
+        && Buffer.byteLength(providedServiceToken) === Buffer.byteLength(internalServiceToken)
+        && timingSafeEqual(Buffer.from(providedServiceToken), Buffer.from(internalServiceToken));
+    if (providedServiceToken && !matchesInternalToken) {
+        return next(throwError("UNAUTHORIZED"));
+    }
+
+    if (matchesInternalToken) {
         req.headers["x-user-id"] = "identity-service";
         req.headers["x-user-roles"] = "INTERNAL_SERVICE";
         return next();
@@ -42,7 +52,7 @@ export const verifyMediaJWT = (req, res, next) => {
         return next(throwError("UNAUTHORIZED"));
     }
 
-    jwt.verify(token, getKey, { algorithms: ["RS256"], issuer: "com.gotravel.identity" }, (err, decoded) => {
+    jwt.verify(token, getKey, { algorithms: ["RS256"], issuer: "com.gotravel.identity", audience: "gotravel-api", maxAge: '8h' }, (err, decoded) => {
         if (err || !decoded?.sub) {
             return next(throwError("UNAUTHORIZED"));
         }

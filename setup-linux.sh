@@ -20,7 +20,7 @@ CATALOG_READER_PASSWORD="${CATALOG_READER_PASSWORD:-reader_password}"
 RECOMMENDATION_DB_USER="${RECOMMENDATION_DB_USER:-recommendation_user}"
 RECOMMENDATION_DB_PASSWORD="${RECOMMENDATION_DB_PASSWORD:-recommendation_password}"
 
-INTERNAL_TOKEN="${INTERNAL_TOKEN:-gostay-internal-secret-token-12345}"
+INTERNAL_TOKEN="${INTERNAL_TOKEN:-}"
 GATEWAY_PORT="${GATEWAY_PORT:-5555}"
 MEDIA_PORT="${MEDIA_PORT:-5001}"
 SEARCH_PORT="${SEARCH_PORT:-8086}"
@@ -251,6 +251,26 @@ generate_env_files() {
   info "GENERATING ENV FILES"
   line
 
+  umask 077
+  mkdir -p Identity/.secrets
+  if [[ -z "$INTERNAL_TOKEN" && -f Identity/.secrets/internal.env ]]; then
+    INTERNAL_TOKEN="$(sed -n 's/^INTERNAL_SERVICE_TOKEN=//p' Identity/.secrets/internal.env | head -n 1)"
+  fi
+  if [[ -z "$INTERNAL_TOKEN" ]]; then
+    INTERNAL_TOKEN="$(openssl rand -hex 32)"
+  fi
+  printf 'INTERNAL_SERVICE_TOKEN=%s\n' "$INTERNAL_TOKEN" > Identity/.secrets/internal.env
+  chmod 600 Identity/.secrets/internal.env
+
+  local csrf_secret
+  csrf_secret="${CSRF_SECRET:-}"
+  if [[ -z "$csrf_secret" && -f APIGateway/.env ]]; then
+    csrf_secret="$(sed -n 's/^CSRF_SECRET=//p' APIGateway/.env | head -n 1)"
+  fi
+  if [[ -z "$csrf_secret" ]]; then
+    csrf_secret="$(openssl rand -hex 32)"
+  fi
+
   cat > APIGateway/.env <<EOF
 GATEWAY_PORT=${GATEWAY_PORT}
 GATEWAY_BIND_HOST=127.0.0.1
@@ -263,6 +283,8 @@ CART_SERVICE_URL=http://localhost:8084
 PAYMENT_SERVICE_URL=http://localhost:8085
 SEARCH_SERVICE_URL=http://localhost:${SEARCH_PORT}
 INTERNAL_SERVICE_TOKEN=${INTERNAL_TOKEN}
+CSRF_SECRET=${csrf_secret}
+AUTH_COOKIE_DOMAIN=nonnet123.io.vn
 EOF
   log "APIGateway/.env created"
 

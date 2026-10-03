@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Star, MessageSquare } from 'lucide-react';
 import ServiceServices from '@/services/service';
 import OrderService from '@/services/order';
-import Cookies from 'js-cookie';
+import AuthService from '@/services/auth.service';
 import ReviewModal from './ReviewModal';
 
 interface Review {
@@ -26,7 +26,7 @@ export default function ReviewSection({ listingId }: ReviewSectionProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
-    setIsLoggedIn(!!Cookies.get("access_token"));
+    setIsLoggedIn(AuthService.isAuthenticated());
   }, []);
 
   const fetchReviews = async () => {

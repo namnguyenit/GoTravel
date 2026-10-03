@@ -37,8 +37,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   };
 
   useEffect(() => {
-    const checkAuth = () => {
-      if (!AuthService.isAuthenticated()) {
+    const checkAuth = async () => {
+      if (!await AuthService.getSession()) {
         router.push("/");
         return;
       }
@@ -247,8 +247,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </div>
             </div>
             <button
-              onClick={() => {
-                AuthService.logout();
+              onClick={async () => {
+                await AuthService.logout();
                 router.push("/");
               }}
               className="w-7 h-7 flex items-center justify-center text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition-all"
