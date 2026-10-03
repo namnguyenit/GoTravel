@@ -21,6 +21,17 @@ import { PrometheusModule } from '@willsoto/nestjs-prometheus';
     }),
     LoggerModule.forRoot({
       pinoHttp: {
+        redact: {
+          paths: [
+            'req.headers.authorization',
+            'req.headers.cookie',
+            'req.headers["x-internal-service-token"]',
+            'req.headers["x-internal-token"]',
+            'req.headers["x-csrf-token"]',
+            'res.headers["set-cookie"]',
+          ],
+          censor: '[REDACTED]',
+        },
         transport: {
           target: 'pino-pretty',
           options: {

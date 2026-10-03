@@ -119,8 +119,7 @@ export class SearchService {
       };
     }
 
-    const startTime = Date.now();
-    const candidates = await this.listingRepo.search({
+    const searchParams = {
       ...(hasCoordinates ? { lat, lng, radiusMeters } : {}),
       ...(hasBbox
         ? {
@@ -135,52 +134,50 @@ export class SearchService {
       complexId,
       category,
       subCategory: dto.subCategory,
-      limit: dto.limit || 20,
-      offset: dto.offset || 0,
       minPrice: dto.minPrice,
       maxPrice: dto.maxPrice,
       minRating: dto.minRating,
       amenities: dto.amenities ? dto.amenities.split(',') : undefined,
       sortBy: dto.sortBy,
-    });
-    this.logger.debug(
-      `DB Query duration (search): ${Date.now() - startTime}ms, found ${candidates.length} items.`,
-    );
+    };
 
-    let finalItems = candidates;
     const availabilityStart = dto.checkIn || this.getTodayIso();
     const availabilityEnd = dto.checkOut || availabilityStart;
-    if (availabilityStart && availabilityEnd) {
-      const listingIds = candidates.map((c) => c.id);
-      if (listingIds.length > 0) {
-        try {
-          const invStartTime = Date.now();
-          const inventoryRes =
-            await this.inventoryClient.checkBatchAvailability({
-              listingIds,
-              startDate: availabilityStart,
-              endDate: availabilityEnd,
-              requiredQuantity: dto.guests || 1,
-            });
-          this.logger.debug(
-            `Inventory check duration: ${Date.now() - invStartTime}ms`,
-          );
-          const availableSet = new Set(inventoryRes.availableListingIds || []);
-          finalItems = candidates
-            .filter((c) => availableSet.has(c.id))
-            .map((c) => ({
-              ...c,
-              isAvailable: true,
-            }));
-        } catch (e) {
-          this.logger.error(
-            'Inventory client check failed, returning no date-filtered listings',
-            e,
-          );
-          finalItems = [];
-        }
-      }
+    const pageLimit = dto.limit || 20;
+    const pageOffset = dto.offset || 0;
+    const requiredAvailableCount = pageOffset + pageLimit;
+    const batchSize = 50;
+    const availableItems: any[] = [];
+    let rawOffset = 0;
+
+    // Availability lives in another service. Apply pagination after checking
+    // inventory so an unavailable first batch cannot hide later listings.
+    while (availableItems.length < requiredAvailableCount) {
+      const candidates = await this.listingRepo.search({
+        ...searchParams,
+        limit: batchSize,
+        offset: rawOffset,
+      });
+      if (candidates.length === 0) break;
+      rawOffset += candidates.length;
+
+      const inventoryRes = await this.inventoryClient.checkBatchAvailability({
+        listingIds: candidates.map((candidate) => candidate.id),
+        startDate: availabilityStart,
+        endDate: availabilityEnd,
+        requiredQuantity: dto.guests || 1,
+      });
+      const availableSet = new Set(inventoryRes.availableListingIds || []);
+      availableItems.push(
+        ...candidates
+          .filter((candidate) => availableSet.has(candidate.id))
+          .map((candidate) => ({ ...candidate, isAvailable: true })),
+      );
+
+      if (candidates.length < batchSize) break;
     }
+
+    const finalItems = availableItems.slice(pageOffset, requiredAvailableCount);
 
     let result: any;
     if (category === CategoryMode.ALL) {
