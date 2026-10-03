@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { createServer } from "node:http";
+import { createServer, request as httpRequest } from "node:http";
 import { generateKeyPairSync } from "node:crypto";
 import { mkdtempSync, rmSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
@@ -44,23 +44,30 @@ const update = (route) =>
   json(`/routes/${route.id}`, "PUT", { version: version(), item: route });
 let customRoute;
 let adminRoleActive = true;
+let secondUserToken;
+const upstreamPaths = [];
 
 before(async () => {
   const { publicKey, privateKey } = generateKeyPairSync("rsa", {
     modulusLength: 2048,
   });
-  const sign = (role) =>
+  const sign = (
+    role,
+    subject = role === "ROLE_ADMIN" ? "test-admin" : "test-user",
+  ) =>
     jwt.sign({ scope: role }, privateKey, {
       algorithm: "RS256",
       keyid: "admin-test",
-      subject: role === "ROLE_ADMIN" ? "test-admin" : "test-user",
+      subject,
       issuer: "com.gotravel.identity",
       audience: "gotravel-api",
       expiresIn: "8h",
     });
   adminToken = sign("ROLE_ADMIN");
   userToken = sign("ROLE_USER");
+  secondUserToken = sign("ROLE_USER", "test-user-2");
   const handler = (marker) => (req, res) => {
+    upstreamPaths.push({ marker, path: req.url, method: req.method });
     res.setHeader("content-type", "application/json");
     if (req.url === "/.well-known/jwks.json")
       return res.end(
@@ -707,4 +714,493 @@ test("CORS, country policy, session lifetime and login limits change without res
       200,
     );
   }
+});
+
+test("REST batch saves all endpoints atomically and rejects a conflicting batch", async () => {
+  const base = "/api/v1/rest-sample/items";
+  const items = [
+    ["GET", false],
+    ["GET", true],
+    ["POST", false],
+    ["PUT", true],
+    ["PATCH", true],
+    ["DELETE", true],
+  ].map(([method, item]) =>
+    newRoute({
+      name: `REST ${method} ${item ? "item" : "collection"}`,
+      serviceKey: "ticket",
+      sourcePath: base + (item ? "/:id" : ""),
+      upstreamPath: "/api/items" + (item ? "/:id" : ""),
+      methods: [method],
+      paramTypes: item ? { id: "number" } : {},
+    }),
+  );
+  const oldVersion = version();
+  const saved = await json("/routes/batch", "POST", {
+    version: oldVersion,
+    items,
+  });
+  assert.equal(saved.status, 200);
+  assert.equal(version(), oldVersion + 1);
+  for (const route of items) {
+    const path = route.sourcePath.replace(":id", "42");
+    const response = await fetch(baseUrl + path, {
+      method: route.methods[0],
+      headers: headers(userToken),
+    });
+    assert.equal(response.status, 200);
+    const data = await response.json();
+    assert.equal(data.method, route.methods[0]);
+    assert.equal(data.path, route.upstreamPath.replace(":id", "42"));
+  }
+  const before = registry.snapshot();
+  const valid = newRoute({
+    name: "Atomic candidate",
+    sourcePath: "/api/v1/atomic-candidate",
+  });
+  const conflict = { ...items[0], id: newRoute().id };
+  assert.equal(
+    (
+      await json("/routes/batch", "POST", {
+        version: before.version,
+        items: [valid, conflict],
+      })
+    ).status,
+    400,
+  );
+  assert.equal(version(), before.version);
+  assert.equal(registry.match("GET", valid.sourcePath), null);
+  assert.equal(
+    (
+      await json("/routes/batch", "POST", {
+        version: oldVersion,
+        items: [valid],
+      })
+    ).status,
+    409,
+  );
+});
+
+test("user and IP-user quotas use verified accounts and groups share their counters", async () => {
+  const route = newRoute({
+    name: "Per account quota",
+    sourcePath: "/api/v1/account-quota",
+    upstreamPath: "/quota",
+    rateLimit: {
+      enabled: true,
+      limit: 1,
+      windowMs: 60000,
+      key: "user",
+      group: "",
+    },
+  });
+  assert.equal((await add(route)).status, 200);
+  assert.equal(
+    (await fetch(baseUrl + route.sourcePath, { headers: headers(userToken) }))
+      .status,
+    200,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        headers: {
+          ...headers(userToken),
+          "x-forwarded-for": "198.51.100.1",
+          "x-user-id": "fake",
+        },
+      })
+    ).status,
+    429,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        headers: headers(secondUserToken),
+      })
+    ).status,
+    200,
+  );
+  const both = newRoute({
+    name: "IP account quota",
+    sourcePath: "/api/v1/ip-account-quota",
+    upstreamPath: "/quota",
+    rateLimit: {
+      enabled: true,
+      limit: 1,
+      windowMs: 60000,
+      key: "ip-user",
+      group: "",
+    },
+  });
+  assert.equal((await add(both)).status, 200);
+  assert.equal(
+    (await fetch(baseUrl + both.sourcePath, { headers: headers(userToken) }))
+      .status,
+    200,
+  );
+  assert.equal(
+    (await fetch(baseUrl + both.sourcePath, { headers: headers(userToken) }))
+      .status,
+    429,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + both.sourcePath, {
+        headers: { ...headers(userToken), "x-forwarded-for": "198.51.100.1" },
+      })
+    ).status,
+    200,
+  );
+  const policy = {
+    enabled: true,
+    limit: 2,
+    windowMs: 60000,
+    key: "user",
+    group: "shared-actions",
+  };
+  const first = newRoute({
+    name: "Shared action one",
+    serviceKey: "ticket",
+    sourcePath: "/api/v1/shared-one",
+    upstreamPath: "/one",
+    rateLimit: policy,
+  });
+  const secondRoute = newRoute({
+    name: "Shared action two",
+    serviceKey: "ticket",
+    sourcePath: "/api/v1/shared-two",
+    upstreamPath: "/two",
+    rateLimit: policy,
+  });
+  assert.equal(
+    (
+      await json("/routes/batch", "POST", {
+        version: version(),
+        items: [first, secondRoute],
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    (await fetch(baseUrl + first.sourcePath, { headers: headers(userToken) }))
+      .status,
+    200,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + secondRoute.sourcePath, {
+        headers: headers(userToken),
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    (await fetch(baseUrl + first.sourcePath, { headers: headers(userToken) }))
+      .status,
+    429,
+  );
+  const changed = { ...first, rateLimit: { ...policy, limit: 3 } };
+  assert.equal((await update(changed)).status, 400);
+  assert.equal(
+    (
+      await json(`/routes/${first.id}`, "PUT", {
+        version: version(),
+        item: changed,
+        applyRateLimitToGroup: true,
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    registry.snapshot().routes.find((x) => x.id === secondRoute.id).rateLimit
+      .limit,
+    3,
+  );
+  const publicRoute = newRoute({
+    name: "Invalid public account quota",
+    sourcePath: "/api/v1/public-quota",
+    auth: "public",
+    rateLimit: policy,
+  });
+  assert.equal((await add(publicRoute)).status, 400);
+});
+
+const securityDefaults = () => ({
+  requireHttps: false,
+  maxBodyBytes: 0,
+  allowedContentTypes: [],
+  allowedIps: [],
+  blockedIps: [],
+  allowedOrigins: [],
+});
+test("HTTPS, CIDR deny priority and browser origins are enforced on live mappings", async () => {
+  const route = newRoute({
+    name: "Source policy",
+    sourcePath: "/api/v1/source-policy",
+    upstreamPath: "/source-policy",
+    security: {
+      ...securityDefaults(),
+      allowedIps: ["127.0.0.0/8", "198.51.100.0/24"],
+      blockedIps: ["198.51.100.99"],
+    },
+  });
+  assert.equal((await add(route)).status, 200);
+  assert.equal(
+    (await fetch(baseUrl + route.sourcePath, { headers: headers(userToken) }))
+      .status,
+    200,
+  );
+  for (const ip of ["198.51.100.99", "203.0.113.1"])
+    assert.equal(
+      (
+        await fetch(baseUrl + route.sourcePath, {
+          headers: { ...headers(userToken), "x-forwarded-for": ip },
+        })
+      ).status,
+      403,
+    );
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        headers: {
+          ...headers(userToken),
+          "x-forwarded-for": "::ffff:198.51.100.2",
+        },
+      })
+    ).status,
+    200,
+  );
+  const https = {
+    ...route,
+    security: { ...securityDefaults(), requireHttps: true },
+  };
+  assert.equal((await update(https)).status, 200);
+  assert.equal(
+    (await fetch(baseUrl + route.sourcePath, { headers: headers(userToken) }))
+      .status,
+    403,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        headers: { ...headers(userToken), "x-forwarded-proto": "https" },
+      })
+    ).status,
+    200,
+  );
+  const origin = {
+    ...route,
+    security: {
+      ...securityDefaults(),
+      allowedOrigins: ["https://app.example.com"],
+    },
+  };
+  assert.equal((await update(origin)).status, 200);
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        headers: { ...headers(userToken), origin: "https://bad.example.com" },
+      })
+    ).status,
+    403,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        headers: { ...headers(userToken), origin: "https://app.example.com" },
+      })
+    ).status,
+    200,
+  );
+  assert.equal(
+    (await fetch(baseUrl + route.sourcePath, { headers: headers(userToken) }))
+      .status,
+    200,
+  );
+  const before = version();
+  assert.equal(
+    (
+      await update({
+        ...route,
+        security: { ...securityDefaults(), allowedIps: ["127.1"] },
+      })
+    ).status,
+    400,
+  );
+  assert.equal(
+    (
+      await update({
+        ...route,
+        security: { ...securityDefaults(), allowedIps: ["10.0.0.0/99"] },
+      })
+    ).status,
+    400,
+  );
+  assert.equal(version(), before);
+});
+
+function chunked(path, chunks, extraHeaders = {}) {
+  return new Promise((resolve, reject) => {
+    const request = httpRequest(
+      baseUrl + path,
+      { method: "POST", headers: { ...headers(userToken), ...extraHeaders } },
+      (response) => {
+        let data = "";
+        response.on("data", (x) => (data += x));
+        response.on("end", () =>
+          resolve({ status: response.statusCode, data: JSON.parse(data) }),
+        );
+      },
+    );
+    request.on("error", reject);
+    for (const chunk of chunks) request.write(chunk);
+    request.end();
+  });
+}
+test("MIME and body limits reject content-length and chunked payloads before backend writes", async () => {
+  const route = newRoute({
+    name: "Bounded upload",
+    sourcePath: "/api/v1/bounded-upload",
+    upstreamPath: "/bounded-upload",
+    methods: ["POST"],
+    security: {
+      ...securityDefaults(),
+      maxBodyBytes: 8,
+      allowedContentTypes: ["application/json"],
+    },
+  });
+  assert.equal((await add(route)).status, 200);
+  const count = () =>
+    upstreamPaths.filter((x) => x.path === "/bounded-upload").length;
+  const before = count();
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        method: "POST",
+        headers: { ...headers(userToken), "content-type": "text/plain" },
+        body: "{}",
+      })
+    ).status,
+    415,
+  );
+  assert.equal(
+    (
+      await fetch(baseUrl + route.sourcePath, {
+        method: "POST",
+        headers: headers(userToken),
+        body: '{"id":123}',
+      })
+    ).status,
+    413,
+  );
+  assert.equal(
+    (await chunked(route.sourcePath, ['{"id":', "123}"])).status,
+    413,
+  );
+  assert.equal(count(), before);
+  const accepted = await chunked(route.sourcePath, ['{"id":', "1}"]);
+  assert.equal(accepted.status, 200);
+  assert.equal(accepted.data.body, '{"id":1}');
+  assert.equal(accepted.data.headers["content-length"], "8");
+  assert.equal(accepted.data.headers["transfer-encoding"], undefined);
+  const direct = await fetch(baseUrl + route.sourcePath, {
+    method: "POST",
+    headers: headers(userToken),
+    body: "{}",
+  });
+  assert.equal(direct.status, 200);
+  assert.equal((await direct.json()).body, "{}");
+  const images = {
+    ...route,
+    security: {
+      ...securityDefaults(),
+      maxBodyBytes: 1024,
+      allowedContentTypes: ["image/*"],
+    },
+  };
+  assert.equal((await update(images)).status, 200);
+  assert.equal(
+    (
+      await chunked(route.sourcePath, ["image-data"], {
+        "content-type": "image/png",
+      })
+    ).status,
+    200,
+  );
+});
+
+test("global rate limits and response security headers update while administration stays accessible", async () => {
+  const original = registry.snapshot().settings;
+  const updated = {
+    ...original,
+    trafficPolicy: {
+      securityHeaders: true,
+      hstsMaxAgeSeconds: 86400,
+      rateLimit: { enabled: true, limit: 1, windowMs: 60000 },
+    },
+  };
+  assert.equal(
+    (await json("/settings", "PUT", { version: version(), settings: updated }))
+      .status,
+    200,
+  );
+  try {
+    const first = await fetch(baseUrl + "/api/v1/search/listings", {
+      headers: { "x-forwarded-proto": "https" },
+    });
+    assert.equal(first.status, 200);
+    assert.equal(first.headers.get("x-content-type-options"), "nosniff");
+    assert.equal(
+      first.headers.get("strict-transport-security"),
+      "max-age=86400",
+    );
+    const limited = await fetch(baseUrl + "/api/v1/search/listings", {
+      headers: { origin: original.allowedOrigins[0] },
+    });
+    assert.equal(limited.status, 429);
+    assert.equal(
+      limited.headers.get("access-control-allow-origin"),
+      original.allowedOrigins[0],
+    );
+    assert.equal((await json("/config")).status, 200);
+    assert.equal((await fetch(baseUrl + "/health")).status, 200);
+  } finally {
+    assert.equal(
+      (
+        await json("/settings", "PUT", {
+          version: version(),
+          settings: original,
+        })
+      ).status,
+      200,
+    );
+  }
+});
+
+test("an older console cannot erase account quotas or body protection by omitting new fields", async () => {
+  const route = newRoute({
+    name: "Compatible security policy",
+    sourcePath: "/api/v1/compatible-policy",
+    upstreamPath: "/compatible-policy",
+    rateLimit: {
+      enabled: true,
+      limit: 10,
+      windowMs: 60000,
+      key: "user",
+      group: "compat",
+    },
+    security: { ...securityDefaults(), maxBodyBytes: 1024, requireHttps: true },
+  });
+  assert.equal((await add(route)).status, 200);
+  const stored = registry.snapshot().routes.find((x) => x.id === route.id);
+  const legacy = {
+    ...stored,
+    name: "Updated by legacy editor",
+    rateLimit: { enabled: true, limit: 10, windowMs: 60000 },
+  };
+  delete legacy.security;
+  assert.equal((await update(legacy)).status, 200);
+  const updated = registry.snapshot().routes.find((x) => x.id === route.id);
+  assert.deepEqual(updated.security, stored.security);
+  assert.deepEqual(updated.rateLimit, stored.rateLimit);
 });

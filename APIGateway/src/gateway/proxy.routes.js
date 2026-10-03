@@ -1,6 +1,7 @@
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { createDynamicLimiter } from "../middlewares/dynamic-rate-limit.middleware.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { enforceRequestPolicy, bufferLimitedBody } from "./security-policy.js";
 import { RouteValidationError } from "./config-validation.js";
 
 export function setupProxy(app, registry) {
@@ -32,7 +33,16 @@ export function setupProxy(app, registry) {
         status: 503,
         message: "Service đích đang tắt hoặc chưa được cấu hình.",
       });
-    const forward = () => {
+    const forwardBuffered = async () => {
+      if (
+        !(await bufferLimitedBody(
+          req,
+          res,
+          route.security.maxBodyBytes,
+          route.timeoutMs,
+        ))
+      )
+        return;
       const proxyKey = `${currentVersion}:${route.id}`;
       let proxy = proxies.get(proxyKey);
       if (!proxy) {
@@ -43,9 +53,30 @@ export function setupProxy(app, registry) {
           timeout: route.timeoutMs + 1000,
           pathRewrite: (_path, request) => request.gatewayDestination,
           on: {
+            proxyReq: (upstream, request) => {
+              if (request.gatewayBodyBuffer) {
+                upstream.removeHeader("transfer-encoding");
+                upstream.setHeader(
+                  "content-length",
+                  request.gatewayBodyBuffer.length,
+                );
+                upstream.write(request.gatewayBodyBuffer, () => {
+                  delete request.gatewayBodyBuffer;
+                  request.gatewayBodyRelease?.();
+                });
+                upstream.once("error", () => request.gatewayBodyRelease?.());
+              }
+            },
             proxyRes: (response) => {
               // Browser sessions are created exclusively by the SSO handlers.
               delete response.headers["set-cookie"];
+              for (const name of [
+                "x-content-type-options",
+                "x-frame-options",
+                "strict-transport-security",
+                "referrer-policy",
+              ])
+                delete response.headers[name];
               for (const key of Object.keys(response.headers))
                 if (key.startsWith("access-control-"))
                   delete response.headers[key];
@@ -86,7 +117,9 @@ export function setupProxy(app, registry) {
       Object.assign(req.headers, route.headers.request);
       proxy(req, res, next);
     };
+    const forward = () => forwardBuffered().catch(next);
     const authenticate = () => {
+      if (!enforceRequestPolicy(req, res, route.security)) return;
       if (route.auth === "public") return forward();
       verifyJWT(req, res, () => {
         const roles = req.auth.roles.split(/\s+/);
@@ -98,10 +131,29 @@ export function setupProxy(app, registry) {
             status: 403,
             message: "Tài khoản không có quyền truy cập route này.",
           });
+        if (route.rateLimit.enabled && route.rateLimit.key !== "ip")
+          return limiter(
+            req,
+            res,
+            forward,
+            route.rateLimit.group
+              ? `group:${service.key}:${route.rateLimit.group}`
+              : route.id,
+            route.rateLimit,
+          );
         forward();
       });
     };
-    if (!route.rateLimit.enabled) return authenticate();
-    return limiter(req, res, authenticate, route.id, route.rateLimit);
+    if (!route.rateLimit.enabled || route.rateLimit.key !== "ip")
+      return authenticate();
+    return limiter(
+      req,
+      res,
+      authenticate,
+      route.rateLimit.group
+        ? `group:${service.key}:${route.rateLimit.group}`
+        : route.id,
+      route.rateLimit,
+    );
   });
 }

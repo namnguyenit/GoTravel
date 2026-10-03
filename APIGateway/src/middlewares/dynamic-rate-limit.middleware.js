@@ -12,7 +12,25 @@ export function createDynamicLimiter() {
         if (bucket.resetAt <= now) buckets.delete(key);
     }
     const ip = ipKeyGenerator(req.ip || req.socket.remoteAddress || "unknown");
-    const key = `${id}:${policy.limit}:${policy.windowMs}:${ip}`;
+    const mode = policy.key || "ip";
+    if (mode !== "ip" && !req.auth?.sub)
+      return res.status(401).json({
+        status: 401,
+        message: "Cần xác thực trước khi áp dụng hạn mức tài khoản.",
+      });
+    const actor =
+      mode === "user"
+        ? JSON.stringify([req.auth.sub])
+        : mode === "ip-user"
+          ? JSON.stringify([ip, req.auth.sub])
+          : ip;
+    const key = JSON.stringify([
+      id,
+      policy.limit,
+      policy.windowMs,
+      mode,
+      actor,
+    ]);
     let bucket = buckets.get(key);
     if (!bucket || bucket.resetAt <= now) {
       if (!bucket && buckets.size >= 50000)

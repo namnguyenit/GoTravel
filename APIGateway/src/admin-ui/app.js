@@ -187,15 +187,21 @@ function renderRoutes() {
   if (!overview) return;
   const query = $("route-search").value.trim().toLowerCase();
   const selectedService = $("route-service-filter").value,
-    auth = $("route-auth-filter").value;
+    auth = $("route-auth-filter").value,
+    methodFilter = $("route-method-filter").value,
+    stateFilter = $("route-state-filter").value;
   const routes = overview.routes.filter(
     (x) =>
       (!selectedService || x.serviceKey === selectedService) &&
       (!auth || x.auth === auth) &&
+      (!methodFilter || x.methods.includes(methodFilter)) &&
+      (!stateFilter || x.enabled === (stateFilter === "enabled")) &&
       [x.name, x.description, x.sourcePath, x.upstreamPath, x.serviceKey].some(
         (y) => y.toLowerCase().includes(query),
       ),
   );
+  renderNodeMap();
+  renderRouteGroups(routes);
   const body = $("route-body");
   body.replaceChildren();
   for (const route of routes) {
@@ -282,7 +288,7 @@ function renderRoutes() {
   }
   $("route-result-count").textContent =
     `${routes.length} / ${overview.routes.length} route`;
-  show($("route-empty"), !routes.length);
+  show($("route-empty"), !routes.length && !selectedService);
 }
 function renderServices() {
   $("service-grid").replaceChildren();
@@ -358,6 +364,7 @@ function closeDrawer(force = false) {
   if (!force && dirty && !confirm("Bỏ thay đổi chưa lưu?")) return;
   show($("route-drawer"), false);
   show($("service-drawer"), false);
+  show($("rest-drawer"), false);
   show($("drawer-backdrop"), false);
   document.body.classList.remove("drawer-open");
   dirty = false;
@@ -429,7 +436,9 @@ function defaultRoute() {
     sourcePath: "/api/v1/new-route",
     upstreamPath: "/api/v1/new-route",
     serviceKey:
-      overview.services.find((x) => x.key === "catalog")?.key || "identity",
+      $("route-service-filter").value ||
+      overview.services.find((x) => x.key === "catalog")?.key ||
+      "identity",
     enabled: true,
     auth: "jwt",
     roles: [],
@@ -445,7 +454,21 @@ function defaultRoute() {
       removeRequest: [],
       removeResponse: [],
     },
-    rateLimit: { enabled: false, limit: 100, windowMs: 60000 },
+    rateLimit: {
+      enabled: true,
+      limit: 120,
+      windowMs: 60000,
+      key: "ip",
+      group: "",
+    },
+    security: {
+      requireHttps: false,
+      maxBodyBytes: 1048576,
+      allowedContentTypes: [],
+      allowedIps: [],
+      blockedIps: [],
+      allowedOrigins: [],
+    },
     paramTypes: {},
   };
 }
@@ -476,6 +499,25 @@ function openRoute(route = null) {
   $("route-rate-enabled").checked = editingRoute.rateLimit.enabled;
   $("route-rate-limit").value = editingRoute.rateLimit.limit;
   $("route-rate-window").value = editingRoute.rateLimit.windowMs / 1000;
+  $("route-rate-key").value = editingRoute.rateLimit.key || "ip";
+  $("route-rate-group").value = editingRoute.rateLimit.group || "";
+  $("route-rate-update-group").checked = false;
+  const context = overview.requestContext;
+  $('policy-request-context').textContent = context ? `Kết nối quản trị hiện tại: IP ${context.ip} · ${context.secure ? 'HTTPS' : 'HTTP'}. IP client được xác định theo proxy tin cậy.` : '';
+  const security = editingRoute.security || {
+    requireHttps: false,
+    maxBodyBytes: 0,
+    allowedContentTypes: [],
+    allowedIps: [],
+    blockedIps: [],
+    allowedOrigins: [],
+  };
+  $("route-https").checked = security.requireHttps;
+  $("route-body-limit").value = security.maxBodyBytes / 1024;
+  $("route-content-types").value = security.allowedContentTypes.join(", ");
+  $("route-allow-ips").value = security.allowedIps.join("\n");
+  $("route-deny-ips").value = security.blockedIps.join("\n");
+  $("route-origins").value = security.allowedOrigins.join("\n");
   $("query-remove").value = editingRoute.query.remove.join(", ");
   $("request-remove").value = editingRoute.headers.removeRequest.join(", ");
   $("response-remove").value = editingRoute.headers.removeResponse.join(", ");
@@ -579,6 +621,8 @@ function updateAuth(mark = true) {
   const publicRoute = $("route-auth").value === "public";
   $("route-roles").disabled = publicRoute;
   $("route-forward-auth").disabled = publicRoute;
+  $("route-rate-key").disabled = publicRoute;
+  if (publicRoute) $("route-rate-key").value = "ip";
   if (publicRoute) {
     $("route-roles").value = "";
     $("route-forward-auth").checked = false;
@@ -614,7 +658,19 @@ function draftRoute() {
       removeRequest: split($("request-remove").value),
       removeResponse: split($("response-remove").value),
     },
+    security: {
+      requireHttps: $("route-https").checked,
+      maxBodyBytes: Math.round(Number($("route-body-limit").value) * 1024),
+      allowedContentTypes: split($("route-content-types").value).map((x) =>
+        x.toLowerCase(),
+      ),
+      allowedIps: split($("route-allow-ips").value),
+      blockedIps: split($("route-deny-ips").value),
+      allowedOrigins: split($("route-origins").value),
+    },
     rateLimit: {
+      key: $("route-rate-key").value,
+      group: $("route-rate-group").value.trim(),
       enabled: $("route-rate-enabled").checked,
       limit: Number($("route-rate-limit").value),
       windowMs: Number($("route-rate-window").value) * 1000,
@@ -627,14 +683,18 @@ function draftRoute() {
     ),
   };
 }
-async function saveItem(type, item, isNew) {
+async function saveItem(type, item, isNew, applyGroup = false) {
   saving = true;
   try {
     await api(
       `/${type}${isNew ? "" : `/${encodeURIComponent(type === "routes" ? item.id : item.key)}`}`,
       {
         method: isNew ? "POST" : "PUT",
-        body: JSON.stringify({ version: overview.version, item }),
+        body: JSON.stringify({
+          version: overview.version,
+          item,
+          ...(type === "routes" ? { applyRateLimitToGroup: applyGroup } : {}),
+        }),
       },
     );
     dirty = false;
@@ -675,6 +735,16 @@ function fillSettings() {
   $("setting-login-window").value = s.loginRateLimit.windowMs / 1000;
   $("setting-geo").checked = s.geoRestriction;
   $("setting-countries").value = s.allowedCountries.join(", ");
+  const traffic = s.trafficPolicy || {
+    securityHeaders: true,
+    hstsMaxAgeSeconds: 0,
+    rateLimit: { enabled: false, limit: 600, windowMs: 60000 },
+  };
+  $("setting-global-limit").checked = traffic.rateLimit.enabled;
+  $("setting-global-count").value = traffic.rateLimit.limit;
+  $("setting-global-window").value = traffic.rateLimit.windowMs / 1000;
+  $("setting-security-headers").checked = traffic.securityHeaders;
+  $("setting-hsts").value = traffic.hstsMaxAgeSeconds;
 }
 async function loadHistory() {
   try {
@@ -726,8 +796,10 @@ async function loadHistory() {
   }
 }
 async function busy(form, work, errorTarget) {
-  const buttons = [...form.querySelectorAll("button")];
-  buttons.forEach((x) => (x.disabled = true));
+  const buttons = [
+    ...form.querySelectorAll("button,input,select,textarea"),
+  ].map((control) => [control, control.disabled]);
+  buttons.forEach(([control]) => (control.disabled = true));
   message(errorTarget);
   try {
     await work();
@@ -740,7 +812,9 @@ async function busy(form, work, errorTarget) {
       true,
     );
   } finally {
-    buttons.forEach((x) => (x.disabled = false));
+    buttons.forEach(
+      ([control, wasDisabled]) => (control.disabled = wasDisabled),
+    );
   }
 }
 $("login-form").onsubmit = async (event) => {
@@ -780,7 +854,13 @@ for (const button of document.querySelectorAll(".close-drawer"))
 $("drawer-backdrop").onclick = () => closeDrawer();
 $("add-route-button").onclick = () => openRoute();
 $("add-service-button").onclick = () => openService();
-for (const id of ["route-search", "route-service-filter", "route-auth-filter"])
+for (const id of [
+  "route-search",
+  "route-service-filter",
+  "route-auth-filter",
+  "route-method-filter",
+  "route-state-filter",
+])
   $(id).addEventListener("input", renderRoutes);
 $("route-form").noValidate = true;
 $("route-form").addEventListener("input", () => {
@@ -801,6 +881,7 @@ $("route-form").onsubmit = async (event) => {
         "routes",
         route,
         !overview.routes.some((x) => x.id === route.id),
+        $("route-rate-update-group").checked,
       );
     },
     $("editor-error"),
@@ -919,6 +1000,15 @@ $("settings-form").onsubmit = async (event) => {
                 limit: Number($("setting-login-limit").value),
                 windowMs: Number($("setting-login-window").value) * 1000,
               },
+              trafficPolicy: {
+                securityHeaders: $("setting-security-headers").checked,
+                hstsMaxAgeSeconds: Number($("setting-hsts").value),
+                rateLimit: {
+                  enabled: $("setting-global-limit").checked,
+                  limit: Number($("setting-global-count").value),
+                  windowMs: Number($("setting-global-window").value) * 1000,
+                },
+              },
               geoRestriction: $("setting-geo").checked,
               allowedCountries: split($("setting-countries").value).map((x) =>
                 x.toUpperCase(),
@@ -1005,9 +1095,7 @@ document.addEventListener("keydown", (event) => {
     event.key === "Tab" &&
     !$("drawer-backdrop").classList.contains("hidden")
   ) {
-    const drawer = $("route-drawer").classList.contains("hidden")
-      ? $("service-drawer")
-      : $("route-drawer");
+    const drawer = document.querySelector(".drawer:not(.hidden)");
     const focusable = [
       ...drawer.querySelectorAll("button,input,select,textarea"),
     ].filter((x) => !x.disabled && x.getClientRects().length);
@@ -1026,4 +1114,576 @@ window.addEventListener("beforeunload", (event) => {
     event.returnValue = "";
   }
 });
+let mappingMode = "nodes";
+const expandedNodes = new Map();
+const serviceStates = {
+  reachable: "Kết nối TCP",
+  unreachable: "Không kết nối",
+  disabled: "Đã tắt",
+  unconfigured: "Chưa cấu hình",
+};
+function setMappingMode(mode) {
+  mappingMode = mode;
+  show($("route-node-groups"), mode === "nodes");
+  show($("route-table-view"), mode === "table");
+  for (const value of ["node", "table"]) {
+    const button = $(`${value}-mode-button`);
+    const active = mode === (value === "node" ? "nodes" : "table");
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  }
+}
+function chooseService(key) {
+  $("route-service-filter").value = key;
+  if (key) expandedNodes.set(key, true);
+  renderRoutes();
+}
+function renderNodeMap() {
+  const selected = $("route-service-filter").value;
+  $("gateway-origin").textContent = location.origin;
+  $("gateway-node-count").textContent =
+    `${overview.routes.length} route · ${overview.services.length} service`;
+  $("all-service-nodes").setAttribute("aria-pressed", String(!selected));
+  $("service-nodes").replaceChildren();
+  const order = [
+    "catalog",
+    "booking",
+    "cart",
+    "identity",
+    "media",
+    "search",
+    "payment",
+    "ticket",
+    "car",
+  ];
+  const services = [...overview.services].sort(
+    (a, b) =>
+      (order.indexOf(a.key) === -1 ? 99 : order.indexOf(a.key)) -
+        (order.indexOf(b.key) === -1 ? 99 : order.indexOf(b.key)) ||
+      a.name.localeCompare(b.name),
+  );
+  for (const service of services) {
+    const routes = overview.routes.filter(
+      (route) => route.serviceKey === service.key,
+    );
+    const node = element(
+      "button",
+      `service-node ${selected === service.key ? "selected" : ""}`,
+    );
+    node.type = "button";
+    node.dataset.serviceKey = service.key;
+    node.setAttribute("aria-pressed", String(selected === service.key));
+    node.title = `${service.name}: ${service.target || "Chưa có backend URL"}`;
+    const head = element("div", "node-head");
+    head.append(
+      element(
+        "span",
+        `status-dot ${service.state !== "reachable" ? "inactive" : ""}`,
+      ),
+      element("strong", "", service.name),
+      element("span", "node-route-count", routes.length),
+    );
+    node.append(
+      head,
+      element("code", "", service.target || "Chưa cấu hình URL"),
+      element(
+        "small",
+        "",
+        `${serviceStates[service.state] || service.state} · ${routes.filter((x) => x.enabled).length} route bật`,
+      ),
+    );
+    node.onclick = () =>
+      chooseService(selected === service.key ? "" : service.key);
+    $("service-nodes").append(node);
+  }
+  const service = overview.services.find((x) => x.key === selected);
+  $("mapping-title").textContent = service
+    ? `API của ${service.name}`
+    : "API theo node service";
+  $("mapping-subtitle").textContent = service
+    ? `${service.target || "Chưa cấu hình URL backend"} · Bấm endpoint để chỉnh ánh xạ và chính sách.`
+    : "Mở từng node để xem tài nguyên, phương thức và đường đi tới backend.";
+}
+async function copyValue(value) {
+  try {
+    if (navigator.clipboard && window.isSecureContext)
+      await navigator.clipboard.writeText(value);
+    else {
+      const input = element("textarea", "copy-buffer");
+      input.value = value;
+      document.body.append(input);
+      input.select();
+      const copied = document.execCommand("copy");
+      input.remove();
+      if (!copied) throw new Error("Trình duyệt không cho phép sao chép.");
+    }
+    message($("notice"), "Đã sao chép URL.");
+  } catch (error) {
+    message($("notice"), error.message, true);
+  }
+}
+function urlBlock(title, url) {
+  const block = element("div", "url-block");
+  const head = element("div", "url-label");
+  const copy = element("button", "copy-url", "Chép");
+  copy.type = "button";
+  copy.title = `Sao chép ${title}`;
+  copy.onclick = (event) => {
+    event.stopPropagation();
+    copyValue(url);
+  };
+  head.append(element("small", "", title), copy);
+  block.append(head, element("code", "", url));
+  return block;
+}
+function policyBadges(route) {
+  const policy = element("div", "api-policy");
+  policy.append(
+    element(
+      "span",
+      `badge ${route.auth}`,
+      route.auth === "public" ? "Công khai" : "JWT / SSO",
+    ),
+  );
+  if (route.roles.length)
+    policy.append(
+      element(
+        "span",
+        "policy-chip",
+        route.roles.map((x) => x.replace("ROLE_", "")).join(" / "),
+      ),
+    );
+  const limit = route.rateLimit;
+  const keyName = { ip: "IP", user: "tài khoản", "ip-user": "IP + tài khoản" }[
+    limit.key || "ip"
+  ];
+  policy.append(
+    element(
+      "span",
+      `policy-chip ${limit.enabled ? "" : "unlimited"}`,
+      limit.enabled
+        ? `${limit.limit} req / ${limit.windowMs / 1000}s · ${keyName}${limit.group ? ` · nhóm ${limit.group}` : ""}`
+        : "Chưa đặt rate limit riêng",
+    ),
+  );
+  const security = route.security || {};
+  if (security.requireHttps)
+    policy.append(element("span", "policy-chip", "HTTPS"));
+  if (security.maxBodyBytes)
+    policy.append(
+      element(
+        "span",
+        "policy-chip",
+        `Body ≤ ${security.maxBodyBytes / 1024} KiB`,
+      ),
+    );
+  if (security.allowedIps?.length || security.blockedIps?.length)
+    policy.append(element("span", "policy-chip", "Lọc IP/CIDR"));
+  if (security.allowedContentTypes?.length)
+    policy.append(
+      element("span", "policy-chip", security.allowedContentTypes.join(", ")),
+    );
+  if (security.allowedOrigins?.length)
+    policy.append(element("span", "policy-chip", "Lọc origin"));
+  return policy;
+}
+function renderRouteGroups(routes) {
+  const groups = $("route-node-groups");
+  groups.replaceChildren();
+  const selected = $("route-service-filter").value;
+  const services = [...overview.services].sort((a, b) =>
+    a.key === "catalog"
+      ? -1
+      : b.key === "catalog"
+        ? 1
+        : a.name.localeCompare(b.name),
+  );
+  for (const service of services) {
+    const items = routes.filter((route) => route.serviceKey === service.key);
+    if (selected && selected !== service.key) continue;
+    if (!items.length && !selected) continue;
+    const details = element("details", "service-route-group");
+    details.dataset.serviceKey = service.key;
+    details.open = Boolean(
+      selected ||
+      $("route-search").value ||
+      expandedNodes.get(service.key) ||
+      (!expandedNodes.has(service.key) && service.key === "catalog"),
+    );
+    details.ontoggle = () => expandedNodes.set(service.key, details.open);
+    const summary = element("summary", "service-group-head");
+    const identity = element("div", "service-group-identity");
+    const title = element("div");
+    title.append(
+      element("h3", "", service.name),
+      element("code", "", service.target || "Chưa có URL backend"),
+    );
+    identity.append(element("span", "service-symbol", service.name[0]), title);
+    const stats = element("div", "service-group-stats");
+    stats.append(
+      element(
+        "span",
+        `health ${service.state}`,
+        serviceStates[service.state] || service.state,
+      ),
+      element("span", "policy-chip", `${items.length} route`),
+      element("span", "group-chevron", "⌄"),
+    );
+    summary.append(identity, stats);
+    details.append(summary);
+    const controls = element("div", "service-group-controls");
+    controls.append(
+      element("span", "", "Đường dẫn Gateway → URL cục bộ / backend"),
+    );
+    const edit = element("button", "secondary", "Cấu hình node");
+    edit.type = "button";
+    edit.onclick = () => openService(service);
+    const rest = element("button", "secondary", "+ Tài nguyên REST");
+    rest.type = "button";
+    rest.onclick = () => openRest(service.key);
+    controls.append(edit, rest);
+    details.append(controls);
+    const resources = new Map();
+    for (const route of [...items].sort(
+      (a, b) =>
+        a.sourcePath.localeCompare(b.sourcePath) ||
+        a.methods[0].localeCompare(b.methods[0]),
+    )) {
+      const key = `${route.sourcePath}:${route.matchType}`;
+      if (!resources.has(key)) resources.set(key, []);
+      resources.get(key).push(route);
+    }
+    for (const resourceRoutes of resources.values()) {
+      const first = resourceRoutes[0],
+        resource = element("article", "rest-resource");
+      const heading = element("div", "resource-head");
+      heading.append(
+        element("code", "", first.sourcePath),
+        element(
+          "span",
+          `badge ${first.matchType === "prefix" ? "namespace" : "jwt"}`,
+          first.matchType === "prefix"
+            ? "Namespace + phần path còn lại"
+            : "Endpoint chính xác",
+        ),
+      );
+      resource.append(heading);
+      for (const route of resourceRoutes) {
+        const row = element(
+          "div",
+          `api-mapping ${!route.enabled ? "is-disabled" : ""}`,
+        );
+        row.tabIndex = 0;
+        row.dataset.routeId = route.id;
+        row.setAttribute("aria-label", `Cấu hình ${route.name}`);
+        row.onclick = () => openRoute(route);
+        row.onkeydown = (event) => {
+          if (event.target === row && ["Enter", " "].includes(event.key)) {
+            event.preventDefault();
+            openRoute(route);
+          }
+        };
+        const flow = element("div", "api-flow"),
+          badges = element("div", "api-methods");
+        route.methods.forEach((method) =>
+          badges.append(
+            element("span", `badge ${method.toLowerCase()}`, method),
+          ),
+        );
+        flow.append(
+          badges,
+          urlBlock(
+            "GATEWAY / CLIENT",
+            `${location.origin}${route.sourcePath}${route.matchType === "prefix" ? "/…" : ""}`,
+          ),
+          element("span", "mapping-arrow", "→"),
+          urlBlock(
+            `${service.key.toUpperCase()} / BACKEND`,
+            `${service.target || "[chưa cấu hình]"}${route.upstreamPath}${route.matchType === "prefix" ? "/…" : ""}`,
+          ),
+        );
+        const editRoute = element("button", "route-configure", "Thiết lập");
+        editRoute.type = "button";
+        editRoute.onclick = (event) => {
+          event.stopPropagation();
+          openRoute(route);
+        };
+        flow.append(editRoute);
+        row.append(flow);
+        const foot = element("div", "api-foot");
+        foot.append(policyBadges(route));
+        const toggle = element(
+          "button",
+          `route-status ${route.enabled ? "" : "disabled"}`,
+          route.enabled ? "● Bật" : "● Tắt",
+        );
+        toggle.type = "button";
+        toggle.onclick = async (event) => {
+          event.stopPropagation();
+          toggle.disabled = true;
+          try {
+            await saveItem(
+              "routes",
+              { ...route, enabled: !route.enabled },
+              false,
+            );
+          } catch (error) {
+            toggle.disabled = false;
+            message($("notice"), error.message, true);
+          }
+        };
+        foot.append(toggle);
+        row.append(foot);
+        if (route.description)
+          row.append(element("p", "api-description", route.description));
+        resource.append(row);
+      }
+      details.append(resource);
+    }
+    if (!items.length)
+      details.append(
+        element(
+          "p",
+          "empty",
+          "Node này chưa có API. Tạo tài nguyên REST hoặc thêm route để định nghĩa ánh xạ.",
+        ),
+      );
+    groups.append(details);
+  }
+  setMappingMode(mappingMode);
+}
+const restOperations = [
+  { key: "list", method: "GET", item: false, label: "Danh sách", status: 200 },
+  {
+    key: "read",
+    method: "GET",
+    item: true,
+    label: "Chi tiết theo ID",
+    status: 200,
+  },
+  { key: "create", method: "POST", item: false, label: "Tạo mới", status: 201 },
+  {
+    key: "replace",
+    method: "PUT",
+    item: true,
+    label: "Thay toàn bộ",
+    status: 200,
+  },
+  {
+    key: "update",
+    method: "PATCH",
+    item: true,
+    label: "Cập nhật một phần",
+    status: 200,
+  },
+  { key: "delete", method: "DELETE", item: true, label: "Xóa", status: 204 },
+];
+function openRest(serviceKey = $("route-service-filter").value || "catalog") {
+  closeDrawer(true);
+  const select = $("rest-service");
+  select.replaceChildren();
+  for (const service of overview.services) {
+    const option = element("option", "", service.name);
+    option.value = service.key;
+    select.append(option);
+  }
+  select.value = overview.services.some((x) => x.key === serviceKey)
+    ? serviceKey
+    : overview.services[0].key;
+  const service = overview.services.find((x) => x.key === select.value);
+  $("rest-name").value = `Tài nguyên ${service.name}`;
+  $("rest-source").value = `/api/v1/${service.key}/resources`;
+  $("rest-target").value = "/api/resources";
+  $("rest-param").value = "id";
+  $("rest-param-type").value = "uuid";
+  $("rest-roles").value = "";
+  $("rest-public-reads").checked = false;
+  $("rest-share-limit").checked = true;
+  $("rest-rate-key").value = "ip";
+  $("rest-read-limit").value = 180;
+  $("rest-write-limit").value = 30;
+  $("rest-operations").replaceChildren();
+  for (const operation of restOperations) {
+    const label = element("label", "rest-operation"),
+      checkbox = element("input");
+    checkbox.type = "checkbox";
+    checkbox.value = operation.key;
+    checkbox.checked = true;
+    label.append(
+      checkbox,
+      element(
+        "span",
+        `badge ${operation.method.toLowerCase()}`,
+        operation.method,
+      ),
+      document.createTextNode(operation.label),
+    );
+    $("rest-operations").append(label);
+  }
+  message($("rest-error"));
+  renderRestPreview();
+  dirty = false;
+  openDrawer("rest-drawer");
+  $("rest-name").focus();
+}
+function restDraft() {
+  const serviceKey = $("rest-service").value,
+    service = overview.services.find((x) => x.key === serviceKey);
+  const source = $("rest-source").value.trim(),
+    target = $("rest-target").value.trim(),
+    parameter = $("rest-param").value.trim();
+  const roles = split($("rest-roles").value),
+    group = source.replace(/[^A-Za-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 55)
+      + '-' + [...source].reduce((hash, char) => Math.imul(hash ^ char.charCodeAt(0), 16777619) >>> 0, 2166136261).toString(16).padStart(8, '0');
+  const selected = [
+    ...$("rest-operations").querySelectorAll("input:checked"),
+  ].map((x) => x.value);
+  return restOperations
+    .filter((x) => selected.includes(x.key))
+    .map((operation) => {
+      const read = operation.method === "GET",
+        publicRead = read && $("rest-public-reads").checked;
+      const route = defaultRoute();
+      return {
+        ...route,
+        name: `${$("rest-name").value.trim()} · ${operation.label}`,
+        description: `${operation.method}: ${operation.label}. Backend quyết định response.`,
+        serviceKey,
+        sourcePath: source + (operation.item ? `/:${parameter}` : ""),
+        upstreamPath: target + (operation.item ? `/:${parameter}` : ""),
+        methods: [operation.method],
+        matchType: "exact",
+        enabled: Boolean(service?.enabled && service.target),
+        auth: publicRead ? "public" : "jwt",
+        roles: publicRead ? [] : roles,
+        paramTypes: operation.item
+          ? { [parameter]: $("rest-param-type").value }
+          : {},
+        rateLimit: {
+          enabled: true,
+          limit: Number($(read ? "rest-read-limit" : "rest-write-limit").value),
+          windowMs: 60000,
+          key: publicRead ? "ip" : $("rest-rate-key").value,
+          group: $("rest-share-limit").checked
+            ? `${group}-${read ? "read" : "write"}`
+            : "",
+        },
+        security: {
+          ...route.security,
+          allowedContentTypes: read ? [] : ["application/json"],
+        },
+      };
+    });
+}
+function renderRestPreview() {
+  const preview = $("rest-preview");
+  preview.replaceChildren();
+  const routes = restDraft(),
+    service = overview.services.find((x) => x.key === $("rest-service").value);
+  let conflict = false;
+  routes.forEach((route, index) => {
+    const operation = restOperations.find(
+      (x) =>
+        x.method === route.methods[0] &&
+        x.item ===
+          route.sourcePath.endsWith(`/:${$("rest-param").value.trim()}`),
+    );
+    const existing = overview.routes.find(
+      (x) =>
+        x.enabled &&
+        x.matchType === "exact" &&
+        x.sourcePath === route.sourcePath &&
+        x.methods.includes(route.methods[0]),
+    );
+    const row = element(
+      "div",
+      `rest-preview-row ${existing ? "conflict" : ""}`,
+    );
+    const title = element("div");
+    title.append(
+      element(
+        "span",
+        `badge ${route.methods[0].toLowerCase()}`,
+        route.methods[0],
+      ),
+      element("b", "", operation?.label || route.name),
+      element("small", "", `Response thường: ${operation?.status || 200}`),
+    );
+    row.append(
+      title,
+      element("code", "", `${location.origin}${route.sourcePath}`),
+      element("span", "mapping-arrow", "↓"),
+      element(
+        "code",
+        "",
+        `${service?.target || "[chưa cấu hình]"}${route.upstreamPath}`,
+      ),
+      policyBadges(route),
+    );
+    if (existing) {
+      conflict = true;
+      row.append(
+        element(
+          "span",
+          "conflict-message",
+          `Trùng endpoint đã có: ${existing.name}. Bỏ chọn thao tác hoặc chỉnh route hiện tại.`,
+        ),
+      );
+    }
+    preview.append(row);
+  });
+  $("rest-count").textContent =
+    `${routes.length} endpoint · ${service?.enabled && service.target ? "sẽ bật sau khi lưu" : "sẽ lưu ở trạng thái tắt"}`;
+  $("save-rest").disabled = !routes.length || conflict;
+}
+function setupNodeWorkspace() {
+  $("all-service-nodes").onclick = () => chooseService("");
+  $("node-mode-button").onclick = () => setMappingMode("nodes");
+  $("table-mode-button").onclick = () => setMappingMode("table");
+  $("rest-resource-button").onclick = () => openRest();
+  $("rest-form").addEventListener("input", () => {
+    dirty = true;
+    renderRestPreview();
+  });
+  $("rest-form").onsubmit = async (event) => {
+    event.preventDefault();
+    await busy(
+      $("rest-form"),
+      async () => {
+        const items = restDraft();
+        if (!items.length) throw new Error("Chọn ít nhất một thao tác REST.");
+        saving = true;
+        try {
+          await api("/routes/batch", {
+            method: "POST",
+            body: JSON.stringify({ version: overview.version, items }),
+          });
+          dirty = false;
+          closeDrawer(true);
+          chooseService(items[0].serviceKey);
+          await loadOverview(true);
+          message(
+            $("notice"),
+            `Đã lưu và áp dụng ${items.length} endpoint REST trong một transaction.`,
+          );
+        } finally {
+          saving = false;
+        }
+      },
+      $("rest-error"),
+    );
+  };
+  for (const button of document.querySelectorAll("[data-rate-preset]"))
+    button.onclick = () => {
+      const preset = { read: [120, 60], write: [30, 60], strict: [5, 900] }[
+        button.dataset.ratePreset
+      ];
+      $("route-rate-enabled").checked = true;
+      $("route-rate-limit").value = preset[0];
+      $("route-rate-window").value = preset[1];
+      dirty = true;
+    };
+}
+
+setupNodeWorkspace();
 checkSession();

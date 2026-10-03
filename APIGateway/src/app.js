@@ -1,5 +1,7 @@
 import express from "express";
+import { createDynamicLimiter } from "./middlewares/dynamic-rate-limit.middleware.js";
 import cors from "cors";
+import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { setupProxy } from "./gateway/proxy.routes.js";
 import { setupSessionRoutes } from "./gateway/session.routes.js";
@@ -30,6 +32,22 @@ if (trustedProxy === "true" || /^\d+$/.test(trustedProxy)) {
 }
 app.set("trust proxy", trustedProxy === "false" ? false : trustedProxy);
 
+app.disable("x-powered-by");
+const globalLimiter = createDynamicLimiter();
+app.use((req, res, next) => {
+  const policy = routeRegistry.getSettings().trafficPolicy;
+  if (policy.securityHeaders)
+    res.set({
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "Referrer-Policy": "no-referrer",
+    });
+  if (req.secure && policy.hstsMaxAgeSeconds)
+    res.set("Strict-Transport-Security", `max-age=${policy.hstsMaxAgeSeconds}`);
+
+  next();
+});
+
 app.use(
   cors({
     origin: (origin, callback) =>
@@ -37,6 +55,22 @@ app.use(
     credentials: true,
   }),
 );
+
+app.use((req, res, next) => {
+  const policy = routeRegistry.getSettings().trafficPolicy;
+  const path = req.path.toLowerCase();
+  // Keep the control plane accessible to fix an accidentally restrictive limit.
+  if (
+    policy.rateLimit.enabled &&
+    path.startsWith("/api/v1/") &&
+    !(
+      path === "/api/v1/gateway-admin" ||
+      path.startsWith("/api/v1/gateway-admin/")
+    )
+  )
+    return globalLimiter(req, res, next, "gateway-api", policy.rateLimit);
+  next();
+});
 
 // Apply the current country policy when the trusted ingress supplies GeoIP.
 app.use((req, res, next) => {
@@ -83,7 +117,9 @@ setupSessionRoutes(app);
 setupGatewayAdmin(app, routeRegistry);
 setupProxy(app, routeRegistry);
 
-const adminUi = fileURLToPath(new URL("./admin-ui/", import.meta.url));
+const adminUi = process.env.GATEWAY_ADMIN_UI_DIR
+  ? `${resolve(process.env.GATEWAY_ADMIN_UI_DIR)}/`
+  : fileURLToPath(new URL("./admin-ui/", import.meta.url));
 app.use("/admin/gateway", (_req, res, next) => {
   res.set({
     "Cache-Control": "no-store",

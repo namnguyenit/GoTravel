@@ -7,12 +7,10 @@ import { RouteValidationError } from "./config-validation.js";
 const base = "/api/v1/gateway-admin";
 const admin = async (req, res, next) => {
   if (!req.auth?.roles.split(/\s+/).includes("ROLE_ADMIN"))
-    return res
-      .status(403)
-      .json({
-        status: 403,
-        message: "Chỉ quản trị viên được quản lý Gateway.",
-      });
+    return res.status(403).json({
+      status: 403,
+      message: "Chỉ quản trị viên được quản lý Gateway.",
+    });
   try {
     // JWT scopes can outlive a role revocation. Read current roles from SSO
     // before every management request; never grant access on lookup failure.
@@ -21,33 +19,27 @@ const admin = async (req, res, next) => {
       signal: AbortSignal.timeout(5000),
     });
     if ([401, 403].includes(response.status))
-      return res
-        .status(403)
-        .json({
-          status: 403,
-          message: "Quyền quản trị đã thay đổi. Hãy đăng nhập lại.",
-        });
+      return res.status(403).json({
+        status: 403,
+        message: "Quyền quản trị đã thay đổi. Hãy đăng nhập lại.",
+      });
     if (!response.ok) throw new Error("Identity unavailable");
     const payload = await response.json();
     if (
       !Array.isArray(payload.data?.roles) ||
       !payload.data.roles.some((role) => ["ADMIN", "ROLE_ADMIN"].includes(role))
     )
-      return res
-        .status(403)
-        .json({
-          status: 403,
-          message: "Tài khoản không còn quyền quản trị Gateway.",
-        });
+      return res.status(403).json({
+        status: 403,
+        message: "Tài khoản không còn quyền quản trị Gateway.",
+      });
     next();
   } catch {
-    res
-      .status(503)
-      .json({
-        status: 503,
-        message:
-          "Không thể xác minh quyền quản trị với Identity. Vui lòng thử lại.",
-      });
+    res.status(503).json({
+      status: 503,
+      message:
+        "Không thể xác minh quyền quản trị với Identity. Vui lòng thử lại.",
+    });
   }
 };
 const probe = (service) =>
@@ -89,6 +81,7 @@ export function setupGatewayAdmin(app, registry) {
         ...snapshot,
         services: await Promise.all(snapshot.services.map(probe)),
         storage: "sqlite",
+        requestContext: { ip: _req.ip, secure: _req.secure },
       },
     });
   });
@@ -137,6 +130,26 @@ export function setupGatewayAdmin(app, registry) {
     next();
   });
   const reply = (res, data) => res.json({ status: 200, data });
+  router.post("/routes/batch", (req, res) => {
+    if (
+      !Array.isArray(req.body.items) ||
+      !req.body.items.length ||
+      req.body.items.length > 20
+    )
+      throw new RouteValidationError("Mỗi lần thêm cần 1–20 route.");
+    reply(
+      res,
+      registry.mutate(
+        req.body.version,
+        (config) => ({
+          ...config,
+          routes: [...config.routes, ...req.body.items],
+        }),
+        req.auth.sub,
+        `Thêm ${req.body.items.length} endpoint REST`,
+      ),
+    );
+  });
   router.post("/preview", (req, res) => reply(res, registry.preview(req.body)));
   router.put("/config", (req, res) =>
     reply(
@@ -154,6 +167,17 @@ export function setupGatewayAdmin(app, registry) {
       ),
     ),
   );
+  const applyGroupLimit = (config, item, enabled) => {
+    if (enabled === undefined || enabled === false) return;
+    if (enabled !== true || !item?.rateLimit?.group)
+      throw new RouteValidationError("Cần chọn nhóm rate limit hợp lệ.");
+    for (const route of config.routes)
+      if (
+        route.serviceKey === item.serviceKey &&
+        route.rateLimit.group === item.rateLimit.group
+      )
+        route.rateLimit = structuredClone(item.rateLimit);
+  };
   for (const type of ["routes", "services"]) {
     const key = type === "routes" ? "id" : "key";
     router.post(`/${type}`, (req, res) =>
@@ -165,6 +189,12 @@ export function setupGatewayAdmin(app, registry) {
             if (config[type].some((x) => x[key] === req.body.item?.[key]))
               throw new RouteValidationError("Mục đã tồn tại.", 409);
             config[type].push(req.body.item);
+            if (type === "routes")
+              applyGroupLimit(
+                config,
+                req.body.item,
+                req.body.applyRateLimitToGroup,
+              );
             return config;
           },
           req.auth.sub,
@@ -187,7 +217,28 @@ export function setupGatewayAdmin(app, registry) {
               throw new RouteValidationError(
                 "Không được đổi ID/mã của mục hiện có.",
               );
+            if (type === "routes") {
+              // Older open consoles do not know the newly added policy fields.
+              // Omission must not silently remove an existing security policy.
+              const previous = config[type][index];
+              req.body.item = {
+                ...req.body.item,
+                security: req.body.item.security ?? previous.security,
+                rateLimit: {
+                  ...req.body.item.rateLimit,
+                  key: req.body.item.rateLimit?.key ?? previous.rateLimit.key,
+                  group:
+                    req.body.item.rateLimit?.group ?? previous.rateLimit.group,
+                },
+              };
+            }
             config[type][index] = req.body.item;
+            if (type === "routes")
+              applyGroupLimit(
+                config,
+                req.body.item,
+                req.body.applyRateLimitToGroup,
+              );
             return config;
           },
           req.auth.sub,

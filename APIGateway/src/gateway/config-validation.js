@@ -1,3 +1,7 @@
+import {
+  normalizeRouteSecurity,
+  normalizeTrafficPolicy,
+} from "./security-policy.js";
 import { initialServices } from "./seed-config.js";
 
 export class RouteValidationError extends Error {
@@ -49,7 +53,7 @@ const methods = new Set([
   "OPTIONS",
 ]);
 const blockedHeaders =
-  /^(authorization|cookie|set-cookie|host|connection|content-length|transfer-encoding|upgrade|proxy-.*|x-internal-.*|x-user-.*|x-forwarded-.*|forwarded|cf-.*|x-csrf-token|access-control-.*)$/i;
+  /^(authorization|cookie|set-cookie|host|connection|content-length|transfer-encoding|upgrade|proxy-.*|x-internal-.*|x-user-.*|x-forwarded-.*|forwarded|cf-.*|x-csrf-token|access-control-.*|x-content-type-options|x-frame-options|strict-transport-security|referrer-policy)$/i;
 const blockedDestination = new Set([
   "internal",
   "actuator",
@@ -224,6 +228,7 @@ function normalizeRoute(input, services) {
       "headers",
       "rateLimit",
       "paramTypes",
+      "security",
     ],
     "Route",
   );
@@ -306,7 +311,24 @@ function normalizeRoute(input, services) {
     ["request", "response", "removeRequest", "removeResponse"],
     "Headers",
   );
-  only(input.rateLimit, ["enabled", "limit", "windowMs"], "Rate limit");
+  only(
+    input.rateLimit,
+    ["enabled", "limit", "windowMs", "key", "group"],
+    "Rate limit",
+  );
+  const rateKey = input.rateLimit.key ?? "ip";
+  if (
+    !["ip", "user", "ip-user"].includes(rateKey) ||
+    (input.auth === "public" && rateKey !== "ip")
+  )
+    fail(
+      "Rate limit theo tài khoản cần route JWT; khóa phải là ip, user hoặc ip-user.",
+    );
+  const rateGroup = text(input.rateLimit.group ?? "", "Nhóm rate limit", 80);
+  if (!/^[A-Za-z0-9_.:-]*$/.test(rateGroup))
+    fail(
+      "Nhóm rate limit chỉ dùng chữ, số, dấu chấm, gạch ngang, gạch dưới hoặc hai chấm.",
+    );
   return {
     id: input.id,
     name,
@@ -344,7 +366,10 @@ function normalizeRoute(input, services) {
         true,
       ),
     },
+    security: normalizeRouteSecurity(input.security, fail),
     rateLimit: {
+      key: rateKey,
+      group: rateGroup,
       enabled: boolean(input.rateLimit.enabled, "Bật giới hạn"),
       limit: integer(input.rateLimit.limit, "Số request", 1, 100000),
       windowMs: integer(
@@ -367,6 +392,7 @@ function normalizeSettings(value) {
       "loginRateLimit",
       "geoRestriction",
       "allowedCountries",
+      "trafficPolicy",
     ],
     "Settings",
   );
@@ -400,6 +426,7 @@ function normalizeSettings(value) {
   if (!countries.length || countries.some((x) => !/^[A-Z]{2}$/.test(x)))
     fail("Mã quốc gia phải gồm hai chữ in hoa.");
   return {
+    trafficPolicy: normalizeTrafficPolicy(value.trafficPolicy, fail),
     allowedOrigins,
     cookieDomain,
     sessionMaxAgeMinutes: integer(
@@ -433,6 +460,22 @@ export function validateConfiguration(input) {
   );
   if (new Set(routes.map((x) => x.id)).size !== routes.length)
     fail("ID route bị trùng.");
+  const sharedLimits = new Map();
+  for (const route of routes.filter(
+    (x) => x.enabled && x.rateLimit.enabled && x.rateLimit.group,
+  )) {
+    const key = `${route.serviceKey}:${route.rateLimit.group}`;
+    const signature = JSON.stringify([
+      route.rateLimit.key,
+      route.rateLimit.limit,
+      route.rateLimit.windowMs,
+    ]);
+    if (sharedLimits.has(key) && sharedLimits.get(key) !== signature)
+      fail(
+        "Các route cùng nhóm rate limit phải dùng cùng khóa, số request và cửa sổ.",
+      );
+    sharedLimits.set(key, signature);
+  }
   for (let i = 0; i < routes.length; i++)
     for (let j = i + 1; j < routes.length; j++) {
       const a = routes[i],

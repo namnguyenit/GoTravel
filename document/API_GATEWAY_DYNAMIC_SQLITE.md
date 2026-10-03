@@ -2,6 +2,8 @@
 
 Ngày cập nhật: **04/10/2026**. Áp dụng cho phiên bản Gateway trên nhánh `devserver`.
 
+Hướng dẫn giao diện node service, tạo tài nguyên REST và các cấu hình bảo mật mới: [API_GATEWAY_SERVICE_NODES_REST_SECURITY.md](API_GATEWAY_SERVICE_NODES_REST_SECURITY.md).
+
 ## 1. Kết quả thay đổi
 
 Gateway dùng **SQLite làm nguồn cấu hình chính** cho service, route và chính sách. Các tệp route JavaScript cũ đã được thay bằng bộ thực thi proxy dùng chung. Toàn bộ 69 route ban đầu được chuyển thành dữ liệu và có thể sửa, bật/tắt hoặc xóa trên giao diện.
@@ -34,7 +36,9 @@ Nếu dữ liệu không hợp lệ hoặc phiên bản đã đổi, thao tác b
 
 ### 3.1. Màn hình Ánh xạ API
 
-- Tìm theo tên, đường dẫn hoặc service; lọc theo service và loại xác thực.
+- Sơ đồ Gateway → từng node service; chọn node để mở các tài nguyên và ánh xạ đầy đủ URL. Có thể chuyển sang bảng.
+- Tìm theo tên, đường dẫn hoặc service; lọc theo service, method, trạng thái và loại xác thực.
+- Trình tạo tài nguyên REST lưu cùng lúc GET danh sách/chi tiết, POST, PUT, PATCH và DELETE qua transaction.
 - Mỗi hàng hiển thị HTTP method, đường dẫn Gateway, địa chỉ backend, path backend, chính sách và trạng thái.
 - Bấm hàng để mở bảng cấu hình chi tiết. Có thêm mới, nhân bản, bật/tắt và xóa route.
 - Xuất/nhập toàn bộ cấu hình JSON. Nhập cấu hình cũng phải qua kiểm tra, version và transaction.
@@ -53,7 +57,8 @@ Nếu dữ liệu không hợp lệ hoặc phiên bản đã đổi, thao tác b
 | Vai trò | Danh sách `ROLE_*`; chỉ cần có một quyền trong danh sách. Danh sách rỗng nghĩa là JWT hợp lệ, backend tiếp tục kiểm tra quyền nghiệp vụ. |
 | JWT tới backend | Chuyển tiếp Bearer token đã xác minh hoặc bỏ Authorization. Route public luôn bỏ Authorization. |
 | Timeout | 100–120000 ms; quá hạn trả 504, không kết nối được trả 503. |
-| Rate limit | Bật/tắt; số request/IP/cửa sổ; cửa sổ 1 giây đến 24 giờ. Vượt mức trả 429 và `Retry-After`. |
+| Rate limit | Bật/tắt; số request/cửa sổ theo IP, tài khoản JWT hoặc IP+tài khoản. Nhóm route cùng service dùng chung bộ đếm. Cửa sổ 1 giây đến 24 giờ; vượt mức trả 429 và `Retry-After`. |
+| Bảo mật request | Yêu cầu HTTPS, giới hạn body cả chunked, Content-Type, allow/deny IP/CIDR và origin trình duyệt. |
 | Query | Giữ hoặc bỏ query đầu vào; xóa các tên được chọn; gán giá trị cấu hình sau bước xóa. |
 | Header request | Gán/xóa header tùy chỉnh được phép. |
 | Header response | Gán/xóa header phản hồi được phép. |
@@ -97,6 +102,7 @@ Thêm service mới, sửa tên/mô tả, địa chỉ HTTP(S) origin và trạn
 - Tuổi phiên cookie: 5–480 phút. Giới hạn mới cũng được kiểm tra trên JWT cookie ở request tiếp theo.
 - Giới hạn đăng nhập: 1–30 request/IP/cửa sổ, cửa sổ 1 phút đến 24 giờ.
 - Bật/tắt kiểm tra quốc gia và danh sách mã quốc gia hai chữ.
+- Quota chung theo IP cho API nghiệp vụ; header bảo mật phản hồi và HSTS trên HTTPS.
 
 Chính sách quốc gia dựa trên `cf-ipcountry` khi có header. Cơ chế này chỉ có giá trị bảo vệ nếu đường truy cập tới Gateway và proxy tin cậy được kiểm soát; nó không thay thế firewall hoặc ACL Tailscale. Client đi trực tiếp có thể không có header quốc gia.
 
@@ -150,6 +156,7 @@ Base URL: `/api/v1/gateway-admin`. Tất cả endpoint yêu cầu JWT admin, tr�
 | GET | `/events` | SSE version và heartbeat. |
 | POST | `/preview` | Thử ánh xạ cấu hình đang chạy hoặc bản nháp route. |
 | POST | `/routes`, `/services` | Thêm mục. Body `{version, item}`. |
+| POST | `/routes/batch` | Thêm 1–20 route trong cùng transaction. Body `{version, items}`. |
 | PUT | `/routes/:id`, `/services/:key` | Sửa mục. Body `{version, item}`. |
 | DELETE | `/routes/:id`, `/services/:key` | Xóa mục. Body `{version}`. |
 | PUT | `/settings` | Body `{version, settings}`. |
@@ -204,7 +211,7 @@ Ví dụ dữ liệu một route (khi POST cần bọc bằng `{version, item}`)
 - UI dùng `textContent` cho dữ liệu động, không render HTML từ tên/mô tả/config. CSP không cho script inline hoặc frame nhúng trang quản trị.
 - Backend vẫn phải xác minh token và quyền đối tượng: chủ sở hữu đơn, listing, hồ sơ nhà xe… Gateway không đủ dữ liệu để thay kiểm tra nghiệp vụ này.
 
-**Cấu hình được sửa realtime:** service, route, method, path, tham số, quyền route, timeout, rate limit, query, header, CORS, tuổi phiên và chính sách quốc gia.
+**Cấu hình được sửa realtime:** service, route, method, path, tham số, quyền route, timeout, quota IP/tài khoản/nhóm, body/MIME/IP/HTTPS/origin, query, header, CORS, tuổi phiên, header bảo mật/HSTS và chính sách quốc gia.
 
 **Thiết lập vận hành vẫn ở môi trường triển khai:** địa chỉ/cổng bind, đường dẫn database, trusted proxy, allowlist host upstream, token nội bộ, CSRF secret và khóa ký của Identity. Các thiết lập này cần restart hoặc quy trình luân chuyển bí mật. Chúng không được đưa lên UI để một thao tác nhầm có thể mở proxy tới mọi host hoặc làm lộ bí mật.
 
@@ -235,12 +242,12 @@ Nếu cần phục hồi database do hỏng/di chuyển máy: dừng Gateway, gi
 4. Quyền quản trị SQLite rất mạnh: chỉ cấp cho admin vận hành đáng tin cậy. Không công khai bảng điều khiển ra Internet nếu nhóm chỉ cần truy cập qua Tailscale hoặc SSH tunnel.
 5. GeoIP không đảm bảo chặn truy cập đi trực tiếp tới Gateway. Firewall/ACL của server phải được quản lý riêng.
 6. Phiên bản này không thêm load balancing nhiều upstream, retry tự động, circuit breaker, WebSocket proxy hoặc quy trình duyệt cấu hình nhiều cấp. Không tự retry thao tác đặt vé/thanh toán vì có thể tạo giao dịch trùng.
-7. `npm audit` sau cập nhật dependency còn 3 mục high trong cùng chuỗi `braces → micromatch → http-proxy-middleware`. Gateway không dùng glob hoặc `pathFilter` lấy từ client/config, giảm khả năng chạm tới nhánh lỗi này; chưa thể coi dependency hoàn toàn sạch. Không hạ thư viện về bản rất cũ theo đề nghị `audit --force`.
+7. `npm audit` sau cập nhật dependency còn 5 mục high tổng, trong đó 3 thuộc dependency production; cùng advisory `braces` qua `micromatch/http-proxy-middleware` và `chokidar/nodemon`. Gateway không dùng glob hoặc `pathFilter` lấy từ client/config, giảm khả năng chạm tới nhánh lỗi này; chưa thể coi dependency hoàn toàn sạch. Không hạ thư viện về bản rất cũ theo đề nghị `audit --force`.
 8. Server chung còn vấn đề lưu trạng thái PM2 qua reboot: `/home/nhan/.pm2/dump.pm2` thuộc `nhan`, tài khoản hiện tại không có quyền ghi. Chủ daemon/root cần chạy `PM2_HOME=/home/nhan/.pm2 pm2 save` sau khi xác nhận danh sách process hiện tại. Việc đổi route không cần `pm2 save`; vấn đề này liên quan việc tự khởi động đúng đường dẫn ứng dụng sau reboot.
 
 ## 9. Kiểm chứng
 
-- **18 test tự động đã qua**: SQLite thật, chuyển dữ liệu JSON một lần, không tái sinh route đã xóa, persistence/reload, conflict giữa registry, sửa route/service realtime, đổi Identity, JWT/quyền, thu hồi admin, CSRF, header/query/body proxy, rate limit, timeout, SSE, rollback, CORS/quốc gia/tuổi phiên/giới hạn đăng nhập động và chặn cấu hình nguy hiểm.
+- **24 test tự động đã qua**: SQLite thật, chuyển dữ liệu JSON một lần, không tái sinh route đã xóa, persistence/reload, conflict giữa registry, sửa route/service realtime, đổi Identity, JWT/quyền, thu hồi admin, CSRF, header/query/body proxy, rate limit, timeout, SSE, rollback, CORS/quốc gia/tuổi phiên/giới hạn đăng nhập động và chặn cấu hình nguy hiểm.
 - Kiểm thử Chromium bằng thao tác giao diện thật: đăng nhập, 69 route, thêm và thử ánh xạ, chỉnh query/rate limit, đổi backend, hai cửa sổ với bản nháp và conflict, lịch sử khôi phục, giao diện mobile 390px, không có lỗi JavaScript.
 - Chạy bản ứng viên loopback cổng 5556 với các backend thật và so sánh bản đang chạy: health/UI/catalog landmarks/search trả 200; session/admin không đăng nhập trả 401; API nội bộ bị chặn. Endpoint chưa khai báo `/api/v1/recommendations/popular` vẫn trả 404.
 - Không kiểm thử giao dịch thanh toán hoặc phát triển thêm GoCar trong đợt này. Kiểm thử trên fixture không thay thế xác nhận đầy đủ nghiệp vụ bằng tài khoản thật trên production.
@@ -286,3 +293,6 @@ Gateway đã được restart riêng bằng PM2 từ worktree `devserver`; inter
 Backup trước triển khai nằm ngoài Git tại `/home/trungcao/.local/share/gotravel-gateway/backups/gateway-before-dynamic-deploy-2026-10-04.sqlite`. Có thể xuất JSON hoặc chạy backup mới sau khi nhóm cấu hình thêm route.
 
 Kiểm tra URL Tailscale thực hiện từ server; ACL và kết nối Tailscale trên máy cá nhân vẫn quyết định khả năng truy cập từ máy đó. Chưa xác minh đăng nhập bằng tài khoản admin thật trên production vì không dùng mật khẩu của người dùng; luồng đăng nhập và quyền đã được kiểm thử trên fixture với chữ ký RSA/JWKS và trình duyệt thật.
+
+
+Bản nâng cấp node service/REST/security tiếp theo đã được triển khai; kết quả mới nhất và các giới hạn xem [API_GATEWAY_SERVICE_NODES_REST_SECURITY.md](API_GATEWAY_SERVICE_NODES_REST_SECURITY.md#9-kết-quả-triển-khai-thực-tế).

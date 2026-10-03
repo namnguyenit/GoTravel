@@ -238,6 +238,8 @@ export function createRouteRegistry(options = {}) {
             auth: matched.route.auth,
             roles: matched.route.roles,
             timeoutMs: matched.route.timeoutMs,
+            rateLimit: matched.route.rateLimit,
+            security: matched.route.security,
           }
         : { matched: false, method, gatewayPath: url };
     },

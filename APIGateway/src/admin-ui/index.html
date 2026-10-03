@@ -132,33 +132,60 @@
           <div class="section-title">
             <div>
               <span class="eyebrow">ROUTING WORKSPACE</span>
-              <h2>Nhìn rõ từng đường đi của API</h2>
+              <h2>Mỗi service, một node rõ ràng</h2>
               <p>
-                Chọn một route để mở ánh xạ, chính sách và cấu hình chi tiết.
+                Chọn node để xem API. Mỗi luồng hiển thị đường dẫn Gateway,
+                backend đích và chính sách đang áp dụng.
               </p>
             </div>
             <div class="actions">
               <button id="export-button" class="secondary">
                 ↓ Xuất cấu hình</button
               ><button id="import-button" class="secondary">↑ Nhập</button
-              ><button id="add-route-button" class="primary">
+              ><button id="rest-resource-button" class="primary" type="button">
+                + Tài nguyên REST</button
+              ><button id="add-route-button" class="secondary">
                 + Thêm route
               </button>
             </div>
           </div>
-          <div class="flow-guide">
+          <section class="topology" aria-label="Sơ đồ Gateway kết nối service">
+            <button
+              id="all-service-nodes"
+              class="gateway-node"
+              type="button"
+              aria-pressed="true"
+            >
+              <span class="node-symbol">G</span><small>ĐIỂM VÀO DUY NHẤT</small
+              ><strong>API Gateway</strong><code id="gateway-origin"></code
+              ><span id="gateway-node-count"></span
+              ><span class="node-action">Xem tất cả node →</span>
+            </button>
+            <span class="topology-connector" aria-hidden="true">→</span>
+            <div id="service-nodes" class="service-nodes"></div>
+          </section>
+          <div class="workspace-heading">
             <div>
-              <small>CLIENT REQUEST</small><b>Method + đường dẫn Gateway</b>
+              <h3 id="mapping-title">API theo service</h3>
+              <p id="mapping-subtitle">
+                Bấm một endpoint để mở toàn bộ cấu hình.
+              </p>
             </div>
-            <span>→</span>
-            <div>
-              <small>ROUTE POLICY</small
-              ><b>Khớp đường dẫn · xác thực · giới hạn</b>
-            </div>
-            <span>→</span>
-            <div>
-              <small>LOCAL / UPSTREAM</small
-              ><b>Địa chỉ service + đường dẫn backend</b>
+            <div class="view-switch" role="group" aria-label="Kiểu hiển thị">
+              <button
+                id="node-mode-button"
+                type="button"
+                class="active"
+                aria-pressed="true"
+              >
+                Theo node</button
+              ><button
+                id="table-mode-button"
+                type="button"
+                aria-pressed="false"
+              >
+                Bảng API
+              </button>
             </div>
           </div>
           <div class="panel">
@@ -175,8 +202,24 @@
                 <option value="jwt">JWT</option>
                 <option value="public">Công khai</option>
               </select>
+              <select id="route-method-filter" aria-label="Lọc HTTP method">
+                <option value="">Mọi method</option>
+                <option>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>PATCH</option>
+                <option>DELETE</option>
+                <option>HEAD</option>
+                <option>OPTIONS</option>
+              </select>
+              <select id="route-state-filter" aria-label="Lọc trạng thái">
+                <option value="">Mọi trạng thái</option>
+                <option value="enabled">Đang bật</option>
+                <option value="disabled">Đã tắt</option>
+              </select>
             </div>
-            <div class="table-wrap">
+            <div id="route-node-groups" class="route-node-groups"></div>
+            <div id="route-table-view" class="table-wrap hidden">
               <table class="route-table">
                 <thead>
                   <tr>
@@ -285,6 +328,51 @@
                 </p>
               </div>
             </div>
+            <section class="traffic-settings">
+              <h3>Bảo vệ chung cho API</h3>
+              <p class="hint">
+                Giới hạn chung cộng thêm giới hạn từng route. API quản trị và
+                health được tách để có thể sửa chính sách khi đặt hạn mức quá
+                thấp.
+              </p>
+              <label class="check-label"
+                ><input id="setting-global-limit" type="checkbox" /> Bật rate
+                limit chung theo IP cho /api/v1</label
+              >
+              <div class="form-row">
+                <label
+                  >Request/IP<input
+                    id="setting-global-count"
+                    type="number"
+                    min="1"
+                    max="100000"
+                    required /></label
+                ><label
+                  >Cửa sổ (giây)<input
+                    id="setting-global-window"
+                    type="number"
+                    min="1"
+                    max="86400"
+                    required
+                /></label>
+              </div>
+              <label class="check-label"
+                ><input id="setting-security-headers" type="checkbox" /> Bật
+                nosniff, chặn nhúng frame và hạn chế Referer</label
+              >
+              <label
+                >HSTS max-age (giây)<input
+                  id="setting-hsts"
+                  type="number"
+                  min="0"
+                  max="63072000"
+                  required
+                /><small
+                  >0: tắt. Chỉ phát HSTS trên HTTPS; bật sau khi HTTPS của
+                  domain đã ổn định.</small
+                ></label
+              >
+            </section>
             <div class="form-actions">
               <button class="primary" type="submit">Lưu chính sách</button>
             </div>
@@ -430,8 +518,8 @@
           >
           <h3>Giới hạn tần suất</h3>
           <label class="check-label"
-            ><input id="route-rate-enabled" type="checkbox" /> Bật giới hạn theo
-            IP / route</label
+            ><input id="route-rate-enabled" type="checkbox" /> Bật giới hạn tần
+            suất</label
           >
           <div class="form-row">
             <label
@@ -448,6 +536,95 @@
                 max="86400"
             /></label>
           </div>
+          <div class="form-row">
+            <label
+              >Tính hạn mức theo<select id="route-rate-key">
+                <option value="ip">IP nguồn</option>
+                <option value="user">Tài khoản đã xác thực</option>
+                <option value="ip-user">IP + tài khoản</option>
+              </select></label
+            ><label
+              >Nhóm hạn mức dùng chung<input
+                id="route-rate-group"
+                placeholder="ticket-write"
+                maxlength="80"
+            /></label>
+          </div>
+          <small
+            >Cùng service + cùng nhóm sẽ dùng chung bộ đếm. Để trống nhóm: hạn
+            mức riêng cho route.</small
+          >
+          <label class="check-label"
+            ><input id="route-rate-update-group" type="checkbox" /> Áp dụng hạn
+            mức này cho toàn bộ route trong nhóm</label
+          >
+          <div class="rate-presets">
+            <span>Mẫu nhanh:</span
+            ><button type="button" data-rate-preset="read">
+              API đọc · 120/phút</button
+            ><button type="button" data-rate-preset="write">
+              API ghi · 30/phút</button
+            ><button type="button" data-rate-preset="strict">
+              Nhạy cảm · 5/15 phút
+            </button>
+          </div>
+          <h3>Bảo vệ request</h3><p id="policy-request-context" class="hint"></p>
+          <label class="check-label"
+            ><input id="route-https" type="checkbox" /> Chỉ chấp nhận
+            HTTPS</label
+          ><small
+            >Localhost/Tailscale HTTP sẽ bị từ chối nếu bật. Gateway xác định
+            HTTPS qua proxy tin cậy.</small
+          >
+          <div class="form-row">
+            <label
+              >Body tối đa (KiB)<input
+                id="route-body-limit"
+                type="number"
+                min="0"
+                max="51200"
+                step="any"
+              /><small
+                >0: không đặt giới hạn riêng; tối đa 50 MiB.</small
+              ></label
+            ><label
+              >Content-Type được phép<input
+                id="route-content-types"
+                placeholder="application/json, multipart/form-data"
+              /><small
+                >Để trống: không giới hạn MIME. Hỗ trợ image/*.</small
+              ></label
+            >
+          </div>
+          <div class="form-row">
+            <label
+              >IP/CIDR được phép<textarea
+                id="route-allow-ips"
+                rows="3"
+                placeholder="100.64.0.0/10&#10;127.0.0.1"
+              ></textarea
+              ><small>Để trống: cho mọi IP đi qua bước xác thực.</small></label
+            ><label
+              >IP/CIDR bị chặn<textarea
+                id="route-deny-ips"
+                rows="3"
+                placeholder="203.0.113.10&#10;2001:db8::/32"
+              ></textarea
+              ><small>Danh sách chặn luôn được ưu tiên.</small></label
+            >
+          </div>
+          <label
+            >Origin giới hạn riêng cho route<textarea
+              id="route-origins"
+              rows="2"
+              placeholder="https://gostay.nonnet123.io.vn"
+            ></textarea
+            ><small
+              >Lọc origin trình duyệt khi có Origin/Referer; vẫn chịu CORS và
+              CSRF chung. API client không có origin vẫn phải qua xác
+              thực.</small
+            ></label
+          >
           <h3>Kết nối backend</h3>
           <label
             >Timeout (ms)<input
@@ -577,6 +754,127 @@
           <button id="delete-service" class="danger hidden" type="button">
             Xóa service</button
           ><button class="primary" type="submit">Lưu và áp dụng</button>
+        </div>
+      </form>
+    </aside>
+    <aside
+      id="rest-drawer"
+      class="drawer hidden"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="rest-title"
+    >
+      <header class="drawer-head">
+        <div>
+          <span class="eyebrow">REST RESOURCE BUILDER</span>
+          <h2 id="rest-title">Tạo tài nguyên REST</h2>
+        </div>
+        <button class="close-drawer" type="button" aria-label="Đóng">×</button>
+      </header>
+      <form id="rest-form">
+        <p class="hint">
+          Chọn các thao tác backend đã hỗ trợ. Tất cả endpoint được kiểm tra và
+          lưu trong một transaction.
+        </p>
+        <label
+          >Tên tài nguyên<input
+            id="rest-name"
+            required
+            minlength="3"
+            maxlength="100"
+            placeholder="Đơn vé"
+        /></label>
+        <label>Node service<select id="rest-service"></select></label>
+        <div class="form-row">
+          <label
+            >Đường dẫn tài nguyên Gateway<input
+              id="rest-source"
+              required
+              placeholder="/api/v1/tickets/orders" /></label
+          ><label
+            >Đường dẫn tài nguyên backend<input
+              id="rest-target"
+              required
+              placeholder="/api/orders"
+          /></label>
+        </div>
+        <div class="form-row">
+          <label
+            >Tham số định danh<input
+              id="rest-param"
+              value="id"
+              required
+              pattern="[A-Za-z][A-Za-z0-9_]*" /></label
+          ><label
+            >Kiểu định danh<select id="rest-param-type">
+              <option value="uuid">UUID</option>
+              <option value="number">Số nguyên</option>
+              <option value="segment">Một đoạn đường dẫn</option>
+            </select></label
+          >
+        </div>
+        <h3>Thao tác API</h3>
+        <div id="rest-operations" class="rest-operations"></div>
+        <h3>Xác thực và hạn mức</h3>
+        <label
+          >Quyền được phép<input
+            id="rest-roles"
+            placeholder="ROLE_USER, ROLE_TICKET_VENDOR"
+          /><small
+            >Để trống: tài khoản SSO hợp lệ; backend kiểm tra quyền trên từng
+            đối tượng.</small
+          ></label
+        >
+        <label class="check-label"
+          ><input id="rest-public-reads" type="checkbox" /> Cho phép đọc GET
+          công khai</label
+        ><small
+          >Thao tác ghi luôn cần JWT. Chỉ bật đọc công khai cho dữ liệu thực sự
+          công khai.</small
+        >
+        <div class="form-row">
+          <label
+            >Hạn mức đọc/phút<input
+              id="rest-read-limit"
+              type="number"
+              min="1"
+              max="100000"
+              value="180"
+              required /></label
+          ><label
+            >Hạn mức ghi/phút<input
+              id="rest-write-limit"
+              type="number"
+              min="1"
+              max="100000"
+              value="30"
+              required
+          /></label>
+        </div>
+        <label
+          >Khóa rate limit<select id="rest-rate-key">
+            <option value="ip">IP nguồn</option>
+            <option value="user">Tài khoản</option>
+            <option value="ip-user">IP + tài khoản</option>
+          </select></label
+        >
+        <label class="check-label"
+          ><input id="rest-share-limit" type="checkbox" checked /> Dùng chung
+          hạn mức cho nhóm đọc và nhóm ghi</label
+        >
+        <h3>Ánh xạ sẽ tạo</h3>
+        <div id="rest-preview" class="rest-preview"></div>
+        <p class="hint">
+          GET đọc; POST tạo mới; PUT thay toàn bộ; PATCH cập nhật một phần;
+          DELETE xóa. Gateway ánh xạ request tới backend. Backend quyết định
+          response và mã thành công.
+        </p>
+        <div id="rest-error" class="notice error hidden" role="alert"></div>
+        <div class="drawer-actions">
+          <span id="rest-count"></span
+          ><button class="primary" type="submit" id="save-rest">
+            Lưu toàn bộ endpoint
+          </button>
         </div>
       </form>
     </aside>
