@@ -206,3 +206,12 @@ Backup: `/home/trungcao/.local/share/gotravel-gateway/backups/gateway-before-ser
 Kiểm tra Tailscale thực hiện từ server; kết nối/ACL của máy cá nhân vẫn quyết định truy cập từ máy đó. Chưa dùng tài khoản admin thật trên production; toàn bộ thao tác ghi, phiên cookie/CSRF và sáu method được kiểm thử bằng trình duyệt trên fixture tách biệt. Không sửa chính sách đang lưu để phục vụ thử nghiệm.
 
 Khả năng tự khởi động đúng cấu hình sau reboot chưa được xác nhận: tệp dump của daemon PM2 vẫn thuộc `nhan`, lần `pm2 save` trước bị EACCES. Chủ daemon/root cần xử lý quyền và lưu lại process list; bản đang chạy và lưu cấu hình SQLite realtime vẫn hoạt động.
+
+
+## 10. Cỡ chữ và khả năng đọc
+
+Đã chỉnh chữ theo phản hồi ảnh chụp giao diện: nội dung, tên node và URL ánh xạ 16px; nhãn phụ/method/chính sách 13–15px; tiêu đề khu vực 28–30px trên desktop. Dùng thang cỡ chữ rem thống nhất, màu mô tả đậm hơn và màu method/trạng thái dễ đọc hơn.
+
+Sidebar, ô node, cột method, nút thao tác và khoảng cách hàng được điều chỉnh theo cỡ chữ mới. Tên service dài được xuống dòng; màn hình hẹp chuyển bố cục ánh xạ thành từng phần, tab cấu hình cuộn ngang thay vì thu chữ nhỏ. Nội dung ô nhập dùng độ đậm bình thường để phân biệt với nhãn.
+
+Đã kiểm tra bằng Chromium trên fixture ở 2560, 1920, 1366, 960 và 390px: không tràn ngang trang, URL hiển thị 16px, bảng cấu hình mobile không tràn, không có lỗi JavaScript. Chỉ cập nhật CSS; tệp static có hiệu lực khi tải lại trang.
