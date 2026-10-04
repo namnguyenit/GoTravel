@@ -182,14 +182,14 @@ function render() {
   $("nav-route-count").textContent = overview.routes.length;
   $("metric-routes").textContent = enabled.length;
   $("metric-total").textContent =
-    `${overview.routes.length} route được cấu hình`;
+    `${overview.routes.length} route`;
   $("metric-services").textContent =
     `${overview.services.filter((x) => x.state === "reachable").length} / ${overview.services.length}`;
   $("metric-protected").textContent = overview.routes.filter(
     (x) => x.auth === "jwt",
   ).length;
   $("metric-updated").textContent = time(overview.updatedAt);
-  $("metric-version").textContent = `SQLite · phiên bản ${overview.version}`;
+  $("metric-version").textContent = `Phiên bản ${overview.version}`;
   $("version-label").textContent = `v${overview.version}`;
   const filter = $("route-service-filter"),
     selected = filter.value;
@@ -346,7 +346,7 @@ function renderServices() {
         "",
         `${overview.routes.filter((x) => x.serviceKey === service.key).length} route liên quan`,
       ),
-      element("span", "", "Cấu hình →"),
+      element("span", "", "Cấu hình"),
     );
     card.append(meta);
     $("service-grid").append(card);
@@ -525,7 +525,7 @@ function openRoute(route = null) {
   $("route-rate-group").value = editingRoute.rateLimit.group || "";
   $("route-rate-update-group").checked = false;
   const context = overview.requestContext;
-  $('policy-request-context').textContent = context ? `Kết nối quản trị hiện tại: IP ${context.ip} · ${context.secure ? 'HTTPS' : 'HTTP'}. IP client được xác định theo proxy tin cậy.` : '';
+  $('policy-request-context').textContent = context ? `IP quản trị: ${context.ip} · ${context.secure ? 'HTTPS' : 'HTTP'}` : '';
   const security = editingRoute.security || {
     requireHttps: false,
     maxBodyBytes: 0,
@@ -722,7 +722,7 @@ async function saveItem(type, item, isNew, applyGroup = false) {
     setDirty(false);
     closeDrawer(true);
     await loadOverview(true);
-    message($("notice"), "Đã lưu vào SQLite. Cấu hình mới đang được áp dụng.");
+    message($("notice"), "Đã lưu và áp dụng.");
   } finally {
     saving = false;
   }
@@ -740,8 +740,8 @@ function openService(service = null) {
   $("service-description").value = service?.description || "";
   $("service-enabled").checked = service?.enabled ?? true;
   $("service-impact").textContent = service
-    ? `${overview.routes.filter((x) => x.serviceKey === service.key).length} route đang dùng service này. Đổi URL sẽ đổi đích của tất cả các route đó.`
-    : "Thêm service rồi gán service này trong cấu hình route.";
+    ? `Đổi URL áp dụng cho ${overview.routes.filter((x) => x.serviceKey === service.key).length} route.`
+    : "";
   show($("delete-service"), Boolean(service));
   message($("service-error"));
   setDirty(false);
@@ -1220,11 +1220,8 @@ function renderNodeMap() {
   }
   const service = overview.services.find((x) => x.key === selected);
   $("mapping-title").textContent = service
-    ? `API của ${service.name}`
-    : "API theo node service";
-  $("mapping-subtitle").textContent = service
-    ? `${service.target || "Chưa cấu hình URL backend"} · Bấm endpoint để chỉnh ánh xạ và chính sách.`
-    : "Mở từng node để xem tài nguyên, phương thức và đường đi tới backend.";
+    ? `Routes: ${service.name}`
+    : "Routes";
 }
 async function copyValue(value) {
   try {
@@ -1354,10 +1351,7 @@ function renderRouteGroups(routes) {
     summary.append(identity, stats);
     details.append(summary);
     const controls = element("div", "service-group-controls");
-    controls.append(
-      element("span", "", "Đường dẫn Gateway → URL cục bộ / backend"),
-    );
-    const edit = element("button", "secondary", "Cấu hình node");
+    const edit = element("button", "secondary", "Cấu hình service");
     edit.type = "button";
     edit.onclick = () => openService(service);
     const rest = element("button", "secondary", "+ Tài nguyên REST");
@@ -1406,12 +1400,12 @@ function renderRouteGroups(routes) {
         flow.append(
           badges,
           urlBlock(
-            "GATEWAY / CLIENT",
+            "Gateway",
             `${location.origin}${route.sourcePath}${route.matchType === "prefix" ? "/…" : ""}`,
           ),
           element("span", "mapping-arrow", "→"),
           urlBlock(
-            `${service.key.toUpperCase()} / BACKEND`,
+            "Backend",
             `${service.target || "[chưa cấu hình]"}${route.upstreamPath}${route.matchType === "prefix" ? "/…" : ""}`,
           ),
         );
@@ -1677,7 +1671,7 @@ function setupNodeWorkspace() {
           await loadOverview(true);
           message(
             $("notice"),
-            `Đã lưu và áp dụng ${items.length} endpoint REST trong một transaction.`,
+            `Đã tạo ${items.length} route.`,
           );
         } finally {
           saving = false;

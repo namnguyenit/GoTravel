@@ -4,35 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="color-scheme" content="light" />
-    <title>Gateway Studio · GoTravel</title>
+    <title>Quản trị Gateway · GoTravel</title>
     <link rel="stylesheet" href="/admin/gateway/style.css" />
     <script defer src="/admin/gateway/app.js"></script>
   </head>
   <body>
     <section id="login-view" class="login-shell hidden">
-      <aside class="login-story">
-        <div class="brand">
-          <span class="brand-mark">G</span> GoTravel <b>Gateway</b>
-        </div>
-        <div>
-          <span class="eyebrow">GATEWAY STUDIO</span>
-          <h1>Mọi kết nối.<br />Một nơi điều khiển.</h1>
-          <p>
-            Cấu hình luồng API, service và chính sách truy cập ngay trong một
-            workspace. Thay đổi được lưu trên SQLite và áp dụng khi Gateway xác
-            nhận.
-          </p>
-          <div class="story-flow">
-            <span>Client</span><i>→</i><span>Gateway</span><i>→</i
-            ><span>Services</span>
-          </div>
-        </div>
-        <small>GoTravel Platform · Administration</small>
-      </aside>
       <main class="login-main">
         <form id="login-form" class="login-card">
-          <span class="eyebrow">ADMIN WORKSPACE</span>
-          <h2>Đăng nhập Gateway</h2>
+          <div class="brand"><span class="brand-mark">G</span><span>GoTravel Gateway</span></div>
+          <h2>Đăng nhập</h2>
           <p>Dùng tài khoản SSO có quyền quản trị.</p>
           <label
             >Tên đăng nhập<input
@@ -45,9 +26,8 @@
               type="password"
               autocomplete="current-password"
               required /></label
-          ><button class="primary" type="submit">Mở workspace →</button>
+          ><button class="primary" type="submit">Đăng nhập</button>
           <div id="login-error" class="notice error hidden" role="alert"></div>
-          <small>Phiên được bảo vệ bằng cookie HttpOnly và CSRF.</small>
         </form>
       </main>
     </section>
@@ -56,7 +36,6 @@
         <div class="brand">
           <span class="brand-mark">G</span><span>GoTravel <b>Gateway</b></span>
         </div>
-        <span class="nav-title">CONTROL PLANE</span>
         <nav>
           <button class="nav-item active" data-view="routes">
             <svg class="ui-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -93,9 +72,6 @@
       <main class="content">
         <header class="topbar">
           <div>
-            <div class="breadcrumb">
-              GoTravel Platform <span>/</span> Gateway Studio
-            </div>
             <h1 id="page-title">Ánh xạ API</h1>
           </div>
           <div class="toolbar">
@@ -116,23 +92,18 @@
           </article>
           <article>
             <small>XÁC THỰC JWT</small><b id="metric-protected">—</b
-            ><span>Route yêu cầu phiên hợp lệ</span>
+            ><span>Route yêu cầu JWT</span>
           </article>
           <article>
             <small>CẬP NHẬT GẦN NHẤT</small
             ><b id="metric-updated" class="date-metric">—</b
-            ><span id="metric-version">SQLite · phiên bản 1</span>
+            ><span id="metric-version">Phiên bản 1</span>
           </article>
         </div>
         <section id="view-routes" class="view">
           <div class="section-title">
             <div>
-              <span class="eyebrow">ROUTING WORKSPACE</span>
-              <h2>Mỗi service, một node rõ ràng</h2>
-              <p>
-                Chọn node để xem API. Mỗi luồng hiển thị đường dẫn Gateway,
-                backend đích và chính sách đang áp dụng.
-              </p>
+              <h2>Service</h2>
             </div>
             <div class="actions">
               <button id="export-button" class="secondary">
@@ -151,21 +122,17 @@
               class="gateway-node"
               type="button"
               aria-pressed="true"
+              aria-label="Hiển thị tất cả service"
             >
-              <span class="node-symbol">G</span><small>ĐIỂM VÀO DUY NHẤT</small
-              ><strong>API Gateway</strong><code id="gateway-origin"></code
-              ><span id="gateway-node-count"></span
-              ><span class="node-action">Xem tất cả node →</span>
+              <strong>Gateway</strong><code id="gateway-origin"></code
+              ><span id="gateway-node-count"></span>
             </button>
             <span class="topology-connector" aria-hidden="true">→</span>
             <div id="service-nodes" class="service-nodes"></div>
           </section>
           <div class="workspace-heading">
             <div>
-              <h3 id="mapping-title">API theo service</h3>
-              <p id="mapping-subtitle">
-                Bấm một endpoint để mở toàn bộ cấu hình.
-              </p>
+              <h3 id="mapping-title">Routes</h3>
             </div>
             <div class="view-switch" role="group" aria-label="Kiểu hiển thị">
               <button
@@ -234,20 +201,14 @@
               Không có route phù hợp.
             </div>
             <div class="panel-foot">
-              <span id="route-result-count"></span
-              ><span>Thay đổi chỉ được áp dụng sau khi lưu thành công.</span>
+              <span id="route-result-count"></span>
             </div>
           </div>
         </section>
         <section id="view-services" class="view hidden">
           <div class="section-title">
             <div>
-              <span class="eyebrow">UPSTREAM REGISTRY</span>
-              <h2>Service và địa chỉ backend</h2>
-              <p>
-                Đổi địa chỉ tại đây sẽ cập nhật tất cả route liên quan ngay sau
-                khi lưu.
-              </p>
+              <h2>Backend</h2>
             </div>
             <button id="add-service-button" class="primary">
               + Thêm service
@@ -258,9 +219,7 @@
         <section id="view-settings" class="view hidden">
           <div class="section-title">
             <div>
-              <span class="eyebrow">GATEWAY POLICIES</span>
-              <h2>Chính sách phiên và truy cập</h2>
-              <p>Điều chỉnh chính sách trong phiên làm việc hiện tại.</p>
+              <h2>Phiên và truy cập</h2>
             </div>
           </div>
           <form id="settings-form" class="panel settings-form">
@@ -318,18 +277,14 @@
                     placeholder="VN, SG"
                 /></label>
                 <p class="hint">
-                  Header quốc gia chỉ được dùng cho yêu cầu qua proxy được tin
-                  cậy. Các khóa ký JWT và token nội bộ được quản lý bằng biến
-                  môi trường.
+                  Chỉ áp dụng giới hạn quốc gia với proxy tin cậy.
                 </p>
               </div>
             </div>
             <section class="traffic-settings">
               <h3>Bảo vệ chung cho API</h3>
               <p class="hint">
-                Giới hạn chung cộng thêm giới hạn từng route. API quản trị và
-                health được tách để có thể sửa chính sách khi đặt hạn mức quá
-                thấp.
+                Áp dụng cùng rate limit của route. Không áp dụng cho API quản trị và health.
               </p>
               <label class="check-label"
                 ><input id="setting-global-limit" type="checkbox" /> Bật rate
@@ -377,12 +332,7 @@
         <section id="view-history" class="view hidden">
           <div class="section-title">
             <div>
-              <span class="eyebrow">CONFIGURATION HISTORY</span>
-              <h2>Lịch sử cấu hình</h2>
-              <p>
-                Khôi phục một bản trước đó sẽ tạo phiên bản mới; lịch sử hiện có
-                được giữ lại.
-              </p>
+              <h2>Phiên bản</h2>
             </div>
           </div>
           <div class="panel table-wrap">
@@ -400,9 +350,6 @@
             </table>
           </div>
         </section>
-        <footer id="footer-state">
-          Gateway Studio · SQLite · Cấu hình được xác thực trước khi áp dụng
-        </footer>
       </main>
     </div>
     <input
@@ -421,15 +368,14 @@
     >
       <div class="drawer-header">
         <div>
-          <span class="eyebrow">ROUTE CONFIGURATION</span>
           <h2 id="editor-title">Cấu hình route</h2>
         </div>
         <button class="icon-button close-drawer" aria-label="Đóng">×</button>
       </div>
       <div class="mapping-preview">
-        <div><small>GATEWAY</small><b id="flow-source">—</b></div>
+        <div><small>Gateway</small><b id="flow-source">—</b></div>
         <span>↓</span>
-        <div><small>LOCAL / BACKEND</small><b id="flow-target">—</b></div>
+        <div><small>Backend</small><b id="flow-target">—</b></div>
       </div>
       <nav class="editor-tabs">
         <button data-tab="mapping" class="active" type="button">Ánh xạ</button
@@ -497,8 +443,8 @@
         <div id="tab-security" class="editor-tab hidden">
           <label
             >Xác thực<select id="route-auth">
-              <option value="jwt">JWT · yêu cầu phiên SSO hợp lệ</option>
-              <option value="public">Công khai · chỉ endpoint chính xác</option>
+              <option value="jwt">JWT / SSO</option>
+              <option value="public">Công khai</option>
             </select></label
           ><label
             >Quyền được phép<input
@@ -670,15 +616,13 @@
               placeholder="x-powered-by"
           /></label>
           <p class="hint">
-            Gateway luôn lọc cookie, header nội bộ và header danh tính từ
-            client. Không thể ghi đè các header này bằng cấu hình.
+            Không cho ghi đè cookie và header nội bộ/danh tính.
           </p>
         </div>
         <div id="tab-preview" class="editor-tab hidden">
           <h3>Request mẫu</h3>
           <p class="hint">
-            Kiểm tra route được chọn và URL đích sau rewrite. Không gửi request
-            tới backend.
+            Chỉ kiểm tra ánh xạ; không gọi backend.
           </p>
           <div class="form-row preview-row">
             <select id="preview-method" aria-label="Method mẫu"></select
@@ -689,7 +633,7 @@
             />
           </div>
           <button id="preview-button" class="secondary" type="button">
-            Kiểm tra ánh xạ →
+            Kiểm tra ánh xạ
           </button>
           <div id="preview-result" class="preview-result hidden"></div>
         </div>
@@ -717,7 +661,6 @@
     >
       <div class="drawer-header">
         <div>
-          <span class="eyebrow">SERVICE CONFIGURATION</span>
           <h2 id="service-title">Service</h2>
         </div>
         <button class="icon-button close-drawer" aria-label="Đóng">×</button>
@@ -760,17 +703,15 @@
       aria-modal="true"
       aria-labelledby="rest-title"
     >
-      <header class="drawer-head">
+      <header class="drawer-header">
         <div>
-          <span class="eyebrow">REST RESOURCE BUILDER</span>
           <h2 id="rest-title">Tạo tài nguyên REST</h2>
         </div>
-        <button class="close-drawer" type="button" aria-label="Đóng">×</button>
+        <button class="icon-button close-drawer" type="button" aria-label="Đóng">×</button>
       </header>
       <form id="rest-form">
         <p class="hint">
-          Chọn các thao tác backend đã hỗ trợ. Tất cả endpoint được kiểm tra và
-          lưu trong một transaction.
+          Chỉ chọn API backend đã hỗ trợ.
         </p>
         <label
           >Tên tài nguyên<input
@@ -780,7 +721,7 @@
             maxlength="100"
             placeholder="Đơn vé"
         /></label>
-        <label>Node service<select id="rest-service"></select></label>
+        <label>Service<select id="rest-service"></select></label>
         <div class="form-row">
           <label
             >Đường dẫn tài nguyên Gateway<input
@@ -861,9 +802,7 @@
         <h3>Ánh xạ sẽ tạo</h3>
         <div id="rest-preview" class="rest-preview"></div>
         <p class="hint">
-          GET đọc; POST tạo mới; PUT thay toàn bộ; PATCH cập nhật một phần;
-          DELETE xóa. Gateway ánh xạ request tới backend. Backend quyết định
-          response và mã thành công.
+          Response và mã HTTP do backend quyết định.
         </p>
         <div id="rest-error" class="notice error hidden" role="alert"></div>
         <div class="drawer-actions">

@@ -225,3 +225,13 @@ Lượt tinh chỉnh giảm cỡ chữ kiểm tra lại trên desktop 1920px và
 Trạng thái ở thanh trên: **Trực tuyến** màu xanh khi kết nối cập nhật đang mở và không có bản nháp; **Chưa lưu** màu vàng khi có thay đổi route/service/REST/chính sách chưa lưu; **Ngoại tuyến** màu đỏ khi mất kết nối cập nhật. Mất kết nối được ưu tiên hiển thị; bản nháp vẫn được giữ, kết nối lại trở về Chưa lưu nếu còn bản nháp. Lưu thành công hoặc bỏ bản nháp trở về Trực tuyến khi kết nối đang mở.
 
 Đã kiểm tra trình duyệt trên fixture: nhãn bị bỏ/đổi, lưu và bỏ bản nháp ở các biểu mẫu, ngắt/kết nối lại SSE thật, trạng thái vẫn giữ Chưa lưu qua sự kiện cấu hình; desktop/mobile không lỗi JavaScript.
+
+## 12. Nguyên tắc giao diện admin
+
+Theo yêu cầu của nhóm, Gateway admin dùng giao diện thực dụng: tên chức năng ngắn, dữ liệu và thao tác trực tiếp; bỏ slogan, phần giới thiệu, câu dẫn lặp lại và nhãn trang trí. Chỉ giữ ghi chú cần thiết về điều kiện cấu hình, ảnh hưởng thay đổi và ràng buộc bảo mật.
+
+Đã bỏ trang giới thiệu cạnh form đăng nhập, các tiêu đề phụ tiếng Anh, breadcrumb, khẩu hiệu và biểu tượng trang trí trong node Gateway, mô tả cách mở node/endpoint và footer. Các khu vực dùng tên Service, Routes, Backend, Phiên và truy cập, Phiên bản. Gateway hiển thị URL và số route/service; nút vẫn lọc về tất cả service.
+
+Giảm trang trí: node Gateway nền trung tính, bỏ gradient/bóng trang trí, giảm khoảng trống, form đăng nhập đơn giản. Màu chọn, nút chính, focus và trạng thái xanh/vàng/đỏ được giữ để nhận biết thao tác và trạng thái.
+
+Kiểm chứng Chromium trên fixture: đăng nhập, lọc service, mở/sửa/lưu route, chỉnh service/chính sách/REST, trạng thái bản nháp và ngắt/kết nối lại SSE; không có lỗi JavaScript. Đã kiểm tra tất cả ID mà JavaScript tham chiếu vẫn tồn tại và mobile không tràn ngang.

@@ -131,7 +131,6 @@ h3 {
 .primary {
   background: #426ce5;
   color: #fff;
-  box-shadow: 0 5px 13px #426ce529;
 }
 .primary:hover {
   background: #315bd2;
@@ -153,12 +152,6 @@ h3 {
   color: #657690;
   font-size: 23px;
   padding: 2px 11px;
-}
-.eyebrow {
-  color: #5375cf;
-  font-weight: 800;
-  font-size: var(--text-small);
-  letter-spacing: 0.15em;
 }
 .brand {
   display: flex;
@@ -182,65 +175,25 @@ h3 {
 }
 .login-shell {
   display: grid;
-  grid-template-columns: 48% 1fr;
   min-height: 100svh;
-  background: white;
-}
-.login-story {
-  background:
-    radial-gradient(circle at 95% 25%, #345ac1, transparent 55%),
-    linear-gradient(145deg, #14223d, #223966);
-  padding: 46px clamp(30px, 5vw, 85px);
-  color: white;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.login-story h1 {
-  font-size: clamp(40px, 4vw, 65px);
-  line-height: 1.12;
-  margin: 20px 0;
-}
-.login-story p {
-  max-width: 480px;
-  line-height: 1.8;
-  color: #bccce6;
-  font-size: var(--text-body);
-}
-.login-story .eyebrow {
-  color: #9fb8ff;
-}
-.login-story small {
-  color: #b9cbe8;
-}
-.story-flow {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 40px;
-}
-.story-flow span {
-  border: 1px solid #ffffff22;
-  background: #ffffff0a;
-  border-radius: 10px;
-  padding: 13px 18px;
-  font-size: var(--text-body);
-}
-.story-flow i {
-  font-style: normal;
-  color: #94b1eb;
+  background: #f4f6fa;
 }
 .login-main {
+  min-height: 100svh;
   display: grid;
   place-items: center;
   padding: 30px;
 }
 .login-card {
-  width: min(385px, 100%);
+  width: min(420px, 100%);
+  padding: 28px;
+  border: 1px solid #dce4ef;
+  border-radius: 10px;
+  background: white;
 }
 .login-card h2 {
-  font-size: 32px;
-  margin: 13px 0 8px;
+  font-size: 1.625rem;
+  margin: 24px 0 8px;
 }
 .login-card p {
   font-size: var(--text-body);
@@ -252,7 +205,7 @@ h3 {
 }
 .login-card button {
   width: 100%;
-  margin: 7px 0 22px;
+  margin: 12px 0 0;
 }
 .workspace {
   display: flex;
@@ -271,16 +224,8 @@ h3 {
   flex-direction: column;
 }
 .sidebar .brand {
-  margin: 0 3px 45px;
+  margin: 0 3px 24px;
   font-size: 1.125rem;
-}
-.nav-title {
-  font-size: var(--text-label);
-  letter-spacing: 0.15em;
-  font-weight: 750;
-  color: #52637c;
-  padding: 0 13px;
-  margin-bottom: 13px;
 }
 .nav-item {
   width: 100%;
@@ -377,14 +322,6 @@ h3 {
   gap: 16px;
   margin-bottom: 28px;
 }
-.breadcrumb {
-  color: #52637c;
-  font-size: var(--text-small);
-}
-.breadcrumb span {
-  padding: 0 8px;
-  color: #bec8d6;
-}
 .topbar h1 {
   font-size: 1.875rem;
   margin: 7px 0 0;
@@ -446,7 +383,6 @@ h3 {
   border: 1px solid #e2e8f2;
   border-radius: 13px;
   padding: 17px 20px;
-  box-shadow: 0 4px 15px #18365a04;
 }
 .metrics small {
   font-size: var(--text-label);
@@ -477,8 +413,8 @@ h3 {
   margin-bottom: 21px;
 }
 .section-title h2 {
-  font-size: 1.75rem;
-  margin: 7px 0 8px;
+  font-size: 1.375rem;
+  margin: 0;
 }
 .section-title p {
   margin: 0;
@@ -486,42 +422,11 @@ h3 {
   color: #52637c;
   line-height: 1.7;
 }
-.flow-guide {
-  display: flex;
-  align-items: center;
-  gap: 23px;
-  padding: 19px 25px;
-  background: linear-gradient(110deg, #edf2ff, #f0f7fa);
-  border: 1px solid #e1e9f7;
-  border-radius: 11px;
-  margin-bottom: 20px;
-}
-.flow-guide div {
-  flex: 1;
-}
-.flow-guide small {
-  display: block;
-  color: #7892c3;
-  font-size: var(--text-label);
-  letter-spacing: 0.1em;
-  font-weight: 750;
-  margin-bottom: 6px;
-}
-.flow-guide b {
-  font-size: var(--text-detail);
-  color: #557098;
-  font-weight: 650;
-}
-.flow-guide > span {
-  color: #9aafd5;
-  font-size: 1.375rem;
-}
 .panel {
   background: white;
   border: 1px solid #e2e8f1;
   border-radius: 13px;
   overflow: hidden;
-  box-shadow: 0 7px 25px #19385605;
 }
 .filterbar {
   display: flex;
@@ -690,7 +595,6 @@ code {
   border-radius: 13px;
   padding: 21px;
   background: white;
-  box-shadow: 0 7px 22px #18365906;
   color: inherit;
   transition:
     border 0.15s,
@@ -698,7 +602,6 @@ code {
 }
 .service-card:hover {
   border-color: #9bb4ef;
-  transform: translateY(-2px);
 }
 .service-card .service-head {
   display: flex;
@@ -785,7 +688,6 @@ footer {
   inset: 0;
   background: #172a4688;
   z-index: 20;
-  backdrop-filter: blur(2px);
 }
 .drawer {
   position: fixed;
@@ -797,7 +699,6 @@ footer {
   background: #fff;
   z-index: 21;
   padding: 26px 30px;
-  box-shadow: -20px 0 60px #172b4630;
 }
 .small-drawer {
   width: min(520px, 100vw);
@@ -816,7 +717,7 @@ footer {
   border: 1px solid #dce7f8;
   border-radius: 11px;
   padding: 16px 19px;
-  background: linear-gradient(140deg, #f5f8ff, #f4f9fb);
+  background: #f8fafc;
   margin-bottom: 20px;
 }
 .mapping-preview small {
@@ -963,7 +864,6 @@ footer {
   position: sticky;
   bottom: -26px;
   background: #fffffff5;
-  backdrop-filter: blur(8px);
   border-top: 1px solid #e6ecf4;
   margin: 25px -30px -26px;
   padding: 17px 30px;
@@ -1002,7 +902,6 @@ footer {
     padding: 22px 8px;
   }
   .sidebar .brand > span:not(.brand-mark),
-  .nav-title,
   .nav-item span,
   .nav-item small,
   .operator > div,
@@ -1044,16 +943,7 @@ footer {
   .metrics .date-metric {
     font-size: var(--text-body);
   }
-  .flow-guide {
-    flex-direction: column;
-    align-items: start;
-    gap: 10px;
-    padding: 17px;
-  }
-  .flow-guide > span {
-    transform: rotate(90deg);
-  }
-  .filterbar {
+      .filterbar {
     flex-wrap: wrap;
     padding: 12px;
   }
@@ -1068,9 +958,6 @@ footer {
   .settings-columns {
     grid-template-columns: 1fr;
   }
-  .panel-foot span:last-child {
-    display: none;
-  }
   .drawer {
     padding: 22px 18px;
   }
@@ -1084,19 +971,6 @@ footer {
   }
   .login-shell {
     display: block;
-  }
-  .login-story {
-    min-height: 220px;
-    padding: 25px;
-  }
-  .login-story h1 {
-    font-size: 30px;
-    margin: 20px 0 0;
-  }
-  .login-story p,
-  .login-story small,
-  .story-flow {
-    display: none;
   }
   .login-main {
     padding: 35px 23px;
@@ -1129,7 +1003,7 @@ footer {
   grid-template-columns: 280px 24px minmax(0, 1fr);
   align-items: center;
   gap: 14px;
-  margin: 24px 0 28px;
+  margin: 16px 0 20px;
 }
 .gateway-node {
   display: flex;
@@ -1137,21 +1011,15 @@ footer {
   align-items: flex-start;
   gap: 10px;
   padding: 22px 18px;
-  background: linear-gradient(145deg, #2e54c7, #3e67d3);
-  border: 1px solid #355fde;
+  background: white;
+  border: 1px solid #dce4f0;
   border-radius: 16px;
-  color: white;
+  color: #172b47;
   text-align: left;
-  min-height: 225px;
-  box-shadow: 0 10px 24px #426ce525;
+  min-height: auto;
 }
 .gateway-node[aria-pressed="false"] {
-  border-color: #2149bd;
-}
-.gateway-node small {
-  font-size: var(--text-label);
-  letter-spacing: 1.2px;
-  color: #d4e1ff;
+  border-color: #dce4f0;
 }
 .gateway-node strong {
   font-size: 1.375rem;
@@ -1159,24 +1027,10 @@ footer {
 .gateway-node code {
   font-size: var(--text-small);
   overflow-wrap: anywhere;
-  color: #e1ebff;
+  color: #52637c;
 }
-.gateway-node > span:not(.node-symbol) {
+.gateway-node > span {
   font-size: var(--text-detail);
-}
-.node-symbol {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  font-weight: 750;
-  font-size: 22px;
-  background: #ffffff25;
-  border: 1px solid #ffffff40;
-}
-.node-action {
-  margin-top: 5px;
 }
 .topology-connector {
   color: #98aee0;
@@ -1197,7 +1051,6 @@ footer {
   border: 1px solid #dce4f0;
   border-radius: 11px;
   background: white;
-  box-shadow: 0 2px 5px #25365303;
 }
 .service-node:hover,
 .service-node.selected {
@@ -1274,7 +1127,6 @@ footer {
 .view-switch button.active {
   background: white;
   color: #426ce5;
-  box-shadow: 0 2px 5px #2536530a;
 }
 #view-routes > .panel {
   overflow: visible;
@@ -1358,6 +1210,7 @@ footer {
 }
 .service-group-controls {
   display: flex;
+  justify-content: flex-end;
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
@@ -1659,28 +1512,13 @@ footer {
   .gateway-node {
     min-height: auto;
     padding: 18px;
-    display: grid;
-    grid-template-columns: 40px 1fr;
-    gap: 8px 12px;
+    display: flex;
+    gap: 8px;
   }
-  .gateway-node .node-symbol {
-    grid-row: 1 / 4;
-  }
-  .gateway-node strong {
+  .gateway-node   .gateway-node strong {
     font-size: 17px;
   }
-  .gateway-node small,
-  .gateway-node strong,
-  .gateway-node code {
-    grid-column: 2;
-  }
-  .gateway-node #gateway-node-count {
-    grid-column: 2;
-  }
-  .gateway-node .node-action {
-    grid-column: 2;
-  }
-  .topology-connector {
+  .gateway-node   .topology-connector {
     display: none;
   }
   .service-nodes {
@@ -1790,3 +1628,6 @@ footer {
 @media (max-width: 1500px) and (min-width: 801px) {
   .service-nodes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.gateway-node[aria-pressed="true"] { border-color: #6485ed; background: #f2f6ff; }
+.login-card .brand { white-space: normal; }
