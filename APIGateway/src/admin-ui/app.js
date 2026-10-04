@@ -42,10 +42,31 @@ let overview,
   editingRoute,
   editingService,
   events,
+  realtimeOnline = false,
   dirty = false,
   settingsDirty = false,
   saving = false,
   activeView = "routes";
+function renderRealtimeState() {
+  const badge = $("realtime-state");
+  const pending = dirty || settingsDirty;
+  const state = !realtimeOnline ? "offline" : pending ? "unsaved" : "online";
+  const labels = { online: "Trực tuyến", unsaved: "Chưa lưu", offline: "Ngoại tuyến" };
+  badge.textContent = `● ${labels[state]}`;
+  badge.classList.toggle("offline", state === "offline");
+  badge.classList.toggle("unsaved", state === "unsaved");
+  badge.title = state === "offline"
+    ? "Mất kết nối cập nhật trực tiếp. Gateway sẽ tự kết nối lại."
+    : pending ? "Có thay đổi chưa lưu." : "Đã kết nối cập nhật trực tiếp.";
+}
+function setDirty(value) {
+  dirty = value;
+  renderRealtimeState();
+}
+function setSettingsDirty(value) {
+  settingsDirty = value;
+  renderRealtimeState();
+}
 let previousFocus;
 const methods = ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"];
 const time = (value) =>
@@ -85,9 +106,10 @@ const api = (path, options) => request(`/api/v1/gateway-admin${path}`, options);
 function loggedOut(text = "") {
   events?.close();
   events = null;
+  realtimeOnline = false;
   overview = null;
-  dirty = false;
-  settingsDirty = false;
+  setDirty(false);
+  setSettingsDirty(false);
   closeDrawer(true);
   show($("dashboard-view"), false);
   show($("login-view"), true);
@@ -105,8 +127,8 @@ async function start(session) {
   events = new EventSource("/api/v1/gateway-admin/events");
   events.addEventListener("configuration", (event) => {
     const update = JSON.parse(event.data);
-    $("realtime-state").textContent = "● Đồng bộ trực tiếp";
-    $("realtime-state").classList.remove("offline");
+    realtimeOnline = true;
+    renderRealtimeState();
     if (overview && update.version !== overview.version && !saving) {
       if (dirty || settingsDirty)
         message(
@@ -118,12 +140,12 @@ async function start(session) {
     }
   });
   events.onopen = () => {
-    $("realtime-state").textContent = "● Đồng bộ trực tiếp";
-    $("realtime-state").classList.remove("offline");
+    realtimeOnline = true;
+    renderRealtimeState();
   };
   events.onerror = () => {
-    $("realtime-state").textContent = "● Chưa kết nối realtime";
-    $("realtime-state").classList.add("offline");
+    realtimeOnline = false;
+    renderRealtimeState();
   };
 }
 async function checkSession() {
@@ -137,7 +159,7 @@ async function loadOverview(force = false) {
   if (!force && (dirty || settingsDirty)) {
     if (!confirm("Tải lại sẽ bỏ các thay đổi chưa lưu. Tiếp tục?")) return;
     closeDrawer(true);
-    settingsDirty = false;
+    setSettingsDirty(false);
   }
   try {
     overview = await api("/overview");
@@ -367,7 +389,7 @@ function closeDrawer(force = false) {
   show($("rest-drawer"), false);
   show($("drawer-backdrop"), false);
   document.body.classList.remove("drawer-open");
-  dirty = false;
+  setDirty(false);
   editingRoute = null;
   editingService = null;
   previousFocus?.focus();
@@ -381,7 +403,7 @@ function kvFill(id, values) {
   add.type = "button";
   add.onclick = () => {
     kvRow(id, "", "");
-    dirty = true;
+    setDirty(true);
   };
   heading.append(add);
   container.append(heading);
@@ -402,7 +424,7 @@ function kvRow(id, key, value) {
   remove.setAttribute("aria-label", "Xóa trường");
   remove.onclick = () => {
     row.remove();
-    dirty = true;
+    setDirty(true);
   };
   row.append(keyInput, valueInput, remove);
   $(id).append(row);
@@ -565,7 +587,7 @@ function openRoute(route = null) {
   show($("clone-route"), Boolean(route));
   show($("preview-result"), false);
   message($("editor-error"));
-  dirty = false;
+  setDirty(false);
   openDrawer("route-drawer");
   $("route-name").focus();
 }
@@ -629,7 +651,7 @@ function updateAuth(mark = true) {
     $("route-match").value = "exact";
     updateMapping();
   }
-  if (mark) dirty = true;
+  if (mark) setDirty(true);
 }
 function draftRoute() {
   return {
@@ -697,7 +719,7 @@ async function saveItem(type, item, isNew, applyGroup = false) {
         }),
       },
     );
-    dirty = false;
+    setDirty(false);
     closeDrawer(true);
     await loadOverview(true);
     message($("notice"), "Đã lưu vào SQLite. Cấu hình mới đang được áp dụng.");
@@ -722,7 +744,7 @@ function openService(service = null) {
     : "Thêm service rồi gán service này trong cấu hình route.";
   show($("delete-service"), Boolean(service));
   message($("service-error"));
-  dirty = false;
+  setDirty(false);
   openDrawer("service-drawer");
   $("service-name").focus();
 }
@@ -775,7 +797,7 @@ async function loadHistory() {
             method: "POST",
             body: JSON.stringify({ version: overview.version }),
           });
-          settingsDirty = false;
+          setSettingsDirty(false);
           closeDrawer(true);
           await loadOverview(true);
           message(
@@ -864,11 +886,11 @@ for (const id of [
   $(id).addEventListener("input", renderRoutes);
 $("route-form").noValidate = true;
 $("route-form").addEventListener("input", () => {
-  dirty = true;
+  setDirty(true);
   updateMapping();
 });
-$("service-form").addEventListener("input", () => (dirty = true));
-$("settings-form").addEventListener("input", () => (settingsDirty = true));
+$("service-form").addEventListener("input", () => setDirty(true));
+$("settings-form").addEventListener("input", () => setSettingsDirty(true));
 $("route-source").addEventListener("input", () => updateParams());
 $("route-auth").onchange = () => updateAuth();
 $("route-form").onsubmit = async (event) => {
@@ -895,7 +917,7 @@ $("clone-route").onclick = () => {
   openRoute(route);
   show($("delete-route"), false);
   show($("clone-route"), false);
-  dirty = true;
+  setDirty(true);
 };
 $("delete-route").onclick = async () => {
   if (!confirm("Xóa route này và ngừng áp dụng ngay?")) return;
@@ -1016,7 +1038,7 @@ $("settings-form").onsubmit = async (event) => {
             },
           }),
         });
-        settingsDirty = false;
+        setSettingsDirty(false);
         await loadOverview(true);
         message($("notice"), "Đã áp dụng chính sách Gateway mới.");
       } finally {
@@ -1078,7 +1100,7 @@ $("import-file").onchange = async () => {
       method: "PUT",
       body: JSON.stringify({ version: overview.version, config: data.config }),
     });
-    settingsDirty = false;
+    setSettingsDirty(false);
     closeDrawer(true);
     await loadOverview(true);
     message($("notice"), "Đã nhập và áp dụng cấu hình.");
@@ -1263,7 +1285,7 @@ function policyBadges(route) {
       `policy-chip ${limit.enabled ? "" : "unlimited"}`,
       limit.enabled
         ? `${limit.limit} req / ${limit.windowMs / 1000}s · ${keyName}${limit.group ? ` · nhóm ${limit.group}` : ""}`
-        : "Chưa đặt rate limit riêng",
+        : "chưa limit",
     ),
   );
   const security = route.security || {};
@@ -1357,16 +1379,7 @@ function renderRouteGroups(routes) {
       const first = resourceRoutes[0],
         resource = element("article", "rest-resource");
       const heading = element("div", "resource-head");
-      heading.append(
-        element("code", "", first.sourcePath),
-        element(
-          "span",
-          `badge ${first.matchType === "prefix" ? "namespace" : "jwt"}`,
-          first.matchType === "prefix"
-            ? "Namespace + phần path còn lại"
-            : "Endpoint chính xác",
-        ),
-      );
+      heading.append(element("code", "", first.sourcePath));
       resource.append(heading);
       for (const route of resourceRoutes) {
         const row = element(
@@ -1522,7 +1535,7 @@ function openRest(serviceKey = $("route-service-filter").value || "catalog") {
   }
   message($("rest-error"));
   renderRestPreview();
-  dirty = false;
+  setDirty(false);
   openDrawer("rest-drawer");
   $("rest-name").focus();
 }
@@ -1642,7 +1655,7 @@ function setupNodeWorkspace() {
   $("table-mode-button").onclick = () => setMappingMode("table");
   $("rest-resource-button").onclick = () => openRest();
   $("rest-form").addEventListener("input", () => {
-    dirty = true;
+    setDirty(true);
     renderRestPreview();
   });
   $("rest-form").onsubmit = async (event) => {
@@ -1658,7 +1671,7 @@ function setupNodeWorkspace() {
             method: "POST",
             body: JSON.stringify({ version: overview.version, items }),
           });
-          dirty = false;
+          setDirty(false);
           closeDrawer(true);
           chooseService(items[0].serviceKey);
           await loadOverview(true);
@@ -1681,7 +1694,7 @@ function setupNodeWorkspace() {
       $("route-rate-enabled").checked = true;
       $("route-rate-limit").value = preset[0];
       $("route-rate-window").value = preset[1];
-      dirty = true;
+      setDirty(true);
     };
 }
 

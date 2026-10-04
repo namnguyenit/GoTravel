@@ -82,10 +82,6 @@
             <span>Lịch sử phiên bản</span>
           </button>
         </nav>
-        <div class="sidebar-note">
-          <span class="status-dot"></span><b>SQLite configuration</b>
-          <p>Lưu cấu hình và áp dụng trực tiếp lên luồng proxy.</p>
-        </div>
         <div class="operator">
           <span class="avatar">A</span>
           <div><b>Quản trị viên</b><small id="session-user">SSO</small></div>
@@ -103,7 +99,7 @@
             <h1 id="page-title">Ánh xạ API</h1>
           </div>
           <div class="toolbar">
-            <span id="realtime-state" class="live-label">● Đang kết nối</span
+            <span id="realtime-state" class="live-label offline" role="status" aria-live="polite">● Ngoại tuyến</span
             ><span id="version-label" class="version">v1</span
             ><button id="refresh-button" class="secondary">↻ Làm mới</button>
           </div>
@@ -462,7 +458,7 @@
           <div class="form-row">
             <label
               >Kiểu khớp<select id="route-match">
-                <option value="exact">Endpoint chính xác</option>
+                <option value="exact">Khớp toàn bộ đường dẫn</option>
                 <option value="prefix">Tiền tố + phần đường dẫn còn lại</option>
               </select></label
             ><label

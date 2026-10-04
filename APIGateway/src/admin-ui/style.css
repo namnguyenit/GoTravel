@@ -315,22 +315,6 @@ h3 {
 .nav-item:hover {
   background: #f2f5fb;
 }
-.sidebar-note {
-  margin-top: auto;
-  border: 1px solid #e8edf4;
-  padding: 14px;
-  background: #fafcfe;
-  border-radius: 11px;
-}
-.sidebar-note b {
-  font-size: var(--text-small);
-}
-.sidebar-note p {
-  margin: 7px 0 0;
-  font-size: var(--text-small);
-  line-height: 1.7;
-  color: #52637c;
-}
 .status-dot {
   display: inline-block;
   width: 7px;
@@ -343,7 +327,7 @@ h3 {
   display: flex;
   align-items: center;
   gap: 9px;
-  margin-top: 22px;
+  margin-top: auto;
   padding-top: 18px;
   border-top: 1px solid #edf0f5;
 }
@@ -419,9 +403,13 @@ h3 {
   padding: 7px 10px;
   border-radius: 7px;
 }
-.live-label.offline {
+.live-label.unsaved {
   color: #80551b;
   background: #fff6e9;
+}
+.live-label.offline {
+  color: #9e304b;
+  background: #fff0f3;
 }
 .version {
   border: 1px solid #dbe4f4;
@@ -1017,7 +1005,6 @@ footer {
   .nav-title,
   .nav-item span,
   .nav-item small,
-  .sidebar-note,
   .operator > div,
   .operator button {
     display: none;

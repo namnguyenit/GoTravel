@@ -44,7 +44,7 @@ Trước khi lưu, màn hình hiển thị tất cả URL sẽ tạo, phương t
 
 **Lưu toàn bộ endpoint** dùng một transaction SQLite. Chỉ một endpoint sai/chồng lấn cũng làm cả lần tạo bị từ chối. Không có trạng thái tạo được một phần. Backend vẫn kiểm tra version nên một cửa sổ khác vừa thêm API cũng không bị ghi đè.
 
-Trình tạo định nghĩa luồng proxy. Nó không tạo controller, bảng dữ liệu hoặc logic nghiệp vụ trong service. Với các API cũ dạng namespace, UI ghi rõ **Namespace + phần path còn lại**; có thể tạo endpoint cụ thể hoặc chỉnh lại định nghĩa khi backend đã có hợp đồng API tương ứng.
+Trình tạo định nghĩa luồng proxy. Nó không tạo controller, bảng dữ liệu hoặc logic nghiệp vụ trong service. Với các API cũ dạng namespace, phần đường dẫn còn lại vẫn được chuyển tiếp theo cấu hình; có thể tạo endpoint cụ thể hoặc chỉnh định nghĩa khi backend đã có hợp đồng API tương ứng.
 
 ## 3. Rate limit
 
@@ -217,3 +217,11 @@ Sidebar, ô node, cột method, nút thao tác và khoảng cách hàng được
 Đã kiểm tra bằng Chromium trên fixture ở 2560, 1920, 1366, 960 và 390px: không tràn ngang trang, bảng cấu hình mobile không tràn, không có lỗi JavaScript. Chỉ cập nhật CSS; tệp static có hiệu lực khi tải lại trang.
 
 Lượt tinh chỉnh giảm cỡ chữ kiểm tra lại trên desktop 1920px và mobile 390px: URL/tên node 15px, không tràn ngang, không có lỗi JavaScript; giảm nhẹ padding node và hàng ánh xạ.
+
+## 11. Nhãn và trạng thái trên giao diện
+
+Đã bỏ nhãn loại khớp ở đầu nhóm tài nguyên và khối ghi chú SQLite ở sidebar. Route chưa bật giới hạn riêng hiển thị **chưa limit**. Kiểu khớp vẫn cấu hình trong bảng chỉnh sửa route.
+
+Trạng thái ở thanh trên: **Trực tuyến** màu xanh khi kết nối cập nhật đang mở và không có bản nháp; **Chưa lưu** màu vàng khi có thay đổi route/service/REST/chính sách chưa lưu; **Ngoại tuyến** màu đỏ khi mất kết nối cập nhật. Mất kết nối được ưu tiên hiển thị; bản nháp vẫn được giữ, kết nối lại trở về Chưa lưu nếu còn bản nháp. Lưu thành công hoặc bỏ bản nháp trở về Trực tuyến khi kết nối đang mở.
+
+Đã kiểm tra trình duyệt trên fixture: nhãn bị bỏ/đổi, lưu và bỏ bản nháp ở các biểu mẫu, ngắt/kết nối lại SSE thật, trạng thái vẫn giữ Chưa lưu qua sự kiện cấu hình; desktop/mobile không lỗi JavaScript.
