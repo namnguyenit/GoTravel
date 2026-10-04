@@ -1,10 +1,10 @@
 :root {
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
   --text-body: 1rem;
-  --text-detail: 0.9375rem;
-  --text-small: 0.875rem;
-  --text-label: 0.8125rem;
+  --text-detail: 0.966667rem;
+  --text-small: 0.9rem;
+  --text-label: 0.866667rem;
   font-family:
     Inter,
     ui-sans-serif,
@@ -1149,7 +1149,7 @@ footer {
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  padding: 24px 20px;
+  padding: 22px 18px;
   background: linear-gradient(145deg, #2e54c7, #3e67d3);
   border: 1px solid #355fde;
   border-radius: 16px;
@@ -1204,8 +1204,8 @@ footer {
   min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  padding: 18px;
+  gap: 7px;
+  padding: 16px;
   text-align: left;
   border: 1px solid #dce4f0;
   border-radius: 11px;
@@ -1414,7 +1414,7 @@ footer {
   font-weight: 500;
 }
 .api-mapping {
-  padding: 22px 18px;
+  padding: 20px 16px;
   border-bottom: 1px solid #edf1f7;
   cursor: pointer;
 }

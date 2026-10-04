@@ -210,8 +210,10 @@ Khả năng tự khởi động đúng cấu hình sau reboot chưa được xá
 
 ## 10. Cỡ chữ và khả năng đọc
 
-Đã chỉnh chữ theo phản hồi ảnh chụp giao diện: nội dung, tên node và URL ánh xạ 16px; nhãn phụ/method/chính sách 13–15px; tiêu đề khu vực 28–30px trên desktop. Dùng thang cỡ chữ rem thống nhất, màu mô tả đậm hơn và màu method/trạng thái dễ đọc hơn.
+Đã chỉnh chữ theo phản hồi ảnh chụp giao diện: nội dung, tên node và URL ánh xạ 15px; nhãn phụ/method/chính sách 13–14,5px; tiêu đề khu vực khoảng 26–28px trên desktop. Bản 16px trước đó được giảm nhẹ theo phản hồi để bố cục gọn hơn. Dùng thang cỡ chữ rem thống nhất, màu mô tả đậm hơn và màu method/trạng thái dễ đọc hơn.
 
 Sidebar, ô node, cột method, nút thao tác và khoảng cách hàng được điều chỉnh theo cỡ chữ mới. Tên service dài được xuống dòng; màn hình hẹp chuyển bố cục ánh xạ thành từng phần, tab cấu hình cuộn ngang thay vì thu chữ nhỏ. Nội dung ô nhập dùng độ đậm bình thường để phân biệt với nhãn.
 
-Đã kiểm tra bằng Chromium trên fixture ở 2560, 1920, 1366, 960 và 390px: không tràn ngang trang, URL hiển thị 16px, bảng cấu hình mobile không tràn, không có lỗi JavaScript. Chỉ cập nhật CSS; tệp static có hiệu lực khi tải lại trang.
+Đã kiểm tra bằng Chromium trên fixture ở 2560, 1920, 1366, 960 và 390px: không tràn ngang trang, bảng cấu hình mobile không tràn, không có lỗi JavaScript. Chỉ cập nhật CSS; tệp static có hiệu lực khi tải lại trang.
+
+Lượt tinh chỉnh giảm cỡ chữ kiểm tra lại trên desktop 1920px và mobile 390px: URL/tên node 15px, không tràn ngang, không có lỗi JavaScript; giảm nhẹ padding node và hàng ánh xạ.
