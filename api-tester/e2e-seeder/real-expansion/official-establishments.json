@@ -1,0 +1,1855 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-05T15:26:54.625Z",
+  "establishments": [
+    {
+      "sourceId": "publisher:saigonvinhlong",
+      "name": "Khách sạn Sài Gòn Vĩnh Long",
+      "province": "Vĩnh Long",
+      "address": "02 Trưng Nữ Vương, phường Long Châu, Vĩnh Long",
+      "latitude": 10.2562591,
+      "longitude": 105.9688551,
+      "sourceUrl": "https://saigonvinhlonghotel.vn/",
+      "sourcePublisher": "Khách sạn Sài Gòn Vĩnh Long — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:26:55.027Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Khách sạn Sài Gòn - Vĩnh Long",
+        "placeId": "513007c2b8017e5a40596fe9466434832440f00102f90140e4592f000000009203234b68c3a163682073e1baa16e2053c3a0692047c3b26e202d2056c4a96e68204c6f6e67",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Khách sạn Sài Gòn - Vĩnh Long, 2, Đường Trưng Nữ Vương, Phường Long Châu, Vĩnh Long, Tỉnh Vĩnh Long 85067, Việt Nam"
+      },
+      "images": [
+        "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Imgup-201901240751472.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "Suite Room",
+          "sourcePage": "https://saigonvinhlonghotel.vn/deluxe-suite/",
+          "images": [
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Suite3-1.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Suite5.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Suite4.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Suite.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:46.918Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 56
+        },
+        {
+          "name": "Grand Deluxe",
+          "sourcePage": "https://saigonvinhlonghotel.vn/grand-deluxe/",
+          "images": [
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Grand-DLX-Twin.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Grand-DLX-Double.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Grand-Deluxe.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Grand-Deluxe-Twin.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Grand-DLX-Double1-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:46.904Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 30
+        },
+        {
+          "name": "Deluxe Room",
+          "sourcePage": "https://saigonvinhlonghotel.vn/deluxe-room/",
+          "images": [
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/Deluxe-Twin.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/Deluxe-Double.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Deluxe-Twin1.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Deluxe-Double.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:46.875Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 28
+        },
+        {
+          "name": "Superior Room",
+          "sourcePage": "https://saigonvinhlonghotel.vn/superior-room/",
+          "images": [
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/Superior-Twin1.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/Superior-Double.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/Superior-Twin.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Superior.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Superior-Double.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:48.560Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 28
+        }
+      ],
+      "services": [
+        {
+          "name": "Mekong Restaurant",
+          "sourcePage": "https://saigonvinhlonghotel.vn/boulevard-restaurant/",
+          "images": [
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Buffet5-scaled.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Buffet2-scaled.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Buffet1-scaled.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Buffet4-scaled.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Buffet-1-scaled.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/07/Buffet9.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:48.496Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "PREPARED_MEALS"
+        },
+        {
+          "name": "Hotel Spa",
+          "sourcePage": "https://saigonvinhlonghotel.vn/hotel-spa/",
+          "images": [
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/1785307817659_1305012410079947970_1305012410079947970_634c395585f305d006e76cc54de7d6df.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/1785307817643_1305012410079947970_1305012410079947970_f4a5ea38504555dbce1c8724ca72f054.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/1785307817651_1305012410079947970_1305012410079947970_bdc2461eebacc1b50750785118b1ccd0.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/1785307817657_1305012410079947970_1305012410079947970_af190125b94d1088c551e373c6083004.jpg",
+            "https://saigonvinhlonghotel.vn/wp-content/uploads/2026/08/1785307817663_1305012410079947970_1305012410079947970_776e668d59cd6fe4abaa65e8396eb47c.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:48.521Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "SPA"
+        }
+      ],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:diamondstarbentre",
+      "name": "Diamond Stars Bến Tre",
+      "province": "Vĩnh Long",
+      "address": "140 Hùng Vương, phường An Hội, Vĩnh Long",
+      "latitude": 10.2345808,
+      "longitude": 106.3755082,
+      "sourceUrl": "https://diamondstarbentre.com/",
+      "sourcePublisher": "Diamond Stars Bến Tre — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:26:57.463Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Diamond Star Hotel",
+        "placeId": "514f988b5308985a4059fe8980f91a782440f00103f90161199ac4020000009203124469616d6f6e64205374617220486f74656c",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Diamond Star Hotel, 140, Hùng Vương, Bến Tre, Tỉnh Vĩnh Long 07584, Việt Nam"
+      },
+      "images": [
+        "https://diamondstarbentre.com/vnt_upload/service/08_2020/ho_boi_vo_cuc.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "SIGNATURE DELUXE",
+          "sourcePage": "https://diamondstarbentre.com/vn/deluxe.html",
+          "sourceBindingPage": "https://diamondstarbentre.com/",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/product/07_2020/phong_deluxe.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:57.765Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "PRIME SUITE",
+          "sourcePage": "https://diamondstarbentre.com/vn/suite.html",
+          "sourceBindingPage": "https://diamondstarbentre.com/",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/product/07_2020/Suite.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:57.765Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "ELITE SUITE",
+          "sourcePage": "https://diamondstarbentre.com/vn/elite-suite.html",
+          "sourceBindingPage": "https://diamondstarbentre.com/",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/product/04_2024/Elite_Suite.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:57.765Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Presidential Suite",
+          "sourcePage": "https://diamondstarbentre.com/vn/presidential-suite.html",
+          "sourceBindingPage": "https://diamondstarbentre.com/",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/product/03_2021/P2.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:57.765Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "COZY SUPERIOR",
+          "sourcePage": "https://diamondstarbentre.com/vn/superior.html",
+          "sourceBindingPage": "https://diamondstarbentre.com/",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/product/07_2020/SUPERIOR.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:57.765Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        }
+      ],
+      "services": [
+        {
+          "name": "Nhà hàng Diamond Stars",
+          "sourcePage": "https://diamondstarbentre.com/vn/nha-hang.html",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/restaurant/11_2020/thumbs/(1000x670)__IMG_20201026_151655_1.jpg",
+            "https://diamondstarbentre.com/vnt_upload/restaurant/11_2020/thumbs/(1000x670)__IMG_0317.jpg",
+            "https://diamondstarbentre.com/vnt_upload/restaurant/08_2020/thumbs/(1000x670)__nha_hang_1.jpg",
+            "https://diamondstarbentre.com/vnt_upload/restaurant/11_2020/thumbs/(1000x670)__IMG_0418.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:49.265Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "PREPARED_MEALS"
+        },
+        {
+          "name": "Spa & Massage",
+          "sourcePage": "https://diamondstarbentre.com/vn/dich-vu/spa.html",
+          "images": [
+            "https://diamondstarbentre.com/vnt_upload/service/07_2020/s1.jpg",
+            "https://diamondstarbentre.com/vnt_upload/service/07_2020/s2.jpg",
+            "https://diamondstarbentre.com/vnt_upload/service/07_2020/s3.jpg",
+            "https://diamondstarbentre.com/vnt_upload/service/07_2020/s4.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:01:49.232Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "SPA"
+        }
+      ],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:konklor",
+      "name": "Konklor Bungalow Garden Hotel",
+      "province": "Quảng Ngãi",
+      "address": "38 Bắc Kạn, khu vực Kon Tum, Quảng Ngãi",
+      "latitude": 14.349861,
+      "longitude": 108.033509,
+      "sourceUrl": "https://konklorhotel.vn/",
+      "sourcePublisher": "Konklor Bungalow Garden Hotel — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:26:58.412Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Konklor Hotel",
+        "placeId": "51c9c7ee0225025b4059ae4a22fb20b32c40f00103f9017dd74f9e0200000092030d4b6f6e6b6c6f7220486f74656c",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Konklor Hotel, 38, Bắc Cạn, Phường Kon Tum, Kon Tum, Tỉnh Quảng Ngãi, Việt Nam"
+      },
+      "images": [
+        "https://cdn.cungcap.net/web/files/2023/07/18/168965113764b607c111d30.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "Phòng Family Hướng Vườn",
+          "sourcePage": "https://konklorhotel.vn/phong-gia-dinh",
+          "sourceBindingPage": "https://konklorhotel.vn/",
+          "images": [
+            "https://cdn.cungcap.net/web/files/2023/01/13/167358332863c0dae0bbc75.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:58.678Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Phòng Giường Đôi Sang Trọng Tiện Nghi",
+          "sourcePage": "https://konklorhotel.vn/phong-giuong-doi-sang-trong-tien-nghi",
+          "sourceBindingPage": "https://konklorhotel.vn/",
+          "images": [
+            "https://cdn.cungcap.net/web/files/2023/01/13/167358919263c0f1c89a58e.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:58.678Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Phòng Standard Tiêu Chuẩn",
+          "sourcePage": "https://konklorhotel.vn/phong-standar-double",
+          "sourceBindingPage": "https://konklorhotel.vn/",
+          "images": [
+            "https://cdn.cungcap.net/web/files/2023/07/18/168965240764b60cb75bd5e.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:58.678Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        }
+      ],
+      "services": [],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:habana",
+      "name": "Habana Hotel Thái Nguyên",
+      "province": "Thái Nguyên",
+      "address": "318 Quang Trung, khu vực Tân Thịnh, Thái Nguyên",
+      "latitude": 21.5779614,
+      "longitude": 105.8146429,
+      "sourceUrl": "https://habanahotel.com.vn/",
+      "sourcePublisher": "Habana Hotel Thái Nguyên — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:26:58.920Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Khách sạn Habana Thái Nguyên",
+        "placeId": "51ca5af91b23745a4059b2593f47f5933540f00103f901203c71a1010000009203214b68c3a163682073e1baa16e20486162616e61205468c3a169204e677579c3aa6e",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Khách sạn Habana Thái Nguyên, 318, Đường Quang Trung, Tân Thịnh, Phường Phan Đình Phùng, Tỉnh Thái Nguyên 250000, Việt Nam"
+      },
+      "images": [
+        "https://habanahotel.com.vn/wp-content/uploads/2025/03/z6446723664704_b14eb16d75f3e30e1a1bdad100ca5d1a.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "Deluxe Double Room",
+          "sourcePage": "https://habanahotel.com.vn/",
+          "images": [
+            "https://habanahotel.com.vn/wp-content/uploads/2025/03/DSC_1749.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:59.045Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "DELUXE TWIN ROOM",
+          "sourcePage": "https://habanahotel.com.vn/",
+          "images": [
+            "https://habanahotel.com.vn/wp-content/uploads/2025/03/DSC_1710.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:59.045Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "FAMILY ROOM",
+          "sourcePage": "https://habanahotel.com.vn/",
+          "images": [
+            "https://habanahotel.com.vn/wp-content/uploads/2025/03/DSC_1599-Edit.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:59.045Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "SUPERIOR TWIN ROOM",
+          "sourcePage": "https://habanahotel.com.vn/",
+          "images": [
+            "https://habanahotel.com.vn/wp-content/uploads/2025/03/DSC_1851.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:59.045Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "TRIPLE ROOM",
+          "sourcePage": "https://habanahotel.com.vn/",
+          "images": [
+            "https://habanahotel.com.vn/wp-content/uploads/2025/03/DSC_1929.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:26:59.045Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        }
+      ],
+      "services": [],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:dongxuyen:CL",
+      "name": "Khách sạn Cửu Long",
+      "province": "An Giang",
+      "address": "Cụm khách sạn Đông Xuyên, 9A Lương Văn Cù, khu vực Long Xuyên, An Giang",
+      "latitude": 10.382556,
+      "longitude": 105.4403903,
+      "sourceUrl": "https://dongxuyenhotel.vn/",
+      "sourcePublisher": "Khách sạn Cửu Long — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-04T13:28:36.314Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Cuu Long",
+        "placeId": "5171fecb5a2f5c5a4059f3c64961dec32440f00103f901861dd0ef00000000920308437575204c6f6e67",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Cuu Long, Nguyễn Văn Cưng, Phường Long Xuyên, Long Xuyên, Tỉnh An Giang 90119, Việt Nam"
+      },
+      "images": [],
+      "rooms": [
+        {
+          "name": "Standard Twin/Double",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/standard-twin-double/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/STAND-TWN-CL-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Superior Twin/Double",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/superior-twin-double-2/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/SUP-TWN-CL-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Deluxe Double",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/deluxe-double-2/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/DEL-DBL-CL-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Deluxe Triple",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/deluxe-tripple-2/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/DEL-TRIP-CL-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        }
+      ],
+      "services": [],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:dongxuyen:LX",
+      "name": "Khách sạn Long Xuyên",
+      "province": "An Giang",
+      "address": "Cụm khách sạn Đông Xuyên, 9A Lương Văn Cù, khu vực Long Xuyên, An Giang",
+      "latitude": 10.382472,
+      "longitude": 105.4402694,
+      "sourceUrl": "https://dongxuyenhotel.vn/",
+      "sourcePublisher": "Khách sạn Long Xuyên — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-04T13:28:36.314Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Long Xuyen",
+        "placeId": "517e9bb45f2d5c5a40597c45b75ed3c32440f00103f901851dd0ef0000000092030a4c6f6e6720587579656e",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Long Xuyen, Lương Vãn Cù, Phường Long Xuyên, Long Xuyên, Tỉnh An Giang 90119, Việt Nam"
+      },
+      "images": [],
+      "rooms": [
+        {
+          "name": "Standard Double",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/standard-double/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/STAND-DBL-LX-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Superior Twin/Double",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/superior-twin-double/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/SUP-TWN-LX-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Deluxe Triple",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/deluxe-tripple/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/DEL-TRIP-LX-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        }
+      ],
+      "services": [],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:dongxuyen:DX",
+      "name": "Khách sạn Đông Xuyên",
+      "province": "An Giang",
+      "address": "Cụm khách sạn Đông Xuyên, 9A Lương Văn Cù, khu vực Long Xuyên, An Giang",
+      "latitude": 10.3822472,
+      "longitude": 105.4406564,
+      "sourceUrl": "https://dongxuyenhotel.vn/",
+      "sourcePublisher": "Khách sạn Đông Xuyên — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-04T13:28:36.314Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Dong Xuyen",
+        "placeId": "517ab1e6b6335c5a4059a3f9ade7b5c32440f00103f901841dd0ef0000000092030a446f6e6720587579656e",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Dong Xuyen, Lương Vãn Cù, Phường Long Xuyên, Long Xuyên, Tỉnh An Giang 90119, Việt Nam"
+      },
+      "images": [],
+      "rooms": [
+        {
+          "name": "Superior Twin",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/superior-twin/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/SUP-TWN-DX-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Superior Double",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/superior-double/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/SUP-DBL-DX-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        },
+        {
+          "name": "Superior Triple",
+          "sourcePage": "https://dongxuyenhotel.vn/phong/superior-tripple/",
+          "sourceBindingPage": "https://dongxuyenhotel.vn/",
+          "images": [
+            "https://dongxuyenhotel.vn/wp-content/uploads/2022/09/SUP-TRIP-DX-1920x650.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-04T13:28:36.314Z",
+          "sourceVerification": "named_publisher_card_binds_photograph_to_item"
+        }
+      ],
+      "services": [],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:saigonrachgia",
+      "name": "Khách sạn Sài Gòn Rạch Giá",
+      "province": "An Giang",
+      "address": "844 Nguyễn Trung Trực, khu vực Rạch Giá, An Giang",
+      "latitude": 9.9814428,
+      "longitude": 105.1030518,
+      "sourceUrl": "https://saigonrachgiahotel.vn/vn/home",
+      "sourcePublisher": "Khách sạn Sài Gòn Rạch Giá — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:27:02.569Z",
+      "coordinateBasis": "Geoapify named accommodation candidate, matched to Rạch Giá publisher",
+      "coordinateSource": {
+        "name": "Khách sạn Sài Gòn Rạch Giá",
+        "placeId": "51d4a00ddf95465a4059ee91610071f62340f00102f901d20fdb28000000009203224b68c3a163682073e1baa16e2053c3a0692047c3b26e2052e1baa16368204769c3a1",
+        "formatted": "Khách sạn Sài Gòn Rạch Giá, 844, Nguyễn Trung Trực, Phường Rạch Giá, Rạch Giá, Tỉnh An Giang 91118, Việt Nam",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        }
+      },
+      "images": [
+        "https://saigonrachgiahotel.vn/files/images/ab/ks1.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "PHÒNG FAMILY",
+          "sourcePage": "https://saigonrachgiahotel.vn/vn/home",
+          "images": [
+            "https://saigonrachgiahotel.vn/files/images/rooms/FAMILY.jpg"
+          ],
+          "areaSquareMeters": 56,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:27:03.028Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "PHÒNG PRESIDENT",
+          "sourcePage": "https://saigonrachgiahotel.vn/vn/home",
+          "images": [
+            "https://saigonrachgiahotel.vn/files/images/rooms/PRESIDENT.jpg"
+          ],
+          "areaSquareMeters": 205,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:27:03.028Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "PHÒNG DELUXE",
+          "sourcePage": "https://saigonrachgiahotel.vn/vn/home",
+          "images": [
+            "https://saigonrachgiahotel.vn/files/images/rooms/DELUXE.jpg"
+          ],
+          "areaSquareMeters": 28,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:27:03.028Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "PHÒNG SÀI GÒN DELUXE",
+          "sourcePage": "https://saigonrachgiahotel.vn/vn/home",
+          "images": [
+            "https://saigonrachgiahotel.vn/files/images/rooms/SGDELUXE.jpg"
+          ],
+          "areaSquareMeters": 36,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:27:03.028Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "PHÒNG SÀI GÒN SUITE",
+          "sourcePage": "https://saigonrachgiahotel.vn/vn/home",
+          "images": [
+            "https://saigonrachgiahotel.vn/files/images/rooms/SGSUITE.jpg"
+          ],
+          "areaSquareMeters": 56,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:27:03.028Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        }
+      ],
+      "services": [],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:phucuong",
+      "name": "Khách sạn Phú Cường Cà Mau",
+      "province": "Cà Mau",
+      "address": "81 Phan Ngọc Hiển, khu vực phường 4, Cà Mau",
+      "latitude": 9.1826033,
+      "longitude": 105.1475246,
+      "sourceUrl": "https://phucuonghotel.com/",
+      "sourcePublisher": "Khách sạn Phú Cường Cà Mau — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T14:53:38.019Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Phu Cuong Hotel - Ca Mau",
+        "placeId": "51135fa22b71495a40596ca45dd88b5d2240f00102f90197d13b49000000009203185068752043756f6e6720486f74656c202d204361204d6175",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Phu Cuong Hotel - Ca Mau, Phan Đình Phùng, Tỉnh Cà Mau 98100, Việt Nam"
+      },
+      "images": [
+        "https://phucuonghotel.com/image/cache/catalog/slider/intro/h3-0x0.webp"
+      ],
+      "rooms": [
+        {
+          "name": "Superior City View",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/catalog/album-catalog/Superior%20city%20view/DSC_2793.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Superior%20city%20view/DSC_2798.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Superior%20city%20view/DSC_2801.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Superior%20city%20view/DSC_2698.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Superior%20city%20view/DSC_2813.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "Family City View",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/catalog/album-catalog/Family/DSC_2782.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Family/DSC_2791.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "Executive Suite With Balcony",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/catalog/album-catalog/Executive%20balcony/DSC_2683.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Executive%20balcony/EX-S-BCn-5-1.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Executive%20balcony/DSC_2688.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Executive%20balcony/DSC_2670.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Executive%20balcony/DSC_2675.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "Executive Suite",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/catalog/album-catalog/Executive/EX-Suite-4.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "Royal Family Suite",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/catalog/album-catalog/Royal/3.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Royal/2.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Royal/4.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        },
+        {
+          "name": "Classy Grand Suite",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/catalog/album-catalog/Classy/3.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Classy/4.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Classy/5.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Classy/2.jpg",
+            "https://phucuonghotel.com/image/catalog/album-catalog/Classy/1.jpg"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item"
+        }
+      ],
+      "services": [
+        {
+          "name": "Nhà hàng & cafe",
+          "sourcePage": "https://phucuonghotel.com/",
+          "images": [
+            "https://phucuonghotel.com/image/cache/catalog/services/buffet-500x500.webp",
+            "https://phucuonghotel.com/image/cache/catalog/services/dsc-2987-500x500.webp",
+            "https://phucuonghotel.com/image/cache/catalog/services/hinh-500x500.webp",
+            "https://phucuonghotel.com/image/cache/catalog/services/2-500x500.webp"
+          ],
+          "areaSquareMeters": null,
+          "amenities": [],
+          "checkedAt": "2026-10-05T14:53:38.019Z",
+          "sourceVerification": "named_publisher_heading_binds_photograph_to_item",
+          "subCategory": "PREPARED_MEALS"
+        }
+      ],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:ninhkieu",
+      "name": "Ninh Kiều Riverside Hotel",
+      "province": "Cần Thơ",
+      "address": "02 Hai Bà Trưng, phường Ninh Kiều, Cần Thơ",
+      "latitude": 10.0366017,
+      "longitude": 105.7895777,
+      "sourceUrl": "https://www.ninhkieuriversidehotel.vn/",
+      "sourcePublisher": "Ninh Kiều Riverside Hotel — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T14:53:31.522Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Ninh Kiều Riverside Hotel",
+        "placeId": "51193af08388725a405906c0db34bb122440f00102f901bb599b560000000092031b4e696e68204b69e1bb81752052697665727369646520486f74656c",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Ninh Kiều Riverside Hotel, 2, Hai Bà Trưng, Phường Ninh Kiều, Thành phố Cần Thơ, 94111, Việt Nam"
+      },
+      "images": [],
+      "rooms": [
+        {
+          "name": "Phòng Đôi Executive Deluxe River View Double",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14453/ph%C3%B2ng-%C4%91%C3%B4i-executive-deluxe-river-view-double",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_double_room_riverview.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_double_room_riverview_2.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_double_room_river_view.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_city_view_3.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_city_view_5.png?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:13.033Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Đôi Executive Superior River View Double",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14452/ph%C3%B2ng-%C4%91%C3%B4i-executive-superior-river-view-double",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_double_room_riverview.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_double_room_riverview_3.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_city_view_3.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_4.png?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:12.981Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Hai Đơn Executive Deluxe River View Twin",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14457/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-deluxe-river-view-twin",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_city_view_4.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_4.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_5.png?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:13.345Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Đôi Premium Deluxe",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14454/ph%C3%B2ng-%C4%91%C3%B4i-premium-deluxe",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_deluxe.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_deluxe_3.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_deluxe_4.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_deluxe_5.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_deluxe_6.png?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:13.915Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Đôi Premium Suite",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14455/ph%C3%B2ng-%C4%91%C3%B4i-premium-suite",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_2.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_3.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_4.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_5.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_6.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_7.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite_8.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_premium_suite.png?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:13.952Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Hai Đơn Superior City View Twin - Wing B, 3-floor building",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14501/ph%C3%B2ng-hai-%C4%91%C6%A1n-superior-city-view-twin-wing-b-3-floor-building",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_city3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_mini-bar.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_rest-room.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:14.289Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Hai Đơn Executive Superior City View Twin",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14502/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-superior-city-view-twin",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_twin.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_rv2-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_rv2-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_rv2-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_rv2-5.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:14.857Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Hai Đơn Superior River View Twin - Wing B, 3-floor building",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18896/ph%C3%B2ng-hai-%C4%91%C6%A1n-superior-river-view-twin-wing-b-3-floor-building",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_standard-_khu_b.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_minibar-free.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_ph%C3%B2ng_t%E1%BA%AFm.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:14.925Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Đôi Deluxe -Wing B, 3-floor building",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18897/ph%C3%B2ng-%C4%91%C3%B4i-deluxe-wing-b-3-floor-building",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_minibar-free.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_ph%C3%B2ng_t%E1%BA%AFm.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:15.215Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Đôi Deluxe Suite - Wing B, 3-floor building",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18898/ph%C3%B2ng-%C4%91%C3%B4i-deluxe-suite-wing-b-3-floor-building",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_suite_2_.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_suite_3_.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_suite_4_.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_suite.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_ph%C3%B2ng_t%E1%BA%AFm.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:15.818Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Phòng Hai Đơn Executive Superior River View Twin",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18900/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-superior-river-view-twin",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_twin.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_4.png?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_5.png?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:15.846Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        }
+      ],
+      "services": [],
+      "experiences": [
+        {
+          "name": "Du thuyền Ninh Kiều",
+          "sourcePage": "https://www.ninhkieuriversidehotel.vn/cruise",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_du_thuyn_20.jpg?width=600&height=450&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_img_8349.jpg?width=600&height=450&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_img_8345.jpg?width=600&height=450&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_cruise-1-750x300.jpg?width=600&height=450&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_img_8327.jpg?width=600&height=450&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_img_8373.jpg?width=600&height=450&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1662/_gallery_cruise-3-750x300.jpg?width=600&height=450&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:08:19.992Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "durationMinutes": 120
+        }
+      ]
+    },
+    {
+      "sourceId": "publisher:mekongriverside",
+      "name": "Mekong Riverside Boutique Resort & Spa",
+      "province": "Đồng Tháp",
+      "address": "Hòa Quí, Hòa Khánh, khu vực Cái Bè, Đồng Tháp",
+      "latitude": 10.3248294,
+      "longitude": 106.0195525,
+      "sourceUrl": "https://mekongriversideresort.vn/",
+      "sourcePublisher": "Mekong Riverside Boutique Resort & Spa — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:01:54.037Z",
+      "coordinateBasis": "Geoapify named accommodation candidate and publisher address",
+      "coordinateSource": {
+        "name": "Mekong Riverside Resort & Spa",
+        "placeId": "512e184c873f815a4059ebd60d663ea62440f00102f901a32191280000000092031d4d656b6f6e6720526976657273696465205265736f7274202620537061",
+        "formatted": "Mekong Riverside Resort & Spa, Đường tỉnh 864, Cái Bè, Tỉnh Đồng Tháp, Việt Nam",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        }
+      },
+      "images": [
+        "https://cdn.myguestdiary.com/uploads/1079/_gallery_lake_at_night_time.jpg?width=1920&height=1080&mode=crop"
+      ],
+      "rooms": [
+        {
+          "name": "Deluxe Double Riverview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9163/deluxe-double-riverview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:38.141Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Double or Twin Riverview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9159/double-or-twin-riverview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:38.264Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Double Riverview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9161/double-riverview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:39.162Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Deluxe Double or Twin Riverview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9166/deluxe-double-or-twin-riverview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:38.846Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Double or Twin Lakeview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9154/double-or-twin-lakeview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:38.998Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Double Lakeview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9156/double-lakeview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:39.551Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Double Gardenview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9148/double-gardenview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:39.728Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Double or Twin Gardenview Bungalow",
+          "sourcePage": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9151/double-or-twin-gardenview-bungalow",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-1.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-3.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-2.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-4.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-5.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-6.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-7.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-8.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-9.jpg?width=1920&height=1080&mode=crop",
+            "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-10.jpg?width=1920&height=1080&mode=crop"
+          ],
+          "checkedAt": "2026-10-05T15:17:39.900Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        }
+      ],
+      "services": [
+        {
+          "name": "Oasis Spa",
+          "sourcePage": "https://mekongriversideresort.vn/oasis-spa",
+          "images": [
+            "https://cdn.myguestdiary.com/uploads/1079/__page__oasis_spa_mrr_001.jpg?width=0&height=0",
+            "https://cdn.myguestdiary.com/uploads/1079/__page__oasis_spa_mrr_002.jpg?width=0&height=0"
+          ],
+          "checkedAt": "2026-10-05T15:08:08.743Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "SPA"
+        }
+      ],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:cocolodge",
+      "name": "Coco Riverside Lodge",
+      "province": "Vĩnh Long",
+      "address": "Phú An, Trung Ngãi, Vĩnh Long",
+      "latitude": 10.039765,
+      "longitude": 106.2305326,
+      "sourceUrl": "https://www.cocoriversidelodge.com/",
+      "sourcePublisher": "Coco Riverside Lodge — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:02:21.226Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Coco Riverside Lodge",
+        "placeId": "515c6ace0bc18e5a4059060dfd135c142440f00103f901092731eb00000000920314436f636f20526976657273696465204c6f646765",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Coco Riverside Lodge, Đường tỉnh 907, Tỉnh Vĩnh Long, Việt Nam"
+      },
+      "images": [
+        "https://www.cocoriversidelodge.com/Uploads/Posts/slide2.jpg",
+        "https://www.cocoriversidelodge.com/Uploads/Posts/slide6.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "Double Room",
+          "sourcePage": "https://www.cocoriversidelodge.com/double-room",
+          "images": [
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Double3.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Double1.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/P2-BED.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Double4.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/toilet-p2.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Double6.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:08:08.858Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Family Bungalows",
+          "sourcePage": "https://www.cocoriversidelodge.com/family-bungalows",
+          "images": [
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family1.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family2.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/BEDp5.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family4.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family5.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family6.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family7.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Family8.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:08:09.183Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        },
+        {
+          "name": "Standard Room",
+          "sourcePage": "https://www.cocoriversidelodge.com/Standard-room",
+          "images": [
+            "https://www.cocoriversidelodge.com/Uploads/Posts/NOIBO-BALCONY.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Standar2.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/NOIBO-TRIPLE.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Standar4.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/NOIBO-DBL.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/Standar6.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/NOIBO-DBLBED.jpg",
+            "https://www.cocoriversidelodge.com/Uploads/Posts/NOIBO-TOILET.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:08:09.394Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        }
+      ],
+      "services": [],
+      "experiences": [],
+      "hostKind": "HOST"
+    },
+    {
+      "sourceId": "publisher:saigonbanme",
+      "name": "Khách sạn Sài Gòn Ban Mê",
+      "province": "Đắk Lắk",
+      "address": "01–03 Phan Chu Trinh, phường Buôn Ma Thuột, Đắk Lắk",
+      "latitude": 12.6805707,
+      "longitude": 108.0444447,
+      "sourceUrl": "https://saigonbanmehotel.com.vn/en/",
+      "sourcePublisher": "Khách sạn Sài Gòn Ban Mê — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:02:24.605Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "KS Sài Gòn Ban Mê",
+        "placeId": "517b22992fd8025b4059d577bb9c6f5c2940f00102f901367e9a0d000000009203144b532053c3a0692047c3b26e2042616e204dc3aa",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "KS Sài Gòn Ban Mê, 1-3, Phan Chu Trinh, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam"
+      },
+      "images": [
+        "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/saigon-banme.jpg",
+        "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/saigon-banme-hotel.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "Suite Room",
+          "sourcePage": "https://saigonbanmehotel.com.vn/en/accommodation/building-suite/",
+          "images": [
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4646-1-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4676-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4673-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4664-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0236-1170x600.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:17:36.539Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 72
+        },
+        {
+          "name": "Superior Room",
+          "sourcePage": "https://saigonbanmehotel.com.vn/en/accommodation/building-superior/",
+          "images": [
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0262-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0273-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0310-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0267-1170x600.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:17:36.567Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 36
+        },
+        {
+          "name": "Triple Room",
+          "sourcePage": "https://saigonbanmehotel.com.vn/en/accommodation/building-superior-copy-2/",
+          "images": [
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4798-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4669-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4664-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4703-1170x600.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:17:36.495Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 36
+        },
+        {
+          "name": "Deluxe Room",
+          "sourcePage": "https://saigonbanmehotel.com.vn/en/accommodation/deluxe-room/",
+          "images": [
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0310-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0262-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0273-1170x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0267-1170x600.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:17:37.524Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 36
+        }
+      ],
+      "services": [
+        {
+          "name": "Nhà hàng Sài Gòn Ban Mê",
+          "sourcePage": "https://saigonbanmehotel.com.vn/en/dining/",
+          "images": [
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC5661-1900x600.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4847-571x573.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4875-571x573.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4885-571x573.jpg",
+            "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC4901-571x573.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:08:07.942Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "PREPARED_MEALS"
+        }
+      ],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:babelake",
+      "name": "Ba Be Lake View Homestay",
+      "province": "Thái Nguyên",
+      "address": "Pác Ngòi, khu vực Ba Bể, Thái Nguyên",
+      "latitude": 22.3885174,
+      "longitude": 105.6373093,
+      "sourceUrl": "https://babelakeview-homestay.com/",
+      "sourcePublisher": "Ba Be Lake View Homestay — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:02:25.987Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Lake View Homestay",
+        "placeId": "51f23bf2acc9685a40594ded56e075633640f00103f90102b5d9a5010000009203124c616b65205669657720486f6d6573746179",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Lake View Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam"
+      },
+      "images": [],
+      "rooms": [
+        {
+          "name": "Deluxe private room with private bathroom and A/C",
+          "sourcePage": "https://babelakeview-homestay.com/tour/deluxe-private-room-with-private-bathroom-and-ac",
+          "images": [
+            "https://babelakeview-homestay.com/wp-content/uploads/2018/11/deluxe-room-1-e1543289156403.jpg",
+            "https://babelakeview-homestay.com/wp-content/uploads/2018/11/deluxe-room-2-e1543289170933.jpg",
+            "https://babelakeview-homestay.com/wp-content/uploads/2018/11/deluxe-room.jpg",
+            "https://babelakeview-homestay.com/wp-content/uploads/2018/11/deluxe-room-3-e1543289182259.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:17:46.396Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item"
+        }
+      ],
+      "services": [],
+      "experiences": [],
+      "hostKind": "HOST"
+    },
+    {
+      "sourceId": "publisher:saomai",
+      "name": "Khách sạn Sao Mai Cao Lãnh",
+      "province": "Đồng Tháp",
+      "address": "178 Nguyễn Huệ, phường Cao Lãnh, Đồng Tháp",
+      "latitude": 10.457502,
+      "longitude": 105.638458,
+      "sourceUrl": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+      "sourcePublisher": "Khách sạn Sao Mai Cao Lãnh — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:02:19.969Z",
+      "coordinateBasis": "Publisher map iframe coordinate",
+      "coordinateSource": {
+        "lat": 10.457502,
+        "lon": 105.638458,
+        "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+        "selector": "hotel map iframe !2d105.638458 !3d10.457502"
+      },
+      "images": [
+        "https://dongthaptourist.com/wp-content/uploads/2024/11/SM_BIA-1.jpg"
+      ],
+      "rooms": [
+        {
+          "name": "Standard 1",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/Standard-1-HINH-DAI-DIEN-36rxmugftwrm35ol7prw1s-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 27
+        },
+        {
+          "name": "Standard 2",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/Standard-2-HINH-DAI-DIEN-36rxoi9kd6h8y8zkk1s000-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 27
+        },
+        {
+          "name": "Superior",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/Superior-HINH-DAI-DIEN-36rxl3mr3m9giwgomlc1kw-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": null
+        },
+        {
+          "name": "Deluxe",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/DELUXE-HINH-DAI-DIEN-36rxgedrniat1k0csratq8-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": null
+        },
+        {
+          "name": "Suite",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/Suite-1-HINH-DAI-DIEN-36rx97snxdd9lpu640terk-1.jpg",
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/Suite-2-HINH-DAI-DIEN-36rxbz6nisz7w39rs8229s-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 62
+        },
+        {
+          "name": "President",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/10/president-DAI-DIEN-36rx2adrmlch1f5mjituyo-1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "areaSquareMeters": 120
+        }
+      ],
+      "services": [
+        {
+          "name": "Nhà hàng Sao Mai Hạnh Phúc 1",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/11/KSSM_HP1.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "PREPARED_MEALS"
+        },
+        {
+          "name": "Nhà hàng Sao Mai Hạnh Phúc 2",
+          "sourcePage": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+          "images": [
+            "https://dongthaptourist.com/wp-content/uploads/2024/11/SM_HP2.jpg"
+          ],
+          "checkedAt": "2026-10-05T15:02:19.969Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "subCategory": "PREPARED_MEALS"
+        }
+      ],
+      "experiences": []
+    },
+    {
+      "sourceId": "publisher:lila",
+      "name": "Lila Inn & Tours",
+      "province": "Tuyên Quang",
+      "address": "Khu vực Hà Giang, Tuyên Quang; xác nhận địa chỉ đón khách với Lila Inn",
+      "latitude": 22.8140102,
+      "longitude": 104.9796701,
+      "sourceUrl": "https://lilainn.tours/",
+      "sourcePublisher": "Lila Inn & Tours — website/cổng thông tin đơn vị công bố",
+      "checkedAt": "2026-10-05T15:02:23.399Z",
+      "coordinateBasis": "Geoapify named OSM accommodation POI corroborated by publisher address",
+      "coordinateSource": {
+        "name": "Lila Inn & Tours",
+        "placeId": "519f1738eab23e5a4059449cf3f862d03640f00103f901c9b0fac302000000",
+        "datasource": {
+          "sourcename": "openstreetmap",
+          "attribution": "© OpenStreetMap contributors",
+          "license": "Open Database License",
+          "url": "https://www.openstreetmap.org/copyright"
+        },
+        "formatted": "Lila Inn & Tours, 8, Đường Mai Hắc Đế, Phường Hà Giang 1, 20152, Việt Nam"
+      },
+      "images": [],
+      "rooms": [
+        {
+          "name": "Phòng riêng",
+          "sourcePage": "https://lilainn.tours/stay/",
+          "sourceBindingPage": "https://lilainn.tours/stay/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2025/12/lila-hostel4-scaled.webp"
+          ],
+          "bedType": "single",
+          "bedQuantity": 2,
+          "maxGuests": 2,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:08:06.715Z",
+          "sourceVerification": "publisher explicitly describes private rooms and dorms; exact room photographs visually differentiated"
+        },
+        {
+          "name": "Giường phòng dorm",
+          "sourcePage": "https://lilainn.tours/stay/",
+          "sourceBindingPage": "https://lilainn.tours/stay/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2025/12/lila-hostel8-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/lila-hostel6-scaled.webp"
+          ],
+          "bedType": "single",
+          "bedQuantity": 1,
+          "maxGuests": 1,
+          "amenities": [],
+          "checkedAt": "2026-10-05T15:08:06.715Z",
+          "sourceVerification": "publisher explicitly describes private rooms and dorms; exact room photographs visually differentiated"
+        }
+      ],
+      "services": [],
+      "experiences": [
+        {
+          "name": "2 Days Ha Giang Loop Highlights Express Tour",
+          "sourcePage": "https://lilainn.tours/tour/2-day-ha-giang-loop/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2025/10/nho-que-river-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ma-pi-leng-ha-giang-loop-2D1N.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/tham-ma-pass-ha-giang-loop-2D1N.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/pho-cao-viewpoint-along-nine-turn-pass-ha-giang-loop-2D1N.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/lung-tam-nalien-ha-giang-loop-2D1N.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/10/dorm-beds-and-private-rooms-at-lila-hostel-for-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/bac-sum-pass-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/nam-dam-village-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/linen-weaving-village-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/can-ty-viewpoint-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/tham-ma-pass-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/pho-cao-viewpoint-along-nine-turn-pass-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lao-xa-village-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/dong-van-ethnic-market-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ma-pi-leng-pass-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/hike-5-km-to-white-cliff-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/boat-on-nho-que-river-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/duong-thuong-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/aboong-waterfall-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/Lila-Inn-Tours-Packing-List-for-Ha-Giang-Loop-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-3-days-2-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-4-days-3-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-tour-5-days-4-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-ba-be-tour-7-days-6-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-license.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-2.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-waterfall-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-weather.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-pass.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/best-ha-giang-loop-tour.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-dangerous-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-2-days-1-night.webp"
+          ],
+          "checkedAt": "2026-10-05T15:07:59.861Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "durationMinutes": 2880
+        },
+        {
+          "name": "3 Days Ha Giang Loop Tour – Explorers Journey",
+          "sourcePage": "https://lilainn.tours/tour/3-day-ha-giang-loop/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2025/10/white-cliff-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/hike-to-white-cliff-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/nho-que-river-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lung-tam-linen-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/khau-lan-waterfall-in-ha-giang-loop-tour-3-days.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/dorm-beds-and-private-rooms-at-lila-hostel-for-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/khau-lan-waterfall-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/quan-ba-heaven-gate-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/nam-dam-village-in-ha-giang-loop-tour-2-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lung-tam-linen-cooperative-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/can-ty-viewpoint-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lao-va-chai-terraces-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/family-dinner-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/tham-ma-pass-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/pho-cao-viewpoint-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lao-xa-village-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lo-lo-chai-village-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/vietnam-china-border-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/khe-lia-viewpoint-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/thien-huong-village-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/1_family-dinner-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/dong-van-ethnic-market-on-sunday-morning-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/death-cliff-on-ma-pi-leng-pass-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/hike-to-white-cliff-on-ma-pi-leng-pass-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/boat-on-nho-que-river-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/m-shaped-pass-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/duong-thuong-valley-and-french-fortress-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/aboong-waterfall-in-ha-giang-loop-tour-3-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/Lila-Inn-Tours-Packing-List-for-Ha-Giang-Loop-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-2-days-1-night.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-4-days-3-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-tour-5-days-4-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-ba-be-tour-7-days-6-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-2.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-dangerous-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/best-ha-giang-loop-tour.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-pass.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-waterfall-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-license.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-weather.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-3-days-2-nights.webp"
+          ],
+          "checkedAt": "2026-10-05T15:08:01.603Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "durationMinutes": 4320
+        },
+        {
+          "name": "4 Days Ha Giang Loop Adventure Tour",
+          "sourcePage": "https://lilainn.tours/tour/4-day-ha-giang-loop/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2024/10/Lila-Web-1st-photo-of-tour-page-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/Lila-Inn-Tours-Packing-List-for-Ha-Giang-Loop-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-2-days-1-night.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-3-days-2-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-tour-5-days-4-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-ba-be-tour-7-days-6-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-2.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-license.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-weather.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-pass.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-waterfall-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/best-ha-giang-loop-tour.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-dangerous-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-4-days-3-nights.webp"
+          ],
+          "checkedAt": "2026-10-05T15:08:03.291Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "durationMinutes": 5760
+        },
+        {
+          "name": "5 Days Ha Giang Loop – Cao Bang – Ban Gioc Waterfall Discovery Tour",
+          "sourcePage": "https://lilainn.tours/tour/ha-giang-loop-cao-bang-5-day/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2025/10/ban-gioc-waterfall-ha-giang-loop-cao-bang-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/mountain-angel-eyes-in-ha-giang-loop-cao-bang-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ngoc-con-village-in-ha-giang-loop-cao-bang-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/white-cliff-ma-pi-leng-pass-in-ha-giang-loop-cao-bang-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lung-tam-linen-in-ha-giang-loop-cao-bang-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/dorm-beds-and-private-rooms-at-lila-hostel-for-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/khau-lan-waterfall-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/quan-ba-heaven-gate-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/nam-dam-cultural-village-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lung-tam-linen-cooperative-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/can-ty-viewpoint-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/family-dinner-in-yen-minh-town-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/tham-ma-pass-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/pho-cao-and-sung-la-valley-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lao-xa-village-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/lo-lo-chai-village-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/vietnam-china-border-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ma-le-village-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/thien-huong-village-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/family-dinner-in-dong-van-town-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/dong-van-ethnic-market-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ma-pi-leng-pass-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/white-cliff-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/nho-que-river-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/family-dinner-in-bao-lac-town-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/khau-coc-cha-pass-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/na-tenh-pass-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/phong-nam-and-ngoc-con-valley-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/co-la-waterfall-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/khuoi-ky-stone-village-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/family-dinner-in-ban-gioc-waterfall-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/nguom-ngao-cave-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/phat-tich-truc-lam-pagoda-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ban-gioc-warterfall-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/mountain-angel-eyes-in-ha-giang-loop-cao-bang-tour-5-day.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/Lila-Inn-Tours-Packing-List-for-Ha-Giang-Loop-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour-scaled.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/dorm-room-on-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/private-room-on-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour1.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour3.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/12/food-served-during-the-ha-giang-loop-tour2.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-2-days-1-night.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-3-days-2-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-tour-4-days-3-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-ba-be-tour-7-days-6-nights.webp",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-2.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-waterfall-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-weather.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-license.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/08/ha-giang-loop-pass.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/best-ha-giang-loop-tour.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/09/ha-giang-loop-dangerous-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2025/10/ha-giang-loop-cao-bang-tour-5-days-4-nights.webp"
+          ],
+          "checkedAt": "2026-10-05T15:08:05.730Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "durationMinutes": 7200
+        },
+        {
+          "name": "7 Days Ha Giang Loop – Cao Bang – Ba Be National Park Epic Journey",
+          "sourcePage": "https://lilainn.tours/tour/7-day-ha-giang-loop-cao-bang-ba-be/",
+          "images": [
+            "https://lilainn.tours/wp-content/uploads/2024/10/Ban-Gioc-Waterfall-3.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Ba-Be-3.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Lo-Lo-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Ngoc-Con.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Khau-Lan-Waterfall-2-1.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Ban-Gioc-Waterfall-2.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Ba-Be-Lake-2.jpg",
+            "https://lilainn.tours/wp-content/uploads/2024/10/Ba-Be-Lake.png"
+          ],
+          "checkedAt": "2026-10-05T15:08:06.788Z",
+          "amenities": [],
+          "sourceVerification": "reviewed_named_publisher_page_or_card_binds_exact_item",
+          "durationMinutes": 10080
+        }
+      ],
+      "hostKind": "HOST"
+    }
+  ],
+  "excluded": [
+    {
+      "name": "The Mira Central Park",
+      "reason": "Publisher HTML contains unrelated injected SEO/spam; room details inaccessible. Not used as an authoritative source in this batch."
+    },
+    {
+      "name": "Nam Cường Hải Dương",
+      "reason": "Candidate page resolves to a Nam Định hotel; photographs cannot establish the Hải Dương property."
+    },
+    {
+      "name": "Beau Champ Villa",
+      "reason": "Heading extractor binds icons instead of villa photographs; excluded pending manual gallery review."
+    },
+    {
+      "name": "Spa Ninh Kiều",
+      "reason": "Publisher includes stock Pexels imagery. No imported spa offer from this page."
+    },
+    {
+      "name": "Khách sạn Phú Cường Cà Mau — Deluxe City View With Balcony",
+      "reason": "No item-specific photograph found by the reviewed recipe"
+    }
+  ]
+}

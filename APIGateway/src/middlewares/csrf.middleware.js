@@ -17,10 +17,13 @@ export const readCookie = (req, name) => {
 const allowedOrigins = new Set([
   "https://gostay.nonnet123.io.vn",
   "https://auth.nonnet123.io.vn",
+  "https://pay.nonnet123.io.vn",
   "http://localhost:3000",
   "http://localhost:3335",
+  "http://localhost:3336",
   "http://127.0.0.1:3000",
   "http://127.0.0.1:3335",
+  "http://127.0.0.1:3336",
   ...(process.env.AUTH_ALLOWED_ORIGINS || "")
     .split(",")
     .map((origin) => origin.trim())

@@ -1,0 +1,355 @@
+{
+  "namespace": "gotravel-real-venue-virtual-hosts-v1",
+  "accounts": [
+    {
+      "id": "132f9c6a-1f5b-5a40-86c9-108f85eb1982",
+      "username": "seed_host_001",
+      "email": "seed_host_001@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 001",
+      "role": "HOST"
+    },
+    {
+      "id": "f72c55ee-c228-517d-887a-65b21a9e41b4",
+      "username": "seed_host_002",
+      "email": "seed_host_002@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 002",
+      "role": "HOST"
+    },
+    {
+      "id": "9ee82000-e629-5923-882a-d4e1affeac4f",
+      "username": "seed_host_003",
+      "email": "seed_host_003@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 003",
+      "role": "HOST"
+    },
+    {
+      "id": "4a825c04-b00f-5860-8f43-a63e916b9d04",
+      "username": "seed_host_004",
+      "email": "seed_host_004@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 004",
+      "role": "HOST"
+    },
+    {
+      "id": "7935379f-8a92-57f0-8eca-d47668661737",
+      "username": "seed_host_005",
+      "email": "seed_host_005@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 005",
+      "role": "HOST"
+    },
+    {
+      "id": "8b1d906f-a714-5936-816c-4df87b1a25e7",
+      "username": "seed_host_006",
+      "email": "seed_host_006@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 006",
+      "role": "HOST"
+    },
+    {
+      "id": "01353ceb-0939-5952-8555-68e505a7b291",
+      "username": "seed_host_007",
+      "email": "seed_host_007@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 007",
+      "role": "HOST"
+    },
+    {
+      "id": "7956efc3-af7c-5f79-8eca-517378931f72",
+      "username": "seed_host_008",
+      "email": "seed_host_008@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 008",
+      "role": "HOST"
+    },
+    {
+      "id": "4519c9e0-4d6d-516b-8e70-e7edd1d6a0de",
+      "username": "seed_host_009",
+      "email": "seed_host_009@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 009",
+      "role": "HOST"
+    },
+    {
+      "id": "ea834d02-637e-545f-88f4-388db15f990b",
+      "username": "seed_host_010",
+      "email": "seed_host_010@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 010",
+      "role": "HOST"
+    },
+    {
+      "id": "2b14dddb-7a2b-5eb6-81d8-b1ec021af586",
+      "username": "seed_host_011",
+      "email": "seed_host_011@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 011",
+      "role": "HOST"
+    },
+    {
+      "id": "d6352bfc-d64d-51e0-84b6-2dcbe47d0c6d",
+      "username": "seed_host_012",
+      "email": "seed_host_012@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 012",
+      "role": "HOST"
+    },
+    {
+      "id": "eda88a4a-6495-50df-8083-e54c1b546e0b",
+      "username": "seed_host_013",
+      "email": "seed_host_013@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 013",
+      "role": "HOST"
+    },
+    {
+      "id": "5ed8f044-0cd6-5c78-8d54-5abe0bca04a4",
+      "username": "seed_host_014",
+      "email": "seed_host_014@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 014",
+      "role": "HOST"
+    },
+    {
+      "id": "8b75accd-8f77-506f-8e76-0644bc33ef36",
+      "username": "seed_host_015",
+      "email": "seed_host_015@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 015",
+      "role": "HOST"
+    },
+    {
+      "id": "d92b92b7-5d5b-5b2d-8443-01c1300d00ea",
+      "username": "seed_host_016",
+      "email": "seed_host_016@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 016",
+      "role": "HOST"
+    },
+    {
+      "id": "cd07532e-d29f-5a27-8e9c-e113b1de20b6",
+      "username": "seed_host_017",
+      "email": "seed_host_017@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 017",
+      "role": "HOST"
+    },
+    {
+      "id": "f187e36d-3daf-542f-80f9-800af4f0ffd6",
+      "username": "seed_host_018",
+      "email": "seed_host_018@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 018",
+      "role": "HOST"
+    },
+    {
+      "id": "5fd055be-b0d2-5951-89ed-62707f82efa4",
+      "username": "seed_host_019",
+      "email": "seed_host_019@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 019",
+      "role": "HOST"
+    },
+    {
+      "id": "c96626c0-8536-59ae-8d56-9d82aabcf48b",
+      "username": "seed_host_020",
+      "email": "seed_host_020@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 020",
+      "role": "HOST"
+    },
+    {
+      "id": "4e48f7e9-1c79-597c-81e5-dc5c667fcd8b",
+      "username": "seed_host_021",
+      "email": "seed_host_021@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 021",
+      "role": "HOST"
+    },
+    {
+      "id": "6f0d0db3-9d9f-5590-83ad-eae79b0635af",
+      "username": "seed_host_022",
+      "email": "seed_host_022@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 022",
+      "role": "HOST"
+    },
+    {
+      "id": "8ba801e6-cae9-5dd7-8e27-0654753d3db7",
+      "username": "seed_host_023",
+      "email": "seed_host_023@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 023",
+      "role": "HOST"
+    },
+    {
+      "id": "d1c7a141-0e3f-5dda-8c9c-4ffbe6015555",
+      "username": "seed_host_024",
+      "email": "seed_host_024@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 024",
+      "role": "HOST"
+    },
+    {
+      "id": "231152bd-5610-5c5f-8646-6f3979721581",
+      "username": "seed_host_025",
+      "email": "seed_host_025@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Host 025",
+      "role": "HOST"
+    },
+    {
+      "id": "d4b2a62a-b26d-52bd-88df-384b5d854f08",
+      "username": "seed_enterprise_001",
+      "email": "seed_enterprise_001@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 001",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "2a48b5b7-2f3b-55d0-82c7-3295406f43d1",
+      "username": "seed_enterprise_002",
+      "email": "seed_enterprise_002@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 002",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "eb32ea77-1c15-5e36-8f51-ae9678beedc5",
+      "username": "seed_enterprise_003",
+      "email": "seed_enterprise_003@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 003",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "d3a85ebe-9ce2-5b0e-89cd-5eac9f0b9377",
+      "username": "seed_enterprise_004",
+      "email": "seed_enterprise_004@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 004",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "ef77f5ca-733d-59ff-8273-db03e1f865e8",
+      "username": "seed_enterprise_005",
+      "email": "seed_enterprise_005@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 005",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "39d96176-5914-5209-8ef6-d40aafc6a310",
+      "username": "seed_enterprise_006",
+      "email": "seed_enterprise_006@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 006",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "9660281e-346e-5b89-8ddd-3c289b4a0384",
+      "username": "seed_enterprise_007",
+      "email": "seed_enterprise_007@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 007",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "552f5b61-3322-50a5-8fd5-91ca8f863a43",
+      "username": "seed_enterprise_008",
+      "email": "seed_enterprise_008@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 008",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "0b9aede8-9d37-56a0-8cdc-c3f23319de01",
+      "username": "seed_enterprise_009",
+      "email": "seed_enterprise_009@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 009",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "7b03cc72-1745-58f6-83fd-872690f5dc30",
+      "username": "seed_enterprise_010",
+      "email": "seed_enterprise_010@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 010",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "ba9df0b0-8fbf-584f-8bf6-dd551209a4ac",
+      "username": "seed_enterprise_011",
+      "email": "seed_enterprise_011@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 011",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "2a8c299c-6886-56c1-898b-c600dfef1168",
+      "username": "seed_enterprise_012",
+      "email": "seed_enterprise_012@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 012",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "8a5e67a8-badb-5eaa-84f7-a68d4675657e",
+      "username": "seed_enterprise_013",
+      "email": "seed_enterprise_013@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 013",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "e7375a71-b8fc-5076-8178-9a141f880ecf",
+      "username": "seed_enterprise_014",
+      "email": "seed_enterprise_014@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 014",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "ea6b6d23-1f7c-56ae-8b0f-9226f187d8d2",
+      "username": "seed_enterprise_015",
+      "email": "seed_enterprise_015@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 015",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "fbb93dcf-d550-5d8f-81b6-06e00010c7f6",
+      "username": "seed_enterprise_016",
+      "email": "seed_enterprise_016@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 016",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "e14371cd-1ef5-5fd1-8939-41c6db0e46c4",
+      "username": "seed_enterprise_017",
+      "email": "seed_enterprise_017@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 017",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "bb410081-69d0-5224-8c07-dbb706ff306f",
+      "username": "seed_enterprise_018",
+      "email": "seed_enterprise_018@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 018",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "a2d380f7-3940-5f86-85c4-0962974db127",
+      "username": "seed_enterprise_019",
+      "email": "seed_enterprise_019@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 019",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "1675ac43-f3c8-5729-864b-dfe67fe6a0fd",
+      "username": "seed_enterprise_020",
+      "email": "seed_enterprise_020@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 020",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "c6c9407c-2694-5946-8b3a-5faf710b9fe8",
+      "username": "seed_enterprise_021",
+      "email": "seed_enterprise_021@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 021",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "c28f6bab-a606-568f-8693-429918210bbf",
+      "username": "seed_enterprise_022",
+      "email": "seed_enterprise_022@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 022",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "f77980eb-da79-5d1e-8ff3-c18fa944a9c7",
+      "username": "seed_enterprise_023",
+      "email": "seed_enterprise_023@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 023",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "926372c5-cbb1-5412-8b5e-448bdb9d9bf6",
+      "username": "seed_enterprise_024",
+      "email": "seed_enterprise_024@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 024",
+      "role": "ENTERPRISE"
+    },
+    {
+      "id": "8bbc5d88-c928-592a-87cf-4e84ea0caa38",
+      "username": "seed_enterprise_025",
+      "email": "seed_enterprise_025@seed.gotravel.invalid",
+      "displayName": "GoTravel Seed Enterprise 025",
+      "role": "ENTERPRISE"
+    }
+  ]
+}

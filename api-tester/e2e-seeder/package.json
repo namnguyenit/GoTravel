@@ -3,7 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "images:upload": "node migrate-images.js",
+    "images:plan": "node migrate-image-database.js --dry-run",
+    "images:apply": "node migrate-image-database.js --apply",
+    "images:restore": "node migrate-image-database.js --restore",
+    "seed:research": "node expansion/research-destinations.js",
+    "seed:images": "node expansion/verify-upload-images.js --new-only",
+    "seed:prepare": "node expansion/generate-plan.js",
+    "seed:validate": "node expansion/apply-plan.js",
+    "seed:add": "node expansion/apply-plan.js --apply",
+    "seed:verify": "node expansion/verify-plan.js",
+    "seed:hide": "node expansion/hide-batch.js --hide",
+    "test:auth-client": "node --test test/api-client.test.js",
+    "seed:balance:plan": "node balanced/apply.js",
+    "seed:balance": "node balanced/apply.js --apply",
+    "seed:balance:verify": "node balanced/verify.js"
   },
   "keywords": [],
   "author": "",

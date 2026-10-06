@@ -1,0 +1,312 @@
+{
+  "completedAt": "2026-10-05T15:08:20.347Z",
+  "results": [
+    {
+      "key": "miracentral-detail-0",
+      "url": "https://themiracentralpark.com.vn/accommodation/classic-room/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "miracentral-detail-2",
+      "url": "https://themiracentralpark.com.vn/accommodation/deluxe-room/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "miracentral-detail-1",
+      "url": "https://themiracentralpark.com.vn/accommodation/premier-room/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "miracentral-detail-3",
+      "url": "https://themiracentralpark.com.vn/accommodation/executive-room/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "miracentral-detail-4",
+      "url": "https://themiracentralpark.com.vn/accommodation/residence-suite/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "miracentral-detail-5",
+      "url": "https://themiracentralpark.com.vn/accommodation/presidential-suite/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "miracentral-detail-6",
+      "url": "https://themiracentralpark.com.vn/park-avenue-restaurant/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "mekongriverside-detail-1",
+      "status": "fetched",
+      "bytes": 53609
+    },
+    {
+      "key": "mekongriverside-detail-0",
+      "status": "fetched",
+      "bytes": 76820
+    },
+    {
+      "key": "babelake-detail-0",
+      "status": "fetched",
+      "bytes": 41606
+    },
+    {
+      "key": "babelake-detail-2",
+      "status": "fetched",
+      "bytes": 62596
+    },
+    {
+      "key": "babelake-detail-1",
+      "status": "fetched",
+      "bytes": 60176
+    },
+    {
+      "key": "lila-detail-0",
+      "status": "fetched",
+      "bytes": 350065
+    },
+    {
+      "key": "lila-detail-1",
+      "status": "fetched",
+      "bytes": 345771
+    },
+    {
+      "key": "lila-detail-2",
+      "status": "fetched",
+      "bytes": 353154
+    },
+    {
+      "key": "lila-detail-3",
+      "status": "fetched",
+      "bytes": 376519
+    },
+    {
+      "key": "lila-detail-5",
+      "status": "fetched",
+      "bytes": 168161
+    },
+    {
+      "key": "lila-detail-4",
+      "status": "fetched",
+      "bytes": 340988
+    },
+    {
+      "key": "saigonbanme-detail-0",
+      "status": "fetched",
+      "bytes": 61282
+    },
+    {
+      "key": "saigonbanme-detail-1",
+      "status": "fetched",
+      "bytes": 55793
+    },
+    {
+      "key": "mekongriverside-rooms",
+      "status": "fetched",
+      "bytes": 76820
+    },
+    {
+      "key": "mekongriverside-spa",
+      "status": "fetched",
+      "bytes": 53609
+    },
+    {
+      "key": "cocolodge-double",
+      "status": "fetched",
+      "bytes": 45178
+    },
+    {
+      "key": "cocolodge-family",
+      "status": "fetched",
+      "bytes": 55474
+    },
+    {
+      "key": "cocolodge-standard",
+      "status": "fetched",
+      "bytes": 46194
+    },
+    {
+      "key": "cocolodge-tours",
+      "status": "fetched",
+      "bytes": 48071
+    },
+    {
+      "key": "dongxuyen-detail-1",
+      "status": "fetched",
+      "bytes": 208329
+    },
+    {
+      "key": "dongxuyen-detail-0",
+      "status": "fetched",
+      "bytes": 203878
+    },
+    {
+      "key": "dongxuyen-detail-2",
+      "status": "fetched",
+      "bytes": 203003
+    },
+    {
+      "key": "dongxuyen-detail-3",
+      "status": "fetched",
+      "bytes": 204597
+    },
+    {
+      "key": "dongxuyen-detail-4",
+      "status": "fetched",
+      "bytes": 198409
+    },
+    {
+      "key": "dongxuyen-detail-5",
+      "status": "fetched",
+      "bytes": 196748
+    },
+    {
+      "key": "dongxuyen-detail-6",
+      "status": "fetched",
+      "bytes": 194981
+    },
+    {
+      "key": "dongxuyen-detail-7",
+      "status": "fetched",
+      "bytes": 223830
+    },
+    {
+      "key": "dongxuyen-detail-8",
+      "status": "fetched",
+      "bytes": 223864
+    },
+    {
+      "key": "dongxuyen-detail-9",
+      "status": "fetched",
+      "bytes": 224519
+    },
+    {
+      "key": "ninhkieu-detail-1",
+      "status": "fetched",
+      "bytes": 68073
+    },
+    {
+      "key": "ninhkieu-detail-0",
+      "status": "fetched",
+      "bytes": 68384
+    },
+    {
+      "key": "ninhkieu-detail-2",
+      "status": "fetched",
+      "bytes": 67926
+    },
+    {
+      "key": "ninhkieu-detail-3",
+      "status": "fetched",
+      "bytes": 67063
+    },
+    {
+      "key": "ninhkieu-detail-4",
+      "status": "fetched",
+      "bytes": 68027
+    },
+    {
+      "key": "ninhkieu-detail-5",
+      "status": "fetched",
+      "bytes": 68983
+    },
+    {
+      "key": "ninhkieu-detail-6",
+      "status": "fetched",
+      "bytes": 68241
+    },
+    {
+      "key": "ninhkieu-detail-7",
+      "status": "fetched",
+      "bytes": 68293
+    },
+    {
+      "key": "ninhkieu-detail-8",
+      "status": "fetched",
+      "bytes": 66609
+    },
+    {
+      "key": "ninhkieu-detail-9",
+      "status": "fetched",
+      "bytes": 67650
+    },
+    {
+      "key": "ninhkieu-detail-10",
+      "status": "fetched",
+      "bytes": 67674
+    },
+    {
+      "key": "ninhkieu-detail-11",
+      "status": "fetched",
+      "bytes": 68384
+    },
+    {
+      "key": "ninhkieu-detail-12",
+      "status": "fetched",
+      "bytes": 68073
+    },
+    {
+      "key": "ninhkieu-detail-13",
+      "status": "fetched",
+      "bytes": 67926
+    },
+    {
+      "key": "ninhkieu-detail-14",
+      "status": "fetched",
+      "bytes": 67063
+    },
+    {
+      "key": "ninhkieu-detail-15",
+      "status": "fetched",
+      "bytes": 68027
+    },
+    {
+      "key": "ninhkieu-detail-16",
+      "status": "fetched",
+      "bytes": 68983
+    },
+    {
+      "key": "ninhkieu-detail-17",
+      "status": "fetched",
+      "bytes": 68241
+    },
+    {
+      "key": "ninhkieu-detail-18",
+      "status": "fetched",
+      "bytes": 68293
+    },
+    {
+      "key": "ninhkieu-detail-19",
+      "status": "fetched",
+      "bytes": 66609
+    },
+    {
+      "key": "ninhkieu-detail-20",
+      "status": "fetched",
+      "bytes": 67650
+    },
+    {
+      "key": "ninhkieu-spa",
+      "status": "fetched",
+      "bytes": 68419
+    },
+    {
+      "key": "ninhkieu-detail-21",
+      "status": "fetched",
+      "bytes": 67674
+    },
+    {
+      "key": "ninhkieu-cruise",
+      "status": "fetched",
+      "bytes": 94407
+    }
+  ]
+}

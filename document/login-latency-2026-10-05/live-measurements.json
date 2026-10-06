@@ -1,0 +1,406 @@
+{
+  "at": "2026-10-05T04:06:37.191Z",
+  "requests": [
+    {
+      "label": "Identity direct",
+      "path": "/api/auth/login",
+      "status": 200,
+      "ms": 5007.1,
+      "ttfbMs": 4999.7,
+      "bytes": 941
+    },
+    {
+      "label": "Identity profile",
+      "path": "/api/users/me",
+      "status": 200,
+      "ms": 45.5,
+      "ttfbMs": 44.7,
+      "bytes": 574
+    },
+    {
+      "label": "Identity direct",
+      "path": "/api/auth/login",
+      "status": 200,
+      "ms": 4792,
+      "ttfbMs": 4790.6,
+      "bytes": 941
+    },
+    {
+      "label": "Identity profile",
+      "path": "/api/users/me",
+      "status": 200,
+      "ms": 35.4,
+      "ttfbMs": 34.1,
+      "bytes": 574
+    },
+    {
+      "label": "Identity direct",
+      "path": "/api/auth/login",
+      "status": 200,
+      "ms": 4782.2,
+      "ttfbMs": 4780.4,
+      "bytes": 941
+    },
+    {
+      "label": "Identity profile",
+      "path": "/api/users/me",
+      "status": 200,
+      "ms": 35.2,
+      "ttfbMs": 33.2,
+      "bytes": 574
+    },
+    {
+      "label": "Gateway",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "ms": 4804.5,
+      "ttfbMs": 4803.6,
+      "bytes": 214
+    },
+    {
+      "label": "Gateway session",
+      "path": "/api/v1/auth/session",
+      "status": 200,
+      "ms": 46.4,
+      "ttfbMs": 45.9,
+      "bytes": 139
+    },
+    {
+      "label": "Gateway profile",
+      "path": "/api/v1/me",
+      "status": 200,
+      "ms": 62.6,
+      "ttfbMs": 60.3,
+      "bytes": 574
+    },
+    {
+      "label": "Gateway",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "ms": 9669.8,
+      "ttfbMs": 9663.6,
+      "bytes": 214
+    },
+    {
+      "label": "Gateway session",
+      "path": "/api/v1/auth/session",
+      "status": 200,
+      "ms": 24.6,
+      "ttfbMs": 23.6,
+      "bytes": 139
+    },
+    {
+      "label": "Gateway profile",
+      "path": "/api/v1/me",
+      "status": 200,
+      "ms": 65.3,
+      "ttfbMs": 63.7,
+      "bytes": 574
+    },
+    {
+      "label": "Gateway logout",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "ms": 19.7,
+      "ttfbMs": 18.4,
+      "bytes": 47
+    },
+    {
+      "label": "Gateway",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "ms": 9484.3,
+      "ttfbMs": 9482.6,
+      "bytes": 214
+    },
+    {
+      "label": "Gateway session",
+      "path": "/api/v1/auth/session",
+      "status": 200,
+      "ms": 21,
+      "ttfbMs": 18.9,
+      "bytes": 139
+    },
+    {
+      "label": "Gateway profile",
+      "path": "/api/v1/me",
+      "status": 200,
+      "ms": 51.1,
+      "ttfbMs": 49.6,
+      "bytes": 574
+    },
+    {
+      "label": "Gateway logout",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "ms": 13.2,
+      "ttfbMs": 12.3,
+      "bytes": 47
+    },
+    {
+      "label": "Public SSO",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "ms": 5536,
+      "ttfbMs": 5525.4,
+      "bytes": 214
+    },
+    {
+      "label": "Public SSO session",
+      "path": "/api/v1/auth/session",
+      "status": 200,
+      "ms": 104.3,
+      "ttfbMs": 100.8,
+      "bytes": 139
+    },
+    {
+      "label": "Public SSO profile",
+      "path": "/api/v1/me",
+      "status": 200,
+      "ms": 118.2,
+      "ttfbMs": 114.8,
+      "bytes": 574
+    },
+    {
+      "label": "Public SSO logout",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "ms": 76.7,
+      "ttfbMs": 75.9,
+      "bytes": 47
+    },
+    {
+      "label": "Public SSO",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "ms": 9657.6,
+      "ttfbMs": 9654.4,
+      "bytes": 214
+    },
+    {
+      "label": "Public SSO session",
+      "path": "/api/v1/auth/session",
+      "status": 200,
+      "ms": 178.5,
+      "ttfbMs": 174.3,
+      "bytes": 139
+    },
+    {
+      "label": "Public SSO profile",
+      "path": "/api/v1/me",
+      "status": 200,
+      "ms": 152,
+      "ttfbMs": 148.4,
+      "bytes": 574
+    },
+    {
+      "label": "Public SSO logout",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "ms": 89.6,
+      "ttfbMs": 88.7,
+      "bytes": 47
+    },
+    {
+      "label": "Public SSO",
+      "path": "/api/v1/auth/login",
+      "status": 200,
+      "ms": 9603.7,
+      "ttfbMs": 9600.9,
+      "bytes": 214
+    },
+    {
+      "label": "Public SSO session",
+      "path": "/api/v1/auth/session",
+      "status": 200,
+      "ms": 158.2,
+      "ttfbMs": 155.8,
+      "bytes": 139
+    },
+    {
+      "label": "Public SSO profile",
+      "path": "/api/v1/me",
+      "status": 200,
+      "ms": 140.6,
+      "ttfbMs": 133.3,
+      "bytes": 574
+    },
+    {
+      "label": "Public SSO logout",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "ms": 74,
+      "ttfbMs": 73.4,
+      "bytes": 47
+    },
+    {
+      "label": "Auth portal local",
+      "path": "/",
+      "status": 200,
+      "ms": 27.8,
+      "ttfbMs": 25.4,
+      "bytes": 1095
+    },
+    {
+      "label": "Auth portal local",
+      "path": "/",
+      "status": 200,
+      "ms": 14.5,
+      "ttfbMs": 12.6,
+      "bytes": 1095
+    },
+    {
+      "label": "Auth portal public",
+      "path": "/",
+      "status": 200,
+      "ms": 63.3,
+      "ttfbMs": 61.9,
+      "bytes": 1095
+    },
+    {
+      "label": "Auth portal public",
+      "path": "/",
+      "status": 200,
+      "ms": 68.9,
+      "ttfbMs": 66.8,
+      "bytes": 1095
+    },
+    {
+      "label": "GoTravel local",
+      "path": "/",
+      "status": 200,
+      "ms": 4779.7,
+      "ttfbMs": 181.9,
+      "bytes": 4458332
+    },
+    {
+      "label": "GoTravel local",
+      "path": "/",
+      "status": 200,
+      "ms": 2886.3,
+      "ttfbMs": 115.2,
+      "bytes": 4458332
+    },
+    {
+      "label": "GoTravel public",
+      "path": "/",
+      "status": 200,
+      "ms": 1783.5,
+      "ttfbMs": 285.9,
+      "bytes": 4458332
+    },
+    {
+      "label": "GoTravel public",
+      "path": "/",
+      "status": 200,
+      "ms": 1685.3,
+      "ttfbMs": 148.9,
+      "bytes": 4458332
+    }
+  ],
+  "database": {
+    "costs": [
+      {
+        "cost": "15",
+        "accounts": 33
+      }
+    ],
+    "userLookup": {
+      "executionMs": 0.103,
+      "actualRows": 1,
+      "rowsScanned": 33,
+      "sharedReads": 0,
+      "sharedHits": 1
+    }
+  },
+  "host": {},
+  "note": "Sequential probes on one existing development USER account. Tokens/passwords remain in memory.",
+  "summary": {
+    "Identity direct": {
+      "samples": 3,
+      "minMs": 4782.2,
+      "medianMs": 4792,
+      "maxMs": 5007.1
+    },
+    "Identity profile": {
+      "samples": 3,
+      "minMs": 35.2,
+      "medianMs": 35.4,
+      "maxMs": 45.5
+    },
+    "Gateway": {
+      "samples": 3,
+      "minMs": 4804.5,
+      "medianMs": 9484.3,
+      "maxMs": 9669.8
+    },
+    "Gateway session": {
+      "samples": 3,
+      "minMs": 21,
+      "medianMs": 24.6,
+      "maxMs": 46.4
+    },
+    "Gateway profile": {
+      "samples": 3,
+      "minMs": 51.1,
+      "medianMs": 62.6,
+      "maxMs": 65.3
+    },
+    "Gateway logout": {
+      "samples": 2,
+      "minMs": 13.2,
+      "medianMs": 16.45,
+      "maxMs": 19.7
+    },
+    "Public SSO": {
+      "samples": 3,
+      "minMs": 5536,
+      "medianMs": 9603.7,
+      "maxMs": 9657.6
+    },
+    "Public SSO session": {
+      "samples": 3,
+      "minMs": 104.3,
+      "medianMs": 158.2,
+      "maxMs": 178.5
+    },
+    "Public SSO profile": {
+      "samples": 3,
+      "minMs": 118.2,
+      "medianMs": 140.6,
+      "maxMs": 152
+    },
+    "Public SSO logout": {
+      "samples": 3,
+      "minMs": 74,
+      "medianMs": 76.7,
+      "maxMs": 89.6
+    },
+    "Auth portal local": {
+      "samples": 2,
+      "minMs": 14.5,
+      "medianMs": 21.15,
+      "maxMs": 27.8
+    },
+    "Auth portal public": {
+      "samples": 2,
+      "minMs": 63.3,
+      "medianMs": 66.1,
+      "maxMs": 68.9
+    },
+    "GoTravel local": {
+      "samples": 2,
+      "minMs": 2886.3,
+      "medianMs": 3833,
+      "maxMs": 4779.7
+    },
+    "GoTravel public": {
+      "samples": 2,
+      "minMs": 1685.3,
+      "medianMs": 1734.4,
+      "maxMs": 1783.5
+    }
+  },
+  "probeCorrection": "An initial logout probe omitted Origin and received the expected CSRF rejection; corrected probes send Origin and CSRF. No authentication policy was disabled.",
+  "completedAt": "2026-10-05T04:13:52.842249+00:00"
+}

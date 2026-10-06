@@ -1,0 +1,5 @@
+{
+  "recordsChecked": 169278,
+  "unexpectedChanges": 0,
+  "method": "Exclude intentional title/description/attributes/comment updates in the expansion batch; compare every other row/field by database JSON hash"
+}

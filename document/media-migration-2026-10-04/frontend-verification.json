@@ -1,0 +1,16 @@
+[
+  {
+    "url": "http://127.0.0.1:3000/",
+    "status": 200,
+    "cloudinaryReferences": 1832,
+    "externalReferences": 0,
+    "htmlBytes": 1243704
+  },
+  {
+    "url": "https://gostay.nonnet123.io.vn/",
+    "status": 200,
+    "cloudinaryReferences": 1832,
+    "externalReferences": 0,
+    "htmlBytes": 1243704
+  }
+]

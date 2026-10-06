@@ -1,0 +1,15 @@
+{
+  "homeHtmlBytes": 4458332,
+  "homeHtmlMiB": 4.25,
+  "imgTags": 368,
+  "uniqueImgSources": 223,
+  "sourceRequests": {
+    "landmarks": 228,
+    "EXP": 500,
+    "STAY": 500,
+    "SVC": 500,
+    "complexes": 200
+  },
+  "renderedLandmarkCards": 228,
+  "httpMeasurementNotes": "Fetch includes decoded response body; compressed transfer bytes, image download and browser hydration have not been measured."
+}

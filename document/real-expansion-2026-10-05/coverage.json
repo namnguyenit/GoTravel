@@ -1,0 +1,614 @@
+[
+  {
+    "province": "An Giang",
+    "before": {
+      "STAY": 4,
+      "EXP": 1,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 15,
+      "EXP": 4,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 19,
+      "EXP": 5,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Bắc Ninh",
+    "before": {
+      "STAY": 9,
+      "EXP": 3,
+      "SVC": 5
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 9,
+      "EXP": 5,
+      "SVC": 5
+    }
+  },
+  {
+    "province": "Cà Mau",
+    "before": {
+      "STAY": 7,
+      "EXP": 1,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 6,
+      "EXP": 3,
+      "SVC": 1
+    },
+    "after": {
+      "STAY": 13,
+      "EXP": 4,
+      "SVC": 3
+    }
+  },
+  {
+    "province": "Cần Thơ",
+    "before": {
+      "STAY": 6,
+      "EXP": 1,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 10,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 16,
+      "EXP": 4,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Cao Bằng",
+    "before": {
+      "STAY": 9,
+      "EXP": 3,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 0,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 9,
+      "EXP": 3,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Đắk Lắk",
+    "before": {
+      "STAY": 6,
+      "EXP": 4,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 4,
+      "EXP": 1,
+      "SVC": 1
+    },
+    "after": {
+      "STAY": 10,
+      "EXP": 5,
+      "SVC": 3
+    }
+  },
+  {
+    "province": "Đà Nẵng",
+    "before": {
+      "STAY": 36,
+      "EXP": 4,
+      "SVC": 11
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 36,
+      "EXP": 7,
+      "SVC": 11
+    }
+  },
+  {
+    "province": "Điện Biên",
+    "before": {
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 3
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 5,
+      "EXP": 2,
+      "SVC": 3
+    }
+  },
+  {
+    "province": "Đồng Nai",
+    "before": {
+      "STAY": 4,
+      "EXP": 4,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 4,
+      "EXP": 5,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Đồng Tháp",
+    "before": {
+      "STAY": 5,
+      "EXP": 2,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 8,
+      "EXP": 2,
+      "SVC": 3
+    },
+    "after": {
+      "STAY": 13,
+      "EXP": 4,
+      "SVC": 4
+    }
+  },
+  {
+    "province": "Gia Lai",
+    "before": {
+      "STAY": 11,
+      "EXP": 2,
+      "SVC": 5
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 11,
+      "EXP": 3,
+      "SVC": 5
+    }
+  },
+  {
+    "province": "Hải Phòng",
+    "before": {
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 5,
+      "EXP": 3,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Hà Nội",
+    "before": {
+      "STAY": 9,
+      "EXP": 6,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 9,
+      "EXP": 9,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Hà Tĩnh",
+    "before": {
+      "STAY": 9,
+      "EXP": 1,
+      "SVC": 4
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 0,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 9,
+      "EXP": 1,
+      "SVC": 4
+    }
+  },
+  {
+    "province": "Hồ Chí Minh",
+    "before": {
+      "STAY": 16,
+      "EXP": 6,
+      "SVC": 4
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 16,
+      "EXP": 9,
+      "SVC": 4
+    }
+  },
+  {
+    "province": "Huế",
+    "before": {
+      "STAY": 7,
+      "EXP": 6,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 7,
+      "EXP": 9,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Hưng Yên",
+    "before": {
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 5,
+      "EXP": 4,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Khánh Hòa",
+    "before": {
+      "STAY": 29,
+      "EXP": 2,
+      "SVC": 11
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 29,
+      "EXP": 4,
+      "SVC": 11
+    }
+  },
+  {
+    "province": "Lai Châu",
+    "before": {
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 5,
+      "EXP": 3,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Lâm Đồng",
+    "before": {
+      "STAY": 13,
+      "EXP": 6,
+      "SVC": 5
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 13,
+      "EXP": 7,
+      "SVC": 5
+    }
+  },
+  {
+    "province": "Lạng Sơn",
+    "before": {
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 5,
+      "EXP": 2,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Lào Cai",
+    "before": {
+      "STAY": 8,
+      "EXP": 3,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 8,
+      "EXP": 6,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Nghệ An",
+    "before": {
+      "STAY": 56,
+      "EXP": 1,
+      "SVC": 20
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 0,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 56,
+      "EXP": 1,
+      "SVC": 20
+    }
+  },
+  {
+    "province": "Ninh Bình",
+    "before": {
+      "STAY": 7,
+      "EXP": 5,
+      "SVC": 4
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 7,
+      "EXP": 7,
+      "SVC": 4
+    }
+  },
+  {
+    "province": "Phú Thọ",
+    "before": {
+      "STAY": 7,
+      "EXP": 4,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 7,
+      "EXP": 5,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Quảng Ngãi",
+    "before": {
+      "STAY": 4,
+      "EXP": 1,
+      "SVC": 3
+    },
+    "added": {
+      "STAY": 3,
+      "EXP": 4,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 7,
+      "EXP": 5,
+      "SVC": 3
+    }
+  },
+  {
+    "province": "Quảng Ninh",
+    "before": {
+      "STAY": 30,
+      "EXP": 3,
+      "SVC": 8
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 30,
+      "EXP": 5,
+      "SVC": 8
+    }
+  },
+  {
+    "province": "Quảng Trị",
+    "before": {
+      "STAY": 17,
+      "EXP": 4,
+      "SVC": 5
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 17,
+      "EXP": 6,
+      "SVC": 5
+    }
+  },
+  {
+    "province": "Sơn La",
+    "before": {
+      "STAY": 14,
+      "EXP": 1,
+      "SVC": 3
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 14,
+      "EXP": 2,
+      "SVC": 3
+    }
+  },
+  {
+    "province": "Tây Ninh",
+    "before": {
+      "STAY": 6,
+      "EXP": 2,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 6,
+      "EXP": 3,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Thái Nguyên",
+    "before": {
+      "STAY": 4,
+      "EXP": 2,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 6,
+      "EXP": 1,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 10,
+      "EXP": 3,
+      "SVC": 1
+    }
+  },
+  {
+    "province": "Thanh Hóa",
+    "before": {
+      "STAY": 6,
+      "EXP": 2,
+      "SVC": 3
+    },
+    "added": {
+      "STAY": 0,
+      "EXP": 4,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 6,
+      "EXP": 6,
+      "SVC": 3
+    }
+  },
+  {
+    "province": "Tuyên Quang",
+    "before": {
+      "STAY": 3,
+      "EXP": 3,
+      "SVC": 2
+    },
+    "added": {
+      "STAY": 2,
+      "EXP": 7,
+      "SVC": 0
+    },
+    "after": {
+      "STAY": 5,
+      "EXP": 10,
+      "SVC": 2
+    }
+  },
+  {
+    "province": "Vĩnh Long",
+    "before": {
+      "STAY": 3,
+      "EXP": 4,
+      "SVC": 1
+    },
+    "added": {
+      "STAY": 12,
+      "EXP": 1,
+      "SVC": 4
+    },
+    "after": {
+      "STAY": 15,
+      "EXP": 5,
+      "SVC": 5
+    }
+  }
+]

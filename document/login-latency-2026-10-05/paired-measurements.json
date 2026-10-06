@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-05T04:10:57.093Z",
+  "requests": [
+    {
+      "label": "Identity direct",
+      "status": 200,
+      "wallMs": 9650,
+      "identityCpuMs": 9540,
+      "frequencyBeforeKHz": [
+        998096,
+        998017,
+        998098,
+        998100
+      ],
+      "frequencyAfterKHz": [
+        998100,
+        998095,
+        998062,
+        998039
+      ],
+      "activity": [
+        {
+          "state": "idle in transaction",
+          "wait_event_type": "Client",
+          "wait_event": "ClientRead",
+          "transaction_age_seconds": "0.982"
+        }
+      ]
+    },
+    {
+      "label": "Gateway",
+      "status": 200,
+      "wallMs": 9480,
+      "identityCpuMs": 9460,
+      "frequencyBeforeKHz": [
+        998092,
+        998033,
+        998092,
+        998012
+      ],
+      "frequencyAfterKHz": [
+        998100,
+        998036,
+        998099,
+        998043
+      ],
+      "activity": [
+        {
+          "state": "idle in transaction",
+          "wait_event_type": "Client",
+          "wait_event": "ClientRead",
+          "transaction_age_seconds": "0.976"
+        }
+      ]
+    }
+  ]
+}

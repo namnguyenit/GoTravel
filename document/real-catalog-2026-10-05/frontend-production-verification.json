@@ -1,0 +1,42 @@
+[
+  {
+    "kind": "home",
+    "route": "/",
+    "http": 200,
+    "durationMs": 3331,
+    "renderedImages": 273,
+    "externalContentImages": 0
+  },
+  {
+    "kind": "room",
+    "route": "/place/2bd93091-b908-52a6-826c-71ad60056db4/detail",
+    "http": 200,
+    "durationMs": 459,
+    "renderedImages": 8,
+    "externalContentImages": 0
+  },
+  {
+    "kind": "experience",
+    "route": "/experience/87c9576e-f84a-5882-86ba-61c1ecfbb5be/detail",
+    "http": 200,
+    "durationMs": 357,
+    "renderedImages": 10,
+    "externalContentImages": 0
+  },
+  {
+    "kind": "service",
+    "route": "/service/71607d8e-8840-5e7c-8a32-fc60d1e1d9ed/detail",
+    "http": 200,
+    "durationMs": 295,
+    "renderedImages": 1,
+    "externalContentImages": 0
+  },
+  {
+    "kind": "complex",
+    "route": "/complex/5b9f7f76-5ceb-5530-8802-9e620be8059e/detail",
+    "http": 200,
+    "durationMs": 216,
+    "renderedImages": 4,
+    "externalContentImages": 0
+  }
+]

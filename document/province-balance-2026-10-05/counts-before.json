@@ -1,0 +1,3394 @@
+{
+  "landmarks": [
+    {
+      "province": "Bắc Ninh",
+      "n": 3
+    },
+    {
+      "province": "Bến Tre",
+      "n": 2
+    },
+    {
+      "province": "Bình Định",
+      "n": 3
+    },
+    {
+      "province": "Bình Dương",
+      "n": 2
+    },
+    {
+      "province": "Bình Thuận",
+      "n": 3
+    },
+    {
+      "province": "Cà Mau",
+      "n": 1
+    },
+    {
+      "province": "Cần Thơ",
+      "n": 3
+    },
+    {
+      "province": "Cao Bằng",
+      "n": 3
+    },
+    {
+      "province": "Đắk Lắk",
+      "n": 7
+    },
+    {
+      "province": "Đà Nẵng",
+      "n": 12
+    },
+    {
+      "province": "Điện Biên",
+      "n": 3
+    },
+    {
+      "province": "Đồng Nai",
+      "n": 4
+    },
+    {
+      "province": "Gia Lai",
+      "n": 4
+    },
+    {
+      "province": "Hà Giang",
+      "n": 3
+    },
+    {
+      "province": "Hải Phòng",
+      "n": 2
+    },
+    {
+      "province": "Hà Nội",
+      "n": 21
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "n": 15
+    },
+    {
+      "province": "Huế",
+      "n": 8
+    },
+    {
+      "province": "Hưng Yên",
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "n": 10
+    },
+    {
+      "province": "Kiên Giang",
+      "n": 8
+    },
+    {
+      "province": "Kon Tum",
+      "n": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "n": 15
+    },
+    {
+      "province": "Lào Cai",
+      "n": 11
+    },
+    {
+      "province": "Nghệ An",
+      "n": 3
+    },
+    {
+      "province": "Ninh Bình",
+      "n": 13
+    },
+    {
+      "province": "Phú Thọ",
+      "n": 6
+    },
+    {
+      "province": "Phú Yên",
+      "n": 2
+    },
+    {
+      "province": "Quảng Bình",
+      "n": 3
+    },
+    {
+      "province": "Quảng Nam",
+      "n": 8
+    },
+    {
+      "province": "Quảng Ngãi",
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "n": 12
+    },
+    {
+      "province": "Quảng Trị",
+      "n": 4
+    },
+    {
+      "province": "Sơn La",
+      "n": 3
+    },
+    {
+      "province": "Tây Ninh",
+      "n": 2
+    },
+    {
+      "province": "Thái Nguyên",
+      "n": 2
+    },
+    {
+      "province": "Thanh Hóa",
+      "n": 4
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "n": 8
+    },
+    {
+      "province": "Tiền Giang",
+      "n": 2
+    },
+    {
+      "province": "Tuyên Quang",
+      "n": 3
+    },
+    {
+      "province": "Vĩnh Long",
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "n": 2
+    }
+  ],
+  "complexes": [
+    {
+      "province": "Bắc Ninh",
+      "n": 1
+    },
+    {
+      "province": "Bến Tre",
+      "n": 2
+    },
+    {
+      "province": "Bình Định",
+      "n": 1
+    },
+    {
+      "province": "Bình Thuận",
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "n": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "n": 4
+    },
+    {
+      "province": "Đồng Nai",
+      "n": 2
+    },
+    {
+      "province": "Gia Lai",
+      "n": 3
+    },
+    {
+      "province": "Hà Giang",
+      "n": 2
+    },
+    {
+      "province": "Hải Phòng",
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "n": 5
+    },
+    {
+      "province": "Huế",
+      "n": 5
+    },
+    {
+      "province": "Khánh Hòa",
+      "n": 3
+    },
+    {
+      "province": "Kiên Giang",
+      "n": 4
+    },
+    {
+      "province": "Lâm Đồng",
+      "n": 4
+    },
+    {
+      "province": "Lào Cai",
+      "n": 4
+    },
+    {
+      "province": "Nghệ An",
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "n": 4
+    },
+    {
+      "province": "Phú Thọ",
+      "n": 1
+    },
+    {
+      "province": "Quảng Nam",
+      "n": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "n": 6
+    },
+    {
+      "province": "Quảng Trị",
+      "n": 2
+    },
+    {
+      "province": "Sơn La",
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "n": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "n": 4
+    },
+    {
+      "province": "Tiền Giang",
+      "n": 2
+    },
+    {
+      "province": "Tuyên Quang",
+      "n": 3
+    },
+    {
+      "province": "Vũng Tàu",
+      "n": 2
+    }
+  ],
+  "listings": [
+    {
+      "province": "Bắc Ninh",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bến Tre",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 6
+    },
+    {
+      "province": "Bến Tre",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Bến Tre",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 4
+    },
+    {
+      "province": "Bến Tre",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Bến Tre",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Bến Tre",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bến Tre",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Bến Tre",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Bình Định",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bình Định",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Bình Định",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 3
+    },
+    {
+      "province": "Bình Định",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Bình Định",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Bình Định",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bình Định",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Bình Thuận",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Cà Mau",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Cà Mau",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Cà Mau",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Cần Thơ",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Cần Thơ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Cần Thơ",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 2
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Cao Bằng",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 10
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 3
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đắk Lắk",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 18
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 2
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 4
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 4
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 5
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Điện Biên",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Điện Biên",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Điện Biên",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Điện Biên",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 6
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Gia Lai",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 8
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 2
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 3
+    },
+    {
+      "province": "Gia Lai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Gia Lai",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hà Giang",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 8
+    },
+    {
+      "province": "Hà Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Hà Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Hà Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 2
+    },
+    {
+      "province": "Hà Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 3
+    },
+    {
+      "province": "Hà Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Hà Giang",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hà Giang",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 2
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 22
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 5
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 3
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 3
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 3
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 2
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 6
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 3
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 3
+    },
+    {
+      "province": "Hà Nội",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 7
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 5
+    },
+    {
+      "province": "Hà Nội",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 18
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 7
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 2
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 4
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 6
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Huế",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 14
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 2
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 5
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 2
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 2
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 2
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 4
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 3
+    },
+    {
+      "province": "Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Huế",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Huế",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Huế",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Huế",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Huế",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Huế",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hưng Yên",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Hưng Yên",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Hưng Yên",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Hưng Yên",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 10
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 5
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 2
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 3
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 2
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 4
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 12
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 4
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 3
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Kiên Giang",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 20
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 5
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 4
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 6
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 4
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Lâm Đồng",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 11
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 4
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 3
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 3
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Lào Cai",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Nghệ An",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Nghệ An",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Nghệ An",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Nghệ An",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Nghệ An",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 15
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 4
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 2
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 2
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 4
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 2
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 2
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 5
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Ninh Bình",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 5
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 2
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 2
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Phú Thọ",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 5
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 2
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 2
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 2
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 2
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Nam",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 21
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 5
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 4
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 4
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 3
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 4
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 4
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Quảng Ninh",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 7
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 2
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 2
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 2
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Quảng Trị",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Sơn La",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Sơn La",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Sơn La",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Sơn La",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 2
+    },
+    {
+      "province": "Sơn La",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Sơn La",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 3
+    },
+    {
+      "province": "Sơn La",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Sơn La",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hotel",
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Thái Nguyên",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Thái Nguyên",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 3
+    },
+    {
+      "province": "Thái Nguyên",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 6
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 4
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 2
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 5
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 9
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "boutique_hotel",
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 5
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort_room",
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "HAIR_STYLING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "MASSAGE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Thừa Thiên Huế",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 3
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "SVC",
+      "sub_category": "MAKEUP",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 3
+    },
+    {
+      "province": "Tiền Giang",
+      "category": "SVC",
+      "sub_category": "SPA",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 6
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 3
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "cabin",
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "farmstay",
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "hostel",
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "SVC",
+      "sub_category": "PREPARED_MEALS",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Vĩnh Long",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 2
+    },
+    {
+      "province": "Vĩnh Long",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "camping",
+      "n": 1
+    },
+    {
+      "province": "Vĩnh Long",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 1
+    },
+    {
+      "province": "Vĩnh Long",
+      "category": "SVC",
+      "sub_category": "CATERING",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "EXP",
+      "sub_category": "NONE",
+      "property_type": null,
+      "n": 8
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "apartment",
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "bungalow",
+      "n": 2
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "guesthouse",
+      "n": 2
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "homestay",
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "resort",
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "STAY",
+      "sub_category": "NONE",
+      "property_type": "villa",
+      "n": 2
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "SVC",
+      "sub_category": "CHEF",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "SVC",
+      "sub_category": "PHOTOGRAPHY",
+      "property_type": null,
+      "n": 1
+    },
+    {
+      "province": "Vũng Tàu",
+      "category": "SVC",
+      "sub_category": "TRAINING",
+      "property_type": null,
+      "n": 1
+    }
+  ]
+}

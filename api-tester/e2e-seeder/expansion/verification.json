@@ -1,0 +1,133 @@
+{
+  "batchId": "gotravel-expansion-2026-10-04-v1",
+  "checkedAt": "2026-10-04T17:53:01.368Z",
+  "checks": [
+    {
+      "name": "500 complete active listings, JSON attributes and spatial search fields",
+      "passed": true
+    },
+    {
+      "name": "1500 labeled reviews and rating aggregates",
+      "passed": true
+    },
+    {
+      "name": "500 inventory configs, 96460 calendars, 91 distinct days each",
+      "passed": true
+    }
+  ],
+  "api": [
+    {
+      "type": "STAY",
+      "listingId": "3467c16c-31f5-5e11-8fa7-54e5c09b0b5f",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 3,
+      "searchItems": 100
+    },
+    {
+      "type": "EXP",
+      "listingId": "a1194769-3204-5ad0-89e4-9b1ef87f3424",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 100
+    },
+    {
+      "type": "PHOTOGRAPHY",
+      "listingId": "8d13a1be-ab56-542d-81bb-c676ad3c0443",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 21
+    },
+    {
+      "type": "CHEF",
+      "listingId": "91c588b0-a2d4-56a6-818b-47fe5ef8b889",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 20
+    },
+    {
+      "type": "MASSAGE",
+      "listingId": "6668cf31-1af9-56f8-8b3a-64ccccd8205c",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 23
+    },
+    {
+      "type": "PREPARED_MEALS",
+      "listingId": "5494db0a-5416-5fcd-8f2c-0d4df15a7e60",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 29
+    },
+    {
+      "type": "TRAINING",
+      "listingId": "592886b4-4977-52ff-8611-dfa5e92b37e6",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 22
+    },
+    {
+      "type": "MAKEUP",
+      "listingId": "143e5d51-7548-5153-8a08-7e07085e8ccc",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 27
+    },
+    {
+      "type": "HAIR_STYLING",
+      "listingId": "12dae865-da0d-54d0-8447-9151d5525b36",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 25
+    },
+    {
+      "type": "SPA",
+      "listingId": "23f5602b-22fa-53e0-8abc-0e2fd8800063",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 25
+    },
+    {
+      "type": "CATERING",
+      "listingId": "483b304c-52bf-5f6a-8de7-bbe5aa2b0fad",
+      "detail": true,
+      "reviews": true,
+      "availabilityRows": 9,
+      "searchItems": 21
+    },
+    {
+      "landmarks": true,
+      "autocomplete": "Thác Bản Giốc"
+    }
+  ],
+  "images": {
+    "references": 6565,
+    "unique": 262,
+    "nonCloudinary": 0,
+    "unverified": 0
+  },
+  "totals": {
+    "catalog": {
+      "landmarks": 225,
+      "complexes": 80,
+      "listings": 1020,
+      "reviews": 2170
+    },
+    "booking": {
+      "inventory_configs": 800,
+      "inventory_calendars": 164983,
+      "inventory_locks": 0
+    }
+  },
+  "success": true,
+  "completedAt": "2026-10-04T17:53:19.777Z"
+}

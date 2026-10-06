@@ -1,0 +1,414 @@
+{
+  "at": "2026-10-05T03:57:58.332Z",
+  "provinces": [
+    {
+      "province": "An Giang",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Bắc Ninh",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Cà Mau",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Cao Bằng",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Cần Thơ",
+      "status": 200,
+      "available": {
+        "STAY": 81,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Đà Nẵng",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Đắk Lắk",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Điện Biên",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Đồng Nai",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Đồng Tháp",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Gia Lai",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Hà Nội",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Hà Tĩnh",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Hải Phòng",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Huế",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Hưng Yên",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Khánh Hòa",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Lai Châu",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Lạng Sơn",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Lào Cai",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Lâm Đồng",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Nghệ An",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Ninh Bình",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Phú Thọ",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Quảng Ngãi",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Quảng Ninh",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Quảng Trị",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Sơn La",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Tây Ninh",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Thái Nguyên",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Thanh Hóa",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Tuyên Quang",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    },
+    {
+      "province": "Vĩnh Long",
+      "status": 200,
+      "available": {
+        "STAY": 82,
+        "EXP": 30,
+        "SVC": 54
+      },
+      "COMPLEX": 9,
+      "unique": true,
+      "externalImages": 0
+    }
+  ],
+  "errors": []
+}

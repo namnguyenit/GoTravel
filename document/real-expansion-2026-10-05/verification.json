@@ -1,0 +1,347 @@
+{
+  "batchId": "gotravel-real-expansion-2026-10-05-v2",
+  "checkedAt": "2026-10-05T15:47:16.085Z",
+  "checks": {
+    "protectedPriorDataUnchanged": true,
+    "approvedVirtualHostsAndCorrectOwnership": true,
+    "noInventedReviews": true,
+    "allImportedRecordsHaveSources": true,
+    "newImagesOwnedVerifiedAndNotSharedWithExistingRecords": true
+  },
+  "api": [
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/catalog/listings/029f7714-689e-5b0a-8fd7-c28aa0c600fd",
+      "http": 200,
+      "durationMs": 174
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/public/inventory/listings/029f7714-689e-5b0a-8fd7-c28aa0c600fd/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 43
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/search/listings?category=STAY&limit=500",
+      "http": 200,
+      "durationMs": 446
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/catalog/listings/b74f5d4b-7642-5430-8fc1-d347fd4c90ab",
+      "http": 200,
+      "durationMs": 48
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/public/inventory/listings/b74f5d4b-7642-5430-8fc1-d347fd4c90ab/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 39
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/search/listings?category=EXP&limit=500",
+      "http": 200,
+      "durationMs": 124
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/catalog/listings/984a599f-6b80-542e-80b2-cbf1934d6586",
+      "http": 200,
+      "durationMs": 28
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/public/inventory/listings/984a599f-6b80-542e-80b2-cbf1934d6586/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 20
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "/api/v1/search/listings?category=SVC&limit=500",
+      "http": 200,
+      "durationMs": 96
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/catalog/listings/029f7714-689e-5b0a-8fd7-c28aa0c600fd",
+      "http": 200,
+      "durationMs": 475
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/public/inventory/listings/029f7714-689e-5b0a-8fd7-c28aa0c600fd/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 140
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/search/listings?category=STAY&limit=500",
+      "http": 200,
+      "durationMs": 276
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/catalog/listings/b74f5d4b-7642-5430-8fc1-d347fd4c90ab",
+      "http": 200,
+      "durationMs": 122
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/public/inventory/listings/b74f5d4b-7642-5430-8fc1-d347fd4c90ab/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 113
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/search/listings?category=EXP&limit=500",
+      "http": 200,
+      "durationMs": 171
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/catalog/listings/984a599f-6b80-542e-80b2-cbf1934d6586",
+      "http": 200,
+      "durationMs": 144
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/public/inventory/listings/984a599f-6b80-542e-80b2-cbf1934d6586/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 133
+    },
+    {
+      "base": "https://gostay.nonnet123.io.vn",
+      "endpoint": "/api/v1/search/listings?category=SVC&limit=500",
+      "http": 200,
+      "durationMs": 162
+    }
+  ],
+  "catalog": {
+    "listings": 145,
+    "complexes": 7,
+    "STAY": 66,
+    "EXP": 70,
+    "SVC": 9
+  },
+  "inventory": {
+    "configs": 145,
+    "calendars": 20384,
+    "days": 91,
+    "start": "2026-10-05",
+    "simulated": true
+  },
+  "uniquePhotographs": 301,
+  "coverage": [
+    {
+      "province": "An Giang",
+      "stay": 19,
+      "exp": 5,
+      "svc": 2
+    },
+    {
+      "province": "Bắc Ninh",
+      "stay": 9,
+      "exp": 5,
+      "svc": 5
+    },
+    {
+      "province": "Cà Mau",
+      "stay": 13,
+      "exp": 4,
+      "svc": 3
+    },
+    {
+      "province": "Cần Thơ",
+      "stay": 16,
+      "exp": 4,
+      "svc": 2
+    },
+    {
+      "province": "Cao Bằng",
+      "stay": 9,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "stay": 10,
+      "exp": 5,
+      "svc": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "stay": 36,
+      "exp": 7,
+      "svc": 11
+    },
+    {
+      "province": "Điện Biên",
+      "stay": 5,
+      "exp": 2,
+      "svc": 3
+    },
+    {
+      "province": "Đồng Nai",
+      "stay": 4,
+      "exp": 5,
+      "svc": 1
+    },
+    {
+      "province": "Đồng Tháp",
+      "stay": 13,
+      "exp": 4,
+      "svc": 4
+    },
+    {
+      "province": "Gia Lai",
+      "stay": 11,
+      "exp": 3,
+      "svc": 5
+    },
+    {
+      "province": "Hải Phòng",
+      "stay": 5,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Hà Nội",
+      "stay": 9,
+      "exp": 9,
+      "svc": 1
+    },
+    {
+      "province": "Hà Tĩnh",
+      "stay": 9,
+      "exp": 1,
+      "svc": 4
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "stay": 16,
+      "exp": 9,
+      "svc": 4
+    },
+    {
+      "province": "Huế",
+      "stay": 7,
+      "exp": 9,
+      "svc": 2
+    },
+    {
+      "province": "Hưng Yên",
+      "stay": 5,
+      "exp": 4,
+      "svc": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "stay": 29,
+      "exp": 4,
+      "svc": 11
+    },
+    {
+      "province": "Lai Châu",
+      "stay": 5,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "stay": 13,
+      "exp": 7,
+      "svc": 5
+    },
+    {
+      "province": "Lạng Sơn",
+      "stay": 5,
+      "exp": 2,
+      "svc": 1
+    },
+    {
+      "province": "Lào Cai",
+      "stay": 8,
+      "exp": 6,
+      "svc": 1
+    },
+    {
+      "province": "Nghệ An",
+      "stay": 56,
+      "exp": 1,
+      "svc": 20
+    },
+    {
+      "province": "Ninh Bình",
+      "stay": 7,
+      "exp": 7,
+      "svc": 4
+    },
+    {
+      "province": "Phú Thọ",
+      "stay": 7,
+      "exp": 5,
+      "svc": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "stay": 7,
+      "exp": 5,
+      "svc": 3
+    },
+    {
+      "province": "Quảng Ninh",
+      "stay": 30,
+      "exp": 5,
+      "svc": 8
+    },
+    {
+      "province": "Quảng Trị",
+      "stay": 17,
+      "exp": 6,
+      "svc": 5
+    },
+    {
+      "province": "Sơn La",
+      "stay": 14,
+      "exp": 2,
+      "svc": 3
+    },
+    {
+      "province": "Tây Ninh",
+      "stay": 6,
+      "exp": 3,
+      "svc": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "stay": 10,
+      "exp": 3,
+      "svc": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "stay": 6,
+      "exp": 6,
+      "svc": 3
+    },
+    {
+      "province": "Tuyên Quang",
+      "stay": 5,
+      "exp": 10,
+      "svc": 2
+    },
+    {
+      "province": "Vĩnh Long",
+      "stay": 15,
+      "exp": 5,
+      "svc": 5
+    }
+  ],
+  "activeTotals": {
+    "listings": 729,
+    "complexes": 70
+  },
+  "status": "passed"
+}

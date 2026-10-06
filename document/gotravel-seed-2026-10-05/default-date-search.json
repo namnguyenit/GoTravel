@@ -1,0 +1,20 @@
+[
+  {
+    "category": "STAY",
+    "status": 200,
+    "newFixtures": 3,
+    "dateParameters": "none"
+  },
+  {
+    "category": "EXP",
+    "status": 200,
+    "newFixtures": 3,
+    "dateParameters": "none"
+  },
+  {
+    "category": "SVC",
+    "status": 200,
+    "newFixtures": 3,
+    "dateParameters": "none"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "authenticated": true,
+  "loginMs": 5751,
+  "profileFetched": true,
+  "httpOnlySession": true,
+  "csrfCookiePresent": true,
+  "bearerTokenInLoginBody": false,
+  "loggedOut": true
+}

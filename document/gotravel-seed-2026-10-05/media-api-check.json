@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-10-04T17:25:14.965Z",
+  "pid": 2088809,
+  "cloudName": "p1kxfhlw",
+  "processStatus": "online",
+  "uploadStatus": 200,
+  "uploadCode": "UPLOAD_SINGLE_SUCCESS",
+  "publicId": "internal-uploads/configuration-check/cbo53eclcmuvskvipjfg",
+  "url": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791134716/internal-uploads/configuration-check/cbo53eclcmuvskvipjfg.webp",
+  "cdnStatus": 200,
+  "contentType": "image/webp",
+  "image": {
+    "bytes": 76,
+    "width": 32,
+    "height": 32
+  },
+  "verified": true,
+  "serviceUnauthenticatedStatus": 401,
+  "gatewayUnauthenticatedStatus": 401,
+  "cleanupStatus": 200,
+  "testAssetRemoved": true
+}

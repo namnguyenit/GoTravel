@@ -1,0 +1,1581 @@
+{
+  "category": "accommodation",
+  "coordinates": {
+    "lat": 12.6797024,
+    "lon": 108.0446684
+  },
+  "radius_meters": 6000,
+  "count": 54,
+  "results": [
+    {
+      "name": "KS Sài Gòn Ban Mê",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Phan Chu Trinh",
+      "housenumber": "1-3",
+      "lon": 108.0444447,
+      "lat": 12.6805707,
+      "formatted": "KS Sài Gòn Ban Mê, 1-3, Phan Chu Trinh, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "building": {
+        "type": "hotel"
+      },
+      "distance": 96,
+      "place_id": "517b22992fd8025b4059d577bb9c6f5c2940f00102f901367e9a0d000000009203144b532053c3a0692047c3b26e2042616e204dc3aa"
+    },
+    {
+      "name": "Star Guesthouse",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Nơ Trang Long",
+      "housenumber": "32",
+      "lon": 108.043023,
+      "lat": 12.6799863,
+      "formatted": "Star Guesthouse, 32, Nơ Trang Long, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "opening_hours": "24/7",
+      "contact": {
+        "phone": "05003813137"
+      },
+      "distance": 181,
+      "place_id": "51747e8ae3c0025b4059c274102a275c2940f00103f90152efa4f50000000092030f53746172204775657374686f757365"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Hùng Vương",
+      "lon": 108.0463511,
+      "lat": 12.6800056,
+      "formatted": "Hùng Vương, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 186,
+      "place_id": "518da89a6af7025b40599731aab1295c2940f00103f9017591af5d02000000"
+    },
+    {
+      "name": "Hai Bà Trưng",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 3",
+      "street": "Hai Bà Trưng",
+      "lon": 108.0444849,
+      "lat": 12.6820508,
+      "formatted": "Hai Bà Trưng, Tổ dân phố 3, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 261,
+      "place_id": "519daa31d7d8025b4059d96b30c3355d2940f00103f901b051b6c80000000092030e4861692042c3a0205472c6b06e67"
+    },
+    {
+      "name": "Song Anh Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 3",
+      "street": "Hai Bà Trưng",
+      "lon": 108.0443723,
+      "lat": 12.6827935,
+      "formatted": "Song Anh Hotel, Hai Bà Trưng, Tổ dân phố 3, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 343,
+      "place_id": "514b56eafed6025b4059bfd7101c975d2940f00103f90171b275e20200000092030e536f6e6720416e6820486f74656c"
+    },
+    {
+      "name": "Tru by Hilton Buon Ma Thuot City Centre",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Hùng Vương",
+      "housenumber": "15",
+      "lon": 108.0480031,
+      "lat": 12.6800199,
+      "formatted": "Tru by Hilton Buon Ma Thuot City Centre, 15, Hùng Vương, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://www.hilton.com/en/hotels/bmvbmru-tru-buon-ma-thuot-city-centre/",
+      "contact": {
+        "phone": "+84 262 3616 555"
+      },
+      "wiki_and_media": {
+        "wikidata": "Q24907770",
+        "wikipedia": "en:Tru by Hilton"
+      },
+      "accommodation": {
+        "stars": 4
+      },
+      "building": {
+        "levels": 5
+      },
+      "distance": 364,
+      "place_id": "51ca10e16912035b4059aa8dc2d8335c2940f00102f901cf12a60d000000009203275472752062792048696c746f6e2042756f6e204d61205468756f7420436974792043656e747265"
+    },
+    {
+      "name": "Ngoc Mai Guesthouse",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Đường Nguyễn Bính",
+      "housenumber": "B14",
+      "lon": 108.0415808,
+      "lat": 12.6815545,
+      "formatted": "Ngoc Mai Guesthouse, B14, Đường Nguyễn Bính, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hostel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "opening_hours": "24/7",
+      "contact": {
+        "phone": "05003853406",
+        "email": "ksngocmai@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 393,
+      "place_id": "510f098442a9025b40591ee21fb6f45c2940f00103f901eab2a3f5000000009203134e676f63204d6169204775657374686f757365"
+    },
+    {
+      "name": "Khách sạn Tây Nguyên",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 3",
+      "street": "Lý Thường Kiệt",
+      "housenumber": "108-110",
+      "lon": 108.0438303,
+      "lat": 12.6833523,
+      "formatted": "Khách sạn Tây Nguyên, 108-110, Lý Thường Kiệt, Tổ dân phố 3, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 407,
+      "place_id": "5115c30a6ecd025b405949f98dd5d65d2940f00102f90121016b0e000000009203194b68c3a163682073e1baa16e2054c3a279204e677579c3aa6e"
+    },
+    {
+      "name": "Nha Nghi Ang Thu",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 6",
+      "street": "Quang Trung",
+      "lon": 108.0409713,
+      "lat": 12.6812026,
+      "formatted": "Nha Nghi Ang Thu, Quang Trung, Tổ dân phố 6, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 435,
+      "place_id": "51c66416469f025b40597de65196c65c2940f00103f901f10c5618010000009203104e6861204e67686920416e6720546875"
+    },
+    {
+      "name": "Khách sạn Bạch Mã",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 4",
+      "street": "Nguyễn Đức Cảnh",
+      "housenumber": "9",
+      "lon": 108.04478,
+      "lat": 12.6842373,
+      "formatted": "Khách sạn Bạch Mã, 9, Nguyễn Đức Cảnh, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 502,
+      "place_id": "51f4e0eeacdd025b40591c68f459545e2940f00103f9010234b294000000009203174b68c3a163682073e1baa16e2042e1baa16368204dc3a3"
+    },
+    {
+      "name": "The Easy Dorm",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Điện Biên Phủ",
+      "lon": 108.0419085,
+      "lat": 12.683346,
+      "formatted": "The Easy Dorm, Điện Biên Phủ, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 502,
+      "place_id": "512a3bfda0ae025b405970b4e386df5d2940f00103f901299ac62d0300000092030d546865204561737920446f726d"
+    },
+    {
+      "name": "Khách sạn Cao Nguyên",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 2",
+      "street": "Phan Chu Trinh",
+      "housenumber": "65",
+      "lon": 108.0454459,
+      "lat": 12.6844868,
+      "formatted": "Khách sạn Cao Nguyên, 65, Phan Chu Trinh, Tổ dân phố 2, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://www.daklaktourist.com.vn/",
+      "distance": 536,
+      "place_id": "51a1028396e8025b405903b5cffa745e2940f00102f9012d056b0e000000009203184b68c3a163682073e1baa16e2043616f204e677579c3aa6e"
+    },
+    {
+      "name": "Nhà khách T611",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Nguyễn Tất Thành",
+      "housenumber": "03",
+      "lon": 108.0494444,
+      "lat": 12.683613,
+      "formatted": "Nhà khách T611, 03, Nguyễn Tất Thành, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 675,
+      "place_id": "51dbb01b272a035b405999b3c68c015e2940f00102f9015b024d0e000000009203104e68c3a0206b68c3a163682054363131"
+    },
+    {
+      "name": "Trieu Vu Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 4",
+      "street": "Lê Đại Hành",
+      "lon": 108.0453149,
+      "lat": 12.685854,
+      "formatted": "Trieu Vu Hotel, Lê Đại Hành, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 684,
+      "place_id": "5160617770e6025b40595da96741285f2940f00103f9011eaa9dee0200000092030e547269657520567520486f74656c"
+    },
+    {
+      "name": "Nhà khách tỉnh Đăk Lăk",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 4",
+      "street": "Lê Duẩn",
+      "housenumber": "15",
+      "lon": 108.0432528,
+      "lat": 12.6731216,
+      "formatted": "Nhà khách tỉnh Đăk Lăk, 15, Lê Duẩn, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 744,
+      "place_id": "516792544fc4025b4059fa57c47ea3582940f00102f901c7236b0e0000000092031d4e68c3a0206b68c3a163682074e1bb896e6820c490c4836b204cc4836b"
+    },
+    {
+      "name": "Nhà nghỉ 87",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 4",
+      "street": "Nguyễn Đức Cảnh",
+      "housenumber": "87",
+      "lon": 108.0448891,
+      "lat": 12.6867788,
+      "formatted": "Nhà nghỉ 87, 87, Nguyễn Đức Cảnh, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "opening_hours": "24/7",
+      "name_international": {
+        "en": "Hostel 87",
+        "vi": "Nhà nghỉ 87"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 783,
+      "place_id": "519a1c8876df025b4059192c8b78a15f2940f00103f9014119027a0100000092030e4e68c3a0206e6768e1bb89203837"
+    },
+    {
+      "name": "Damsan Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Nguyễn Công Trứ",
+      "lon": 108.0534407,
+      "lat": 12.6799365,
+      "formatted": "Damsan Hotel, Nguyễn Công Trứ, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 953,
+      "place_id": "519fb18a926b035b4059a2b60da3205c2940f00103f901435ff9660000000092030c44616d73616e20486f74656c"
+    },
+    {
+      "name": "Thanh Ngọc Motel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 12",
+      "street": "Đinh Tiên Hoàng",
+      "lon": 108.044289,
+      "lat": 12.6706384,
+      "formatted": "Thanh Ngọc Motel, Đinh Tiên Hoàng, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1004,
+      "place_id": "5106c37fa4d5025b4059289cc3fe5d572940f00102f9017723f95a000000009203125468616e68204e67e1bb8d63204d6f74656c"
+    },
+    {
+      "name": "Eden Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Nguyễn Công Trứ",
+      "lon": 108.0540371,
+      "lat": 12.6807321,
+      "formatted": "Eden Hotel, Nguyễn Công Trứ, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1024,
+      "place_id": "515351065875035b4059c0acf5ea885c2940f00103f901465ff9660000000092030a4564656e20486f74656c"
+    },
+    {
+      "name": "Khách Sạn Biệt Điện",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Ngô Quyền",
+      "housenumber": "1",
+      "lon": 108.0506529,
+      "lat": 12.6871927,
+      "formatted": "Khách Sạn Biệt Điện, 1, Ngô Quyền, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1055,
+      "place_id": "51d61b64cf3d035b405998e63556da5f2940f00102f90155024d0e0000000092031b4b68c3a163682053e1baa16e204269e1bb877420c49069e1bb876e"
+    },
+    {
+      "name": "Hoàng Linh Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 6",
+      "street": "Hoàng Diệu",
+      "lon": 108.0353427,
+      "lat": 12.683447,
+      "formatted": "Hoàng Linh Hotel, Hoàng Diệu, Tổ dân phố 6, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1094,
+      "place_id": "513883240e43025b405961dea4f1ec5d2940f00102f9016002f95a00000000920311486fc3a06e67204c696e6820486f74656c"
+    },
+    {
+      "name": "Vuon Phap 3 homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 12",
+      "street": "Đinh Tiên Hoàng",
+      "housenumber": "185 20 23",
+      "lon": 108.0459478,
+      "lat": 12.6698687,
+      "formatted": "Vuon Phap 3 homestay, 185 20 23, Đinh Tiên Hoàng, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1097,
+      "place_id": "51ae940acff0025b4059633abe07f9562940f00103f9012003d0660200000092031456756f6e2050686170203320686f6d6573746179"
+    },
+    {
+      "name": "Hoang Lo",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 12",
+      "street": "Nguyễn Công Trứ",
+      "lon": 108.0544849,
+      "lat": 12.6823765,
+      "formatted": "Hoang Lo, Nguyễn Công Trứ, Tổ dân phố 12, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1107,
+      "place_id": "510ee83bae7c035b40592e1ede73605d2940f00103f901f36be72700000000920308486f616e67204c6f"
+    },
+    {
+      "name": "Nhà nghĩ Thu Hương",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 4",
+      "street": "Bế Văn Đàn",
+      "housenumber": "09",
+      "lon": 108.0402533,
+      "lat": 12.6706335,
+      "formatted": "Nhà nghĩ Thu Hương, 09, Bế Văn Đàn, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "opening_hours": "24/7",
+      "name_international": {
+        "en": "Thu Huong Motel",
+        "vi": "Nhà nghĩ Thu Hương"
+      },
+      "contact": {
+        "phone": "0500811580"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1112,
+      "place_id": "5197c3938293025b40593b342c465d572940f00103f901f6ec2f87020000009203164e68c3a0206e6768c4a9205468752048c6b0c6a16e67"
+    },
+    {
+      "name": "KS Hoàng Lộc",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Y Bih Alêô",
+      "housenumber": "7-9",
+      "lon": 108.051907,
+      "lat": 12.6871868,
+      "formatted": "KS Hoàng Lộc, 7-9, Y Bih Alêô, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://hotelhoangloc.com.vn/",
+      "name_other": {
+        "official_name": "Khách Sạn Hoàng Lộc"
+      },
+      "name_international": {
+        "vi": "KS Hoàng Lộc"
+      },
+      "distance": 1142,
+      "place_id": "51d92b877152035b405932fd12f1d65f2940f00102f90156024d0e0000000092030f4b5320486fc3a06e67204ce1bb9963"
+    },
+    {
+      "name": "vuon phap 3",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 4",
+      "street": "Trần Nguyên Hãn",
+      "lon": 108.046069,
+      "lat": 12.6692592,
+      "formatted": "vuon phap 3, Trần Nguyên Hãn, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "fr": "vont phap 3",
+        "vi": "vuon phap 3"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1165,
+      "place_id": "51011764cbf2025b405921185124a9562940f00103f901f92c6b800200000092030b76756f6e20706861702033"
+    },
+    {
+      "name": "Elephants Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 2",
+      "street": "Phan Chu Trinh",
+      "housenumber": "142",
+      "lon": 108.0488366,
+      "lat": 12.6895896,
+      "formatted": "Elephants Hotel, 142, Phan Chu Trinh, Tổ dân phố 2, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://elephantshotel.com/",
+      "accommodation": {
+        "stars": 4
+      },
+      "distance": 1184,
+      "place_id": "5143f68b2320035b4059cd5257e311612940f00103f9019c190eed0200000092030f456c657068616e747320486f74656c"
+    },
+    {
+      "name": "Khách sạn Trung Nam",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 4",
+      "street": "Đinh Tiên Hoàng",
+      "housenumber": "174",
+      "lon": 108.0431537,
+      "lat": 12.6690403,
+      "formatted": "Khách sạn Trung Nam, 174, Đinh Tiên Hoàng, Tổ dân phố 4, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Trung Nam Hotel",
+        "vi": "Khách sạn Trung Nam"
+      },
+      "distance": 1191,
+      "place_id": "51e48cbc07c3025b40597d6940738c562940f00103f901de313514010000009203164b68c3a163682073e1baa16e205472756e67204e616d"
+    },
+    {
+      "name": "Beezone hostel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 5",
+      "street": "Hẻm 233 Xô Viết Nghệ Tĩnh",
+      "housenumber": "233/21",
+      "lon": 108.0378817,
+      "lat": 12.6882078,
+      "formatted": "Beezone hostel, 233/21, Hẻm 233 Xô Viết Nghệ Tĩnh, Tổ dân phố 5, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://www.facebook.com/beezonehostel/",
+      "opening_hours": "24/7",
+      "contact": {
+        "phone": "0906473322",
+        "email": "beezone.hostel@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1195,
+      "place_id": "517ba75da76c025b405948b4d3c55c602940f00103f9015a3d58f60000000092030e4265657a6f6e6520686f7374656c"
+    },
+    {
+      "name": "Beezone Hostel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 5",
+      "street": "Hẻm 233 Xô Viết Nghệ Tĩnh",
+      "housenumber": "233/21",
+      "lon": 108.0380127,
+      "lat": 12.6883487,
+      "formatted": "Beezone Hostel, 233/21, Hẻm 233 Xô Viết Nghệ Tĩnh, Tổ dân phố 5, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "opening_hours": "24/7",
+      "contact": {
+        "phone": "0906473322",
+        "email": "beezone.hostel@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1199,
+      "place_id": "514ad5d1cc6e025b4059fd7ca53d6f602940f00103f9011f8574f60000000092030e4265657a6f6e6520486f7374656c"
+    },
+    {
+      "name": "Beezone hostel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 5",
+      "street": "Hẻm 233 Xô Viết Nghệ Tĩnh",
+      "housenumber": "233/21",
+      "lon": 108.0378884,
+      "lat": 12.6882888,
+      "formatted": "Beezone hostel, 233/21, Hẻm 233 Xô Viết Nghệ Tĩnh, Tổ dân phố 5, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://www.facebook.com/beezonehostel/",
+      "opening_hours": "24/7",
+      "contact": {
+        "phone": "0906473322",
+        "email": "beezone.hostel@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1202,
+      "place_id": "5175b977c36c025b4059fb67bc6367602940f00103f90194ce5ef60000000092030e4265657a6f6e6520686f7374656c"
+    },
+    {
+      "name": "Beezone hostel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 5",
+      "street": "Hẻm 233 Xô Viết Nghệ Tĩnh",
+      "housenumber": "233/21",
+      "lon": 108.0379002,
+      "lat": 12.6883089,
+      "formatted": "Beezone hostel, 233/21, Hẻm 233 Xô Viết Nghệ Tĩnh, Tổ dân phố 5, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://www.facebook.com/beezonehostel/",
+      "opening_hours": "24/7",
+      "contact": {
+        "phone": "0906473322",
+        "email": "beezone.hostel@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1203,
+      "place_id": "51c2e0f5f46c025b40596a172e066a602940f00103f901b93275f60000000092030e4265657a6f6e6520686f7374656c"
+    },
+    {
+      "name": "26yplo",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Y Plô Êban",
+      "lon": 108.0561371,
+      "lat": 12.6807129,
+      "formatted": "26yplo, Y Plô Êban, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1251,
+      "place_id": "51e82510c097035b40593eeeb666865c2940f00103f901fcd13c7d02000000920306323679706c6f"
+    },
+    {
+      "name": "sao khue",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Ngô Quyền",
+      "lon": 108.0530832,
+      "lat": 12.6885082,
+      "formatted": "sao khue, Ngô Quyền, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "fr": "sao khue"
+      },
+      "distance": 1336,
+      "place_id": "51e4fd13b765035b40593f0e942584602940f00103f90169af322d01000000"
+    },
+    {
+      "name": "Nhà Nghỉ Ngọc Linh",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Kô Siêr",
+      "postcode": "63119",
+      "suburb": "Phường Buôn Ma Thuột",
+      "street": "A Mí Đoan",
+      "lon": 108.0565291,
+      "lat": 12.6833158,
+      "formatted": "Nhà Nghỉ Ngọc Linh, A Mí Đoan, Phường Buôn Ma Thuột, Kô Siêr, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Nhà Nghỉ Ngọc Linh"
+      },
+      "distance": 1349,
+      "place_id": "516ef13a2c9e035b40591fae8b91db5d2940f00103f90131fffad201000000"
+    },
+    {
+      "name": "The Healing Luxury Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 5",
+      "street": "Đường Số 1",
+      "lon": 108.0444945,
+      "lat": 12.6929133,
+      "formatted": "The Healing Luxury Hotel, Đường Số 1, Tổ dân phố 5, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 1461,
+      "place_id": "51bd6f9cfdd8025b4059be2f9948c5622940f00102f901ee16f95a00000000920318546865204865616c696e67204c757875727920486f74656c"
+    },
+    {
+      "name": "Mạnh Hùng",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Alê A",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 4",
+      "street": "Trần Huy Liệu",
+      "housenumber": "46-48",
+      "lon": 108.0357614,
+      "lat": 12.6667594,
+      "formatted": "Mạnh Hùng, 46-48, Trần Huy Liệu, Tổ dân phố 4, Alê A, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://www.fb.com/khachsanManhHung",
+      "opening_hours": "24/7",
+      "name_international": {
+        "en": "Manh Hung",
+        "vi": "Mạnh Hùng"
+      },
+      "contact": {
+        "phone": "+842623811656",
+        "email": "khachsanManhHung@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 1728,
+      "place_id": "5163dd2eea49025b4059e699f27c61552940f00103f90191e3613d0100000092030c4de1baa16e682048c3b96e67"
+    },
+    {
+      "name": "Khách sạn Tuấn Vũ",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Ngô Quyền",
+      "housenumber": "135/1",
+      "lon": 108.0561769,
+      "lat": 12.6910427,
+      "formatted": "Khách sạn Tuấn Vũ, 135/1, Ngô Quyền, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "http://tuanvuhotel.com.vn/",
+      "distance": 1777,
+      "place_id": "51f99494ad98035b40595f1f9587d7612940f00102f9018b636f0e000000009203174b68c3a163682073e1baa16e205475e1baa56e2056c5a9"
+    },
+    {
+      "name": "H&T Hotel Daklak",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân Lập",
+      "street": "Hẻm 325 Hùng Vương",
+      "lon": 108.0632153,
+      "lat": 12.6840947,
+      "formatted": "H&T Hotel Daklak, Hẻm 325 Hùng Vương, Phường Tân Lập, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2072,
+      "place_id": "51d6862fb80b045b4059debb17a9415e2940f00103f90134f7dcd20000000092031048265420486f74656c2044616b6c616b"
+    },
+    {
+      "name": "Khách sạn Huyền Nga",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Ngô Quyền",
+      "lon": 108.0585427,
+      "lat": 12.6926929,
+      "formatted": "Khách sạn Huyền Nga, Ngô Quyền, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2082,
+      "place_id": "513908b124bf035b40592d8fef6fa8622940f00102f901ab06f95a000000009203184b68c3a163682073e1baa16e20487579e1bb816e204e6761"
+    },
+    {
+      "name": "Khách sạn Thanh Mai",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 1",
+      "street": "Ngô Quyền",
+      "lon": 108.0591192,
+      "lat": 12.6923452,
+      "formatted": "Khách sạn Thanh Mai, Ngô Quyền, Tổ dân phố 1, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2102,
+      "place_id": "51207d469bc8035b4059b29d261c7b622940f00102f901b721f95a000000009203164b68c3a163682073e1baa16e205468616e68204d6169"
+    },
+    {
+      "name": "An Nhien Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Lý Tự Trọng",
+      "lon": 108.0607466,
+      "lat": 12.6913957,
+      "formatted": "An Nhien Hotel, Lý Tự Trọng, Phường Tân An, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "An Nhien Hotel"
+      },
+      "distance": 2173,
+      "place_id": "51f715b545e3035b4059a730009efe612940f00103f901f4bec43e01000000"
+    },
+    {
+      "name": "Hong Kong Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Lý Tự Trọng",
+      "lon": 108.0611517,
+      "lat": 12.6915522,
+      "formatted": "Hong Kong Hotel, Lý Tự Trọng, Phường Tân An, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Hong Kong Hotel"
+      },
+      "distance": 2219,
+      "place_id": "5111e6d1e8e9035b405926f4442113622940f00103f901f3bec43e01000000"
+    },
+    {
+      "name": "Nhà nghỉ khánh vân",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63107",
+      "suburb": "Tổ dân phố 11",
+      "street": "Giải Phóng",
+      "housenumber": "23/1",
+      "lon": 108.0314112,
+      "lat": 12.6636202,
+      "formatted": "Nhà nghỉ khánh vân, 23/1, Giải Phóng, Tổ dân phố 11, Buôn Ma Thuột, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "contact": {
+        "phone": "0963850987"
+      },
+      "distance": 2289,
+      "place_id": "51992e1fa402025b405912eedf06c6532940f00103f901ada1594d010000009203194e6861cc80206e676869cc89206b6861cc816e682076c3a26e"
+    },
+    {
+      "name": "Dakruco Hotels",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Nguyễn Chí Thanh",
+      "housenumber": "30",
+      "lon": 108.0660931,
+      "lat": 12.6933774,
+      "formatted": "Dakruco Hotels, 30, Nguyễn Chí Thanh, Phường Tân An, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "http://www.dakrucohotels.com/",
+      "building": {
+        "levels": 12
+      },
+      "distance": 2777,
+      "place_id": "51028e13253b045b40598a2df98401632940f00102f901a8da680e0000000092030e44616b7275636f20486f74656c73"
+    },
+    {
+      "name": "AEC Hotel Banme",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân Lập",
+      "street": "Nguyễn Văn Cừ",
+      "lon": 108.0678397,
+      "lat": 12.6904288,
+      "formatted": "AEC Hotel Banme, Nguyễn Văn Cừ, Phường Tân Lập, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2783,
+      "place_id": "51d2cf867d57045b40594dc3b80880612940f00102f9010d04f95a0000000092030f41454320486f74656c2042616e6d65"
+    },
+    {
+      "name": "Motel Thanh Ngọc",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân Lập",
+      "street": "Đường Nguyễn Hồng Ưng",
+      "lon": 108.0685106,
+      "lat": 12.6906575,
+      "formatted": "Motel Thanh Ngọc, Đường Nguyễn Hồng Ưng, Phường Tân Lập, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2859,
+      "place_id": "517a9b487a62045b405968791edc9d612940f00103f90198b9ae01030000009203124d6f74656c205468616e68204e67e1bb8d63"
+    },
+    {
+      "name": "Coffee Tour Resort",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Tổ dân phố 7",
+      "street": "Lý Thái Tổ",
+      "lon": 108.0611983,
+      "lat": 12.7013856,
+      "formatted": "Coffee Tour Resort, Lý Thái Tổ, Tổ dân phố 7, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2996,
+      "place_id": "51884446acea035b40594bc56b031c672940f00103f901dbdddcd200000000920312436f6666656520546f7572205265736f7274"
+    },
+    {
+      "name": "Khách sạn Công Đoàn Ban Mê",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Nguyễn Chí Thanh",
+      "housenumber": "9",
+      "lon": 108.0675939,
+      "lat": 12.6957918,
+      "formatted": "Khách sạn Công Đoàn Ban Mê, 9, Nguyễn Chí Thanh, Phường Tân An, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 3061,
+      "place_id": "512f7a5d7553045b405963a6a3d23e642940f00103f901e580d694000000009203214b68c3a163682073e1baa16e2043c3b46e6720c4906fc3a06e2042616e204dc3aa"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Đường Văn Tiến Dũng",
+      "lon": 108.0640711,
+      "lat": 12.7018124,
+      "formatted": "Đường Văn Tiến Dũng, Phường Tân An, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 3229,
+      "place_id": "519ac7abbd19045b4059c3da73f453672940f00103f9014db10b4101000000"
+    },
+    {
+      "name": "Khách Sạn Ban Mê Xanh",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Păn Lăm",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Nguyễn Chí Thanh",
+      "lon": 108.0733482,
+      "lat": 12.6985909,
+      "formatted": "Khách Sạn Ban Mê Xanh, Nguyễn Chí Thanh, Phường Tân An, Păn Lăm, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 3751,
+      "place_id": "5105c58fc2b1045b4059c657e459ad652940f00102f901f60df95a000000009203194b68c3a163682053e1baa16e2042616e204dc3aa2058616e68"
+    },
+    {
+      "name": "Ngoc Tran Guest House",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Alê B",
+      "postcode": "63107",
+      "suburb": "Phường Ea Kao",
+      "street": "Y Wang",
+      "lon": 108.0302055,
+      "lat": 12.6442852,
+      "formatted": "Ngoc Tran Guest House, Y Wang, Phường Ea Kao, Alê B, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "vi": "Ngoc Tran Guest House"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 4221,
+      "place_id": "5132aa0ce3ee015b4059f997eebfdf492940f00103f9016960431b010000009203154e676f63205472616e20477565737420486f757365"
+    },
+    {
+      "name": "Ngoc Tran Guest House",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Alê B",
+      "postcode": "63107",
+      "suburb": "Phường Ea Kao",
+      "street": "Y Wang",
+      "lon": 108.0296945,
+      "lat": 12.6428814,
+      "formatted": "Ngoc Tran Guest House, Y Wang, Phường Ea Kao, Alê B, Tỉnh Đắk Lắk 63107, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "vi": "Ngoc Tran Guest House"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 4386,
+      "place_id": "51c097c283e6015b4059d46938c027492940f00103f9010a25111b010000009203154e676f63205472616e20477565737420486f757365"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Đắk Lắk",
+      "city": "Buôn Ma Thuột",
+      "postcode": "63119",
+      "suburb": "Phường Tân An",
+      "street": "Nguyễn Chí Thanh",
+      "housenumber": "258 260",
+      "lon": 108.0842887,
+      "lat": 12.7118021,
+      "formatted": "258 260, Nguyễn Chí Thanh, Phường Tân An, Buôn Ma Thuột, Tỉnh Đắk Lắk 63119, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hostel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 5579,
+      "place_id": "51087b6efc64055b4059c0722953716c2940f00103f901e9790e3203000000"
+    }
+  ]
+}

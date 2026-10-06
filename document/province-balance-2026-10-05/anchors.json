@@ -1,0 +1,65 @@
+[
+  {
+    "province": "Hà Tĩnh",
+    "name": "Trung tâm Hà Tĩnh",
+    "latitude": 18.339604,
+    "longitude": 105.902725,
+    "thumbnailUrl": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171387/admin-uploads/seeder/59e1c08d37f3d5be0a3a80f65803cf708b64ac9c28b28833c0015a2bfe1a90e7.webp",
+    "galleryUrls": [
+      "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171387/admin-uploads/seeder/59e1c08d37f3d5be0a3a80f65803cf708b64ac9c28b28833c0015a2bfe1a90e7.webp"
+    ],
+    "wikipediaUrl": "https://vi.wikipedia.org/wiki/H%C3%A0_T%C4%A9nh_(th%C3%A0nh_ph%E1%BB%91)",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=H%C3%A0+T%C4%A9nh+18.339604%2C105.902725",
+    "image": {
+      "source": "https://upload.wikimedia.org/wikipedia/commons/a/ac/Th%C3%A0nh_ph%E1%BB%91_H%C3%A0_T%C4%A9nh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "secureUrl": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171387/admin-uploads/seeder/59e1c08d37f3d5be0a3a80f65803cf708b64ac9c28b28833c0015a2bfe1a90e7.webp",
+      "author": "Phó Nháy",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A0nh_ph%E1%BB%91_H%C3%A0_T%C4%A9nh.jpg"
+    },
+    "description": "Trung tâm đô thị Hà Tĩnh là điểm xuất phát để tìm nơi lưu trú, kết hợp tham quan các khu vực lân cận và sắp xếp dịch vụ trong chuyến đi. Tên khu vực, tọa độ và ảnh được đối chiếu từ https://vi.wikipedia.org/wiki/H%C3%A0_T%C4%A9nh_(th%C3%A0nh_ph%E1%BB%91). Kiểm tra tuyến đường, thời tiết và điều kiện tiếp cận trước khi đi. Google Maps: https://www.google.com/maps/search/?api=1&query=H%C3%A0+T%C4%A9nh+18.339604%2C105.902725\n\nẢnh: Phó Nháy, Public domain; https://commons.wikimedia.org/wiki/File:Th%C3%A0nh_ph%E1%BB%91_H%C3%A0_T%C4%A9nh.jpg. Đã đổi kích thước và chuyển WebP; giữ giấy phép nguồn. "
+  },
+  {
+    "province": "Lai Châu",
+    "name": "Trung tâm Lai Châu",
+    "latitude": 22.386226,
+    "longitude": 103.470243,
+    "thumbnailUrl": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171393/admin-uploads/seeder/df4226fcb76b02e3d840bf77a3786bd76413fd358a841f15a4a89c4ca215cd6f.webp",
+    "galleryUrls": [
+      "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171393/admin-uploads/seeder/df4226fcb76b02e3d840bf77a3786bd76413fd358a841f15a4a89c4ca215cd6f.webp"
+    ],
+    "wikipediaUrl": "https://vi.wikipedia.org/wiki/Lai_Ch%C3%A2u_(th%C3%A0nh_ph%E1%BB%91)",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=Lai+Ch%C3%A2u+22.386226%2C103.470243",
+    "image": {
+      "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Lai_Ch%C3%A2u_City_Lake.jpg/1920px-Lai_Ch%C3%A2u_City_Lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "secureUrl": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171393/admin-uploads/seeder/df4226fcb76b02e3d840bf77a3786bd76413fd358a841f15a4a89c4ca215cd6f.webp",
+      "author": "Idan Robbins",
+      "license": "CC BY-SA 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:Lai_Ch%C3%A2u_City_Lake.jpg"
+    },
+    "description": "Trung tâm đô thị Lai Châu là điểm xuất phát để tìm nơi lưu trú, kết hợp tham quan các khu vực lân cận và sắp xếp dịch vụ trong chuyến đi. Tên khu vực, tọa độ và ảnh được đối chiếu từ https://vi.wikipedia.org/wiki/Lai_Ch%C3%A2u_(th%C3%A0nh_ph%E1%BB%91). Kiểm tra tuyến đường, thời tiết và điều kiện tiếp cận trước khi đi. Google Maps: https://www.google.com/maps/search/?api=1&query=Lai+Ch%C3%A2u+22.386226%2C103.470243\n\nẢnh: Idan Robbins, CC BY-SA 4.0; https://commons.wikimedia.org/wiki/File:Lai_Ch%C3%A2u_City_Lake.jpg. Đã đổi kích thước và chuyển WebP; giữ giấy phép nguồn. https://creativecommons.org/licenses/by-sa/4.0"
+  },
+  {
+    "province": "Lạng Sơn",
+    "name": "Trung tâm Lạng Sơn",
+    "latitude": 21.85666667,
+    "longitude": 106.76611111,
+    "thumbnailUrl": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171398/admin-uploads/seeder/0ce83ade71aa758ae038924f512038dd40629c874d0d04a181dd2e7094be3068.webp",
+    "galleryUrls": [
+      "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171398/admin-uploads/seeder/0ce83ade71aa758ae038924f512038dd40629c874d0d04a181dd2e7094be3068.webp"
+    ],
+    "wikipediaUrl": "https://vi.wikipedia.org/wiki/L%E1%BA%A1ng_S%C6%A1n_(th%C3%A0nh_ph%E1%BB%91)",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=L%E1%BA%A1ng+S%C6%A1n+21.85666667%2C106.76611111",
+    "image": {
+      "source": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/C%E1%BB%99t_c%E1%BB%9D_L%E1%BA%A1ng_S%C6%A1n.jpg/1920px-C%E1%BB%99t_c%E1%BB%9D_L%E1%BA%A1ng_S%C6%A1n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "secureUrl": "https://res.cloudinary.com/p1kxfhlw/image/upload/v1791171398/admin-uploads/seeder/0ce83ade71aa758ae038924f512038dd40629c874d0d04a181dd2e7094be3068.webp",
+      "author": "Minh Chu",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "sourcePage": "https://commons.wikimedia.org/wiki/File:C%E1%BB%99t_c%E1%BB%9D_L%E1%BA%A1ng_S%C6%A1n.jpg"
+    },
+    "description": "Trung tâm đô thị Lạng Sơn là điểm xuất phát để tìm nơi lưu trú, kết hợp tham quan các khu vực lân cận và sắp xếp dịch vụ trong chuyến đi. Tên khu vực, tọa độ và ảnh được đối chiếu từ https://vi.wikipedia.org/wiki/L%E1%BA%A1ng_S%C6%A1n_(th%C3%A0nh_ph%E1%BB%91). Kiểm tra tuyến đường, thời tiết và điều kiện tiếp cận trước khi đi. Google Maps: https://www.google.com/maps/search/?api=1&query=L%E1%BA%A1ng+S%C6%A1n+21.85666667%2C106.76611111\n\nẢnh: Minh Chu, CC BY-SA 2.0; https://commons.wikimedia.org/wiki/File:C%E1%BB%99t_c%E1%BB%9D_L%E1%BA%A1ng_S%C6%A1n.jpg. Đã đổi kích thước và chuyển WebP; giữ giấy phép nguồn. https://creativecommons.org/licenses/by-sa/2.0"
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "batchId": "gotravel-real-venues-virtual-hosts-2026-10-05-v1",
+  "planSha256": "35ccd37b7b120e30f2ddb17a454a289e73c7b0bb78452527ce3d70c8d58d7f59",
+  "startedAt": "2026-10-05T11:23:03.409Z",
+  "status": "committed",
+  "backupFile": "/home/trungcao/DoANLienNganh-devserver/api-tester/e2e-seeder/real-catalog/backups/before-real-catalog.json",
+  "retirementCandidates": {
+    "listings": 5644,
+    "complexes": 286
+  },
+  "hiddenListings": 5644,
+  "hiddenComplexes": 286,
+  "hiddenIllustrationLandmarks": 1,
+  "completedAt": "2026-10-05T11:23:28.332Z",
+  "imported": {
+    "listings": 584,
+    "complexes": 63
+  }
+}

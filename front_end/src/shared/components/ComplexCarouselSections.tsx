@@ -76,6 +76,7 @@ export default function ComplexCarouselSections({
     });
 
     return Array.from(byProvince.entries())
+      .filter(([, list]) => list.length >= 6)
       .map(([name, list]) => ({
         name,
         list: list

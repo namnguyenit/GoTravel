@@ -50,9 +50,11 @@ export default function HomeClient() {
   const placeList = (places ?? []) as HomeOffering[];
   const experienceList = (experiences ?? []) as HomeOffering[];
   const serviceList = (services ?? []) as HomeOffering[];
+  const landmarkRating = Number(landmarks?.[imageIndex]?.rating);
 
   const rankProvinceGroups = (groups: Record<string, HomeOffering[]>) => {
     return Object.entries(groups)
+      .filter(([, list]) => list.length >= 6)
       .map(([name, list]) => {
         // Filter out unrated listings (those with rating === 0 or undefined)
         const ratedListings = list.filter((x) => x.rating && x.rating > 0);
@@ -70,7 +72,7 @@ export default function HomeClient() {
 
         // Sort items in this province by rating descending
         list.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-        return { name, list, score };
+        return { name, list: list.slice(0, 12), score };
       })
       .sort((a, b) => b.score - a.score)
       .slice(0, 3);
@@ -170,9 +172,11 @@ export default function HomeClient() {
               >
                 {/* Badges Row */}
                 <div className="flex flex-wrap items-center gap-2 mb-6 text-xs font-semibold">
-                  <span className="border border-[#FF385C] text-[#FF385C] bg-[#FF385C]/10 px-2 py-0.5 rounded-[5px]">
-                    ★ {landmarks?.[imageIndex]?.rating || "4.8"}
-                  </span>
+                  {Number.isFinite(landmarkRating) && landmarkRating > 0 && (
+                    <span className="border border-[#FF385C] text-[#FF385C] bg-[#FF385C]/10 px-2 py-0.5 rounded-[5px]">
+                      ★ {landmarkRating}
+                    </span>
+                  )}
                   <span className="border border-white/40 bg-white/10 text-white px-2 py-0.5 rounded-[5px]">
                     {landmarks?.[imageIndex]?.province || "Việt Nam"}
                   </span>

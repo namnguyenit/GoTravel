@@ -81,8 +81,12 @@ const getUserDisplayName = (user: CurrentUser) => {
 const getUserInitial = (user: CurrentUser) =>
   getUserDisplayName(user).charAt(0).toUpperCase() || "U";
 
-const getUserAvatarUrl = (user: CurrentUser) =>
-  user?.userProfile?.avatarUrl || user?.avatarUrl || "https://github.com/shadcn.png";
+const getUserAvatarUrl = (user: CurrentUser) => {
+  const avatar = user?.userProfile?.avatarUrl || user?.avatarUrl;
+  return avatar?.startsWith("https://res.cloudinary.com/p1kxfhlw/image/upload/")
+    ? avatar
+    : undefined;
+};
 
 function HeaderTabButton({
   icon: Icon,

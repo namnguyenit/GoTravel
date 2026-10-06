@@ -1,0 +1,17 @@
+{
+  "at": "2026-10-05T03:55:23.775Z",
+  "matched": 1,
+  "removed": 1,
+  "prefixes": [
+    "home:hero-landmarks:",
+    "home:feed:",
+    "province:destinations:",
+    "recommend:complex",
+    "recommend:landmark:",
+    "recommend:similar:",
+    "search:listings:",
+    "search:map:",
+    "cross-sell:",
+    "autocomplete:locations:"
+  ]
+}

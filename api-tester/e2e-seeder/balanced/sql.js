@@ -1,0 +1,12 @@
+module.exports = {
+  landmarks:
+    "INSERT INTO landmarks(id,name,description,province,latitude,longitude,location,radius_meters,thumbnail_url,gallery_urls,is_featured,status,created_at,updated_at) SELECT id,name,description,province,latitude,longitude,ST_SetSRID(ST_MakePoint(longitude,latitude),4326),radius_meters,thumbnail_url,gallery_urls,is_featured,status,NOW(),NOW() FROM jsonb_to_recordset($1::jsonb) AS x(id uuid,name text,description text,province text,latitude double precision,longitude double precision,radius_meters integer,thumbnail_url text,gallery_urls jsonb,is_featured boolean,status text)",
+  complexes:
+    "INSERT INTO complexes(id,host_id,name,description,province,latitude,longitude,location,thumbnail_url,gallery_urls,status,created_at,updated_at) SELECT id,host_id,name,description,province,latitude,longitude,ST_SetSRID(ST_MakePoint(longitude,latitude),4326),thumbnail_url,gallery_urls,status,NOW(),NOW() FROM jsonb_to_recordset($1::jsonb) AS x(id uuid,host_id uuid,name text,description text,province text,latitude double precision,longitude double precision,thumbnail_url text,gallery_urls jsonb,status text)",
+  listings:
+    "INSERT INTO listings(id,host_id,complex_id,title,description,category,sub_category,province,base_price,price_unit,latitude,longitude,location,thumbnail_url,attributes,average_rating,total_reviews,status,created_at,updated_at) SELECT id,host_id,complex_id,title,description,category,sub_category,province,base_price,price_unit,latitude,longitude,ST_SetSRID(ST_MakePoint(longitude,latitude),4326),thumbnail_url,attributes,average_rating,total_reviews,status,NOW(),NOW() FROM jsonb_to_recordset($1::jsonb) AS x(id uuid,host_id uuid,complex_id uuid,title text,description text,category text,sub_category text,province text,base_price numeric,price_unit text,latitude double precision,longitude double precision,thumbnail_url text,attributes jsonb,average_rating numeric,total_reviews integer,status text)",
+  reviews:
+    "INSERT INTO reviews(id,listing_id,user_id,rating,comment,images,created_at) SELECT id,listing_id,user_id,rating,comment,images,NOW() FROM jsonb_to_recordset($1::jsonb) AS x(id uuid,listing_id uuid,user_id uuid,rating integer,comment text,images jsonb)",
+  inventory_configs:
+    "INSERT INTO inventory_configs(id,listing_id,category,schedule_config,is_active,created_at,updated_at) SELECT id,listing_id,category,schedule_config,is_active,NOW(),NOW() FROM jsonb_to_recordset($1::jsonb) AS x(id uuid,listing_id uuid,category text,schedule_config jsonb,is_active boolean)",
+};

@@ -1,0 +1,2974 @@
+{
+  "schemaVersion": 1,
+  "attractions": [
+    {
+      "name": "Vườn quốc gia Phong Nha – Kẻ Bàng",
+      "province": "Quảng Trị",
+      "latitude": 17.53722222,
+      "longitude": 106.15125,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phong_Nha_%E2%80%93_K%E1%BA%BB_B%C3%A0ng",
+      "fileTitle": "File:Phongnhakebang6.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phong_Nha_%E2%80%93_K%E1%BA%BB_B%C3%A0ng",
+      "photos": [
+        {
+          "fileTitle": "File:Phongnhakebang6.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c9/Phongnhakebang6.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Phongnhakebang6.jpg/1920px-Phongnhakebang6.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Phongnhakebang6.jpg",
+          "author": "Genghiskhanviet",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Phong Nha-Ke Bang National Park, Vietnam",
+          "width": 3072,
+          "height": 2304
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:13.098Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn quốc gia Tam Đảo",
+      "province": "Phú Thọ",
+      "latitude": 21.479,
+      "longitude": 105.62895833,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Tam_%C4%90%E1%BA%A3o",
+      "fileTitle": "File:Tam Dao mountain range.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Tam_%C4%90%E1%BA%A3o",
+      "photos": [
+        {
+          "fileTitle": "File:Tam Dao mountain range.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/78/Tam_Dao_mountain_range.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/78/Tam_Dao_mountain_range.jpg/1920px-Tam_Dao_mountain_range.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Tam_Dao_mountain_range.jpg",
+          "author": "Viethavvh",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Tam Dao mountain range (dãy núi Tam Đảo), Vietnam",
+          "width": 2848,
+          "height": 2136
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:13.857Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn quốc gia Núi Chúa",
+      "province": "Khánh Hòa",
+      "latitude": 11.70027778,
+      "longitude": 109.15277778,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_N%C3%BAi_Ch%C3%BAa",
+      "fileTitle": "File:Lo O Stream, Nui Chua National Park.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_N%C3%BAi_Ch%C3%BAa",
+      "photos": [
+        {
+          "fileTitle": "File:Lo O Stream, Nui Chua National Park.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Lo_O_Stream%2C_Nui_Chua_National_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Lo_O_Stream%2C_Nui_Chua_National_Park.jpg/1920px-Lo_O_Stream%2C_Nui_Chua_National_Park.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Lo_O_Stream,_Nui_Chua_National_Park.jpg",
+          "author": "Suriya Vij",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Lo O Stream, Nui Chua National Park",
+          "width": 2736,
+          "height": 3648
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:14.624Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn quốc gia Bái Tử Long",
+      "province": "Quảng Ninh",
+      "latitude": 21.1,
+      "longitude": 107.63333333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_B%C3%A1i_T%E1%BB%AD_Long",
+      "fileTitle": "File:Bái Tử Long.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_B%C3%A1i_T%E1%BB%AD_Long",
+      "photos": [
+        {
+          "fileTitle": "File:Bái Tử Long.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/B%C3%A1i_T%E1%BB%AD_Long.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f9/B%C3%A1i_T%E1%BB%AD_Long.jpg/1920px-B%C3%A1i_T%E1%BB%AD_Long.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:B%C3%A1i_T%E1%BB%AD_Long.jpg",
+          "author": "Viethavvh at Vietnamese Wikipedia",
+          "credit": "Transferred from vi.wikipedia to Commons by Morning Sunshine using CommonsHelper .",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Hoạt động du lịch, đánh bắt nuôi trồng thủy sản và quần cư của con người trên vùng vịnh Bái Tử Long",
+          "width": 2592,
+          "height": 1944
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:15.372Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn quốc gia Ea Sô",
+      "province": "Đắk Lắk",
+      "latitude": 12.938229,
+      "longitude": 108.650822,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Ea_S%C3%B4",
+      "fileTitle": "File:Easo.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Ea_S%C3%B4",
+      "photos": [
+        {
+          "fileTitle": "File:Easo.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Easo.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Easo.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Easo.JPG",
+          "author": "Dotuanhungdaklak",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "description": "Stream in Easo Nature Reserve",
+          "width": 1280,
+          "height": 960
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:16.164Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn quốc gia Phja Oắc – Phja Đén",
+      "province": "Cao Bằng",
+      "latitude": 22.58333333,
+      "longitude": 105.88333333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phja_O%E1%BA%AFc_%E2%80%93_Phja_%C4%90%C3%A9n",
+      "fileTitle": "File:Rung suong mu Phia Oac.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phja_O%E1%BA%AFc_%E2%80%93_Phja_%C4%90%C3%A9n",
+      "photos": [
+        {
+          "fileTitle": "File:Rung suong mu Phia Oac.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Rung_suong_mu_Phia_Oac.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Rung_suong_mu_Phia_Oac.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Rung_suong_mu_Phia_Oac.JPG",
+          "author": "Gió Đông ( thảo luận )",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Rừng sương mù cận nhiệt đới Phia Oắc, Nguyên Bình, Cao Bằng, Việt Nam. Vườn quốc gia Phia Oắc - Phia Đén",
+          "width": 1920,
+          "height": 1080
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:16.901Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Khu du lịch Núi Bà Đen",
+      "province": "Tây Ninh",
+      "latitude": 11.381431,
+      "longitude": 106.171175,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_du_l%E1%BB%8Bch_N%C3%BAi_B%C3%A0_%C4%90en",
+      "fileTitle": "File:Quần thể chùa Thượng ở núi Bà Đen.png",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Khu_du_l%E1%BB%8Bch_N%C3%BAi_B%C3%A0_%C4%90en",
+      "photos": [
+        {
+          "fileTitle": "File:Quần thể chùa Thượng ở núi Bà Đen.png",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Qu%E1%BA%A7n_th%E1%BB%83_ch%C3%B9a_Th%C6%B0%E1%BB%A3ng_%E1%BB%9F_n%C3%BAi_B%C3%A0_%C4%90en.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Qu%E1%BA%A7n_th%E1%BB%83_ch%C3%B9a_Th%C6%B0%E1%BB%A3ng_%E1%BB%9F_n%C3%BAi_B%C3%A0_%C4%90en.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Qu%E1%BA%A7n_th%E1%BB%83_ch%C3%B9a_Th%C6%B0%E1%BB%A3ng_%E1%BB%9F_n%C3%BAi_B%C3%A0_%C4%90en.png",
+          "author": "Trung Quân",
+          "credit": "https://www.flickr.com/photos/197235966@N05/52614184021/",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "Quần thể chùa Thượng ở núi Bà Đen",
+          "width": 877,
+          "height": 568
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:17.666Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Mũi Né",
+      "province": "Lâm Đồng",
+      "latitude": 10.98189308,
+      "longitude": 108.25138716,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/M%C5%A9i_N%C3%A9",
+      "fileTitle": "File:Mũi Né Fishing Village.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/M%C5%A9i_N%C3%A9",
+      "photos": [
+        {
+          "fileTitle": "File:Mũi Né Fishing Village.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/06/M%C5%A9i_N%C3%A9_Fishing_Village.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/06/M%C5%A9i_N%C3%A9_Fishing_Village.jpg/1920px-M%C5%A9i_N%C3%A9_Fishing_Village.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:M%C5%A9i_N%C3%A9_Fishing_Village.jpg",
+          "author": "Woong Deewaa",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Panorama of the Mũi Né Fishing Village at sunrise.",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:18.411Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Biển Ba Động",
+      "province": "Vĩnh Long",
+      "latitude": 9.624517,
+      "longitude": 106.561493,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Bi%E1%BB%83n_Ba_%C4%90%E1%BB%99ng",
+      "fileTitle": "File:Thị xã Duyên Hải.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Bi%E1%BB%83n_Ba_%C4%90%E1%BB%99ng",
+      "photos": [
+        {
+          "fileTitle": "File:Thị xã Duyên Hải.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Th%E1%BB%8B_x%C3%A3_Duy%C3%AAn_H%E1%BA%A3i.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fc/Th%E1%BB%8B_x%C3%A3_Duy%C3%AAn_H%E1%BA%A3i.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%E1%BB%8B_x%C3%A3_Duy%C3%AAn_H%E1%BA%A3i.jpg",
+          "author": "Dangkhoadora",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Điện gió Duyên Hải",
+          "width": 1280,
+          "height": 960
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:19.148Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bãi tắm Hoàng Hậu",
+      "province": "Gia Lai",
+      "latitude": 13.74277778,
+      "longitude": 109.21583333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%C3%A3i_t%E1%BA%AFm_Ho%C3%A0ng_H%E1%BA%ADu",
+      "fileTitle": "File:Hoang Hau Beach - Bãi tắm Hoàng Hậu.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%C3%A3i_t%E1%BA%AFm_Ho%C3%A0ng_H%E1%BA%ADu",
+      "photos": [
+        {
+          "fileTitle": "File:Hoang Hau Beach - Bãi tắm Hoàng Hậu.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Hoang_Hau_Beach_-_B%C3%A3i_t%E1%BA%AFm_Ho%C3%A0ng_H%E1%BA%ADu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Hoang_Hau_Beach_-_B%C3%A3i_t%E1%BA%AFm_Ho%C3%A0ng_H%E1%BA%ADu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Hoang_Hau_Beach_-_B%C3%A3i_t%E1%BA%AFm_Ho%C3%A0ng_H%E1%BA%ADu.jpg",
+          "author": "My aunt/Dì tôi, đã cho phép tôi sử dụng ảnh này",
+          "credit": "Zalo",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Hoang Hau (Queen) Beach in Quy Nhon, Vietnam",
+          "width": 1280,
+          "height": 960
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:19.914Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Khu di tích lịch sử Kim Liên",
+      "province": "Nghệ An",
+      "latitude": 18.67986111,
+      "longitude": 105.552,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_di_t%C3%ADch_l%E1%BB%8Bch_s%E1%BB%AD_Kim_Li%C3%AAn",
+      "fileTitle": "File:Kim Lien Monuments Park.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Khu_di_t%C3%ADch_l%E1%BB%8Bch_s%E1%BB%AD_Kim_Li%C3%AAn",
+      "photos": [
+        {
+          "fileTitle": "File:Kim Lien Monuments Park.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/82/Kim_Lien_Monuments_Park.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/82/Kim_Lien_Monuments_Park.JPG/1920px-Kim_Lien_Monuments_Park.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Kim_Lien_Monuments_Park.JPG",
+          "author": "Liftold at Vietnamese Wikipedia",
+          "credit": "Transferred from vi.wikipedia to Commons.",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Khu di tích lịch sử Kim Liên",
+          "width": 3072,
+          "height": 2304
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:20.653Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Công viên Lê-nin",
+      "province": "Hà Nội",
+      "latitude": 21.031685,
+      "longitude": 105.839415,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_L%C3%AA-nin",
+      "fileTitle": "File:Lenin Park Hanoi.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_L%C3%AA-nin",
+      "photos": [
+        {
+          "fileTitle": "File:Lenin Park Hanoi.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Lenin_Park_Hanoi.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Lenin_Park_Hanoi.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Lenin_Park_Hanoi.JPG",
+          "author": "Rungbachduong",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "description": "Lenin Flower Garden in Ha Noi, Vietnam",
+          "width": 1024,
+          "height": 686
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:21.419Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Lâm Đồng",
+      "province": "Lâm Đồng",
+      "latitude": 11.94064444,
+      "longitude": 108.459875,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_L%C3%A2m_%C4%90%E1%BB%93ng",
+      "fileTitle": "File:Lam Dong Museum 01.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_L%C3%A2m_%C4%90%E1%BB%93ng",
+      "photos": [
+        {
+          "fileTitle": "File:Lam Dong Museum 01.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Lam_Dong_Museum_01.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Lam_Dong_Museum_01.JPG/1920px-Lam_Dong_Museum_01.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Lam_Dong_Museum_01.JPG",
+          "author": "Diane Selwyn ( talk )",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Lam Dong Museum, Da Lat",
+          "width": 3072,
+          "height": 2177
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:22.202Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Cổ vật Cung đình Huế",
+      "province": "Huế",
+      "latitude": 16.471311,
+      "longitude": 107.581935,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF",
+      "fileTitle": "File:Bảo tàng Cổ vật Cung đình Huế (15245479432).jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF",
+      "photos": [
+        {
+          "fileTitle": "File:Bảo tàng Cổ vật Cung đình Huế (15245479432).jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF_%2815245479432%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF_%2815245479432%29.jpg/1920px-B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF_%2815245479432%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF_(15245479432).jpg",
+          "author": "Gin The Wanderer",
+          "credit": "https://www.flickr.com/photos/gin10/15245479432/",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "Huế Museum of Royal Fine Arts",
+          "width": 5472,
+          "height": 3648
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:22.950Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Quân khu 5, Đà Nẵng",
+      "province": "Đà Nẵng",
+      "latitude": 16.0487,
+      "longitude": 108.2177,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_Qu%C3%A2n_khu_5,_%C4%90%C3%A0_N%E1%BA%B5ng",
+      "fileTitle": "File:Entrance to Zone 5 Military Museum.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_Qu%C3%A2n_khu_5,_%C4%90%C3%A0_N%E1%BA%B5ng",
+      "photos": [
+        {
+          "fileTitle": "File:Entrance to Zone 5 Military Museum.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/da/Entrance_to_Zone_5_Military_Museum.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/da/Entrance_to_Zone_5_Military_Museum.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Entrance_to_Zone_5_Military_Museum.JPG",
+          "author": "Mztourist",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Entrance to Zone 5 Military Museum, Danang",
+          "width": 1600,
+          "height": 1200
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:23.736Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Gốm sứ Mậu dịch",
+      "province": "Đà Nẵng",
+      "latitude": 15.87722222,
+      "longitude": 108.32972222,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_G%E1%BB%91m_s%E1%BB%A9_M%E1%BA%ADu_d%E1%BB%8Bch",
+      "fileTitle": "File:Hội An, Museum of Trade Ceramics, 2020-01 CN-02.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_G%E1%BB%91m_s%E1%BB%A9_M%E1%BA%ADu_d%E1%BB%8Bch",
+      "photos": [
+        {
+          "fileTitle": "File:Hội An, Museum of Trade Ceramics, 2020-01 CN-02.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/H%E1%BB%99i_An%2C_Museum_of_Trade_Ceramics%2C_2020-01_CN-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a7/H%E1%BB%99i_An%2C_Museum_of_Trade_Ceramics%2C_2020-01_CN-02.jpg/1920px-H%E1%BB%99i_An%2C_Museum_of_Trade_Ceramics%2C_2020-01_CN-02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:H%E1%BB%99i_An,_Museum_of_Trade_Ceramics,_2020-01_CN-02.jpg",
+          "author": "Steffen Schmitz ( more photos )",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Hội An ( Vietnam ) – World Heritage Site Hoi An Ancient Town – Museum of Trade Ceramics",
+          "width": 4107,
+          "height": 2894
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:24.509Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Động Hương Tích",
+      "province": "Hà Nội",
+      "latitude": 20.61305556,
+      "longitude": 105.73444444,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_H%C6%B0%C6%A1ng_T%C3%ADch",
+      "fileTitle": "File:Đụn Gạo, chùa Hương.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_H%C6%B0%C6%A1ng_T%C3%ADch",
+      "photos": [
+        {
+          "fileTitle": "File:Đụn Gạo, chùa Hương.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/%C4%90%E1%BB%A5n_G%E1%BA%A1o%2C_ch%C3%B9a_H%C6%B0%C6%A1ng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/4/49/%C4%90%E1%BB%A5n_G%E1%BA%A1o%2C_ch%C3%B9a_H%C6%B0%C6%A1ng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%A5n_G%E1%BA%A1o,_ch%C3%B9a_H%C6%B0%C6%A1ng.jpg",
+          "author": "Everjean from Antwerp, Belgium",
+          "credit": "Enter the Dragon Cave",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "Đụn Gạo ở chùa Hương.",
+          "width": 800,
+          "height": 537
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:25.258Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Hòn Bà (Vũng Tàu)",
+      "province": "Hồ Chí Minh",
+      "latitude": 10.324,
+      "longitude": 107.08927778,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/H%C3%B2n_B%C3%A0_(V%C5%A9ng_T%C3%A0u)",
+      "fileTitle": "File:Vung Tau Hon Ba.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/H%C3%B2n_B%C3%A0_(V%C5%A9ng_T%C3%A0u)",
+      "photos": [
+        {
+          "fileTitle": "File:Vung Tau Hon Ba.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/Vung_Tau_Hon_Ba.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Vung_Tau_Hon_Ba.JPG/1920px-Vung_Tau_Hon_Ba.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Vung_Tau_Hon_Ba.JPG",
+          "author": "BrightRaven",
+          "credit": "Own work",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "description": "View over the island of Hon Ba pagoda from the giant statue of Jesus in Vung Tau, Vietnam",
+          "width": 3648,
+          "height": 2736
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:26.032Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Hang Sửng Sốt",
+      "province": "Quảng Ninh",
+      "latitude": 20.844753,
+      "longitude": 107.090432,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Hang_S%E1%BB%ADng_S%E1%BB%91t",
+      "fileTitle": "File:Hang Sửng Sốt 2.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Hang_S%E1%BB%ADng_S%E1%BB%91t",
+      "photos": [
+        {
+          "fileTitle": "File:Hang Sửng Sốt 2.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Hang_S%E1%BB%ADng_S%E1%BB%91t_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/a/ae/Hang_S%E1%BB%ADng_S%E1%BB%91t_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Hang_S%E1%BB%ADng_S%E1%BB%91t_2.jpg",
+          "author": "audrey_sel",
+          "credit": "Ha Long Bay - \"The Amazing Cave\" 3",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "The Amazing Cave in Ha Long Bay.",
+          "width": 800,
+          "height": 533
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:26.803Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Bạc (Sa Pa)",
+      "province": "Lào Cai",
+      "latitude": 22.361626,
+      "longitude": 103.778912,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A1c_(Sa_Pa)",
+      "fileTitle": "File:Thacbac3.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A1c_(Sa_Pa)",
+      "photos": [
+        {
+          "fileTitle": "File:Thacbac3.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f8/Thacbac3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Thacbac3.jpg/1920px-Thacbac3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Thacbac3.jpg",
+          "author": "Lori_NY",
+          "credit": "Flickr : [1]",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Bac Falls (Silver Falls), Sa Pa, Vietnam",
+          "width": 3008,
+          "height": 2000
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:27.547Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Bạc Tú Sơn",
+      "province": "Phú Thọ",
+      "latitude": 20.708462,
+      "longitude": 105.419668,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A1c_T%C3%BA_S%C6%A1n",
+      "fileTitle": "File:Thac bac Long Cung.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A1c_T%C3%BA_S%C6%A1n",
+      "photos": [
+        {
+          "fileTitle": "File:Thac bac Long Cung.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Thac_bac_Long_Cung.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1f/Thac_bac_Long_Cung.jpg/1920px-Thac_bac_Long_Cung.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Thac_bac_Long_Cung.jpg",
+          "author": "Viethavvh at vi.wikipedia",
+          "credit": "Own work Transferred from vi.wikipedia",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Tú Sơn waterfall at Kim Bôi District",
+          "width": 2136,
+          "height": 2848
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:28.302Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác K50",
+      "province": "Gia Lai",
+      "latitude": 14.51944444,
+      "longitude": 108.60611111,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_K50",
+      "fileTitle": "File:K50 Waterfall Kon Chu Rang Nature Reserve Gia Lai Vietnam.png",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_K50",
+      "photos": [
+        {
+          "fileTitle": "File:K50 Waterfall Kon Chu Rang Nature Reserve Gia Lai Vietnam.png",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/04/K50_Waterfall_Kon_Chu_Rang_Nature_Reserve_Gia_Lai_Vietnam.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/04/K50_Waterfall_Kon_Chu_Rang_Nature_Reserve_Gia_Lai_Vietnam.png/1920px-K50_Waterfall_Kon_Chu_Rang_Nature_Reserve_Gia_Lai_Vietnam.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:K50_Waterfall_Kon_Chu_Rang_Nature_Reserve_Gia_Lai_Vietnam.png",
+          "author": "VinhNguyen.1257",
+          "credit": "Own work",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "description": "K50 Waterfall (also known as Hang En Waterfall) in Kon Chu Rang Nature Reserve, K'Bang District, Gia Lai, Vietnam.",
+          "width": 4192,
+          "height": 3144
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:29.080Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Giang Điền",
+      "province": "Đồng Nai",
+      "latitude": 10.921673,
+      "longitude": 106.983357,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Giang_%C4%90i%E1%BB%81n",
+      "fileTitle": "File:Giang Dien Waterfall.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_Giang_%C4%90i%E1%BB%81n",
+      "photos": [
+        {
+          "fileTitle": "File:Giang Dien Waterfall.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Giang_Dien_Waterfall.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/Giang_Dien_Waterfall.JPG/1920px-Giang_Dien_Waterfall.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Giang_Dien_Waterfall.JPG",
+          "author": "Prenn",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Giang Dien Waterfall",
+          "width": 2456,
+          "height": 1632
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:29.854Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Dải Yếm",
+      "province": "Sơn La",
+      "latitude": 20.820206,
+      "longitude": 104.591076,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_D%E1%BA%A3i_Y%E1%BA%BFm",
+      "fileTitle": "File:Thacdaiyem.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_D%E1%BA%A3i_Y%E1%BA%BFm",
+      "photos": [
+        {
+          "fileTitle": "File:Thacdaiyem.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Thacdaiyem.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Thacdaiyem.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Thacdaiyem.jpg",
+          "author": "ePi.Longo",
+          "credit": "Flickr : [1]",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Dai Yem Waterfall, Moc Chau District, Sơn La Province, Vietnam",
+          "width": 640,
+          "height": 427
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:30.617Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Khu bảo tồn thiên nhiên Lung Ngọc Hoàng",
+      "province": "Cần Thơ",
+      "latitude": 9.72275,
+      "longitude": 105.69991667,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_b%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_Lung_Ng%E1%BB%8Dc_Ho%C3%A0ng",
+      "fileTitle": "File:Lung Ngoc Hoang Trees.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Khu_b%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_Lung_Ng%E1%BB%8Dc_Ho%C3%A0ng",
+      "photos": [
+        {
+          "fileTitle": "File:Lung Ngoc Hoang Trees.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/29/Lung_Ngoc_Hoang_Trees.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/29/Lung_Ngoc_Hoang_Trees.jpg/1920px-Lung_Ngoc_Hoang_Trees.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Lung_Ngoc_Hoang_Trees.jpg",
+          "author": "Kantcer",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Woods in Lung Ngoc Hoang",
+          "width": 5152,
+          "height": 3434
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:32.181Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Khu Bảo tồn thiên nhiên Mường Nhé",
+      "province": "Điện Biên",
+      "latitude": 22.29361111,
+      "longitude": 102.39833333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_B%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_M%C6%B0%E1%BB%9Dng_Nh%C3%A9",
+      "fileTitle": "File:2002.muong nhe 1.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Khu_B%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_M%C6%B0%E1%BB%9Dng_Nh%C3%A9",
+      "photos": [
+        {
+          "fileTitle": "File:2002.muong nhe 1.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e3/2002.muong_nhe_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e3/2002.muong_nhe_1.jpg/1920px-2002.muong_nhe_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:2002.muong_nhe_1.jpg",
+          "author": "Dratharr",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "1 góc của khu bảo tồn thiên nhiên Mường Nhé",
+          "width": 2048,
+          "height": 1536
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:32.934Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Động Thiên Đường",
+      "province": "Quảng Trị",
+      "latitude": 17.519514,
+      "longitude": 106.222972,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Thi%C3%AAn_%C4%90%C6%B0%E1%BB%9Dng",
+      "fileTitle": "File:Grotte Thien Duong.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Thi%C3%AAn_%C4%90%C6%B0%E1%BB%9Dng",
+      "photos": [
+        {
+          "fileTitle": "File:Grotte Thien Duong.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/88/Grotte_Thien_Duong.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/Grotte_Thien_Duong.jpg/1920px-Grotte_Thien_Duong.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Grotte_Thien_Duong.jpg",
+          "author": "Preparetavalise.com",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Les grottes du parc de Phong Nha-Ke Bang",
+          "width": 5568,
+          "height": 3712
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:33.653Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Đa",
+      "province": "Hà Nội",
+      "latitude": 21.068803,
+      "longitude": 105.420642,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90a",
+      "fileTitle": "File:Thac Da 309320223.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90a",
+      "photos": [
+        {
+          "fileTitle": "File:Thac Da 309320223.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Thac_Da_309320223.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/2/22/Thac_Da_309320223.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Thac_Da_309320223.jpg",
+          "author": "Banhtrung1",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Chụp khu thác Đa.",
+          "width": 1600,
+          "height": 1200
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:34.421Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Tháp Trầm Hương",
+      "province": "Khánh Hòa",
+      "latitude": 12.24048,
+      "longitude": 109.196797,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Tr%E1%BA%A7m_H%C6%B0%C6%A1ng",
+      "fileTitle": "File:Thap Tram Huong.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1p_Tr%E1%BA%A7m_H%C6%B0%C6%A1ng",
+      "photos": [
+        {
+          "fileTitle": "File:Thap Tram Huong.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Thap_Tram_Huong.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Thap_Tram_Huong.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Thap_Tram_Huong.JPG",
+          "author": "Lưu Ly",
+          "credit": "Own work",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "description": "Tower Incense, Nha Trang",
+          "width": 1867,
+          "height": 1370
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:35.146Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Bảy Nhánh",
+      "province": "Đắk Lắk",
+      "latitude": 12.85427,
+      "longitude": 107.815575,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3y_Nh%C3%A1nh",
+      "fileTitle": "File:Camera360 2016 9 1 095841.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3y_Nh%C3%A1nh",
+      "photos": [
+        {
+          "fileTitle": "File:Camera360 2016 9 1 095841.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Camera360_2016_9_1_095841.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/Camera360_2016_9_1_095841.jpg/1920px-Camera360_2016_9_1_095841.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Camera360_2016_9_1_095841.jpg",
+          "author": "NguyenMii",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "dòng 1",
+          "width": 2592,
+          "height": 1952
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:35.888Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Động Ngao",
+      "province": "Cao Bằng",
+      "latitude": 22.845328,
+      "longitude": 106.70617,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ngao",
+      "fileTitle": "File:Động Ngườm Ngao.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ngao",
+      "photos": [
+        {
+          "fileTitle": "File:Động Ngườm Ngao.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1b/%C4%90%E1%BB%99ng_Ng%C6%B0%E1%BB%9Dm_Ngao.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/%C4%90%E1%BB%99ng_Ng%C6%B0%E1%BB%9Dm_Ngao.jpg/1920px-%C4%90%E1%BB%99ng_Ng%C6%B0%E1%BB%9Dm_Ngao.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%99ng_Ng%C6%B0%E1%BB%9Dm_Ngao.jpg",
+          "author": "Bùi Thụy Đào Nguyên",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Động Ngườm Ngao ở bản Gun, xã Đàm Thủy, huyện Trùng Khánh, tỉnh Cao Bằng, Việt Nam.",
+          "width": 3543,
+          "height": 2362
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:36.615Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Tòa Thánh Tây Ninh",
+      "province": "Tây Ninh",
+      "latitude": 11.303746,
+      "longitude": 106.133717,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh",
+      "fileTitle": "File:Tòa Thánh Tây Ninh 042013.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh",
+      "photos": [
+        {
+          "fileTitle": "File:Tòa Thánh Tây Ninh 042013.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1a/T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh_042013.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1a/T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh_042013.JPG/1920px-T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh_042013.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh_042013.JPG",
+          "author": "Anthony Leekien",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Mặt tiền Tòa Thánh Tây Ninh - hướng chính tây",
+          "width": 2736,
+          "height": 3648
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:37.393Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Cổ Thạch",
+      "province": "Lâm Đồng",
+      "latitude": 11.17666667,
+      "longitude": 108.71397222,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%E1%BB%95_Th%E1%BA%A1ch",
+      "fileTitle": "File:Bãi Cà Dược nhìn từ đỉnh Linh Thứu.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%E1%BB%95_Th%E1%BA%A1ch",
+      "photos": [
+        {
+          "fileTitle": "File:Bãi Cà Dược nhìn từ đỉnh Linh Thứu.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/B%C3%A3i_C%C3%A0_D%C6%B0%E1%BB%A3c_nh%C3%ACn_t%E1%BB%AB_%C4%91%E1%BB%89nh_Linh_Th%E1%BB%A9u.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/B%C3%A3i_C%C3%A0_D%C6%B0%E1%BB%A3c_nh%C3%ACn_t%E1%BB%AB_%C4%91%E1%BB%89nh_Linh_Th%E1%BB%A9u.jpg/1920px-B%C3%A3i_C%C3%A0_D%C6%B0%E1%BB%A3c_nh%C3%ACn_t%E1%BB%AB_%C4%91%E1%BB%89nh_Linh_Th%E1%BB%A9u.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:B%C3%A3i_C%C3%A0_D%C6%B0%E1%BB%A3c_nh%C3%ACn_t%E1%BB%AB_%C4%91%E1%BB%89nh_Linh_Th%E1%BB%A9u.jpg",
+          "author": "Liftold ( thảo luận )",
+          "credit": "Own work",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "description": "Tác phẩm do Phan Minh Châu chụp tại Cổ Thạch Tự - Bình Thuận nhân chuyến đi tham quan cùng học sinh trường THCS Thủ Thừa - Long An",
+          "width": 3648,
+          "height": 2736
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:38.139Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Cồn Hến",
+      "province": "Huế",
+      "latitude": 16.481522,
+      "longitude": 107.593145,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%E1%BB%93n_H%E1%BA%BFn",
+      "fileTitle": "File:Cồn Hến.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%E1%BB%93n_H%E1%BA%BFn",
+      "photos": [
+        {
+          "fileTitle": "File:Cồn Hến.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/93/C%E1%BB%93n_H%E1%BA%BFn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/C%E1%BB%93n_H%E1%BA%BFn.jpg/1920px-C%E1%BB%93n_H%E1%BA%BFn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:C%E1%BB%93n_H%E1%BA%BFn.jpg",
+          "author": "Lưu Ly at Vietnamese Wikipedia",
+          "credit": "Transferred from vi.wikipedia to Commons.",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Cồn Hến, Huế‎",
+          "width": 1936,
+          "height": 1288
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:38.911Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Công viên 29 tháng 3",
+      "province": "Đà Nẵng",
+      "latitude": 16.062705,
+      "longitude": 108.204812,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_29_th%C3%A1ng_3",
+      "fileTitle": "File:March 29 Park, Da Nang (49373528378).jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_29_th%C3%A1ng_3",
+      "photos": [
+        {
+          "fileTitle": "File:March 29 Park, Da Nang (49373528378).jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/05/March_29_Park%2C_Da_Nang_%2849373528378%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/March_29_Park%2C_Da_Nang_%2849373528378%29.jpg/1920px-March_29_Park%2C_Da_Nang_%2849373528378%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:March_29_Park,_Da_Nang_(49373528378).jpg",
+          "author": "Martin Lewison from Forest Hills, NY, U.S.A.",
+          "credit": "Flickr",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:39.690Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Khu dự trữ sinh quyển rừng ngập mặn Cần Giờ",
+      "province": "Hồ Chí Minh",
+      "latitude": 10.50113889,
+      "longitude": 106.86758333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_d%E1%BB%B1_tr%E1%BB%AF_sinh_quy%E1%BB%83n_r%E1%BB%ABng_ng%E1%BA%ADp_m%E1%BA%B7n_C%E1%BA%A7n_Gi%E1%BB%9D",
+      "fileTitle": "File:Lo ren river.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Khu_d%E1%BB%B1_tr%E1%BB%AF_sinh_quy%E1%BB%83n_r%E1%BB%ABng_ng%E1%BA%ADp_m%E1%BA%B7n_C%E1%BA%A7n_Gi%E1%BB%9D",
+      "photos": [
+        {
+          "fileTitle": "File:Lo ren river.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/Lo_ren_river.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/9/97/Lo_ren_river.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Lo_ren_river.jpg",
+          "author": "Tho nau",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Lò Rèn river, seen from Tang Bong tower in Vàm Sát ecological tourist zone. Far is Bà Rịa-Vũng Tàu.",
+          "width": 1024,
+          "height": 768
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:40.428Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Cát Cát",
+      "province": "Lào Cai",
+      "latitude": 22.329058,
+      "longitude": 103.829573,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_C%C3%A1t_C%C3%A1t",
+      "fileTitle": "File:Tien Sa Waterfall.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_C%C3%A1t_C%C3%A1t",
+      "photos": [
+        {
+          "fileTitle": "File:Tien Sa Waterfall.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Tien_Sa_Waterfall.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Tien_Sa_Waterfall.JPG/1920px-Tien_Sa_Waterfall.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Tien_Sa_Waterfall.JPG",
+          "author": "Dragfyre",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Tien Sa Waterfall, in Cat Cat Village, Sa Pa.",
+          "width": 2304,
+          "height": 3072
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:41.189Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Gò Lào",
+      "province": "Phú Thọ",
+      "latitude": 20.741887,
+      "longitude": 105.055014,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_G%C3%B2_L%C3%A0o",
+      "fileTitle": "File:Thác Ba Khan.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_G%C3%B2_L%C3%A0o",
+      "photos": [
+        {
+          "fileTitle": "File:Thác Ba Khan.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/98/Th%C3%A1c_Ba_Khan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/98/Th%C3%A1c_Ba_Khan.jpg/1920px-Th%C3%A1c_Ba_Khan.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1c_Ba_Khan.jpg",
+          "author": "NKSTTSSHNVN",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Thác Ba Khan, Mai Châu, Hòa Bình",
+          "width": 3207,
+          "height": 4811
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:41.962Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Mai",
+      "province": "Đồng Nai",
+      "latitude": 11.113333,
+      "longitude": 107.453056,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Mai",
+      "fileTitle": "File:Thác Mai vào buổi chiều tà.png",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_Mai",
+      "photos": [
+        {
+          "fileTitle": "File:Thác Mai vào buổi chiều tà.png",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Th%C3%A1c_Mai_v%C3%A0o_bu%E1%BB%95i_chi%E1%BB%81u_t%C3%A0.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Th%C3%A1c_Mai_v%C3%A0o_bu%E1%BB%95i_chi%E1%BB%81u_t%C3%A0.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1c_Mai_v%C3%A0o_bu%E1%BB%95i_chi%E1%BB%81u_t%C3%A0.png",
+          "author": "Thang.pt4099",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Mặt trời lặn sau một ngày...",
+          "width": 766,
+          "height": 512
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:42.732Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn chim Bạc Liêu",
+      "province": "Cà Mau",
+      "latitude": 9.24247222,
+      "longitude": 105.71788889,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_chim_B%E1%BA%A1c_Li%C3%AAu",
+      "fileTitle": "File:Khu bảo tồn loài – sinh cảnh Vườn chim Bạc Liêu.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_chim_B%E1%BA%A1c_Li%C3%AAu",
+      "photos": [
+        {
+          "fileTitle": "File:Khu bảo tồn loài – sinh cảnh Vườn chim Bạc Liêu.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Khu_b%E1%BA%A3o_t%E1%BB%93n_lo%C3%A0i_%E2%80%93_sinh_c%E1%BA%A3nh_V%C6%B0%E1%BB%9Dn_chim_B%E1%BA%A1c_Li%C3%AAu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Khu_b%E1%BA%A3o_t%E1%BB%93n_lo%C3%A0i_%E2%80%93_sinh_c%E1%BA%A3nh_V%C6%B0%E1%BB%9Dn_chim_B%E1%BA%A1c_Li%C3%AAu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Khu_b%E1%BA%A3o_t%E1%BB%93n_lo%C3%A0i_%E2%80%93_sinh_c%E1%BA%A3nh_V%C6%B0%E1%BB%9Dn_chim_B%E1%BA%A1c_Li%C3%AAu.jpg",
+          "author": "Huỳnh Hoàng Nhật Duy",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Khu bảo tồn loài – sinh cảnh Vườn chim Bạc Liêu",
+          "width": 1280,
+          "height": 722
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:43.516Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chiến khu Tân Trào",
+      "province": "Tuyên Quang",
+      "latitude": 21.570449,
+      "longitude": 105.273835,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_khu_T%C3%A2n_Tr%C3%A0o",
+      "fileTitle": "File:Cây Đa lịch sử Tân Trào.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_khu_T%C3%A2n_Tr%C3%A0o",
+      "photos": [
+        {
+          "fileTitle": "File:Cây Đa lịch sử Tân Trào.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/11/C%C3%A2y_%C4%90a_l%E1%BB%8Bch_s%E1%BB%AD_T%C3%A2n_Tr%C3%A0o.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/C%C3%A2y_%C4%90a_l%E1%BB%8Bch_s%E1%BB%AD_T%C3%A2n_Tr%C3%A0o.JPG/1920px-C%C3%A2y_%C4%90a_l%E1%BB%8Bch_s%E1%BB%AD_T%C3%A2n_Tr%C3%A0o.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:C%C3%A2y_%C4%90a_l%E1%BB%8Bch_s%E1%BB%AD_T%C3%A2n_Tr%C3%A0o.JPG",
+          "author": "Liftold ( thảo luận )",
+          "credit": "Tôi sáng tạo ra toàn bộ tác phẩm",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Tân Trào Banyan Tree",
+          "width": 3072,
+          "height": 2304
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:44.299Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Hang Đầu Gỗ",
+      "province": "Quảng Ninh",
+      "latitude": 20.908333,
+      "longitude": 107.020833,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Hang_%C4%90%E1%BA%A7u_G%E1%BB%97",
+      "fileTitle": "File:Hang Đầu Gỗ.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Hang_%C4%90%E1%BA%A7u_G%E1%BB%97",
+      "photos": [
+        {
+          "fileTitle": "File:Hang Đầu Gỗ.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Hang_%C4%90%E1%BA%A7u_G%E1%BB%97.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Hang_%C4%90%E1%BA%A7u_G%E1%BB%97.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Hang_%C4%90%E1%BA%A7u_G%E1%BB%97.jpg",
+          "author": "Tim Hill from Australia",
+          "credit": "Hang Dau Go",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Commonly refered to as Wooden Stakes Caves. This cave is famous for being used by the legendary General Tran Hung Dao as a trap for the attacking Mongolian army. Wooden stakes were set up within to trap the Mongols against the retreating tide.",
+          "width": 640,
+          "height": 480
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:45.070Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Động Hua Mạ",
+      "province": "Thái Nguyên",
+      "latitude": 22.38583333,
+      "longitude": 105.63833333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Hua_M%E1%BA%A1",
+      "fileTitle": "File:Ba Be Cave (33215585468).jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Hua_M%E1%BA%A1",
+      "photos": [
+        {
+          "fileTitle": "File:Ba Be Cave (33215585468).jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Ba_Be_Cave_%2833215585468%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Ba_Be_Cave_%2833215585468%29.jpg/1920px-Ba_Be_Cave_%2833215585468%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ba_Be_Cave_(33215585468).jpg",
+          "author": "Rod Waddington from Kergunyah, Australia",
+          "credit": "Ba Be Cave",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Vietnam",
+          "width": 4412,
+          "height": 6611
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:45.820Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Đứng",
+      "province": "Đồng Nai",
+      "latitude": 11.778999,
+      "longitude": 107.215017,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BB%A9ng",
+      "fileTitle": "File:Thác Đứng, Bù Đăng, Bình Phước.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BB%A9ng",
+      "photos": [
+        {
+          "fileTitle": "File:Thác Đứng, Bù Đăng, Bình Phước.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Th%C3%A1c_%C4%90%E1%BB%A9ng%2C_B%C3%B9_%C4%90%C4%83ng%2C_B%C3%ACnh_Ph%C6%B0%E1%BB%9Bc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Th%C3%A1c_%C4%90%E1%BB%A9ng%2C_B%C3%B9_%C4%90%C4%83ng%2C_B%C3%ACnh_Ph%C6%B0%E1%BB%9Bc.jpg/1920px-Th%C3%A1c_%C4%90%E1%BB%A9ng%2C_B%C3%B9_%C4%90%C4%83ng%2C_B%C3%ACnh_Ph%C6%B0%E1%BB%9Bc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1c_%C4%90%E1%BB%A9ng,_B%C3%B9_%C4%90%C4%83ng,_B%C3%ACnh_Ph%C6%B0%E1%BB%9Bc.jpg",
+          "author": "Kieprongbuon812",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Thác Đứng, Bù Đăng, Bình Phước",
+          "width": 2048,
+          "height": 1150
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:46.576Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Địa đạo Vịnh Mốc",
+      "province": "Quảng Trị",
+      "latitude": 17.073,
+      "longitude": 107.111,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Ba_%C4%91%E1%BA%A1o_V%E1%BB%8Bnh_M%E1%BB%91c",
+      "fileTitle": "File:Using bomb fragment as a smart to alert everybody.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Ba_%C4%91%E1%BA%A1o_V%E1%BB%8Bnh_M%E1%BB%91c",
+      "photos": [
+        {
+          "fileTitle": "File:Using bomb fragment as a smart to alert everybody.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Using_bomb_fragment_as_a_smart_to_alert_everybody.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Using_bomb_fragment_as_a_smart_to_alert_everybody.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Using_bomb_fragment_as_a_smart_to_alert_everybody.JPG",
+          "author": "Pen war",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Using bomb fragment as a smart to alert everybody when necessary.",
+          "width": 900,
+          "height": 662
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:47.930Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Đỗ Quyên",
+      "province": "Huế",
+      "latitude": 16.186513,
+      "longitude": 107.848764,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BB%97_Quy%C3%AAn",
+      "fileTitle": "File:Thacdoquyen.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BB%97_Quy%C3%AAn",
+      "photos": [
+        {
+          "fileTitle": "File:Thacdoquyen.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Thacdoquyen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/4/42/Thacdoquyen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Thacdoquyen.jpg",
+          "author": "Lê Thy at Vietnamese Wikipedia",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Thác Ðỗ Quyên",
+          "width": 768,
+          "height": 1024
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:48.709Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chùa Hang (Quảng Ngãi)",
+      "province": "Quảng Ngãi",
+      "latitude": 15.39027778,
+      "longitude": 109.12111111,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Hang_(Qu%E1%BA%A3ng_Ng%C3%A3i)",
+      "fileTitle": "File:Chùa Hang - Thiên Khổng Thạch Tự - Lý Sơn -Quảng Ngãi.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_Hang_(Qu%E1%BA%A3ng_Ng%C3%A3i)",
+      "photos": [
+        {
+          "fileTitle": "File:Chùa Hang - Thiên Khổng Thạch Tự - Lý Sơn -Quảng Ngãi.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/10/Ch%C3%B9a_Hang_-_Thi%C3%AAn_Kh%E1%BB%95ng_Th%E1%BA%A1ch_T%E1%BB%B1_-_L%C3%BD_S%C6%A1n_-Qu%E1%BA%A3ng_Ng%C3%A3i.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/Ch%C3%B9a_Hang_-_Thi%C3%AAn_Kh%E1%BB%95ng_Th%E1%BA%A1ch_T%E1%BB%B1_-_L%C3%BD_S%C6%A1n_-Qu%E1%BA%A3ng_Ng%C3%A3i.jpg/1920px-Ch%C3%B9a_Hang_-_Thi%C3%AAn_Kh%E1%BB%95ng_Th%E1%BA%A1ch_T%E1%BB%B1_-_L%C3%BD_S%C6%A1n_-Qu%E1%BA%A3ng_Ng%C3%A3i.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ch%C3%B9a_Hang_-_Thi%C3%AAn_Kh%E1%BB%95ng_Th%E1%BA%A1ch_T%E1%BB%B1_-_L%C3%BD_S%C6%A1n_-Qu%E1%BA%A3ng_Ng%C3%A3i.jpg",
+          "author": "VuTuanHung1804",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Chùa Hang là một trong những danh cảnh tiêu của Lý Sơn",
+          "width": 3024,
+          "height": 4032
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:49.436Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền thờ Vua Lê Đại Hành",
+      "province": "Ninh Bình",
+      "latitude": 20.2862001,
+      "longitude": 105.9056228,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Vua_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh",
+      "fileTitle": "File:Đền Lê Đại Hành, chính đạo.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Vua_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh",
+      "photos": [
+        {
+          "fileTitle": "File:Đền Lê Đại Hành, chính đạo.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6b/%C4%90%E1%BB%81n_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh%2C_ch%C3%ADnh_%C4%91%E1%BA%A1o.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/%C4%90%E1%BB%81n_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh%2C_ch%C3%ADnh_%C4%91%E1%BA%A1o.JPG/1920px-%C4%90%E1%BB%81n_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh%2C_ch%C3%ADnh_%C4%91%E1%BA%A1o.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh,_ch%C3%ADnh_%C4%91%E1%BA%A1o.JPG",
+          "author": "Nguyễn Thanh Quang",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Lê Đại Hành Temple (Hoa Lư).",
+          "width": 4000,
+          "height": 3000
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:50.235Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Bảo Hà",
+      "province": "Lào Cai",
+      "latitude": 22.170505,
+      "longitude": 104.352523,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%E1%BA%A3o_H%C3%A0",
+      "fileTitle": "File:Bao Ha Temple - P1380679.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%E1%BA%A3o_H%C3%A0",
+      "photos": [
+        {
+          "fileTitle": "File:Bao Ha Temple - P1380679.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Bao_Ha_Temple_-_P1380679.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Bao_Ha_Temple_-_P1380679.JPG/1920px-Bao_Ha_Temple_-_P1380679.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Bao_Ha_Temple_-_P1380679.JPG",
+          "author": "User:Vmenkov",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "A gateway arch in Temple Bảo Hà, located on the shore of the Red River in Bảo Hà Rural Commune (physically, a small town), Bảo Yên District, Lao Cai Province.",
+          "width": 2560,
+          "height": 1920
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:50.984Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Bà Triệu",
+      "province": "Thanh Hóa",
+      "latitude": 19.9293,
+      "longitude": 105.8195,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%C3%A0_Tri%E1%BB%87u",
+      "fileTitle": "File:Den-tho-ba-trieu.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%C3%A0_Tri%E1%BB%87u",
+      "photos": [
+        {
+          "fileTitle": "File:Den-tho-ba-trieu.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Den-tho-ba-trieu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Den-tho-ba-trieu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Den-tho-ba-trieu.jpg",
+          "author": "Mai Trung Dung",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Đền thờ Bà Triệu - Hậu Lộc - Thanh Hóa",
+          "width": 600,
+          "height": 400
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:51.781Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thảo Cầm Viên Sài Gòn",
+      "province": "Hồ Chí Minh",
+      "latitude": 10.78805556,
+      "longitude": 106.70472222,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn_S%C3%A0i_G%C3%B2n",
+      "fileTitle": "File:Thảo Cầm viên, quan 1, saigon, vietnam - panoramio.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn_S%C3%A0i_G%C3%B2n",
+      "photos": [
+        {
+          "fileTitle": "File:Thảo Cầm viên, quan 1, saigon, vietnam - panoramio.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Th%E1%BA%A3o_C%E1%BA%A7m_vi%C3%AAn%2C_quan_1%2C_saigon%2C_vietnam_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/1/13/Th%E1%BA%A3o_C%E1%BA%A7m_vi%C3%AAn%2C_quan_1%2C_saigon%2C_vietnam_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%E1%BA%A3o_C%E1%BA%A7m_vi%C3%AAn,_quan_1,_saigon,_vietnam_-_panoramio.jpg",
+          "author": "trungydang",
+          "credit": "https://web.archive.org/web/20161020014805/http://www.panoramio.com/photo/62249181",
+          "license": "CC BY 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+          "description": "Thảo Cầm viên, quan 1, saigon, vietnam",
+          "width": 1282,
+          "height": 1930
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:52.565Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Bản Giốc",
+      "province": "Cao Bằng",
+      "latitude": 22.855897,
+      "longitude": 106.722501,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3n_Gi%E1%BB%91c",
+      "fileTitle": "File:Bangioc9tam.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3n_Gi%E1%BB%91c",
+      "photos": [
+        {
+          "fileTitle": "File:Bangioc9tam.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Bangioc9tam.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Bangioc9tam.jpg/1920px-Bangioc9tam.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Bangioc9tam.jpg",
+          "author": "Lê Minh Phát",
+          "credit": "https://www.flickr.com/photos/leminhphat/50468651696/",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "Ban Gioc Waterfalls, Vietnam - China border",
+          "width": 9641,
+          "height": 5563
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:54.580Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Trần Thương",
+      "province": "Ninh Bình",
+      "latitude": 20.5761573,
+      "longitude": 106.1037476,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng",
+      "fileTitle": "File:Đền Trần Thương.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng",
+      "photos": [
+        {
+          "fileTitle": "File:Đền Trần Thương.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng.jpg/1920px-%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng.jpg",
+          "author": "Suaql4a",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Cá nhân chụp",
+          "width": 5376,
+          "height": 3024
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:55.310Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền thờ Lê Hoàn",
+      "province": "Thanh Hóa",
+      "latitude": 19.973852,
+      "longitude": 105.534017,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_L%C3%AA_Ho%C3%A0n",
+      "fileTitle": "File:Đền Lê Hoàn.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_L%C3%AA_Ho%C3%A0n",
+      "photos": [
+        {
+          "fileTitle": "File:Đền Lê Hoàn.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/%C4%90%E1%BB%81n_L%C3%AA_Ho%C3%A0n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/%C4%90%E1%BB%81n_L%C3%AA_Ho%C3%A0n.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_L%C3%AA_Ho%C3%A0n.jpg",
+          "author": "AxitTDTbenzoic",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Đền thờ Lê Hoàn, xã Xuân Lập, huyện Thọ Xuân, Thanh Hóa",
+          "width": 1444,
+          "height": 812
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:56.050Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Đầu Đẳng",
+      "province": "Thái Nguyên",
+      "latitude": 22.4526,
+      "longitude": 105.570412,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BA%A7u_%C4%90%E1%BA%B3ng",
+      "fileTitle": "File:SuoiBabe.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BA%A7u_%C4%90%E1%BA%B3ng",
+      "photos": [
+        {
+          "fileTitle": "File:SuoiBabe.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/SuoiBabe.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/32/SuoiBabe.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:SuoiBabe.jpg",
+          "author": "phgaillard2001",
+          "credit": "Flickr : [1]",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Dau Dang Waterfalls Ba Be District, Bac Kan Province, Vietnam",
+          "width": 1200,
+          "height": 800
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:56.791Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chùa Bút Tháp",
+      "province": "Bắc Ninh",
+      "latitude": 21.06083,
+      "longitude": 106.0222,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_B%C3%BAt_Th%C3%A1p",
+      "fileTitle": "File:VN But Thap3 tango7174.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_B%C3%BAt_Th%C3%A1p",
+      "photos": [
+        {
+          "fileTitle": "File:VN But Thap3 tango7174.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/VN_But_Thap3_tango7174.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/7/71/VN_But_Thap3_tango7174.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:VN_But_Thap3_tango7174.jpg",
+          "author": "Tango7174",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "But Thap Pagoda, Bac Ninh Province, Vietnam.",
+          "width": 600,
+          "height": 800
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:57.524Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền thờ Vua Đinh Tiên Hoàng",
+      "province": "Ninh Bình",
+      "latitude": 20.285556,
+      "longitude": 105.903333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Vua_%C4%90inh_Ti%C3%AAn_Ho%C3%A0ng",
+      "fileTitle": "File:Temple commémoratif au roi Dinh Tien Hoang (Hoa Lu).jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Vua_%C4%90inh_Ti%C3%AAn_Ho%C3%A0ng",
+      "photos": [
+        {
+          "fileTitle": "File:Temple commémoratif au roi Dinh Tien Hoang (Hoa Lu).jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/be/Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_%28Hoa_Lu%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/b/be/Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_%28Hoa_Lu%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Temple_comm%C3%A9moratif_au_roi_Dinh_Tien_Hoang_(Hoa_Lu).jpg",
+          "author": "Jean-Pierre Dalbéra",
+          "credit": "originally posted to Flickr as Temple commémoratif au roi Dinh Tien Hoang (Hoa Lu)",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "Hoa Lu fut la capitale du Vietnam indépendant de 968 à 979, avant d’être abandonnée au profit de Thang Long - Hanoi. Le roi Dinh Tien Hoang y avait fait construire son palais protégé par les montagnes de la baie d'Halong Terrestre et par la rivière Van. Un temple commémoratif lui rend hommage.",
+          "width": 1800,
+          "height": 1200
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:58.257Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Pác Ban",
+      "province": "Tuyên Quang",
+      "latitude": 22.353132,
+      "longitude": 105.424626,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_P%C3%A1c_Ban",
+      "fileTitle": "File:Thác Mơ.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_P%C3%A1c_Ban",
+      "photos": [
+        {
+          "fileTitle": "File:Thác Mơ.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/58/Th%C3%A1c_M%C6%A1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/58/Th%C3%A1c_M%C6%A1.jpg/1920px-Th%C3%A1c_M%C6%A1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1c_M%C6%A1.jpg",
+          "author": "Motbit",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Thác Mơ Na Hang",
+          "width": 5312,
+          "height": 2988
+        }
+      ],
+      "checkedAt": "2026-10-05T10:38:59.011Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Phố cổ Đồng Văn",
+      "province": "Tuyên Quang",
+      "latitude": 23.28177778,
+      "longitude": 105.35989444,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_%C4%90%E1%BB%93ng_V%C4%83n",
+      "fileTitle": "File:Phỗ Cổ.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_%C4%90%E1%BB%93ng_V%C4%83n",
+      "photos": [
+        {
+          "fileTitle": "File:Phỗ Cổ.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Ph%E1%BB%97_C%E1%BB%95.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Ph%E1%BB%97_C%E1%BB%95.jpg/1920px-Ph%E1%BB%97_C%E1%BB%95.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ph%E1%BB%97_C%E1%BB%95.jpg",
+          "author": "Khoitran1957",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Góc phố chợ cổ Đồng Văn",
+          "width": 2844,
+          "height": 1600
+        }
+      ],
+      "checkedAt": "2026-10-05T10:39:47.617Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chùa Phật Tích",
+      "province": "Bắc Ninh",
+      "latitude": 21.10666667,
+      "longitude": 106.0125,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Ph%E1%BA%ADt_T%C3%ADch",
+      "fileTitle": "File:Tuongphat.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_Ph%E1%BA%ADt_T%C3%ADch",
+      "photos": [
+        {
+          "fileTitle": "File:Tuongphat.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Tuongphat.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Tuongphat.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Tuongphat.jpg",
+          "author": "Photo taken by vi:User:Casablanca1911 , unknown sculptor(s)",
+          "credit": "Own work , tác phẩm điều khắc khuyết danh",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Tượng phật A di đà, bản phục chế, đặt tại bảo tàng Lịch sử Việt Nam, cao 292 cm, rộng 174 cm. Tượng thờ nguyên bản tại chùa Phật Tích, Phượng Hoàng, Tiên Du, Bắc Ninh.",
+          "width": 1408,
+          "height": 2276
+        }
+      ],
+      "checkedAt": "2026-10-05T10:39:48.336Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Trần (Long Hưng)",
+      "province": "Hưng Yên",
+      "latitude": 20.601857,
+      "longitude": 106.14369,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_(Long_H%C6%B0ng)",
+      "fileTitle": "File:Đền Trần Thái Bình.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_(Long_H%C6%B0ng)",
+      "photos": [
+        {
+          "fileTitle": "File:Đền Trần Thái Bình.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C3%A1i_B%C3%ACnh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/0/02/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C3%A1i_B%C3%ACnh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C3%A1i_B%C3%ACnh.jpg",
+          "author": "Kien1980v at Vietnamese Wikipedia",
+          "credit": "Own work by the original uploader",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "The gate of the Tran Temple (Thai Binh) in Hung Ha, Thai Binh Province, Vietnam.",
+          "width": 500,
+          "height": 375
+        }
+      ],
+      "checkedAt": "2026-10-05T10:39:49.170Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Bà Chúa Kho (Bắc Ninh)",
+      "province": "Bắc Ninh",
+      "latitude": 21.2062516,
+      "longitude": 106.0838016,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%C3%A0_Ch%C3%BAa_Kho_(B%E1%BA%AFc_Ninh)",
+      "fileTitle": "File:Newone - tam quan đền bà chúa kho Bắc Ninh.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%C3%A0_Ch%C3%BAa_Kho_(B%E1%BA%AFc_Ninh)",
+      "photos": [
+        {
+          "fileTitle": "File:Newone - tam quan đền bà chúa kho Bắc Ninh.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Newone_-_tam_quan_%C4%91%E1%BB%81n_b%C3%A0_ch%C3%BAa_kho_B%E1%BA%AFc_Ninh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Newone_-_tam_quan_%C4%91%E1%BB%81n_b%C3%A0_ch%C3%BAa_kho_B%E1%BA%AFc_Ninh.jpg/1920px-Newone_-_tam_quan_%C4%91%E1%BB%81n_b%C3%A0_ch%C3%BAa_kho_B%E1%BA%AFc_Ninh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Newone_-_tam_quan_%C4%91%E1%BB%81n_b%C3%A0_ch%C3%BAa_kho_B%E1%BA%AFc_Ninh.jpg",
+          "author": "Newone",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Tam quan đền bà chúa kho Bắc Ninh",
+          "width": 4032,
+          "height": 3024
+        }
+      ],
+      "checkedAt": "2026-10-05T10:39:51.626Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đèo Ô Quý Hồ",
+      "province": "Lai Châu",
+      "latitude": 22.3532,
+      "longitude": 103.76453,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%C3%A8o_%C3%94_Qu%C3%BD_H%E1%BB%93",
+      "fileTitle": "File:O_Quy_Ho_pass.jpg",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%C3%A8o_%C3%94_Qu%C3%BD_H%E1%BB%93",
+      "photos": [
+        {
+          "fileTitle": "File:O Quy Ho pass.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/19/O_Quy_Ho_pass.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/O_Quy_Ho_pass.jpg/1920px-O_Quy_Ho_pass.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:O_Quy_Ho_pass.jpg",
+          "author": "Kiếm Anh",
+          "credit": "Photographed by Nguyễn Kiếm Anh, displayed at his Facebook page [1] , and is allowed to be released under free license by the photographer Nguyễn Kiếm Anh - in written communication with the uploader.",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Đèo Ô Quý Hồ",
+          "width": 2048,
+          "height": 1324
+        }
+      ],
+      "checkedAt": "2026-10-05T10:39:52.413Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chùa Tam Thanh",
+      "province": "Lạng Sơn",
+      "latitude": 21.85583333,
+      "longitude": 106.74333333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Tam_Thanh",
+      "fileTitle": "File:Chùa_Tam_Thanh.jpg",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_Tam_Thanh",
+      "photos": [
+        {
+          "fileTitle": "File:Chùa Tam Thanh.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Ch%C3%B9a_Tam_Thanh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Ch%C3%B9a_Tam_Thanh.jpg/1920px-Ch%C3%B9a_Tam_Thanh.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ch%C3%B9a_Tam_Thanh.jpg",
+          "author": "Bùi Thụy Đào Nguyên",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Tam quan chùa Tam Thanh ở Lạng Sơn, Việt Nam.",
+          "width": 3543,
+          "height": 2362
+        }
+      ],
+      "checkedAt": "2026-10-05T10:39:53.931Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chùa Vĩnh Tràng",
+      "province": "Đồng Tháp",
+      "latitude": 10.36287,
+      "longitude": 106.37354,
+      "sourceUrl": "https://en.wikipedia.org/wiki/V%C4%A9nh_Tr%C3%A0ng_Temple",
+      "fileTitle": "File:VM_033_large.jpg",
+      "provinceBasis": "reviewed_real_place",
+      "sourceId": "real-place:https://en.wikipedia.org/wiki/V%C4%A9nh_Tr%C3%A0ng_Temple",
+      "photos": [
+        {
+          "fileTitle": "File:VM 033 large.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3d/VM_033_large.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/3/3d/VM_033_large.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:VM_033_large.jpg",
+          "author": "CIA World Factbook",
+          "credit": "https://www.cia.gov/library/publications/the-world-factbook/geos/vm.html",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Vinh Trang Pagoda near My Tho",
+          "width": 1500,
+          "height": 1122
+        }
+      ],
+      "checkedAt": "2026-10-05T10:43:25.188Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vườn quốc gia Tràm Chim",
+      "province": "Đồng Tháp",
+      "latitude": 10.725,
+      "longitude": 105.51666667,
+      "sourceUrl": "https://en.wikipedia.org/wiki/Tr%C3%A0m_Chim_National_Park",
+      "fileTitle": "File:Đồng_cỏ_và_chim_nước.jpg",
+      "provinceBasis": "reviewed_real_place",
+      "sourceId": "real-place:https://en.wikipedia.org/wiki/Tr%C3%A0m_Chim_National_Park",
+      "photos": [
+        {
+          "fileTitle": "File:Đồng cỏ và chim nước.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fa/%C4%90%E1%BB%93ng_c%E1%BB%8F_v%C3%A0_chim_n%C6%B0%E1%BB%9Bc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/%C4%90%E1%BB%93ng_c%E1%BB%8F_v%C3%A0_chim_n%C6%B0%E1%BB%9Bc.jpg/1920px-%C4%90%E1%BB%93ng_c%E1%BB%8F_v%C3%A0_chim_n%C6%B0%E1%BB%9Bc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%E1%BB%93ng_c%E1%BB%8F_v%C3%A0_chim_n%C6%B0%E1%BB%9Bc.jpg",
+          "author": "Quoilp at Vietnamese Wikipedia",
+          "credit": "Transferred from vi.wikipedia to Commons by Nguyễn Thanh Quang using CommonsHelper .",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+          "description": "Dồng cỏ ở Tràm Chim",
+          "width": 2240,
+          "height": 1488
+        }
+      ],
+      "checkedAt": "2026-10-05T10:43:25.922Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đảo Cát Bà",
+      "province": "Hải Phòng",
+      "latitude": 20.8,
+      "longitude": 106.99972222,
+      "sourceUrl": "https://en.wikipedia.org/wiki/C%C3%A1t_B%C3%A0_Island",
+      "fileTitle": "File:Cat_Ba_town.JPG",
+      "provinceBasis": "reviewed_real_place",
+      "sourceId": "real-place:https://en.wikipedia.org/wiki/C%C3%A1t_B%C3%A0_Island",
+      "photos": [
+        {
+          "fileTitle": "File:Cat Ba town.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Cat_Ba_town.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/9/92/Cat_Ba_town.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Cat_Ba_town.JPG",
+          "author": "Binh Giang",
+          "credit": "Self-photographed",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Cat Ba town, Vietnam.",
+          "width": 1024,
+          "height": 768
+        }
+      ],
+      "checkedAt": "2026-10-05T10:43:26.666Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Grand World Phú Quốc",
+      "province": "An Giang",
+      "latitude": 10.3291,
+      "longitude": 103.8615,
+      "sourceUrl": "https://commons.wikimedia.org/wiki/Category:Grand_World_Ph%C3%BA_Qu%E1%BB%91c",
+      "fileTitle": "File:2023-07-30 Grand World Phú Quốc 193144.jpg",
+      "provinceBasis": "reviewed_Phu_Quoc_current_An_Giang",
+      "sourceId": "real-place:https://commons.wikimedia.org/wiki/Category:Grand_World_Ph%C3%BA_Qu%E1%BB%91c",
+      "photos": [
+        {
+          "fileTitle": "File:2023-07-30 Grand World Phú Quốc 193144.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/2023-07-30_Grand_World_Ph%C3%BA_Qu%E1%BB%91c_193144.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/2023-07-30_Grand_World_Ph%C3%BA_Qu%E1%BB%91c_193144.jpg/1920px-2023-07-30_Grand_World_Ph%C3%BA_Qu%E1%BB%91c_193144.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:2023-07-30_Grand_World_Ph%C3%BA_Qu%E1%BB%91c_193144.jpg",
+          "author": "松岡明芳",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Grand World Phú Quốc グランドワールド・フーコック",
+          "width": 3264,
+          "height": 1836
+        }
+      ],
+      "checkedAt": "2026-10-05T10:43:27.420Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Địa chất",
+      "province": "Hà Nội",
+      "latitude": 21.023547,
+      "longitude": 105.85877,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_%C4%90%E1%BB%8Ba_ch%E1%BA%A5t",
+      "fileTitle": "File:Vietnam-Geological Museum-Hanoi2020.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_%C4%90%E1%BB%8Ba_ch%E1%BA%A5t",
+      "photos": [
+        {
+          "fileTitle": "File:Vietnam-Geological Museum-Hanoi2020.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/31/Vietnam-Geological_Museum-Hanoi2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/Vietnam-Geological_Museum-Hanoi2020.jpg/1920px-Vietnam-Geological_Museum-Hanoi2020.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Vietnam-Geological_Museum-Hanoi2020.jpg",
+          "author": "BacLuong",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Front view of Geological Museum of Vietnam, Hanoi",
+          "width": 2450,
+          "height": 1762
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:37.688Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Cam Ly",
+      "province": "Lâm Đồng",
+      "latitude": 11.946721,
+      "longitude": 108.422635,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Cam_Ly",
+      "fileTitle": "File:Thác Cam Ly.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_Cam_Ly",
+      "photos": [
+        {
+          "fileTitle": "File:Thác Cam Ly.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Th%C3%A1c_Cam_Ly.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/5/56/Th%C3%A1c_Cam_Ly.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1c_Cam_Ly.jpg",
+          "author": "Ian Armstrong from Travelling the world at moment, Australia",
+          "credit": "100_8279",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Cam Ly waterfall, Da Lat, Vietnam.",
+          "width": 800,
+          "height": 600
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:38.483Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Hội An",
+      "province": "Đà Nẵng",
+      "latitude": 15.879,
+      "longitude": 108.329,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_H%E1%BB%99i_An",
+      "fileTitle": "File:Hoi An Museum main building.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_H%E1%BB%99i_An",
+      "photos": [
+        {
+          "fileTitle": "File:Hoi An Museum main building.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Hoi_An_Museum_main_building.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Hoi_An_Museum_main_building.jpg/1920px-Hoi_An_Museum_main_building.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Hoi_An_Museum_main_building.jpg",
+          "author": "Mztourist",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Hoi An Museum main building",
+          "width": 3024,
+          "height": 3024
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:39.302Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Tháp Nhạn",
+      "province": "Đắk Lắk",
+      "latitude": 13.07777778,
+      "longitude": 109.29722222,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Nh%E1%BA%A1n",
+      "fileTitle": "File:Tháp Nhạn, Tuy Hòa, Phú Yên.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1p_Nh%E1%BA%A1n",
+      "photos": [
+        {
+          "fileTitle": "File:Tháp Nhạn, Tuy Hòa, Phú Yên.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/1/14/Th%C3%A1p_Nh%E1%BA%A1n%2C_Tuy_H%C3%B2a%2C_Ph%C3%BA_Y%C3%AAn.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/14/Th%C3%A1p_Nh%E1%BA%A1n%2C_Tuy_H%C3%B2a%2C_Ph%C3%BA_Y%C3%AAn.JPG/1920px-Th%C3%A1p_Nh%E1%BA%A1n%2C_Tuy_H%C3%B2a%2C_Ph%C3%BA_Y%C3%AAn.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1p_Nh%E1%BA%A1n,_Tuy_H%C3%B2a,_Ph%C3%BA_Y%C3%AAn.JPG",
+          "author": "Original uploader was Dongson*vmvn at vi.wikipedia",
+          "credit": "Transferred from vi.wikipedia ; transferred to Commons by User:Phó Nháy using CommonsHelper .",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "The Cham tower Nhan in Tuy Hoa, Phu Yen, Vietnam",
+          "width": 2448,
+          "height": 3264
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:40.085Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Đray Nur",
+      "province": "Đắk Lắk",
+      "latitude": 12.541851,
+      "longitude": 107.889689,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90ray_Nur",
+      "fileTitle": "File:Draynur falls.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90ray_Nur",
+      "photos": [
+        {
+          "fileTitle": "File:Draynur falls.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Draynur_falls.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9b/Draynur_falls.jpg/1920px-Draynur_falls.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Draynur_falls.jpg",
+          "author": "Y Kpia Mlo",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Thác Dray Nur",
+          "width": 2048,
+          "height": 1536
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:40.856Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Bobla",
+      "province": "Lâm Đồng",
+      "latitude": 11.574942,
+      "longitude": 108.018412,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Bobla",
+      "fileTitle": "File:Bobla.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_Bobla",
+      "photos": [
+        {
+          "fileTitle": "File:Bobla.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/67/Bobla.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Bobla.jpg/1920px-Bobla.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Bobla.jpg",
+          "author": "Weldon Kennedy",
+          "credit": "Flickr : Bobla",
+          "license": "CC BY 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+          "description": "Bobla Waterfall in the central highlands of Viet Name, with super tacky sign and elephants.",
+          "width": 2560,
+          "height": 1920
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:41.660Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Bảo tàng Lịch sử quốc gia (Việt Nam)",
+      "province": "Hà Nội",
+      "latitude": 21.02472222,
+      "longitude": 105.85972222,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_L%E1%BB%8Bch_s%E1%BB%AD_qu%E1%BB%91c_gia_(Vi%E1%BB%87t_Nam)",
+      "fileTitle": "File:4G4A7248A HDR.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_L%E1%BB%8Bch_s%E1%BB%AD_qu%E1%BB%91c_gia_(Vi%E1%BB%87t_Nam)",
+      "photos": [
+        {
+          "fileTitle": "File:4G4A7248A HDR.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/4/47/4G4A7248A_HDR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/47/4G4A7248A_HDR.jpg/1920px-4G4A7248A_HDR.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:4G4A7248A_HDR.jpg",
+          "author": "Khoitran1957",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Bên ngoài",
+          "width": 2800,
+          "height": 1865
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:42.424Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Thác Đamb'ri",
+      "province": "Lâm Đồng",
+      "latitude": 11.64416667,
+      "longitude": 107.74333333,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90amb%27ri",
+      "fileTitle": "File:Dam Bri waterfall.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90amb%27ri",
+      "photos": [
+        {
+          "fileTitle": "File:Dam Bri waterfall.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Dam_Bri_waterfall.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/6/61/Dam_Bri_waterfall.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Dam_Bri_waterfall.jpg",
+          "author": "Teijo Hakala",
+          "credit": "Flickr : Dam Bri waterfall",
+          "license": "CC BY-SA 2.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+          "description": "Dambri Waterfall",
+          "width": 768,
+          "height": 776
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:43.423Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Mẫu Âu Cơ",
+      "province": "Phú Thọ",
+      "latitude": 21.60333333,
+      "longitude": 104.915,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_M%E1%BA%ABu_%C3%82u_C%C6%A1",
+      "fileTitle": "File:AuCo3 DenChinh.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_M%E1%BA%ABu_%C3%82u_C%C6%A1",
+      "photos": [
+        {
+          "fileTitle": "File:AuCo3 DenChinh.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/da/AuCo3_DenChinh.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/da/AuCo3_DenChinh.JPG/1920px-AuCo3_DenChinh.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:AuCo3_DenChinh.JPG",
+          "author": "Bùi Thế Tâm",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Đền Mẫu Âu Cơ dưới bóng cây đa cổ thụ, huyện Hạ Hòa, Phú Thọ. Ngay dưới gốc đa là Miếu Cô",
+          "width": 3648,
+          "height": 2736
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:44.225Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Văn miếu Trấn Biên",
+      "province": "Đồng Nai",
+      "latitude": 10.9648,
+      "longitude": 106.8015,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn",
+      "fileTitle": "File:Nhà thờ chính Văn miếu Trấn Biên.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn",
+      "photos": [
+        {
+          "fileTitle": "File:Nhà thờ chính Văn miếu Trấn Biên.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/8/85/Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/85/Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn.jpg/1920px-Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Nh%C3%A0_th%E1%BB%9D_ch%C3%ADnh_V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn.jpg",
+          "author": "Bùi Thụy Đào Nguyên",
+          "credit": "tự tạo",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "From Tinh Quang Lake, look at the main shrine in Tran Bien Temple of Literature, City. Bien Hoa, Dong Nai province, Vietnam.",
+          "width": 3214,
+          "height": 2410
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:45.740Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Công viên Thủ Lệ",
+      "province": "Hà Nội",
+      "latitude": 21.031087,
+      "longitude": 105.807758,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87",
+      "fileTitle": "File:Công viên Thủ Lệ.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87",
+      "photos": [
+        {
+          "fileTitle": "File:Công viên Thủ Lệ.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/5/53/C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87.JPG/1920px-C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87.JPG",
+          "author": "Nguyễn Thanh Quang",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Công viên Thủ Lệ, nhìn từ phía đường Kim Mã qua hồ Thủ Lệ.",
+          "width": 4000,
+          "height": 3000
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:47.602Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền thờ Trần Hưng Đạo (Thành phố Hồ Chí Minh)",
+      "province": "Hồ Chí Minh",
+      "latitude": 10.7906855,
+      "longitude": 106.6944488,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o_(Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh)",
+      "fileTitle": "File:Tran Hung Dao Temple (9981911814).jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o_(Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh)",
+      "photos": [
+        {
+          "fileTitle": "File:Tran Hung Dao Temple (9981911814).jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Tran_Hung_Dao_Temple_%289981911814%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Tran_Hung_Dao_Temple_%289981911814%29.jpg/1920px-Tran_Hung_Dao_Temple_%289981911814%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Tran_Hung_Dao_Temple_(9981911814).jpg",
+          "author": "Gary Todd from Xinzheng, China",
+          "credit": "Tran Hung Dao Temple",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "description": "Great general who defeated three Mongol invasions; Ho Chi Minh City. Complete indexed photo collection at WorldHistoryPics.com.",
+          "width": 4752,
+          "height": 3168
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:49.196Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đàn Xã Tắc (Huế)",
+      "province": "Huế",
+      "latitude": 16.465009,
+      "longitude": 107.57124,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_X%C3%A3_T%E1%BA%AFc_(Hu%E1%BA%BF)",
+      "fileTitle": "File:Đàn xã tắc triều Nguyễn (1914).jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_X%C3%A3_T%E1%BA%AFc_(Hu%E1%BA%BF)",
+      "photos": [
+        {
+          "fileTitle": "File:Đàn xã tắc triều Nguyễn (1914).jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/e/ee/%C4%90%C3%A0n_x%C3%A3_t%E1%BA%AFc_tri%E1%BB%81u_Nguy%E1%BB%85n_%281914%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/%C4%90%C3%A0n_x%C3%A3_t%E1%BA%AFc_tri%E1%BB%81u_Nguy%E1%BB%85n_%281914%29.jpg/1920px-%C4%90%C3%A0n_x%C3%A3_t%E1%BA%AFc_tri%E1%BB%81u_Nguy%E1%BB%85n_%281914%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:%C4%90%C3%A0n_x%C3%A3_t%E1%BA%AFc_tri%E1%BB%81u_Nguy%E1%BB%85n_(1914).jpg",
+          "author": "Không rõ",
+          "credit": "Ảnh trong bài Đàn Xã Tắc, tập Quần thể di tích Huế, tác giả Phan Thuận An, NXB Trẻ năm 2007, trang 221.",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "vi:Đàn Xã Tắc (Huế) vào năm 1914",
+          "width": 2048,
+          "height": 1536
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:49.955Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Công viên Văn hóa Đầm Sen",
+      "province": "Hồ Chí Minh",
+      "latitude": 10.765879,
+      "longitude": 106.638622,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_V%C4%83n_h%C3%B3a_%C4%90%E1%BA%A7m_Sen",
+      "fileTitle": "File:Dam-sen-tuonglamphotos.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_V%C4%83n_h%C3%B3a_%C4%90%E1%BA%A7m_Sen",
+      "photos": [
+        {
+          "fileTitle": "File:Dam-sen-tuonglamphotos.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/3/36/Dam-sen-tuonglamphotos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Dam-sen-tuonglamphotos.jpg/1920px-Dam-sen-tuonglamphotos.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Dam-sen-tuonglamphotos.jpg",
+          "author": "tuonglamphotos.com",
+          "credit": "Own work",
+          "license": "CC BY-SA 4.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+          "description": "Dam Sen theme park",
+          "width": 4000,
+          "height": 2250
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:50.688Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Cửu Đỉnh (nhà Nguyễn)",
+      "province": "Huế",
+      "latitude": 16.467,
+      "longitude": 107.576,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/C%E1%BB%ADu_%C4%90%E1%BB%89nh_(nh%C3%A0_Nguy%E1%BB%85n)",
+      "fileTitle": "File:Cửu Đỉnh triều Nguyễn.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/C%E1%BB%ADu_%C4%90%E1%BB%89nh_(nh%C3%A0_Nguy%E1%BB%85n)",
+      "photos": [
+        {
+          "fileTitle": "File:Cửu Đỉnh triều Nguyễn.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/C%E1%BB%ADu_%C4%90%E1%BB%89nh_tri%E1%BB%81u_Nguy%E1%BB%85n.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9b/C%E1%BB%ADu_%C4%90%E1%BB%89nh_tri%E1%BB%81u_Nguy%E1%BB%85n.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:C%E1%BB%ADu_%C4%90%E1%BB%89nh_tri%E1%BB%81u_Nguy%E1%BB%85n.JPG",
+          "author": "LÊ TẤN LỘC at Vietnamese Wikipedia",
+          "credit": "Transferred from vi.wikipedia to Commons.",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Thể loại:Huế Thể loại:Nhà Nguyễn Thể Loại:Di tích cố đô Huế",
+          "width": 1024,
+          "height": 768
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:51.459Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Đền Trần (Nam Định)",
+      "province": "Ninh Bình",
+      "latitude": 20.456854,
+      "longitude": 106.167306,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_(Nam_%C4%90%E1%BB%8Bnh)",
+      "fileTitle": "File:Tam quan Den Tran.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_(Nam_%C4%90%E1%BB%8Bnh)",
+      "photos": [
+        {
+          "fileTitle": "File:Tam quan Den Tran.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Tam_quan_Den_Tran.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Tam_quan_Den_Tran.jpg/1920px-Tam_quan_Den_Tran.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Tam_quan_Den_Tran.jpg",
+          "author": "Hoangvantoanajc",
+          "credit": "Own work",
+          "license": "CC0",
+          "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "description": "Cổng Tam quan Đền Trần (Nam Định), Ninh Bình",
+          "width": 2288,
+          "height": 1520
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:52.244Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Điện Thái Hòa (Hoàng thành Huế)",
+      "province": "Huế",
+      "latitude": 16.468,
+      "longitude": 107.576,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90i%E1%BB%87n_Th%C3%A1i_H%C3%B2a_(Ho%C3%A0ng_th%C3%A0nh_Hu%E1%BA%BF)",
+      "fileTitle": "File:Dien Thai Hoa.jpg",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90i%E1%BB%87n_Th%C3%A1i_H%C3%B2a_(Ho%C3%A0ng_th%C3%A0nh_Hu%E1%BA%BF)",
+      "photos": [
+        {
+          "fileTitle": "File:Dien Thai Hoa.jpg",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Dien_Thai_Hoa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Dien_Thai_Hoa.jpg/1920px-Dien_Thai_Hoa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Dien_Thai_Hoa.jpg",
+          "author": "Lưu Ly",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Điện Thái Hoà (Palace of Supreme Harmony) tại Đại Nội, Huế (Great Enclosure, Hue)",
+          "width": 2067,
+          "height": 1378
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:53.024Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Khu du lịch Văn hóa Suối Tiên",
+      "province": "Hồ Chí Minh",
+      "latitude": 10.861318,
+      "longitude": 106.802985,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_du_l%E1%BB%8Bch_V%C4%83n_h%C3%B3a_Su%E1%BB%91i_Ti%C3%AAn",
+      "fileTitle": "File:SuoiTien1.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Khu_du_l%E1%BB%8Bch_V%C4%83n_h%C3%B3a_Su%E1%BB%91i_Ti%C3%AAn",
+      "photos": [
+        {
+          "fileTitle": "File:SuoiTien1.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2e/SuoiTien1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2e/SuoiTien1.JPG/1920px-SuoiTien1.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:SuoiTien1.JPG",
+          "author": "MyName ( Genghiskhanviet )",
+          "credit": "Own work",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Suoi Tien Park in Saigon",
+          "width": 2592,
+          "height": 1944
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:53.794Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Động Hoa Lư",
+      "province": "Ninh Bình",
+      "latitude": 20.401667,
+      "longitude": 105.820833,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Hoa_L%C6%B0",
+      "fileTitle": "File:Donghoalugv7.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Hoa_L%C6%B0",
+      "photos": [
+        {
+          "fileTitle": "File:Donghoalugv7.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f5/Donghoalugv7.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Donghoalugv7.JPG/1920px-Donghoalugv7.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Donghoalugv7.JPG",
+          "author": "Kien1980v at Vietnamese Wikipedia",
+          "credit": "Transferred from vi.wikipedia to Commons.",
+          "license": "Public domain",
+          "licenseUrl": "",
+          "description": "Khu di tích động Hoa Lư , châu Đại Hoàng, Ninh Bình",
+          "width": 3648,
+          "height": 2736
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:54.552Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Vương cung thánh đường Đức Mẹ La Vang",
+      "province": "Quảng Trị",
+      "latitude": 16.70565833,
+      "longitude": 107.19580556,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/V%C6%B0%C6%A1ng_cung_th%C3%A1nh_%C4%91%C6%B0%E1%BB%9Dng_%C4%90%E1%BB%A9c_M%E1%BA%B9_La_Vang",
+      "fileTitle": "File:Tháp chuông La Vang.JPG",
+      "existingLandmark": true,
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%C6%A1ng_cung_th%C3%A1nh_%C4%91%C6%B0%E1%BB%9Dng_%C4%90%E1%BB%A9c_M%E1%BA%B9_La_Vang",
+      "photos": [
+        {
+          "fileTitle": "File:Tháp chuông La Vang.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Th%C3%A1p_chu%C3%B4ng_La_Vang.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b5/Th%C3%A1p_chu%C3%B4ng_La_Vang.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Th%C3%A1p_chu%C3%B4ng_La_Vang.JPG",
+          "author": "Hoangvantoanajc",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "The remains of the Bell Tower of the Church of La Vang after the war",
+          "width": 1520,
+          "height": 2288
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:55.317Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    },
+    {
+      "name": "Chùa Hương Tích",
+      "province": "Hà Tĩnh",
+      "latitude": 18.52833333,
+      "longitude": 105.785,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_H%C6%B0%C6%A1ng_T%C3%ADch",
+      "fileTitle": "File:Chùa_Hương_Tích,_Hà_Tĩnh.JPG",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_H%C6%B0%C6%A1ng_T%C3%ADch",
+      "photos": [
+        {
+          "fileTitle": "File:Chùa Hương Tích, Hà Tĩnh.JPG",
+          "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Ch%C3%B9a_H%C6%B0%C6%A1ng_T%C3%ADch%2C_H%C3%A0_T%C4%A9nh.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "downloadUrl": "https://upload.wikimedia.org/wikipedia/commons/f/f9/Ch%C3%B9a_H%C6%B0%C6%A1ng_T%C3%ADch%2C_H%C3%A0_T%C4%A9nh.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+          "sourcePage": "https://commons.wikimedia.org/wiki/File:Ch%C3%B9a_H%C6%B0%C6%A1ng_T%C3%ADch,_H%C3%A0_T%C4%A9nh.JPG",
+          "author": "Dongson.vmvn ( thảo luận )",
+          "credit": "Own work",
+          "license": "CC BY-SA 3.0",
+          "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+          "description": "Chùa Hương Tích, Hà Tĩnh",
+          "width": 1024,
+          "height": 768
+        }
+      ],
+      "checkedAt": "2026-10-05T10:45:56.289Z",
+      "offerKind": "REAL_PLACE_WITH_SIMULATED_HOST_TEST_OFFER",
+      "operatorVerification": "not_claimed",
+      "durationMinutes": 120
+    }
+  ],
+  "rejected": [
+    {
+      "name": "Rừng tràm Trà Sư",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Miếu Bà Chúa Xứ Núi Sam",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Phú Quốc",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Tràm Chim",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Chùa Vĩnh Tràng",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Gò Tháp",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ngã ba Đồng Lộc",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Chùa Hương Tích (Hà Tĩnh)",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Khu lưu niệm Nguyễn Du",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đồ Sơn",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Sìn Hồ",
+      "province": "Lai Châu",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ải Chi Lăng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đền Kỳ Cùng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Động Tiên Sơn (Lai Châu)",
+      "province": "Lai Châu",
+      "latitude": 22.316389,
+      "longitude": 103.652778,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ti%C3%AAn_S%C6%A1n_(Lai_Ch%C3%A2u)",
+      "fileTitle": "File:Vietnam_relief_location_map.svg",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Rừng tràm Trà Sư",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Miếu Bà Chúa Xứ Núi Sam",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Phú Quốc",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Tràm Chim",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Chùa Vĩnh Tràng",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Gò Tháp",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ngã ba Đồng Lộc",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Chùa Hương Tích (Hà Tĩnh)",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Khu lưu niệm Nguyễn Du",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đồ Sơn",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Sìn Hồ",
+      "province": "Lai Châu",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ải Chi Lăng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đền Kỳ Cùng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Động Tiên Sơn (Lai Châu)",
+      "province": "Lai Châu",
+      "latitude": 22.316389,
+      "longitude": 103.652778,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ti%C3%AAn_S%C6%A1n_(Lai_Ch%C3%A2u)",
+      "fileTitle": "File:Vietnam_relief_location_map.svg",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Rừng tràm Trà Sư",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Miếu Bà Chúa Xứ Núi Sam",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Phú Quốc",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Tràm Chim",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Chùa Vĩnh Tràng",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Gò Tháp",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ngã ba Đồng Lộc",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Khu lưu niệm Nguyễn Du",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đồ Sơn",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Sìn Hồ",
+      "province": "Lai Châu",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ải Chi Lăng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đền Kỳ Cùng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Khu bảo tồn thiên nhiên Đồng Sơn – Kỳ Thượng",
+      "province": "Quảng Ninh",
+      "latitude": 21.18361111,
+      "longitude": 107.12305556,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_b%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_%C4%90%E1%BB%93ng_S%C6%A1n_%E2%80%93_K%E1%BB%B3_Th%C6%B0%E1%BB%A3ng",
+      "fileTitle": "File:Đồng Sơn - Kỳ Thượng.jpg",
+      "existingLandmark": true,
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Chùa Thánh Duyên",
+      "province": "Huế",
+      "latitude": 16.343,
+      "longitude": 107.89,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Th%C3%A1nh_Duy%C3%AAn",
+      "fileTitle": "File:Chua thanh duyen.jpg",
+      "existingLandmark": true,
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Động Tiên Sơn (Lai Châu)",
+      "province": "Lai Châu",
+      "latitude": 22.316389,
+      "longitude": 103.652778,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ti%C3%AAn_S%C6%A1n_(Lai_Ch%C3%A2u)",
+      "fileTitle": "File:Vietnam_relief_location_map.svg",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Thác H'Ly",
+      "reason": "Illustration or map is not a photograph of the place"
+    },
+    {
+      "name": "Rừng tràm Trà Sư",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Miếu Bà Chúa Xứ Núi Sam",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Phú Quốc",
+      "province": "An Giang",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Tràm Chim",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Chùa Vĩnh Tràng",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Gò Tháp",
+      "province": "Đồng Tháp",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ngã ba Đồng Lộc",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Khu lưu niệm Nguyễn Du",
+      "province": "Hà Tĩnh",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Vườn quốc gia Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Cát Bà",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đồ Sơn",
+      "province": "Hải Phòng",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Sìn Hồ",
+      "province": "Lai Châu",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Ải Chi Lăng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Đền Kỳ Cùng",
+      "province": "Lạng Sơn",
+      "reason": "no property-specific source coordinates or photograph"
+    },
+    {
+      "name": "Thác H'Ly",
+      "province": "Đắk Lắk",
+      "latitude": 12.832465,
+      "longitude": 108.920394,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Th%C3%A1c_H%27Ly",
+      "fileTitle": "File:Map of Phu Yen.png",
+      "existingLandmark": true,
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Khu bảo tồn thiên nhiên Đồng Sơn – Kỳ Thượng",
+      "province": "Quảng Ninh",
+      "latitude": 21.18361111,
+      "longitude": 107.12305556,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Khu_b%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_%C4%90%E1%BB%93ng_S%C6%A1n_%E2%80%93_K%E1%BB%B3_Th%C6%B0%E1%BB%A3ng",
+      "fileTitle": "File:Đồng Sơn - Kỳ Thượng.jpg",
+      "existingLandmark": true,
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Chùa Thánh Duyên",
+      "province": "Huế",
+      "latitude": 16.343,
+      "longitude": 107.89,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Th%C3%A1nh_Duy%C3%AAn",
+      "fileTitle": "File:Chua thanh duyen.jpg",
+      "existingLandmark": true,
+      "reason": "no eligible licensed photograph"
+    },
+    {
+      "name": "Động Tiên Sơn (Lai Châu)",
+      "province": "Lai Châu",
+      "latitude": 22.316389,
+      "longitude": 103.652778,
+      "sourceUrl": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ti%C3%AAn_S%C6%A1n_(Lai_Ch%C3%A2u)",
+      "fileTitle": "File:Vietnam_relief_location_map.svg",
+      "provinceBasis": "reviewed_named_place_in_province_with_2025_mapping",
+      "reason": "no eligible licensed photograph"
+    }
+  ],
+  "startedAt": "2026-10-05T10:37:57.120Z",
+  "completedAt": "2026-10-05T11:09:51.856Z"
+}

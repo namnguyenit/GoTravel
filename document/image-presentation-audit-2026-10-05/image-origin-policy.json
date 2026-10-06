@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-04T17:58:01.195Z",
+  "cloudName": "p1kxfhlw",
+  "constraints": [
+    "owned_image_listings_thumbnail_url",
+    "owned_image_listings_attributes",
+    "owned_image_landmarks_thumbnail_url",
+    "owned_image_landmarks_gallery_urls",
+    "owned_image_complexes_thumbnail_url",
+    "owned_image_complexes_gallery_urls",
+    "owned_image_reviews_images",
+    "owned_image_landmark_suggestions_thumbnail_url",
+    "owned_image_landmark_suggestions_gallery_urls"
+  ],
+  "tests": [
+    {
+      "table": "listings",
+      "field": "thumbnail_url",
+      "rejected": true
+    },
+    {
+      "table": "listings",
+      "field": "thumbnail_url",
+      "rejected": true
+    },
+    {
+      "table": "listings",
+      "field": "thumbnail_url",
+      "rejected": true
+    },
+    {
+      "table": "listings",
+      "field": "thumbnail_url",
+      "rejected": true
+    },
+    {
+      "table": "listings",
+      "field": "attributes",
+      "rejected": true
+    },
+    {
+      "table": "landmarks",
+      "field": "gallery_urls",
+      "rejected": true
+    }
+  ]
+}

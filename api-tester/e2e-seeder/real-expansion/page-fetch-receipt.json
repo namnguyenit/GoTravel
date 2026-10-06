@@ -1,0 +1,181 @@
+{
+  "completedAt": "2026-10-05T15:02:27.886Z",
+  "results": [
+    {
+      "key": "saigonvl-deluxe",
+      "status": "fetched",
+      "bytes": 79027
+    },
+    {
+      "key": "saigonvl-grand",
+      "status": "fetched",
+      "bytes": 79140
+    },
+    {
+      "key": "saigonvl-suite",
+      "status": "fetched",
+      "bytes": 78540
+    },
+    {
+      "key": "saigonvl-restaurant",
+      "status": "fetched",
+      "bytes": 75824
+    },
+    {
+      "key": "saigonvl-spa",
+      "status": "fetched",
+      "bytes": 77792
+    },
+    {
+      "key": "saigonvl-superior",
+      "status": "fetched",
+      "bytes": 79172
+    },
+    {
+      "key": "diamondstar-rooms",
+      "status": "fetched",
+      "bytes": 36556
+    },
+    {
+      "key": "diamondstar-spa",
+      "status": "fetched",
+      "bytes": 30408
+    },
+    {
+      "key": "diamondstar-restaurant",
+      "status": "fetched",
+      "bytes": 35799
+    },
+    {
+      "key": "konklor-double",
+      "status": "fetched",
+      "bytes": 25418
+    },
+    {
+      "key": "konklor-family",
+      "status": "fetched",
+      "bytes": 25298
+    },
+    {
+      "key": "konklor-superior",
+      "status": "fetched",
+      "bytes": 36245
+    },
+    {
+      "key": "konklor-standard",
+      "status": "fetched",
+      "bytes": 25313
+    },
+    {
+      "key": "ninhkieu-rooms",
+      "status": "fetched",
+      "bytes": 93944
+    },
+    {
+      "key": "mekongriverside",
+      "status": "fetched",
+      "bytes": 84108
+    },
+    {
+      "key": "tru-haugiang-rooms",
+      "url": "https://www.hilton.com/en/hotels/vkgvtru-tru-hau-giang-city-centre/rooms/",
+      "status": "failed",
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "key": "tru-viettri-rooms",
+      "url": "https://www.hilton.com/en/hotels/hanvtru-tru-viet-tri-city-centre/rooms/",
+      "status": "failed",
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "key": "miracentral",
+      "url": "https://themiracentralpark.com.vn/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "mekongrustic",
+      "url": "https://www.mekongrustic.com/",
+      "status": "failed",
+      "error": "The operation was aborted due to timeout"
+    },
+    {
+      "key": "saigonphutho",
+      "url": "https://saigonphuthohotel.com/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "saomai",
+      "status": "fetched",
+      "bytes": 143167
+    },
+    {
+      "key": "bong",
+      "url": "https://www.bongbackpacker.com/",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND www.bongbackpacker.com"
+    },
+    {
+      "key": "cocolodge",
+      "status": "fetched",
+      "bytes": 77486
+    },
+    {
+      "key": "lila",
+      "status": "fetched",
+      "bytes": 329042
+    },
+    {
+      "key": "royalpalace",
+      "url": "https://www.royalpalacehotel.vn/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "saigonbanme",
+      "status": "fetched",
+      "bytes": 68049
+    },
+    {
+      "key": "greenbentre",
+      "url": "https://greenhomestaybentre.com/",
+      "status": "failed",
+      "error": "getaddrinfo ENOTFOUND greenhomestaybentre.com"
+    },
+    {
+      "key": "oasisbentre",
+      "url": "https://www.bentrehoteloasis.com/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "babelake",
+      "status": "fetched",
+      "bytes": 67761
+    },
+    {
+      "key": "namcuonghaiduong",
+      "status": "fetched",
+      "bytes": 102223
+    },
+    {
+      "key": "mekonghome",
+      "url": "https://www.mekonghome.com/",
+      "status": "failed",
+      "error": "fetch failed"
+    },
+    {
+      "key": "hoangnham",
+      "status": "fetched",
+      "bytes": 63085
+    },
+    {
+      "key": "cocoisland",
+      "url": "https://cocoisland.vn/",
+      "status": "failed",
+      "error": "HTTP 500"
+    }
+  ]
+}

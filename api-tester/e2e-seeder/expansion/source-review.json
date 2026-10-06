@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-04",
+  "facts": "Name/coordinates from Wikipedia public location pages; province fact checked from each article introduction; ambiguous multi-province places use the primary recorded tourism area.",
+  "administrativeNamesSource": "https://xaydungchinhsach.chinhphu.vn/quoc-hoi-thong-qua-nghi-quyet-sap-xep-don-vi-hanh-chinh-cap-tinh-119250612101356465.htm",
+  "photoLicensing": "Commons imageinfo/extmetadata; only CC BY, CC BY-SA, CC0 and Public domain accepted. Author/source/license and WebP transformation are recorded and included in descriptions.",
+  "googleMaps": "Reference search URLs generated from reviewed names and source coordinates. No Google Places import was performed in this batch; no Google Places records, photos or reviews are represented as imported or verified.",
+  "excludedDuplicateOrOverlappingPlaces": [
+    "Quần thể di tích và danh thắng Yên Tử – Vĩnh Nghiêm – Côn Sơn, Kiếp Bạc",
+    "Quần thể danh thắng Tràng An",
+    "Tháp Po Nagar",
+    "Nhà thờ chính tòa Đức Bà Sài Gòn"
+  ],
+  "replacementPlaces": [
+    "Nhà tù Hỏa Lò",
+    "Đền Ngọc Sơn",
+    "Thiền viện Trúc Lâm Đà Lạt",
+    "Vương cung thánh đường Đức Mẹ La Vang"
+  ],
+  "fictional": [
+    "lodging and service businesses",
+    "supplier map pins",
+    "prices",
+    "amenities",
+    "schedules and inventory",
+    "reviews"
+  ],
+  "existingRealAccountsModified": false,
+  "paymentsCreated": false
+}

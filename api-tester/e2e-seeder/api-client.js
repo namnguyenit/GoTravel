@@ -11,6 +11,42 @@ class ApiClient {
     this.userId = null;
     this.username = null;
     this.password = null;
+    this.cookies = new Map();
+    this.origin = new URL(baseURL).origin;
+    this.client.defaults.maxRedirects = 0;
+    this.client.interceptors.request.use(config => {
+      const target = new URL(config.url, this.baseURL);
+      if (target.origin !== this.origin) throw new Error('Seed client requests must stay on the gateway origin');
+      config.headers.set('Origin', this.origin);
+      const values = [...this.cookies.entries()].filter(([, c]) =>
+        (!c.secure || target.protocol === 'https:') &&
+        (!c.expires || c.expires > Date.now()) && target.pathname.startsWith(c.path));
+      if (values.length) config.headers.set('Cookie', values.map(([name, c]) => name + '=' + c.value).join('; '));
+      if (!['get', 'head', 'options'].includes((config.method || 'get').toLowerCase())) {
+        const csrf = this.cookies.get('csrf_token');
+        if (csrf && (!csrf.expires || csrf.expires > Date.now())) config.headers.set('X-CSRF-Token', decodeURIComponent(csrf.value));
+      }
+      return config;
+    });
+    const receive = response => {
+      for (const raw of response.headers['set-cookie'] || []) {
+        const parts = raw.split(';').map(part => part.trim());
+        const separator = parts[0].indexOf('=');
+        const name = parts[0].slice(0, separator), value = parts[0].slice(separator + 1);
+        if (!['access_token', 'csrf_token'].includes(name)) continue;
+        const attributes = Object.fromEntries(parts.slice(1).map(part => {
+          const i = part.indexOf('='); return i < 0 ? [part.toLowerCase(), true] : [part.slice(0, i).toLowerCase(), part.slice(i + 1)];
+        }));
+        const host = new URL(this.origin).hostname;
+        const domain = String(attributes.domain || host).replace(/^\./, '').toLowerCase();
+        if (host !== domain && !host.endsWith('.' + domain)) continue;
+        const expires = attributes['max-age'] !== undefined ? Date.now() + Number(attributes['max-age']) * 1000 : attributes.expires ? Date.parse(attributes.expires) : null;
+        if (!value || (expires && expires <= Date.now())) this.cookies.delete(name);
+        else this.cookies.set(name, { value, path: attributes.path || '/', secure: !!attributes.secure, expires });
+      }
+      return response;
+    };
+    this.client.interceptors.response.use(receive, error => { if (error.response) receive(error.response); return Promise.reject(error); });
   }
 
   setToken(token) {
@@ -37,8 +73,9 @@ class ApiClient {
     try {
       const res = await this.client.post('/api/v1/auth/login', { username, password });
       const token = res.data?.data?.token;
-      if (!token) throw new Error('No token returned from login');
-      this.setToken(token);
+      if (token) this.setToken(token);
+      else if (!res.data?.data?.authenticated || !this.cookies.has('access_token')) throw new Error('No valid gateway session returned from login');
+      this.userId = res.data?.data?.userId || this.userId;
       this.username = username;
       this.password = password;
       return res.data;
@@ -52,9 +89,6 @@ class ApiClient {
     try {
       const res = await this.client.get('/api/v1/me');
       this.userId = res.data?.data?.id || res.data?.id;
-      if (this.userId) {
-        this.client.defaults.headers.common['X-User-Id'] = this.userId;
-      }
       return res.data;
     } catch (e) {
       // Non-fatal: just log
@@ -88,8 +122,12 @@ class ApiClient {
       form.append('idCard', randomID());
       form.append('bankAccount', '' + Math.floor(100000000 + Math.random() * 899999999));
       form.append('bankName', ['VCB', 'MB', 'TCB', 'ACB', 'BIDV'][Math.floor(Math.random() * 5)]);
-      form.append('frontImage', Buffer.from('fake-front-image'), { filename: 'front.jpg', contentType: 'image/jpeg' });
-      form.append('backImage', Buffer.from('fake-back-image'), { filename: 'back.jpg', contentType: 'image/jpeg' });
+      // An explicit test fixture, never an imitation of a real identity document.
+      const { createRequire } = require('node:module');
+      const sharp = createRequire(require('node:path').resolve(__dirname, '../../cloudinary-service/package.json'))('sharp');
+      const fixture = await sharp(Buffer.from('<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg"><rect width="800" height="500" fill="white"/><text x="40" y="230" font-size="32" fill="black">TEST FIXTURE - NOT AN ID DOCUMENT</text></svg>')).png().toBuffer();
+      form.append('frontImage', fixture, { filename: 'seed-test-front.png', contentType: 'image/png' });
+      form.append('backImage', fixture, { filename: 'seed-test-back.png', contentType: 'image/png' });
       const res = await this.client.post('/api/v1/me/upgrade-host', form, {
         headers: form.getHeaders()
       });

@@ -1,0 +1,76 @@
+{
+  "query": "Đồi A1, Điện Biên Phủ, Vietnam",
+  "count": 2,
+  "results": [
+    {
+      "formatted": "Đồi A1, Mường Thanh, Điện Biên Phủ, Phường Điện Biên Phủ, Việt Nam",
+      "address_line1": "Đồi A1",
+      "address_line2": "Mường Thanh, Điện Biên Phủ, Phường Điện Biên Phủ, Việt Nam",
+      "lon": 103.0176243,
+      "lat": 21.3830926,
+      "place_id": "515a07acc120c1594059f1564c5b12623540f00102f901d00d2a2600000000c00201920309c490e1bb9369204131",
+      "result_type": "amenity",
+      "rank": {
+        "importance": 0.08005471808957043,
+        "popularity": 0.41265346981687034,
+        "confidence": 1,
+        "confidence_city_level": 1,
+        "match_type": "full_match"
+      },
+      "confidence": 1,
+      "city": "Điện Biên Phủ",
+      "county": "Phường Điện Biên Phủ",
+      "state": "Tỉnh Điện Biên",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "timezone": {
+        "name": "Asia/Bangkok",
+        "offset_STD": "+07:00",
+        "offset_DST": "+07:00",
+        "offset_STD_seconds": 25200,
+        "offset_DST_seconds": 25200
+      },
+      "bbox": {
+        "lon1": 103.0158892,
+        "lat1": 21.3818984,
+        "lon2": 103.019825,
+        "lat2": 21.3844319
+      }
+    },
+    {
+      "formatted": "Điện Biên Phủ, Tỉnh Điện Biên, Việt Nam",
+      "address_line1": "Điện Biên Phủ",
+      "address_line2": "Tỉnh Điện Biên, Việt Nam",
+      "lon": 103.0159895,
+      "lat": 21.3923593,
+      "place_id": "5115e5d2f805c15940590dc8b9a871643540f00103f90162768a1900000000c00208920313c49069e1bb876e204269c3aa6e205068e1bba7",
+      "result_type": "city",
+      "rank": {
+        "importance": 0.46557627653651246,
+        "popularity": 0.41023555581794074,
+        "confidence": 0.25,
+        "confidence_city_level": 1,
+        "match_type": "match_by_city_or_disrict"
+      },
+      "confidence": 0.25,
+      "city": "Điện Biên Phủ",
+      "county": "Phường Điện Biên Phủ",
+      "state": "Tỉnh Điện Biên",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "timezone": {
+        "name": "Asia/Bangkok",
+        "offset_STD": "+07:00",
+        "offset_DST": "+07:00",
+        "offset_STD_seconds": 25200,
+        "offset_DST_seconds": 25200
+      },
+      "bbox": {
+        "lon1": 102.8559895,
+        "lat1": 21.2323593,
+        "lon2": 103.1759895,
+        "lat2": 21.5523593
+      }
+    }
+  ]
+}

@@ -160,7 +160,7 @@ test("existing routes are migrated to SQLite and admin access is enforced", asyn
   assert.equal(data.staticRoutes, undefined);
   const page = await fetch(`${baseUrl}/admin/gateway`);
   assert.equal(page.status, 200);
-  assert.match(await page.text(), /Gateway Studio/);
+  assert.match(await page.text(), /<title>Quản trị Gateway · GoTravel<\/title>/);
   assert.match(
     page.headers.get("content-security-policy"),
     /frame-ancestors 'none'/,

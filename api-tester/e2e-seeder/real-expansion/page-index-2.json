@@ -1,0 +1,482 @@
+[
+  {
+    "key": "miracentral-detail-0",
+    "url": "https://themiracentralpark.com.vn/accommodation/classic-room/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "miracentral-detail-1",
+    "url": "https://themiracentralpark.com.vn/accommodation/premier-room/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "miracentral-detail-2",
+    "url": "https://themiracentralpark.com.vn/accommodation/deluxe-room/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "miracentral-detail-3",
+    "url": "https://themiracentralpark.com.vn/accommodation/executive-room/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "miracentral-detail-4",
+    "url": "https://themiracentralpark.com.vn/accommodation/residence-suite/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "miracentral-detail-5",
+    "url": "https://themiracentralpark.com.vn/accommodation/presidential-suite/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "miracentral-detail-6",
+    "url": "https://themiracentralpark.com.vn/park-avenue-restaurant/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "mekongriverside-detail-0",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam",
+    "allowedHosts": [
+      "mekongriversideresort.vn",
+      "www.mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "mekongriverside-detail-1",
+    "url": "https://mekongriversideresort.vn/oasis-spa",
+    "allowedHosts": [
+      "mekongriversideresort.vn",
+      "www.mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "babelake-detail-0",
+    "url": "https://babelakeview-homestay.com/our-rooms",
+    "allowedHosts": [
+      "babelakeview-homestay.com",
+      "www.babelakeview-homestay.com"
+    ]
+  },
+  {
+    "key": "babelake-detail-1",
+    "url": "https://babelakeview-homestay.com/tour/hanoi-ba-be-lake-2-days-1-night",
+    "allowedHosts": [
+      "babelakeview-homestay.com",
+      "www.babelakeview-homestay.com"
+    ]
+  },
+  {
+    "key": "babelake-detail-2",
+    "url": "https://babelakeview-homestay.com/tour/hanoi-ba-be-national-park-3-days-2-nights",
+    "allowedHosts": [
+      "babelakeview-homestay.com",
+      "www.babelakeview-homestay.com"
+    ]
+  },
+  {
+    "key": "lila-detail-0",
+    "url": "https://lilainn.tours/tour/2-day-ha-giang-loop/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "lila-detail-1",
+    "url": "https://lilainn.tours/tour/3-day-ha-giang-loop/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "lila-detail-2",
+    "url": "https://lilainn.tours/tour/4-day-ha-giang-loop/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "lila-detail-3",
+    "url": "https://lilainn.tours/tour/ha-giang-loop-cao-bang-5-day/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "lila-detail-4",
+    "url": "https://lilainn.tours/tour/7-day-ha-giang-loop-cao-bang-ba-be/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "lila-detail-5",
+    "url": "https://lilainn.tours/stay/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "saigonbanme-detail-0",
+    "url": "https://saigonbanmehotel.com.vn/en/accommodations/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn",
+      "www.saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "saigonbanme-detail-1",
+    "url": "https://saigonbanmehotel.com.vn/en/dining/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn",
+      "www.saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "mekongriverside-rooms",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam",
+    "allowedHosts": [
+      "mekongriversideresort.vn",
+      "www.mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "mekongriverside-spa",
+    "url": "https://mekongriversideresort.vn/oasis-spa",
+    "allowedHosts": [
+      "mekongriversideresort.vn",
+      "www.mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "cocolodge-double",
+    "url": "https://www.cocoriversidelodge.com/double-room",
+    "allowedHosts": [
+      "www.cocoriversidelodge.com",
+      "cocoriversidelodge.com"
+    ]
+  },
+  {
+    "key": "cocolodge-family",
+    "url": "https://www.cocoriversidelodge.com/family-bungalows",
+    "allowedHosts": [
+      "www.cocoriversidelodge.com",
+      "cocoriversidelodge.com"
+    ]
+  },
+  {
+    "key": "cocolodge-standard",
+    "url": "https://www.cocoriversidelodge.com/Standard-room",
+    "allowedHosts": [
+      "www.cocoriversidelodge.com",
+      "cocoriversidelodge.com"
+    ]
+  },
+  {
+    "key": "cocolodge-tours",
+    "url": "https://www.cocoriversidelodge.com/tour-packages",
+    "allowedHosts": [
+      "www.cocoriversidelodge.com",
+      "cocoriversidelodge.com"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-0",
+    "url": "https://dongxuyenhotel.vn/phong/standard-twin-double/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-1",
+    "url": "https://dongxuyenhotel.vn/phong/superior-twin-double-2/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-2",
+    "url": "https://dongxuyenhotel.vn/phong/deluxe-double-2/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-3",
+    "url": "https://dongxuyenhotel.vn/phong/deluxe-tripple-2/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-4",
+    "url": "https://dongxuyenhotel.vn/phong/standard-double/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-5",
+    "url": "https://dongxuyenhotel.vn/phong/superior-twin-double/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-6",
+    "url": "https://dongxuyenhotel.vn/phong/deluxe-tripple/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-7",
+    "url": "https://dongxuyenhotel.vn/phong/superior-twin/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-8",
+    "url": "https://dongxuyenhotel.vn/phong/superior-double/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "dongxuyen-detail-9",
+    "url": "https://dongxuyenhotel.vn/phong/superior-tripple/",
+    "allowedHosts": [
+      "dongxuyenhotel.vn",
+      "www.dongxuyenhotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-0",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14453/ph%C3%B2ng-%C4%91%C3%B4i-executive-deluxe-river-view-double",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-1",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14452/ph%C3%B2ng-%C4%91%C3%B4i-executive-superior-river-view-double",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-2",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14457/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-deluxe-river-view-twin",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-3",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14454/ph%C3%B2ng-%C4%91%C3%B4i-premium-deluxe",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-4",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14455/ph%C3%B2ng-%C4%91%C3%B4i-premium-suite",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-5",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14501/ph%C3%B2ng-hai-%C4%91%C6%A1n-superior-city-view-twin-wing-b-3-floor-building",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-6",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14502/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-superior-city-view-twin",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-7",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18896/ph%C3%B2ng-hai-%C4%91%C6%A1n-superior-river-view-twin-wing-b-3-floor-building",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-8",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18897/ph%C3%B2ng-%C4%91%C3%B4i-deluxe-wing-b-3-floor-building",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-9",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18898/ph%C3%B2ng-%C4%91%C3%B4i-deluxe-suite-wing-b-3-floor-building",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-10",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18900/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-superior-river-view-twin",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-11",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14453/ph%C3%B2ng-%C4%91%C3%B4i-executive-deluxe-river-view-double?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-12",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14452/ph%C3%B2ng-%C4%91%C3%B4i-executive-superior-river-view-double?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-13",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14457/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-deluxe-river-view-twin?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-14",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14454/ph%C3%B2ng-%C4%91%C3%B4i-premium-deluxe?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-15",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14455/ph%C3%B2ng-%C4%91%C3%B4i-premium-suite?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-16",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14501/ph%C3%B2ng-hai-%C4%91%C6%A1n-superior-city-view-twin-wing-b-3-floor-building?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-17",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/14502/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-superior-city-view-twin?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-18",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18896/ph%C3%B2ng-hai-%C4%91%C6%A1n-superior-river-view-twin-wing-b-3-floor-building?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-19",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18897/ph%C3%B2ng-%C4%91%C3%B4i-deluxe-wing-b-3-floor-building?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-20",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18898/ph%C3%B2ng-%C4%91%C3%B4i-deluxe-suite-wing-b-3-floor-building?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-detail-21",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation/18900/ph%C3%B2ng-hai-%C4%91%C6%A1n-executive-superior-river-view-twin?lang=vi",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-spa",
+    "url": "https://www.ninhkieuriversidehotel.vn/services/spa-massage",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-cruise",
+    "url": "https://www.ninhkieuriversidehotel.vn/cruise",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  }
+]

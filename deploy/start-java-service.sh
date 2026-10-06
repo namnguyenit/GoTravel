@@ -27,6 +27,12 @@ fi
 set +a
 
 export SERVICE_BIND_HOST=127.0.0.1
+# BCrypt at cost 15 can exceed the Gateway deadline with only the tier-1 compiler.
+# Keep full JIT optimization for Identity; retain the smaller compiler profile elsewhere.
+compiler_level=1
+if [[ "$module" == Identity ]]; then
+  compiler_level=4
+fi
 exec /home/nhan/bin/java -Xms32m -Xmx160m -Xss256k \
-  -XX:+UseSerialGC -XX:+TieredCompilation -XX:TieredStopAtLevel=1 \
+  -XX:+UseSerialGC -XX:+TieredCompilation -XX:TieredStopAtLevel="$compiler_level" \
   -XX:MaxMetaspaceSize=128m -jar "$jar_path"

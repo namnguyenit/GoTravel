@@ -244,6 +244,7 @@ start_node_service media cloudinary-service src/media-server.js
 start_node_service search search-and-recommendation dist/main.js
 
 start_node_service gateway APIGateway server.js
+start_node_service payment-portal payment_portal server.js
 
 start_frontend
 

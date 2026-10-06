@@ -1,0 +1,1086 @@
+{
+  "category": "accommodation",
+  "coordinates": {
+    "lat": 22.386412,
+    "lon": 105.6398778
+  },
+  "radius_meters": 6000,
+  "count": 40,
+  "results": [
+    {
+      "name": "Duy Tho Homestay (real location)",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6396254,
+      "lat": 22.3866764,
+      "formatted": "Duy Tho Homestay (real location), Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 39,
+      "place_id": "5138ac5f9fef685a405990227c39fd623640f00103f901f560ea1e010000009203204475792054686f20486f6d657374617920287265616c206c6f636174696f6e29"
+    },
+    {
+      "name": "Duc khuyen homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6397388,
+      "lat": 22.3868686,
+      "formatted": "Duc khuyen homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 53,
+      "place_id": "51defe017bf1685a40596cd910d209633640f00103f901e136973b01000000920313447563206b687579656e20686f6d6573746179"
+    },
+    {
+      "name": "Great! Hong Vinh Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6394194,
+      "lat": 22.3870855,
+      "formatted": "Great! Hong Vinh Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 88,
+      "place_id": "5163db583fec685a40597d410b0918633640f00103f901ff59c0370100000092031947726561742120486f6e672056696e6820486f6d6573746179"
+    },
+    {
+      "name": "Khanh Toan homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6390215,
+      "lat": 22.3880608,
+      "formatted": "Khanh Toan homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 203,
+      "place_id": "5137fc6ebae5685a40590fdcdcf357633640f00103f9012a86973b010000009203134b68616e6820546f616e20686f6d6573746179"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6386401,
+      "lat": 22.3883871,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 253,
+      "place_id": "5182dab97adf685a405933b044566d633640f00103f90154c6c01e01000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Lủng Quang",
+      "postcode": "23000",
+      "street": "Pác Ngòi - Quảng Khê",
+      "lon": 105.6418058,
+      "lat": 22.3848618,
+      "formatted": "Pác Ngòi - Quảng Khê, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 262,
+      "place_id": "518558a25813695a4059cd7a8c4d86623640f00103f901bb2b860b03000000"
+    },
+    {
+      "name": "Nha Nghi Hoang Chuyen Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6383904,
+      "lat": 22.388607,
+      "formatted": "Nha Nghi Hoang Chuyen Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 287,
+      "place_id": "5125856863db685a405926ff93bf7b633640f00103f901e5dcbf0a0100000092031e4e6861204e67686920486f616e672043687579656e20486f6d6573746179"
+    },
+    {
+      "name": "Tran Xuan homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6379679,
+      "lat": 22.388866,
+      "formatted": "Tran Xuan homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 335,
+      "place_id": "5176995077d4685a4059be86e0b88c633640f00103f901e86f384a010000009203125472616e205875616e20686f6d6573746179"
+    },
+    {
+      "name": "Lake View Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6373093,
+      "lat": 22.3885174,
+      "formatted": "Lake View Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 353,
+      "place_id": "51f23bf2acc9685a40594ded56e075633640f00103f90102b5d9a5010000009203124c616b65205669657720486f6d6573746179"
+    },
+    {
+      "name": "Duy Tuyên Ba Bể Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6374581,
+      "lat": 22.3886939,
+      "formatted": "Duy Tuyên Ba Bể Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 355,
+      "place_id": "5180040f1dcc685a40599aa7847181633640f00103f901716e63d90200000092031b44757920547579c3aa6e2042612042e1bb8320486f6d6573746179"
+    },
+    {
+      "name": "Nhà nghỉ Hoàng Quân Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6368012,
+      "lat": 22.3889845,
+      "formatted": "Nhà nghỉ Hoàng Quân Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 426,
+      "place_id": "516d03d259c1685a4059a226fa7c94633640f00103f90135fb772d030000009203214e68c3a0206e6768e1bb8920486fc3a06e67205175c3a26e20486f6d6573746179"
+    },
+    {
+      "name": "Hoa Sơn",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6363597,
+      "lat": 22.3889116,
+      "formatted": "Hoa Sơn, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Hoa Son",
+        "vi": "Hoa Sơn"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 456,
+      "place_id": "5183ff081eba685a4059f808ebb58f633640f00103f9011188e43101000000920308486f612053c6a16e"
+    },
+    {
+      "name": "Nhà nghỉ Huyen Hao",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6365122,
+      "lat": 22.3891807,
+      "formatted": "Nhà nghỉ Huyen Hao, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 463,
+      "place_id": "5152a0aa9dbc685a405901bcaa58a1633640f00103f90195488612010000009203154e68c3a0206e6768e1bb8920487579656e2048616f"
+    },
+    {
+      "name": "Minh Quang Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6363154,
+      "lat": 22.3891602,
+      "formatted": "Minh Quang Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hostel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Minh Quang Homestay"
+      },
+      "distance": 477,
+      "place_id": "513c3c3a64b9685a4059a2e7bb00a0633640f00103f90190c4f11901000000"
+    },
+    {
+      "name": "Hoanh Tu Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.635997,
+      "lat": 22.3891175,
+      "formatted": "Hoanh Tu Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "operator": "Nha Nghi Hoanh Tu",
+      "contact": {
+        "email": "hoanhtubbe@gmail.com"
+      },
+      "facilities": {
+        "internet_access": true,
+        "smoking": true
+      },
+      "accommodation": {
+        "rooms": 7
+      },
+      "distance": 499,
+      "place_id": "51aad6c22cb4685a405921cd58349d633640f00103f90172e6f86401000000920311486f616e6820547520486f6d6573746179"
+    },
+    {
+      "name": "Đạt Diễm",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6350921,
+      "lat": 22.3898172,
+      "formatted": "Đạt Diễm, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "operator": "Ma Thế Mạnh",
+      "distance": 621,
+      "place_id": "51abdc5559a5685a4059156b5d0fcb633640f00103f901fe0719ee0000000092030dc490e1baa174204469e1bb856d"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6347946,
+      "lat": 22.3899292,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 652,
+      "place_id": "515bab8779a0685a405965c16966d2633640f00103f901acdd610b03000000"
+    },
+    {
+      "name": "Duy Linh Guesthouse",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bó Lù",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6173099,
+      "lat": 22.3966474,
+      "formatted": "Duy Linh Guesthouse, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2586,
+      "place_id": "51cfff610182675a40591e0b1baf8a653640f00103f901dda6c41401000000920313447579204c696e68204775657374686f757365"
+    },
+    {
+      "name": "Hong Gâm Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bó Lù",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6174777,
+      "lat": 22.3971662,
+      "formatted": "Hong Gâm Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2596,
+      "place_id": "5198e02fc184675a40599c1320afac653640f00103f901b4153caa02000000920312486f6e672047c3a26d20486f6d6573746179"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bó Lù",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6172959,
+      "lat": 22.3970063,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2605,
+      "place_id": "511d9da9c681675a405954ce7234a2653640f00103f901b08d610b03000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bó Lù",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6174064,
+      "lat": 22.3972918,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2609,
+      "place_id": "51d415229683675a40590ff857eab4653640f00103f90158df610b03000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bó Lù",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6172901,
+      "lat": 22.3974496,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2628,
+      "place_id": "5141e955ae81675a4059eccec941bf653640f00103f9011e05620b03000000"
+    },
+    {
+      "name": "Chi Hoà Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6177296,
+      "lat": 22.3988659,
+      "formatted": "Chi Hoà Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "opening_hours": "Mo-Su 07:00-22:00",
+      "name_international": {
+        "en": "Chi Hoà Homestay"
+      },
+      "contact": {
+        "phone": "0977332984"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 2665,
+      "place_id": "515b71bbe188675a405957fd5b131c663640f00103f901c235323601000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6179672,
+      "lat": 22.3995342,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2684,
+      "place_id": "510b804cc68c675a40592fa292df47663640f00103f901b0ea610b03000000"
+    },
+    {
+      "name": "Thuy Tien",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bó Lù",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6149434,
+      "lat": 22.3947637,
+      "formatted": "Thuy Tien, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2729,
+      "place_id": "5107f98f3b5b675a4059e025dd3b0f653640f00103f9012b86973b0100000092030954687579205469656e"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6183757,
+      "lat": 22.4010066,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2741,
+      "place_id": "510809ac7793675a4059eb7a585ea8663640f00103f901addd610b03000000"
+    },
+    {
+      "name": "Việt Hùng",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6182871,
+      "lat": 22.4010125,
+      "formatted": "Việt Hùng, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Viet Hung",
+        "vi": "Việt Hùng"
+      },
+      "distance": 2749,
+      "place_id": "517a820e0492675a405986c954c1a8663640f00103f9013f27921b0100000092030c5669e1bb87742048c3b96e67"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6187777,
+      "lat": 22.401872,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2766,
+      "place_id": "519f3fc80d9a675a4059992d5915e1663640f00103f9019fa8610b03000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6189763,
+      "lat": 22.4021966,
+      "formatted": "Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 2773,
+      "place_id": "51f15fc54e9d675a4059f98f3b5bf6663640f00103f9015312610b03000000"
+    },
+    {
+      "name": "Son Lam guesthouse",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Pác Ngòi",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6188553,
+      "lat": 22.4021494,
+      "formatted": "Son Lam guesthouse, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.guest_house"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "contact": {
+        "phone": "+84 355 215 588"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 2779,
+      "place_id": "51349d42539b675a4059241b5943f3663640f00103f9018e0bab4e01000000920312536f6e204c616d206775657374686f757365"
+    },
+    {
+      "name": "Mr. Linh Homestay",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.611514,
+      "lat": 22.39882,
+      "formatted": "Mr. Linh Homestay, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hut"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Mr. Linh Homestay"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "distance": 3228,
+      "place_id": "51f4c29d0b23675a4059a0fd481119663640f00103f9011461291701000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Nam Cường",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.608248,
+      "lat": 22.3853904,
+      "formatted": "Quốc lộ 3C, Xã Nam Cường, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 3259,
+      "place_id": "51e0f60489ed665a40593e31fcf1a8623640f00103f9012604620b03000000"
+    },
+    {
+      "name": "Sài Gòn - Ba Bể resort",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bản Vài",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.634681,
+      "lat": 22.4176672,
+      "formatted": "Sài Gòn - Ba Bể, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "website": "https://saigonbaberesort.com",
+      "brand": "Saigon Tourist",
+      "name_international": {
+        "en": "Sài Gòn - Ba Bể",
+        "vi": "Sài Gòn - Ba Bể"
+      },
+      "contact": {
+        "phone": "+84 0209 387 6699",
+        "email": "booking@saigonbaberesort.com",
+        "fax": "+84 0209 387 6866"
+      },
+      "facilities": {
+        "internet_access": true
+      },
+      "accommodation": {
+        "rooms": 54
+      },
+      "distance": 3502,
+      "place_id": "51a3933ca19e685a405927fbaa60ec6a3640f00102f901a53f94590000000092031a53c3a0692047c3b26e202d2042612042e1bb83207265736f7274"
+    },
+    {
+      "name": "Hotel",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bản Vài",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6379081,
+      "lat": 22.4194798,
+      "formatted": "Hotel, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Hotel"
+      },
+      "distance": 3667,
+      "place_id": "519ce7557cd3685a40591082b907636b3640f00102f9016e8cc24f00000000"
+    },
+    {
+      "name": "Kach San Nha Hang An Thao",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bản Vài",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6380932,
+      "lat": 22.4196721,
+      "formatted": "Kach San Nha Hang An Thao, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel",
+        "building",
+        "building.accommodation"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "An Thao Ba Be Hotel",
+        "vi": "Kach San Nha Hang An Thao"
+      },
+      "contact": {
+        "phone": "+84 374285268"
+      },
+      "distance": 3688,
+      "place_id": "51dbade184d6685a4059f68117a06f6b3640f00102f9016d8cc24f000000009203194b6163682053616e204e68612048616e6720416e205468616f"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Nam Cường",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6044822,
+      "lat": 22.3812078,
+      "formatted": "Quốc lộ 3C, Xã Nam Cường, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 3690,
+      "place_id": "51e8001cd6af665a4059e8fa99d596613640f00103f90132fa610b03000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Nam Cường",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6036864,
+      "lat": 22.3778679,
+      "formatted": "Quốc lộ 3C, Xã Nam Cường, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 3845,
+      "place_id": "518f4248cca2665a40594cb560f3bb603640f00103f901af8d610b03000000"
+    },
+    {
+      "name": "Nha nghi hop hong",
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Ba Bể",
+      "village": "Bản Vài",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.6420409,
+      "lat": 22.4213379,
+      "formatted": "Nha nghi hop hong, Quốc lộ 3C, Xã Ba Bể, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.hotel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "name_international": {
+        "en": "Nha nghi hop hong Guest house",
+        "fr": "Gîte Nha nghi hop hong",
+        "vi": "Nha nghi hop hong"
+      },
+      "distance": 3874,
+      "place_id": "51710cb73217695a4059b910f5ccdc6b3640f00103f90175ccbe54010000009203114e6861206e67686920686f7020686f6e67"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Nam Cường",
+      "postcode": "23000",
+      "street": "Quốc lộ 3C",
+      "lon": 105.5965687,
+      "lat": 22.3709602,
+      "formatted": "Quốc lộ 3C, Xã Nam Cường, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 4777,
+      "place_id": "514e147c2e2e665a40591c1e673ff75e3640f00103f9017f8d610b03000000"
+    },
+    {
+      "country": "Việt Nam",
+      "country_code": "vn",
+      "state": "Tỉnh Thái Nguyên",
+      "city": "Xã Đồng Phúc",
+      "village": "Pjạc",
+      "postcode": "23000",
+      "street": "Pác Ngòi-Hoàng Trĩ",
+      "lon": 105.6574853,
+      "lat": 22.3365656,
+      "formatted": "Pác Ngòi-Hoàng Trĩ, Xã Đồng Phúc, Tỉnh Thái Nguyên 23000, Việt Nam",
+      "categories": [
+        "accommodation",
+        "accommodation.motel"
+      ],
+      "datasource": {
+        "sourcename": "openstreetmap",
+        "attribution": "© OpenStreetMap contributors",
+        "license": "Open Database License",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "distance": 5810,
+      "place_id": "517346393d146a5a405968f5c42929563640f00103f9016aa8860b03000000"
+    }
+  ]
+}

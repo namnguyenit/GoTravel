@@ -1,0 +1,42 @@
+{
+  "batchId": "gotravel-province-balance-2026-10-05-v1",
+  "startedAt": "2026-10-05T03:53:00.031Z",
+  "provinces": 34,
+  "targets": {
+    "EXP": 30,
+    "STAY:apartment": 8,
+    "STAY:boutique_hotel": 6,
+    "STAY:bungalow": 6,
+    "STAY:cabin": 6,
+    "STAY:camping": 6,
+    "STAY:farmstay": 6,
+    "STAY:guesthouse": 6,
+    "STAY:homestay": 6,
+    "STAY:hostel": 6,
+    "STAY:hotel": 6,
+    "STAY:resort": 6,
+    "STAY:resort_room": 6,
+    "STAY:villa": 8,
+    "SVC:CATERING": 6,
+    "SVC:CHEF": 6,
+    "SVC:HAIR_STYLING": 6,
+    "SVC:MAKEUP": 6,
+    "SVC:MASSAGE": 6,
+    "SVC:PHOTOGRAPHY": 6,
+    "SVC:PREPARED_MEALS": 6,
+    "SVC:SPA": 6,
+    "SVC:TRAINING": 6,
+    "COMPLEX": 9
+  },
+  "normalization": 263,
+  "added": {
+    "landmarks": 3,
+    "complexes": 226,
+    "listings": 4624,
+    "reviews": 13872,
+    "inventoryConfigs": 4844,
+    "calendars": 888931
+  },
+  "status": "committed",
+  "completedAt": "2026-10-05T03:54:31.975Z"
+}

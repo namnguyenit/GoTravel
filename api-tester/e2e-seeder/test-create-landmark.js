@@ -22,10 +22,9 @@ async function test() {
       longitude: 105.8542,
       radiusMeters: 5000,
       isFeatured: true,
-      thumbnailUrl: 'https://images.unsplash.com/photo-1596484552834-6a58f850e0a1?w=1200',
+      thumbnailUrl: 'https://res.cloudinary.com/p1kxfhlw/image/upload/v1791127916/admin-uploads/seeder/1f3106cead1a33834a8e17dfd904551ef7745bb359568cb0c3816396207c86f3.webp',
       galleryUrls: [
-        'https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200',
-        'https://images.unsplash.com/photo-1562914399-bfb17f539e6a?w=1200'
+        'https://res.cloudinary.com/p1kxfhlw/image/upload/v1791127974/admin-uploads/seeder/d25f854ea3f37b9120abf586b5b7dea539d9fbafe212ee2995efbe728153d089.webp',
       ]
     };
     

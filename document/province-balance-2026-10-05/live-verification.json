@@ -1,0 +1,69 @@
+{
+  "at": "2026-10-05T03:55:59.494Z",
+  "api": [
+    {
+      "path": "/api/v1/catalog/listings/e7506885-f195-5a1a-8a18-1cef50f1fa6a",
+      "status": 200,
+      "seedMarkers": false,
+      "imageReferences": 6,
+      "externalImages": 0,
+      "title": "Bungalow gần Điện Thái Hòa (Hoàng thành Huế) · 060",
+      "description": "Bungalow tại khu vực Huế gần Điện Thái Hòa (Hoàng thành Huế). Không gian 60 m² được bố trí 3 phòng ngủ, tối đa 8 khách, 2 phòng tắm. Tiện nghi gồm Wifi tốc độ cao, Điều hòa nhiệt độ, Khăn tắm sạch, Máy sấy tóc, Chỗ đỗ xe miễn phí, Máy pha cà phê, Bếp nấu đầy đủ dụng cụ, Máy giặt & sấy. Phù hợp chuyến đi lưu trú dài ngày.\n\nNhận phòng từ 14:00, trả phòng trước 11:00. Không hút thuốc trong nhà, không tổ chức tiệc; không nhận thú cưng. Giá niêm yết tính cho một đêm. Chọn ngày, số người và kiểm tra lịch còn phòng trước khi đặt. Địa danh đối chiếu: https://www.google.com/maps/search/?api=1&query=%C4%90i%E1%BB%87n+Th%C3%A1i+H%C3%B2a+%28Ho%C3%A0ng+th%C3%A0nh+Hu%E1%BA%BF%29+Vi%E1%BB%87t+Nam+16.468%2C107.576"
+    },
+    {
+      "path": "/api/v1/recommendations/complexes?limit=100",
+      "status": 200,
+      "seedMarkers": false,
+      "imageReferences": 570,
+      "externalImages": 0
+    },
+    {
+      "path": "/api/v1/recommendations/home/hero-landmarks",
+      "status": 200,
+      "seedMarkers": false,
+      "imageReferences": 6,
+      "externalImages": 0
+    },
+    {
+      "path": "/api/v1/search/listings?category=STAY&limit=100",
+      "status": 200,
+      "seedMarkers": false,
+      "imageReferences": 100,
+      "externalImages": 0
+    }
+  ],
+  "web": [
+    {
+      "url": "http://127.0.0.1:3000/",
+      "status": 200,
+      "imgTags": 368,
+      "externalImages": 0,
+      "seedMarkers": false,
+      "titlePresent": true
+    },
+    {
+      "url": "http://127.0.0.1:3000/place/e7506885-f195-5a1a-8a18-1cef50f1fa6a/detail",
+      "status": 200,
+      "imgTags": 13,
+      "externalImages": 0,
+      "seedMarkers": false,
+      "titlePresent": true
+    },
+    {
+      "url": "https://gostay.nonnet123.io.vn/",
+      "status": 200,
+      "imgTags": 368,
+      "externalImages": 0,
+      "seedMarkers": false,
+      "titlePresent": true
+    },
+    {
+      "url": "https://gostay.nonnet123.io.vn/place/e7506885-f195-5a1a-8a18-1cef50f1fa6a/detail",
+      "status": 200,
+      "imgTags": 13,
+      "externalImages": 0,
+      "seedMarkers": false,
+      "titlePresent": true
+    }
+  ]
+}

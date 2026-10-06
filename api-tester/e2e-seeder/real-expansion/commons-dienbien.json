@@ -1,0 +1,1586 @@
+{
+  "batchcomplete": true,
+  "continue": {
+    "gsroffset": 15,
+    "continue": "gsroffset||"
+  },
+  "query": {
+    "pages": [
+      {
+        "pageid": 3101596,
+        "ns": 6,
+        "title": "File:Điện Biên Phủ, chiến hào.jpg",
+        "index": 1,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 277159,
+            "width": 1280,
+            "height": 960,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/a/a7/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7%2C_chi%E1%BA%BFn_h%C3%A0o.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "thumbattribs": {
+              "src": "https://upload.wikimedia.org/wikipedia/commons/a/a7/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7%2C_chi%E1%BA%BFn_h%C3%A0o.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7%2C_chi%E1%BA%BFn_h%C3%A0o.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7,_chi%E1%BA%BFn_h%C3%A0o.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=3101596",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2007-11-16 09:14:03",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Điện Biên Phủ, chiến hào",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Military trenches|Flickr images reviewed by FlickreviewR|Taken with Sony Ericsson W900|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Weekend dans ce lieu historique. Au programme, beau temps, rencontres, moto, et un peu d'histoire.",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "2007-08-25 11:05",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/34524741@N00/1257044065/\">Dien Bien Phu</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/34524741@N00\">Pilip</a> from Hanoi, Vietnam",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 5914540,
+        "ns": 6,
+        "title": "File:Музей армии.jpg",
+        "index": 3,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 290543,
+            "width": 1200,
+            "height": 900,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/6/64/%D0%9C%D1%83%D0%B7%D0%B5%D0%B9_%D0%B0%D1%80%D0%BC%D0%B8%D0%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "thumbattribs": {
+              "src": "https://upload.wikimedia.org/wikipedia/commons/6/64/%D0%9C%D1%83%D0%B7%D0%B5%D0%B9_%D0%B0%D1%80%D0%BC%D0%B8%D0%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/6/64/%D0%9C%D1%83%D0%B7%D0%B5%D0%B9_%D0%B0%D1%80%D0%BC%D0%B8%D0%B8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:%D0%9C%D1%83%D0%B7%D0%B5%D0%B9_%D0%B0%D1%80%D0%BC%D0%B8%D0%B8.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=5914540",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2009-02-10 12:14:03",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Музей армии",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Taken with Canon PowerShot G9|Self-published work|PD-self|Vietnam Military History Museum in Điện Biên Phủ Street",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Музей Армии (Ханой)",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "2009-02-10",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:%D0%A1%D0%B5%D1%80%D0%B3%D0%B5%D0%B9_%D0%91%D0%B5%D0%BB%D1%8B%D0%B9&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Сергей Белый (page does not exist)\">Сергей Белый</a>",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 16977156,
+        "ns": 6,
+        "title": "File:Binhvam24.jpg",
+        "index": 12,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 285480,
+            "width": 1024,
+            "height": 683,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Binhvam24.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "thumbwidth": 1600,
+            "thumbheight": 1067,
+            "thumbattribs": {
+              "src": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Binhvam24.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1067
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/c/cb/Binhvam24.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Binhvam24.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=16977156",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2011-10-13 22:02:38",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Binhvam24",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "PD-user|M24 Chaffee|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Tăng Thái Bình và xác xe tăng M24 trên đồi A1, Điện Biên Phủ.",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "24 June 2009 (original upload date)",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span><br>Transferred from <a class=\"external text\" data-mw-original-href=\"http://vi.wikipedia.org\" href=\"https://vi.wikipedia.org\">vi.wikipedia</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a href=\"https://vi.wikipedia.org/wiki/User:Th%C3%A1i_Nhi\" class=\"extiw\" title=\"vi:User:Thái Nhi\">Thái Nhi</a> at <a class=\"external text\" data-mw-original-href=\"http://vi.wikipedia.org\" href=\"https://vi.wikipedia.org\">vi.wikipedia</a>",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 18535122,
+        "ns": 6,
+        "title": "File:Pentagon-Papers-Part-V-B-3c.djvu",
+        "index": 6,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 60286973,
+            "width": 2721,
+            "height": 3567,
+            "pagecount": 403,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Pentagon-Papers-Part-V-B-3c.djvu/page1-1920px-Pentagon-Papers-Part-V-B-3c.djvu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 2097,
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7c/Pentagon-Papers-Part-V-B-3c.djvu/page1-1920px-Pentagon-Papers-Part-V-B-3c.djvu.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 2097
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Pentagon-Papers-Part-V-B-3c.djvu?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Pentagon-Papers-Part-V-B-3c.djvu",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=18535122",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2012-02-29 05:26:48",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Pentagon-Papers-Part-V-B-3c",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "PD US Government|DjVu files in English|Pentagon Papers|CC-PD-Mark",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Part V. B. 3. c. of the full release of the pentagon papers",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "1969-01-15",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.archives.gov/research/pentagon-papers/\">https://www.archives.gov/research/pentagon-papers/</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "Pentagon-Department of Defense",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 28868737,
+        "ns": 6,
+        "title": "File:Malvastrum coromandelianum 1.jpg",
+        "index": 7,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 205962,
+            "width": 1000,
+            "height": 1500,
+            "thumburl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Malvastrum_coromandelianum_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+            "thumbwidth": 1600,
+            "thumbheight": 2400,
+            "thumbattribs": {
+              "src": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Malvastrum_coromandelianum_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 2400
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Malvastrum_coromandelianum_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Malvastrum_coromandelianum_1.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=28868737",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2013-10-06 07:53:26",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Malvastrum coromandelianum 1",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Malvastrum coromandelianum|GFDL|Taken with Canon EOS 400D|License migration redundant|Self-published work|Files with coordinates missing SDC location of creation",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "GPSLatitude": {
+                "value": "21.383333",
+                "source": "commons-desc-page"
+              },
+              "GPSLongitude": {
+                "value": "103.016667",
+                "source": "commons-desc-page"
+              },
+              "GPSMapDatum": {
+                "value": "WGS-84",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "<i><a href=\"//commons.wikimedia.org/wiki/Malvastrum_coromandelianum\" title=\"Malvastrum coromandelianum\">Malvastrum coromandelianum</a></i>, Malvengewächse (Malvaceae) - Vietnam/Việt Nam: Điện Biên Phủ, Hügel A1 (Prov. Điện Biên)",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "2011-02-23",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Franz_Xaver\" title=\"User:Franz Xaver\">Franz Xaver</a>",
+                "source": "commons-desc-page"
+              },
+              "Permission": {
+                "value": "GFDL, cc-by-sa",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 3.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 3.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/3.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-3.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 62111582,
+        "ns": 6,
+        "title": "File:Điện Biên Phủ banner A1 hill war relics.jpg",
+        "index": 15,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 805332,
+            "width": 2100,
+            "height": 300,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg/1920px-%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 229,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/c/cd/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg/1920px-%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 229,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/c/cd/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/c/cd/%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:%C4%90i%E1%BB%87n_Bi%C3%AAn_Ph%E1%BB%A7_banner_A1_hill_war_relics.jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=62111582",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2017-09-02 15:55:41",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Điện Biên Phủ banner A1 hill war relics",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Taken with Canon EOS 5D|Taken with Canon EOS 5D Mark II|Taken with Canon EF 16-35mm F2.8L USM II|Self-published work|Taken by Shansov.net|Bunkers in Vietnam|Files with coordinates missing SDC location of creation|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "GPSLatitude": {
+                "value": "21.383400",
+                "source": "commons-desc-page"
+              },
+              "GPSLongitude": {
+                "value": "103.018200",
+                "source": "commons-desc-page"
+              },
+              "GPSMapDatum": {
+                "value": "WGS-84",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "War relics in Điện Biên Phủ city, Vietnam",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "2012-11-09 10:48:55",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a href=\"//commons.wikimedia.org/wiki/User:Shansov.net\" title=\"User:Shansov.net\"><b>[Tycho]</b></a>  <sup><a href=\"//commons.wikimedia.org/wiki/User_talk:Shansov.net\" title=\"User talk:Shansov.net\">talk</a> </sup>, <a rel=\"nofollow\" class=\"external free\" href=\"http://shansov.net\">http://shansov.net</a>",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY 3.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution 3.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by/3.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-3.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522947,
+        "ns": 6,
+        "title": "File:French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 01 (48168868242).jpg",
+        "index": 13,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 7893577,
+            "width": 2736,
+            "height": 3648,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_01_%2848168868242%29.jpg/1920px-French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_01_%2848168868242%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 2133,
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_01_%2848168868242%29.jpg/1920px-French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_01_%2848168868242%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 2133
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_01_%2848168868242%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:French_Trenches_at_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_-_01_(48168868242).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522947",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:22",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 01 (48168868242)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Military trenches|Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 01",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 16:52",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168868242/\">French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 01</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522953,
+        "ns": 6,
+        "title": "File:French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02 (48168793656).jpg",
+        "index": 8,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 7833000,
+            "width": 3648,
+            "height": 2736,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg/1920px-French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/b/b7/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg/1920px-French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/b/b7/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168793656%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:French_Trenches_at_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_-_02_(48168793656).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522953",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:28",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02 (48168793656)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Military trenches|Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 16:56",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168793656/\">French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522955,
+        "ns": 6,
+        "title": "File:French Bunker at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168819887).jpg",
+        "index": 10,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 3938206,
+            "width": 3648,
+            "height": 2736,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg/1920px-French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/5/52/French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/52/French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg/1920px-French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/5/52/French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/French_Bunker_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168819887%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:French_Bunker_at_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_(48168819887).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522955",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:29",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "French Bunker at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168819887)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Bunkers in Vietnam|Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "French Bunker at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 17:02",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168819887/\">French Bunker at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522957,
+        "ns": 6,
+        "title": "File:Monument to Vietminh Assault - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168816427).jpg",
+        "index": 11,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 2746819,
+            "width": 3648,
+            "height": 2736,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg/1920px-Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/2/21/Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/21/Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg/1920px-Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/2/21/Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Monument_to_Vietminh_Assault_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168816427%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Monument_to_Vietminh_Assault_-_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_(48168816427).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522957",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:32",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Monument to Vietminh Assault - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168816427)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Monument to Vietminh Assault - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 17:04",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168816427/\">Monument to Vietminh Assault - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522959,
+        "ns": 6,
+        "title": "File:Crater Left by Vietminh Dynamite Blast - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168795271).jpg",
+        "index": 2,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 6565013,
+            "width": 3648,
+            "height": 2736,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg/1920px-Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/4/46/Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/46/Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg/1920px-Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/4/46/Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168795271%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Crater_Left_by_Vietminh_Dynamite_Blast_-_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_(48168795271).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522959",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:35",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Crater Left by Vietminh Dynamite Blast - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168795271)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Photographs by Adam Jones|Bomb craters|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Crater Left by Vietminh Dynamite Blast - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 17:06",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168795271/\">Crater Left by Vietminh Dynamite Blast - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522963,
+        "ns": 6,
+        "title": "File:French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 04 (48168779161).jpg",
+        "index": 4,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 7475303,
+            "width": 3648,
+            "height": 2736,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg/1920px-French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 1200,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/0/02/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/02/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg/1920px-French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1200,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/0/02/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/0/02/French_Trenches_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_04_%2848168779161%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:French_Trenches_at_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_-_04_(48168779161).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522963",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:40",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 04 (48168779161)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Military trenches|Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 04",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 17:28",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168779161/\">French Trenches at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 04</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80522965,
+        "ns": 6,
+        "title": "File:Mai Van Sinh - Battle Veteran at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02 (48168843187).jpg",
+        "index": 9,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 4322713,
+            "width": 2736,
+            "height": 3648,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Mai_Van_Sinh_-_Battle_Veteran_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168843187%29.jpg/1920px-Mai_Van_Sinh_-_Battle_Veteran_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168843187%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 2133,
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Mai_Van_Sinh_-_Battle_Veteran_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168843187%29.jpg/1920px-Mai_Van_Sinh_-_Battle_Veteran_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168843187%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 2133
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Mai_Van_Sinh_-_Battle_Veteran_at_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_-_02_%2848168843187%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Mai_Van_Sinh_-_Battle_Veteran_at_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_-_02_(48168843187).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80522965",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 03:56:41",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Mai Van Sinh - Battle Veteran at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02 (48168843187)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Personality rights warning|Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Mai Van Sinh - Battle Veteran at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 17:13",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168843187/\">Mai Van Sinh - Battle Veteran at Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam - 02</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "personality",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 80542840,
+        "ns": 6,
+        "title": "File:Adam Jones with Mai Van Sinh - Battle Veteran - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168825947).jpg",
+        "index": 14,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 1852356,
+            "width": 3153,
+            "height": 2491,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg/1920px-Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 1264,
+            "responsiveUrls": {
+              "2": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled"
+            },
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg/1920px-Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 1264,
+              "srcset": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled 2x"
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/f/f4/Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_%28Eliane_2%29_-_Dien_Bien_Phu_-_Vietnam_%2848168825947%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:Adam_Jones_with_Mai_Van_Sinh_-_Battle_Veteran_-_Hill_A1_(Eliane_2)_-_Dien_Bien_Phu_-_Vietnam_(48168825947).jpg",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=80542840",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2019-07-19 15:06:24",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "Adam Jones with Mai Van Sinh - Battle Veteran - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam (48168825947)",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "Personality rights warning|Photographs by Adam Jones|Flickr images reviewed by FlickreviewR 2|Vietnam photographs taken on 2019-07-01|Hill A1 (Eliane 2)",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Adam Jones with Mai Van Sinh - Battle Veteran - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "Taken on 1 July 2019, 17:15",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/photos/adam_jones/48168825947/\">Adam Jones with Mai Van Sinh - Battle Veteran - Hill A1 (Eliane 2) - Dien Bien Phu - Vietnam</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.flickr.com/people/41000732@N04\">Adam Jones</a> from Kelowna, BC, Canada",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "CC BY-SA 2.0",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Creative Commons Attribution-Share Alike 2.0",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "true",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "LicenseUrl": {
+                "value": "https://creativecommons.org/licenses/by-sa/2.0",
+                "source": "commons-desc-page"
+              },
+              "Copyrighted": {
+                "value": "True",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "personality",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "cc-by-sa-2.0",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      },
+      {
+        "pageid": 121739102,
+        "ns": 6,
+        "title": "File:United States operations missions Cambodia, Laos, Vietnam, activity report cumulative through June 30, 1954.pdf",
+        "index": 5,
+        "imagerepository": "local",
+        "imageinfo": [
+          {
+            "size": 8163522,
+            "width": 1233,
+            "height": 1560,
+            "pagecount": 99,
+            "thumburl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/United_States_operations_missions_Cambodia%2C_Laos%2C_Vietnam%2C_activity_report_cumulative_through_June_30%2C_1954.pdf/page1-960px-United_States_operations_missions_Cambodia%2C_Laos%2C_Vietnam%2C_activity_report_cumulative_through_June_30%2C_1954.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+            "thumbwidth": 1600,
+            "thumbheight": 2024,
+            "thumbattribs": {
+              "src": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bb/United_States_operations_missions_Cambodia%2C_Laos%2C_Vietnam%2C_activity_report_cumulative_through_June_30%2C_1954.pdf/page1-960px-United_States_operations_missions_Cambodia%2C_Laos%2C_Vietnam%2C_activity_report_cumulative_through_June_30%2C_1954.pdf.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+              "decoding": "async",
+              "loading": "lazy",
+              "width": 1600,
+              "height": 2024
+            },
+            "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/United_States_operations_missions_Cambodia%2C_Laos%2C_Vietnam%2C_activity_report_cumulative_through_June_30%2C_1954.pdf?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+            "descriptionurl": "https://commons.wikimedia.org/wiki/File:United_States_operations_missions_Cambodia,_Laos,_Vietnam,_activity_report_cumulative_through_June_30,_1954.pdf",
+            "descriptionshorturl": "https://commons.wikimedia.org/w/index.php?curid=121739102",
+            "extmetadata": {
+              "DateTime": {
+                "value": "2022-08-14 15:44:55",
+                "source": "mediawiki-metadata",
+                "hidden": ""
+              },
+              "ObjectName": {
+                "value": "United States operations missions Cambodia, Laos, Vietnam, activity report cumulative through June 30, 1954",
+                "source": "mediawiki-metadata"
+              },
+              "CommonsMetadataExtension": {
+                "value": 1.2,
+                "source": "extension",
+                "hidden": ""
+              },
+              "Categories": {
+                "value": "PD US Government|Vietnam in the 1950s|CC-PD-Mark",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "Assessments": {
+                "value": "",
+                "source": "commons-categories",
+                "hidden": ""
+              },
+              "ImageDescription": {
+                "value": "Title:\n<p>United States operations missions: Cambodia, Laos, Vietnam, activity report cumulative through June 30, 1954.\nAbstract:\n</p>\nThis is a cumulative activity report on Cambodia, Laos, and Vietnam through June 30, 1954. Contained in the document are political, military, and economic reviews as well as technical programs (health and sanitation, agriculture and natural resources, transportation, communications, power, industry and mining, general and community development, education, public administration, and commercial aid).",
+                "source": "commons-desc-page"
+              },
+              "DateTimeOriginal": {
+                "value": "1954-06-30",
+                "source": "commons-desc-page"
+              },
+              "Credit": {
+                "value": "<a rel=\"nofollow\" class=\"external free\" href=\"https://cgsc.contentdm.oclc.org/digital/collection/p4013coll11/id/1251/rec/2\">https://cgsc.contentdm.oclc.org/digital/collection/p4013coll11/id/1251/rec/2</a>",
+                "source": "commons-desc-page"
+              },
+              "Artist": {
+                "value": "United States Operations Mission to Vietnam",
+                "source": "commons-desc-page"
+              },
+              "LicenseShortName": {
+                "value": "Public domain",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "UsageTerms": {
+                "value": "Public domain",
+                "source": "commons-desc-page"
+              },
+              "AttributionRequired": {
+                "value": "false",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Copyrighted": {
+                "value": "False",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "Restrictions": {
+                "value": "",
+                "source": "commons-desc-page",
+                "hidden": ""
+              },
+              "License": {
+                "value": "pd",
+                "source": "commons-templates",
+                "hidden": ""
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

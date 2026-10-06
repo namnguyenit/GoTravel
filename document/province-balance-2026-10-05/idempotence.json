@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-05T04:00:05.426Z",
+  "readyToSkip": true,
+  "countsUnchanged": true,
+  "counts": {
+    "listings": 5644,
+    "complexes": 306,
+    "landmarks": 228,
+    "reviews": 16042,
+    "inventory_configs": 5644,
+    "inventory_calendars": 1053914,
+    "inventory_locks": 2
+  },
+  "message": "Already complete: no seed writes required"
+}

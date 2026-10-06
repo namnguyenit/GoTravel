@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/app.js" defer></script>
+  <title>Thanh toán | GoTravel</title>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" id="brand-link" href="/" aria-label="Về trang chủ GoTravel">
+        <span class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span>
+        <span>GoTravel</span>
+      </a>
+      <span class="header-context">Thanh toán đơn hàng</span>
+      <a class="header-back" id="header-home" href="/">Quay về GoStay <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+
+  <main class="page">
+    <nav class="breadcrumb" aria-label="Đường dẫn"><span>GoTravel</span><span class="divider">/</span><span>Đặt dịch vụ</span><span class="divider">/</span><strong>Thanh toán</strong></nav>
+    <div class="page-heading"><h1>Thanh toán</h1><p>Hoàn tất đơn hàng để sẵn sàng cho chuyến đi của bạn.</p></div>
+    <div class="columns">
+      <section class="payment-card" aria-live="polite">
+        <div class="card-title"><span class="card-title-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></span><div><h2>Phương thức thanh toán</h2><p>Chọn cách bạn muốn hoàn tất đơn hàng.</p></div></div>
+
+        <section id="loading-view" class="state-view"><div class="spinner" aria-hidden="true"></div><h3>Đang tải thông tin thanh toán</h3><p>Vui lòng chờ trong giây lát.</p></section>
+        <section id="error-view" class="state-view" hidden><div class="state-icon error-icon">!</div><h3 id="error-title">Không thể mở thanh toán</h3><p id="error-message"></p><a class="button secondary" id="error-home" href="/">Về GoStay</a></section>
+
+        <section id="payment-view" hidden>
+          <div class="method-tabs" role="tablist" aria-label="Phương thức thanh toán">
+            <button class="method-tab active" id="real-mode" type="button" role="tab" aria-selected="true">Chuyển khoản QR</button>
+            <button class="method-tab" id="demo-mode" type="button" role="tab" aria-selected="false">Thanh toán mô phỏng</button>
+          </div>
+          <div id="real-panel">
+            <div class="method-intro"><h3>Quét mã bằng ứng dụng ngân hàng</h3><p>Hệ thống sẽ tự cập nhật sau khi nhận được giao dịch.</p></div>
+            <div class="qr-wrap" id="qr-wrap"><img id="qr-image" alt="Mã QR thanh toán ngân hàng" width="240" height="240" /></div>
+            <div class="transfer-details">
+              <div><span>Ngân hàng</span><strong id="bank-name">—</strong></div>
+              <div><span>Số tài khoản</span><strong id="bank-account">—</strong></div>
+              <div><span>Nội dung chuyển khoản</span><strong id="payment-code">—</strong></div>
+            </div>
+            <p class="help-text">Vui lòng chuyển đúng số tiền và nội dung để hệ thống xác nhận đơn hàng.</p>
+            <button class="button primary" id="refresh-button" type="button">Kiểm tra thanh toán</button>
+            <p class="update-note" id="update-note">Trạng thái được kiểm tra tự động mỗi 5 giây.</p>
+          </div>
+          <div id="demo-panel" hidden>
+            <div class="test-badge">CHẾ ĐỘ TEST</div>
+            <h3>Thanh toán mô phỏng</h3>
+            <p>Nhấn nút bên dưới để xác nhận đơn hàng như đã thanh toán. Không cần chuyển khoản; trạng thái đơn và vé sẽ được cập nhật thật trên GoStay.</p>
+            <div class="test-info"><span>Đơn được xác nhận</span><strong>Có</strong></div>
+            <div class="test-info"><span>Tiền được chuyển</span><strong>Không</strong></div>
+            <button class="button primary" id="simulate-button" type="button">Xác nhận thanh toán mô phỏng</button>
+            <p class="update-note" id="simulation-note">Chỉ dùng cho việc kiểm thử.</p>
+          </div>
+        </section>
+
+        <section id="success-view" class="state-view" hidden><div class="state-icon success-icon">✓</div><h3>Thanh toán thành công</h3><p>Đơn hàng <strong id="success-order"></strong> đã được xác nhận. Bạn có thể xem vé và thông tin chuyến đi trên GoStay.</p><a class="button primary" id="view-order" href="/">Xem đơn hàng</a></section>
+        <section id="expired-view" class="state-view" hidden><div class="state-icon error-icon">!</div><h3>Không thể tiếp tục thanh toán</h3><p id="expired-message"></p><a class="button secondary" id="expired-home" href="/">Về GoStay</a></section>
+      </section>
+
+      <aside class="order-card">
+        <h2>Thông tin đơn hàng</h2>
+        <div class="listing-row"><div class="listing-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></div><div><span>Dịch vụ đã đặt</span><strong id="trip-title">Đang tải thông tin...</strong></div></div>
+        <div class="order-row"><span>Mã đơn hàng</span><strong id="order-id">—</strong></div>
+        <div class="order-total"><span>Tổng thanh toán</span><strong id="amount">—</strong></div>
+        <p class="order-note">Số tiền được lấy từ đơn hàng trên GoStay.</p>
+      </aside>
+    </div>
+  </main>
+  <footer class="site-footer"><div><span>GoTravel</span><span>Hỗ trợ thanh toán cho chuyến đi của bạn</span></div></footer>
+</body>
+</html>

@@ -3,7 +3,7 @@
 import { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import OrderService from "@/services/order";
 import { useCart } from "@/shared/context/CartContext";
 import CartService from "@/services/cart";
@@ -24,6 +24,25 @@ type OrderSubmitResponse = {
 
 function getResponseOrderData(res: OrderSubmitResponse) {
   return res?.data?.data || res?.data || {};
+}
+
+async function openPaymentPortal(orderId: string) {
+  const portalBase = process.env.NEXT_PUBLIC_PAYMENT_PORTAL_URL || "https://pay.nonnet123.io.vn";
+  const response = await fetch(new URL("/launch", portalBase), {
+    method: "POST",
+    credentials: "include",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ orderId }),
+  });
+  const result = await response.json().catch(() => null);
+  if (!response.ok || typeof result?.url !== "string") {
+    throw new Error(result?.message || "Không mở được trang thanh toán. Vui lòng thử lại.");
+  }
+  const destination = new URL(result.url, portalBase);
+  if (destination.origin !== new URL(portalBase).origin || destination.pathname !== "/pay") {
+    throw new Error("Địa chỉ thanh toán không hợp lệ.");
+  }
+  window.location.assign(destination.href);
 }
 
 function getErrorMessage(error: unknown) {
@@ -55,7 +74,6 @@ const getAvailabilityRows = (res: unknown): CalendarSlot[] => {
 };
 
 function CheckoutForm() {
-  const router = useRouter();
   const params = useSearchParams();
   const { items, refreshCart } = useCart();
 
@@ -83,6 +101,7 @@ function CheckoutForm() {
   const [loadingSlots, setLoadingSlots] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [pendingOrderId, setPendingOrderId] = useState("");
 
   const nights = Math.max(1, Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / 86400000));
   const total = price * (category === "place" ? nights : quantity);
@@ -131,7 +150,7 @@ function CheckoutForm() {
     setError("");
 
     try {
-      let orderId, totalAmount;
+      let orderId;
       const customer = {
         fullName: fullName.trim(),
         email: email.trim(),
@@ -156,13 +175,13 @@ function CheckoutForm() {
         }) as OrderSubmitResponse;
         const responseData = getResponseOrderData(res);
         orderId = responseData?.orderId || responseData?.id;
-        totalAmount = responseData?.totalAmount || selectedItemsTotal;
         
         if (!orderId) {
           throw new Error("Không nhận được mã đơn hàng từ server.");
         }
-        await refreshCart(); // Xoá giỏ hàng cục bộ
-        router.push(`/payment?orderId=${orderId}&amount=${totalAmount}&title=${encodeURIComponent("Thanh toán Giỏ hàng")}`);
+        setPendingOrderId(orderId);
+        try { await refreshCart(); } catch { /* Đơn đã tạo; vẫn cho khách sang thanh toán. */ }
+        await openPaymentPortal(orderId);
       } else {
         if (!listingId) { setError("Không tìm thấy dịch vụ."); setLoading(false); return; }
         if (new Date(endDate) < new Date(startDate)) { setError("Ngày kết thúc phải sau ngày bắt đầu."); setLoading(false); return; }
@@ -189,12 +208,12 @@ function CheckoutForm() {
         }) as OrderSubmitResponse;
         const responseData = getResponseOrderData(res);
         orderId = responseData?.orderId || responseData?.id;
-        totalAmount = responseData?.totalAmount || total;
         
         if (!orderId) {
           throw new Error("Không nhận được mã đơn hàng từ server.");
         }
-        router.push(`/payment?orderId=${orderId}&amount=${totalAmount}&title=${encodeURIComponent(title)}`);
+        setPendingOrderId(orderId);
+        await openPaymentPortal(orderId);
       }
     } catch (err: unknown) {
       setError(getErrorMessage(err));
@@ -325,11 +344,23 @@ function CheckoutForm() {
 
         {error && <p className="text-red-500 text-sm">{error}</p>}
 
-        <button type="submit" disabled={loading || (type === "direct" && category !== "place" && (!timeSlot || loadingSlots))}
-          className="w-full bg-rose-500 hover:bg-rose-600 disabled:opacity-50 text-white font-bold py-4 rounded-xl transition-colors mt-2 text-lg"
-        >
-          {loading ? "Đang xử lý..." : "Tiến hành thanh toán →"}
-        </button>
+        {pendingOrderId ? (
+          <button type="button" disabled={loading} onClick={async () => {
+            setLoading(true);
+            setError("");
+            try { await openPaymentPortal(pendingOrderId); }
+            catch (err) { setError(getErrorMessage(err)); }
+            finally { setLoading(false); }
+          }} className="w-full bg-rose-500 hover:bg-rose-600 disabled:opacity-50 text-white font-bold py-4 rounded-xl transition-colors mt-2 text-lg">
+            {loading ? "Đang mở trang thanh toán..." : "Thử mở trang thanh toán lại →"}
+          </button>
+        ) : (
+          <button type="submit" disabled={loading || (type === "direct" && category !== "place" && (!timeSlot || loadingSlots))}
+            className="w-full bg-rose-500 hover:bg-rose-600 disabled:opacity-50 text-white font-bold py-4 rounded-xl transition-colors mt-2 text-lg"
+          >
+            {loading ? "Đang xử lý..." : "Tiến hành thanh toán →"}
+          </button>
+        )}
       </form>
     </div>
   );

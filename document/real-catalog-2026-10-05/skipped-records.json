@@ -1,0 +1,107 @@
+[
+  {
+    "sourceId": "muongthanh:76:service:e9838afadc18729c",
+    "name": "Ngọc Thủy Restaurant",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:74:room:bf4b85dc2473fa69",
+    "name": "Family Suite",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:74:service:40436bc5e5dd586b",
+    "name": "Chudangya Restaurant",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:13:service:ffa92f55e0f27e2f",
+    "name": "Quế Hoa Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:22:room:16d4fd941ead207e",
+    "name": "Deluxe Triple",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:22:service:ddac7334d8a1e5e8",
+    "name": "Pharaoh Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:25:service:d6b60e1a7ef7f72b",
+    "name": "Majestic Spa",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:30:service:615efccd66414629",
+    "name": "Nhà hàng Tiệc Lan Châu",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:34:service:fdf15b7bd626ee4b",
+    "name": "Tường Vi Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:36:room:2cf9037010043596",
+    "name": "Deluxe Twin Ocean View",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:47:room:465b1f22bb61642e",
+    "name": "Phòng Superior Triple",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:47:service:4fc99a17d00e365e",
+    "name": "Hoa Sứ Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:1:service:6452977cf07f6366",
+    "name": "Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:33:service:86b226ae265c0369",
+    "name": "Trà Hoa Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "muongthanh:60:service:ec8a5883f45f8d3c",
+    "name": "Camellia Spa & Massage",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "publisher:de-la-coupole:room:c3753fe1000e2820",
+    "name": "deluxe-twin-room",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "publisher:mayplaza:room:fce07b7da58b7fd0",
+    "name": "Phòng Trip",
+    "reason": "No unique verified photograph"
+  },
+  {
+    "sourceId": "publisher:mayplaza:service:f178f8be7c56d5ac",
+    "name": "Massage Spa May Plaza",
+    "reason": "Visual review found treatment illustrations/collages or renders, without a verified photograph of the facility"
+  },
+  {
+    "sourceId": "publisher:adamo-hungyen:room:92ce881ba9398371",
+    "name": "Phòng Adamo Double",
+    "reason": "Publisher image may be a spa/marketing graphic instead of the named room"
+  },
+  {
+    "sourceId": "publisher:adamo-hungyen:room:e1b8afb7c6496272",
+    "name": "Căn hộ 2 phòng ngủ",
+    "reason": "Publisher image may be a spa/marketing graphic instead of the named room"
+  },
+  {
+    "sourceId": "publisher:adamo-hungyen:service:312c1595c11ce255",
+    "name": "Lux Spa — Adamo Hotel",
+    "reason": "Visual review found treatment illustrations/collages or renders, without a verified photograph of the facility"
+  }
+]

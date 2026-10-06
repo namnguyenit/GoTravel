@@ -1,6 +1,8 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
+const { migrateLandmarkImages } = require('./image-store');
+const { replaceLandmarkBlock } = require('./seed-file');
 
 const VIETNAM_DATA_PATH = path.join(__dirname, 'vietnam-data.js');
 
@@ -43,14 +45,8 @@ async function run() {
   console.log('Đang cào dữ liệu ảnh thật từ Wikipedia cho 90 địa danh...');
   
   // Require current data
-  const { PROVINCES_AND_LANDMARKS } = require('./vietnam-data');
-  const fallbackPool = [
-    'https://images.unsplash.com/photo-1583417646549-b3a62002b80a?w=1200',
-    'https://images.unsplash.com/photo-1559592413-7cec4d0cae2b?w=1200',
-    'https://images.unsplash.com/photo-1620864388481-98782a64c4c2?w=1200',
-    'https://images.unsplash.com/photo-1596422846543-75c6fc197f07?w=1200',
-    'https://images.unsplash.com/photo-1601004185799-798835f8fc32?w=1200'
-  ];
+  const { PROVINCES_AND_LANDMARKS, IMAGE_POOLS } = require('./vietnam-data');
+  const fallbackPool = [...new Set(IMAGE_POOLS.LANDMARK)];
 
   for (const prov of PROVINCES_AND_LANDMARKS) {
     for (const lm of prov.landmarks) {
@@ -68,9 +64,8 @@ async function run() {
       }
       
       // Fallback
-      while (images.length < 5) {
-        images.push(fallbackPool[Math.floor(Math.random() * fallbackPool.length)]);
-      }
+      images = [...new Set([...images, ...fallbackPool])].slice(0, 5);
+      if (images.length < 5) throw new Error('Fallback pool needs at least 5 distinct images');
 
       lm.thumbnail = images[0];
       lm.gallery = images.slice(1, 5);
@@ -78,25 +73,13 @@ async function run() {
     }
   }
 
-  // Rewrite vietnam-data.js
-  let fileContent = fs.readFileSync(VIETNAM_DATA_PATH, 'utf-8');
-  
-  // We will replace the PROVINCES_AND_LANDMARKS block
-  // But wait, it's easier to just regenerate the entire file or use regex.
-  // Actually, we can just replace the whole PROVINCES_AND_LANDMARKS assignment
-  
-  const startIndex = fileContent.indexOf('const PROVINCES_AND_LANDMARKS = [');
-  const endString = '\nmodule.exports = {';
-  const endIndex = fileContent.indexOf(endString);
-  
-  if (startIndex !== -1 && endIndex !== -1) {
-    const newBlock = `const PROVINCES_AND_LANDMARKS = ${JSON.stringify(PROVINCES_AND_LANDMARKS, null, 2)};`;
-    fileContent = fileContent.substring(0, startIndex) + newBlock + fileContent.substring(endIndex);
-    fs.writeFileSync(VIETNAM_DATA_PATH, fileContent, 'utf-8');
-    console.log('✅ Đã cập nhật thành công 90 địa danh với ảnh thật vào vietnam-data.js!');
-  } else {
-    console.error('Không tìm thấy block PROVINCES_AND_LANDMARKS để replace.');
-  }
+  await migrateLandmarkImages(PROVINCES_AND_LANDMARKS);
+  const fileContent = fs.readFileSync(VIETNAM_DATA_PATH, 'utf-8');
+  const updated = replaceLandmarkBlock(fileContent, PROVINCES_AND_LANDMARKS);
+  const temporary = `${VIETNAM_DATA_PATH}.tmp`;
+  fs.writeFileSync(temporary, updated, 'utf-8');
+  fs.renameSync(temporary, VIETNAM_DATA_PATH);
+  console.log('✅ Đã cập nhật địa danh với ảnh Cloudinary; giữ nguyên các pool và helper.');
 }
 
-run();
+run().catch(error => { console.error(error.message); process.exitCode = 1; });

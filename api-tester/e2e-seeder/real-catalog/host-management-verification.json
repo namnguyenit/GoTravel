@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-05T11:34:44.787Z",
+  "results": [
+    {
+      "role": "HOST",
+      "loginHttp": 200,
+      "listingsHttp": 200,
+      "ownListings": 10,
+      "complexesHttp": 400,
+      "complexes": 0
+    },
+    {
+      "role": "ENTERPRISE",
+      "loginHttp": 200,
+      "listingsHttp": 200,
+      "ownListings": 14,
+      "complexesHttp": 200,
+      "complexes": 3
+    }
+  ],
+  "publicLogin": {
+    "http": 200,
+    "sessionHttp": 200,
+    "httpOnly": true,
+    "secure": true
+  }
+}

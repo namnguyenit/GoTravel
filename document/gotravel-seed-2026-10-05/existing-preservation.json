@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-10-04T17:14:41.149Z",
+  "results": [
+    {
+      "table": "landmarks",
+      "checked": 125,
+      "missing": 0,
+      "modified": 0
+    },
+    {
+      "table": "complexes",
+      "checked": 50,
+      "missing": 0,
+      "modified": 0
+    },
+    {
+      "table": "listings",
+      "checked": 520,
+      "missing": 0,
+      "modified": 0
+    },
+    {
+      "table": "reviews",
+      "checked": 670,
+      "missing": 0,
+      "modified": 0
+    },
+    {
+      "table": "inventory_configs",
+      "checked": 300,
+      "missing": 0,
+      "modified": 0
+    },
+    {
+      "table": "inventory_calendars",
+      "checked": 68523,
+      "missing": 0,
+      "modified": 0
+    }
+  ]
+}

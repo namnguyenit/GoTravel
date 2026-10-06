@@ -1,0 +1,384 @@
+{
+  "at": "2026-10-05T11:27:30.207Z",
+  "batchId": "gotravel-real-venues-virtual-hosts-2026-10-05-v1",
+  "hiddenComplexes": 20,
+  "hiddenLandmarks": 59,
+  "complexCandidates": [
+    "176d738f-a18d-45e8-abf1-e548cc4bfc01",
+    "1a565d72-b076-4422-ae73-2574a382b8bd",
+    "2baefe12-daa6-44d2-a2ea-4fff94a5b929",
+    "32b0d0bd-a1c3-4dea-a40d-edb2e425d0c1",
+    "36abfbfc-4835-4a64-a170-9b9eb4ee4023",
+    "3a7f2ef3-59ba-42a0-a695-fa224cbe5d3b",
+    "40aac500-fa04-457a-aab4-0258e057a0c7",
+    "488dfcab-c05c-4ba2-a476-f62ca756437d",
+    "5b96e1fb-6e79-4db4-a2d3-c4032b656dc8",
+    "6662df24-2186-4236-aa00-e992c999437d",
+    "69392fa6-143c-4b38-a34c-e6ca903e2cff",
+    "6c04b7b4-ae34-471d-af28-45166b1bd61b",
+    "8ad7f5c9-1e6e-4011-ae1a-8658cd7eb040",
+    "aa6f2fba-25ee-4533-a582-6c15fd5018ae",
+    "ada04315-4a76-410c-a1e6-09bc7c31ce5a",
+    "c0797690-e7b5-4f4c-a74f-31158f8b152a",
+    "c905244e-8fb8-4320-ac90-71459f00ec74",
+    "cc52840f-28f6-499b-aa2d-d47055c86071",
+    "e95ecddb-8531-4d4e-a072-34214ce1f6e7",
+    "eacdfd2b-21f1-4fe9-a9f0-0f4976915d48"
+  ],
+  "landmarkCandidates": [
+    {
+      "id": "01b8b452-7063-4a26-af23-f5fd52dc5043",
+      "name": "Lăng Khải Định",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "0c3f1175-e138-4f30-af19-105f2c2ecb0f",
+      "name": "Tam Cốc Bích Động",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "0d10c3f9-c47b-435a-a750-07d1000ece2f",
+      "name": "Hồ Hoàn Kiếm",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "0e55a930-ce7c-4b93-a8e3-ee675620a72a",
+      "name": "Hồ Tây",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "0fd8c181-5985-4952-a2b6-e50c7b7e4d2f",
+      "name": "Cầu Rồng",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "1326e657-402b-4709-a2c4-aa3e35b47636",
+      "name": "Dinh Độc Lập",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "258b1aee-d5cf-4711-aab7-01777508eb0a",
+      "name": "Bãi biển Mỹ Khê",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "2606ee6e-3e29-4127-a3a9-d486684a55ad",
+      "name": "Tuần Châu",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "2855ad9e-d2d2-4f6c-a599-1ed4469e0a98",
+      "name": "Nhà thờ Đức Bà",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "2c276c1e-c2a5-4d85-aa26-846051ec9edc",
+      "name": "Chợ Bến Thành",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "2d51e238-2f69-489b-a08f-cdae019be445",
+      "name": "Phố cổ Hà Nội",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "2e60c267-f4d8-4099-a3e3-7f1559caee2c",
+      "name": "Thung lũng Mường Hoa",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "32a18c79-dfb2-4e20-a0a3-d7b8106eaaa6",
+      "name": "Vịnh Hạ Long",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "375f0e50-2b82-4ed6-a553-fe71ae0bf94c",
+      "name": "Núi Hàm Rồng",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "3ff9d221-d666-4322-8a66-59eff174a637",
+      "name": "Bản Áng",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "52e16a87-0dc7-4986-a41f-b3adf6ff38bf",
+      "name": "Hòn Mun",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "63bc55e4-e531-45bd-a106-0de34c41ac23",
+      "name": "Hang Múa",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "72dc40c0-025d-4c54-afb5-8d28bb62ce31",
+      "name": "Yên Tử",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "742fc935-5411-4782-a6cb-e80edf62950d",
+      "name": "Bãi Dài",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "74adc077-c9a5-4c1b-ad19-de48bd564d85",
+      "name": "Ngũ Hành Sơn",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "777dadc3-7316-4797-a66c-987643937f4a",
+      "name": "Chợ Đầm",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "87471110-6080-49b9-a2e9-64b8a34fdc4c",
+      "name": "Tràng An",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "8abaf661-e6fd-4a5a-ab9f-ffe32b8f1d0f",
+      "name": "Chùa Bái Đính",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "8d4074e9-3139-457e-ae50-5f47f62e5957",
+      "name": "Đỉnh Fansipan",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "9bdcfc10-6dc4-44bc-b4ab-ec37f879ad29",
+      "name": "Mường Phăng",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "9c1949f2-abff-4a97-ad0e-9f707c3b9a0d",
+      "name": "VinWonders Nha Trang",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "adc3c6e8-a061-405e-a1c9-460cf21a5f91",
+      "name": "Phố đi bộ Nguyễn Huệ",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "b3046704-855f-44e6-a0c7-de96df4a8525",
+      "name": "Bãi Cháy",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "bca1e82f-c1b3-4007-ad09-2dc3c65241b1",
+      "name": "Cố đô Hoa Lư",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "bdd79f6d-e5ac-4553-a6e2-7fd093bc391c",
+      "name": "Landmark 81",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "c193ad14-2f08-4f6f-ac1b-d27758869bec",
+      "name": "Bà Nà Hills",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "cbd73c21-80bd-4837-bfb7-35e0ac5446c6",
+      "name": "Thác Mây - Pù Luông",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "d98676cf-ac97-4947-8472-de0220adf1f3",
+      "name": "Hang Pa Thơm",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "da05983e-ba2b-41cc-adca-f3fc1b717159",
+      "name": "Nhà thờ đá Sapa",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "e5560610-62e8-4a9a-ae62-1970dc72cfb9",
+      "name": "Bảo tàng Quảng Ninh",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "eb357e9e-2d60-4258-acbf-c8bd0f9e1d3c",
+      "name": "Văn Miếu Quốc Tử Giám",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "ec3846df-e2d5-4d2b-b401-9fb8924c5631",
+      "name": "Thác Phú Cường",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "ee08db16-d8f2-4337-adb0-f2dd6d983049",
+      "name": "Bản Cát Cát",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "f16363f8-ad94-4da6-ab64-7c6316b53edd",
+      "name": "Tháp Bà Ponagar",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "f5295ab6-2435-410f-a97c-d08bad63bde4",
+      "name": "Lăng Bác",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "fbc3d17d-96ba-4600-a0f5-74d9a6b21f48",
+      "name": "Bán đảo Sơn Trà",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "0a3ed4a6-93db-4d12-a614-7bcf7d418bef",
+      "name": "Hòn Thơm",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "12035a58-7fbd-4306-a80b-84b63a294adc",
+      "name": "Cù Lao Chàm",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "246c24e1-9f57-4d5c-9b5c-afd44b15b0d8",
+      "name": "Thác Đắk Ke",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "32755f8b-8202-43d1-9896-5ad02911c81d",
+      "name": "Cù Lao Ngũ Hiệp",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "38876f45-6cdc-4c5b-a9b9-717d21a3c99e",
+      "name": "Cầu Trường Tiền",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "3c484a97-521e-4346-a445-eeeaee76ab9c",
+      "name": "Chùa Thiên Mụ",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "5e3ffade-abbc-4175-a556-9d7df712fe47",
+      "name": "Rừng dừa Bảy Mẫu",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "60f90d3a-1492-43a0-ad8e-8f5cc99b993c",
+      "name": "Lăng Tự Đức",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "63c244c7-23b7-449e-ad9e-490436ebb892",
+      "name": "VinWonders Phú Quốc",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "678c41fb-a54a-4313-a7bc-703bcfd7b5e7",
+      "name": "Dinh Cậu",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "6eaf092e-102b-4204-ad60-b73caf1d651f",
+      "name": "Phố cổ Hội An",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "742a6d72-a8d6-4f96-922b-1646ccafc6ef",
+      "name": "Suối Moọc",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "7df9f581-6d01-44cd-ae86-ab44df4f16dc",
+      "name": "Bãi Sao",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "831f9e3c-fb61-426b-a325-733a9b4ee90b",
+      "name": "Đại Nội Huế",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "9dbb90e5-1e16-4fc0-a3c4-eff65da8d0c2",
+      "name": "Chùa Cầu",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "ba4266f7-ba81-4eb7-9f9e-1f3d9e08af22",
+      "name": "Khu Công viên Văn hóa Đồng Xanh",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "d934d9a8-79a7-4329-a224-bed3f714cdf4",
+      "name": "Grand World Phú Quốc",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    },
+    {
+      "id": "fdbfce56-2217-4d66-ac9a-a9f7f10cb244",
+      "name": "Thánh địa Mỹ Sơn",
+      "reason": "Unverified illustrative stock photograph",
+      "retainedId": null
+    }
+  ]
+}

@@ -1,0 +1,472 @@
+{
+  "catalog": [
+    {
+      "sourceId": "publisher:ninhkieu:room:de03b14fdf71fa0f",
+      "name": "Phòng Hai Đơn Executive Superior River View Twin",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "publisher:saomai:room:428570873d672ced",
+      "name": "Standard 1",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "publisher:saomai:room:ce4f42965cf3912b",
+      "name": "Standard 2",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "publisher:saomai:room:9e88817f791b050d",
+      "name": "Superior",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "publisher:saomai:room:bc82ef996c591997",
+      "name": "Deluxe",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "publisher:saomai:room:9c21005014a9eea8",
+      "name": "Suite",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "publisher:saomai:room:f51c35b516d942c2",
+      "name": "President",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_H%C3%B9ng",
+      "name": "Đền Hùng",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Tam_C%E1%BB%91c_%E2%80%93_B%C3%ADch_%C4%90%E1%BB%99ng",
+      "name": "Tam Cốc – Bích Động",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_B%C3%A1i_%C4%90%C3%ADnh",
+      "name": "Chùa Bái Đính",
+      "reason": "No unique verified photograph"
+    },
+    {
+      "sourceId": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_P%C3%B9_M%C3%A1t",
+      "name": "Vườn quốc gia Pù Mát",
+      "reason": "No unique verified photograph"
+    }
+  ],
+  "publisherSources": [
+    {
+      "name": "The Mira Central Park",
+      "reason": "Publisher HTML contains unrelated injected SEO/spam; room details inaccessible. Not used as an authoritative source in this batch."
+    },
+    {
+      "name": "Nam Cường Hải Dương",
+      "reason": "Candidate page resolves to a Nam Định hotel; photographs cannot establish the Hải Dương property."
+    },
+    {
+      "name": "Beau Champ Villa",
+      "reason": "Heading extractor binds icons instead of villa photographs; excluded pending manual gallery review."
+    },
+    {
+      "name": "Spa Ninh Kiều",
+      "reason": "Publisher includes stock Pexels imagery. No imported spa offer from this page."
+    },
+    {
+      "name": "Khách sạn Phú Cường Cà Mau — Deluxe City View With Balcony",
+      "reason": "No item-specific photograph found by the reviewed recipe"
+    }
+  ],
+  "duplicateImages": [
+    {
+      "owner": "publisher:konklor",
+      "sourceUrl": "https://cdn.cungcap.net/web/files/2023/07/18/168965113764b607c111d30.jpg",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:konklor"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:5b27d09db6191f90",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_double_room_riverview.png?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:fe5888ecd214e1e1"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:5b27d09db6191f90",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_4.png?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:c4fffc44bc5acc6e"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:19b6a4118ce8446a",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_twin.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:c4fffc44bc5acc6e"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:19b6a4118ce8446a",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_rv2-3.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:5b27d09db6191f90"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:0c25290a90b82f9b",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_minibar-free.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:07ad71ddb22f169b"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:07ad71ddb22f169b",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_ph%C3%B2ng_t%E1%BA%AFm.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:0c25290a90b82f9b"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:de03b14fdf71fa0f",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_deluxe_twin.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:c4fffc44bc5acc6e"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:de03b14fdf71fa0f",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_4.png?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:c4fffc44bc5acc6e"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:de03b14fdf71fa0f",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_superior_twin_room_river_view_5.png?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:c4fffc44bc5acc6e"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:c30daf8535821a4e",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-1.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:1956ddd21f77263f"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:c30daf8535821a4e",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-2.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:1956ddd21f77263f"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:1956ddd21f77263f",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-3.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:c30daf8535821a4e"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:6242323842ba29d6",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-1.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:ac08713fcad127cb"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:6242323842ba29d6",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-2.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:ac08713fcad127cb"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:6242323842ba29d6",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_deluxe-riverview-3.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:ac08713fcad127cb"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:c30daf8535821a4e",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_riverview-4.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:1956ddd21f77263f"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:ecd52780a685ce96",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-1.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:d0ebe5f692fd1926"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:ecd52780a685ce96",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-2.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:d0ebe5f692fd1926"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:ecd52780a685ce96",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_lakeview-3.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:d0ebe5f692fd1926"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:f574ef03e55152b6",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-1.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:7a3fae786ae51fca"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:7a3fae786ae51fca",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-3.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:f574ef03e55152b6"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:f574ef03e55152b6",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-2.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:7a3fae786ae51fca"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:7a3fae786ae51fca",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-4.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:f574ef03e55152b6"
+    },
+    {
+      "owner": "publisher:mekongriverside:room:f574ef03e55152b6",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1079/_room_gardenview-5.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:mekongriverside:room:7a3fae786ae51fca"
+    },
+    {
+      "owner": "publisher:saigonbanme:room:a42fc5d9dbb672d6",
+      "sourceUrl": "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0310-1170x600.jpg",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:saigonbanme:room:2f9f9af196aba787"
+    },
+    {
+      "owner": "publisher:saigonbanme:room:2f9f9af196aba787",
+      "sourceUrl": "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0262-1170x600.jpg",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:saigonbanme:room:a42fc5d9dbb672d6"
+    },
+    {
+      "owner": "publisher:saigonbanme:room:2f9f9af196aba787",
+      "sourceUrl": "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0273-1170x600.jpg",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:saigonbanme:room:a42fc5d9dbb672d6"
+    },
+    {
+      "owner": "publisher:saigonbanme:room:2f9f9af196aba787",
+      "sourceUrl": "https://saigonbanmehotel.com.vn/wp-content/uploads/2019/06/DSC_0267-1170x600.jpg",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:saigonbanme:room:a42fc5d9dbb672d6"
+    },
+    {
+      "owner": "publisher:lila:experience:cf1c6ecc9188b8f5",
+      "sourceUrl": "https://lilainn.tours/wp-content/uploads/2025/08/Lila-Inn-Tours-Packing-List-for-Ha-Giang-Loop-scaled.webp",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:lila:experience:345a3c8d24930466"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Ch%E1%BB%A3_n%E1%BB%95i_C%C3%A1i_R%C4%83ng",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/62/M%E1%BB%99t_c%E1%BA%A3nh_%E1%BB%9F_ch%E1%BB%A3_n%E1%BB%95i_C%C3%A1i_R%C4%83ng.jpg/1920px-M%E1%BB%99t_c%E1%BA%A3nh_%E1%BB%9F_ch%E1%BB%A3_n%E1%BB%95i_C%C3%A1i_R%C4%83ng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128123/admin-uploads/seeder/cf86386c407410dc4d50bd93db85a2216e7f7287bb7112c305d93bf7dbb23f8c.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/M%C4%83ng_%C4%90en",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/Th%E1%BB%8B_tr%E1%BA%A5n_M%C4%83ng_%C4%90en.jpg/1920px-Th%E1%BB%8B_tr%E1%BA%A5n_M%C4%83ng_%C4%90en.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128169/admin-uploads/seeder/7f82f3b651914eb1f6cb777de6a0bd717f2ddc086cdb4497c78362c7a8eb33d6.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/%C4%90%C3%A8o_M%C3%A3_P%C3%AD_L%C3%A8ng",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/%C4%90%C3%A8o_M%C3%A3_P%C3%AD_L%C3%A8ng_2022.jpg/1920px-%C4%90%C3%A8o_M%C3%A3_P%C3%AD_L%C3%A8ng_2022.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128112/admin-uploads/seeder/87e96fc83ea904035e43bd2d13084637fdd7f6fa122019cb7d9170d8e0f73b59.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Cao_nguy%C3%AAn_%C4%91%C3%A1_%C4%90%E1%BB%93ng_V%C4%83n",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/B%C3%A3i_%C4%91%C3%A1_m%E1%BA%B7t_tr%C4%83ng_%C4%90%E1%BB%93ng_V%C4%83n_-_NKS.jpg/1920px-B%C3%A3i_%C4%91%C3%A1_m%E1%BA%B7t_tr%C4%83ng_%C4%90%E1%BB%93ng_V%C4%83n_-_NKS.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128064/admin-uploads/seeder/276bbac54661d34b16d537e1160d3bdb885617661c31fcba4ff3b6149b51bbd6.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Cao_nguy%C3%AAn_%C4%91%C3%A1_%C4%90%E1%BB%93ng_V%C4%83n",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/2f/%C4%90%C3%A8o_M%C3%A3_P%C3%AC_L%C3%A8ng.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "real-place:https://vi.wikipedia.org/wiki/%C4%90%C3%A8o_M%C3%A3_P%C3%AD_L%C3%A8ng"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_H%C3%B9ng",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Mausoleum_of_Hung_King.JPG/1920px-Mausoleum_of_Hung_King.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128073/admin-uploads/seeder/20b9bd06603fbd4798f0a9c9b078937792d67c9f93b70ca3cb057b3a41fec56f.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Xu%C3%A2n_S%C6%A1n",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Xuan_Son.JPG/1920px-Xuan_Son.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128077/admin-uploads/seeder/bb57c4556cd946a4f2e3eb1b28e26db0da636e4de661a736321d28fd1a9dd419.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Fansipan",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/de/C%C3%A1p-treo-fansipan-17.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128000/admin-uploads/seeder/65eb6c6c65c0793798ee95fa2115191f29da449e45b77349d6fa9ac3a94b7527.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/B%E1%BA%A3n_C%C3%A1t_C%C3%A1t",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/6/66/B%E1%BA%A3n_C%C3%A1t_C%C3%A1t.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128002/admin-uploads/seeder/87375d697989b7d9595f2c4d8829fab0ea421440b768b650ca65d7302faaed17.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/H%E1%BB%93_L%E1%BA%AFk",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Lak_Lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128165/admin-uploads/seeder/ac236fadc8cbe29a9dbc94fe40d3c6bb3da496ee209ea033b89ef8bb6e7979a1.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/G%C3%A0nh_%C4%90%C3%A1_%C4%90%C4%A9a",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/00/G%C3%A0nh_%C4%90%C3%A1_%C4%90%C4%A9a_-_Ph%C3%BA_Y%C3%AAn.jpg/1920px-G%C3%A0nh_%C4%90%C3%A1_%C4%90%C4%A9a_-_Ph%C3%BA_Y%C3%AAn.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128097/admin-uploads/seeder/81d0f76a7c8e1ecb0ec0c0e761a233db8c62ca1e1ec66f7bd215605112385899.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Tam_C%E1%BB%91c_%E2%80%93_B%C3%ADch_%C4%90%E1%BB%99ng",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/0/08/Muaxuantamcoc.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128068/admin-uploads/seeder/b0ec32acfd389faab8be0ac25130ebc9fad03f8afe271d3e8b8b92efbbdb83e6.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_B%C3%A1i_%C4%90%C3%ADnh",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b2/Chua_Bai_Dinh_X8.JPG/1920px-Chua_Bai_Dinh_X8.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128072/admin-uploads/seeder/588791981a352910f62bd16758258db254161b8c8a6ae58ab6178571760de13d.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_P%C3%B9_M%C3%A1t",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Annamite_range_pu_mat_2007_05.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128141/admin-uploads/seeder/e382bb2bde3c94961de8fbf2a992cf7c2abbb983a2c8a1802ce9c6a92ed8d1f9.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1p_Po_Nagar",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/12/Th%C3%A1p_B%C3%A0_PONAGAR_-_panoramio.jpg/1920px-Th%C3%A1p_B%C3%A0_PONAGAR_-_panoramio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128011/admin-uploads/seeder/3321e537d9af87917ac4e5ac14ef17775c42ed2c66234f5d6ad94aef35f26611.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Y%C3%AAn_T%E1%BB%AD",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/31/N%C3%BAi_Y%C3%AAn_T%E1%BB%AD.jpg/1920px-N%C3%BAi_Y%C3%AAn_T%E1%BB%AD.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128002/admin-uploads/seeder/ec87fffc768e8d589fa41decd9f93b7de69f10c6262294441436b62fcfb41766.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Ch%C3%B9a_Thi%C3%AAn_M%E1%BB%A5",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/88/ThienMuPagoda.jpg/1920px-ThienMuPagoda.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128032/admin-uploads/seeder/6ee9886a6369dfefc52cf62644407c744dcd5d55716ba61118499b5815195d93.webp"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:fba4d136f1636726",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room_rest-room.jpg?width=1920&height=1080&mode=crop",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "publisher:ninhkieu:room:0c25290a90b82f9b"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Th%C3%A1nh_%C4%91%E1%BB%8Ba_M%E1%BB%B9_S%C6%A1n",
+      "sourceUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/07/2024_-_M%E1%BB%B9_S%C6%A1n_Group_B%2C_C_and_D_-_img_23.jpg/1920px-2024_-_M%E1%BB%B9_S%C6%A1n_Group_B%2C_C_and_D_-_img_23.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128048/admin-uploads/seeder/cf505900f0ede71f5ff8bc2a9aba65bf87f914101def19f3c412ce8b11a4ca8f.webp"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Dinh_%C4%90%E1%BB%99c_L%E1%BA%ADp",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Dinh_%C4%90%E1%BB%99c_L%E1%BA%ADp_v%C3%A0o_n%C3%A0m_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "content_duplicate_or_near_duplicate",
+      "otherOwner": "previous-active:https://res.cloudinary.com/p1kxfhlw/image/upload/v1791127986/admin-uploads/seeder/083a5947cd0fc6f834083de3cb3aa773f678beaf3e85f2a6260c577ce58f4a62.webp"
+    }
+  ],
+  "deliveryOrQualityFailures": [
+    {
+      "owner": "publisher:saomai",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/11/SM_BIA-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:428570873d672ced",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/Standard-1-HINH-DAI-DIEN-36rxmugftwrm35ol7prw1s-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:ce4f42965cf3912b",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/Standard-2-HINH-DAI-DIEN-36rxoi9kd6h8y8zkk1s000-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:9e88817f791b050d",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/Superior-HINH-DAI-DIEN-36rxl3mr3m9giwgomlc1kw-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:bc82ef996c591997",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/DELUXE-HINH-DAI-DIEN-36rxgedrniat1k0csratq8-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:9c21005014a9eea8",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/Suite-1-HINH-DAI-DIEN-36rx97snxdd9lpu640terk-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:9c21005014a9eea8",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/Suite-2-HINH-DAI-DIEN-36rxbz6nisz7w39rs8229s-1.jpg",
+      "error": "Not a full-size static photograph"
+    },
+    {
+      "owner": "publisher:saomai:room:f51c35b516d942c2",
+      "sourceUrl": "https://dongthaptourist.com/wp-content/uploads/2024/10/president-DAI-DIEN-36rx2adrmlch1f5mjituyo-1.jpg",
+      "error": "Not a full-size static photograph"
+    }
+  ],
+  "visualRejections": [
+    {
+      "owner": "publisher:diamondstarbentre:service:6452977cf07f6366",
+      "sourceUrl": "https://diamondstarbentre.com/vnt_upload/service/07_2020/slide.jpg",
+      "reason": "Manual visual review: logo, map, irrelevant décor/pool or lobby used as room image"
+    },
+    {
+      "owner": "publisher:konklor",
+      "sourceUrl": "https://cdn.cungcap.net/web/files/2023/07/18/168965113864b607c24c0d5.jpg",
+      "reason": "Manual visual review: logo, map, irrelevant décor/pool or lobby used as room image"
+    },
+    {
+      "owner": "publisher:ninhkieu",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_gallery_ninh-kieu-riverside-hotel-can-tho-exterior.jpg?width=600&height=450&mode=crop",
+      "reason": "Manual visual review: logo, map, irrelevant décor/pool or lobby used as room image"
+    },
+    {
+      "owner": "publisher:ninhkieu:room:fba4d136f1636726",
+      "sourceUrl": "https://cdn.myguestdiary.com/uploads/1662/_room__j7a6624.jpg?width=1920&height=1080&mode=crop",
+      "reason": "Manual visual review: logo, map, irrelevant décor/pool or lobby used as room image"
+    },
+    {
+      "owner": "publisher:lila:experience:345a3c8d24930466",
+      "sourceUrl": "https://lilainn.tours/wp-content/uploads/2025/12/ha-giang-loop-map-4-days.webp",
+      "reason": "Manual visual review: logo, map, irrelevant décor/pool or lobby used as room image"
+    },
+    {
+      "owner": "publisher:lila:experience:cf1c6ecc9188b8f5",
+      "sourceUrl": "https://lilainn.tours/wp-content/uploads/2025/12/ha-giang-cao-bang-loop-map-7-days-scaled.webp",
+      "reason": "Manual visual review: logo, map, irrelevant décor/pool or lobby used as room image"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Ph%C3%BA_Qu%E1%BB%91c",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d5/Phu_quoc_plage_sao.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "Exact subject not established: beach outside the national park, palace instead of stone plateau, or lodging building instead of lake"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/Cao_nguy%C3%AAn_%C4%91%C3%A1_%C4%90%E1%BB%93ng_V%C4%83n",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Nhavuong.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "Exact subject not established: beach outside the national park, palace instead of stone plateau, or lodging building instead of lake"
+    },
+    {
+      "owner": "real-place:https://vi.wikipedia.org/wiki/H%E1%BB%93_L%E1%BA%AFk",
+      "sourceUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Holak01.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+      "reason": "Exact subject not established: beach outside the national park, palace instead of stone plateau, or lodging building instead of lake"
+    }
+  ]
+}

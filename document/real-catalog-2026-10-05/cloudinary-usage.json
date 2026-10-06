@@ -1,0 +1,15 @@
+{
+  "at": "2026-10-05T11:31:29.098Z",
+  "cloudName": "p1kxfhlw",
+  "resources": 1611,
+  "storage": {
+    "usage": 334934680,
+    "credits_usage": 0.31
+  },
+  "credits": {
+    "usage": 3.77,
+    "limit": 25,
+    "used_percent": 15.08
+  },
+  "requests": 2392
+}

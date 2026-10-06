@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-05T11:48:54.249131+00:00",
+  "buildId": "wzYd-i5qecATQOpFp3Jxz",
+  "backup": "/home/trungcao/DoANLienNganh-devserver/api-tester/e2e-seeder/.image-migration/frontend-real-catalog/next-before-20261005T114841Z",
+  "runtimeUid": 1001,
+  "previousStaticAssetsRetained": true,
+  "status": "deployed_and_verified",
+  "verifiedAt": "2026-10-05T11:52:56.519Z"
+}

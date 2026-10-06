@@ -1,0 +1,102 @@
+{
+  "batchId": "gotravel-real-expansion-2026-10-05-v2",
+  "planSha256": "065713a1424d446b6acddee4b98023fb195109236cac5c677b83a3d8c8c8c825",
+  "completedAt": "2026-10-05T15:46:08.057Z",
+  "imported": {
+    "listings": 145,
+    "complexes": 7
+  },
+  "protectedUnchanged": true,
+  "protectedBefore": {
+    "CatalogandListing.listings": {
+      "count": 6228,
+      "checksum": "-2147035129893808116"
+    },
+    "CatalogandListing.complexes": {
+      "count": 369,
+      "checksum": "-3440053037042296671"
+    },
+    "CatalogandListing.landmarks": {
+      "count": 228,
+      "checksum": "-4503498410325367586"
+    },
+    "CatalogandListing.reviews": {
+      "count": 16042,
+      "checksum": "9217815836547215157"
+    },
+    "CatalogandListing.seed_record_provenance": {
+      "count": 21502,
+      "checksum": "-3079321340477735598"
+    },
+    "CatalogandListing.real_catalog_source_provenance": {
+      "count": 647,
+      "checksum": "-4150311717524788052"
+    },
+    "BookingandInventory.inventory_configs": {
+      "count": 6228,
+      "checksum": "-3157008491067314001"
+    },
+    "BookingandInventory.inventory_calendars": {
+      "count": 1126532,
+      "checksum": "2918940166066050823"
+    },
+    "BookingandInventory.inventory_locks": {
+      "count": 2,
+      "checksum": "-3387549457077107780"
+    },
+    "CartandOrder.orders": {
+      "count": 1,
+      "checksum": "-3414882136298500474"
+    },
+    "CartandOrder.order_items": {
+      "count": 1,
+      "checksum": "4376501810598170016"
+    }
+  },
+  "protectedAfter": {
+    "CatalogandListing.listings": {
+      "count": 6228,
+      "checksum": "-2147035129893808116"
+    },
+    "CatalogandListing.complexes": {
+      "count": 369,
+      "checksum": "-3440053037042296671"
+    },
+    "CatalogandListing.landmarks": {
+      "count": 228,
+      "checksum": "-4503498410325367586"
+    },
+    "CatalogandListing.reviews": {
+      "count": 16042,
+      "checksum": "9217815836547215157"
+    },
+    "CatalogandListing.seed_record_provenance": {
+      "count": 21502,
+      "checksum": "-3079321340477735598"
+    },
+    "CatalogandListing.real_catalog_source_provenance": {
+      "count": 647,
+      "checksum": "-4150311717524788052"
+    },
+    "BookingandInventory.inventory_configs": {
+      "count": 6228,
+      "checksum": "-3157008491067314001"
+    },
+    "BookingandInventory.inventory_calendars": {
+      "count": 1126532,
+      "checksum": "2918940166066050823"
+    },
+    "BookingandInventory.inventory_locks": {
+      "count": 2,
+      "checksum": "-3387549457077107780"
+    },
+    "CartandOrder.orders": {
+      "count": 1,
+      "checksum": "-3414882136298500474"
+    },
+    "CartandOrder.order_items": {
+      "count": 1,
+      "checksum": "4376501810598170016"
+    }
+  }
+}

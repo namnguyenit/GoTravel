@@ -1,0 +1,355 @@
+{
+  "at": "2026-10-05T11:30:53.286Z",
+  "batchId": "gotravel-real-venues-virtual-hosts-2026-10-05-v1",
+  "checks": {
+    "transactionHistoryAndLegacyInventoryUnchanged": true,
+    "hostOwnershipRolesAndParentRelationships": true,
+    "catalogImagesOwnedVerifiedAndNotSharedAcrossRecords": true,
+    "all34ProvincesHaveAll3Categories": true,
+    "noInventedCustomerReviews": true
+  },
+  "api": [
+    {
+      "endpoint": "/api/v1/search/listings?category=STAY&limit=500",
+      "http": 200,
+      "durationMs": 466
+    },
+    {
+      "endpoint": "/api/v1/catalog/listings/2bd93091-b908-52a6-826c-71ad60056db4",
+      "http": 200,
+      "durationMs": 119
+    },
+    {
+      "endpoint": "/api/v1/public/inventory/listings/2bd93091-b908-52a6-826c-71ad60056db4/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 47
+    },
+    {
+      "endpoint": "/api/v1/catalog/listings/30466513-50e3-5d8f-8c55-8f602e1be8b1",
+      "http": 200,
+      "durationMs": 27
+    },
+    {
+      "endpoint": "/api/v1/public/inventory/listings/30466513-50e3-5d8f-8c55-8f602e1be8b1/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 22
+    },
+    {
+      "endpoint": "/api/v1/search/listings?category=EXP&limit=500",
+      "http": 200,
+      "durationMs": 84
+    },
+    {
+      "endpoint": "/api/v1/catalog/listings/87c9576e-f84a-5882-86ba-61c1ecfbb5be",
+      "http": 200,
+      "durationMs": 53
+    },
+    {
+      "endpoint": "/api/v1/public/inventory/listings/87c9576e-f84a-5882-86ba-61c1ecfbb5be/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 17
+    },
+    {
+      "endpoint": "/api/v1/catalog/listings/834e2d5f-6f3d-5e7f-8451-6d0d6b7fb7d7",
+      "http": 200,
+      "durationMs": 26
+    },
+    {
+      "endpoint": "/api/v1/public/inventory/listings/834e2d5f-6f3d-5e7f-8451-6d0d6b7fb7d7/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 21
+    },
+    {
+      "endpoint": "/api/v1/search/listings?category=SVC&limit=500",
+      "http": 200,
+      "durationMs": 84
+    },
+    {
+      "endpoint": "/api/v1/catalog/listings/71607d8e-8840-5e7c-8a32-fc60d1e1d9ed",
+      "http": 200,
+      "durationMs": 24
+    },
+    {
+      "endpoint": "/api/v1/public/inventory/listings/71607d8e-8840-5e7c-8a32-fc60d1e1d9ed/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 18
+    },
+    {
+      "endpoint": "/api/v1/catalog/listings/2c1e46d8-dd43-5006-88f5-b8bdb70d3dea",
+      "http": 200,
+      "durationMs": 24
+    },
+    {
+      "endpoint": "/api/v1/public/inventory/listings/2c1e46d8-dd43-5006-88f5-b8bdb70d3dea/availability?startDate=2026-10-05&endDate=2026-10-05",
+      "http": 200,
+      "durationMs": 21
+    },
+    {
+      "endpoint": "/api/v1/recommendations/complexes?limit=200",
+      "http": 200,
+      "durationMs": 50
+    }
+  ],
+  "accounts": {
+    "total": 50,
+    "HOST": 25,
+    "ENTERPRISE": 25
+  },
+  "catalog": {
+    "listings": 584,
+    "complexes": 63,
+    "STAY": 370,
+    "EXP": 92,
+    "SVC": 122
+  },
+  "uniqueCatalogPhotographs": 1395,
+  "inventory": {
+    "configs": 584,
+    "calendars": 72618,
+    "startDate": "2026-10-05",
+    "days": 91,
+    "simulated": true
+  },
+  "coverage": [
+    {
+      "province": "An Giang",
+      "STAY": 4,
+      "EXP": 1,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Bắc Ninh",
+      "STAY": 9,
+      "EXP": 3,
+      "SVC": 5,
+      "complexes": 2
+    },
+    {
+      "province": "Cà Mau",
+      "STAY": 7,
+      "EXP": 1,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Cao Bằng",
+      "STAY": 9,
+      "EXP": 3,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Cần Thơ",
+      "STAY": 6,
+      "EXP": 1,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Đà Nẵng",
+      "STAY": 36,
+      "EXP": 4,
+      "SVC": 11,
+      "complexes": 5
+    },
+    {
+      "province": "Đắk Lắk",
+      "STAY": 6,
+      "EXP": 4,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Điện Biên",
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 3,
+      "complexes": 1
+    },
+    {
+      "province": "Đồng Nai",
+      "STAY": 4,
+      "EXP": 4,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Đồng Tháp",
+      "STAY": 5,
+      "EXP": 2,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Gia Lai",
+      "STAY": 11,
+      "EXP": 2,
+      "SVC": 5,
+      "complexes": 2
+    },
+    {
+      "province": "Hà Nội",
+      "STAY": 9,
+      "EXP": 6,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Hà Tĩnh",
+      "STAY": 9,
+      "EXP": 1,
+      "SVC": 4,
+      "complexes": 2
+    },
+    {
+      "province": "Hải Phòng",
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "STAY": 16,
+      "EXP": 6,
+      "SVC": 4,
+      "complexes": 3
+    },
+    {
+      "province": "Huế",
+      "STAY": 7,
+      "EXP": 6,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Hưng Yên",
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "STAY": 29,
+      "EXP": 2,
+      "SVC": 11,
+      "complexes": 4
+    },
+    {
+      "province": "Lai Châu",
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Lạng Sơn",
+      "STAY": 5,
+      "EXP": 1,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Lào Cai",
+      "STAY": 8,
+      "EXP": 3,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Lâm Đồng",
+      "STAY": 13,
+      "EXP": 6,
+      "SVC": 5,
+      "complexes": 2
+    },
+    {
+      "province": "Nghệ An",
+      "STAY": 56,
+      "EXP": 1,
+      "SVC": 20,
+      "complexes": 10
+    },
+    {
+      "province": "Ninh Bình",
+      "STAY": 7,
+      "EXP": 5,
+      "SVC": 4,
+      "complexes": 2
+    },
+    {
+      "province": "Phú Thọ",
+      "STAY": 7,
+      "EXP": 4,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "STAY": 4,
+      "EXP": 1,
+      "SVC": 3,
+      "complexes": 1
+    },
+    {
+      "province": "Quảng Ninh",
+      "STAY": 30,
+      "EXP": 3,
+      "SVC": 8,
+      "complexes": 5
+    },
+    {
+      "province": "Quảng Trị",
+      "STAY": 17,
+      "EXP": 4,
+      "SVC": 5,
+      "complexes": 3
+    },
+    {
+      "province": "Sơn La",
+      "STAY": 14,
+      "EXP": 1,
+      "SVC": 3,
+      "complexes": 2
+    },
+    {
+      "province": "Tây Ninh",
+      "STAY": 6,
+      "EXP": 2,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "STAY": 4,
+      "EXP": 2,
+      "SVC": 1,
+      "complexes": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "STAY": 6,
+      "EXP": 2,
+      "SVC": 3,
+      "complexes": 1
+    },
+    {
+      "province": "Tuyên Quang",
+      "STAY": 3,
+      "EXP": 3,
+      "SVC": 2,
+      "complexes": 1
+    },
+    {
+      "province": "Vĩnh Long",
+      "STAY": 3,
+      "EXP": 4,
+      "SVC": 1,
+      "complexes": 0
+    }
+  ],
+  "activeLandmarks": 168,
+  "status": "passed"
+}

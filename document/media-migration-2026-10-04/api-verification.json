@@ -1,0 +1,23 @@
+[
+  {
+    "path": "/api/v1/recommendations/home/hero-landmarks",
+    "status": 200,
+    "imageReferences": 6,
+    "cloudinary": 6,
+    "external": 0
+  },
+  {
+    "path": "/api/v1/recommendations/complexes?limit=6",
+    "status": 200,
+    "imageReferences": 30,
+    "cloudinary": 30,
+    "external": 0
+  },
+  {
+    "path": "/api/v1/recommendations/provinces/H%C3%A0%20N%E1%BB%99i/destinations",
+    "status": 200,
+    "imageReferences": 10,
+    "cloudinary": 10,
+    "external": 0
+  }
+]

@@ -1,0 +1,266 @@
+[
+  {
+    "key": "saigonvl-suite",
+    "url": "https://saigonvinhlonghotel.vn/deluxe-suite/",
+    "allowedHosts": [
+      "saigonvinhlonghotel.vn",
+      "www.saigonvinhlonghotel.vn"
+    ]
+  },
+  {
+    "key": "saigonvl-grand",
+    "url": "https://saigonvinhlonghotel.vn/grand-deluxe/",
+    "allowedHosts": [
+      "saigonvinhlonghotel.vn",
+      "www.saigonvinhlonghotel.vn"
+    ]
+  },
+  {
+    "key": "saigonvl-deluxe",
+    "url": "https://saigonvinhlonghotel.vn/deluxe-room/",
+    "allowedHosts": [
+      "saigonvinhlonghotel.vn",
+      "www.saigonvinhlonghotel.vn"
+    ]
+  },
+  {
+    "key": "saigonvl-superior",
+    "url": "https://saigonvinhlonghotel.vn/superior-room/",
+    "allowedHosts": [
+      "saigonvinhlonghotel.vn",
+      "www.saigonvinhlonghotel.vn"
+    ]
+  },
+  {
+    "key": "saigonvl-restaurant",
+    "url": "https://saigonvinhlonghotel.vn/boulevard-restaurant/",
+    "allowedHosts": [
+      "saigonvinhlonghotel.vn",
+      "www.saigonvinhlonghotel.vn"
+    ]
+  },
+  {
+    "key": "saigonvl-spa",
+    "url": "https://saigonvinhlonghotel.vn/hotel-spa/",
+    "allowedHosts": [
+      "saigonvinhlonghotel.vn",
+      "www.saigonvinhlonghotel.vn"
+    ]
+  },
+  {
+    "key": "diamondstar-rooms",
+    "url": "https://diamondstarbentre.com/vn/phong.html",
+    "allowedHosts": [
+      "diamondstarbentre.com",
+      "www.diamondstarbentre.com"
+    ]
+  },
+  {
+    "key": "diamondstar-restaurant",
+    "url": "https://diamondstarbentre.com/vn/nha-hang.html",
+    "allowedHosts": [
+      "diamondstarbentre.com",
+      "www.diamondstarbentre.com"
+    ]
+  },
+  {
+    "key": "diamondstar-spa",
+    "url": "https://diamondstarbentre.com/vn/dich-vu/spa.html",
+    "allowedHosts": [
+      "diamondstarbentre.com",
+      "www.diamondstarbentre.com"
+    ]
+  },
+  {
+    "key": "konklor-family",
+    "url": "https://konklorhotel.vn/phong-gia-dinh",
+    "allowedHosts": [
+      "konklorhotel.vn",
+      "www.konklorhotel.vn"
+    ]
+  },
+  {
+    "key": "konklor-double",
+    "url": "https://konklorhotel.vn/phong-giuong-doi-sang-trong-tien-nghi",
+    "allowedHosts": [
+      "konklorhotel.vn",
+      "www.konklorhotel.vn"
+    ]
+  },
+  {
+    "key": "konklor-standard",
+    "url": "https://konklorhotel.vn/phong-standar-double",
+    "allowedHosts": [
+      "konklorhotel.vn",
+      "www.konklorhotel.vn"
+    ]
+  },
+  {
+    "key": "konklor-superior",
+    "url": "https://konklorhotel.vn/phong-superior-bungalow-garden-sang-trong",
+    "allowedHosts": [
+      "konklorhotel.vn",
+      "www.konklorhotel.vn"
+    ]
+  },
+  {
+    "key": "ninhkieu-rooms",
+    "url": "https://www.ninhkieuriversidehotel.vn/our-accommodation",
+    "allowedHosts": [
+      "www.ninhkieuriversidehotel.vn",
+      "ninhkieuriversidehotel.vn"
+    ]
+  },
+  {
+    "key": "tru-haugiang-rooms",
+    "url": "https://www.hilton.com/en/hotels/vkgvtru-tru-hau-giang-city-centre/rooms/",
+    "allowedHosts": [
+      "www.hilton.com",
+      "hilton.com"
+    ]
+  },
+  {
+    "key": "tru-viettri-rooms",
+    "url": "https://www.hilton.com/en/hotels/hanvtru-tru-viet-tri-city-centre/rooms/",
+    "allowedHosts": [
+      "www.hilton.com",
+      "hilton.com"
+    ]
+  },
+  {
+    "key": "mekongriverside",
+    "url": "https://mekongriversideresort.vn/",
+    "allowedHosts": [
+      "mekongriversideresort.vn",
+      "www.mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "mekongrustic",
+    "url": "https://www.mekongrustic.com/",
+    "allowedHosts": [
+      "www.mekongrustic.com",
+      "mekongrustic.com"
+    ]
+  },
+  {
+    "key": "miracentral",
+    "url": "https://themiracentralpark.com.vn/",
+    "allowedHosts": [
+      "themiracentralpark.com.vn",
+      "www.themiracentralpark.com.vn"
+    ]
+  },
+  {
+    "key": "royalpalace",
+    "url": "https://www.royalpalacehotel.vn/",
+    "allowedHosts": [
+      "www.royalpalacehotel.vn",
+      "royalpalacehotel.vn"
+    ]
+  },
+  {
+    "key": "saomai",
+    "url": "https://dongthaptourist.com/nha-hang-khach-san/khach-san-sao-mai/",
+    "allowedHosts": [
+      "dongthaptourist.com",
+      "www.dongthaptourist.com"
+    ]
+  },
+  {
+    "key": "saigonphutho",
+    "url": "https://saigonphuthohotel.com/",
+    "allowedHosts": [
+      "saigonphuthohotel.com",
+      "www.saigonphuthohotel.com"
+    ]
+  },
+  {
+    "key": "bong",
+    "url": "https://www.bongbackpacker.com/",
+    "allowedHosts": [
+      "www.bongbackpacker.com",
+      "bongbackpacker.com"
+    ]
+  },
+  {
+    "key": "lila",
+    "url": "https://lilainn.tours/",
+    "allowedHosts": [
+      "lilainn.tours",
+      "www.lilainn.tours"
+    ]
+  },
+  {
+    "key": "cocolodge",
+    "url": "https://www.cocoriversidelodge.com/",
+    "allowedHosts": [
+      "www.cocoriversidelodge.com",
+      "cocoriversidelodge.com"
+    ]
+  },
+  {
+    "key": "babelake",
+    "url": "https://babelakeview-homestay.com/",
+    "allowedHosts": [
+      "babelakeview-homestay.com",
+      "www.babelakeview-homestay.com"
+    ]
+  },
+  {
+    "key": "saigonbanme",
+    "url": "https://saigonbanmehotel.com.vn/en/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn",
+      "www.saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "namcuonghaiduong",
+    "url": "https://namcuongnamdinhhotel.com.vn/nam_cuong_hd/",
+    "allowedHosts": [
+      "namcuongnamdinhhotel.com.vn",
+      "www.namcuongnamdinhhotel.com.vn"
+    ]
+  },
+  {
+    "key": "greenbentre",
+    "url": "https://greenhomestaybentre.com/",
+    "allowedHosts": [
+      "greenhomestaybentre.com",
+      "www.greenhomestaybentre.com"
+    ]
+  },
+  {
+    "key": "oasisbentre",
+    "url": "https://www.bentrehoteloasis.com/",
+    "allowedHosts": [
+      "www.bentrehoteloasis.com",
+      "bentrehoteloasis.com"
+    ]
+  },
+  {
+    "key": "mekonghome",
+    "url": "https://www.mekonghome.com/",
+    "allowedHosts": [
+      "www.mekonghome.com",
+      "mekonghome.com"
+    ]
+  },
+  {
+    "key": "cocoisland",
+    "url": "https://cocoisland.vn/",
+    "allowedHosts": [
+      "cocoisland.vn",
+      "www.cocoisland.vn"
+    ]
+  },
+  {
+    "key": "hoangnham",
+    "url": "https://dulich.laichau.gov.vn/vi/hotel/details/khach-san-hoang-nham-133",
+    "allowedHosts": [
+      "dulich.laichau.gov.vn",
+      "www.dulich.laichau.gov.vn"
+    ]
+  }
+]

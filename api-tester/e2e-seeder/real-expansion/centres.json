@@ -1,0 +1,1242 @@
+[
+  {
+    "province": "Vĩnh Long",
+    "city": "Vĩnh Long",
+    "query": "Vĩnh Long, Việt Nam",
+    "formatted": "Vĩnh Long, Tỉnh Vĩnh Long, Việt Nam",
+    "address_line1": "Vĩnh Long",
+    "address_line2": "Vĩnh Long, Tỉnh Vĩnh Long, Việt Nam",
+    "lon": 105.9714673,
+    "lat": 10.254809,
+    "place_id": "518aa82e852c7e5a4059f373435376822440f00103f901d7e6125b00000000c0020892030a56c4a96e68204c6f6e67",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4647138372859263,
+      "popularity": 1.0710135815020656,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "85067",
+    "state": "Tỉnh Vĩnh Long",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.8114673,
+      "lat1": 10.094809,
+      "lon2": 106.1314673,
+      "lat2": 10.414809
+    },
+    "checkedAt": "2026-10-05T14:44:31.767Z"
+  },
+  {
+    "province": "Vĩnh Long",
+    "city": "Bến Tre",
+    "query": "Bến Tre, Việt Nam",
+    "formatted": "Bến Tre, Tỉnh Vĩnh Long, Việt Nam",
+    "address_line1": "Bến Tre",
+    "address_line2": "Bến Tre, Tỉnh Vĩnh Long, Việt Nam",
+    "lon": 106.3763684,
+    "lat": 10.2361217,
+    "place_id": "51dd4f7c6b16985a405979c086f1e4782440f00103f901caec051600000000c0020892030942e1babf6e20547265",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4633431188913769,
+      "popularity": 1.100278535206487,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "07584",
+    "county": "Phường An Hội",
+    "state": "Tỉnh Vĩnh Long",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.2163684,
+      "lat1": 10.0761217,
+      "lon2": 106.5363684,
+      "lat2": 10.3961217
+    },
+    "checkedAt": "2026-10-05T14:44:32.891Z"
+  },
+  {
+    "province": "Vĩnh Long",
+    "city": "Trà Vinh",
+    "query": "Trà Vinh, Việt Nam",
+    "formatted": "Trà Vinh, Tỉnh Vĩnh Long, Việt Nam",
+    "address_line1": "Trà Vinh",
+    "address_line2": "Tỉnh Vĩnh Long, Việt Nam",
+    "lon": 106.3416458,
+    "lat": 9.9357041,
+    "place_id": "5135745886dd955a40595b77989b14df2340f00103f9017c7ae6eb00000000c002089203095472c3a02056696e68",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.44657497932943896,
+      "popularity": 0.8611117116027456,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "county": "Phường Trà Vinh",
+    "state": "Tỉnh Vĩnh Long",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.1816458,
+      "lat1": 9.7757041,
+      "lon2": 106.5016458,
+      "lat2": 10.0957041
+    },
+    "checkedAt": "2026-10-05T14:44:33.650Z"
+  },
+  {
+    "province": "An Giang",
+    "city": "Long Xuyên",
+    "query": "Long Xuyên, Việt Nam",
+    "formatted": "Long Xuyên, Tỉnh An Giang, Việt Nam",
+    "address_line1": "Long Xuyên",
+    "address_line2": "Long Xuyên, Tỉnh An Giang, Việt Nam",
+    "lon": 105.4344389,
+    "lat": 10.3903537,
+    "place_id": "510ee7d0d8cd5b5a4059c5beae70dcc72440f00103f90160ec051600000000c0020892030b4c6f6e6720587579c3aa6e",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.45827629865675207,
+      "popularity": 0.830931031059005,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "90040",
+    "state": "Tỉnh An Giang",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.2744389,
+      "lat1": 10.2303537,
+      "lon2": 105.5944389,
+      "lat2": 10.5503537
+    },
+    "checkedAt": "2026-10-05T14:44:34.529Z"
+  },
+  {
+    "province": "An Giang",
+    "city": "Rạch Giá",
+    "query": "Rạch Giá, Việt Nam",
+    "formatted": "Rạch Giá, Tỉnh An Giang, Việt Nam",
+    "address_line1": "Rạch Giá",
+    "address_line2": "Rạch Giá, Tỉnh An Giang, Việt Nam",
+    "lon": 105.0832623,
+    "lat": 10.0107104,
+    "place_id": "5158df652b54455a4059447463d57b052440f00103f901bfec051600000000c0020892030b52e1baa16368204769c3a1",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4504652744324435,
+      "popularity": 0.8541653389227316,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "91118",
+    "state": "Tỉnh An Giang",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 104.9232623,
+      "lat1": 9.8507104,
+      "lon2": 105.2432623,
+      "lat2": 10.1707104
+    },
+    "checkedAt": "2026-10-05T14:44:36.204Z"
+  },
+  {
+    "province": "Quảng Ngãi",
+    "city": "Quảng Ngãi",
+    "query": "Quảng Ngãi, Việt Nam",
+    "formatted": "Quảng Ngãi, Tỉnh Quảng Ngãi, Việt Nam",
+    "address_line1": "Quảng Ngãi",
+    "address_line2": "Tỉnh Quảng Ngãi, Việt Nam",
+    "lon": 108.803827,
+    "lat": 15.1232329,
+    "place_id": "511329cde671335b40591d95f661183f2e40f00103f90142ec051600000000c0020892030d5175e1baa36e67204e67c3a369",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4534965645646641,
+      "popularity": 0.5709064487586414,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "state": "Tỉnh Quảng Ngãi",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 108.643827,
+      "lat1": 14.9632329,
+      "lon2": 108.963827,
+      "lat2": 15.2832329
+    },
+    "checkedAt": "2026-10-05T14:44:35.204Z"
+  },
+  {
+    "formatted": "Kon Tum, Tỉnh Quảng Ngãi, Việt Nam",
+    "address_line1": "Kon Tum",
+    "address_line2": "Tỉnh Quảng Ngãi, Việt Nam",
+    "lon": 108.0003578,
+    "lat": 14.3479159,
+    "place_id": "511bd3b8dc05005b40594e84680822b22c40f00103f9013dec051600000000c002089203074b6f6e2054756d",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4434226159554636,
+      "popularity": 0.5037330566935283,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Kon Tum",
+    "state": "Tỉnh Quảng Ngãi",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 107.8403578,
+      "lat1": 14.1879159,
+      "lon2": 108.1603578,
+      "lat2": 14.5079159
+    },
+    "province": "Quảng Ngãi",
+    "query": "Kon Tum, Việt Nam",
+    "checkedAt": "2026-10-05T14:44:51.598Z"
+  },
+  {
+    "formatted": "Phường Biên Hòa, Thành phố Đồng Nai, Việt Nam",
+    "address_line1": "Phường Biên Hòa",
+    "address_line2": "Thành phố Đồng Nai, Việt Nam",
+    "lon": 106.8047174,
+    "lat": 10.9364123,
+    "place_id": "516be1687d80b35a4059f024d86e71df2540f00101f901d80f800000000000c002059203145068c6b0e1bb9d6e67204269c3aa6e2048c3b261",
+    "result_type": "suburb",
+    "rank": {
+      "importance": 0.3002719692158251,
+      "popularity": 3.259111364399456,
+      "confidence": 0.9,
+      "confidence_city_level": 0.9,
+      "match_type": "full_match"
+    },
+    "confidence": 0.9,
+    "state": "Thành phố Đồng Nai",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.7619663,
+      "lat1": 10.9027958,
+      "lon2": 106.8404473,
+      "lat2": 10.9652796
+    },
+    "province": "Đồng Nai",
+    "city": "Biên Hòa",
+    "query": "Biên Hòa, Việt Nam",
+    "checkedAt": "2026-10-05T14:44:53.292Z"
+  },
+  {
+    "formatted": "Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+    "address_line1": "Đồng Xoài",
+    "address_line2": "Đồng Xoài, Thành phố Đồng Nai, Việt Nam",
+    "lon": 106.9021712,
+    "lat": 11.5374755,
+    "place_id": "5128d9452cbdb95a405970cd1dfd2f132740f00103f90167d56f0203000000c0020892030dc490e1bb936e6720586fc3a069",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.1867157557030594,
+      "popularity": 0.8312095809281866,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "67112",
+    "city": "Đồng Xoài",
+    "state": "Thành phố Đồng Nai",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.7421712,
+      "lat1": 11.3774755,
+      "lon2": 107.0621712,
+      "lat2": 11.6974755
+    },
+    "province": "Đồng Nai",
+    "query": "Đồng Xoài, Việt Nam",
+    "checkedAt": "2026-10-05T14:44:53.917Z"
+  },
+  {
+    "formatted": "Thành Phố Thái Nguyên, TY, Việt Nam",
+    "address_line1": "Thành Phố Thái Nguyên",
+    "address_line2": "TY, Việt Nam",
+    "lon": 105.84417,
+    "lat": 21.59278,
+    "place_id": "51eb909be106765a40590fb9196ec0973540c0020892031a5468c3a06e68205068e1bb91205468c3a169204e677579c3aa6ee2031e77686f736f6e66697273743a6c6f63616c6974793a343231313736303239",
+    "result_type": "city",
+    "rank": {
+      "popularity": 0.640247686885333,
+      "confidence": 0.81,
+      "confidence_city_level": 0.81,
+      "match_type": "full_match"
+    },
+    "confidence": 0.81,
+    "city": "Thái Nguyên",
+    "county": "Thái Nguyên",
+    "state": "Thái Nguyên",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.82417,
+      "lat1": 21.57278,
+      "lon2": 105.86417,
+      "lat2": 21.61278
+    },
+    "province": "Thái Nguyên",
+    "query": "Thái Nguyên, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:01.629Z"
+  },
+  {
+    "formatted": "Phường Bắc Kạn, Tỉnh Thái Nguyên, Việt Nam",
+    "address_line1": "Phường Bắc Kạn",
+    "address_line2": "Tỉnh Thái Nguyên, Việt Nam",
+    "lon": 105.8308996,
+    "lat": 22.138967,
+    "place_id": "519b1084752d755a40592639605793233640f00101f901a63c270100000000c002089203155068c6b0e1bb9d6e672042e1baaf63204be1baa16e",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.24005069428549627,
+      "popularity": 0.4790963515636004,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Bắc Kạn",
+    "state": "Tỉnh Thái Nguyên",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.79534,
+      "lat1": 22.0621002,
+      "lon2": 105.9304889,
+      "lat2": 22.1563595
+    },
+    "province": "Thái Nguyên",
+    "query": "Bắc Kạn, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:03.254Z"
+  },
+  {
+    "formatted": "Thành phố Tây Ninh, Tỉnh Tây Ninh, Việt Nam",
+    "address_line1": "Thành phố Tây Ninh",
+    "address_line2": "Thành phố Tây Ninh, Tỉnh Tây Ninh, Việt Nam",
+    "lon": 106.0966969,
+    "lat": 11.3136555,
+    "place_id": "51f9c7314830865a4059ca6b257497a02640f00103f901e0ec051600000000c002089203165468c3a06e68207068e1bb912054c3a279204e696e68",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.44483426465222636,
+      "popularity": 0.8078432104842471,
+      "confidence": 0.81,
+      "confidence_city_level": 0.81,
+      "match_type": "full_match"
+    },
+    "confidence": 0.81,
+    "postcode": "80606",
+    "city": "Tây Ninh",
+    "county": "Phường Tân Ninh",
+    "state": "Tỉnh Tây Ninh",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.9366969,
+      "lat1": 11.1536555,
+      "lon2": 106.2566969,
+      "lat2": 11.4736555
+    },
+    "province": "Tây Ninh",
+    "query": "Tây Ninh, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:02.194Z"
+  },
+  {
+    "formatted": "Tân An, Tỉnh Tây Ninh, Việt Nam",
+    "address_line1": "Tân An",
+    "address_line2": "Tỉnh Tây Ninh, Việt Nam",
+    "lon": 106.4085655,
+    "lat": 10.5372944,
+    "place_id": "518731e9ef259a5a4059dca5684018132540f00103f90101ed051600000000c0020892030754c3a26e20416e",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.45821640790347434,
+      "popularity": 1.4953822365174605,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Tân An",
+    "county": "Phường Long An",
+    "state": "Tỉnh Tây Ninh",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.2485655,
+      "lat1": 10.3772944,
+      "lon2": 106.5685655,
+      "lat2": 10.6972944
+    },
+    "province": "Tây Ninh",
+    "query": "Tân An, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:04.192Z"
+  },
+  {
+    "formatted": "Cao Lãnh, Tỉnh Đồng Tháp, Việt Nam",
+    "address_line1": "Cao Lãnh",
+    "address_line2": "Tỉnh Đồng Tháp, Việt Nam",
+    "lon": 105.6314,
+    "lat": 10.4529,
+    "place_id": "5171ac8bdb68685a405980b74082e2e72440f00103f901fe9ea20303000000c0020892030943616f204cc3a36e68",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.18672166857404437,
+      "popularity": 0.7776874266933246,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Cao Lãnh",
+    "state": "Tỉnh Đồng Tháp",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.4714,
+      "lat1": 10.2929,
+      "lon2": 105.7914,
+      "lat2": 10.6129
+    },
+    "province": "Đồng Tháp",
+    "query": "Cao Lãnh, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:04.913Z"
+  },
+  {
+    "formatted": "Mỹ Tho, Tỉnh Đồng Tháp, Việt Nam",
+    "address_line1": "Mỹ Tho",
+    "address_line2": "Mỹ Tho, Tỉnh Đồng Tháp, Việt Nam",
+    "lon": 106.3642994,
+    "lat": 10.3585287,
+    "place_id": "51f43c6eae50975a4059d45ae21291b72440f00103f901f49ea20303000000c002089203084de1bbb92054686f",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.18672186236362245,
+      "popularity": 1.4405593234817926,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "86000",
+    "city": "Mỹ Tho",
+    "county": "Phường Mỹ Tho",
+    "state": "Tỉnh Đồng Tháp",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.2042994,
+      "lat1": 10.1985287,
+      "lon2": 106.5242994,
+      "lat2": 10.5185287
+    },
+    "province": "Đồng Tháp",
+    "query": "Mỹ Tho, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:06.020Z"
+  },
+  {
+    "formatted": "Cà Mau, Tỉnh Cà Mau, Việt Nam",
+    "address_line1": "Cà Mau",
+    "address_line2": "Cà Mau, Tỉnh Cà Mau, Việt Nam",
+    "lon": 105.1508415,
+    "lat": 9.1762003,
+    "place_id": "514b581b63a7495a40593d17fcec365a2240f00103f9014dec051600000000c0020892030743c3a0204d6175",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4604546116085724,
+      "popularity": 0.6383375321949635,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "98100",
+    "city": "Cà Mau",
+    "county": "Phường Tân Thành",
+    "state": "Tỉnh Cà Mau",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 104.9908415,
+      "lat1": 9.0162003,
+      "lon2": 105.3108415,
+      "lat2": 9.3362003
+    },
+    "province": "Cà Mau",
+    "query": "Cà Mau, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:07.002Z"
+  },
+  {
+    "formatted": "Bạc Liêu, Tỉnh Cà Mau, Việt Nam",
+    "address_line1": "Bạc Liêu",
+    "address_line2": "Bạc Liêu, Tỉnh Cà Mau, Việt Nam",
+    "lon": 105.723904,
+    "lat": 9.2855006,
+    "place_id": "51645c7171546e5a40590dfa77222d922240f00103f9015dec051600000000c0020892030b42e1baa163204c69c3aa75",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.45439195690859274,
+      "popularity": 0.6365044011886587,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "97000",
+    "city": "Bạc Liêu",
+    "county": "Phường Bạc Liêu",
+    "state": "Tỉnh Cà Mau",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.563904,
+      "lat1": 9.1255006,
+      "lon2": 105.883904,
+      "lat2": 9.4455006
+    },
+    "province": "Cà Mau",
+    "query": "Bạc Liêu, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:08.377Z"
+  },
+  {
+    "formatted": "Thành phố Lạng Sơn, Phường Tam Thanh, Văn Lãng, Việt Nam",
+    "address_line1": "Thành phố Lạng Sơn",
+    "address_line2": "Phường Tam Thanh, Văn Lãng, Việt Nam",
+    "lon": 106.7432662,
+    "lat": 21.855262,
+    "place_id": "51384e65ac91af5a4059f5824f73f2da3540f00101f901166e6c0000000000c002019203185468c3a06e68207068e1bb91204ce1baa16e672053c6a16e",
+    "result_type": "amenity",
+    "rank": {
+      "importance": 0.46205620667076136,
+      "popularity": 0.5060217296621466,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "inner_part"
+    },
+    "confidence": 1,
+    "city": "Lạng Sơn",
+    "county": "Văn Lãng",
+    "state": "Tỉnh Lạng Sơn",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.6979744,
+      "lat1": 21.7817673,
+      "lon2": 106.8002233,
+      "lat2": 21.928253
+    },
+    "province": "Lạng Sơn",
+    "query": "Thành phố Lạng Sơn, Lạng Sơn, Việt Nam",
+    "checkedAt": "2026-10-05T14:46:26.519Z"
+  },
+  {
+    "formatted": "Lai Châu, Tỉnh Lai Châu, Việt Nam",
+    "address_line1": "Lai Châu",
+    "address_line2": "Tỉnh Lai Châu, Việt Nam",
+    "lon": 103.4702436,
+    "lat": 22.3862104,
+    "place_id": "51d0c99c7818de59405905604dafde623640f00103f901d5ec051600000000c002089203094c6169204368c3a275",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.41761525391502413,
+      "popularity": 0.3976743739897633,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Lai Châu",
+    "county": "Phường Tân Phong",
+    "state": "Tỉnh Lai Châu",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 103.3102436,
+      "lat1": 22.2262104,
+      "lon2": 103.6302436,
+      "lat2": 22.5462104
+    },
+    "province": "Lai Châu",
+    "query": "Lai Châu, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:11.115Z"
+  },
+  {
+    "formatted": "Điện Biên Phủ, Tỉnh Điện Biên, Việt Nam",
+    "address_line1": "Điện Biên Phủ",
+    "address_line2": "Tỉnh Điện Biên, Việt Nam",
+    "lon": 103.0159895,
+    "lat": 21.3923593,
+    "place_id": "5115e5d2f805c15940590dc8b9a871643540f00103f90162768a1900000000c00208920313c49069e1bb876e204269c3aa6e205068e1bba7",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.46557627653651246,
+      "popularity": 0.41023555581794074,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Điện Biên Phủ",
+    "county": "Phường Điện Biên Phủ",
+    "state": "Tỉnh Điện Biên",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 102.8559895,
+      "lat1": 21.2323593,
+      "lon2": 103.1759895,
+      "lat2": 21.5523593
+    },
+    "province": "Điện Biên",
+    "query": "Điện Biên Phủ, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:12.427Z"
+  },
+  {
+    "formatted": "Thành phố Cần Thơ, Việt Nam",
+    "address_line1": "Thành phố Cần Thơ",
+    "address_line2": "Việt Nam",
+    "lon": 105.7872656,
+    "lat": 10.0362046,
+    "place_id": "510351418f62725a4059f5edc96889122440f00101f9016b991c0000000000c002089203175468c3a06e68207068e1bb912043e1baa76e205468c6a1",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.5599598531362774,
+      "popularity": 1.4082458221265781,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Cần Thơ",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.2256784,
+      "lat1": 8.702505,
+      "lon2": 106.4538443,
+      "lat2": 10.3252088
+    },
+    "province": "Cần Thơ",
+    "query": "Cần Thơ, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:15.512Z"
+  },
+  {
+    "formatted": "Sóc Trăng, Việt Nam",
+    "address_line1": "Sóc Trăng",
+    "address_line2": "Sóc Trăng, Việt Nam",
+    "lon": 105.9733211,
+    "lat": 9.6026724,
+    "place_id": "516f4095e44a7e5a40595667107a91342340f00103f901feec051600000000c0020892030b53c3b363205472c4836e67",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4457104052663012,
+      "popularity": 0.69453779975301,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "96113",
+    "city": "Sóc Trăng",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.8133211,
+      "lat1": 9.4426724,
+      "lon2": 106.1333211,
+      "lat2": 9.7626724
+    },
+    "province": "Cần Thơ",
+    "query": "Sóc Trăng, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:16.447Z"
+  },
+  {
+    "formatted": "Vị Thanh, Việt Nam",
+    "address_line1": "Vị Thanh",
+    "address_line2": "Việt Nam",
+    "lon": 105.4664189,
+    "lat": 9.7828873,
+    "place_id": "511f6fa8ced95d5a405951e8ab9ad6902340f00103f901b0ec051600000000c0020892030a56e1bb8b205468616e68",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4348490150141181,
+      "popularity": 0.5774572521396021,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Vị Thanh",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Ho_Chi_Minh",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.3064189,
+      "lat1": 9.6228873,
+      "lon2": 105.6264189,
+      "lat2": 9.9428873
+    },
+    "province": "Cần Thơ",
+    "query": "Vị Thanh, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:13.575Z"
+  },
+  {
+    "formatted": "Thành phố Hải Phòng, Việt Nam",
+    "address_line1": "Thành phố Hải Phòng",
+    "address_line2": "Việt Nam",
+    "lon": 106.6790381,
+    "lat": 20.8830967,
+    "place_id": "513b0f385c75ab5a40599db415a012e23440f00101f9015a081d0000000000c002089203195468c3a06e68207068e1bb912048e1baa369205068c3b26e67",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.584724064815276,
+      "popularity": 1.0203954403204305,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Hải Phòng",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.1242265,
+      "lat1": 19.9177567,
+      "lon2": 107.9518577,
+      "lat2": 21.2369932
+    },
+    "province": "Hải Phòng",
+    "query": "Hải Phòng, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:17.479Z"
+  },
+  {
+    "formatted": "Hải Dương, Hải Phòng, Vietnam",
+    "address_line1": "Hải Dương",
+    "address_line2": "Hải Phòng, Vietnam",
+    "lon": 106.330626,
+    "lat": 20.9330747,
+    "place_id": "51444df4f928955a40599a39c9fbddee3440f00101f90180d06c0000000000c0020192030d48e1baa3692044c6b0c6a16e67",
+    "result_type": "amenity",
+    "rank": {
+      "importance": 0.46205620667076136,
+      "popularity": 1.1197791974718903,
+      "confidence": 0.9,
+      "confidence_city_level": 0.9,
+      "match_type": "inner_part"
+    },
+    "confidence": 0.9,
+    "city": "Hải Dương",
+    "county": "Xã Ka Đô",
+    "state": "Tỉnh Lâm Đồng",
+    "country": "Vietnam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.2591641,
+      "lat1": 20.8799731,
+      "lon2": 106.40433,
+      "lat2": 20.9864593
+    },
+    "province": "Hải Phòng",
+    "query": "Hai Duong city, Vietnam",
+    "checkedAt": "2026-10-05T14:47:01.075Z"
+  },
+  {
+    "formatted": "Phường Thái Bình, Tỉnh Hưng Yên, Việt Nam",
+    "address_line1": "Phường Thái Bình",
+    "address_line2": "Tỉnh Hưng Yên, Việt Nam",
+    "lon": 106.3127973,
+    "lat": 20.4751012,
+    "place_id": "51bc71f7de04945a4059554a743ba0793440f00101f901602f2a0100000000c002089203155068c6b0e1bb9d6e67205468c3a1692042c3ac6e68",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.4520643089223901,
+      "popularity": 0.6485956167794862,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Thái Bình",
+    "state": "Tỉnh Hưng Yên",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.2854662,
+      "lat1": 20.4464528,
+      "lon2": 106.3523475,
+      "lat2": 20.5126903
+    },
+    "province": "Hưng Yên",
+    "query": "Thái Bình, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:19.200Z"
+  },
+  {
+    "formatted": "Thành phố Hưng Yên, Phường Phố Hiến, Tỉnh Hưng Yên, Việt Nam",
+    "address_line1": "Thành phố Hưng Yên",
+    "address_line2": "Phường Phố Hiến, Tỉnh Hưng Yên, Việt Nam",
+    "lon": 106.0619857,
+    "lat": 20.6589314,
+    "place_id": "517594de92f7835a4059b84e6dbaafa83440f00101f9019ec76c0000000000c002019203175468c3a06e68207068e1bb912048c6b06e672059c3aa6e",
+    "result_type": "amenity",
+    "rank": {
+      "importance": 0.44541965879922213,
+      "popularity": 0.9098040866859859,
+      "confidence": 1,
+      "match_type": "inner_part"
+    },
+    "confidence": 1,
+    "city": "Hưng Yên",
+    "county": "Xã Tân Hưng",
+    "state": "Tỉnh Hưng Yên",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 106.0043205,
+      "lat1": 20.6030956,
+      "lon2": 106.1292523,
+      "lat2": 20.7164123
+    },
+    "province": "Hưng Yên",
+    "query": "Thành phố Hưng Yên, Hưng Yên, Việt Nam",
+    "checkedAt": "2026-10-05T14:46:26.520Z"
+  },
+  {
+    "formatted": "Tuyên Quang, TQ, Việt Nam",
+    "address_line1": "Tuyên Quang",
+    "address_line2": "TQ, Việt Nam",
+    "lon": 105.21806,
+    "lat": 21.82333,
+    "place_id": "513524eeb1f44d5a4059d0d03fc1c5d23540c0020892030c547579c3aa6e205175616e67e2031e77686f736f6e66697273743a6c6f63616c6974793a383930343338353539",
+    "result_type": "city",
+    "rank": {
+      "popularity": 0.4703499717905327,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Tuyên Quang",
+    "county": "Tuyên Quang",
+    "state": "Tuyên Quang",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.19806,
+      "lat1": 21.80333,
+      "lon2": 105.23806,
+      "lat2": 21.84333
+    },
+    "province": "Tuyên Quang",
+    "query": "Tuyên Quang, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:20.407Z"
+  },
+  {
+    "formatted": "Thành phố Hà Giang, 20152, Việt Nam",
+    "address_line1": "Thành phố Hà Giang",
+    "address_line2": "20152, Việt Nam",
+    "lon": 104.9504515,
+    "lat": 22.8168007,
+    "place_id": "51c93b8732d43c5a405994d9c5d919d13640f00101f901994e6c0000000000c002019203165468c3a06e68207068e1bb912048c3a0204769616e67",
+    "result_type": "amenity",
+    "rank": {
+      "importance": 0.43424699667243644,
+      "popularity": 0.41386902227434225,
+      "confidence": 0,
+      "match_type": "inner_part"
+    },
+    "confidence": 0,
+    "city": "Hà Giang",
+    "county": "Xã Sơn Điền",
+    "state": "Tỉnh Lâm Đồng",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 104.8632638,
+      "lat1": 22.754574,
+      "lon2": 105.0750551,
+      "lat2": 22.8789506
+    },
+    "province": "Tuyên Quang",
+    "query": "Thành phố Hà Giang, Tuyên Quang, Việt Nam",
+    "checkedAt": "2026-10-05T14:46:26.520Z",
+    "postcode": "20152"
+  },
+  {
+    "formatted": "Thanh Hóa, TH, Việt Nam",
+    "address_line1": "Thanh Hóa",
+    "address_line2": "TH, Việt Nam",
+    "lon": 105.76667,
+    "lat": 19.8,
+    "place_id": "51c2340c1f11715a4059cdcccccccccc3340c0020892030a5468616e682048c3b361e2031e77686f736f6e66697273743a6c6f63616c6974793a383930343331343939",
+    "result_type": "city",
+    "rank": {
+      "popularity": 0.5867848086892458,
+      "confidence": 0.30000000000000004,
+      "confidence_city_level": 0.6000000000000001,
+      "match_type": "match_by_city_or_disrict"
+    },
+    "confidence": 0.30000000000000004,
+    "city": "Thanh Hóa",
+    "state": "Thanh Hóa",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.74667,
+      "lat1": 19.78,
+      "lon2": 105.78667,
+      "lat2": 19.82
+    },
+    "province": "Thanh Hóa",
+    "query": "Thành phố Thanh Hóa, Thanh Hóa, Việt Nam",
+    "checkedAt": "2026-10-05T14:46:26.521Z",
+    "county": "Thanh Hóa"
+  },
+  {
+    "formatted": "Hà Tĩnh, HT, Việt Nam",
+    "address_line1": "Hà Tĩnh",
+    "address_line2": "HT, Việt Nam",
+    "lon": 105.9,
+    "lat": 18.33333,
+    "place_id": "519a99999999795a405993c6681d55553240c0020892030948c3a02054c4a96e68e2031e77686f736f6e66697273743a6c6f63616c6974793a343231313935343439",
+    "result_type": "city",
+    "rank": {
+      "popularity": 0.5008597873343141,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "city": "Hà Tĩnh",
+    "county": "Hà Tĩnh",
+    "state": "Hà Tĩnh",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.88,
+      "lat1": 18.31333,
+      "lon2": 105.92,
+      "lat2": 18.35333
+    },
+    "province": "Hà Tĩnh",
+    "query": "Hà Tĩnh, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:25.281Z"
+  },
+  {
+    "formatted": "Việt Trì, Tỉnh Phú Thọ, Việt Nam",
+    "address_line1": "Việt Trì",
+    "address_line2": "Việt Trì, Tỉnh Phú Thọ, Việt Nam",
+    "lon": 105.3946287,
+    "lat": 21.3135419,
+    "place_id": "510824bc9841595a4059fb6c2e4844503540f00103f90158ec051600000000c0020892030b5669e1bb8774205472c3ac",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.44657497932943896,
+      "popularity": 0.6121117533362515,
+      "confidence": 1,
+      "confidence_city_level": 1,
+      "match_type": "full_match"
+    },
+    "confidence": 1,
+    "postcode": "35100",
+    "city": "Việt Trì",
+    "state": "Tỉnh Phú Thọ",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 105.2346287,
+      "lat1": 21.1535419,
+      "lon2": 105.5546287,
+      "lat2": 21.4735419
+    },
+    "province": "Phú Thọ",
+    "query": "Việt Trì, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:26.817Z"
+  },
+  {
+    "formatted": "Phường Yên Bái, Tỉnh Lào Cai, Việt Nam",
+    "address_line1": "Phường Yên Bái",
+    "address_line2": "Tỉnh Lào Cai, Việt Nam",
+    "lon": 104.9112996,
+    "lat": 21.7226673,
+    "place_id": "51e8b68ebb523a5a40597d6363b900b93540f00101f9012ea32a0100000000c002089203135068c6b0e1bb9d6e672059c3aa6e2042c3a169",
+    "result_type": "city",
+    "rank": {
+      "importance": 0.24005863050278475,
+      "popularity": 0.4766795650409941,
+      "confidence": 0.9,
+      "confidence_city_level": 0.9,
+      "match_type": "full_match"
+    },
+    "confidence": 0.9,
+    "city": "Yên Bái",
+    "state": "Tỉnh Lào Cai",
+    "country": "Việt Nam",
+    "country_code": "vn",
+    "timezone": {
+      "name": "Asia/Bangkok",
+      "offset_STD": "+07:00",
+      "offset_DST": "+07:00",
+      "offset_STD_seconds": 25200,
+      "offset_DST_seconds": 25200
+    },
+    "bbox": {
+      "lon1": 104.8635064,
+      "lat1": 21.6931437,
+      "lon2": 104.9276086,
+      "lat2": 21.7355381
+    },
+    "province": "Lào Cai",
+    "query": "Yên Bái, Việt Nam",
+    "checkedAt": "2026-10-05T14:45:28.308Z"
+  }
+]

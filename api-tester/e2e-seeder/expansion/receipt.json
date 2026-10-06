@@ -1,0 +1,67 @@
+{
+  "batchId": "gotravel-expansion-2026-10-04-v1",
+  "planSha256": "228c46a81d268b43876a04bfefc359b9bc457931f7b0ad6790f78db55715f7ee",
+  "startedAt": "2026-10-04T17:13:38.127Z",
+  "inventoryStart": "2026-10-05",
+  "expected": {
+    "landmarks": 100,
+    "complexes": 30,
+    "listings": 500,
+    "reviews": 1500,
+    "inventoryConfigs": 500,
+    "inventoryCalendars": 96460
+  },
+  "before": {
+    "catalog": {
+      "landmarks": 125,
+      "complexes": 50,
+      "listings": 520,
+      "reviews": 670
+    },
+    "booking": {
+      "inventory_configs": 300,
+      "inventory_calendars": 68523,
+      "inventory_locks": 0
+    }
+  },
+  "status": "committed",
+  "completedAt": "2026-10-04T17:13:45.561Z",
+  "after": {
+    "catalog": {
+      "landmarks": 225,
+      "complexes": 80,
+      "listings": 1020,
+      "reviews": 2170
+    },
+    "booking": {
+      "inventory_configs": 800,
+      "inventory_calendars": 164983,
+      "inventory_locks": 0
+    }
+  },
+  "initialPlanSha256": "2dd1c5f6d1704f3c0c36df03b467cbee82894461a2efe209ee2cd311baa9a830",
+  "refinements": [
+    {
+      "at": "2026-10-04T17:28:15.684Z",
+      "reason": "Three-hour EXP slots accommodate every seeded experience duration (90–180 min)",
+      "changedInventoryConfigs": 140,
+      "changedCalendars": 38220
+    },
+    {
+      "at": "2026-10-04T17:50:50.332Z",
+      "reason": "Remove presentation seed labels; preserve database provenance and synthetic review identification",
+      "changedListings": 500,
+      "changedComplexes": 30,
+      "changedReviews": 1500,
+      "previousPlanSha256": "05cd0f8e8c855fcf52c3544baaf50ff6d09b6681a1f29c08d7d22407145a7d86"
+    },
+    {
+      "at": "2026-10-04T17:51:49.049Z",
+      "reason": "Remove presentation seed labels; preserve database provenance and synthetic review identification",
+      "changedListings": 0,
+      "changedComplexes": 0,
+      "changedReviews": 1500,
+      "previousPlanSha256": "4c497faaa3d3516597e551fdd95d32e312d130b49fb6c98e412a7ed8e0294c93"
+    }
+  ]
+}

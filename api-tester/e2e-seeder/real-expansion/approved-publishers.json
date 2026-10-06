@@ -1,0 +1,19 @@
+{
+  "reviewedAt": "2026-10-05T15:30:00.893Z",
+  "hosts": [
+    "babelakeview-homestay.com",
+    "cdn.cungcap.net",
+    "cdn.myguestdiary.com",
+    "diamondstarbentre.com",
+    "dongthaptourist.com",
+    "dongxuyenhotel.vn",
+    "habanahotel.com.vn",
+    "lilainn.tours",
+    "phucuonghotel.com",
+    "saigonbanmehotel.com.vn",
+    "saigonrachgiahotel.vn",
+    "saigonvinhlonghotel.vn",
+    "www.cocoriversidelodge.com"
+  ],
+  "scope": "Only photograph URLs extracted from the reviewed property/item pages; not arbitrary fetch targets"
+}

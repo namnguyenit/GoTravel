@@ -1,0 +1,147 @@
+{
+  "at": "2026-10-05T04:13:52.755517+00:00",
+  "library": "spring-security-crypto-7.0.4",
+  "javaVersion": "21.0.12.1",
+  "jvmFlags": [
+    "-Xmx160m",
+    "UseSerialGC",
+    "TieredCompilation",
+    "TieredStopAtLevel=4"
+  ],
+  "warmupMatches": 12,
+  "testAccountDataUsed": false,
+  "databaseChanges": false,
+  "costs": {
+    "15": {
+      "samples": 3,
+      "medianMs": 4664.06,
+      "minMs": 4653.2,
+      "maxMs": 4682.35,
+      "medianThreadCpuMs": 4662.25
+    },
+    "13": {
+      "samples": 3,
+      "medianMs": 1160.66,
+      "minMs": 1160.05,
+      "maxMs": 1167.03,
+      "medianThreadCpuMs": 1160.49
+    },
+    "12": {
+      "samples": 3,
+      "medianMs": 581.01,
+      "minMs": 580.95,
+      "maxMs": 581.7,
+      "medianThreadCpuMs": 580.94
+    },
+    "11": {
+      "samples": 3,
+      "medianMs": 290.83,
+      "minMs": 290.76,
+      "maxMs": 291.52,
+      "medianThreadCpuMs": 290.79
+    }
+  },
+  "oldHashBehavior": {
+    "newEncoderCost": 12,
+    "storedCost": 15,
+    "verified": true,
+    "wallMs": 4639.92
+  },
+  "rawResults": [
+    {
+      "java": "21.0.12.1",
+      "library": "spring-security-crypto-7.0.4",
+      "warmupMatches": 12
+    },
+    {
+      "cost": 15,
+      "sample": 1,
+      "verified": true,
+      "wallMs": 4682.35,
+      "threadCpuMs": 4681.73
+    },
+    {
+      "cost": 15,
+      "sample": 2,
+      "verified": true,
+      "wallMs": 4664.06,
+      "threadCpuMs": 4662.25
+    },
+    {
+      "cost": 15,
+      "sample": 3,
+      "verified": true,
+      "wallMs": 4653.2,
+      "threadCpuMs": 4652.46
+    },
+    {
+      "cost": 13,
+      "sample": 1,
+      "verified": true,
+      "wallMs": 1167.03,
+      "threadCpuMs": 1166.65
+    },
+    {
+      "cost": 13,
+      "sample": 2,
+      "verified": true,
+      "wallMs": 1160.05,
+      "threadCpuMs": 1159.97
+    },
+    {
+      "cost": 13,
+      "sample": 3,
+      "verified": true,
+      "wallMs": 1160.66,
+      "threadCpuMs": 1160.49
+    },
+    {
+      "cost": 12,
+      "sample": 1,
+      "verified": true,
+      "wallMs": 581.01,
+      "threadCpuMs": 580.94
+    },
+    {
+      "cost": 12,
+      "sample": 2,
+      "verified": true,
+      "wallMs": 581.7,
+      "threadCpuMs": 581.61
+    },
+    {
+      "cost": 12,
+      "sample": 3,
+      "verified": true,
+      "wallMs": 580.95,
+      "threadCpuMs": 580.91
+    },
+    {
+      "cost": 11,
+      "sample": 1,
+      "verified": true,
+      "wallMs": 290.83,
+      "threadCpuMs": 290.79
+    },
+    {
+      "cost": 11,
+      "sample": 2,
+      "verified": true,
+      "wallMs": 290.76,
+      "threadCpuMs": 290.72
+    },
+    {
+      "cost": 11,
+      "sample": 3,
+      "verified": true,
+      "wallMs": 291.52,
+      "threadCpuMs": 291.47
+    },
+    {
+      "newEncoderCost": 12,
+      "storedCost": 15,
+      "verified": true,
+      "wallMs": 4639.92
+    }
+  ]
+}

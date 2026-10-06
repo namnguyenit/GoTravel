@@ -287,13 +287,11 @@ class SeederScenarios {
   }
 
   buildListingImages(category, subCategory = 'NONE') {
-    const pool = this.getListingImagePool(category, subCategory);
-    const selected = pickN(pool, Math.min(5, pool.length));
-
-    while (selected.length < 5) {
-      const next = pick(pool);
-      if (!selected.includes(next)) selected.push(next);
+    const pool = [...new Set(this.getListingImagePool(category, subCategory))];
+    if (pool.length < 5) {
+      throw new Error(`Image pool ${category}/${subCategory} needs at least 5 distinct images`);
     }
+    const selected = pickN(pool, 5);
 
     return {
       thumbnailUrl: selected[0],

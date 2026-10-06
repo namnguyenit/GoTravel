@@ -1,0 +1,702 @@
+[
+  {
+    "title": "Vườn quốc gia Phong Nha – Kẻ Bàng",
+    "province": "Quảng Trị",
+    "oldNearestRegion": "Quảng Bình",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phong_Nha_%E2%80%93_K%E1%BA%BB_B%C3%A0ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Vườn quốc gia Tam Đảo",
+    "province": "Phú Thọ",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Tam_%C4%90%E1%BA%A3o",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Vườn quốc gia Núi Chúa",
+    "province": "Khánh Hòa",
+    "oldNearestRegion": "Khánh Hòa",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_N%C3%BAi_Ch%C3%BAa",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Vườn quốc gia Bái Tử Long",
+    "province": "Quảng Ninh",
+    "oldNearestRegion": "Quảng Ninh",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_B%C3%A1i_T%E1%BB%AD_Long",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Vườn quốc gia Ea Sô",
+    "province": "Đắk Lắk",
+    "oldNearestRegion": "Đắk Lắk",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Ea_S%C3%B4",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Vườn quốc gia Phja Oắc – Phja Đén",
+    "province": "Cao Bằng",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_qu%E1%BB%91c_gia_Phja_O%E1%BA%AFc_%E2%80%93_Phja_%C4%90%C3%A9n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu du lịch Núi Bà Đen",
+    "province": "Tây Ninh",
+    "oldNearestRegion": "Bình Dương",
+    "source": "https://vi.wikipedia.org/wiki/Khu_du_l%E1%BB%8Bch_N%C3%BAi_B%C3%A0_%C4%90en",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Mũi Né",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Bình Thuận",
+    "source": "https://vi.wikipedia.org/wiki/M%C5%A9i_N%C3%A9",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Biển Ba Động",
+    "province": "Vĩnh Long",
+    "oldNearestRegion": "Bến Tre",
+    "source": "https://vi.wikipedia.org/wiki/Bi%E1%BB%83n_Ba_%C4%90%E1%BB%99ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bãi tắm Hoàng Hậu",
+    "province": "Gia Lai",
+    "oldNearestRegion": "Bình Định",
+    "source": "https://vi.wikipedia.org/wiki/B%C3%A3i_t%E1%BA%AFm_Ho%C3%A0ng_H%E1%BA%ADu",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu di tích lịch sử Kim Liên",
+    "province": "Nghệ An",
+    "oldNearestRegion": "Nghệ An",
+    "source": "https://vi.wikipedia.org/wiki/Khu_di_t%C3%ADch_l%E1%BB%8Bch_s%E1%BB%AD_Kim_Li%C3%AAn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Công viên Lê-nin",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_L%C3%AA-nin",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bảo tàng Lâm Đồng",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_L%C3%A2m_%C4%90%E1%BB%93ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bảo tàng Cổ vật Cung đình Huế",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_C%E1%BB%95_v%E1%BA%ADt_Cung_%C4%91%C3%ACnh_Hu%E1%BA%BF",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Bảo tàng Quân khu 5, Đà Nẵng",
+    "province": "Đà Nẵng",
+    "oldNearestRegion": "Đà Nẵng",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_Qu%C3%A2n_khu_5,_%C4%90%C3%A0_N%E1%BA%B5ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bảo tàng Gốm sứ Mậu dịch",
+    "province": "Đà Nẵng",
+    "oldNearestRegion": "Quảng Nam",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_G%E1%BB%91m_s%E1%BB%A9_M%E1%BA%ADu_d%E1%BB%8Bch",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Động Hương Tích",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_H%C6%B0%C6%A1ng_T%C3%ADch",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Hòn Bà (Vũng Tàu)",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Vũng Tàu",
+    "source": "https://vi.wikipedia.org/wiki/H%C3%B2n_B%C3%A0_(V%C5%A9ng_T%C3%A0u)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Hang Sửng Sốt",
+    "province": "Quảng Ninh",
+    "oldNearestRegion": "Hải Phòng",
+    "source": "https://vi.wikipedia.org/wiki/Hang_S%E1%BB%ADng_S%E1%BB%91t",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Bạc (Sa Pa)",
+    "province": "Lào Cai",
+    "oldNearestRegion": "Lào Cai",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A1c_(Sa_Pa)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Bạc Tú Sơn",
+    "province": "Phú Thọ",
+    "oldNearestRegion": "Thanh Hóa",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A1c_T%C3%BA_S%C6%A1n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác K50",
+    "province": "Gia Lai",
+    "oldNearestRegion": "Kon Tum",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_K50",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Giang Điền",
+    "province": "Đồng Nai",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Giang_%C4%90i%E1%BB%81n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Dải Yếm",
+    "province": "Sơn La",
+    "oldNearestRegion": "Sơn La",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_D%E1%BA%A3i_Y%E1%BA%BFm",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác H'Ly",
+    "province": "Đắk Lắk",
+    "oldNearestRegion": "Phú Yên",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_H%27Ly",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu bảo tồn thiên nhiên Lung Ngọc Hoàng",
+    "province": "Cần Thơ",
+    "oldNearestRegion": "Cần Thơ",
+    "source": "https://vi.wikipedia.org/wiki/Khu_b%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_Lung_Ng%E1%BB%8Dc_Ho%C3%A0ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu Bảo tồn thiên nhiên Mường Nhé",
+    "province": "Điện Biên",
+    "oldNearestRegion": "Điện Biên",
+    "source": "https://vi.wikipedia.org/wiki/Khu_B%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_M%C6%B0%E1%BB%9Dng_Nh%C3%A9",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Động Thiên Đường",
+    "province": "Quảng Trị",
+    "oldNearestRegion": "Quảng Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Thi%C3%AAn_%C4%90%C6%B0%E1%BB%9Dng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Đa",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90a",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Tháp Trầm Hương",
+    "province": "Khánh Hòa",
+    "oldNearestRegion": "Khánh Hòa",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Tr%E1%BA%A7m_H%C6%B0%C6%A1ng",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Thác Bảy Nhánh",
+    "province": "Đắk Lắk",
+    "oldNearestRegion": "Đắk Lắk",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3y_Nh%C3%A1nh",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Động Ngao",
+    "province": "Cao Bằng",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Ngao",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Tòa Thánh Tây Ninh",
+    "province": "Tây Ninh",
+    "oldNearestRegion": "Bình Dương",
+    "source": "https://vi.wikipedia.org/wiki/T%C3%B2a_Th%C3%A1nh_T%C3%A2y_Ninh",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Cổ Thạch",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Bình Thuận",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%95_Th%E1%BA%A1ch",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bảo tàng Địa chất",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_%C4%90%E1%BB%8Ba_ch%E1%BA%A5t",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Cam Ly",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Cam_Ly",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Cồn Hến",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%93n_H%E1%BA%BFn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Công viên 29 tháng 3",
+    "province": "Đà Nẵng",
+    "oldNearestRegion": "Đà Nẵng",
+    "source": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_29_th%C3%A1ng_3",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bảo tàng Hội An",
+    "province": "Đà Nẵng",
+    "oldNearestRegion": "Quảng Nam",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_H%E1%BB%99i_An",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu dự trữ sinh quyển rừng ngập mặn Cần Giờ",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Vũng Tàu",
+    "source": "https://vi.wikipedia.org/wiki/Khu_d%E1%BB%B1_tr%E1%BB%AF_sinh_quy%E1%BB%83n_r%E1%BB%ABng_ng%E1%BA%ADp_m%E1%BA%B7n_C%E1%BA%A7n_Gi%E1%BB%9D",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Thác Cát Cát",
+    "province": "Lào Cai",
+    "oldNearestRegion": "Lào Cai",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_C%C3%A1t_C%C3%A1t",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Gò Lào",
+    "province": "Phú Thọ",
+    "oldNearestRegion": "Thanh Hóa",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_G%C3%B2_L%C3%A0o",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Mai",
+    "province": "Đồng Nai",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Mai",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Tháp Nhạn",
+    "province": "Đắk Lắk",
+    "oldNearestRegion": "Phú Yên",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1p_Nh%E1%BA%A1n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Vườn chim Bạc Liêu",
+    "province": "Cà Mau",
+    "oldNearestRegion": "Cần Thơ",
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%E1%BB%9Dn_chim_B%E1%BA%A1c_Li%C3%AAu",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chiến khu Tân Trào",
+    "province": "Tuyên Quang",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/Chi%E1%BA%BFn_khu_T%C3%A2n_Tr%C3%A0o",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Hang Đầu Gỗ",
+    "province": "Quảng Ninh",
+    "oldNearestRegion": "Quảng Ninh",
+    "source": "https://vi.wikipedia.org/wiki/Hang_%C4%90%E1%BA%A7u_G%E1%BB%97",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Đray Nur",
+    "province": "Đắk Lắk",
+    "oldNearestRegion": "Đắk Lắk",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90ray_Nur",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Động Hua Mạ",
+    "province": "Thái Nguyên",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Hua_M%E1%BA%A1",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Đứng",
+    "province": "Đồng Nai",
+    "oldNearestRegion": "Bình Dương",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BB%A9ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Bobla",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Bình Thuận",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Bobla",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Bảo tàng Lịch sử quốc gia (Việt Nam)",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/B%E1%BA%A3o_t%C3%A0ng_L%E1%BB%8Bch_s%E1%BB%AD_qu%E1%BB%91c_gia_(Vi%E1%BB%87t_Nam)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Đamb'ri",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90amb%27ri",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Địa đạo Vịnh Mốc",
+    "province": "Quảng Trị",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%8Ba_%C4%91%E1%BA%A1o_V%E1%BB%8Bnh_M%E1%BB%91c",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Đỗ Quyên",
+    "province": "Huế",
+    "oldNearestRegion": "Đà Nẵng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BB%97_Quy%C3%AAn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chùa Hang (Quảng Ngãi)",
+    "province": "Quảng Ngãi",
+    "oldNearestRegion": "Quảng Nam",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Hang_(Qu%E1%BA%A3ng_Ng%C3%A3i)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền thờ Vua Lê Đại Hành",
+    "province": "Ninh Bình",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Vua_L%C3%AA_%C4%90%E1%BA%A1i_H%C3%A0nh",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền Bảo Hà",
+    "province": "Lào Cai",
+    "oldNearestRegion": "Lào Cai",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%E1%BA%A3o_H%C3%A0",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền Bà Triệu",
+    "province": "Thanh Hóa",
+    "oldNearestRegion": "Thanh Hóa",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%C3%A0_Tri%E1%BB%87u",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thảo Cầm Viên Sài Gòn",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/Th%E1%BA%A3o_C%E1%BA%A7m_Vi%C3%AAn_S%C3%A0i_G%C3%B2n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền Mẫu Âu Cơ",
+    "province": "Phú Thọ",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_M%E1%BA%ABu_%C3%82u_C%C6%A1",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu bảo tồn thiên nhiên Đồng Sơn – Kỳ Thượng",
+    "province": "Quảng Ninh",
+    "oldNearestRegion": "Quảng Ninh",
+    "source": "https://vi.wikipedia.org/wiki/Khu_b%E1%BA%A3o_t%E1%BB%93n_thi%C3%AAn_nhi%C3%AAn_%C4%90%E1%BB%93ng_S%C6%A1n_%E2%80%93_K%E1%BB%B3_Th%C6%B0%E1%BB%A3ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Bản Giốc",
+    "province": "Cao Bằng",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_B%E1%BA%A3n_Gi%E1%BB%91c",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Văn miếu Trấn Biên",
+    "province": "Đồng Nai",
+    "oldNearestRegion": "Bình Dương",
+    "source": "https://vi.wikipedia.org/wiki/V%C4%83n_mi%E1%BA%BFu_Tr%E1%BA%A5n_Bi%C3%AAn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Công viên Thủ Lệ",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_Th%E1%BB%A7_L%E1%BB%87",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Thác Datanla",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Datanla",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chùa Thánh Duyên",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Th%C3%A1nh_Duy%C3%AAn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền Trần Thương",
+    "province": "Ninh Bình",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_Th%C6%B0%C6%A1ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền thờ Lê Hoàn",
+    "province": "Thanh Hóa",
+    "oldNearestRegion": "Thanh Hóa",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_L%C3%AA_Ho%C3%A0n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền thờ Trần Hưng Đạo (Thành phố Hồ Chí Minh)",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Tr%E1%BA%A7n_H%C6%B0ng_%C4%90%E1%BA%A1o_(Th%C3%A0nh_ph%E1%BB%91_H%E1%BB%93_Ch%C3%AD_Minh)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đền Và",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_V%C3%A0",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Thác Đầu Đẳng",
+    "province": "Thái Nguyên",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_%C4%90%E1%BA%A7u_%C4%90%E1%BA%B3ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chùa Bút Tháp",
+    "province": "Bắc Ninh",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_B%C3%BAt_Th%C3%A1p",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Prenn",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Prenn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đàn Xã Tắc (Huế)",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%A0n_X%C3%A3_T%E1%BA%AFc_(Hu%E1%BA%BF)",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Đền thờ Vua Đinh Tiên Hoàng",
+    "province": "Ninh Bình",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_th%E1%BB%9D_Vua_%C4%90inh_Ti%C3%AAn_Ho%C3%A0ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Công viên Văn hóa Đầm Sen",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_V%C4%83n_h%C3%B3a_%C4%90%E1%BA%A7m_Sen",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đình Chu Quyến",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%ACnh_Chu_Quy%E1%BA%BFn",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Thác Pác Ban",
+    "province": "Tuyên Quang",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_P%C3%A1c_Ban",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chùa Thầy",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Th%E1%BA%A7y",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Pongour",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Pongour",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Cửu Đỉnh (nhà Nguyễn)",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/C%E1%BB%ADu_%C4%90%E1%BB%89nh_(nh%C3%A0_Nguy%E1%BB%85n)",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Đền Trần (Nam Định)",
+    "province": "Ninh Bình",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_(Nam_%C4%90%E1%BB%8Bnh)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đình Tây Đằng",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%ACnh_T%C3%A2y_%C4%90%E1%BA%B1ng",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Phố cổ Đồng Văn",
+    "province": "Tuyên Quang",
+    "oldNearestRegion": "Hà Giang",
+    "source": "https://vi.wikipedia.org/wiki/Ph%E1%BB%91_c%E1%BB%95_%C4%90%E1%BB%93ng_V%C4%83n",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chùa Phật Tích",
+    "province": "Bắc Ninh",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Ph%E1%BA%ADt_T%C3%ADch",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Thác Voi (Nam Ban)",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Th%C3%A1c_Voi_(Nam_Ban)",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Điện Thái Hòa (Hoàng thành Huế)",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90i%E1%BB%87n_Th%C3%A1i_H%C3%B2a_(Ho%C3%A0ng_th%C3%A0nh_Hu%E1%BA%BF)",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Đền Trần (Long Hưng)",
+    "province": "Hưng Yên",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Tr%E1%BA%A7n_(Long_H%C6%B0ng)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Khu du lịch Văn hóa Suối Tiên",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/Khu_du_l%E1%BB%8Bch_V%C4%83n_h%C3%B3a_Su%E1%BB%91i_Ti%C3%AAn",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Đình Mông Phụ",
+    "province": "Hà Nội",
+    "oldNearestRegion": "Phú Thọ",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%C3%ACnh_M%C3%B4ng_Ph%E1%BB%A5",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Đền Bà Chúa Kho (Bắc Ninh)",
+    "province": "Bắc Ninh",
+    "oldNearestRegion": "Hà Nội",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_B%C3%A0_Ch%C3%BAa_Kho_(B%E1%BA%AFc_Ninh)",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Chùa Linh Phước",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": "Lâm Đồng",
+    "source": "https://vi.wikipedia.org/wiki/Ch%C3%B9a_Linh_Ph%C6%B0%E1%BB%9Bc",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Cung Diên Thọ",
+    "province": "Huế",
+    "oldNearestRegion": "Thừa Thiên Huế",
+    "source": "https://vi.wikipedia.org/wiki/Cung_Di%C3%AAn_Th%E1%BB%8D",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Động Hoa Lư",
+    "province": "Ninh Bình",
+    "oldNearestRegion": "Ninh Bình",
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%99ng_Hoa_L%C6%B0",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Công viên 23 tháng 9",
+    "province": "Hồ Chí Minh",
+    "oldNearestRegion": "Hồ Chí Minh",
+    "source": "https://vi.wikipedia.org/wiki/C%C3%B4ng_vi%C3%AAn_23_th%C3%A1ng_9",
+    "method": "province fact extracted from source introduction"
+  },
+  {
+    "title": "Nhà tù Hỏa Lò",
+    "province": "Hà Nội",
+    "oldNearestRegion": null,
+    "source": "https://vi.wikipedia.org/wiki/Nh%C3%A0_t%C3%B9_H%E1%BB%8Fa_L%C3%B2",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Đền Ngọc Sơn",
+    "province": "Hà Nội",
+    "oldNearestRegion": null,
+    "source": "https://vi.wikipedia.org/wiki/%C4%90%E1%BB%81n_Ng%E1%BB%8Dc_S%C6%A1n",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Thiền viện Trúc Lâm Đà Lạt",
+    "province": "Lâm Đồng",
+    "oldNearestRegion": null,
+    "source": "https://vi.wikipedia.org/wiki/Thi%E1%BB%81n_vi%E1%BB%87n_Tr%C3%BAc_L%C3%A2m_%C4%90%C3%A0_L%E1%BA%A1t",
+    "method": "location checked from source article"
+  },
+  {
+    "title": "Vương cung thánh đường Đức Mẹ La Vang",
+    "province": "Quảng Trị",
+    "oldNearestRegion": null,
+    "source": "https://vi.wikipedia.org/wiki/V%C6%B0%C6%A1ng_cung_th%C3%A1nh_%C4%91%C6%B0%E1%BB%9Dng_%C4%90%E1%BB%A9c_M%E1%BA%B9_La_Vang",
+    "method": "location checked from source article"
+  }
+]

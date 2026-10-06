@@ -1,0 +1,102 @@
+{
+  "local": [
+    {
+      "title": "Khu du lịch tại An Giang",
+      "cards": 7
+    },
+    {
+      "title": "Khu du lịch tại Hà Tĩnh",
+      "cards": 9
+    },
+    {
+      "title": "Khu du lịch tại Lai Châu",
+      "cards": 9
+    },
+    {
+      "title": "Khách sạn tại Hà Nội",
+      "cards": 12
+    },
+    {
+      "title": "Khách sạn tại Đà Nẵng",
+      "cards": 12
+    },
+    {
+      "title": "Khách sạn tại Quảng Ninh",
+      "cards": 12
+    },
+    {
+      "title": "Trải nghiệm tại Khánh Hòa",
+      "cards": 12
+    },
+    {
+      "title": "Trải nghiệm tại Ninh Bình",
+      "cards": 12
+    },
+    {
+      "title": "Trải nghiệm tại An Giang",
+      "cards": 12
+    },
+    {
+      "title": "Dịch vụ tại Khánh Hòa",
+      "cards": 12
+    },
+    {
+      "title": "Dịch vụ tại Lào Cai",
+      "cards": 12
+    },
+    {
+      "title": "Dịch vụ tại Hà Tĩnh",
+      "cards": 12
+    }
+  ],
+  "public": [
+    {
+      "title": "Khu du lịch tại An Giang",
+      "cards": 7
+    },
+    {
+      "title": "Khu du lịch tại Hà Tĩnh",
+      "cards": 9
+    },
+    {
+      "title": "Khu du lịch tại Lai Châu",
+      "cards": 9
+    },
+    {
+      "title": "Khách sạn tại Hà Nội",
+      "cards": 12
+    },
+    {
+      "title": "Khách sạn tại Đà Nẵng",
+      "cards": 12
+    },
+    {
+      "title": "Khách sạn tại Quảng Ninh",
+      "cards": 12
+    },
+    {
+      "title": "Trải nghiệm tại Khánh Hòa",
+      "cards": 12
+    },
+    {
+      "title": "Trải nghiệm tại Ninh Bình",
+      "cards": 12
+    },
+    {
+      "title": "Trải nghiệm tại An Giang",
+      "cards": 12
+    },
+    {
+      "title": "Dịch vụ tại Khánh Hòa",
+      "cards": 12
+    },
+    {
+      "title": "Dịch vụ tại Lào Cai",
+      "cards": 12
+    },
+    {
+      "title": "Dịch vụ tại Hà Tĩnh",
+      "cards": 12
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "checkedAt": "2026-10-05T15:27:27.791Z",
+  "credits": {
+    "usage": 3.78,
+    "limit": 25,
+    "used_percent": 15.12
+  },
+  "storage": {
+    "usage": 334934680,
+    "credits_usage": 0.31
+  },
+  "resources": 1611
+}

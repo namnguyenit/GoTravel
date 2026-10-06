@@ -235,7 +235,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <div className="flex items-center gap-3">
               <Image
                 unoptimized
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=256"
+                src="https://res.cloudinary.com/p1kxfhlw/image/upload/v1791128260/admin-uploads/seeder/11d76ca308b43705f69344daeb140cf9fd4f7d9213160569487c932e345098a3.webp"
                 alt="Avatar"
                 width={36}
                 height={36}

@@ -1,0 +1,7 @@
+{
+  "name": "gotravel-real-catalog-research",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Source verification and controlled real establishment imports",
+  "dependencies": { "cheerio": "1.2.0" }
+}

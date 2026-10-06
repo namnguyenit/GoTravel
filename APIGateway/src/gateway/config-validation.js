@@ -539,7 +539,8 @@ export function compileConfiguration(config) {
         .map((x) => {
           const part = decodeURIComponent(x);
           if (
-            /[/%\\\x00-\x20\x7f]/.test(part) ||
+            /[/%\\\x00-\x1f\x7f]/.test(part) ||
+            part !== part.trim() ||
             [".", ".."].includes(part) ||
             blockedDestination.has(part.toLowerCase())
           )

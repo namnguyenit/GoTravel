@@ -1,0 +1,26 @@
+[
+  {
+    "username": "seed_host_001",
+    "http": 200,
+    "authenticated": true,
+    "sessionHttp": 200,
+    "roles": [
+      "ROLE_USER",
+      "ROLE_HOST"
+    ],
+    "ms": 2053,
+    "httpOnly": true
+  },
+  {
+    "username": "seed_enterprise_001",
+    "http": 200,
+    "authenticated": true,
+    "sessionHttp": 200,
+    "roles": [
+      "ROLE_USER",
+      "ROLE_ENTERPRISE"
+    ],
+    "ms": 1494,
+    "httpOnly": true
+  }
+]

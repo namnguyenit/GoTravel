@@ -1,0 +1,172 @@
+{
+  "at": "2026-10-05T12:08:58.132Z",
+  "batchId": "gotravel-real-venues-virtual-hosts-2026-10-05-v1",
+  "reason": "Readable room names and plain wording for simulated room area; IDs/hosts/photographs/inventory unchanged",
+  "changes": [
+    {
+      "id": "8fcced40-47cb-5532-8980-9f65e3fda700",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "4d535bac-2a05-51de-87ee-aa1aa55fd7f4",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "6bb6d709-0c95-5141-8673-3fd73f0288a5",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "db9ab777-122c-54ee-852f-7d35dd566e54",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "c8671df5-25f0-54e5-8828-8a97a4ea4ebd",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "216916a8-74b1-52bd-8dc3-66721d915733",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "e7102902-0500-5c77-8a1a-703edcf800b1",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "e9b2f73d-d3e4-5b79-8938-c0eba8e9b95e",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "1e74e9c7-e804-5c24-890f-38c67d5419bf",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "70a47512-7f7a-5f61-869c-36f4ba7321c5",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "00a54f8f-818b-5c55-8997-9f6966839ea9",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "1f69ac7d-2885-5937-8d34-539d5e30b098",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "2dcc057a-744d-57ea-8d6d-8e15d5f15908",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "f1939502-78ce-5192-8b15-0223c096e4f9",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "95b169da-4505-58d0-81ff-00032aec4db2",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "aeb460c0-a855-5fd4-8a61-48db06b32a92",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "2c2cd14d-1df0-53da-819c-f4566f552664",
+      "titleChanged": true,
+      "descriptionChanged": true
+    },
+    {
+      "id": "02463274-eef0-5c44-8cd8-29cea5115f68",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "382c6946-d9a2-582f-8d5b-dadcb4e766ce",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "a02e0fb1-dab9-52bb-8932-8324de5d62db",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "1c582c71-4f06-5513-8337-5c1aa8923e0c",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "8f5fa816-c67e-5091-8344-b545c4f07b89",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "c688ac7c-2753-5844-8dc5-25fbf86dc310",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "f70a8f95-ca38-50ac-8a68-fe741cac2472",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "b2c630e4-01ba-5cf7-8da7-8f864e1b1ccd",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "129df94d-938d-5ced-8576-4b02dfe1efe8",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "c39dc2f5-e59c-55e8-8045-a5e79cce99f5",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "fdc78b37-f62c-51da-8b0f-8120152e8e0c",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "9341dffa-a6e1-5684-8741-615d04403297",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "55269b6d-b293-5233-854c-6671bdfb6251",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "cba6814e-48f5-5824-879b-9cc5bc430d30",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "23df7948-83b9-55e5-8838-a89532313c31",
+      "titleChanged": false,
+      "descriptionChanged": true
+    },
+    {
+      "id": "582c5493-6c19-59c7-823e-c21343531e4d",
+      "titleChanged": false,
+      "descriptionChanged": true
+    }
+  ]
+}

@@ -1,0 +1,149 @@
+[
+  {
+    "key": "extra-0",
+    "url": "https://saigonbanmehotel.com.vn/en/accommodation/building-suite/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "extra-1",
+    "url": "https://saigonbanmehotel.com.vn/en/accommodation/building-superior/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "extra-2",
+    "url": "https://saigonbanmehotel.com.vn/en/accommodation/building-superior-copy-2/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "extra-3",
+    "url": "https://saigonbanmehotel.com.vn/en/accommodation/deluxe-room/",
+    "allowedHosts": [
+      "saigonbanmehotel.com.vn"
+    ]
+  },
+  {
+    "key": "extra-4",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9163/deluxe-double-riverview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-5",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9159/double-or-twin-riverview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-6",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9161/double-riverview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-7",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9166/deluxe-double-or-twin-riverview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-8",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9154/double-or-twin-lakeview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-9",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9156/double-lakeview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-10",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9148/double-gardenview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-11",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9151/double-or-twin-gardenview-bungalow",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-12",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9163/deluxe-double-riverview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-13",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9159/double-or-twin-riverview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-14",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9161/double-riverview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-15",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9166/deluxe-double-or-twin-riverview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-16",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9154/double-or-twin-lakeview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-17",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9156/double-lakeview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-18",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9148/double-gardenview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-19",
+    "url": "https://mekongriversideresort.vn/our-rooms-cai-be-vietnam/9151/double-or-twin-gardenview-bungalow?lang=en",
+    "allowedHosts": [
+      "mekongriversideresort.vn"
+    ]
+  },
+  {
+    "key": "extra-20",
+    "url": "https://babelakeview-homestay.com/tour/deluxe-private-room-with-private-bathroom-and-ac",
+    "allowedHosts": [
+      "babelakeview-homestay.com"
+    ]
+  }
+]

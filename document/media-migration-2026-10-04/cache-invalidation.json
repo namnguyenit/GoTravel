@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-04T15:42:33.689Z",
+  "scanned": 0,
+  "matched": 0,
+  "removed": 0,
+  "scope": [
+    "home:hero-landmarks:",
+    "home:feed:",
+    "province:destinations:",
+    "recommend:complex",
+    "recommend:landmark:",
+    "recommend:similar:",
+    "search:listings:",
+    "search:map:",
+    "cross-sell:"
+  ]
+}

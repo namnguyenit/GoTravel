@@ -1,0 +1,34 @@
+{
+  "checkedAt": "2026-10-04T15:54:29.482Z",
+  "manifestSources": 187,
+  "manifestVerified": 187,
+  "distinctAssets": 187,
+  "sourceBytes": 290615830,
+  "optimizedBytes": 46130616,
+  "databaseReferences": 3185,
+  "databaseDistinctUrls": 162,
+  "databaseExternal": 0,
+  "seedReferences": 545,
+  "seedDistinctUrls": 177,
+  "seedExternal": 0,
+  "statuses": [
+    {
+      "name": "gostay-frontend",
+      "status": "online",
+      "pid": 2093635,
+      "restarts": 0
+    },
+    {
+      "name": "gostay-gateway",
+      "status": "online",
+      "pid": 2094051,
+      "restarts": 7
+    },
+    {
+      "name": "gostay-media",
+      "status": "online",
+      "pid": 2088809,
+      "restarts": 1
+    }
+  ]
+}
