@@ -22,6 +22,8 @@ postman/
 
 # Node.js (APIGateway, cloudinary-service, front_end, search-and-recommendation)
 **/node_modules/
+# Also ignore a node_modules symlink used by the shared development server.
+**/node_modules
 **/.next/
 **/out/
 **/dist/
@@ -32,6 +34,7 @@ postman/
 **/yarn-error.log*
 **/.env
 Identity/.secrets/
+PaymentandWallet/.secrets/
 **/*.jks
 **/*.p12
 

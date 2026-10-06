@@ -1,0 +1,118 @@
+{
+  "verifiedAt": "2026-10-06T15:41:11.998703+07:00",
+  "environment": "sandbox",
+  "projectPath": "/home/trungcao/DoANLienNganh-devserver",
+  "orderConfirmationFlowFullyVerified": true,
+  "ipnReceivedAndProcessed": true,
+  "testOrder": {
+    "orderId": "7a5b9c87-bfe8-4cfe-9cb4-d68f36c92f18",
+    "paymentId": "39ea76fe-3afe-4514-8161-bb00487ebfe0",
+    "amount": 750000,
+    "listingId": "029f7714-689e-5b0a-8fd7-c28aa0c600fd",
+    "startDate": "2026-10-13",
+    "endDate": "2026-10-14",
+    "expiresAt": "2026-10-06T15:52:02.38845333"
+  },
+  "bankPayment": {
+    "orderId": "7a5b9c87-bfe8-4cfe-9cb4-d68f36c92f18",
+    "paymentId": "39ea76fe-3afe-4514-8161-bb00487ebfe0",
+    "amount": 750000,
+    "responseCode": "00",
+    "transactionStatus": "00",
+    "transactionNo": "15696433",
+    "returnHost": "pay.trungcaodev.io.vn",
+    "returnPath": "/vnpay/return",
+    "initialVerifiedReturn": {
+      "status": 200,
+      "payload": {
+        "success": true,
+        "status": 200,
+        "code": "SUCCESS",
+        "message": "Thành công",
+        "data": {
+          "orderId": "7a5b9c87-bfe8-4cfe-9cb4-d68f36c92f18",
+          "paymentId": "39ea76fe-3afe-4514-8161-bb00487ebfe0",
+          "result": "CONFIRMING",
+          "responseCode": "00",
+          "frontendUrl": "https://gotravel.trungcaodev.io.vn",
+          "orderConfirmed": false
+        }
+      }
+    },
+    "checkedAt": "2026-10-06T08:37:15.763Z"
+  },
+  "verifiedReturn": {
+    "status": 200,
+    "payload": {
+      "success": true,
+      "status": 200,
+      "code": "SUCCESS",
+      "message": "Thành công",
+      "data": {
+        "orderId": "7a5b9c87-bfe8-4cfe-9cb4-d68f36c92f18",
+        "paymentId": "39ea76fe-3afe-4514-8161-bb00487ebfe0",
+        "result": "SUCCESS",
+        "responseCode": "00",
+        "frontendUrl": "https://gotravel.trungcaodev.io.vn",
+        "orderConfirmed": true
+      }
+    }
+  },
+  "applicationState": {
+    "orderId": "7a5b9c87-bfe8-4cfe-9cb4-d68f36c92f18",
+    "paymentId": "39ea76fe-3afe-4514-8161-bb00487ebfe0",
+    "paymentHttp": 200,
+    "orderHttp": 200,
+    "paymentStatus": "COMPLETED",
+    "orderStatus": "CONFIRMED",
+    "amount": 750000,
+    "ticketEmailSent": false,
+    "ticketEmailAttempts": 1,
+    "itemCount": 1,
+    "verifiedAt": "2026-10-06T08:38:06.318Z"
+  },
+  "databaseEvidence": {
+    "attemptStatus": "SUCCEEDED",
+    "responseCode": "00",
+    "transactionStatus": "00",
+    "ipnProcessed": true,
+    "transactionCount": 1,
+    "transactionAmountVnd": 750000.0,
+    "notificationSuccessful": true,
+    "notificationDelivered": true,
+    "hostPayoutCount": 1,
+    "inventoryLocks": [
+      {
+        "status": "CONFIRMED",
+        "count": 2,
+        "quantity": 2
+      }
+    ]
+  },
+  "signedReplay": {
+    "scenario": "Replay already-processed real VNPAY-signed parameters",
+    "status": 200,
+    "RspCode": "02",
+    "Message": "Order already confirmed"
+  },
+  "postReplayDatabase": {
+    "transactionCount": 1,
+    "transactionAmountVnd": 750000.0,
+    "hostPayoutCount": 1
+  },
+  "postReplayOrder": {
+    "orderStatus": "CONFIRMED",
+    "ticketEmailAttempts": 1,
+    "emailAttemptsUnchanged": true
+  },
+  "emailDelivery": {
+    "recipientKind": "non-deliverable .invalid test address",
+    "ticketEmailSent": false,
+    "attempts": 1,
+    "upstreamCode": "INTERNAL_ERROR",
+    "realInboxDeliveryVerified": false
+  },
+  "qrScanPaymentVerified": false,
+  "productionPaymentVerified": false,
+  "testRecordsPreserved": true
+}

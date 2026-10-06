@@ -1,0 +1,37 @@
+{
+  "goTravel": {
+    "status": 200,
+    "logo": "Compass transferred from Auth"
+  },
+  "goID": {
+    "loginStatus": 200,
+    "returnedTo": "https://gotravel.trungcaodev.io.vn",
+    "sessionStatus": 200,
+    "elapsedMs": 17668,
+    "httpOnly": true,
+    "secure": true,
+    "logout": true,
+    "logoutRevokedSession": true
+  },
+  "goPay": {
+    "portalStatus": 200,
+    "orderId": "ec893869-d8fd-4607-8f29-ed3adcc16b34",
+    "amount": 2000,
+    "launchStatus": 200,
+    "provider": "VNPAY Sandbox",
+    "vnpayRedirect": true,
+    "bankPaymentPerformed": false,
+    "probeOrderCancelled": true,
+    "homeStatus": 200
+  },
+  "assetFailures": [],
+  "pageErrors": [
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+  ],
+  "reactHydrationWarnings": [
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.",
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+  ],
+  "testedAt": "2026-10-06T10:11:21.807Z"
+}

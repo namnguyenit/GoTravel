@@ -1,32 +1,29 @@
-# React + TypeScript + Vite
+# GoID — Tài khoản GoTravel & GoTicket
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Giao diện tài khoản dùng chung: đăng nhập, đăng ký, quên mật khẩu, đặt lại mật khẩu và đăng xuất. React + TypeScript + Vite; cổng 3335. GoID là tên nhận diện của hệ thống SSO hiện có, không tạo thêm kho tài khoản.
 
-Currently, two official plugins are available:
+## Chạy ứng dụng
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+npm install
+npm run dev
+npm run build
+npm run preview -- --host 127.0.0.1 --port 3335
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+API `/api` được proxy tới Gateway nội bộ `http://localhost:5555`. Frontend không giữ khóa ký JWT hoặc secret thanh toán.
+
+## Phiên đăng nhập
+
+- Đăng nhập qua Gateway; cookie phiên là HttpOnly và Secure trên HTTPS.
+- Yêu cầu ghi dữ liệu gửi cookie CSRF qua `X-CSRF-Token`.
+- `redirect_uri` và `continue` được kiểm tra bằng allowlist trong `src/platform-domains.ts` trước khi chuyển hướng.
+- Các form dùng chung thông tin tài khoản; không đưa thông tin hành khách từng đơn vào hồ sơ GoID.
+- Khi kết nối frontend GoTicket, khai báo chính xác origin được phép và cấu hình cookie/CORS tương ứng tại Gateway. Không cho phép redirect tới origin tùy ý.
+
+## Nhận diện
+
+- GoID: `public/goid-mark.svg`, màu tím `#5950D5`.
+- GoTravel: biểu tượng la bàn gốc `public/gotravel-mark.svg`; cùng nguồn logo dùng trên GoTravel.
+- GoTicket: `public/goticket-mark.svg`, dùng để nhận diện dịch vụ trong giao diện tài khoản chung.
+- Font logo Outfit được lưu cục bộ trong `public/fonts`, kèm giấy phép OFL. Trang không cần gọi Google Fonts để tải giao diện.

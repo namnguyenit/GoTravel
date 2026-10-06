@@ -74,6 +74,11 @@ app.use((req, res, next) => {
 
 // Apply the current country policy when the trusted ingress supplies GeoIP.
 app.use((req, res, next) => {
+  // VNPAY server notifications are authenticated by Java's signature check.
+  // Provider infrastructure may call from another country; this exception
+  // applies only to the exact GET IPN endpoint, never to browser/API routes.
+  if (req.method === "GET" && req.path === "/api/v1/payments/vnpay/ipn")
+    return next();
   const cfCountry = req.headers["cf-ipcountry"];
   const policy = routeRegistry.getSettings();
   if (
@@ -82,7 +87,7 @@ app.use((req, res, next) => {
     !policy.allowedCountries.includes(cfCountry.toUpperCase())
   ) {
     console.warn(
-      `[GeoBlock] Access denied for country ${cfCountry} on ${req.method} ${req.originalUrl}`,
+      `[GeoBlock] Access denied for country ${cfCountry} on ${req.method} ${req.path}`,
     );
     return res.status(403).json({
       success: false,

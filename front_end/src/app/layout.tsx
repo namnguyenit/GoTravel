@@ -8,9 +8,10 @@ import LanguageToggle from "@/shared/components/LanguageToggle";
 
 export const metadata: Metadata = {
   title: "GoTravel",
-  description: "Du lịch không chỉ là đi, mà là thuộc về nơi bạn đến.",
+  description: "Tìm và đặt nơi lưu trú, trải nghiệm và dịch vụ trên GoTravel.",
   icons: {
-    icon: "/favicon.ico",
+    apple: "/brand/gotravel-icon-180.png",
+    icon: [{ url: "/brand/gotravel-icon.svg", type: "image/svg+xml" }, { url: "/brand/gotravel-icon-32.png", sizes: "32x32", type: "image/png" }],
   },
 };
 

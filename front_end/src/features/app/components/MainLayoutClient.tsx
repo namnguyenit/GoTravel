@@ -1,5 +1,9 @@
 "use client";
 
+import GoTravelBrand from "@/shared/components/GoTravelBrand";
+
+import { platformUrls } from "@/shared/platform-domains";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -66,7 +70,7 @@ type CurrentUser = {
 } | null;
 
 const getUserDisplayName = (user: CurrentUser) => {
-  if (!user) return "Tài khoản GoTravel";
+  if (!user) return "Tài khoản GoID";
 
   return (
     user.userProfile?.fullName?.trim() ||
@@ -74,7 +78,7 @@ const getUserDisplayName = (user: CurrentUser) => {
     [user.lastName, user.firstName].filter(Boolean).join(" ").trim() ||
     user.username?.trim() ||
     user.email?.trim() ||
-    "Tài khoản GoTravel"
+    "Tài khoản GoID"
   );
 };
 
@@ -307,8 +311,7 @@ export default function MainLayoutClient({
 
   const openLogin = () => {
     if (typeof window !== "undefined") {
-      const isProd = window.location.hostname.includes("nonnet123.io.vn");
-      const authOrigin = isProd ? "https://auth.nonnet123.io.vn" : "http://localhost:3335";
+      const authOrigin = platformUrls(window.location.hostname).sso;
       window.location.href = `${authOrigin}?redirect_uri=${encodeURIComponent(window.location.href)}`;
       return;
     }
@@ -371,12 +374,7 @@ export default function MainLayoutClient({
             className="flex items-center gap-2 rounded-full text-[#FF385C] transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#222222]"
             aria-label="Về trang chủ GoTravel"
           >
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FF385C] text-white sm:h-11 sm:w-11 lg:h-9 lg:w-9">
-              <Home className="h-5 w-5" />
-            </span>
-            <span className="hidden text-xl font-bold tracking-normal sm:block lg:text-2xl">
-              GoTravel
-            </span>
+            <GoTravelBrand compactOnMobile />
           </button>
 
           {/* Center Column: service tabs in large mode, compact search after scroll */}

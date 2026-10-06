@@ -1,0 +1,16 @@
+{
+  "unauthenticatedBlocked": true,
+  "totalOrders": 6,
+  "paidOrders": 1,
+  "serverPagination": true,
+  "statusFilter": true,
+  "search": true,
+  "literalWildcardSearch": true,
+  "pageSizeCapped100": true,
+  "ownerDetails": true,
+  "otherUserBlocked": true,
+  "spoofedUserHeaderBlocked": true,
+  "otherUserSearchIsolated": true,
+  "emailHealthConfigured": false,
+  "testedAt": "2026-10-06T15:33:47.911Z"
+}

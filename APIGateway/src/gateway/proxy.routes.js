@@ -54,6 +54,8 @@ export function setupProxy(app, registry) {
           pathRewrite: (_path, request) => request.gatewayDestination,
           on: {
             proxyReq: (upstream, request) => {
+              // Overwrite client-supplied identity/IP metadata at the final proxy boundary.
+              upstream.setHeader("x-user-ip", request.ip || request.socket.remoteAddress);
               if (request.gatewayBodyBuffer) {
                 upstream.removeHeader("transfer-encoding");
                 upstream.setHeader(

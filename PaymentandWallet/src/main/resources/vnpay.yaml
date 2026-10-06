@@ -1,0 +1,13 @@
+vnpay:
+  enabled: ${VNPAY_ENABLED:false}
+  tmn-code: ${VNPAY_TMN_CODE:}
+  hash-secret: ${VNPAY_HASH_SECRET:}
+  payment-url: ${VNPAY_PAYMENT_URL:https://sandbox.vnpayment.vn/paymentv2/vpcpay.html}
+  return-url: ${VNPAY_RETURN_URL:https://pay.trungcaodev.io.vn/vnpay/return}
+  ipn-url: ${VNPAY_IPN_URL:https://pay.trungcaodev.io.vn/api/v1/payments/vnpay/ipn}
+  frontend-url: ${VNPAY_FRONTEND_URL:https://gotravel.trungcaodev.io.vn}
+  locale: vn
+  order-type: other
+  timeout-minutes: 15
+payment:
+  mock-enabled: false

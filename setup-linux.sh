@@ -5,7 +5,7 @@ PROJECT_DIR="$(cd "$(dirname "$0")" && pwd)"
 cd "$PROJECT_DIR"
 
 APP_DB_USER="${APP_DB_USER:-gotravel_db}"
-APP_DB_PASSWORD="${APP_DB_PASSWORD:-123456}"
+APP_DB_PASSWORD="${APP_DB_PASSWORD:-}"
 
 AUTH_DB_NAME="${AUTH_DB_NAME:-auth_db}"
 CATALOG_DB_NAME="${CATALOG_DB_NAME:-cataloglisting}"
@@ -16,9 +16,9 @@ RECOMMENDATION_DB_NAME="${RECOMMENDATION_DB_NAME:-recommendation_db}"
 
 CATALOG_READER_ROLE="${CATALOG_READER_ROLE:-catalog_readonly}"
 CATALOG_READER_USER="${CATALOG_READER_USER:-catalog_node_reader}"
-CATALOG_READER_PASSWORD="${CATALOG_READER_PASSWORD:-reader_password}"
+CATALOG_READER_PASSWORD="${CATALOG_READER_PASSWORD:-}"
 RECOMMENDATION_DB_USER="${RECOMMENDATION_DB_USER:-recommendation_user}"
-RECOMMENDATION_DB_PASSWORD="${RECOMMENDATION_DB_PASSWORD:-recommendation_password}"
+RECOMMENDATION_DB_PASSWORD="${RECOMMENDATION_DB_PASSWORD:-}"
 
 INTERNAL_TOKEN="${INTERNAL_TOKEN:-}"
 GATEWAY_PORT="${GATEWAY_PORT:-5555}"
@@ -39,6 +39,16 @@ error() { printf "%b[ERROR]%b %s\n" "${RED}" "${NC}" "$1"; }
 
 line() {
   printf '%s\n' "============================================================"
+}
+
+require_database_passwords() {
+  local name
+  for name in APP_DB_PASSWORD CATALOG_READER_PASSWORD RECOMMENDATION_DB_PASSWORD; do
+    if [[ -z "${!name}" ]]; then
+      error "Set $name in the environment before provisioning databases or generating service config"
+      return 1
+    fi
+  done
 }
 
 postgres_psql() {
@@ -145,6 +155,7 @@ install_node() {
 }
 
 setup_databases() {
+  require_database_passwords
   line
   info "SETTING UP POSTGRESQL DATABASES"
   line
@@ -247,6 +258,7 @@ generate_keystore() {
 }
 
 generate_env_files() {
+  require_database_passwords
   line
   info "GENERATING ENV FILES"
   line

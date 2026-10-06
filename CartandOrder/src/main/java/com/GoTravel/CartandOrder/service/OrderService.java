@@ -28,16 +28,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -53,7 +53,7 @@ public class OrderService {
     private final CatalogClient catalogClient;
     private final CommunicationClient communicationClient;
     private final OrderMapper orderMapper;
-    @Value("${frontend.base-url:http://localhost:3000}")
+    @Value("${frontend.base-url:https://gotravel.trungcaodev.io.vn}")
     private String frontendBaseUrl;
 
     @Transactional
@@ -213,13 +213,26 @@ public class OrderService {
                 .totalAmount(order.getTotalAmount())
                 .currency(order.getCurrency())
                 .status(order.getStatus().name())
+                .expiresAt(order.getExpiresAt())
                 .providerBreakdowns(buildProviderBreakdowns(order))
                 .build();
     }
 
     @Transactional(readOnly = true)
     public Page<OrderResponse> getUserOrders(UUID userId, Pageable pageable) {
-        return orderRepository.findByUserIdOrderByCreatedAtDesc(userId, pageable)
+        return getUserOrders(userId, pageable, null, "");
+    }
+
+    @Transactional(readOnly = true)
+    public Page<OrderResponse> getUserOrders(UUID userId, Pageable pageable, List<OrderStatus> statuses, String search) {
+        List<OrderStatus> selectedStatuses = statuses == null || statuses.isEmpty()
+                ? List.of(OrderStatus.values()) : statuses;
+        String keyword = search == null ? "" : search.trim().toLowerCase(Locale.ROOT);
+        keyword = keyword.substring(0, Math.min(keyword.length(), 120));
+        String pattern = "%" + keyword.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
+        Pageable boundedPage = PageRequest.of(Math.max(0, pageable.getPageNumber()),
+                Math.min(100, Math.max(1, pageable.getPageSize())));
+        return orderRepository.findUserHistory(userId, selectedStatuses, pattern, boundedPage)
                 .map(orderMapper::toOrderResponse);
     }
 
@@ -253,7 +266,7 @@ public class OrderService {
 
     @Transactional
     public void cancelOrder(UUID userId, UUID orderId) {
-        Order order = orderRepository.findById(orderId)
+        Order order = orderRepository.findByIdForUpdate(orderId)
                 .orElseThrow(() -> new AppException(OrderErrorCode.ORDER_NOT_FOUND));
         
         if (!order.getUserId().equals(userId)) {
@@ -276,18 +289,19 @@ public class OrderService {
 
     @Transactional
     public void confirmPayment(UUID orderId) {
-        Order order = orderRepository.findById(orderId)
+        Order order = orderRepository.findByIdForUpdate(orderId)
                 .orElseThrow(() -> new AppException(OrderErrorCode.ORDER_NOT_FOUND));
 
+        if (order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.COMPLETED) return;
+        if (order.getStatus() != OrderStatus.PAYMENT_PENDING || order.getExpiresAt() == null
+                || !order.getExpiresAt().isAfter(LocalDateTime.now())) {
+            throw new AppException(OrderErrorCode.INVALID_ORDER_STATE);
+        }
+        var inventory = inventoryClient.confirmLock(orderId);
+        if (inventory == null || !inventory.isSuccess()) throw new AppException(OrderErrorCode.INVENTORY_LOCK_FAILED);
         order.setStatus(OrderStatus.CONFIRMED);
         deliverTicketEmail(order, false);
         orderRepository.save(order);
-
-        try {
-            inventoryClient.confirmLock(orderId);
-        } catch (Exception e) {
-            log.error("Failed to confirm lock in inventory for order {}", orderId, e);
-        }
     }
 
     @Transactional
@@ -306,9 +320,10 @@ public class OrderService {
 
     @Transactional
     public void failPayment(UUID orderId) {
-        Order order = orderRepository.findById(orderId)
+        Order order = orderRepository.findByIdForUpdate(orderId)
                 .orElseThrow(() -> new AppException(OrderErrorCode.ORDER_NOT_FOUND));
 
+        if (order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.COMPLETED) return;
         order.setStatus(OrderStatus.CANCELLED);
         orderRepository.save(order);
 
@@ -431,9 +446,7 @@ public class OrderService {
     }
 
     private TicketEmailRequest buildTicketEmailRequest(Order order, String recipient) {
-        String ticketSeed = order.getOrderNumber() != null ? order.getOrderNumber() : order.getId().toString();
         String ticketUrl = frontendBaseUrl.replaceAll("/+$", "") + "/orders/completed?orderId=" + order.getId();
-        String qrImageUrl = "https://quickchart.io/qr?size=256&text=" + URLEncoder.encode(ticketSeed, StandardCharsets.UTF_8);
 
         return TicketEmailRequest.builder()
                 .to(recipient)
@@ -443,7 +456,6 @@ public class OrderService {
                 .totalAmount(order.getTotalAmount())
                 .currency(order.getCurrency())
                 .ticketUrl(ticketUrl)
-                .qrImageUrl(qrImageUrl)
                 .items(order.getItems().stream().map(item -> TicketEmailRequest.TicketEmailItem.builder()
                         .listingId(item.getListingId())
                         .listingTitle(item.getListingTitle())

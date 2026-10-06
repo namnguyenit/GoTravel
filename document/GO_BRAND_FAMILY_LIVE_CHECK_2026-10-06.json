@@ -1,0 +1,38 @@
+{
+  "goTravel": {
+    "status": 200,
+    "wordmark": {
+      "family": "GoBrand, sans-serif",
+      "weight": "800",
+      "spacing": "-1.89px"
+    },
+    "newSymbol": true
+  },
+  "goID": {
+    "loginStatus": 200,
+    "sessionStatus": 200,
+    "elapsedMs": 17111,
+    "httpOnly": true,
+    "secure": true,
+    "removedCopy": true,
+    "animations": true,
+    "logoutRevokedSession": true
+  },
+  "goPay": {
+    "homeStatus": 200,
+    "newSymbol": true,
+    "wordmarkWeights": [
+      800,
+      500
+    ],
+    "publicReturnOrigin": "https://gotravel.trungcaodev.io.vn",
+    "mobileOverflow": false,
+    "bankPaymentPerformed": false
+  },
+  "assetFailures": [],
+  "preExistingHydrationWarnings": [
+    "Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings."
+  ],
+  "otherPageErrors": [],
+  "testedAt": "2026-10-06T15:17:53.667Z"
+}

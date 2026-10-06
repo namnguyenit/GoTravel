@@ -1,0 +1,55 @@
+{
+  "endpoints": [
+    {
+      "url": "https://gotravel.trungcaodev.io.vn/",
+      "status": 200
+    },
+    {
+      "url": "https://auth.trungcaodev.io.vn/",
+      "status": 200
+    },
+    {
+      "url": "https://pay.trungcaodev.io.vn/health",
+      "status": 200
+    },
+    {
+      "url": "https://api.trungcaodev.io.vn/health",
+      "status": 530,
+      "body": "error code: 1033\n"
+    },
+    {
+      "url": "http://127.0.0.1:5555/health",
+      "status": 200
+    },
+    {
+      "url": "https://gotravel.trungcaodev.io.vn/api/v1/auth/session",
+      "status": 401,
+      "errorCode": "AUTH_MISSING_TOKEN"
+    }
+  ],
+  "browserLogin": [
+    {
+      "from": "https://gotravel.trungcaodev.io.vn",
+      "login": "https://auth.trungcaodev.io.vn/?redirect_uri=https%3A%2F%2Fgotravel.trungcaodev.io.vn%2Fhelp-center",
+      "passed": true
+    },
+    {
+      "from": "https://gostay.nonnet123.io.vn",
+      "login": "https://auth.nonnet123.io.vn/?redirect_uri=https%3A%2F%2Fgostay.nonnet123.io.vn%2Fhelp-center",
+      "passed": true
+    }
+  ],
+  "buildDirectory": ".next-login-routing-20261006",
+  "buildId": "w70jDfZrrfinJid6xu7cS",
+  "browserAuthentication": {
+    "returnUrl": "https://gotravel.trungcaodev.io.vn/help-center",
+    "sessionStatus": 200,
+    "logoutStatus": 200
+  },
+  "homepageLogin": {
+    "from": "https://gotravel.trungcaodev.io.vn/",
+    "destination": "https://auth.trungcaodev.io.vn/?redirect_uri=https%3A%2F%2Fgotravel.trungcaodev.io.vn%2F",
+    "passed": true,
+    "waitedForHydration": true
+  }
+}

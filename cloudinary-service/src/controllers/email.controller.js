@@ -1,5 +1,6 @@
 import { createTransporter, getDefaultSender, isSmtpConfigured, smtpConfig } from "../configs/smtp.config.js";
-import { renderForgotPasswordEmail, renderRefundEmail, renderTicketEmail } from "../utils/emailTemplates.js";
+import { renderForgotPasswordEmail, renderRefundEmail } from "../utils/emailTemplates.js";
+import { buildTicketEmail } from "../utils/ticketEmail.js";
 
 const success = (res, message, data = null) => res.status(200).json({
     success: true,
@@ -17,13 +18,14 @@ const badRequest = (res, message, code = "BAD_REQUEST") => res.status(400).json(
     data: null,
 });
 
-const sendEmail = async ({ to, subject, html }) => {
+const sendEmail = async ({ to, subject, html, attachments = [] }) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
         from: getDefaultSender(),
         to,
         subject,
         html,
+        attachments,
     });
 
     return {
@@ -74,7 +76,7 @@ export const sendTicketEmail = async (req, res, next) => {
             return badRequest(res, "Thiếu mã đơn hàng để gửi vé điện tử", "ORDER_REQUIRED");
         }
 
-        const template = renderTicketEmail(payload);
+        const template = await buildTicketEmail(payload);
         const result = await sendEmail({ to: payload.to, ...template });
 
         return success(res, "Đã gửi email vé điện tử", result);

@@ -10,6 +10,7 @@ import com.GoTravel.CartandOrder.dto.response.ApiResponse;
 import com.GoTravel.CartandOrder.dto.response.OrderDisputeResponse;
 import com.GoTravel.CartandOrder.dto.response.OrderResponse;
 import com.GoTravel.CartandOrder.enums.DisputeStatus;
+import com.GoTravel.CartandOrder.enums.OrderStatus;
 import com.GoTravel.CartandOrder.service.OrderService;
 import com.GoTravel.CartandOrder.service.OrderDisputeService;
 import jakarta.validation.Valid;
@@ -21,6 +22,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/orders")
@@ -93,8 +95,10 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<ApiResponse<Page<OrderResponse>>> getUserOrders(
             @RequestHeader("X-User-Id") UUID userId,
+            @RequestParam(required = false) List<OrderStatus> statuses,
+            @RequestParam(defaultValue = "") String search,
             Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success(orderService.getUserOrders(userId, pageable)));
+        return ResponseEntity.ok(ApiResponse.success(orderService.getUserOrders(userId, pageable, statuses, search)));
     }
 
     @PostMapping("/disputes")

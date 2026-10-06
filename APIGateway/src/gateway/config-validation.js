@@ -388,6 +388,7 @@ function normalizeSettings(value) {
     [
       "allowedOrigins",
       "cookieDomain",
+      "cookieDomains",
       "sessionMaxAgeMinutes",
       "loginRateLimit",
       "geoRestriction",
@@ -421,6 +422,17 @@ function normalizeSettings(value) {
     .toLowerCase();
   if (!/^[a-z0-9]+(?:[.-][a-z0-9]+)*$/.test(cookieDomain))
     fail("Cookie domain không hợp lệ.");
+  const cookieDomains = [...new Set([
+    cookieDomain,
+    ...list(value.cookieDomains ?? [], "Cookie domains", 10).map((x) => {
+      const domain = text(x, "Cookie domain", 200)
+        .replace(/^\./, "")
+        .toLowerCase();
+      if (!/^[a-z0-9]+(?:[.-][a-z0-9]+)*$/.test(domain))
+        fail("Cookie domain không hợp lệ.");
+      return domain;
+    }),
+  ])];
   only(value.loginRateLimit, ["limit", "windowMs"], "Giới hạn đăng nhập");
   const countries = [...new Set(list(value.allowedCountries, "Quốc gia", 250))];
   if (!countries.length || countries.some((x) => !/^[A-Z]{2}$/.test(x)))
@@ -429,6 +441,7 @@ function normalizeSettings(value) {
     trafficPolicy: normalizeTrafficPolicy(value.trafficPolicy, fail),
     allowedOrigins,
     cookieDomain,
+    cookieDomains,
     sessionMaxAgeMinutes: integer(
       value.sessionMaxAgeMinutes,
       "Tuổi phiên",

@@ -6,6 +6,8 @@ spring:
       - optional:classpath:database.yaml
       - optional:classpath:jwt.yaml
       - optional:classpath:sepay.yaml
+      - optional:classpath:vnpay.yaml
+      - optional:file:${GOTRAVEL_PAYMENT_CONFIG:./.secrets/vnpay-local.yaml}
 server:
   address: ${SERVICE_BIND_HOST:127.0.0.1}
   port: 8085

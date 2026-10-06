@@ -558,7 +558,8 @@ test("legacy JSON is imported once and deleting seeded routes persists after res
   };
   writeFileSync(legacyPath, JSON.stringify({ version: 7, routes: [route] }));
   const first = createRouteRegistry({ dbPath: path, legacyFile: legacyPath });
-  assert.equal(first.snapshot().routes.length, 70);
+  const initialRouteCount = first.snapshot().routes.length;
+  assert.equal(initialRouteCount, seedConfiguration().routes.length + 1);
   assert.equal(
     first.match("POST", "/api/v1/legacy/items/42").destination,
     "/api/items/42",
@@ -579,7 +580,7 @@ test("legacy JSON is imported once and deleting seeded routes persists after res
     dbPath: path,
     legacyFile: legacyPath,
   });
-  assert.equal(reloaded.snapshot().routes.length, 69);
+  assert.equal(reloaded.snapshot().routes.length, initialRouteCount - 1);
   assert.equal(reloaded.match("GET", "/api/v1/search/listings"), null);
   assert.equal(
     reloaded.snapshot().routes.filter((x) => x.id === route.id).length,

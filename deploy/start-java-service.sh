@@ -27,6 +27,9 @@ fi
 set +a
 
 export SERVICE_BIND_HOST=127.0.0.1
+if [[ "$module" == PaymentandWallet ]]; then
+  export GOTRAVEL_PAYMENT_CONFIG="${GOTRAVEL_PAYMENT_CONFIG:-$project_dir/PaymentandWallet/.secrets/vnpay-local.yaml}"
+fi
 # BCrypt at cost 15 can exceed the Gateway deadline with only the tier-1 compiler.
 # Keep full JIT optimization for Identity; retain the smaller compiler profile elsewhere.
 compiler_level=1

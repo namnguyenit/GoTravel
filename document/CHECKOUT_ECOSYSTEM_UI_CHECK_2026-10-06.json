@@ -1,0 +1,17 @@
+{
+  "twoDifferentProducts": true,
+  "fullDatesQuantityUnitPriceTotalsCustomer": true,
+  "officialLogoLocal": true,
+  "officialLogoRedPixels": 1007,
+  "officialLogoBluePixels": 720,
+  "removedInstructions": true,
+  "mobileOverflow": false,
+  "untrustedTextAndImagesSafe": true,
+  "untrustedPaymentUrlBlocked": true,
+  "paymentAmountMismatchBlocked": true,
+  "confirmedOrderKeepsAllItems": true,
+  "missingOwnedOrderFailsClosed": true,
+  "pageErrors": [],
+  "mockedApi": true,
+  "testedAt": "2026-10-06T15:56:25.156Z"
+}

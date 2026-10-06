@@ -1,0 +1,103 @@
+{
+  "verifiedAt": "2026-10-06T15:26:33.424985+07:00",
+  "projectPath": "/home/trungcao/DoANLienNganh-devserver",
+  "merchantConfigured": true,
+  "vnpayEnabled": true,
+  "merchantAcceptedByVnpay": true,
+  "environment": "sandbox",
+  "qrRendered": true,
+  "qrScanPaymentVerified": false,
+  "testOrder": {
+    "orderId": "701f5901-599a-4a38-9862-4fecd6824141",
+    "paymentId": "47f19b22-e8e9-4a1c-ac04-63eb1fd692c0",
+    "amountVnd": 750000,
+    "expiresAt": "2026-10-06T15:28:40+07:00"
+  },
+  "bankPayment": {
+    "stage": "real sandbox NCB payment",
+    "returnHost": "pay.trungcaodev.io.vn",
+    "returnPath": "/vnpay/return",
+    "responseCode": "00",
+    "transactionStatus": "00",
+    "transactionNo": "15696395",
+    "verifiedReturn": {
+      "status": 200,
+      "data": {
+        "success": true,
+        "status": 200,
+        "code": "SUCCESS",
+        "message": "Thành công",
+        "data": {
+          "orderId": "701f5901-599a-4a38-9862-4fecd6824141",
+          "paymentId": "47f19b22-e8e9-4a1c-ac04-63eb1fd692c0",
+          "result": "PENDING",
+          "responseCode": "00",
+          "frontendUrl": "https://gotravel.trungcaodev.io.vn",
+          "orderConfirmed": false
+        }
+      }
+    },
+    "body": "GoTravel\nVNPAY\nĐang chờ xác nhận từ VNPAY\n\nKết quả trên trình duyệt chưa đủ để xác nhận đơn. Hệ thống đang chờ IPN từ VNPAY.\n\nMã đơn: 701f5901-599a-4a38-9862-4fecd6824141\n\nKiểm tra lại\nXem đơn hàng"
+  },
+  "stateAfterBankPayment": {
+    "orderId": "701f5901-599a-4a38-9862-4fecd6824141",
+    "paymentId": "47f19b22-e8e9-4a1c-ac04-63eb1fd692c0",
+    "paymentStatus": "PENDING",
+    "orderStatus": "PAYMENT_PENDING",
+    "amount": 750000,
+    "waitSeconds": 44
+  },
+  "databaseEvidence": {
+    "attemptStatus": "CREATED",
+    "ipnProcessed": false,
+    "paymentTransactions": 0,
+    "orderNotifications": 0
+  },
+  "cancellation": {
+    "scenario": "Cancel on VNPAY",
+    "orderId": "fdfcdcb3-8ca8-4367-9c2a-01103186188d",
+    "responseCode": "24",
+    "transactionStatus": "02",
+    "verifiedReturn": {
+      "status": 200,
+      "payload": {
+        "success": true,
+        "status": 200,
+        "code": "SUCCESS",
+        "message": "Thành công",
+        "data": {
+          "orderId": "fdfcdcb3-8ca8-4367-9c2a-01103186188d",
+          "paymentId": "ce7fffec-157a-4d0d-beba-fcb91462d814",
+          "result": "FAILED",
+          "responseCode": "24",
+          "frontendUrl": "https://gotravel.trungcaodev.io.vn",
+          "orderConfirmed": false
+        }
+      }
+    },
+    "body": "GoTravel\nVNPAY\nThanh toán chưa hoàn tất\n\nGiao dịch bị hủy hoặc không thành công. Bạn có thể mở lại thanh toán từ đơn hàng khi còn thời gian giữ chỗ.\n\nMã đơn: fdfcdcb3-8ca8-4367-9c2a-01103186188d\n\nKiểm tra lại\nXem đơn hàng"
+  },
+  "cancelFixtureReleased": true,
+  "ipnReceivedAndProcessed": false,
+  "orderConfirmationFlowFullyVerified": false,
+  "ipnUrl": "https://pay.trungcaodev.io.vn/api/v1/payments/vnpay/ipn",
+  "alternateIpnUrlVerifiedReachable": "https://gotravel.trungcaodev.io.vn/api/v1/payments/vnpay/ipn",
+  "gatewayFix": {
+    "exactGetIpnExemptFromCountryPolicy": true,
+    "signatureValidationRequired": true,
+    "securityTestsPassed": 7,
+    "nonVnUnsignedIpnResult": {
+      "httpStatus": 200,
+      "RspCode": "97"
+    },
+    "otherNonVnApiStillBlocked": true
+  },
+  "merchantDisplayOnVnpay": "https://vnshop.vn/",
+  "conclusion": "Sandbox NCB payment and signed Return verification succeeded. No valid processed IPN was observed; merchant IPN configuration and VNPAY callback delivery need verification. QR rendering succeeded; a QR scan payment was not attempted.",
+  "nextStep": "Register/verify the complete IPN URL with VNPAY, inspect provider callback history, and test a new order within its reservation deadline.",
+  "finalState": {
+    "paymentStatus": "PENDING",
+    "orderStatus": "PAYMENT_PENDING",
+    "checkedAt": "2026-10-06T08:27:00.820Z"
+  }
+}

@@ -162,3 +162,8 @@
   background: linear-gradient(to right, #f3f4f6 8%, #e5e7eb 18%, #f3f4f6 33%);
   background-size: 1000px 100%;
 }
+
+/* Keep the original Auth wordmark typeface local to the platform. */
+@font-face { font-family: GoBrand; src: url('/fonts/outfit-500.ttf') format('truetype'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: GoBrand; src: url('/fonts/outfit-800.ttf') format('truetype'); font-weight: 800; font-style: normal; font-display: swap; }
+.gotravel-wordmark { font-family: GoBrand, sans-serif; font-weight: 800; letter-spacing: -.07em; }

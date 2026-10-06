@@ -1,0 +1,13 @@
+{
+  "removedCopy": true,
+  "sharedWordmark": {
+    "weight": "500",
+    "family": "GoBrand, sans-serif"
+  },
+  "animations": true,
+  "reducedMotion": true,
+  "registerAndRecoveryForms": true,
+  "mobileOverflow": false,
+  "emailEndpointMocked": true,
+  "pageErrors": []
+}

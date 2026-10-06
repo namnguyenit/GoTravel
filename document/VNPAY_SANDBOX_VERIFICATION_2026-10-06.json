@@ -1,0 +1,246 @@
+{
+  "verifiedAt": "2026-10-06T15:02:02.710369+07:00",
+  "projectPath": "/home/trungcao/DoANLienNganh-devserver",
+  "merchantConfigured": true,
+  "liveVnpayBankTransactionVerified": true,
+  "testResults": {
+    "javaTargetedSuites": [
+      {
+        "module": "PaymentandWallet",
+        "suite": "com.gotravel.PaymentandWallet.configuration.VnpayConfigTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "PaymentandWallet",
+        "suite": "com.gotravel.PaymentandWallet.controller.VnpayCallbackControllerTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "PaymentandWallet",
+        "suite": "com.gotravel.PaymentandWallet.scheduler.PaymentNotificationSchedulerTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "PaymentandWallet",
+        "suite": "com.gotravel.PaymentandWallet.service.VnpayIntegrationTest",
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "PaymentandWallet",
+        "suite": "com.gotravel.PaymentandWallet.service.VnpaySignerTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "CartandOrder",
+        "suite": "com.GoTravel.CartandOrder.service.OrderPaymentConfirmationTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "module": "BookingandInventory",
+        "suite": "com.Gostay.BookingandInventory.service.PaymentInventoryConfirmationTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "gateway": {
+      "passed": 28,
+      "failed": 0
+    },
+    "portal": {
+      "passed": 1,
+      "failed": 0
+    },
+    "totalTestsPassed": 55
+  },
+  "frontendBuild": {
+    "directory": ".next-vnpay-sandbox-20261006",
+    "buildId": "SwRfKVd7OK_4SUpczz3-M"
+  },
+  "gatewayConfigVersion": 6,
+  "urls": {
+    "payment": "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html",
+    "return": "https://pay.trungcaodev.io.vn/vnpay/return",
+    "ipn": "https://pay.trungcaodev.io.vn/api/v1/payments/vnpay/ipn"
+  },
+  "runtimeConfigFile": "/home/trungcao/DoANLienNganh-devserver/PaymentandWallet/.secrets/vnpay-local.yaml",
+  "databaseSchemaVerified": [
+    "payment_requests.provider",
+    "vnpay_payment_attempts",
+    "payment_order_notifications"
+  ],
+  "backupDirectory": "/home/trungcao/.local/state/gotravel-deployments/vnpay-20261006-144659",
+  "httpChecks": [
+    {
+      "name": "gateway health",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "cacheControl": null,
+      "message": "API gateway đang hoạt động bình thường"
+    },
+    {
+      "name": "portal health",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "public VNPAY return page",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "cacheControl": "no-store"
+    },
+    {
+      "name": "public invalid IPN",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "cacheControl": "no-store",
+      "code": "97",
+      "message": "Invalid signature"
+    },
+    {
+      "name": "public duplicate IPN parameters",
+      "status": 200,
+      "expected": 200,
+      "passed": true,
+      "cacheControl": "no-store",
+      "code": "99",
+      "message": "Unable to process callback"
+    },
+    {
+      "name": "public return verification without merchant",
+      "status": 503,
+      "expected": 503,
+      "passed": true,
+      "cacheControl": "no-store",
+      "code": "VNPAY_NOT_CONFIGURED",
+      "message": "VNPAY chưa được cấu hình. Vui lòng thiết lập merchant sandbox trước khi thanh toán"
+    },
+    {
+      "name": "POST callback is not public",
+      "status": 404,
+      "expected": 404,
+      "passed": true,
+      "cacheControl": "no-store",
+      "message": "API route not found"
+    },
+    {
+      "name": "removed portal mock route",
+      "status": 404,
+      "expected": 404,
+      "passed": true,
+      "cacheControl": "no-store",
+      "message": "API route not found"
+    },
+    {
+      "name": "removed SePay callback",
+      "status": 404,
+      "expected": 404,
+      "passed": true
+    }
+  ],
+  "authenticatedChecks": [
+    {
+      "name": "Disabled merchant blocks new payment",
+      "status": 503,
+      "code": "VNPAY_NOT_CONFIGURED",
+      "expected": 503,
+      "expectedCode": "VNPAY_NOT_CONFIGURED",
+      "passed": true
+    },
+    {
+      "name": "Mock payment endpoint blocked",
+      "status": 403,
+      "code": "MOCK_PAYMENT_DISABLED",
+      "expected": 403,
+      "expectedCode": "MOCK_PAYMENT_DISABLED",
+      "passed": true
+    }
+  ],
+  "browserChecks": [
+    {
+      "name": "GoTravel payment entry",
+      "status": 200,
+      "missingOrderMessage": true,
+      "oldQrPresent": false,
+      "mockButtonPresent": false
+    },
+    {
+      "name": "VNPAY return without session",
+      "status": 200,
+      "merchantConfigRequired": true
+    }
+  ],
+  "processes": [
+    {
+      "name": "gostay-frontend",
+      "status": "online",
+      "pid": 2395145,
+      "restarts": 11,
+      "buildDir": ".next-vnpay-sandbox-20261006"
+    },
+    {
+      "name": "gostay-gateway",
+      "status": "online",
+      "pid": 2395112,
+      "restarts": 10
+    },
+    {
+      "name": "gostay-booking",
+      "status": "online",
+      "pid": 2394812,
+      "restarts": 1
+    },
+    {
+      "name": "gostay-cart",
+      "status": "online",
+      "pid": 2395080,
+      "restarts": 1
+    },
+    {
+      "name": "gostay-payment",
+      "status": "online",
+      "pid": 2395307,
+      "restarts": 2
+    },
+    {
+      "name": "gostay-payment-portal",
+      "status": "online",
+      "pid": 2395120,
+      "restarts": 9
+    }
+  ],
+  "pm2SnapshotSaved": false,
+  "limitations": [
+    "Real inbox delivery remains unverified: the fixture uses a non-deliverable .invalid email, ticketEmailSent is false, and the email service returned INTERNAL_ERROR.",
+    "VNPAY refund/querydr API is outside the PAY integration; VNPAY refunds are rejected instead of recording fake refunds.",
+    "The nhan-owned PM2 snapshot requires its owner/root to save current process configuration for reboot persistence."
+  ],
+  "merchantConfiguredAtInitialDeployment": false,
+  "ipnReceivedAndProcessed": true,
+  "orderConfirmationFlowFullyVerified": true,
+  "liveMerchantTestReport": "VNPAY_IPN_CONFIRMED_TEST_2026-10-06.json"
+}

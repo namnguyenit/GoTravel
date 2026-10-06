@@ -2,6 +2,10 @@ package com.gotravel.PaymentandWallet.service;
 
 import com.gotravel.PaymentandWallet.client.OrderClient;
 import com.gotravel.PaymentandWallet.configuration.SepayConfig;
+import com.gotravel.PaymentandWallet.configuration.VnpayConfig;
+import com.gotravel.PaymentandWallet.entity.PaymentOrderNotification;
+import com.gotravel.PaymentandWallet.repository.PaymentOrderNotificationRepository;
+import org.springframework.beans.factory.annotation.Value;
 import com.gotravel.PaymentandWallet.dto.request.CreatePaymentRequest;
 import com.gotravel.PaymentandWallet.dto.request.RefundOrderRequest;
 import com.gotravel.PaymentandWallet.dto.request.SepayWebhookRequest;
@@ -51,6 +55,10 @@ public class PaymentService {
     private final OrderClient orderClient;
     private final SepayConfig sepayConfig;
     private final PaymentMapper paymentMapper;
+    private final VnpayConfig vnpayConfig;
+    private final PaymentOrderNotificationRepository notificationRepository;
+    @Value("${payment.mock-enabled:false}")
+    private boolean mockEnabled;
 
     private static final String DEFAULT_COMMISSION_CONFIG_ID = "DEFAULT";
     private static final BigDecimal DEFAULT_COMMISSION_RATE = new BigDecimal("0.05"); // 5% hoa hồng GoStay
@@ -58,7 +66,7 @@ public class PaymentService {
 
     /**
      * Tạo yêu cầu thanh toán mới cho một đơn hàng.
-     * Sinh mã thanh toán duy nhất và URL QR VietQR từ SePay.
+     * Sinh yêu cầu VNPAY; tổng tiền và hạn giữ chỗ lấy từ service đơn hàng.
      */
     @Transactional
     public PaymentResponse createPayment(UUID userId, CreatePaymentRequest request) {
@@ -72,13 +80,17 @@ public class PaymentService {
 
         String paymentCode = generatePaymentCode();
 
-        String qrUrl = String.format(
-                "https://qr.sepay.vn/img?acc=%s&bank=%s&amount=%s&des=%s",
-                sepayConfig.getBankAccount(),
-                sepayConfig.getBankName(),
-                order.getTotalAmount().toBigInteger().toString(),
-                URLEncoder.encode(paymentCode, StandardCharsets.UTF_8)
-        );
+        var now = LocalDateTime.now(VnpayService.ZONE);
+        var expiry = now.plusMinutes(vnpayConfig.getTimeoutMinutes());
+        if (order.getExpiresAt() == null || !order.getExpiresAt().isAfter(now)) {
+            throw new AppException(PaymentErrorCode.PAYMENT_EXPIRED);
+        }
+        if (order.getExpiresAt().isBefore(expiry)) expiry = order.getExpiresAt();
+        expiry = expiry.withNano(0);
+        VnpayService.amountUnits(order.getTotalAmount());
+        if (!"VND".equalsIgnoreCase(order.getCurrency())) {
+            throw new AppException(PaymentErrorCode.INVALID_ORDER_FOR_PAYMENT);
+        }
 
         PaymentRequest paymentRequest = PaymentRequest.builder()
                 .orderId(order.getOrderId())
@@ -87,10 +99,8 @@ public class PaymentService {
                 .paymentCode(paymentCode)
                 .amount(order.getTotalAmount())
                 .status(PaymentStatus.PENDING)
-                .qrUrl(qrUrl)
-                .bankAccount(sepayConfig.getBankAccount())
-                .bankName(sepayConfig.getBankName())
-                .expiresAt(LocalDateTime.now().plusMinutes(15))
+                .provider("VNPAY")
+                .expiresAt(expiry)
                 .build();
 
         paymentRequest = paymentRequestRepository.save(paymentRequest);
@@ -128,6 +138,9 @@ public class PaymentService {
             return;
         }
 
+        if ("VNPAY".equals(paymentRequest.getProvider())) {
+            throw new AppException(PaymentErrorCode.INVALID_WEBHOOK);
+        }
         if (paymentRequest.getStatus() == PaymentStatus.COMPLETED) {
             log.info("Payment {} is already completed; skipping webhook {}", paymentCode, webhook.getId());
             return;
@@ -205,6 +218,9 @@ public class PaymentService {
             return;
         }
 
+        if ("VNPAY".equals(paymentRequest.getProvider())) {
+            throw new AppException(PaymentErrorCode.VNPAY_REFUND_REQUIRED);
+        }
         if (paymentRequest.getStatus() != PaymentStatus.COMPLETED) {
             throw new AppException(PaymentErrorCode.REFUND_NOT_ALLOWED);
         }
@@ -309,9 +325,11 @@ public class PaymentService {
 
     @Transactional
     public void mockPaymentSuccess(UUID userId, UUID paymentId) {
+        if (!mockEnabled) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
         PaymentRequest paymentRequest = paymentRequestRepository.findByIdAndUserId(paymentId, userId)
                 .orElseThrow(() -> new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
 
+        if ("VNPAY".equals(paymentRequest.getProvider())) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
         if (paymentRequest.getStatus() == PaymentStatus.COMPLETED) {
             return;
         }
@@ -330,7 +348,7 @@ public class PaymentService {
         }
     }
 
-    private OrderPaymentSummaryResponse getInternalOrderPaymentSummary(UUID orderId) {
+    public OrderPaymentSummaryResponse getInternalOrderPaymentSummary(UUID orderId) {
         try {
             ApiResponse<OrderPaymentSummaryResponse> response = orderClient.getPaymentSummary(orderId);
             OrderPaymentSummaryResponse order = response == null ? null : response.getData();
@@ -345,6 +363,27 @@ public class PaymentService {
             log.warn("Cannot load provider breakdowns for order {}", orderId, e);
             throw new AppException(PaymentErrorCode.INVALID_ORDER_FOR_PAYMENT);
         }
+    }
+
+    @Transactional
+    public void completeVnpayPayment(PaymentRequest payment, OrderPaymentSummaryResponse order, LocalDateTime paidAt) {
+        payment.setStatus(PaymentStatus.COMPLETED);
+        payment.setPaidAt(paidAt);
+        paymentRequestRepository.save(payment);
+        createProviderPayouts(payment, order);
+        notificationRepository.save(PaymentOrderNotification.builder().orderId(payment.getOrderId())
+                .successful(true).createdAt(LocalDateTime.now(VnpayService.ZONE)).build());
+    }
+
+    @Transactional
+    public void reviewVnpayPayment(UUID orderId) {
+        var candidate = paymentRequestRepository.findByOrderId(orderId).orElseThrow();
+        var payment = paymentRequestRepository.findByIdForUpdate(candidate.getId()).orElseThrow();
+        payment.setStatus(PaymentStatus.PAID_REVIEW);
+        for (var payout : hostPayoutRepository.findByOrderId(orderId)) {
+            if (payout.getStatus() != PayoutStatus.PAID) payout.setStatus(PayoutStatus.CANCELLED);
+        }
+        log.warn("VNPAY payment for order {} requires manual review; order cannot be fulfilled", orderId);
     }
 
     private void validateProviderBreakdowns(OrderPaymentSummaryResponse order) {

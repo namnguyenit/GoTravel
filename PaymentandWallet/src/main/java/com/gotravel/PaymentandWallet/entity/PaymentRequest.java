@@ -43,6 +43,9 @@ public class PaymentRequest {
     @Column(nullable = false)
     private PaymentStatus status;
 
+    // Null in historical rows means SePay; all new payments use VNPAY.
+    private String provider;
+
     @Column(name = "qr_url")
     private String qrUrl;
 

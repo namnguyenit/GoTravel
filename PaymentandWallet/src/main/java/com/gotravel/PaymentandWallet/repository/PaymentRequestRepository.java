@@ -19,6 +19,10 @@ import java.math.BigDecimal;
 
 @Repository
 public interface PaymentRequestRepository extends JpaRepository<PaymentRequest, UUID> {
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select p from PaymentRequest p where p.id = :id")
+    Optional<PaymentRequest> findByIdForUpdate(@Param("id") UUID id);
+
     Optional<PaymentRequest> findByOrderId(UUID orderId);
     Optional<PaymentRequest> findByOrderIdAndUserId(UUID orderId, UUID userId);
     Optional<PaymentRequest> findByIdAndUserId(UUID id, UUID userId);

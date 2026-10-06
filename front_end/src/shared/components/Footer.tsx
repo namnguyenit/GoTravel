@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import GoTravelBrand from "./GoTravelBrand";
 import { Globe2 } from "lucide-react";
 
 const footerColumns = [
@@ -36,6 +37,7 @@ export default function Footer() {
   return (
     <footer className="w-full border-t border-[#DDDDDD] bg-[#F7F7F7] pb-20 text-[#222222] md:pb-0">
       <div className="mx-auto max-w-[1760px] px-6 py-12 md:px-10 xl:px-20">
+        <Link href="/" className="mb-8 inline-flex rounded-lg" aria-label="Về trang chủ GoTravel"><GoTravelBrand /></Link>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           {footerColumns.map((column) => (
             <section key={column.title}>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./auth-theme.css";
+import { safeRedirect } from "./platform-domains";
 import {
   AuthService,
   clearAuthCookie,
@@ -11,13 +12,6 @@ import {
   AlertCircle,
   CheckCircle2,
   ArrowRight,
-  ArrowUpRight,
-  Compass,
-  MapPin,
-  Plane,
-  Heart,
-  Star,
-  Sparkles,
 } from "lucide-react";
 
 type AuthView = "login" | "register" | "forgot-password" | "reset-password";
@@ -94,7 +88,7 @@ export default function App() {
   // Check URL parameters and active SSO session on mount
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const target = params.get("redirect_uri") || params.get("continue") || "";
+    const target = safeRedirect(params.get("redirect_uri") || params.get("continue"), window.location.origin);
     const action = params.get("action") || "";
     const mode = params.get("mode") || "";
 
@@ -102,19 +96,12 @@ export default function App() {
       setView("register");
     }
 
-    if (target) {
-      setRedirectUri(target);
-    } else {
-      const defaultHost = window.location.hostname.includes("nonnet123.io.vn")
-        ? "https://gostay.nonnet123.io.vn"
-        : "http://localhost:3000";
-      setRedirectUri(defaultHost);
-    }
+    setRedirectUri(target);
 
     // Handle logout action
     if (action === "logout" || window.location.pathname === "/logout") {
       void clearAuthCookie()
-        .then(() => setSuccess("Bạn đã đăng xuất an toàn khỏi toàn bộ hệ thống GoTravel."))
+        .then(() => setSuccess("Bạn đã đăng xuất khỏi GoID."))
         .catch(() => setError("Không thể đăng xuất lúc này. Vui lòng thử lại."));
       return;
     }
@@ -122,20 +109,15 @@ export default function App() {
     // NẾU NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP: Tự động chuyển hướng ngay về GoTravel / redirect_uri
     void AuthService.getMe().then((profile) => {
       if (profile) {
-        const destination = target || (window.location.hostname.includes("nonnet123.io.vn")
-          ? "https://gostay.nonnet123.io.vn"
-          : "http://localhost:3000");
-        window.location.replace(destination);
+        window.location.replace(target);
       }
     });
   }, []);
 
   // Completion handoff to redirect_uri or GoStay
   const handleAuthSuccess = () => {
-    const destination = redirectUri || (window.location.hostname.includes("nonnet123.io.vn")
-      ? "https://gostay.nonnet123.io.vn"
-      : "http://localhost:3000");
-    setSuccess("Xác thực thành công! Đang chuyển hướng...");
+    const destination = redirectUri || safeRedirect(null, window.location.origin);
+    setSuccess("Xác thực thành công. Đang chuyển hướng...");
     setTimeout(() => {
       window.location.replace(destination);
     }, 400);
@@ -291,9 +273,9 @@ export default function App() {
 
   const description =
     view === "login"
-      ? "Xem đặt chỗ, lưu địa điểm và tiếp tục kế hoạch của bạn."
+      ? "Truy cập GoTravel và GoTicket với GoID."
       : view === "register"
-      ? "Đăng ký để đặt chỗ và lưu những nơi bạn muốn đến."
+      ? "Điền thông tin để tạo tài khoản GoID."
       : view === "forgot-password"
       ? "Nhập email tài khoản để nhận mã xác thực đặt lại mật khẩu."
       : "Nhập mã xác thực trong email và tạo mật khẩu mới.";
@@ -301,47 +283,30 @@ export default function App() {
   return (
     <div className="sso-page-container">
       <div className="auth-shell">
-        <aside className="auth-story" aria-label="Khám phá GoTravel">
+        <aside className="auth-story" aria-label="GoID">
           <div className="story-glow story-glow-one" aria-hidden="true" />
           <div className="story-glow story-glow-two" aria-hidden="true" />
-          <div className="story-topline">
-            <span className="story-topline-icon"><Sparkles size={16} /></span>
-            <span>GoStay · GoCar · GoTravel</span>
+          <div className="identity-brand"><img src="/brand/goid-symbol-white.svg" width="42" height="42" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">id</span><i>.</i></span></div>
+          <div className="identity-scene" aria-hidden="true">
+            <div className="scene-orbit orbit-one" />
+            <div className="scene-orbit orbit-two" />
+            <div className="scene-dot scene-dot-one" />
+            <div className="scene-dot scene-dot-two" />
+            <div className="scene-core"><img src="/brand/goid-symbol-white.svg" width="104" height="104" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">id</span><i>.</i></span></div>
+            <div className="scene-product scene-travel"><img src="/brand/gotravel-symbol.svg" width="35" height="35" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">travel</span><i>.</i></span></div>
+            <div className="scene-product scene-ticket"><img src="/brand/goticket-symbol.svg" width="35" height="35" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">ticket</span><i>.</i></span></div>
           </div>
-          <div className="story-copy">
-            <div className="story-eyebrow"><span className="story-live-dot" /> HÀNH TRÌNH CỦA BẠN BẮT ĐẦU TỪ ĐÂY</div>
-            <h1>Đi đâu cũng<br /><em>thấy thân quen.</em></h1>
-            <p>Tìm nơi ở, đặt xe và quản lý chuyến đi trong một tài khoản.</p>
-          </div>
-          <div className="journey-art" aria-hidden="true">
-            <div className="art-orbit orbit-one" />
-            <div className="art-orbit orbit-two" />
-            <div className="art-star star-one">✦</div>
-            <div className="art-star star-two">✧</div>
-            <div className="art-star star-three">✦</div>
-            <div className="floating-badge badge-top"><span className="badge-icon"><Sparkles size={16} /></span><span>GoStay<br /><strong>Chọn nơi ở hợp ý</strong></span></div>
-            <div className="destination-card">
-              <div className="destination-picture">
-                <div className="picture-shine" />
-                <div className="picture-favorite"><Heart size={14} fill="currentColor" /></div>
-              </div>
-              <div className="destination-info"><div><span>ĐIỂM ĐẾN ĐƯỢC YÊU THÍCH</span><strong>Đà Nẵng, Việt Nam</strong><small><Star size={11} fill="currentColor" /> 4.9 · Vạn trải nghiệm đang đợi</small></div><div className="destination-arrow"><ArrowUpRight size={19} /></div></div>
-            </div>
-            <div className="floating-badge badge-bottom"><span className="badge-icon pin"><MapPin size={17} /></span><span><strong>GoCar</strong><br />Di chuyển dễ dàng</span></div>
-            <div className="floating-plane"><Plane size={18} fill="currentColor" /></div>
-          </div>
-          <div className="story-bottom"><span className="story-line" /> KHÁM PHÁ THEO CÁCH CỦA BẠN <span className="story-bottom-star">✦</span></div>
+        <div className="story-copy"><h2>Một tài khoản. Mọi hành trình.</h2><p>GoTravel · GoTicket</p></div>
+          <div className="story-bottom"><span className="story-line" /> GoID</div>
         </aside>
         <main className="gostay-auth-card">
           <div className="card-header-bar">
-          <div className="mobile-brand"><span className="brand-mark"><Compass size={20} strokeWidth={2.4} /></span><span className="brand-name">go<span>travel</span><i>.</i></span></div>
+          <div className="mobile-brand"><img src="/brand/goid-symbol.svg" width="40" height="40" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">id</span><i>.</i></span></div>
           <button
             type="button"
             className="header-back-btn"
             onClick={() => {
-              const backUrl = redirectUri || (window.location.hostname.includes("nonnet123.io.vn")
-                ? "https://gostay.nonnet123.io.vn"
-                : "http://localhost:3000");
+              const backUrl = redirectUri || safeRedirect(null, window.location.origin);
               window.location.href = backUrl;
             }}
             aria-label="Quay lại dịch vụ trước đó"
@@ -352,7 +317,7 @@ export default function App() {
         </div>
 
         <div className={`card-content-body${isLeaving ? " is-leaving" : ""}`} data-direction={direction} key={view} inert={isLeaving}>
-          <h3 className="auth-main-title">{title}</h3>
+          <h1 className="auth-main-title">{title}</h1>
           <p className="auth-sub-desc">{description}</p>
 
           {/* Status Alert Messages */}
@@ -462,6 +427,7 @@ export default function App() {
                 <div className="floating-input-group">
                   <input
                     id="reg_username"
+                  autoComplete="username"
                     type="text"
                     className="floating-input"
                     placeholder=" "
@@ -478,6 +444,7 @@ export default function App() {
                 <div className="floating-input-group">
                   <input
                     id="reg_fullName"
+                  autoComplete="name"
                     type="text"
                     className="floating-input"
                     placeholder=" "
@@ -494,6 +461,7 @@ export default function App() {
               <div className="floating-input-group">
                 <input
                   id="reg_email"
+                  autoComplete="email"
                   type="email"
                   className="floating-input"
                   placeholder=" "
@@ -510,6 +478,7 @@ export default function App() {
                 <div className="floating-input-group">
                   <input
                     id="reg_phoneNumber"
+                  autoComplete="tel"
                     type="tel"
                     className="floating-input"
                     placeholder=" "
@@ -525,6 +494,7 @@ export default function App() {
                 <div className="floating-input-group">
                   <input
                     id="reg_dateOfBirth"
+                  autoComplete="bday"
                     type="date"
                     className="floating-input"
                     placeholder=" "
@@ -586,10 +556,6 @@ export default function App() {
                 </button>
               </div>
 
-              <p style={{ fontSize: 11, color: "#717171", margin: "8px 0 14px 0", lineHeight: 1.4 }}>
-                Bằng cách tạo tài khoản, bạn đồng ý với Điều khoản của GoTravel.
-              </p>
-
               <button type="submit" disabled={loading} className="gostay-submit-btn">
                 {loading ? (
                   <>
@@ -623,6 +589,7 @@ export default function App() {
               <div className="floating-input-group">
                 <input
                   id="forgot_email"
+                  autoComplete="email"
                   type="email"
                   className="floating-input"
                   placeholder=" "
@@ -668,6 +635,7 @@ export default function App() {
               <div className="floating-input-group">
                 <input
                   id="reset_email"
+                  autoComplete="email"
                   type="email"
                   className="floating-input"
                   placeholder=" "
@@ -683,6 +651,8 @@ export default function App() {
               <div className="floating-input-group">
                 <input
                   id="reset_otp"
+                  autoComplete="one-time-code"
+                  inputMode="numeric"
                   type="text"
                   className="floating-input"
                   placeholder=" "
@@ -777,7 +747,7 @@ export default function App() {
       </div>
 
       <div className="sso-page-footer">
-        <span>© 2026 GoTravel Ecosystem</span>
+        <span>© 2026 GoID</span><span>GoTravel · GoTicket</span>
       </div>
     </div>
   );

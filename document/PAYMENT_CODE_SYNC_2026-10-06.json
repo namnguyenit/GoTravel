@@ -1,0 +1,35 @@
+{
+  "checkedAt": "2026-10-06T03:53:11.385437+00:00",
+  "source": "/home/DoANLienNganh",
+  "target": "/home/trungcao/DoANLienNganh-devserver",
+  "modules": [
+    {
+      "module": "payment_portal",
+      "sourceFiles": 9,
+      "identical": 5,
+      "missingInDevserver": [],
+      "different": [
+        "README.md",
+        "server.js",
+        "test/handoff.test.js",
+        "public/app.js"
+      ]
+    },
+    {
+      "module": "PaymentandWallet",
+      "sourceFiles": 54,
+      "identical": 53,
+      "missingInDevserver": [],
+      "different": [
+        "src/main/resources/application.yaml"
+      ]
+    }
+  ],
+  "result": "already_synchronized; devserver retains newer dual-domain and security settings",
+  "copiedFiles": 0,
+  "runtime": {
+    "paymentPortal": "devserver/payment_portal/server.js",
+    "paymentBackend": "devserver/deploy/start-java-service.sh payment; launcher resolves JAR from its own devserver project directory"
+  },
+  "omitted": "environment secrets, dependencies, build outputs and runtime data"
+}

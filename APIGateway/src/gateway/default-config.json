@@ -66,10 +66,84 @@
   ],
   "routes": [
     {
+      "id": "c33d0e3c-02dd-4cfa-bb32-2cbfb2d0566c",
+      "name": "VNPAY return",
+      "description": "VNPAY signature verified by payment service; exact GET callback only",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/payments/vnpay/return",
+      "upstreamPath": "/api/v1/public/payments/vnpay/return",
+      "serviceKey": "payment",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 100,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": {
+        "set": {},
+        "remove": []
+      },
+      "headers": {
+        "request": {},
+        "response": {},
+        "removeRequest": [],
+        "removeResponse": []
+      },
+      "rateLimit": {
+        "enabled": false,
+        "limit": 100,
+        "windowMs": 60000
+      },
+      "paramTypes": {}
+    },
+    {
+      "id": "8fcebb9c-2f6b-4e7b-a126-08cd19d66217",
+      "name": "VNPAY ipn",
+      "description": "VNPAY signature verified by payment service; exact GET callback only",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/payments/vnpay/ipn",
+      "upstreamPath": "/api/v1/public/payments/vnpay/ipn",
+      "serviceKey": "payment",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 100,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": {
+        "set": {},
+        "remove": []
+      },
+      "headers": {
+        "request": {},
+        "response": {},
+        "removeRequest": [],
+        "removeResponse": []
+      },
+      "rateLimit": {
+        "enabled": false,
+        "limit": 100,
+        "windowMs": 60000
+      },
+      "paramTypes": {}
+    },
+    {
       "id": "668a51ea-241c-4dad-b28e-d5489447cdd6",
       "name": "catalog /api/v1/catalog/listings/landmarks",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/catalog/listings/landmarks",
       "upstreamPath": "/api/v1/catalog/listings/landmarks",
@@ -103,7 +177,9 @@
       "id": "761a3621-31df-425a-ac8a-9e2408daf30f",
       "name": "catalog /api/v1/catalog/listings/:id",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/catalog/listings/:id",
       "upstreamPath": "/api/v1/catalog/listings/:id",
@@ -139,7 +215,9 @@
       "id": "e9d3f672-806d-4ce3-a37b-9c9d3f3fdf32",
       "name": "catalog /api/v1/catalog/listings/:id/reviews",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/catalog/listings/:id/reviews",
       "upstreamPath": "/api/v1/catalog/listings/:id/reviews",
@@ -175,7 +253,14 @@
       "id": "98fa6a10-9146-4b59-83f7-7c515977f068",
       "name": "catalog /api/v1/catalog/reviews",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/catalog/reviews",
       "upstreamPath": "/api/v1/catalog/reviews",
@@ -209,7 +294,14 @@
       "id": "c5cafc6d-6c3e-492d-a03c-c9e96458dfce",
       "name": "catalog /api/v1/catalog/host",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/catalog/host",
       "upstreamPath": "/api/v1/catalog/host",
@@ -243,14 +335,23 @@
       "id": "67cf3505-57c4-4cf5-bf2f-2d51a50df564",
       "name": "catalog /api/v1/catalog/admin",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/catalog/admin",
       "upstreamPath": "/api/v1/catalog/admin",
       "serviceKey": "catalog",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -277,7 +378,9 @@
       "id": "6fbb8737-2752-4d83-a9fe-2b015ac1f51c",
       "name": "booking /api/v1/public/inventory/listings/:id/availability",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/public/inventory/listings/:id/availability",
       "upstreamPath": "/api/v1/public/inventory/listings/:id/availability",
@@ -313,7 +416,14 @@
       "id": "3b266877-2480-45f6-ba76-678bcb0aa14f",
       "name": "booking /api/v1/host/inventory",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/host/inventory",
       "upstreamPath": "/api/v1/host/inventory",
@@ -347,14 +457,23 @@
       "id": "b4760051-e9e8-4f71-ac37-6f4b3ac0e9ad",
       "name": "booking /api/v1/admin/inventory",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/admin/inventory",
       "upstreamPath": "/api/v1/admin/inventory",
       "serviceKey": "booking",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -381,7 +500,14 @@
       "id": "f47a42eb-dee8-435c-81c6-ced5351a8cb2",
       "name": "cart /api/v1/carts",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/carts",
       "upstreamPath": "/api/v1/carts",
@@ -415,7 +541,14 @@
       "id": "a205698a-153f-4e6e-a8f3-9a0e1240356b",
       "name": "cart /api/v1/orders",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/orders",
       "upstreamPath": "/api/v1/orders",
@@ -449,12 +582,14 @@
       "id": "fde5487f-0526-4b78-be76-de51f7e12e96",
       "name": "payment /api/v1/public/payments/sepay-webhook",
       "description": "",
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/public/payments/sepay-webhook",
       "upstreamPath": "/api/v1/public/payments/sepay-webhook",
       "serviceKey": "payment",
-      "enabled": true,
+      "enabled": false,
       "auth": "public",
       "roles": [],
       "priority": 0,
@@ -483,7 +618,14 @@
       "id": "afb7cbd3-8288-47c2-8cfc-81de7c6a8ef0",
       "name": "payment /api/v1/payments",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/payments",
       "upstreamPath": "/api/v1/payments",
@@ -517,7 +659,14 @@
       "id": "ee2a1aa1-c660-4fca-903e-d9e0fae75393",
       "name": "payment /api/v1/payouts",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/payouts",
       "upstreamPath": "/api/v1/payouts",
@@ -551,7 +700,9 @@
       "id": "f9dc45bc-ba7a-47ee-a75f-b4a87e1afecf",
       "name": "search /api/v1/search/locations/suggest",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/search/locations/suggest",
       "upstreamPath": "/api/v1/search/locations/suggest",
@@ -585,7 +736,9 @@
       "id": "2e60a9e6-f5bc-4417-9888-5db01d316132",
       "name": "search /api/v1/search/landmarks/autocomplete",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/search/landmarks/autocomplete",
       "upstreamPath": "/api/v1/search/landmarks/autocomplete",
@@ -619,7 +772,9 @@
       "id": "0f80ebc8-13f8-40e7-890c-066ab2b141ca",
       "name": "search /api/v1/search/listings",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/search/listings",
       "upstreamPath": "/api/v1/search/listings",
@@ -653,7 +808,9 @@
       "id": "6064c217-f2b7-4393-942d-02af82627ddb",
       "name": "search /api/v1/search/listings/nearby",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/search/listings/nearby",
       "upstreamPath": "/api/v1/search/listings/nearby",
@@ -687,7 +844,9 @@
       "id": "dc48e2b7-f262-4e79-8b6e-114a491bcf17",
       "name": "search /api/v1/search/map",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/search/map",
       "upstreamPath": "/api/v1/search/map",
@@ -721,7 +880,14 @@
       "id": "3c299cc7-4da0-4e58-b94d-63eb8c7c2622",
       "name": "search /api/v1/recommendations/events",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/recommendations/events",
       "upstreamPath": "/api/v1/recommendations/events",
@@ -755,7 +921,9 @@
       "id": "b28b99b1-1091-4fb8-976e-080f51470514",
       "name": "search /api/v1/recommendations/home/hero-landmarks",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/home/hero-landmarks",
       "upstreamPath": "/api/v1/recommendations/home/hero-landmarks",
@@ -789,7 +957,9 @@
       "id": "eb1641c7-9c4b-41ab-89d2-c006d2671561",
       "name": "search /api/v1/recommendations/home/feed",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/home/feed",
       "upstreamPath": "/api/v1/recommendations/home/feed",
@@ -823,7 +993,9 @@
       "id": "84e703f7-e459-4b5a-9d8b-f83d4df4a095",
       "name": "search /api/v1/recommendations/provinces",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/provinces",
       "upstreamPath": "/api/v1/recommendations/provinces",
@@ -857,7 +1029,9 @@
       "id": "d0ae8b58-363e-4019-8485-b5720ed05922",
       "name": "search /api/v1/recommendations/provinces/:id/destinations",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/provinces/:id/destinations",
       "upstreamPath": "/api/v1/recommendations/provinces/:id/destinations",
@@ -891,7 +1065,9 @@
       "id": "5cac3596-da14-4ea1-9c85-ffae172e8b4b",
       "name": "search /api/v1/recommendations/complexes",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/complexes",
       "upstreamPath": "/api/v1/recommendations/complexes",
@@ -925,7 +1101,9 @@
       "id": "89713933-e50c-430f-8233-f5925a8d9964",
       "name": "search /api/v1/recommendations/complexes/:id/detail",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/complexes/:id/detail",
       "upstreamPath": "/api/v1/recommendations/complexes/:id/detail",
@@ -959,7 +1137,9 @@
       "id": "6321f008-5a58-4d82-ab97-d74964608990",
       "name": "search /api/v1/recommendations/complexes/:id",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/complexes/:id",
       "upstreamPath": "/api/v1/recommendations/complexes/:id",
@@ -993,7 +1173,9 @@
       "id": "e53b0d11-4966-4250-9387-cb2d7f6f8c0b",
       "name": "search /api/v1/recommendations/home",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/home",
       "upstreamPath": "/api/v1/recommendations/home",
@@ -1027,7 +1209,9 @@
       "id": "557301a1-fb89-4172-9084-cd28692db62a",
       "name": "search /api/v1/recommendations/nearby",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/nearby",
       "upstreamPath": "/api/v1/recommendations/nearby",
@@ -1061,7 +1245,9 @@
       "id": "f1d02488-d4ea-4f7d-9101-f9db59f51e0c",
       "name": "search /api/v1/recommendations/landmarks/:id",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/landmarks/:id",
       "upstreamPath": "/api/v1/recommendations/landmarks/:id",
@@ -1097,7 +1283,9 @@
       "id": "313a512a-c013-4e4f-975c-6c7e1c0bc253",
       "name": "search /api/v1/recommendations/listings/:id/similar",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/listings/:id/similar",
       "upstreamPath": "/api/v1/recommendations/listings/:id/similar",
@@ -1133,7 +1321,9 @@
       "id": "9c49a84a-57c3-4407-b063-7d513d75dd52",
       "name": "search /api/v1/recommendations/cross-sell/cart-item",
       "description": "",
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/recommendations/cross-sell/cart-item",
       "upstreamPath": "/api/v1/recommendations/cross-sell/cart-item",
@@ -1167,7 +1357,14 @@
       "id": "e0e1f984-ed9e-41d5-8221-eebb6a947bf3",
       "name": "car /api/v1/cars",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/cars",
       "upstreamPath": "/cars",
@@ -1201,7 +1398,14 @@
       "id": "5e762e53-09b9-4e9b-8297-ddefe0a495a7",
       "name": "car /api/v1/operator-applications",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/operator-applications",
       "upstreamPath": "/operator-applications",
@@ -1235,7 +1439,14 @@
       "id": "3521979c-4d23-46d4-b96d-e855f600dcc0",
       "name": "car /api/v1/operators",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/operators",
       "upstreamPath": "/operators",
@@ -1269,7 +1480,9 @@
       "id": "8c7d8c7e-1843-424f-a0ec-48ae1678dff0",
       "name": "car /api/v1/routes/locations",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/routes/locations",
       "upstreamPath": "/routes/locations",
@@ -1303,7 +1516,14 @@
       "id": "db2ebb01-eae7-46a3-b378-591a029f3207",
       "name": "car /api/v1/routes",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/routes",
       "upstreamPath": "/routes",
@@ -1337,7 +1557,9 @@
       "id": "cf702f79-ce40-4f17-861e-9c27b0727b7e",
       "name": "car /api/v1/trips/search",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/trips/search",
       "upstreamPath": "/trips/search",
@@ -1371,7 +1593,14 @@
       "id": "056aac11-3b52-4c24-98fb-7336e62d539e",
       "name": "car /api/v1/trips",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/trips",
       "upstreamPath": "/trips",
@@ -1405,7 +1634,9 @@
       "id": "a1fd99b3-0428-4fdd-aec7-658c5c009556",
       "name": "identity /.well-known/jwks.json",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/.well-known/jwks.json",
       "upstreamPath": "/.well-known/jwks.json",
@@ -1439,7 +1670,9 @@
       "id": "22432220-95e5-4367-914d-8c7d7a15e166",
       "name": "identity /api/v1/auth/register",
       "description": "",
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/auth/register",
       "upstreamPath": "/api/users",
@@ -1473,7 +1706,9 @@
       "id": "f2c9328b-e665-4d53-a8a2-8eff4a029e10",
       "name": "identity /api/v1/auth/forgot-password",
       "description": "",
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/auth/forgot-password",
       "upstreamPath": "/api/auth/forgot-password",
@@ -1507,7 +1742,9 @@
       "id": "f2bfc01c-3440-4ac1-a980-33ee0563606a",
       "name": "identity /api/v1/auth/reset-password",
       "description": "",
-      "methods": ["POST"],
+      "methods": [
+        "POST"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/auth/reset-password",
       "upstreamPath": "/api/auth/reset-password",
@@ -1541,7 +1778,14 @@
       "id": "2696a8e3-5d80-486e-b302-39e94689807d",
       "name": "identity /api/v1/me",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/me",
       "upstreamPath": "/api/users/me",
@@ -1575,7 +1819,14 @@
       "id": "add5db55-6f58-419f-b843-46d352789ac3",
       "name": "identity /api/v1/me/upgrade-host",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/me/upgrade-host",
       "upstreamPath": "/api/users/me/upgradetohost",
@@ -1609,7 +1860,14 @@
       "id": "978c6e93-0498-4e3e-a670-8c2ce8a07852",
       "name": "identity /api/v1/me/upgrade-enterprise",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/me/upgrade-enterprise",
       "upstreamPath": "/api/users/me/upgradetoenterprise",
@@ -1643,7 +1901,14 @@
       "id": "990cff5c-36d4-4bf0-94eb-cab4ecfd68ca",
       "name": "identity /api/v1/me/upgrade-applications",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/me/upgrade-applications",
       "upstreamPath": "/api/users/me/upgrade-applications",
@@ -1677,7 +1942,14 @@
       "id": "0cf47a59-fdbe-4bb7-ac3f-e684e4fcb2d5",
       "name": "identity /api/v1/me/ticket-vendor-application",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/me/ticket-vendor-application",
       "upstreamPath": "/api/users/me/ticket-vendor-application",
@@ -1711,7 +1983,14 @@
       "id": "d03ce597-0f3b-4683-9882-a7af16e6ef31",
       "name": "identity /api/v1/me/ticket-vendor-profile",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/me/ticket-vendor-profile",
       "upstreamPath": "/api/users/me/ticket-vendor-profile",
@@ -1745,14 +2024,23 @@
       "id": "49a64bf9-8b4a-4b8c-ba74-2c5e09fce5f2",
       "name": "identity /api/v1/admin/users",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/users",
       "upstreamPath": "/api/users",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1779,14 +2067,23 @@
       "id": "ff9761ff-ffa5-4ede-8ed2-67567f955089",
       "name": "identity /api/v1/admin/users/:id",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/users/:id",
       "upstreamPath": "/api/users/admin/:id",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1813,14 +2110,23 @@
       "id": "c59b8c78-2219-482a-9152-09a171c00104",
       "name": "identity /api/v1/admin/users/:id/role",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/users/:id/role",
       "upstreamPath": "/api/users/:id/upgraderole",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1847,14 +2153,23 @@
       "id": "1a8e7eef-062d-4dd4-b445-48b6bea52ca7",
       "name": "identity /api/v1/admin/users/:id/revokerole",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/users/:id/revokerole",
       "upstreamPath": "/api/users/:id/revokerole",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1881,14 +2196,23 @@
       "id": "abb5e8fa-b573-4bd5-9095-2bf5591948ad",
       "name": "identity /api/v1/admin/accounts/:id/status",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/accounts/:id/status",
       "upstreamPath": "/api/users/accounts/:id/status",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1915,14 +2239,23 @@
       "id": "0dfe39a6-e93d-43a6-ae73-93a2209f1bd5",
       "name": "identity /api/v1/admin/hosts",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/hosts",
       "upstreamPath": "/api/users/hosts",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1949,14 +2282,23 @@
       "id": "bfa43958-e166-45af-8b79-6ce4b67eca0e",
       "name": "identity /api/v1/admin/hosts/all",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/hosts/all",
       "upstreamPath": "/api/users/hosts/all",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -1983,14 +2325,23 @@
       "id": "b8a54739-0a0e-40d2-b968-19a76e235e32",
       "name": "identity /api/v1/admin/hosts/:id/approval",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/hosts/:id/approval",
       "upstreamPath": "/api/users/:id/approvalstatus",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2017,14 +2368,23 @@
       "id": "bdb7a772-6101-4b87-a95e-3bf59d073337",
       "name": "identity /api/v1/admin/hosts/:id/success",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/hosts/:id/success",
       "upstreamPath": "/api/users/:id/successupgradetohost",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2051,14 +2411,23 @@
       "id": "53892f8f-ac22-4e53-bac3-95973f04dc37",
       "name": "identity /api/v1/admin/hosts/:id",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/hosts/:id",
       "upstreamPath": "/api/users/hosts/:id",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2085,14 +2454,23 @@
       "id": "3da03096-22b1-4c5d-a679-3af520edd55e",
       "name": "identity /api/v1/admin/enterprises",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/enterprises",
       "upstreamPath": "/api/users/enterprises",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2119,14 +2497,23 @@
       "id": "d7a748e9-894e-4a6c-aafe-e233e296d456",
       "name": "identity /api/v1/admin/enterprises/all",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/enterprises/all",
       "upstreamPath": "/api/users/enterprises/all",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2153,14 +2540,23 @@
       "id": "f49c0407-24a1-4653-98cb-3e1161a665cd",
       "name": "identity /api/v1/admin/enterprises/:id/approval",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/enterprises/:id/approval",
       "upstreamPath": "/api/users/:id/approvalstatus",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2187,14 +2583,23 @@
       "id": "99952c6b-65f8-43f1-b1ea-e18426ef2540",
       "name": "identity /api/v1/admin/enterprises/:id/success",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/enterprises/:id/success",
       "upstreamPath": "/api/users/:id/successupgradetohost",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2221,14 +2626,23 @@
       "id": "f239f264-6030-42d0-93a7-7df1b887be0b",
       "name": "identity /api/v1/admin/ticket-vendors",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/ticket-vendors",
       "upstreamPath": "/api/users/ticket-vendors",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2255,14 +2669,23 @@
       "id": "196128e7-ae78-420a-aac3-c67211f6acd7",
       "name": "identity /api/v1/admin/ticket-vendors/:id/approval",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/ticket-vendors/:id/approval",
       "upstreamPath": "/api/users/ticket-vendors/:id/approval",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2289,14 +2712,18 @@
       "id": "e01b3078-3238-4b9a-bdfd-1f7a56aaef4b",
       "name": "identity /api/v1/admin/hosts/approved",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/hosts/approved",
       "upstreamPath": "/api/users/hosts",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2325,14 +2752,18 @@
       "id": "229ea4dd-c2b9-4798-b941-29c78552d8c0",
       "name": "identity /api/v1/admin/enterprises/approved",
       "description": "",
-      "methods": ["GET"],
+      "methods": [
+        "GET"
+      ],
       "matchType": "exact",
       "sourcePath": "/api/v1/admin/enterprises/approved",
       "upstreamPath": "/api/users/enterprises",
       "serviceKey": "identity",
       "enabled": true,
       "auth": "jwt",
-      "roles": ["ROLE_ADMIN"],
+      "roles": [
+        "ROLE_ADMIN"
+      ],
       "priority": 0,
       "timeoutMs": 15000,
       "changeOrigin": true,
@@ -2361,7 +2792,14 @@
       "id": "55a5b753-bfb5-4299-971f-595610c2bd74",
       "name": "media /api/v1/media",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/media",
       "upstreamPath": "/api/v1/media",
@@ -2395,7 +2833,14 @@
       "id": "88e19fc5-f567-434c-9884-a47f08d6eacf",
       "name": "media /api/v1/media/secure-document",
       "description": "",
-      "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"],
+      "methods": [
+        "GET",
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "HEAD"
+      ],
       "matchType": "prefix",
       "sourcePath": "/api/v1/media/secure-document",
       "upstreamPath": "/api/v1/media/secure-documents",
@@ -2428,6 +2873,12 @@
   ],
   "settings": {
     "allowedOrigins": [
+      "https://auth.trungcaodev.io.vn",
+      "https://gotravel.trungcaodev.io.vn",
+      "https://gotrvel.trungcaodev.io.vn",
+      "https://sso.trungcaodev.io.vn",
+      "https://api.trungcaodev.io.vn",
+      "https://pay.trungcaodev.io.vn",
       "https://gostay.nonnet123.io.vn",
       "https://auth.nonnet123.io.vn",
       "https://pay.nonnet123.io.vn",
@@ -2438,13 +2889,19 @@
       "http://127.0.0.1:3335",
       "http://127.0.0.1:3336"
     ],
-    "cookieDomain": "nonnet123.io.vn",
+    "cookieDomain": "trungcaodev.io.vn",
+    "cookieDomains": [
+      "trungcaodev.io.vn",
+      "nonnet123.io.vn"
+    ],
     "sessionMaxAgeMinutes": 480,
     "loginRateLimit": {
       "limit": 10,
       "windowMs": 900000
     },
     "geoRestriction": true,
-    "allowedCountries": ["VN"]
+    "allowedCountries": [
+      "VN"
+    ]
   }
 }

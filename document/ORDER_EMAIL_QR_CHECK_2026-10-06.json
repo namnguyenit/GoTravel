@@ -1,0 +1,8 @@
+{
+  "decodedOrderNumber": true,
+  "decodedOrderIdFallback": true,
+  "embeddedCidAttachment": true,
+  "externalQrUrlIgnored": true,
+  "missingCodeRejected": true,
+  "smtpSendPerformed": false
+}

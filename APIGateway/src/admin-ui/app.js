@@ -751,7 +751,7 @@ function openService(service = null) {
 function fillSettings() {
   const s = overview.settings;
   $("setting-origins").value = s.allowedOrigins.join("\n");
-  $("setting-cookie").value = s.cookieDomain;
+  $("setting-cookie").value = (s.cookieDomains || [s.cookieDomain]).join(", ");
   $("setting-session").value = s.sessionMaxAgeMinutes;
   $("setting-login-limit").value = s.loginRateLimit.limit;
   $("setting-login-window").value = s.loginRateLimit.windowMs / 1000;
@@ -1016,7 +1016,8 @@ $("settings-form").onsubmit = async (event) => {
             version: overview.version,
             settings: {
               allowedOrigins: split($("setting-origins").value),
-              cookieDomain: $("setting-cookie").value.trim(),
+              cookieDomain: split($("setting-cookie").value)[0],
+              cookieDomains: split($("setting-cookie").value),
               sessionMaxAgeMinutes: Number($("setting-session").value),
               loginRateLimit: {
                 limit: Number($("setting-login-limit").value),

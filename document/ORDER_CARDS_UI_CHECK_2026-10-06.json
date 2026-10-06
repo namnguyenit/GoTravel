@@ -1,0 +1,15 @@
+{
+  "fixtures": 102,
+  "individualRectangularCards": true,
+  "twoItemPreviewAndDetails": true,
+  "paginationBeyond100": true,
+  "serverFilterAndSearch": true,
+  "detailAndBackPreserveFilters": true,
+  "qrDecodedCode": "GT-000001",
+  "unpaidAndCancelledHaveNoQr": true,
+  "resendSuccessAndFailure": true,
+  "disputePayloadCorrect": true,
+  "mobileOverflow": false,
+  "mockedApi": true,
+  "pageErrors": []
+}

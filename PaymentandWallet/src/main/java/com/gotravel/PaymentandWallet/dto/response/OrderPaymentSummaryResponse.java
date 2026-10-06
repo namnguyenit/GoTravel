@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +21,7 @@ public class OrderPaymentSummaryResponse {
     private BigDecimal totalAmount;
     private String currency;
     private String status;
+    private LocalDateTime expiresAt;
     private List<ProviderBreakdown> providerBreakdowns;
 
     @Data

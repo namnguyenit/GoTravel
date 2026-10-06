@@ -2,6 +2,8 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+import { platformUrls } from "@/shared/platform-domains";
+
 type AuthView = "login" | "register" | "forgot-password" | "reset-password";
 
 interface AuthModalContextProps {
@@ -16,8 +18,7 @@ const AuthModalContext = createContext<AuthModalContextProps | undefined>(undefi
 
 const getSSOUrl = (view: AuthView = "login") => {
   const currentUrl = typeof window !== "undefined" ? window.location.href : "";
-  const isProd = typeof window !== "undefined" && window.location.hostname.includes("nonnet123.io.vn");
-  const authOrigin = isProd ? "https://auth.nonnet123.io.vn" : "http://localhost:3335";
+  const authOrigin = platformUrls(typeof window !== "undefined" ? window.location.hostname : "localhost").sso;
   const params = new URLSearchParams();
   if (currentUrl) params.set("redirect_uri", currentUrl);
   if (view === "register") params.set("mode", "register");

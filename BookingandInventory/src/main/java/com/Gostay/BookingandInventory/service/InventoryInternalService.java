@@ -202,11 +202,15 @@ public class InventoryInternalService {
     @Transactional
     public void confirmLock(UUID orderId) {
         log.info("Confirming lock for order {}", orderId);
-        List<InventoryLock> locks = lockRepository.findByOrderId(orderId);
+        List<InventoryLock> locks = lockRepository.findByOrderIdForUpdate(orderId);
         if (locks.isEmpty()) {
             throw new AppException(InventoryErrorCode.INVENTORY_LOCK_NOT_FOUND);
         }
         
+        boolean invalid = locks.stream().anyMatch(lock -> lock.getLockStatus() == InventoryLockStatus.RELEASED
+                || (lock.getLockStatus() != InventoryLockStatus.CONFIRMED
+                    && (lock.getExpiresAt() == null || !lock.getExpiresAt().isAfter(LocalDateTime.now()))));
+        if (invalid) throw new AppException(InventoryErrorCode.INVALID_INVENTORY_ACTION);
         for (InventoryLock lock : locks) {
             lock.setLockStatus(InventoryLockStatus.CONFIRMED);
             lockRepository.save(lock);
@@ -216,7 +220,7 @@ public class InventoryInternalService {
     @Transactional
     public void cancelLock(UUID orderId) {
         log.info("Canceling lock for order {}", orderId);
-        List<InventoryLock> locks = lockRepository.findByOrderId(orderId);
+        List<InventoryLock> locks = lockRepository.findByOrderIdForUpdate(orderId);
         if (locks.isEmpty()) {
             return;
         }

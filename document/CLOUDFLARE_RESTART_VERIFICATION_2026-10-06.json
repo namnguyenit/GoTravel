@@ -1,0 +1,62 @@
+{
+  "verifiedAt": "2026-10-06T04:11:59.621995+00:00",
+  "httpsSessions": [
+    {
+      "origin": "https://gotravel.trungcaodev.io.vn",
+      "login": 200,
+      "authenticated": true,
+      "jwtHidden": true,
+      "cookieDomain": ".trungcaodev.io.vn",
+      "secure": true,
+      "httpOnly": true,
+      "session": 200,
+      "profile": 200,
+      "logout": 200
+    },
+    {
+      "origin": "https://gostay.nonnet123.io.vn",
+      "login": 200,
+      "authenticated": true,
+      "jwtHidden": true,
+      "cookieDomain": ".nonnet123.io.vn",
+      "secure": true,
+      "httpOnly": true,
+      "session": 200,
+      "profile": 200,
+      "logout": 200
+    }
+  ],
+  "postRestartAt": "2026-10-06T04:21:12.492976+00:00",
+  "publicEndpoints": [
+    {
+      "url": "https://gotravel.trungcaodev.io.vn",
+      "http": 200
+    },
+    {
+      "url": "https://auth.trungcaodev.io.vn",
+      "http": 200
+    },
+    {
+      "url": "https://api.trungcaodev.io.vn/health",
+      "http": 530,
+      "error": "error code: 1033\n"
+    },
+    {
+      "url": "https://pay.trungcaodev.io.vn/health",
+      "http": 200
+    }
+  ],
+  "authToGoTravel": {
+    "login": 200,
+    "authenticated": true,
+    "jwtHidden": true,
+    "domain": ".trungcaodev.io.vn",
+    "secure": true,
+    "httpOnly": true,
+    "goTravelSession": 200,
+    "logout": 200
+  },
+  "gatewayVersion": 5,
+  "frontendBuildId": "csr-YQImvV9ashXR0Bi7Z",
+  "buildDir": ".next-domain-cloudflare-20261006"
+}

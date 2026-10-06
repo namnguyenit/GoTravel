@@ -148,7 +148,7 @@ test("internal email is not reachable and client identity headers are removed", 
   }
 });
 
-test("payment webhook and catalog listings reject extra public methods", async () => {
+test("legacy SePay callback is disabled and catalog rejects extra public methods", async () => {
   const webhook = await fetch(
     `${baseUrl}/api/v1/public/payments/sepay-webhook`,
     { method: "POST" },
@@ -160,7 +160,7 @@ test("payment webhook and catalog listings reject extra public methods", async (
     `${baseUrl}/api/v1/catalog/listings/12345678-1234-1234-1234-123456789abc`,
     { method: "DELETE" },
   );
-  assert.equal(webhook.status, 200);
+  assert.equal(webhook.status, 404);
   assert.equal(invalidWebhook.status, 404);
   assert.equal(invalidCatalog.status, 404);
 });
@@ -254,5 +254,43 @@ test("login, registration and recovery have effective per-IP limits", async () =
     }
     const blocked = await fetch(`${baseUrl}${path}`, { method: "POST" });
     assert.equal(blocked.status, 429, path);
+  }
+});
+
+
+test("VNPAY callbacks are exact GET routes and preserve signed query values without JWT", async () => {
+  const response = await fetch(`${baseUrl}/api/v1/payments/vnpay/ipn?vnp_TxnRef=ref1&vnp_OrderInfo=booking%2B1&vnp_SecureHash=fake`, {
+    headers: { "x-user-id": "spoofed", "x-user-ip": "1.2.3.4", "authorization": "Bearer fake" }
+  });
+  assert.equal(response.status, 200);
+  const body = await response.json();
+  assert.equal(body.path, "/api/v1/public/payments/vnpay/ipn?vnp_TxnRef=ref1&vnp_OrderInfo=booking%2B1&vnp_SecureHash=fake");
+  assert.equal(body.headers.authorization, undefined);
+  assert.equal(body.headers["x-user-id"], undefined);
+  assert.notEqual(body.headers["x-user-ip"], "1.2.3.4");
+  assert.equal((await fetch(`${baseUrl}/api/v1/payments/vnpay/ipn`, { method: "POST" })).status, 401);
+  assert.equal((await fetch(`${baseUrl}/api/v1/payments/vnpay/unknown`)).status, 401);
+});
+
+test("VNPAY server IPN bypasses browser country policy only for its exact GET endpoint", async () => {
+  const { getRegistry } = await import("../src/gateway/configuration.js");
+  const registry = getRegistry();
+  const before = registry.snapshot();
+  registry.mutate(before.version, current => {
+    current.settings.geoRestriction = true;
+    current.settings.allowedCountries = ["VN"];
+    return current;
+  }, "test", "Restrict browser traffic to VN");
+  try {
+    const headers = { "cf-ipcountry": "SG" };
+    const ipn = await fetch(`${baseUrl}/api/v1/payments/vnpay/ipn?vnp_SecureHash=fake`, { headers });
+    assert.equal(ipn.status, 200);
+    assert.equal((await ipn.json()).path, "/api/v1/public/payments/vnpay/ipn?vnp_SecureHash=fake");
+    for (const path of ["/api/v1/search/listings", "/api/v1/payments/vnpay/return", "/api/v1/payments/vnpay/ipn/extra"]) {
+      assert.equal((await fetch(`${baseUrl}${path}`, { headers })).status, 403, path);
+    }
+    assert.equal((await fetch(`${baseUrl}/api/v1/payments/vnpay/ipn`, { method: "POST", headers })).status, 403);
+  } finally {
+    registry.mutate(registry.snapshot().version, current => ({ ...current, settings: before.settings }), "test", "Restore country policy");
   }
 });

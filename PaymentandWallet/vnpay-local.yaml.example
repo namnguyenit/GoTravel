@@ -1,0 +1,14 @@
+# Copy into .secrets/vnpay-local.yaml; this example contains no credentials.
+vnpay:
+  enabled: false
+  tmn-code: ""
+  hash-secret: ""
+  payment-url: "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html"
+  return-url: "https://pay.trungcaodev.io.vn/vnpay/return"
+  ipn-url: "https://pay.trungcaodev.io.vn/api/v1/payments/vnpay/ipn"
+  frontend-url: "https://gotravel.trungcaodev.io.vn"
+  locale: "vn"
+  order-type: "other"
+  timeout-minutes: 15
+payment:
+  mock-enabled: false

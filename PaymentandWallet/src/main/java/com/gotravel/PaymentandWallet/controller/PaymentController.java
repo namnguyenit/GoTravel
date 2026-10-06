@@ -4,6 +4,8 @@ import com.gotravel.PaymentandWallet.dto.request.CreatePaymentRequest;
 import com.gotravel.PaymentandWallet.dto.response.ApiResponse;
 import com.gotravel.PaymentandWallet.dto.response.PaymentResponse;
 import com.gotravel.PaymentandWallet.service.PaymentService;
+import com.gotravel.PaymentandWallet.service.VnpayService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,12 +26,21 @@ import java.util.UUID;
 public class PaymentController {
 
     private final PaymentService paymentService;
+    private final VnpayService vnpayService;
 
     @PostMapping("/create")
     public ResponseEntity<ApiResponse<PaymentResponse>> createPayment(
             @RequestHeader("X-User-Id") UUID userId,
-            @RequestBody @Valid CreatePaymentRequest request) {
-        return ResponseEntity.ok(ApiResponse.success("Tạo yêu cầu thanh toán thành công", paymentService.createPayment(userId, request)));
+            @RequestBody @Valid CreatePaymentRequest request,
+            HttpServletRequest httpRequest) {
+        return ResponseEntity.ok(ApiResponse.success("Tạo yêu cầu thanh toán thành công", vnpayService.createPayment(userId, request, clientIp(httpRequest))));
+    }
+
+    private String clientIp(HttpServletRequest request) {
+        // Only the trusted Gateway inserts this header; backend is bound to loopback.
+        String forwarded = request.getHeader("X-User-Ip");
+        if (forwarded != null && forwarded.matches("[0-9a-fA-F:.]{3,45}")) return forwarded;
+        return request.getRemoteAddr();
     }
 
     @GetMapping("/{paymentId}")

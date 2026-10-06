@@ -268,7 +268,7 @@ export function setupGatewayAdmin(app, registry) {
       res,
       registry.mutate(
         req.body.version,
-        (config) => ({ ...config, settings: req.body.settings }),
+        (config) => ({ ...config, settings: { ...req.body.settings, cookieDomains: req.body.settings.cookieDomains ?? config.settings.cookieDomains } }),
         req.auth.sub,
         "Cập nhật chính sách Gateway",
       ),

@@ -1,5 +1,7 @@
 "use client";
 
+import { openPaymentPortal } from "@/shared/payment-portal";
+
 import { useEffect, useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,24 +28,6 @@ function getResponseOrderData(res: OrderSubmitResponse) {
   return res?.data?.data || res?.data || {};
 }
 
-async function openPaymentPortal(orderId: string) {
-  const portalBase = process.env.NEXT_PUBLIC_PAYMENT_PORTAL_URL || "https://pay.nonnet123.io.vn";
-  const response = await fetch(new URL("/launch", portalBase), {
-    method: "POST",
-    credentials: "include",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ orderId }),
-  });
-  const result = await response.json().catch(() => null);
-  if (!response.ok || typeof result?.url !== "string") {
-    throw new Error(result?.message || "Không mở được trang thanh toán. Vui lòng thử lại.");
-  }
-  const destination = new URL(result.url, portalBase);
-  if (destination.origin !== new URL(portalBase).origin || destination.pathname !== "/pay") {
-    throw new Error("Địa chỉ thanh toán không hợp lệ.");
-  }
-  window.location.assign(destination.href);
-}
 
 function getErrorMessage(error: unknown) {
   if (error instanceof Error) return error.message;

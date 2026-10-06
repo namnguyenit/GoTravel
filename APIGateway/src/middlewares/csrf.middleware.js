@@ -15,6 +15,13 @@ export const readCookie = (req, name) => {
 };
 
 const allowedOrigins = new Set([
+  "https://auth.trungcaodev.io.vn",
+  "https://gotravel.trungcaodev.io.vn",
+  "https://gotrvel.trungcaodev.io.vn",
+  "https://sso.trungcaodev.io.vn",
+  "https://api.trungcaodev.io.vn",
+  "https://pay.trungcaodev.io.vn",
+
   "https://gostay.nonnet123.io.vn",
   "https://auth.nonnet123.io.vn",
   "https://pay.nonnet123.io.vn",

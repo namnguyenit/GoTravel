@@ -6,6 +6,10 @@ import org.springframework.http.HttpStatusCode;
 
 @Getter
 public enum PaymentErrorCode implements ErrorCode {
+    VNPAY_NOT_CONFIGURED(503, "VNPAY_NOT_CONFIGURED", "VNPAY chưa được cấu hình. Vui lòng thiết lập merchant sandbox trước khi thanh toán", HttpStatus.SERVICE_UNAVAILABLE),
+    INVALID_VNPAY_CALLBACK(400, "INVALID_VNPAY_CALLBACK", "Kết quả VNPAY không hợp lệ", HttpStatus.BAD_REQUEST),
+    MOCK_PAYMENT_DISABLED(403, "MOCK_PAYMENT_DISABLED", "Thanh toán mô phỏng đã bị tắt", HttpStatus.FORBIDDEN),
+    VNPAY_REFUND_REQUIRED(409, "VNPAY_REFUND_REQUIRED", "Giao dịch VNPAY cần hoàn tiền qua VNPAY; không được ghi nhận hoàn tiền mô phỏng", HttpStatus.CONFLICT),
     PAYMENT_NOT_FOUND(404, "PAYMENT_NOT_FOUND", "Không tìm thấy yêu cầu thanh toán", HttpStatus.NOT_FOUND),
     PAYMENT_ALREADY_COMPLETED(400, "PAYMENT_ALREADY_COMPLETED", "Giao dịch này đã được thanh toán", HttpStatus.BAD_REQUEST),
     PAYMENT_EXPIRED(400, "PAYMENT_EXPIRED", "Phiên thanh toán đã hết hạn", HttpStatus.BAD_REQUEST),

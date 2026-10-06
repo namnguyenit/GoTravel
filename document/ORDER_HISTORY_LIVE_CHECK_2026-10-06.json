@@ -1,0 +1,15 @@
+{
+  "publicPageStatus": 200,
+  "realHistoryRows": 6,
+  "listOpensBeforeDetails": true,
+  "detailOpensOwnedOrder": true,
+  "qrDecodedToDisplayedOrderCode": true,
+  "scrollResetsOnOpen": true,
+  "backPreservesFilter": true,
+  "resendButtonPresent": true,
+  "smtpSendPerformed": false,
+  "mobileOverflow": false,
+  "preExistingHydrationWarnings": [],
+  "otherPageErrors": [],
+  "testedAt": "2026-10-06T15:40:27.940Z"
+}

@@ -9,8 +9,8 @@ const root = dirname(fileURLToPath(import.meta.url));
 const port = Number(process.env.PAYMENT_PORTAL_PORT || 3336);
 const host = process.env.PAYMENT_PORTAL_HOST || '0.0.0.0';
 const gateway = new URL(process.env.PAYMENT_GATEWAY_URL || 'http://127.0.0.1:5555');
-const gostay = new URL(process.env.GOSTAY_BASE_URL || 'https://gostay.nonnet123.io.vn');
-const allowedLaunchOrigins = new Set([gostay.origin, 'http://localhost:3000', 'http://127.0.0.1:3000']);
+const gostay = new URL(process.env.GOSTAY_BASE_URL || 'https://gotravel.trungcaodev.io.vn');
+const allowedLaunchOrigins = new Set([gostay.origin, 'https://gotrvel.trungcaodev.io.vn', 'https://gotravel.trungcaodev.io.vn', 'https://gostay.nonnet123.io.vn', 'http://localhost:3000', 'http://127.0.0.1:3000']);
 const sessions = new Map();
 const sessionLifetimeMs = 30 * 60 * 1000;
 
@@ -20,8 +20,17 @@ if (!['http:', 'https:'].includes(gostay.protocol)) throw new Error('Invalid GOS
 
 const pages = new Map([
   ['/app.js', ['app.js', 'text/javascript; charset=utf-8']],
+  ['/vnpay-return.js', ['vnpay-return.js', 'text/javascript; charset=utf-8']],
   ['/styles.css', ['styles.css', 'text/css; charset=utf-8']],
   ['/favicon.ico', ['favicon.ico', 'image/png']],
+  ['/gopay-mark.svg', ['gopay-mark.svg', 'image/svg+xml']],
+  ['/brand/gopay-symbol.svg', ['brand/gopay-symbol.svg', 'image/svg+xml']],
+  ['/brand/gopay-icon.svg', ['brand/gopay-icon.svg', 'image/svg+xml']],
+  ['/brand/gopay-icon-32.png', ['brand/gopay-icon-32.png', 'image/png']],
+  ['/brand/gopay-icon-180.png', ['brand/gopay-icon-180.png', 'image/png']],
+  ['/brand/vnpay-logo.svg', ['brand/vnpay-logo.svg', 'image/svg+xml']],
+  ['/fonts/outfit-500.ttf', ['fonts/outfit-500.ttf', 'font/ttf']],
+  ['/fonts/outfit-800.ttf', ['fonts/outfit-800.ttf', 'font/ttf']],
 ]);
 const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 const apiRoutes = [
@@ -31,7 +40,7 @@ const apiRoutes = [
   ['GET', /^\/api\/v1\/payments\/[0-9a-f-]{36}$/i],
   ['POST', /^\/api\/v1\/payments\/create$/],
 ];
-const mockPayRoute = /^\/api\/v1\/payments\/([0-9a-f-]{36})\/mock-pay$/i;
+const vnpayCallback = /^\/api\/v1\/payments\/vnpay\/(ipn|return)$/;
 
 function sendJson(res, status, body, extra = {}) {
   res.writeHead(status, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...extra });
@@ -80,6 +89,9 @@ function proxyApi(req, res) {
   const headers = { ...req.headers, host: gateway.host };
   for (const name of ['connection', 'proxy-connection', 'forwarded', 'x-payment-session']) delete headers[name];
   for (const name of Object.keys(headers)) if (name.startsWith('x-forwarded-')) delete headers[name];
+  const fromLocalProxy = ['127.0.0.1', '::1', '::ffff:127.0.0.1'].includes(req.socket.remoteAddress);
+  const cfIp = fromLocalProxy ? req.headers['cf-connecting-ip'] : undefined;
+  headers['x-forwarded-for'] = typeof cfIp === 'string' && /^[0-9a-fA-F:.]{3,45}$/.test(cfIp) ? cfIp : req.socket.remoteAddress;
   const upstream = (gateway.protocol === 'https:' ? https : http).request(target, {
     method: req.method,
     headers,
@@ -100,13 +112,16 @@ function proxyApi(req, res) {
 
 async function serveFile(req, res, filename, contentType, status = 200) {
   try {
-    const body = await readFile(join(root, 'public', filename));
+    let body = await readFile(join(root, 'public', filename));
+    if (['not-found.html', 'home.html'].includes(filename) && String(req.headers.host || '').split(':')[0].toLowerCase() === 'pay.trungcaodev.io.vn') {
+      body = Buffer.from(body.toString().replaceAll('https://gostay.nonnet123.io.vn', 'https://gotravel.trungcaodev.io.vn'));
+    }
     res.writeHead(status, {
       'content-type': contentType,
       'cache-control': 'no-store',
       'x-content-type-options': 'nosniff',
       'referrer-policy': 'no-referrer',
-      'content-security-policy': "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' https://qr.sepay.vn data:; connect-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
+      'content-security-policy': "default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: https://res.cloudinary.com; connect-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'",
     });
     if (req.method === 'HEAD') res.end();
     else res.end(body);
@@ -137,7 +152,7 @@ const server = http.createServer(async (req, res) => {
     catch { return sendJson(res, 400, { message: 'Yêu cầu không hợp lệ.' }, cors); }
     if (!uuid.test(input?.orderId || '')) return sendJson(res, 400, { message: 'Mã đơn không hợp lệ.' }, cors);
     const token = accessToken(req);
-    if (!token) return sendJson(res, 401, { message: 'Bạn cần đăng nhập GoStay trước khi thanh toán.' }, cors);
+    if (!token) return sendJson(res, 401, { message: 'Bạn cần đăng nhập GoID trước khi thanh toán.' }, cors);
     try {
       const identity = await gatewayGet('/api/v1/auth/session', req.headers.cookie);
       if (identity.status !== 200) return sendJson(res, 401, { message: 'Phiên đăng nhập đã hết hạn.' }, cors);
@@ -148,39 +163,25 @@ const server = http.createServer(async (req, res) => {
       const ticket = randomBytes(32).toString('hex');
       sessions.set(ticket, {
         orderId: input.orderId,
+        gostayOrigin: origin,
         amount: orderResult.data.totalAmount,
-        title: orderResult.data.items?.[0]?.listingTitle || 'Chuyến đi của bạn',
         tokenDigest: createHash('sha256').update(token).digest(),
         expiresAt: Date.now() + sessionLifetimeMs,
       });
       for (const [key, value] of sessions) if (value.expiresAt <= Date.now()) sessions.delete(key);
       return sendJson(res, 200, { url: `/pay?session=${ticket}` }, cors);
-    } catch { return sendJson(res, 502, { message: 'Chưa kết nối được GoStay. Vui lòng thử lại.' }, cors); }
+    } catch { return sendJson(res, 502, { message: 'Chưa kết nối được GoTravel. Vui lòng thử lại.' }, cors); }
   }
 
   if (pathname === '/session') {
     if (req.method !== 'GET') return sendJson(res, 405, { message: 'Method not allowed' });
     const session = sessionFor(req, url.searchParams.get('ticket'));
     if (!session) return sendJson(res, 404, { message: 'Phiên thanh toán không tồn tại hoặc đã hết hạn.' });
-    return sendJson(res, 200, { orderId: session.orderId, amount: session.amount, title: session.title, gostayOrigin: gostay.origin });
+    return sendJson(res, 200, { orderId: session.orderId, amount: session.amount, gostayOrigin: session.gostayOrigin });
   }
 
   if (pathname.startsWith('/api/')) {
-    const mockMatch = req.method === 'POST' ? pathname.match(mockPayRoute) : null;
-    if (mockMatch) {
-      const session = sessionFor(req, req.headers['x-payment-session']);
-      if (!session) return sendJson(res, 404, { message: 'Phiên thanh toán không tồn tại hoặc đã hết hạn.' });
-      try {
-        const payment = await gatewayGet(`/api/v1/payments/${mockMatch[1]}`, req.headers.cookie);
-        if (payment.status !== 200 || payment.data?.orderId !== session.orderId) {
-          return sendJson(res, 404, { message: 'Không tìm thấy thanh toán của đơn hàng.' });
-        }
-        if (String(payment.data.status).toUpperCase() !== 'PENDING') {
-          return sendJson(res, 409, { message: 'Giao dịch không còn ở trạng thái chờ thanh toán.' });
-        }
-      } catch { return sendJson(res, 502, { message: 'Không kiểm tra được giao dịch.' }); }
-      return proxyApi(req, res);
-    }
+    if (req.method === 'GET' && vnpayCallback.test(pathname)) return proxyApi(req, res);
     if (!apiRoutes.some(([method, pattern]) => req.method === method && pattern.test(pathname))) {
       return sendJson(res, 404, { message: 'API route not found' });
     }
@@ -188,6 +189,8 @@ const server = http.createServer(async (req, res) => {
   }
   if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, 405, { message: 'Method not allowed' });
   if (pathname === '/health') return sendJson(res, 200, { service: 'payment-portal', status: 'ok' });
+  if (pathname === '/') return serveFile(req, res, 'home.html', 'text/html; charset=utf-8');
+  if (pathname === '/vnpay/return') return serveFile(req, res, 'vnpay-return.html', 'text/html; charset=utf-8');
   if (pathname === '/pay') {
     if (!sessionFor(req, url.searchParams.get('session'))) return serveFile(req, res, 'not-found.html', 'text/html; charset=utf-8', 404);
     return serveFile(req, res, 'index.html', 'text/html; charset=utf-8');

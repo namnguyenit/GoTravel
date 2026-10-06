@@ -13,9 +13,7 @@ const PaymentService = {
   getHistory: async (page = 0, size = 10) => {
     return await Api.get(`/v1/payments/history?page=${page}&size=${size}`);
   },
-  mockPayment: async (paymentId: string) => {
-    return await Api.post(`/v1/payments/${paymentId}/mock-pay`, {});
-  },
+
 };
 
 export default PaymentService;

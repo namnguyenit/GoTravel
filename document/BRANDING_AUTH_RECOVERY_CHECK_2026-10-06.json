@@ -1,0 +1,8 @@
+{
+  "forgotAndResetForms": true,
+  "minPasswordValidation": true,
+  "mobileOverflow": false,
+  "outboundEmailSent": false,
+  "mockedEmailEndpoint": true,
+  "pageErrors": []
+}

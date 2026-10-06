@@ -19,6 +19,8 @@ public class PaymentResponse {
     private String paymentCode;
     private BigDecimal amount;
     private String status;
+    private String provider;
+    private String paymentUrl;
     private String qrUrl;
     private String bankAccount;
     private String bankName;

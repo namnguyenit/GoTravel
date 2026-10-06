@@ -17,9 +17,33 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, UUID> {
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("select o from Order o where o.id = :id")
+    Optional<Order> findByIdForUpdate(@Param("id") UUID id);
+
     Optional<Order> findByOrderNumber(String orderNumber);
     Optional<Order> findByIdAndUserId(UUID id, UUID userId);
     Page<Order> findByUserIdOrderByCreatedAtDesc(UUID userId, Pageable pageable);
+    @Query(value = """
+            select o from Order o
+            where o.userId = :userId and o.status in :statuses
+              and (lower(coalesce(o.orderNumber, '')) like :search escape '!'
+                or lower(cast(o.id as string)) like :search escape '!'
+                or exists (select item.id from OrderItem item where item.order = o
+                    and lower(item.listingTitle) like :search escape '!'))
+            order by o.createdAt desc, o.id desc
+            """, countQuery = """
+            select count(o) from Order o
+            where o.userId = :userId and o.status in :statuses
+              and (lower(coalesce(o.orderNumber, '')) like :search escape '!'
+                or lower(cast(o.id as string)) like :search escape '!'
+                or exists (select item.id from OrderItem item where item.order = o
+                    and lower(item.listingTitle) like :search escape '!'))
+            """)
+    Page<Order> findUserHistory(@Param("userId") UUID userId,
+                               @Param("statuses") List<OrderStatus> statuses,
+                               @Param("search") String search,
+                               Pageable pageable);
     @Query(
             value = "select distinct o from Order o join o.items item where item.hostId = :hostId order by o.createdAt desc",
             countQuery = "select count(distinct o) from Order o join o.items item where item.hostId = :hostId"

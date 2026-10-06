@@ -15,8 +15,8 @@ const loginLimiter = (req, res, next) => {
   limitLogin(req, res, next, "sso-login", policy);
 };
 
-const cookieOptions = (req) => {
-  const domain = (
+export const cookieOptions = (req) => {
+  const primaryDomain = (
     settings()?.cookieDomain ||
     process.env.AUTH_COOKIE_DOMAIN ||
     "nonnet123.io.vn"
@@ -36,9 +36,14 @@ const cookieOptions = (req) => {
   const browserHost = isAllowedOrigin(browserOrigin, req)
     ? new URL(browserOrigin).hostname.toLowerCase()
     : "";
-  const sharedDomain = [hostname, browserHost].some(
-    (host) => host === domain || host.endsWith(`.${domain}`),
-  );
+  const domains = [...new Set([...(settings()?.cookieDomains || []), primaryDomain])]
+    .sort((a, b) => b.length - a.length);
+  // Proxies may replace Host with localhost. Only a validated browser origin
+  // can select the cookie domain in that case; never derive it from an arbitrary host.
+  const matches = (host, domain) => host === domain || host.endsWith(`.${domain}`);
+  const domain = domains.find(domain => matches(hostname, domain)) ||
+    domains.find(domain => matches(browserHost, domain));
+  const sharedDomain = Boolean(domain);
   return {
     path: "/",
     sameSite: "lax",

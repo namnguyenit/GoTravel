@@ -17,4 +17,4 @@ services:
   communication:
     url: ${COMMUNICATION_SERVICE_URL:http://localhost:5001}
 frontend:
-  base-url: ${FRONTEND_BASE_URL:http://localhost:3000}
+  base-url: ${FRONTEND_BASE_URL:https://gotravel.trungcaodev.io.vn}

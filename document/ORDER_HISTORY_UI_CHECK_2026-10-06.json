@@ -1,0 +1,13 @@
+{
+  "fixtures": 102,
+  "paginationBeyond100": true,
+  "serverFilterAndSearch": true,
+  "detailAndBackPreserveFilters": true,
+  "qrDecodedCode": "GT-000001",
+  "unpaidAndCancelledHaveNoQr": true,
+  "resendSuccessAndFailure": true,
+  "disputePayloadCorrect": true,
+  "mobileOverflow": false,
+  "mockedApi": true,
+  "pageErrors": []
+}
