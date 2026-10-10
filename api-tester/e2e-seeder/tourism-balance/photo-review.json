@@ -1,0 +1,87 @@
+{
+  "excludedPublicIds": [
+    "admin-uploads/seeder/aa1dbb6871aefc913e2ee23efa0d1d1ce85123b1a22ddd731afb98aeaf74049c",
+    "admin-uploads/seeder/372bf1f3dcb104c3865f9202885e69dab343d7c6cb37824810a3b55fab2fd26f",
+    "admin-uploads/seeder/a7802b7e0c86e31dcd3623556c16b3f54eb5e549422334f19f405364a1aa5615",
+    "admin-uploads/seeder/6ec603a0ad86c203ec738134f603f4e470449c876b47ce76857ac09f4c3b9e5e",
+    "admin-uploads/seeder/8ba18a82f267135ec7effa387fda700ad594fbee81b93cf8d98d94d44cae3fc5",
+    "admin-uploads/seeder/c454a3bfbb9ded006e738e332ab107cb3c34e5fa557de670e8ca844b38ac61d8",
+    "admin-uploads/seeder/a2469bec9821b6a4f1a33a608610c283bf9661e42474f7ccdd681091bd0c89b8",
+    "admin-uploads/seeder/aa820b9b074b60906fbec78c7794cc11b72e44defe7abe8efac272e0723bbaf8",
+    "admin-uploads/seeder/b801e7c59ddb53860caa6bc1905f3068bc1280d472ba82ac03ee1c70580306d0",
+    "admin-uploads/seeder/fb331f069574248b88aae34a87cf3bc903ff78131732ed0137d5cc1c95120a9e",
+    "admin-uploads/seeder/f4969e97734d52ac256bdf2ea80c70139fe2bdb3010dc0e7cb82e3b045d4a03e",
+    "admin-uploads/seeder/5cfa4bd52a1b788a0db3499eb2d7474e2d0747a1802d99d352b09002a42f976b"
+  ],
+  "exclusionReasons": [
+    {
+      "publicId": "admin-uploads/seeder/aa1dbb6871aefc913e2ee23efa0d1d1ce85123b1a22ddd731afb98aeaf74049c",
+      "reason": "Publisher illustration, not a photograph"
+    },
+    {
+      "publicId": "admin-uploads/seeder/372bf1f3dcb104c3865f9202885e69dab343d7c6cb37824810a3b55fab2fd26f",
+      "reason": "Publisher illustration, not a photograph"
+    },
+    {
+      "publicId": "admin-uploads/seeder/a7802b7e0c86e31dcd3623556c16b3f54eb5e549422334f19f405364a1aa5615",
+      "reason": "Duplicate activity: same Tinh Hoa Viet Nam show as item 80"
+    },
+    {
+      "publicId": "admin-uploads/seeder/6ec603a0ad86c203ec738134f603f4e470449c876b47ce76857ac09f4c3b9e5e",
+      "reason": "Duplicate activity: same Venice show as item 81"
+    },
+    {
+      "publicId": "admin-uploads/seeder/8ba18a82f267135ec7effa387fda700ad594fbee81b93cf8d98d94d44cae3fc5",
+      "reason": "Printed menu, not venue photograph"
+    },
+    {
+      "publicId": "admin-uploads/seeder/c454a3bfbb9ded006e738e332ab107cb3c34e5fa557de670e8ca844b38ac61d8",
+      "reason": "Printed menu, not venue photograph"
+    },
+    {
+      "publicId": "admin-uploads/seeder/a2469bec9821b6a4f1a33a608610c283bf9661e42474f7ccdd681091bd0c89b8",
+      "reason": "Marketing composite; retain actual onsen venue view"
+    },
+    {
+      "publicId": "admin-uploads/seeder/aa820b9b074b60906fbec78c7794cc11b72e44defe7abe8efac272e0723bbaf8",
+      "reason": "Pool photograph does not show massage service"
+    },
+    {
+      "publicId": "admin-uploads/seeder/b801e7c59ddb53860caa6bc1905f3068bc1280d472ba82ac03ee1c70580306d0",
+      "reason": "Team building photograph does not show gala dinner"
+    },
+    {
+      "publicId": "admin-uploads/seeder/fb331f069574248b88aae34a87cf3bc903ff78131732ed0137d5cc1c95120a9e",
+      "reason": "Redundant bathroom view or bed variant inconsistent with Deluxe Triple; retain checked queen + single room photo"
+    },
+    {
+      "publicId": "admin-uploads/seeder/f4969e97734d52ac256bdf2ea80c70139fe2bdb3010dc0e7cb82e3b045d4a03e",
+      "reason": "Redundant bathroom view or bed variant inconsistent with Deluxe Triple; retain checked queen + single room photo"
+    },
+    {
+      "publicId": "admin-uploads/seeder/5cfa4bd52a1b788a0db3499eb2d7474e2d0747a1802d99d352b09002a42f976b",
+      "reason": "Redundant bathroom view or bed variant inconsistent with Deluxe Triple; retain checked queen + single room photo"
+    }
+  ],
+  "photoAssignments": {
+    "admin-uploads/seeder/9f5429ca6df80300fd6156e970d3c0e0fe843a457d586022d9f1703c0369dafd": "vin-ch",
+    "admin-uploads/seeder/0d38e727af4c53de845ec7533a3da818be4cc6d19adc09dce6f8b70b10672af4": "vin-wave",
+    "admin-uploads/seeder/c35367511c67343d77085013641de3727459f8cd33673bf58c20d63acf73c3a6": "provider-photographer:SVC:9c91dc9c6d2c36de",
+    "admin-uploads/seeder/ce1c0e856d032e1f77f4584781415c210802b4bf0efe4d73378b17492abf7287": "provider-photographer:SVC:05a13d82199d0f2e"
+  },
+  "assignmentNotes": "Use actual on-site ride/show photos as parent covers instead of publisher illustrations. Correct couple/family portfolio assignment by visible subjects.",
+  "nameOverrides": {
+    "sun-fansipan-about:EXP:a30392ee84bfb532": "Đại tượng Phật A Di Đà",
+    "sun-thom:EXP:a9c321abc766e8f0": "Công viên nước Aquatopia",
+    "sun-hanam:EXP:d6a70e35646e8a1b": "Bể sóng Vịnh thần sóng"
+  },
+  "status": "reviewed",
+  "primaryPhotos": {
+    "nui-than-tai:STAY:6e6861c6bafdf93a": "admin-uploads/seeder/ddb6b390b9bfe56de0e016b1e1c2345bcab0e7062ecd73ab0bf15aec76473f8c",
+    "nui-than-tai:STAY:ccbd9a78d1c35747": "admin-uploads/seeder/30b6cc9708c3f05705c5d483bc42b03b51361f1e7e5dbc147d5e092638984e68"
+  },
+  "stageSha256": "5d1d93baf236ef752c64ba64f1ff5a838447e5b9ff11f66b6e19f9d667f13d55",
+  "reviewedAt": "2026-10-09T08:33:09.002623+00:00",
+  "method": "Manual contact-sheet inspection of 232 staged publisher photographs; all source-bound assets checked before import",
+  "photoCount": 232
+}

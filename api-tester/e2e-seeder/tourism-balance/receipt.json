@@ -1,0 +1,137 @@
+{
+  "batchId": "gotravel-tourism-balance-2026-10-09-v3",
+  "planSha256": "3a32f905863991f59e70af02a9c6c164f3cdcf628c4c80dabaaf9f10658e02d8",
+  "startedAt": "2026-10-09T08:35:28.154Z",
+  "status": "committed",
+  "backupFile": "/home/trungcao/DoANLienNganh-devserver/api-tester/e2e-seeder/tourism-balance/backups/before.json",
+  "protectedBefore": {
+    "Catalog.listings": {
+      "count": 6034,
+      "checksum": "-9009767063473334802"
+    },
+    "Catalog.complexes": {
+      "count": 349,
+      "checksum": "8523229250510239597"
+    },
+    "Catalog.landmarks": {
+      "count": 228,
+      "checksum": "-4503498410325367586"
+    },
+    "Catalog.reviews": {
+      "count": 16042,
+      "checksum": "9217815836547215157"
+    },
+    "Catalog.seed_record_provenance": {
+      "count": 21654,
+      "checksum": "3326234081196870375"
+    },
+    "Catalog.real_catalog_source_provenance": {
+      "count": 799,
+      "checksum": "-3477433547106346320"
+    },
+    "Inventory.inventory_configs": {
+      "count": 6374,
+      "checksum": "7568441450794466198"
+    },
+    "Inventory.inventory_calendars": {
+      "count": 1147098,
+      "checksum": "6867036295800025269"
+    },
+    "Inventory.inventory_locks": {
+      "count": 33,
+      "checksum": "-7558221858122709124"
+    },
+    "Orders.orders": {
+      "count": 26,
+      "checksum": "7463788417481938020"
+    },
+    "Orders.order_items": {
+      "count": 28,
+      "checksum": "-7870872570228864188"
+    },
+    "Curated.listings": {
+      "count": 340,
+      "checksum": "-2672670154897402960"
+    },
+    "Curated.complexes": {
+      "count": 27,
+      "checksum": "-3834540515310302937"
+    }
+  },
+  "protectedAfter": {
+    "Catalog.listings": {
+      "count": 6034,
+      "checksum": "-9009767063473334802"
+    },
+    "Catalog.complexes": {
+      "count": 349,
+      "checksum": "8523229250510239597"
+    },
+    "Catalog.landmarks": {
+      "count": 228,
+      "checksum": "-4503498410325367586"
+    },
+    "Catalog.reviews": {
+      "count": 16042,
+      "checksum": "9217815836547215157"
+    },
+    "Catalog.seed_record_provenance": {
+      "count": 21654,
+      "checksum": "3326234081196870375"
+    },
+    "Catalog.real_catalog_source_provenance": {
+      "count": 799,
+      "checksum": "-3477433547106346320"
+    },
+    "Inventory.inventory_configs": {
+      "count": 6374,
+      "checksum": "7568441450794466198"
+    },
+    "Inventory.inventory_calendars": {
+      "count": 1147098,
+      "checksum": "6867036295800025269"
+    },
+    "Inventory.inventory_locks": {
+      "count": 33,
+      "checksum": "-7558221858122709124"
+    },
+    "Orders.orders": {
+      "count": 26,
+      "checksum": "7463788417481938020"
+    },
+    "Orders.order_items": {
+      "count": 28,
+      "checksum": "-7870872570228864188"
+    },
+    "Curated.listings": {
+      "count": 340,
+      "checksum": "-2672670154897402960"
+    },
+    "Curated.complexes": {
+      "count": 27,
+      "checksum": "-3834540515310302937"
+    }
+  },
+  "protectedUnchanged": true,
+  "completedAt": "2026-10-09T08:36:04.288Z",
+  "imported": {
+    "listings": 170,
+    "complexes": 17
+  },
+  "hidden": {
+    "listings": 340,
+    "complexes": 27
+  },
+  "cacheInvalidation": {
+    "checkedAt": "2026-10-09T08:37:53.323Z",
+    "namespaces": [
+      "home:feed:*",
+      "province:destinations:*",
+      "recommend:complexes:*",
+      "recommend:complex:*",
+      "recommend:landmark:*",
+      "recommend:similar:*"
+    ],
+    "removed": 1
+  }
+}

@@ -1,0 +1,616 @@
+{
+  "checkedAt": "2026-10-09T08:40:06.020Z",
+  "batchId": "gotravel-tourism-balance-2026-10-09-v3",
+  "checks": {
+    "protectedDataAtCommit": true,
+    "catalogOwnerRelationsAndProvenance": true,
+    "all34ProvincesHaveAllCategories": true,
+    "inventory91Days": true,
+    "cloudinaryAndImageUniqueness": true,
+    "publicGatewayCatalogSearchComplexAndInventory": true
+  },
+  "api": [
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "catalog/listings/:id",
+      "checked": 170,
+      "all200": true
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "search/listings",
+      "category": "STAY",
+      "visible": 171,
+      "newFound": 6
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "search/listings",
+      "category": "EXP",
+      "visible": 244,
+      "newFound": 82
+    },
+    {
+      "base": "http://127.0.0.1:5555",
+      "endpoint": "search/listings",
+      "category": "SVC",
+      "visible": 146,
+      "newFound": 82
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "PREPARED_MEALS",
+      "status": 200,
+      "visible": 90
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "PHOTOGRAPHY",
+      "status": 200,
+      "visible": 6
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "TRAINING",
+      "status": 200,
+      "visible": 3
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "SPA",
+      "status": 200,
+      "visible": 39
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "MASSAGE",
+      "status": 200,
+      "visible": 1
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "CATERING",
+      "status": 200,
+      "visible": 1
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "MAKEUP",
+      "status": 200,
+      "visible": 5
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "search/listings",
+      "subCategory": "HAIR_STYLING",
+      "status": 200,
+      "visible": 1
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "inventory/availability",
+      "category": "STAY",
+      "listingId": "7a89bc0a-9dc5-5db9-be24-9f44dbc4abe2",
+      "status": 200,
+      "slots": 1
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "inventory/availability",
+      "category": "EXP",
+      "listingId": "66387195-808a-5ad0-8aa6-472ef5e18e49",
+      "status": 200,
+      "slots": 2
+    },
+    {
+      "base": "https://gotravel.trungcaodev.io.vn",
+      "endpoint": "inventory/availability",
+      "category": "SVC",
+      "listingId": "89609690-d3be-5d67-a43e-558745ed1aa6",
+      "status": 200,
+      "slots": 2
+    }
+  ],
+  "coverage": [
+    {
+      "province": "An Giang",
+      "stay": 17,
+      "exp": 34,
+      "svc": 15
+    },
+    {
+      "province": "Bắc Ninh",
+      "stay": 2,
+      "exp": 5,
+      "svc": 2
+    },
+    {
+      "province": "Cà Mau",
+      "stay": 8,
+      "exp": 4,
+      "svc": 3
+    },
+    {
+      "province": "Cần Thơ",
+      "stay": 12,
+      "exp": 4,
+      "svc": 2
+    },
+    {
+      "province": "Cao Bằng",
+      "stay": 2,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "stay": 6,
+      "exp": 5,
+      "svc": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "stay": 10,
+      "exp": 25,
+      "svc": 37
+    },
+    {
+      "province": "Điện Biên",
+      "stay": 2,
+      "exp": 2,
+      "svc": 2
+    },
+    {
+      "province": "Đồng Nai",
+      "stay": 4,
+      "exp": 5,
+      "svc": 1
+    },
+    {
+      "province": "Đồng Tháp",
+      "stay": 13,
+      "exp": 4,
+      "svc": 4
+    },
+    {
+      "province": "Gia Lai",
+      "stay": 2,
+      "exp": 3,
+      "svc": 1
+    },
+    {
+      "province": "Hải Phòng",
+      "stay": 5,
+      "exp": 11,
+      "svc": 10
+    },
+    {
+      "province": "Hà Nội",
+      "stay": 2,
+      "exp": 9,
+      "svc": 2
+    },
+    {
+      "province": "Hà Tĩnh",
+      "stay": 2,
+      "exp": 1,
+      "svc": 2
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "stay": 2,
+      "exp": 9,
+      "svc": 1
+    },
+    {
+      "province": "Huế",
+      "stay": 3,
+      "exp": 9,
+      "svc": 2
+    },
+    {
+      "province": "Hưng Yên",
+      "stay": 5,
+      "exp": 7,
+      "svc": 4
+    },
+    {
+      "province": "Khánh Hòa",
+      "stay": 2,
+      "exp": 13,
+      "svc": 22
+    },
+    {
+      "province": "Lai Châu",
+      "stay": 2,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "stay": 2,
+      "exp": 7,
+      "svc": 2
+    },
+    {
+      "province": "Lạng Sơn",
+      "stay": 2,
+      "exp": 2,
+      "svc": 1
+    },
+    {
+      "province": "Lào Cai",
+      "stay": 8,
+      "exp": 7,
+      "svc": 1
+    },
+    {
+      "province": "Nghệ An",
+      "stay": 6,
+      "exp": 6,
+      "svc": 4
+    },
+    {
+      "province": "Ninh Bình",
+      "stay": 2,
+      "exp": 9,
+      "svc": 2
+    },
+    {
+      "province": "Phú Thọ",
+      "stay": 2,
+      "exp": 5,
+      "svc": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "stay": 5,
+      "exp": 5,
+      "svc": 2
+    },
+    {
+      "province": "Quảng Ninh",
+      "stay": 2,
+      "exp": 11,
+      "svc": 2
+    },
+    {
+      "province": "Quảng Trị",
+      "stay": 2,
+      "exp": 6,
+      "svc": 2
+    },
+    {
+      "province": "Sơn La",
+      "stay": 2,
+      "exp": 2,
+      "svc": 1
+    },
+    {
+      "province": "Tây Ninh",
+      "stay": 6,
+      "exp": 4,
+      "svc": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "stay": 10,
+      "exp": 3,
+      "svc": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "stay": 2,
+      "exp": 6,
+      "svc": 2
+    },
+    {
+      "province": "Tuyên Quang",
+      "stay": 4,
+      "exp": 10,
+      "svc": 2
+    },
+    {
+      "province": "Vĩnh Long",
+      "stay": 15,
+      "exp": 5,
+      "svc": 5
+    }
+  ],
+  "inventoryCalendarRows": 30394,
+  "photographs": {
+    "new": 220,
+    "uniqueNew": 220,
+    "noExactOrNearDuplicateAgainstPreviousActivePhotos": true,
+    "activeCatalogUniqueUrls": 996,
+    "activeCatalogExternalImageUrls": 0
+  },
+  "complexes": [
+    {
+      "id": "68f46632-6258-5329-9bc2-3022ca694a4f",
+      "name": "VinWonders Nha Trang",
+      "province": "Khánh Hòa",
+      "STAY": 0,
+      "EXP": 9,
+      "SVC": 9,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/68f46632-6258-5329-9bc2-3022ca694a4f/detail"
+    },
+    {
+      "id": "d8d2c8b9-536f-53fb-a7b9-ce425a87392c",
+      "name": "VinWonders Phú Quốc",
+      "province": "An Giang",
+      "STAY": 0,
+      "EXP": 11,
+      "SVC": 8,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/d8d2c8b9-536f-53fb-a7b9-ce425a87392c/detail"
+    },
+    {
+      "id": "a2f8c758-57d0-5859-a3a5-6a5162dcb8b8",
+      "name": "VinWonders Nam Hội An",
+      "province": "Đà Nẵng",
+      "STAY": 0,
+      "EXP": 8,
+      "SVC": 8,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/a2f8c758-57d0-5859-a3a5-6a5162dcb8b8/detail"
+    },
+    {
+      "id": "d562f206-a45e-5f26-94cb-012a595f46fb",
+      "name": "VinWonders Cửa Hội",
+      "province": "Nghệ An",
+      "STAY": 0,
+      "EXP": 5,
+      "SVC": 3,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/d562f206-a45e-5f26-94cb-012a595f46fb/detail"
+    },
+    {
+      "id": "33e8d9c0-782f-50b7-88df-e165ae451420",
+      "name": "Vinpearl Safari Phú Quốc",
+      "province": "An Giang",
+      "STAY": 0,
+      "EXP": 9,
+      "SVC": 2,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/33e8d9c0-782f-50b7-88df-e165ae451420/detail"
+    },
+    {
+      "id": "4d46edd3-c287-526b-98a7-c81df0138954",
+      "name": "Grand World Phú Quốc",
+      "province": "An Giang",
+      "STAY": 0,
+      "EXP": 8,
+      "SVC": 0,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/4d46edd3-c287-526b-98a7-c81df0138954/detail"
+    },
+    {
+      "id": "b5505d5f-3f13-5d1a-99f7-b22d3363f160",
+      "name": "VinWonders Vũ Yên",
+      "province": "Hải Phòng",
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 2,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/b5505d5f-3f13-5d1a-99f7-b22d3363f160/detail"
+    },
+    {
+      "id": "46ff9109-211b-5bcb-ad14-3ced8a9925b8",
+      "name": "VinWonders Wave Park & Water Park",
+      "province": "Hưng Yên",
+      "STAY": 0,
+      "EXP": 3,
+      "SVC": 3,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/46ff9109-211b-5bcb-ad14-3ced8a9925b8/detail"
+    },
+    {
+      "id": "18fee95f-83d2-5664-ba15-2cde065a448e",
+      "name": "Vinpearl Horse Academy Vũ Yên",
+      "province": "Hải Phòng",
+      "STAY": 0,
+      "EXP": 5,
+      "SVC": 6,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/18fee95f-83d2-5664-ba15-2cde065a448e/detail"
+    },
+    {
+      "id": "15d4fa60-780b-5315-94e0-9439bb8b4785",
+      "name": "Sun World Bà Nà Hills",
+      "province": "Đà Nẵng",
+      "STAY": 0,
+      "EXP": 9,
+      "SVC": 7,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/15d4fa60-780b-5315-94e0-9439bb8b4785/detail"
+    },
+    {
+      "id": "91fe8777-836f-5098-aab3-d481695d6ee2",
+      "name": "Sun World Hạ Long",
+      "province": "Quảng Ninh",
+      "STAY": 0,
+      "EXP": 6,
+      "SVC": 0,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/91fe8777-836f-5098-aab3-d481695d6ee2/detail"
+    },
+    {
+      "id": "f4a56a31-f90f-5d2a-a28f-d6866628dc23",
+      "name": "Sun World Hòn Thơm",
+      "province": "An Giang",
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 3,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/f4a56a31-f90f-5d2a-a28f-d6866628dc23/detail"
+    },
+    {
+      "id": "311f20c9-7d6a-5474-9433-0ce7f51d5897",
+      "name": "Sun World Hà Nam",
+      "province": "Ninh Bình",
+      "STAY": 0,
+      "EXP": 2,
+      "SVC": 0,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/311f20c9-7d6a-5474-9433-0ce7f51d5897/detail"
+    },
+    {
+      "id": "d98e4781-6930-5bde-ad53-10a6187e90b9",
+      "name": "Sun World Fansipan Legend",
+      "province": "Lào Cai",
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/d98e4781-6930-5bde-ad53-10a6187e90b9/detail"
+    },
+    {
+      "id": "e63695bd-f100-54ca-90a6-d0a6582f46e4",
+      "name": "Sun World Núi Bà Đen",
+      "province": "Tây Ninh",
+      "STAY": 0,
+      "EXP": 1,
+      "SVC": 0,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/e63695bd-f100-54ca-90a6-d0a6582f46e4/detail"
+    },
+    {
+      "id": "433e963b-0ed3-54a9-9e4d-cc7668850088",
+      "name": "Công viên suối khoáng nóng Núi Thần Tài",
+      "province": "Đà Nẵng",
+      "STAY": 6,
+      "EXP": 1,
+      "SVC": 9,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/433e963b-0ed3-54a9-9e4d-cc7668850088/detail"
+    },
+    {
+      "id": "f36cadae-3337-5d60-b82e-5b11ba3e0870",
+      "name": "Suối khoáng nóng I-Resort Nha Trang",
+      "province": "Khánh Hòa",
+      "STAY": 0,
+      "EXP": 0,
+      "SVC": 11,
+      "detailStatus": 200,
+      "childrenStatus": 200,
+      "coverStatus": 200,
+      "url": "https://gotravel.trungcaodev.io.vn/complex/f36cadae-3337-5d60-b82e-5b11ba3e0870/detail"
+    }
+  ],
+  "status": "passed",
+  "browser": [
+    {
+      "name": "complex-nui-than-tai",
+      "path": "/complex/433e963b-0ed3-54a9-9e4d-cc7668850088/detail",
+      "expect": "Công viên suối khoáng nóng Núi Thần Tài",
+      "status": 200,
+      "visibleCloudinaryImages": 6,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    },
+    {
+      "name": "complex-ba-na",
+      "path": "/complex/15d4fa60-780b-5315-94e0-9439bb8b4785/detail",
+      "expect": "Sun World Bà Nà Hills",
+      "status": 200,
+      "visibleCloudinaryImages": 6,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    },
+    {
+      "name": "listing-stay",
+      "path": "/place/7a89bc0a-9dc5-5db9-be24-9f44dbc4abe2/detail",
+      "expect": "Công viên suối khoáng nóng Núi Thần Tài — Superior Double",
+      "status": 200,
+      "visibleCloudinaryImages": 10,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    },
+    {
+      "name": "listing-exp",
+      "path": "/experience/66387195-808a-5ad0-8aa6-472ef5e18e49/detail",
+      "expect": "VinWonders Nha Trang — Tata Show",
+      "status": 200,
+      "visibleCloudinaryImages": 7,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    },
+    {
+      "name": "listing-svc",
+      "path": "/service/89609690-d3be-5d67-a43e-558745ed1aa6/detail",
+      "expect": "VinWonders Nha Trang — Yummy World Garden",
+      "status": 200,
+      "visibleCloudinaryImages": 7,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    },
+    {
+      "path": "/service",
+      "status": 200,
+      "serviceTypes": [
+        "Chụp ảnh",
+        "Massage",
+        "Đồ ăn chuẩn bị sẵn",
+        "Đào tạo",
+        "Trang điểm",
+        "Làm tóc",
+        "Chăm sóc spa",
+        "Dịch vụ ăn uống"
+      ],
+      "visibleCloudinaryImages": 14,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    },
+    {
+      "path": "/experience",
+      "status": 200,
+      "visibleCloudinaryImages": 12,
+      "brokenVisibleImages": 0,
+      "pageErrors": []
+    }
+  ],
+  "browserInitialAttempt": {
+    "result": "Earlier carousel image wait included off-screen horizontally lazy-loaded items; inspection repeated for actual viewport-visible images"
+  }
+}

@@ -1,0 +1,2976 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-09T08:17:40.471Z",
+  "properties": [
+    {
+      "sourceId": "vin-nt",
+      "name": "VinWonders Nha Trang",
+      "province": "Khánh Hòa",
+      "latitude": 12.21635,
+      "longitude": 109.241655,
+      "address": "Đảo Hòn Tre, Nha Trang, Khánh Hòa",
+      "locationSource": "Existing verified landmark: VinWonders Nha Trang",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:35.422Z",
+      "images": [
+        "https://static.vinwonders.com/production/2025/11/VinWonders-Nha-Trang-is-a-great-place-to-unwind-with-your-loved-ones.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-nt:SVC:7140e3470e4c4257",
+          "name": "Yummy World Garden",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/06/Capture-5.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 - 18:00",
+          "venue": "The World Garden"
+        },
+        {
+          "key": "vin-nt:SVC:f31e4d3ee4d07ba9",
+          "name": "Nhà hàng Wind & Sea",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/VinWonders-NhaTrang-12.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Hằng ngày: 10:30 - 14:30 (Last order: 14:00) & 16:30 - 19:30 (Last order: 19:00)",
+          "venue": "Fairy Land"
+        },
+        {
+          "key": "vin-nt:SVC:00b4247c639b1bcc",
+          "name": "Festive Café",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/02/Image.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "09:00 - 19:30",
+          "venue": "Festive Hill"
+        },
+        {
+          "key": "vin-nt:SVC:fb9a8ebe6e190e0f",
+          "name": "YumStop!",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/02/Image-3-1-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 - 19:00",
+          "venue": "Festive Hill"
+        },
+        {
+          "key": "vin-nt:SVC:1f5fb0ff63bfe7ff",
+          "name": "Happy Snack",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Optimized-IMG_2110.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "09:00 -19:30",
+          "venue": "12 quầy khắp khuôn viên công viên"
+        },
+        {
+          "key": "vin-nt:SVC:4954200ccc0d5c1b",
+          "name": "Yummy Water World",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/06/Capture-4.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 -18:00",
+          "venue": "Water World"
+        },
+        {
+          "key": "vin-nt:SVC:51dd2f5a811911fb",
+          "name": "Gian hàng Street Food",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/VWNT_Street-food.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:00 - 19:00",
+          "venue": "Sea World"
+        },
+        {
+          "key": "vin-nt:SVC:69371bec65efcba4",
+          "name": "Nhà hàng Coral",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/MicrosoftTeams-image-79.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Hằng ngày: 10:30 - 14:30 (Last order: 14:00) & 16:30 - 19:30 (Last order: 19:00)",
+          "venue": "Fairy Land"
+        },
+        {
+          "key": "vin-nt:SVC:a63f8a2dbbc58991",
+          "name": "Nhà hàng Wonders Feast",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/07/710799750_1446095614228999_4190460820417637555_n_1783242447.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 - 19:30 (Last order: 19:00)",
+          "venue": "Festive Hill"
+        },
+        {
+          "key": "vin-nt:EXP:3649cda87d7c536e",
+          "name": "Tata Show",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/2022/10/le-hoi-hoa-qua-son-8.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:0667f39028613c77",
+          "name": "Carnival show \"Princess Tata's All- Star Parade\"",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/01/471239749_1011175414387690_7062695848295563034_n.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:9d322e66ee55db75",
+          "name": "Show diễn Nàng Tiên Cá",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/02/Nang-tien-ca.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:7f1b0ff50513dd85",
+          "name": "Biểu diễn chim",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/2022/02/choi-gi-o-vinpearl-nha-trang-4.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:71f9de3864a8ac5b",
+          "name": "Fairy Land",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/03/tatashow.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:f9afd720d10b0483",
+          "name": "Đồi Lễ Hội",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/02/Thiet-ke-chua-co-ten-6.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:67c452719d9680b9",
+          "name": "Đồi vạn hoa",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/VWNT-2-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:6788d570fafe10fb",
+          "name": "Công viên nước",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/02/the-gioi-nuoc.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-nt:EXP:c9c5e6dbc91b13c8",
+          "name": "Sea World",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nha-trang/",
+          "checkedAt": "2026-10-09T08:17:35.422Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/02/THUY-CUNG-VWNT-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-pq",
+      "name": "VinWonders Phú Quốc",
+      "province": "An Giang",
+      "latitude": 10.337229,
+      "longitude": 103.853907,
+      "address": "Bãi Dài, Gành Dầu, Phú Quốc, An Giang",
+      "locationSource": "Geoapify: VinWonders Phú Quốc",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:35.851Z",
+      "images": [
+        "https://static.vinwonders.com/production/2026/06/DSC_5108_web_1782192353.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-pq:SVC:4ea5ee68fea05586",
+          "name": "Gateway",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/VinWonders-PhuQuoc-15.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:30 - 14:30 & 17:15 - 18:30",
+          "venue": "Thế giới lốc xoáy"
+        },
+        {
+          "key": "vin-pq:SVC:3cd48cdc90630470",
+          "name": "Nhà hàng Deep Sea",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/03/DS.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 10:00 - 17:30",
+          "venue": "Cung điện Hải vương"
+        },
+        {
+          "key": "vin-pq:SVC:e0db1ee6115df954",
+          "name": "Nhà hàng Cá ngựa",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/nha-hang-ca-ngua.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 10:00 - 17:30",
+          "venue": "Cung điện Hải vương"
+        },
+        {
+          "key": "vin-pq:SVC:b976bff964acd7fa",
+          "name": "Cơm gà Hội An & Bún Chả Hà Nội",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/RqVyOMWQ-Phuong-tien-truye%CC%80n-thong.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 09:00 - 19:00",
+          "venue": "Đại lộ Châu Âu"
+        },
+        {
+          "key": "vin-pq:SVC:97f4dc19b7b7d1c7",
+          "name": "Pizza & Steak",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/Pizza.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 09:00 - 19:00",
+          "venue": "Đại lộ Châu Âu"
+        },
+        {
+          "key": "vin-pq:SVC:3f86a8e1637097b7",
+          "name": "Nhà hàng Maharaja",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/image-1-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 09:00 - 18:00",
+          "venue": "Thế giới diệu kỳ"
+        },
+        {
+          "key": "vin-pq:SVC:9dc2d3046022dbbc",
+          "name": "Món ngon Việt Nam",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Mon-ngon-Viet-Nam.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 9:00 - 19:00",
+          "venue": "Thế giới diệu kỳ"
+        },
+        {
+          "key": "vin-pq:SVC:14fdb09660cd221e",
+          "name": "Phở Lý Quốc Sư",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Pho-Ly-Quoc-Su.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Tất cả các ngày trong tuần: 09:00 - 19:00",
+          "venue": "Đại lộ Châu Âu"
+        },
+        {
+          "key": "vin-pq:EXP:3483de29971a3eec",
+          "name": "ONCE SHOW",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/BXjgvzxd-Once-Show-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:cc0127dc7a467ad1",
+          "name": "SHOW SẮC MÀU ĐẠI DƯƠNG",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/tien-ca.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:7ca4fa3857c69ad3",
+          "name": "DIỄU HÀNH CARNIVAL",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/08/Anh-chup-man-hinh-2025-08-05-152810-1.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:da8a9df920c11ed3",
+          "name": "VŨ ĐIỆU CUỒNG XOAY",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/2023/01/vu-dieu-cuong-say-1-495x336-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:b52e93919cb41902",
+          "name": "GẶP GỠ NHÂN VẬT CỔ TÍCH",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/Carnival-scaled-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:06682d34357e4d6a",
+          "name": "CHƯƠNG TRÌNH CHO CÁ ĂN",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/cho-ca-an.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:dbc058e710d2bdcd",
+          "name": "Đại lộ Châu Âu",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/11/once-show-vinwonders-phu-quoc.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:018dee022f690431",
+          "name": "Thế giới diệu kỳ",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/l85X6tMf-vinwonders-phu-quoc-4.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:e4a1bab4ac7323a9",
+          "name": "Khu làng bí mật",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/game-ngoi-lang-chien-binh-vinwonders-phu-quoc.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:90cd8d14b579e63c",
+          "name": "Thế giới lốc xoáy",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/08/cong-vien-nuoc-grand-park.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:d3571de7dae58516",
+          "name": "Cung điện Hải Vương",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/d4aACCby-cung-dien-hai-vuong-vinwonders-phu-quoc.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-pq:EXP:208c65346a39cee9",
+          "name": "Thế giới phiêu lưu",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:35.851Z",
+          "images": [
+            "https://static.vinwonders.com/production/Maya.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-ha",
+      "name": "VinWonders Nam Hội An",
+      "province": "Đà Nẵng",
+      "latitude": 15.7887796,
+      "longitude": 108.4107881,
+      "address": "Bình Minh, Thăng Bình, Đà Nẵng (Quảng Nam cũ)",
+      "locationSource": "Geoapify: VinWonders Nam Hội An",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:36.130Z",
+      "images": [
+        "https://static.vinwonders.com/production/aXCep5mc-MicrosoftTeams-image-1.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-ha:SVC:ffda858854cd1aa4",
+          "name": "Riveria",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Optimized-DSC01447.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Thứ 2 - Thứ 6: 9:00 - 18:00 / Thứ 7 & Chủ nhật: 9:00 - 18:30",
+          "venue": "Phố Đông"
+        },
+        {
+          "key": "vin-ha:SVC:9bbbcd79dd981384",
+          "name": "Safari Pier",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Optimized-DSC01445.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "09:30 - 17:30 (Thứ 2-Thứ 6) & 09:00 - 17:30 (Thứ 7-Chủ Nhật)",
+          "venue": "Bến thuyền Safari"
+        },
+        {
+          "key": "vin-ha:SVC:389019c56d2f11ea",
+          "name": "Deliland",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Deliland.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:00 - 15:00 (Last order: 14:30)",
+          "venue": "Quảng Trường Trung Tâm"
+        },
+        {
+          "key": "vin-ha:SVC:b4b6c0780b0add2f",
+          "name": "VinWonders Foodcourt",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Vinwonders-Foodcourt.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "13:00 -17:00 (Thứ 7- Chủ Nhật) (Last order: 16:30)",
+          "venue": "Phố Đông"
+        },
+        {
+          "key": "vin-ha:SVC:8edaeb85e56e7f7f",
+          "name": "Chingu",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Chingu.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "9:00 - 17:30 (Thứ 2-Thứ 6) / 9:00 - 18:30 (Thứ 7-Chủ Nhật)",
+          "venue": "Phố Tây - Indoor game"
+        },
+        {
+          "key": "vin-ha:SVC:710d5522a0f1aa22",
+          "name": "Chợ Quê",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/cho-que.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:00 - 15:00 (Last order: 14:30)",
+          "venue": "Đảo Văn hóa Dân gian"
+        },
+        {
+          "key": "vin-ha:SVC:eeb926f6b71ad1b6",
+          "name": "Harbor Corner",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Harbor-Corner.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 - 17:30 (Thứ 2-Thứ 6) & 10:00 - 18:30 (Thứ 7- Chủ Nhật)",
+          "venue": "Quảng Trường Trung Tâm"
+        },
+        {
+          "key": "vin-ha:SVC:16930c8facb1a5ad",
+          "name": "Riverine",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Riverine-scaled-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "14:00- 18:00 (Thứ 7-Chủ Nhật)",
+          "venue": "Phố Tây"
+        },
+        {
+          "key": "vin-ha:EXP:e9bd101de9c8765c",
+          "name": "Về Bến",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/production/Ve_Ben-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:17ecbb596ac5f90b",
+          "name": "Show diễn 3D mapping - Lược Việt Sử ký",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2023/01/luoc-viet-su-ky-504x336-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:7d702f0936f554fd",
+          "name": "Nhạc nước",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2023/01/2-560x298-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:37b24a814759b408",
+          "name": "Show Chim",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/06/Thiet-ke-chua-co-ten-4-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:7d11b58b6bf5aa0b",
+          "name": "Vùng đất phiêu lưu",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/11/VinWonders-Nam-Hoi-An-ensures-endless-fun-for-all-visitors.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:99ffbf08af71f456",
+          "name": "Indoor game - Trò chơi trong nhà",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/playoke.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:5ae272a617932a5e",
+          "name": "Đảo Văn hóa Dân gian",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/pho-lang-nghe-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:97694a04aef94a9f",
+          "name": "Thế giới nước",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/08/cong-vien-nuoc-vinwonders-nam-hoi-an.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:2587536e864b6a7d",
+          "name": "Bến cảng giao thoa",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Optimized-28.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ha:EXP:c0666dea322dfd94",
+          "name": "River Safari",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-nam-hoi-an/",
+          "checkedAt": "2026-10-09T08:17:36.130Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/the-gioi-thuy-cam.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-ch",
+      "name": "VinWonders Cửa Hội",
+      "province": "Nghệ An",
+      "latitude": 18.77433,
+      "longitude": 105.7514225,
+      "address": "Cửa Hội, Nghệ An",
+      "locationSource": "Geoapify: VinWonder Cửa Hội",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:36.353Z",
+      "images": [
+        "https://static.vinwonders.com/production/MicrosoftTeams-image-scaled-1.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-ch:SVC:8940f45bc6a95d72",
+          "name": "Nhà hàng Vọng Biển",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/06/PTH08946_HDR.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:00 - 14:30",
+          "venue": "Hội chợ Phù Hoa"
+        },
+        {
+          "key": "vin-ch:SVC:2cd1192671376916",
+          "name": "Nhà hàng Cát Thủy",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/06/cua-hoi9354.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:00 - 14:30 & 17:00 - 20:30",
+          "venue": "Đảo Song Ngư"
+        },
+        {
+          "key": "vin-ch:SVC:1f20bbc952cd6a32",
+          "name": "An Cafe",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/03/Image.1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "08:00 - 20:30",
+          "venue": "Đảo Song Ngư"
+        },
+        {
+          "key": "vin-ch:EXP:e213320f7c518447",
+          "name": "MẢNH HỒN XỨ NGHỆ",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/10/VWCH_Manhhonxunghe_1791269658.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ch:EXP:fbc6dab5f64fd020",
+          "name": "MASCOT LALAWONDERS",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/05/MinhKhangVCH127_1778231825-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ch:EXP:623fb1dbad65d059",
+          "name": "HÀO KHÍ VIỆT NAM",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/10/VWCH_HaokhiVietNam_1791269689.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ch:EXP:dc9de45c5cfef17d",
+          "name": "Công viên nước \"Thiên đường nhiệt đới\"",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/05/9d225c9e5b62ee3cb773.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ch:EXP:b76578b666717d5c",
+          "name": "Công viên giải trí \"Hội chợ Phù hoa\"",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/10/VWCH_Vudieukhongtrung_1791270001.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-ch:EXP:15567107effa067c",
+          "name": "Show và minishow mỗi ngày",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-cua-hoi/",
+          "checkedAt": "2026-10-09T08:17:36.353Z",
+          "images": [
+            "https://static.vinwonders.com/production/440777489_122168575460072313_1149658744026292249_n-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-safari",
+      "name": "Vinpearl Safari Phú Quốc",
+      "province": "An Giang",
+      "latitude": 10.3393964,
+      "longitude": 103.8950113,
+      "address": "Gành Dầu, Phú Quốc, An Giang",
+      "locationSource": "Geoapify: Vinpearl Safari",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:36.506Z",
+      "images": [
+        "https://static.vinwonders.com/production/SAF_Social_1856x937-scaled-1.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-safari:SVC:5fec445818c62aa7",
+          "name": "Nhà hàng Giraffe",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Vinpearl-safari-nha-hang-giraffe.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Hằng ngày: 10:30 - 15:30",
+          "venue": "Vinpearl Safari Phú Quốc"
+        },
+        {
+          "key": "vin-safari:SVC:c20cb588e3ecb401",
+          "name": "Nhà hàng Flamingo & Rhino",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/zBYCnlPz-367x222-flamingo.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "Hằng ngày: 10:30 - 15:30",
+          "venue": "Vinpearl Safari Phú Quốc"
+        },
+        {
+          "key": "vin-safari:EXP:4126f1eb79294362",
+          "name": "Show biểu diễn động vật",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/2023/01/VINPEARL-SAFARI-PHU-QUOC-8.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:23a3d6d39e102aaf",
+          "name": "Khám phá Safari ban đêm",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/2023/01/Safari-night.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:b757428a80183a46",
+          "name": "Vũ điệu rừng xanh Zulu",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/production/Vinpearl-Safari-Phu-Quoc-Zulu-Dance.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:dd5d3e7b5cb9d015",
+          "name": "Nhà chăm sóc động vật nhí",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/production/387094582_834014991848565_2510385553395203417_n.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:5962c3ebad728d5f",
+          "name": "Khu Bán hoang dã",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/production/goi-y-lich-trinh-kham-pha-vinpearl-safari-phu-quoc-danh-cho-nguoi-cao-tuoi-11.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:9d4fcbb9671e13bf",
+          "name": "Khu linh trưởng",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/nOEKVMxZ-367x222-mms.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:bacfe1ea9b821a14",
+          "name": "Khu chuồng chim",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/2020/09/Vet__DSC8768-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:756e8a948248b76a",
+          "name": "Khu vườn thú mở",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/production/optimize_Linh-duong.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-safari:EXP:0e3adefe3332e26d",
+          "name": "Khu bò sát",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-safari-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.506Z",
+          "images": [
+            "https://static.vinwonders.com/production/thue-xe-7-cho-ha-noi-so-8.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-grand",
+      "name": "Grand World Phú Quốc",
+      "province": "An Giang",
+      "latitude": 10.32545,
+      "longitude": 103.860079,
+      "address": "Bãi Dài, Gành Dầu, Phú Quốc, An Giang",
+      "locationSource": "Geoapify: Grand World Phú Quốc",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:36.694Z",
+      "images": [
+        "https://static.vinwonders.com/production/2025/02/gwpq-vip-tour-1920x920-1.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-grand:EXP:7e3fc51e4e3f5a51",
+          "name": "Show Tinh hoa Việt Nam",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Tinh-Hoa-Viet-Nam-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:4462c348e19a8372",
+          "name": "Show Sắc màu Venice",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Grand-World-PhuQuoc-7.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:19d2be1e8d19e423",
+          "name": "Laser Show",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/production/Lase-show-scaled-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:536bb2b0018a3e46",
+          "name": "Thả đèn hoa đăng",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/03/tha-den-hoa-dang.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:a6f248194ac561e3",
+          "name": "Teddy Bear Museum",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Grand-World-PhuQuoc-BAO-TANG-GAU.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:f71669da735763e8",
+          "name": "Huyền Thoại Tre",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Grand-World-PhuQuoc-13.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:74a3a8cb4096b6a3",
+          "name": "Hồ Tình Yêu",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Grand-World-PhuQuoc-di-thuyen-Gondola.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:419a16c1e4e4c795",
+          "name": "Tinh Hoa Việt Nam",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Grand-World-PhuQuoc-TINH-HOA-VIET-NAM-3.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:ba99cb21004c6d8e",
+          "name": "Công viên nghệ thuật đương đại",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/11/Grand-World-PhuQuoc-cong-vien-nghe-thuat-duong-dai.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-grand:EXP:cff469a498250931",
+          "name": "Sắc màu Venice",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/grand-world-phu-quoc/",
+          "checkedAt": "2026-10-09T08:17:36.694Z",
+          "images": [
+            "https://static.vinwonders.com/2022/05/Grand-World-PhuQuoc-SAC-MAU-VENICE.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-vu-yen",
+      "name": "VinWonders Vũ Yên",
+      "province": "Hải Phòng",
+      "latitude": 20.87264,
+      "longitude": 106.74876,
+      "address": "Đảo Vũ Yên, Hải Phòng",
+      "locationSource": "Geoapify: VinWonders Vũ Yên",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinwonders-vu-yen/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:36.788Z",
+      "images": [
+        "https://static.vinwonders.com/production/2025/06/VinWonders-Vu-Yen-1-scaled.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-vu-yen:SVC:1ed77445b5983486",
+          "name": "Nhà hàng Aegis Haven",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-vu-yen/",
+          "checkedAt": "2026-10-09T08:17:36.788Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/07/VinWonders-Vu-Yen-Restaurant-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 - 17:00 T2 - T6 | 10:00 - 17:30 T7, CN",
+          "venue": "Vùng Đất Chiến Binh"
+        },
+        {
+          "key": "vin-vu-yen:SVC:cbcba295d90c445c",
+          "name": "Nhà hàng The Crown",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-vu-yen/",
+          "checkedAt": "2026-10-09T08:17:36.788Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/07/VinWonders-Vu-Yen-Buffet-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:30 - 14:30 T2 - CN",
+          "venue": "Đại Lộ Hoàng Gia"
+        },
+        {
+          "key": "vin-vu-yen:EXP:1bcc5028cb65ee4d",
+          "name": "Vùng Đất Chiến Binh",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-vu-yen/",
+          "checkedAt": "2026-10-09T08:17:36.788Z",
+          "images": [
+            "https://static.vinwonders.com/production/tau-luon-sieu-toc-vinpearl-phu-quoc-thump-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-vu-yen:EXP:d50f9171654afa0f",
+          "name": "Thế giới thần tiên",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-vu-yen/",
+          "checkedAt": "2026-10-09T08:17:36.788Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/06/vong-quay-ma-thuat.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-vu-yen:EXP:436a538b82778741",
+          "name": "Quốc Đảo Aloha",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-vu-yen/",
+          "checkedAt": "2026-10-09T08:17:36.788Z",
+          "images": [
+            "https://static.vinwonders.com/production/2025/05/cong-vien-nuoc-grand-parkk.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "PARK_ZONE",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-wave",
+      "name": "VinWonders Wave Park & Water Park",
+      "province": "Hưng Yên",
+      "latitude": 20.9504241,
+      "longitude": 105.9836369,
+      "address": "Vinhomes Ocean Park 2 và Ocean Park 3, Hưng Yên",
+      "locationSource": "Geoapify: Công viên nước Royal Wave Park; meeting point at Wave Park",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:17:36.925Z",
+      "images": [
+        "https://static.vinwonders.com/production/2025/06/z6674383441200_fe9b19764f7a45c4d0eeafd56b79484b.jpg"
+      ],
+      "items": [
+        {
+          "key": "vin-wave:SVC:81406f3b3c8aef08",
+          "name": "Quầy Wonder Snack",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/KHAH0139.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "10:00 – 17:00 | Thứ 2 đến Chủ Nhật",
+          "venue": "Wave Park & Water Park"
+        },
+        {
+          "key": "vin-wave:SVC:6ac71d30cc1e1f0c",
+          "name": "Nhà hàng Pacific",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/611756916_747418135077577_150662746703672153_n.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "11:00 – 14:00 | Thứ 2 đến Chủ Nhật",
+          "venue": "VinWonders Wave Park"
+        },
+        {
+          "key": "vin-wave:SVC:b31f332104d81af5",
+          "name": "BBQ Graden",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/IMG04972-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "12:00 - 20:00 | Thứ 2 đến Chủ Nhật",
+          "venue": "VinWonders Wave Park"
+        },
+        {
+          "key": "vin-wave:EXP:7023ee57f255868f",
+          "name": "Vũ điệu nhiệt đới",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/Vu-dieu-nhiet-doi-1.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-wave:EXP:1716d9b94e2f51de",
+          "name": "Mascot chào mừng",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/DAA-6439resized-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-wave:EXP:b863d2d6b10fc1a8",
+          "name": "Honolulu",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/Thiet-ke-chua-co-ten-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-wave:EXP:beca63d002f93704",
+          "name": "Enchanted Wonder",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinwonders-wave-park-water-park/",
+          "checkedAt": "2026-10-09T08:17:36.925Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/03/Engchanted-wonder-1.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "vin-horse",
+      "name": "Vinpearl Horse Academy Vũ Yên",
+      "province": "Hải Phòng",
+      "latitude": 20.8732145,
+      "longitude": 106.746369,
+      "address": "Đảo Vũ Yên, Hải Phòng",
+      "locationSource": "Geoapify: Vinpearl Horse Academy Vu Yen",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+      "publisher": "vinwonders.com",
+      "checkedAt": "2026-10-09T08:01:10.063Z",
+      "images": [
+        "https://static.vinwonders.com/production/2026/06/618cd04c-f157-49e5-8b47-4989d5fe91a1_1782207440.png"
+      ],
+      "items": [
+        {
+          "key": "vin-horse:SVC:9dbec8df0ec26a0a",
+          "name": "ROYAL RESTAURANT",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/VU_08323_1782296488-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "7:00 - 19:00 (Thứ 3- Chủ nhật)",
+          "venue": "CLUB HOUSE"
+        },
+        {
+          "key": "vin-horse:SVC:cb54848a2beda8ed",
+          "name": "ROYAL BREAKFAST",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/618652722_122238902324273555_2043120166549707938_n_1782296590.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "7:00-10:00 (Thứ 3- Chủ nhật)",
+          "venue": "NGOÀI TRỜI"
+        },
+        {
+          "key": "vin-horse:SVC:b521d36d7e72a491",
+          "name": "ROYAL EQUESTRIAN TEA - TIỆC TRÀ HOÀNG GIA",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/1269c5ae-1731-426b-97a2-b0062ad42b1c_1782296633.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "publishedHours": "15:00 - 19:00 (Thứ 3- Chủ nhật)",
+          "venue": "NGOÀI TRỜI"
+        },
+        {
+          "key": "vin-horse:EXP:4b6101ced78b8222",
+          "name": "Show diễn \"The Kingdom of Pony\"",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/2aOboQflg0E3OAPMdZoiB2MoIidY7CzHRZIu6c0O_1782299241.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-horse:EXP:7863904a91cb6c73",
+          "name": "Diễu hành Ngựa Hoàng Gia",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/629150496_122241884774273555_1368444024255864411_n_1782294537.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-horse:EXP:96c09b8ac401a1e5",
+          "name": "Tiệc Trà Hoàng Gia",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/723873200_3390922971072744_4115827391162234868_n_1782294662.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-horse:EXP:667b94306be0623b",
+          "name": "Show diễn \"Mã Khải Hoàn\"",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/651267049_122246420018273555_7005307112165081382_n_1782295163.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "experienceKind": "SHOW",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-horse:SVC:8cf3864a6e85a112",
+          "name": "Chụp ảnh cùng ngựa",
+          "kind": "SVC",
+          "subCategory": "PHOTOGRAPHY",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/635217171_122242978562273555_1094884955178095381_n_1782284929.jpg"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "vin-horse:EXP:834f0c52c9ee5709",
+          "name": "Tham quan Mái Nhà Ngựa Quý",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/642a2b33-d6c3-42bc-b99a-6377ee52187d_1782269904.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "vin-horse:SVC:a751eba4aaf4d750",
+          "name": "Tìm hiểu và chăm sóc ngựa dành cho trẻ",
+          "kind": "SVC",
+          "subCategory": "TRAINING",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/KIDS-T5.2_1782285450.jpg"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "vin-horse:SVC:ef7058ac159ccac4",
+          "name": "Học cưỡi ngựa với huấn luyện viên",
+          "kind": "SVC",
+          "subCategory": "TRAINING",
+          "sourcePage": "https://vinwonders.com/vi/vinpearl-horse-academy/",
+          "checkedAt": "2026-10-09T08:01:10.063Z",
+          "images": [
+            "https://static.vinwonders.com/production/2026/06/1_1782284809.jpg"
+          ],
+          "verification": "publisher_named_card_or_section"
+        }
+      ]
+    },
+    {
+      "sourceId": "sun-bana-about",
+      "name": "Sun World Bà Nà Hills",
+      "province": "Đà Nẵng",
+      "latitude": 15.9958569,
+      "longitude": 107.9890712,
+      "address": "Bà Nà, Hòa Vang, Đà Nẵng",
+      "locationSource": "Geoapify: Sun World Bà Nà Hills",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://sunworld.vn/vi/banahills/gioi-thieu",
+      "publisher": "sunworld.vn",
+      "checkedAt": "2026-10-09T08:17:37.777Z",
+      "images": [
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/c%C3%A2u%20chuy%E1%BB%87n%20SW/cau%20vang%203%203.jpeg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/c%C3%A2u%20chuy%E1%BB%87n%20SW/DJI_0016.jpeg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/SEO%202025/G%E1%BB%A3i%20%C3%BD%20l%E1%BB%8Bch%20tr%C3%ACnh%20BNH/Copy%20of%20vuon-hoa-le-jardin-d%E2%80%99amour.jpg"
+      ],
+      "items": [
+        {
+          "key": "sun-bana-about:EXP:fa115c34f78381e2",
+          "name": "Chùa Linh Ứng",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/chua-linh-ung",
+          "checkedAt": "2026-10-09T08:17:38.486Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/chua-linh-ung/chua02.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/chua-linh-ung/Picture12.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:a78d9d70208bec5f",
+          "name": "Hầm rượu cổ Debay",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/bar-debay-ham-ruou",
+          "checkedAt": "2026-10-09T08:17:38.551Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_0018-1.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_0343.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_0258.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_0292.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_4023-1.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_0292-Copy.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_6702-1.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bar-debay-ham-ruou/IMG_4000-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:234fa76a8807606e",
+          "name": "Vòng quay Thiên Mã",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/vong-quay-thien-ma",
+          "checkedAt": "2026-10-09T08:17:38.610Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/vong-quay-thien-ma/vong-quay-thien-ma-2.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/vong-quay-thien-ma/Vong-quay-Thien-Ma.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:8698c79eb9efc07e",
+          "name": "Rạp chiếu phim 4D Giao Lộ Trăng",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/rap-chieu-phim-4d-giao-lo-trang",
+          "checkedAt": "2026-10-09T08:17:38.638Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/rap-chieu-phim-4d-giao-lo-trang/IMG_4222.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/rap-chieu-phim-4d-giao-lo-trang/AFS06742.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/rap-chieu-phim-4d-giao-lo-trang/MAY08817.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:5e6081c918d84142",
+          "name": "Tháp rơi tự do",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/thac-roi-tu-do",
+          "checkedAt": "2026-10-09T08:17:38.707Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/thac-roi-tu-do/fantasy-park.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/thac-roi-tu-do/thac.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:SVC:5ba635234841b188",
+          "name": "Trú Vũ Trà Quán",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/tru-vu-tra-quan",
+          "checkedAt": "2026-10-09T08:17:38.732Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/tru-vu-tra-quan/1a.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/tru-vu-tra-quan/1b.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/tru-vu-tra-quan/1c.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:029285f756492193",
+          "name": "Bảo Tàng Sáp",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/bao-tang-sap",
+          "checkedAt": "2026-10-09T08:17:38.761Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bao-tang-sap/d5.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bao-tang-sap/d4.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bao-tang-sap/d3.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bao-tang-sap/d2.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/bao-tang-sap/d1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:ae29bc913556da16",
+          "name": "Tàu Hỏa Leo Núi",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/tau-hoa-leo-nui",
+          "checkedAt": "2026-10-09T08:17:38.786Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/tau-hoa-leo-nui/c3.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/tau-hoa-leo-nui/c2.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/tau-hoa-leo-nui/c1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:137684109e81f330",
+          "name": "Linh Phong Thiền Tự",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/linh-phong-thien-tu-2",
+          "checkedAt": "2026-10-09T08:17:38.811Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/linh-phong-thien-tu-2/Linh-phong-bao-thap-006-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:EXP:cfad197921b4c8f4",
+          "name": "Cầu Vàng",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/banahills/check-in/cau-vang",
+          "checkedAt": "2026-10-09T08:04:34.890Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/cau-vang/0521.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/cau-vang/IMG_2632-2.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/cau-vang/HFLY_2020_00609.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/cau-vang/DJI_0370.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/cau-vang/DJI_0808.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/cau-vang/BN-39.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-bana-about:SVC:ed0ce183a423dd59",
+          "name": "1 Nhà hàng Arapang – ẩm thực đa dạng nhất Bà Nà",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/an-choi/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml",
+          "checkedAt": "2026-10-09T08:17:39.144Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/arapang_result.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/thuc-don-phong-phu_result.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-bana-about:SVC:50235e7425263ba1",
+          "name": "Morin Restaurant – nhà hàng có view đẹp nhất Bà Nà",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/an-choi/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml",
+          "checkedAt": "2026-10-09T08:17:39.144Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/ban-cong-nha-hanh_result.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/thiet-ke-phong-vip_result.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/mon-an-hap-dan_result.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-bana-about:SVC:5498f040bb59beb0",
+          "name": "3 Kavkaz Baku Restaurant – Thiên đường BBQ",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/an-choi/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml",
+          "checkedAt": "2026-10-09T08:17:39.144Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/cuu-nuong-kavkaz_result.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-bana-about:SVC:3b73092d5af68da8",
+          "name": "4 Nhà hàng La Lavande – dư vị quê hương giữa trời Âu",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/an-choi/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml",
+          "checkedAt": "2026-10-09T08:17:39.144Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/am-thuc-a-au_result.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/thiet-ke-theo-kieu-phap_result.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-bana-about:SVC:2b51eefcc160c197",
+          "name": "5 Nhà hàng Beer Plaza – kiến trúc độc đáo cùng âm nhạc bất tận",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/an-choi/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml",
+          "checkedAt": "2026-10-09T08:17:39.144Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/beer-plaza_result.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/mon-an-tai-beer-plaza_result.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/thiet-ke-nha-hang-beer-plaza_result.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-bana-about:SVC:00eec2e0df7114e3",
+          "name": "6 Nhà hàng Hội An Bà Nà – nhà hàng duy nhất nằm ngay ga cáp treo",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/banahills/an-choi/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml",
+          "checkedAt": "2026-10-09T08:17:39.144Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/thiet-ke-nha-hang-beer-plaza-2.png_result.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaNaHill/swold/6-nha-hang-ba-na-hills-duoc-thuc-khach-ua-chuonghtml/mi-quang_result.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        }
+      ]
+    },
+    {
+      "sourceId": "sun-hl-about",
+      "name": "Sun World Hạ Long",
+      "province": "Quảng Ninh",
+      "latitude": 20.9517962,
+      "longitude": 107.0484638,
+      "address": "9 Hạ Long, Bãi Cháy, Quảng Ninh",
+      "locationSource": "https://maps.apple.com/place?place-id=I17187065CC87C288",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://sunworld.vn/vi/ha-long/gioi-thieu",
+      "publisher": "sunworld.vn",
+      "checkedAt": "2026-10-09T08:17:37.876Z",
+      "images": [
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/C%C3%A2u%20Chuy%E1%BB%87n%20SW/DN_04021.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Copy%20of%20CNR_01831.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Ba%CC%89n%20sao%20cu%CC%89a%20Ca%CC%81p%20treo%20nu%CC%9B%CC%83%20Hoa%CC%80ng%20-%20Sun%20World%20Ha%CC%A3%20Long.jpg"
+      ],
+      "items": [
+        {
+          "key": "sun-hl-about:EXP:d3cf18246b152f75",
+          "name": "Thằn Lằn Bay",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-long/check-in/than-lan-bay",
+          "checkedAt": "2026-10-09T08:17:38.444Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/298920218_1764897997182715_753353230359533620_n-1.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/345227551_686331600040688_1334306686731387095_n.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/Screenshot_3.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/aaaa.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/Screenshot_1.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/Screenshot_2.png",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/Windstarz-05.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/luna-park-coney-island-windstarz.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/than-lan-bay/maxresdefault.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hl-about:EXP:3ae3b17ade84ef77",
+          "name": "Thử thách mãng xà",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-long/check-in/thu-thach-mang-xa",
+          "checkedAt": "2026-10-09T08:17:38.523Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/thu-thach-mang-xa/DJI_0076.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/swold/thu-thach-mang-xa/DJI_0079.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hl-about:EXP:d504f0bd29ccdcb2",
+          "name": "Dragon Park",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-long/an-choi/sun-world-ha-long-co-gi-choi-nhung-trai-nghiem-hap-dan-khong-nen-bo-lo-20662",
+          "checkedAt": "2026-10-09T08:17:39.066Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/google-doc/post_id_20662/AD_4nXefbP1ACN59TPH0BrQWzAzwA09jPkexP2qTmWsy7kwYI6KHvpD3ENXuR26EmhvWJxCZn2qofGpXwhYDDMKnhPndAKhy77hhEIUDoDSYOpZmv-y7qBeOgf-hF0faU9wiNTA4RBpiHgzYmbukpg2JcMO07fS17E8rEb_7hJKLgb-MydvFy7vCaTw%3Ds2048.webp"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hl-about:EXP:0c0eeb008ec59f3b",
+          "name": "Typhoon Water Park",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-long/an-choi/sun-world-ha-long-co-gi-choi-nhung-trai-nghiem-hap-dan-khong-nen-bo-lo-20662",
+          "checkedAt": "2026-10-09T08:17:39.066Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/google-doc/post_id_20662/AD_4nXf4LdFmvqsb_MvT3e1qVnJuoexTUlh7sTihmWsVpU8iBsc68CKnMM2QsL-u-xcaQL0DiizEmObm5BKwvMcr8Y3_uxkIt74uHg65u1Q8gMwyPcAEEtbEjoxzLVfRK9gPKEsA_M1ddv7cUtW6nsnjihq1J1lJAG6o-hzgCZa3YOll7u4yYJNU2Ts%3Ds2048.webp"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hl-about:EXP:97c8d862c37d48e4",
+          "name": "Cáp treo Nữ Hoàng và vòng quay Sun Wheel",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-long/an-choi/sun-world-ha-long-co-gi-choi-nhung-trai-nghiem-hap-dan-khong-nen-bo-lo-20662",
+          "checkedAt": "2026-10-09T08:17:39.066Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/google-doc/post_id_20662/AD_4nXdVN9CTJ8H2kkT_kkeznnzJx8ETp-q00i6-x8FxtwSmDpsLznCOLe9BiK7lCp1G9B0xBQly06uos57Wal9MUsQ3_UIMVs_uQhAE80h3nInSj0cmlgdn-cM4bcdGNvB3hoc6t4oHHAvZoVAJDHRzOXXBoqUnMzvw39DRgZ5jB2oQVGxyhQWw%3Ds2048.webp"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hl-about:EXP:172971c8743ddd76",
+          "name": "Check-in tại vườn Nhật trên đồi Ba Đèo",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-long/an-choi/sun-world-ha-long-co-gi-choi-nhung-trai-nghiem-hap-dan-khong-nen-bo-lo-20662",
+          "checkedAt": "2026-10-09T08:17:39.066Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaLong/google-doc/post_id_20662/AD_4nXfz5hMFYYOEYLn4SmQ7H0CIBWIUWHT3LrArt30AASkRGfyu3sZRs_6YfbSnP-nLB_IpudoSVNc2UQw8dMkOQnze67j7W_y1jG8NUqxsMduz2TK7eJohf_nCLsO2YqdOMFKVo88OqlgZPeyIAOkfpA_a-wihxmfAAU8pGD3WMXuCHSK7cZbNd9c%3Ds2048.webp"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "sun-thom",
+      "name": "Sun World Hòn Thơm",
+      "province": "An Giang",
+      "latitude": 9.9564073,
+      "longitude": 104.018169,
+      "address": "Đảo Hòn Thơm, Phú Quốc, An Giang",
+      "locationSource": "Geoapify: Sun World Hon Thom",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://sunworld.vn/vi/hon-thom/gioi-thieu",
+      "publisher": "sunworld.vn",
+      "checkedAt": "2026-10-09T08:17:38.003Z",
+      "images": [
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/C%C3%A2u%20Chuy%E1%BB%87n%20SW/513858080_708273671966804_4937538793340250341_n.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Aquatopia.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Ba%CC%89n%20giao%20hu%CC%9Bo%CC%9B%CC%89ng%20%C4%91a%CC%A3i%20du%CC%9Bo%CC%9Bng.jpg"
+      ],
+      "items": [
+        {
+          "key": "sun-thom:EXP:a9c321abc766e8f0",
+          "name": "Top các trò chơi \"giải nhiệt\" đỉnh nhất tại Aquatopia",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/hon-thom/an-choi/top-cac-tro-choi-tai-aquatopia-cong-vien-nuoc-hon-thom-hot-nhat-phu-quoc-20615",
+          "checkedAt": "2026-10-09T08:17:38.951Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/google-doc/post_id_20615/AD_4nXfo7oZpLFTfEKUgyJYzVwbieW6sOv_HlFaqIiu1VzMTnwbpr4HN9qBe-TwkWYbzLSm2W9UbimKPI9dpAmxFVj94SjVlDwrmUnyek2dOQKMvD9_FqliDE1EEMB2vZtE1PUoyWvQ1X8hTw_2RF2SFnHw2T6uPbtphDB2BUdswdvTfpgtE-zNr5ig%3Ds2048.webp"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-thom:SVC:6b3d55c3fd97b587",
+          "name": "Golden Beans – Nơi thăng hoa của tín đồ cà phê đích thực!",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/hon-thom/an-choi/quan-an-tai-aquatopia-water-parkhtml",
+          "checkedAt": "2026-10-09T08:17:39.207Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/swold/quan-an-tai-aquatopia-water-parkhtml/golden-bean.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-thom:SVC:bd8b37afe5a0e75a",
+          "name": "Sunny Bros – Thánh địa của kem và Milkshake nhiệt đới",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/hon-thom/an-choi/quan-an-tai-aquatopia-water-parkhtml",
+          "checkedAt": "2026-10-09T08:17:39.207Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/swold/quan-an-tai-aquatopia-water-parkhtml/sunny-bros.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/swold/quan-an-tai-aquatopia-water-parkhtml/A3-KEM-01.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "sun-thom:SVC:18074fc12854b108",
+          "name": "Slice of Paradise – Vùng đất huyền bí của tín đồ yêu Pizza",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://sunworld.vn/vi/hon-thom/an-choi/quan-an-tai-aquatopia-water-parkhtml",
+          "checkedAt": "2026-10-09T08:17:39.207Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/swold/quan-an-tai-aquatopia-water-parkhtml/slice-of-paradise.jpg",
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHonThom/swold/quan-an-tai-aquatopia-water-parkhtml/Slice-of-Paradise_combination-01.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        }
+      ]
+    },
+    {
+      "sourceId": "sun-hanam",
+      "name": "Sun World Hà Nam",
+      "province": "Ninh Bình",
+      "latitude": 20.5697159,
+      "longitude": 105.9452701,
+      "address": "Khu vực Hà Nam cũ, Ninh Bình",
+      "locationSource": "Geoapify: Sun World Hà Nam",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://sunworld.vn/vi/ha-nam/gioi-thieu",
+      "publisher": "sunworld.vn",
+      "checkedAt": "2026-10-09T08:17:38.050Z",
+      "images": [
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/C%C3%A2u%20Chu%E1%BB%B5%E1%BB%87n%20SW/cong-vien-nuoc-sun-world-ha-nam-9.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/C%C3%A2u%20Chu%E1%BB%B5%E1%BB%87n%20SW/cong-vien-nuoc-sun-world-ha-nam-3.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/C%C3%A2u%20Chu%E1%BB%B5%E1%BB%87n%20SW/cong-vien-nuoc-sun-world-ha-nam-4.jpg"
+      ],
+      "items": [
+        {
+          "key": "sun-hanam:EXP:2b8b26f1737b2198",
+          "name": "Công Viên Sun World Ha Nam",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-nam/gioi-thieu",
+          "checkedAt": "2026-10-09T08:17:39.298Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/C%C3%A2u%20Chu%E1%BB%B5%E1%BB%87n%20SW/cong-vien-nuoc-sun-world-ha-nam-9.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hanam:EXP:d6a70e35646e8a1b",
+          "name": "Khu Vực Sun World Ha Nam",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-nam/gioi-thieu",
+          "checkedAt": "2026-10-09T08:17:39.298Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/C%C3%A2u%20Chu%E1%BB%B5%E1%BB%87n%20SW/cong-vien-nuoc-sun-world-ha-nam-3.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-hanam:EXP:52378cdf9aa8e4fb",
+          "name": "Khu Gia Đình",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ha-nam/gioi-thieu",
+          "checkedAt": "2026-10-09T08:17:39.298Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldHaNam/C%C3%A2u%20Chu%E1%BB%B5%E1%BB%87n%20SW/cong-vien-nuoc-sun-world-ha-nam-4.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "sun-fansipan-about",
+      "name": "Sun World Fansipan Legend",
+      "province": "Lào Cai",
+      "latitude": 22.33474,
+      "longitude": 103.8406191,
+      "address": "Khu du lịch Fansipan Legend, Sa Pa, Lào Cai",
+      "locationSource": "Geoapify: Sun World Fansipan Legend; meeting point at lower cable-car station",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://sunworld.vn/vi/fansipan/gioi-thieu",
+      "publisher": "sunworld.vn",
+      "checkedAt": "2026-10-09T08:17:38.174Z",
+      "images": [
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldFansipan/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Thung%20lu%CC%83ng%20Mu%CC%9Bo%CC%9B%CC%80ng%20Hoa%20mu%CC%80a%20lu%CC%81a%20chi%CC%81n_Du%CC%9Bo%CC%9Bng%20Quo%CC%82%CC%81c%20Hie%CC%82%CC%81u.png",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldFansipan/C%C3%A2u%20Chuy%E1%BB%87n%20SW/%C4%90a%CC%A3i%20tu%CC%9Bo%CC%9B%CC%A3ng%20Pha%CC%A3%CC%82t%20ba%CC%86%CC%80ng%20%C4%91o%CC%82%CC%80ng%20o%CC%9B%CC%89%20%C4%91o%CC%A3%CC%82%20cao%20ho%CC%9Bn%203.000m%20ta%CC%A3i%20Sunworld%20Fansipan%20Legend.%20A%CC%89nh.%20To%CC%82%20Ba%CC%81%20Hie%CC%82%CC%81u.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldFansipan/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Ba%CC%89n%20sao%20cu%CC%89a%20cu%CC%9Bo%CC%9B%CC%81i%20ngu%CC%9Bo%CC%9B%CC%80i%20dao.jpg"
+      ],
+      "items": [
+        {
+          "key": "sun-fansipan-about:EXP:a30392ee84bfb532",
+          "name": "Tượng Phật Bà",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/fansipan/gioi-thieu",
+          "checkedAt": "2026-10-09T08:17:39.365Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldFansipan/C%C3%A2u%20Chuy%E1%BB%87n%20SW/%C4%90a%CC%A3i%20tu%CC%9Bo%CC%9B%CC%A3ng%20Pha%CC%A3%CC%82t%20ba%CC%86%CC%80ng%20%C4%91o%CC%82%CC%80ng%20o%CC%9B%CC%89%20%C4%91o%CC%A3%CC%82%20cao%20ho%CC%9Bn%203.000m%20ta%CC%A3i%20Sunworld%20Fansipan%20Legend.%20A%CC%89nh.%20To%CC%82%20Ba%CC%81%20Hie%CC%82%CC%81u.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "sun-baden-about",
+      "name": "Sun World Núi Bà Đen",
+      "province": "Tây Ninh",
+      "latitude": 11.381431,
+      "longitude": 106.171175,
+      "address": "Khu du lịch Núi Bà Đen, Tây Ninh",
+      "locationSource": "Existing verified landmark: Khu du lịch Núi Bà Đen",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://sunworld.vn/vi/ba-den/gioi-thieu",
+      "publisher": "sunworld.vn",
+      "checkedAt": "2026-10-09T08:17:38.403Z",
+      "images": [
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaDen/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Ba%CC%89n%20sao%20cu%CC%89a%20%C4%90i%CC%89nh%20nu%CC%81i%20-%20Le%CC%82%20Nha%CC%A3%CC%82t%20Hu%CC%9Bng%20Pha%CC%81t%20.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaDen/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Tu%CC%9Bo%CC%9B%CC%A3ng%20Pha%CC%A3%CC%82t%20Ba%CC%80%20Ta%CC%82y%20Bo%CC%82%CC%89%20%C4%90a%CC%80%20So%CC%9Bn.%20A%CC%89nh_%20Sun%20World%20Ba%20Den%20Mountain.jpg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaDen/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Da%CC%82ng%20%C4%91a%CC%86ng%205.jpeg",
+        "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaDen/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Ti%CC%A3nh%20ta%CC%82m%20ta%CC%A3i%20nu%CC%81i%20Ba%CC%80%20-%20A%CC%89nh_%20Sun%20World%20Ba%20Den%20Mountain.JPG"
+      ],
+      "items": [
+        {
+          "key": "sun-baden-about:EXP:0b38bcd2574ce32f",
+          "name": "QUAN ÂM NAM HẢI",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ba-den/check-in/quan-am-nam-hai",
+          "checkedAt": "2026-10-09T08:17:38.898Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaDen/swold/quan-am-nam-hai/PTQ-03.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        },
+        {
+          "key": "sun-baden-about:EXP:30a38503c2a3015d",
+          "name": "Tượng Bà Tây trên núi Bà Đen",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://sunworld.vn/vi/ba-den/gioi-thieu",
+          "checkedAt": "2026-10-09T08:17:39.469Z",
+          "images": [
+            "https://sun-ecommerce-cdn.azureedge.net/ecommerce/service-sites/asset/SunWorldBaDen/C%C3%A2u%20Chuy%E1%BB%87n%20SW/Tu%CC%9Bo%CC%9B%CC%A3ng%20Pha%CC%A3%CC%82t%20Ba%CC%80%20Ta%CC%82y%20Bo%CC%82%CC%89%20%C4%90a%CC%80%20So%CC%9Bn.%20A%CC%89nh_%20Sun%20World%20Ba%20Den%20Mountain.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "nui-than-tai",
+      "name": "Công viên suối khoáng nóng Núi Thần Tài",
+      "province": "Đà Nẵng",
+      "latitude": 15.968587,
+      "longitude": 108.017956,
+      "address": "Quốc lộ 14G, Hòa Vang, Đà Nẵng",
+      "locationSource": "https://maps.app.goo.gl/mKjGW7dYu9k9sygs6",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://nuithantai.vn/",
+      "publisher": "nuithantai.vn",
+      "checkedAt": "2026-10-09T08:17:39.530Z",
+      "images": [
+        "https://nuithantai.vn/wp-content/uploads/2026/04/548302722_1107757854897995_7895310249782136201_n.jpeg",
+        "https://nuithantai.vn/wp-content/uploads/2026/04/515184059_1044374551236326_4209256891827714968_n.jpeg"
+      ],
+      "items": [
+        {
+          "key": "nui-than-tai:STAY:65bbf8fd21c60f20",
+          "name": "Superior Double",
+          "kind": "STAY",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/",
+          "checkedAt": "2026-10-09T08:17:39.530Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Double-3-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Double-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Double-6-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Double-2-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Double-4-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Double-5-1024x683.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "areaSquareMeters": 30,
+          "maxGuests": 2,
+          "bedType": "queen",
+          "bedQuantity": 1,
+          "amenities": [
+            "Hồ bơi ngoài trời",
+            "Nhà hàng",
+            "Ăn sáng",
+            "Nước khoáng nóng"
+          ]
+        },
+        {
+          "key": "nui-than-tai:STAY:baf75c0b57a8b3bd",
+          "name": "Superior Twin",
+          "kind": "STAY",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/",
+          "checkedAt": "2026-10-09T08:17:39.530Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-1-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-2-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-3-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-4-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-5-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-6-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Superior-Twin-1024x682.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "areaSquareMeters": 30,
+          "maxGuests": 2,
+          "bedType": "single",
+          "bedQuantity": 2,
+          "amenities": [
+            "Hồ bơi ngoài trời",
+            "Nhà hàng",
+            "Ăn sáng",
+            "Nước khoáng nóng"
+          ]
+        },
+        {
+          "key": "nui-than-tai:STAY:0a73681771c78cb0",
+          "name": "Deluxe Double",
+          "kind": "STAY",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/",
+          "checkedAt": "2026-10-09T08:17:39.530Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Deluxe-Double-1-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Deluxe-Double-2-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Deluxe-Double-3-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Deluxe-Double-4-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Deluxe-Double-1024x681.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "areaSquareMeters": 30,
+          "maxGuests": 2,
+          "bedType": "queen",
+          "bedQuantity": 1,
+          "amenities": [
+            "Hồ bơi ngoài trời",
+            "Nhà hàng",
+            "Ăn sáng",
+            "Nước khoáng nóng"
+          ]
+        },
+        {
+          "key": "nui-than-tai:STAY:6e6861c6bafdf93a",
+          "name": "Deluxe Triple",
+          "kind": "STAY",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/",
+          "checkedAt": "2026-10-09T08:17:39.530Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-2-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-3-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-5-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-7-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-10-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-12-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/Hinh-14-1024x683.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "areaSquareMeters": 30,
+          "maxGuests": 3,
+          "bedType": "queen",
+          "bedQuantity": 1,
+          "amenities": [
+            "Hồ bơi ngoài trời",
+            "Nhà hàng",
+            "Ăn sáng",
+            "Nước khoáng nóng"
+          ]
+        },
+        {
+          "key": "nui-than-tai:STAY:ccbd9a78d1c35747",
+          "name": "Senior Deluxe Double",
+          "kind": "STAY",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/",
+          "checkedAt": "2026-10-09T08:17:39.530Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-1-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-2-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-3-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-4-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-5-1024x682.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-6-1024x683.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/NTT-Senior-Deluxe-Double-1024x681.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "areaSquareMeters": 61,
+          "maxGuests": 2,
+          "bedType": "queen",
+          "bedQuantity": 1,
+          "amenities": [
+            "Hồ bơi ngoài trời",
+            "Nhà hàng",
+            "Ăn sáng",
+            "Nước khoáng nóng"
+          ]
+        },
+        {
+          "key": "nui-than-tai:STAY:3796b2dca868cfd7",
+          "name": "VIP SPA",
+          "kind": "STAY",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/",
+          "checkedAt": "2026-10-09T08:17:39.530Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/VIP-SPA.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/VIP-SPA-2.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/07/VIP-SPA-1.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "areaSquareMeters": 61,
+          "maxGuests": 2,
+          "bedType": "queen",
+          "bedQuantity": 1,
+          "amenities": [
+            "Hồ bơi ngoài trời",
+            "Nhà hàng",
+            "Ăn sáng",
+            "Nước khoáng nóng"
+          ]
+        },
+        {
+          "key": "nui-than-tai:SVC:ac1f6c1d829502f7",
+          "name": "Tắm bùn khoáng",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://nuithantai.vn/tam-bun/",
+          "checkedAt": "2026-10-09T08:01:08.536Z",
+          "images": [
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20b%C3%B9n%2Fz4411253296787_3f8d5cd41bd8be384ab604ccfc88849e.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/tam-bun-3.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/content-Nui-Than-Tai-doc-19.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20b%C3%B9n%2F4.%20Q4.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/Hinh-8.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/%E1%BA%A2NH%202023%2FKh%C3%A1ch%20H%C3%A0n%20check%20-%20in%20t%E1%BA%A1i%20Khu%20t%E1%BA%AFm%20b%C3%B9n.JPG",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20b%C3%B9n%2F320525921_545402367492816_825308095524646372_n.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/%E1%BA%A2NH%202023%2FIMG_6698.JPG",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20b%C3%B9n%2F1.%20Q1.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/content-Nui-Than-Tai-doc-6.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20b%C3%B9n%2F2.%20Q2.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:e1ad28e7d57e8310",
+          "name": "Tắm Onsen Nhật Bản",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://nuithantai.vn/onsen-nhat-ban/",
+          "checkedAt": "2026-10-09T08:01:08.826Z",
+          "images": [
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/OS.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/19.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/ONSEN%20NTT01.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/SEO%2Ft%E1%BA%AFm%20onsen%20ntt.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/%E1%BA%A2NH%202023%2FIMG_6712%20(1).jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/21.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20Osen%2F361908291_584124503928002_8418742518183795486_n.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/12.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:5ccba33a5536d02f",
+          "name": "Tắm rượu vang",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://nuithantai.vn/tam-ruou-vang/",
+          "checkedAt": "2026-10-09T08:01:08.963Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2026/04/3c040c9e-9fc3-4059-a5bc-84732c4df81f.png"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:7a19bc2ec48a274f",
+          "name": "Tắm cà phê",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://nuithantai.vn/tam-cafe/",
+          "checkedAt": "2026-10-09T08:01:09.247Z",
+          "images": [
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/IMG_4967.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/Tam-Ca-phe-1.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20Cafe%2FIMG_4121.JPG"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:b102159cc410685f",
+          "name": "Tắm trà xanh",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://nuithantai.vn/tam-tra-xanh/",
+          "checkedAt": "2026-10-09T08:01:09.432Z",
+          "images": [
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/SEO%2FCN4A1858.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/Tam-Tra-Xanh-2.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FT%E1%BA%AFm%20tr%C3%A0%20xanh%2FIMG_4125_1.JPG"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:a31f1e79440aec81",
+          "name": "Tắm sữa",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://nuithantai.vn/tam-sua-tuoi/",
+          "checkedAt": "2026-10-09T08:01:09.774Z",
+          "images": [
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/SEO%2Fsuatuoi.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/DSC_6379-scaled.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:dde2e4a167f9d202",
+          "name": "Nhà hàng Phượng Hoàng",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://nuithantai.vn/nha-hang-phuong-hoang/",
+          "checkedAt": "2026-10-09T08:01:09.724Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2026/04/z5333620110868_1b50e66eb35d441e90180850d59cf9bf.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/z5333620156591_eb50f50a72526d448fc0a1fb6dfcff8e-1.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/z5333631484249_91ae0cba744080771ced96b46360da4e.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:8876c19340ad43a4",
+          "name": "Nhà hàng Rồng Đỏ",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://nuithantai.vn/nha-hang-rong-do/",
+          "checkedAt": "2026-10-09T08:01:09.866Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/10/Hinh-9.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2025/10/Hinh-8.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:SVC:21c38909447d46ef",
+          "name": "BBQ Buffet",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://nuithantai.vn/bbq-buffet/",
+          "checkedAt": "2026-10-09T08:01:10.173Z",
+          "images": [
+            "https://nuithantai.vn/wp-content/uploads/2025/07/z6520921740896_8cc2eb305942fdb47f5ed0fc9b789039.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/z6520921862960_a03f7354b79d97c0a631431e55414031.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": false
+        },
+        {
+          "key": "nui-than-tai:EXP:6788d570fafe10fb",
+          "name": "Công viên nước",
+          "kind": "EXP",
+          "subCategory": "NONE",
+          "sourcePage": "https://nuithantai.vn/cong-vien-nuoc/",
+          "checkedAt": "2026-10-09T08:17:40.137Z",
+          "images": [
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/%E1%BA%A2NH%202023%2F370549667_242238248783775_8829309894703534447_n.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/FLYCAM-CONG-VIEN-NUOC-2.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/%E1%BA%A2NH%202023%2FIMG_3874.jpg",
+            "https://nuithantai.vn/Content/UserFiles/Images/Product/Content/C%E1%BA%ACP%20NH%E1%BA%ACT%20H%E1%BA%A0NG%20M%E1%BB%A4C%2FC%C3%B4ng%20vi%C3%AAn%20n%C6%B0%E1%BB%9Bc%2Fz4737692873073_92ff303147b4a470170a33b8e84d1713.jpg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/576385369_1152646227075824_5910552054646976622_n.jpeg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/548302722_1107757854897995_7895310249782136201_n.jpeg",
+            "https://nuithantai.vn/wp-content/uploads/2026/04/515184059_1044374551236326_4209256891827714968_n.jpeg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "includedInAdmission": true
+        }
+      ]
+    },
+    {
+      "sourceId": "iresort",
+      "name": "Suối khoáng nóng I-Resort Nha Trang",
+      "province": "Khánh Hòa",
+      "latitude": 12.2731916,
+      "longitude": 109.1757778,
+      "address": "Tổ 19, thôn Xuân Ngọc, phường Tây Nha Trang, Khánh Hòa",
+      "locationSource": "https://maps.app.goo.gl/u8reARNsGvi7xfqv5",
+      "complexKind": "TOURISM_COMPLEX",
+      "sourceUrl": "https://www.i-resort.vn/",
+      "publisher": "www.i-resort.vn",
+      "checkedAt": "2026-10-09T08:17:40.242Z",
+      "images": [
+        "https://www.i-resort.vn/Uploads/Sliders/slider-1.jpg",
+        "https://www.i-resort.vn/Uploads/Sliders/anh-slide-2.jpg",
+        "https://www.i-resort.vn/Uploads/Sliders/2.jpg"
+      ],
+      "items": [
+        {
+          "key": "iresort:SVC:97c8bdd818217248",
+          "name": "TẮM KHOÁNG & ĂN",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/-tam-khoang-an",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/Web-487-x-650.png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:2756f4693ec5000c",
+          "name": "THẢO DƯỢC KHOÁNG NÓNG",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/thao-duoc-khoang-nong",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/tamthaoduoc-iresort-1.png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:f5030730ce6fa047",
+          "name": "SUỐI KHOÁNG NÓNG",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/suoi-khoang-nong",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/Web-487-x-650-(487-x-650-px).png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:f01aeab94351be98",
+          "name": "Mud house 01",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/mud-house-01",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/mudhouse-(487-x-650-px).png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:105c9771621b55b8",
+          "name": "Mud house 02",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/mud-house-02",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/mud-house-2.png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:98f2e0bab93d3c3c",
+          "name": "BÙN KHOÁNG NÓNG ĐẶC BIỆT",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/bun-khoang-nong-dac-biet",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/tambun-iresort-(2).png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:90e86264479f88ec",
+          "name": "I-Combo 1",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/icombo-1",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/bun-dac-biet-iresort.png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:725ba1d340c1e504",
+          "name": "Ngâm bùn khoáng nóng",
+          "kind": "SVC",
+          "subCategory": "SPA",
+          "sourcePage": "https://www.i-resort.vn/ngam-bun-khoang-nong",
+          "checkedAt": "2026-10-09T08:17:40.242Z",
+          "images": [
+            "https://www.i-resort.vn/Uploads/Services/tambun-iresort.png"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:41e5a4c09c736bba",
+          "name": "Massage và chăm sóc cơ thể I-Resort",
+          "kind": "SVC",
+          "subCategory": "MASSAGE",
+          "sourcePage": "https://www.i-resort.vn/ispa-1",
+          "checkedAt": "2026-10-09T08:17:40.283Z",
+          "images": [
+            "https://www.i-resort.vn/assets/images/banner/breadcrumb-1.jpg",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/1f917e14-e86e-4e2c-be2e-2ee201e07090.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/c05f95a8-a12c-4856-b18a-462bacef9060.jpg",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/115e097c-517e-48c1-a464-fe82794db8ef.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/e768beea-3b71-4173-a844-57aaa393ee1a.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/1f21caff-ebff-455e-a083-c45d78b15eba.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/8ef83950-87aa-44ea-8ca7-ffd486a0e5fa.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/5ff4936b-2b16-45d5-8c57-ed664ff4fcd0.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/9Of5CqqdN9Y=/8306da47-08a5-4d90-b3e1-dd3b6702af13.png",
+            "https://www.i-resort.vn/assets/images/banner/da-thong-bao-bo-cong-thuong.png",
+            "https://www.i-resort.vn/assets/images/banner/cong-thanh-toan.png",
+            "https://www.i-resort.vn/Uploads/Ecosystem/i-restaurant.png",
+            "https://www.i-resort.vn/Uploads/StaticPages/uu-dai-tam-bun-khoang-nong-i-resort-nha-trang-2026.png",
+            "https://www.i-resort.vn/assets/images/banner/bg-main.jpg",
+            "https://www.i-resort.vn/assets/images/banner/bg-header.jpg",
+            "https://www.i-resort.vn/assets/images/banner/footer.jpg"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:796e40620afe6ae5",
+          "name": "Ẩm thực trong khuôn viên I-Resort",
+          "kind": "SVC",
+          "subCategory": "PREPARED_MEALS",
+          "sourcePage": "https://www.i-resort.vn/am-thuc-2",
+          "checkedAt": "2026-10-09T08:17:40.307Z",
+          "images": [
+            "https://www.i-resort.vn/assets/images/banner/breadcrumb-1.jpg",
+            "https://www.i-resort.vn/Uploads/Services/nha-hang-CVN.jpg",
+            "https://www.i-resort.vn/Uploads/Services/Untitled-design-(6).png",
+            "https://www.i-resort.vn/Uploads/Services/nha-hang-May-(487-x-650-px).png",
+            "https://www.i-resort.vn/Uploads/Services/happy-eggs.jpg",
+            "https://www.i-resort.vn/assets/images/banner/da-thong-bao-bo-cong-thuong.png",
+            "https://www.i-resort.vn/assets/images/banner/cong-thanh-toan.png",
+            "https://www.i-resort.vn/Uploads/Ecosystem/i-restaurant.png",
+            "https://www.i-resort.vn/Uploads/StaticPages/uu-dai-tam-bun-khoang-nong-i-resort-nha-trang-2026.png",
+            "https://www.i-resort.vn/assets/images/banner/bg-main.jpg",
+            "https://www.i-resort.vn/assets/images/banner/bg-header.jpg",
+            "https://www.i-resort.vn/assets/images/banner/footer.jpg"
+          ],
+          "verification": "publisher_named_card_or_section"
+        },
+        {
+          "key": "iresort:SVC:7d65a38ddfaa1be6",
+          "name": "Gala dinner và tiệc tại I-Resort",
+          "kind": "SVC",
+          "subCategory": "CATERING",
+          "sourcePage": "https://www.i-resort.vn/to-chuc-su-kien",
+          "checkedAt": "2026-10-09T08:17:40.338Z",
+          "images": [
+            "https://www.i-resort.vn/assets/images/banner/breadcrumb-1.jpg",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/20746599-ff6a-4385-846c-a04c0eb078d4.jpg",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/de36538a-11a3-49e7-99fb-e0525f7666cb.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/24a80635-c98f-48f0-81ae-d425bdc57a5f.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/6c422fcc-980e-4b3b-b534-5e973b27c9c4.jpg",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/0a4bbf8f-d90a-4752-be48-37249b109193.jpg",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/9df70950-ccda-4402-ae34-c45d79ee59b0.png",
+            "https://www.i-resort.vn/uploads/AttachmentsService/i1jSxQ+QwcM=/3273b7b4-9692-425d-8e29-2d5c93116fc8.png",
+            "https://www.i-resort.vn/assets/images/banner/da-thong-bao-bo-cong-thuong.png",
+            "https://www.i-resort.vn/assets/images/banner/cong-thanh-toan.png",
+            "https://www.i-resort.vn/Uploads/Ecosystem/i-restaurant.png",
+            "https://www.i-resort.vn/Uploads/StaticPages/uu-dai-tam-bun-khoang-nong-i-resort-nha-trang-2026.png",
+            "https://www.i-resort.vn/assets/images/banner/bg-main.jpg",
+            "https://www.i-resort.vn/assets/images/banner/bg-header.jpg",
+            "https://www.i-resort.vn/assets/images/banner/footer.jpg"
+          ],
+          "verification": "publisher_named_card_or_section"
+        }
+      ]
+    },
+    {
+      "sourceId": "provider-photographer",
+      "name": "Hoi An Photographer",
+      "province": "Đà Nẵng",
+      "latitude": 15.88006,
+      "longitude": 108.33804,
+      "address": "Phục vụ tại Hội An; điểm chụp được thỏa thuận với nhà cung cấp",
+      "locationSource": "Service area on publisher website; city reference point",
+      "complexKind": "MOBILE_PROVIDER",
+      "sourceUrl": "https://hoianphotographer.com/",
+      "publisher": "hoianphotographer.com",
+      "checkedAt": "2026-10-09T08:17:40.436Z",
+      "images": [],
+      "items": [
+        {
+          "key": "provider-photographer:SVC:4a1b35213881756f",
+          "name": "Chụp ảnh cưới",
+          "kind": "SVC",
+          "subCategory": "PHOTOGRAPHY",
+          "sourcePage": "https://hoianphotographer.com/",
+          "checkedAt": "2026-10-09T08:17:40.436Z",
+          "images": [
+            "https://hoianphotographer.com/wp-content/uploads/2026/09/1l7a6425-large-AGBGW8RxW8TqqxN1.jpeg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-photographer:SVC:05a13d82199d0f2e",
+          "name": "Chụp ảnh gia đình",
+          "kind": "SVC",
+          "subCategory": "PHOTOGRAPHY",
+          "sourcePage": "https://hoianphotographer.com/",
+          "checkedAt": "2026-10-09T08:17:40.436Z",
+          "images": [
+            "https://hoianphotographer.com/wp-content/uploads/2026/09/rk158805-2-large-YanBR4z2p3Tj5v68.jpeg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-photographer:SVC:9c91dc9c6d2c36de",
+          "name": "Chụp ảnh cặp đôi",
+          "kind": "SVC",
+          "subCategory": "PHOTOGRAPHY",
+          "sourcePage": "https://hoianphotographer.com/",
+          "checkedAt": "2026-10-09T08:17:40.436Z",
+          "images": [
+            "https://hoianphotographer.com/wp-content/uploads/2026/09/ray08705-large-mxBraLgZqViayX3D.jpeg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-photographer:SVC:b17d7c72195df496",
+          "name": "Chụp ảnh chân dung cá nhân",
+          "kind": "SVC",
+          "subCategory": "PHOTOGRAPHY",
+          "sourcePage": "https://hoianphotographer.com/",
+          "checkedAt": "2026-10-09T08:17:40.436Z",
+          "images": [
+            "https://hoianphotographer.com/wp-content/uploads/2026/09/1l7a6222-large-m2W427pMo0s0BgX3.jpeg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-photographer:SVC:c0962cc683a915a2",
+          "name": "Chụp ảnh cầu hôn",
+          "kind": "SVC",
+          "subCategory": "PHOTOGRAPHY",
+          "sourcePage": "https://hoianphotographer.com/",
+          "checkedAt": "2026-10-09T08:17:40.436Z",
+          "images": [
+            "https://hoianphotographer.com/wp-content/uploads/2026/09/1l7a9228-large-YD0pW2DqoZU9JVON.jpeg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        }
+      ]
+    },
+    {
+      "sourceId": "provider-makeup",
+      "name": "Makeup Hoi An",
+      "province": "Đà Nẵng",
+      "latitude": 15.88006,
+      "longitude": 108.33804,
+      "address": "Phục vụ tại Hội An và Đà Nẵng; địa điểm được thỏa thuận với nhà cung cấp",
+      "locationSource": "Service area on publisher website; city reference point",
+      "complexKind": "MOBILE_PROVIDER",
+      "sourceUrl": "https://makeuphoian.com/",
+      "publisher": "makeuphoian.com",
+      "checkedAt": "2026-10-09T08:17:40.460Z",
+      "images": [],
+      "items": [
+        {
+          "key": "provider-makeup:SVC:b4f59341bcefcf00",
+          "name": "Bridal Makeup",
+          "kind": "SVC",
+          "subCategory": "MAKEUP",
+          "sourcePage": "https://makeuphoian.com/",
+          "checkedAt": "2026-10-09T08:17:40.460Z",
+          "images": [
+            "https://makeuphoian.com/wp-content/uploads/2025/10/3-1-e1761618895373.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-makeup:SVC:b1bf3173e794ac3d",
+          "name": "Wedding Guest Makeup",
+          "kind": "SVC",
+          "subCategory": "MAKEUP",
+          "sourcePage": "https://makeuphoian.com/",
+          "checkedAt": "2026-10-09T08:17:40.460Z",
+          "images": [
+            "https://makeuphoian.com/wp-content/uploads/2025/10/10-2-e1761619882635.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-makeup:SVC:0c1c46511da9b1f7",
+          "name": "Natural Makeup",
+          "kind": "SVC",
+          "subCategory": "MAKEUP",
+          "sourcePage": "https://makeuphoian.com/",
+          "checkedAt": "2026-10-09T08:17:40.460Z",
+          "images": [
+            "https://makeuphoian.com/wp-content/uploads/2025/10/6-3-e1761618778496.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-makeup:SVC:7958ceb17a94eb2b",
+          "name": "Photoshoot Makeup",
+          "kind": "SVC",
+          "subCategory": "MAKEUP",
+          "sourcePage": "https://makeuphoian.com/",
+          "checkedAt": "2026-10-09T08:17:40.460Z",
+          "images": [
+            "https://makeuphoian.com/wp-content/uploads/2025/10/1-2.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-makeup:SVC:25507ae868313665",
+          "name": "Party Makeup",
+          "kind": "SVC",
+          "subCategory": "MAKEUP",
+          "sourcePage": "https://makeuphoian.com/",
+          "checkedAt": "2026-10-09T08:17:40.460Z",
+          "images": [
+            "https://makeuphoian.com/wp-content/uploads/2025/10/9-2-e1761619157919.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        },
+        {
+          "key": "provider-makeup:SVC:abff9bf6db573e65",
+          "name": "Hair & Makeup",
+          "kind": "SVC",
+          "subCategory": "HAIR_STYLING",
+          "sourcePage": "https://makeuphoian.com/",
+          "checkedAt": "2026-10-09T08:17:40.460Z",
+          "images": [
+            "https://makeuphoian.com/wp-content/uploads/2025/10/2-4-e1761618847977.jpg"
+          ],
+          "verification": "publisher_named_card_or_section",
+          "serveAtClientLocation": true
+        }
+      ]
+    }
+  ]
+}

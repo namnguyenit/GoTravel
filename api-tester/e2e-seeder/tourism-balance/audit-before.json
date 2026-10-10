@@ -1,0 +1,786 @@
+{
+  "checkedAt": "2026-10-09T07:59:53.023Z",
+  "total": 731,
+  "categories": {
+    "STAY": 437,
+    "EXP": 162,
+    "SVC": 132
+  },
+  "serviceTypes": {
+    "SPA": 46,
+    "PREPARED_MEALS": 85,
+    "TRAINING": 1
+  },
+  "muongThanh": {
+    "STAY": 330,
+    "SVC": 113
+  },
+  "coverage": [
+    {
+      "province": "An Giang",
+      "stay": 19,
+      "exp": 5,
+      "svc": 2
+    },
+    {
+      "province": "Bắc Ninh",
+      "stay": 9,
+      "exp": 5,
+      "svc": 5
+    },
+    {
+      "province": "Cà Mau",
+      "stay": 13,
+      "exp": 4,
+      "svc": 3
+    },
+    {
+      "province": "Cần Thơ",
+      "stay": 16,
+      "exp": 4,
+      "svc": 2
+    },
+    {
+      "province": "Cao Bằng",
+      "stay": 9,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Đắk Lắk",
+      "stay": 10,
+      "exp": 5,
+      "svc": 3
+    },
+    {
+      "province": "Đà Nẵng",
+      "stay": 36,
+      "exp": 7,
+      "svc": 11
+    },
+    {
+      "province": "Điện Biên",
+      "stay": 5,
+      "exp": 2,
+      "svc": 3
+    },
+    {
+      "province": "Đồng Nai",
+      "stay": 4,
+      "exp": 5,
+      "svc": 1
+    },
+    {
+      "province": "Đồng Tháp",
+      "stay": 13,
+      "exp": 4,
+      "svc": 4
+    },
+    {
+      "province": "Gia Lai",
+      "stay": 11,
+      "exp": 3,
+      "svc": 5
+    },
+    {
+      "province": "Hải Phòng",
+      "stay": 5,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Hà Nội",
+      "stay": 9,
+      "exp": 9,
+      "svc": 2
+    },
+    {
+      "province": "Hà Tĩnh",
+      "stay": 9,
+      "exp": 1,
+      "svc": 4
+    },
+    {
+      "province": "Hồ Chí Minh",
+      "stay": 16,
+      "exp": 9,
+      "svc": 4
+    },
+    {
+      "province": "Huế",
+      "stay": 8,
+      "exp": 9,
+      "svc": 2
+    },
+    {
+      "province": "Hưng Yên",
+      "stay": 5,
+      "exp": 4,
+      "svc": 1
+    },
+    {
+      "province": "Khánh Hòa",
+      "stay": 29,
+      "exp": 4,
+      "svc": 11
+    },
+    {
+      "province": "Lai Châu",
+      "stay": 5,
+      "exp": 3,
+      "svc": 2
+    },
+    {
+      "province": "Lâm Đồng",
+      "stay": 13,
+      "exp": 7,
+      "svc": 5
+    },
+    {
+      "province": "Lạng Sơn",
+      "stay": 5,
+      "exp": 2,
+      "svc": 1
+    },
+    {
+      "province": "Lào Cai",
+      "stay": 8,
+      "exp": 6,
+      "svc": 1
+    },
+    {
+      "province": "Nghệ An",
+      "stay": 56,
+      "exp": 1,
+      "svc": 20
+    },
+    {
+      "province": "Ninh Bình",
+      "stay": 7,
+      "exp": 7,
+      "svc": 4
+    },
+    {
+      "province": "Phú Thọ",
+      "stay": 7,
+      "exp": 5,
+      "svc": 1
+    },
+    {
+      "province": "Quảng Ngãi",
+      "stay": 7,
+      "exp": 5,
+      "svc": 3
+    },
+    {
+      "province": "Quảng Ninh",
+      "stay": 30,
+      "exp": 5,
+      "svc": 8
+    },
+    {
+      "province": "Quảng Trị",
+      "stay": 17,
+      "exp": 6,
+      "svc": 5
+    },
+    {
+      "province": "Sơn La",
+      "stay": 14,
+      "exp": 2,
+      "svc": 3
+    },
+    {
+      "province": "Tây Ninh",
+      "stay": 6,
+      "exp": 3,
+      "svc": 1
+    },
+    {
+      "province": "Thái Nguyên",
+      "stay": 10,
+      "exp": 3,
+      "svc": 1
+    },
+    {
+      "province": "Thanh Hóa",
+      "stay": 6,
+      "exp": 6,
+      "svc": 3
+    },
+    {
+      "province": "Tuyên Quang",
+      "stay": 5,
+      "exp": 10,
+      "svc": 2
+    },
+    {
+      "province": "Vĩnh Long",
+      "stay": 15,
+      "exp": 5,
+      "svc": 5
+    }
+  ],
+  "parents": [
+    {
+      "id": "0318dbb1-dd6c-5980-8f31-50cfdaca6dfc",
+      "name": "Mường Thanh Luxury Cần Thơ",
+      "province": "Cần Thơ",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "0570be36-5659-5ac9-88e2-915991ed3304",
+      "name": "Mường Thanh Holiday Huế",
+      "province": "Huế",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "063551fa-49ab-5e5c-850c-5dadc1b25e8b",
+      "name": "Mường Thanh Luxury Hà Nam",
+      "province": "Ninh Bình",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "06c992e6-0dd3-5eb9-83cd-e8b8b08ba209",
+      "name": "Mường Thanh Holiday Con Cuông",
+      "province": "Nghệ An",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "102062c4-ab69-5f7b-8ebf-09f97d0857a1",
+      "name": "Mường Thanh Holiday Lý Sơn",
+      "province": "Quảng Ngãi",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "20bcf438-bffa-5bdc-8210-87350f8e6475",
+      "name": "Mường Thanh Luxury Hạ Long Centre II",
+      "province": "Quảng Ninh",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 0
+    },
+    {
+      "id": "2629ecb6-0472-5c76-8342-bdd201f679d4",
+      "name": "Mường Thanh Grand Nha Trang",
+      "province": "Khánh Hòa",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "2987f63f-5200-5252-8adc-a5754eeec53b",
+      "name": "Mường Thanh Luxury Quảng Ninh",
+      "province": "Quảng Ninh",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "29af62e2-b7b4-5bf1-8a99-60d5735d8c3f",
+      "name": "Mường Thanh Luxury Nhật Lệ",
+      "province": "Quảng Trị",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "2a70147c-a818-54d2-8f67-8880e0ffb0b7",
+      "name": "Mường Thanh Holiday Đà Lạt",
+      "province": "Lâm Đồng",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "309e7e0e-511a-56d5-8ab8-05627715b6bb",
+      "name": "Habana Hotel Thái Nguyên",
+      "province": "Thái Nguyên",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 0
+    },
+    {
+      "id": "32eb3779-ab6a-5e76-8fba-70485c356437",
+      "name": "Khách sạn Sông Tiền",
+      "province": "Đồng Tháp",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "33956e72-1444-567d-8032-8b2f44b126f7",
+      "name": "Mường Thanh Holiday Hội An",
+      "province": "Đà Nẵng",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "3454f40f-7295-5570-8aaa-a2dd69ca256e",
+      "name": "Hotel Nikko Hai Phong",
+      "province": "Hải Phòng",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "364c1941-2ba7-58e6-87a6-a93a0091652b",
+      "name": "Mường Thanh Luxury Sài Gòn",
+      "province": "Hồ Chí Minh",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "3837db6d-e2a9-5af6-834c-c0e097f28657",
+      "name": "Mường Thanh Grand Hà Tĩnh",
+      "province": "Hà Tĩnh",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "387f8499-8d5b-5b1b-813f-2ed092fce493",
+      "name": "Mường Thanh Grand Phương Đông",
+      "province": "Nghệ An",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "3a691523-a475-593f-8234-2c5314448613",
+      "name": "Mường Thanh Luxury Cao Bằng",
+      "province": "Cao Bằng",
+      "STAY": 9,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "3c323f1a-fd2f-52a3-89c0-dcfc4f2f2eab",
+      "name": "Mường Thanh Cửa Đông",
+      "province": "Nghệ An",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "3dcc32cf-adf0-5cf4-8276-2905f220cd82",
+      "name": "Mường Thanh Luxury Xuân Thành",
+      "province": "Hà Tĩnh",
+      "STAY": 3,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "43f411d0-95b8-5f23-875e-3dddc9080c6c",
+      "name": "Mường Thanh Luxury Đà Nẵng",
+      "province": "Đà Nẵng",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "466443ee-d746-53a6-8b0c-31f1223bb3bd",
+      "name": "Adamo Hotel Hưng Yên",
+      "province": "Hưng Yên",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "52896d3c-99a1-5a19-8861-bb0c4aa21f92",
+      "name": "Mường Thanh Grand Sài Gòn Centre",
+      "province": "Hồ Chí Minh",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "5b9f7f76-5ceb-5530-8802-9e620be8059e",
+      "name": "Mường Thanh Luxury Ninh Bình",
+      "province": "Ninh Bình",
+      "STAY": 0,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "61da38f5-b532-535c-8434-25619403a700",
+      "name": "Mường Thanh Thanh Niên Vinh",
+      "province": "Nghệ An",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "644f265c-c982-5177-893d-b30e30e99531",
+      "name": "Mường Thanh Quy Nhơn",
+      "province": "Gia Lai",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "657a0a9c-636f-54e9-8dda-c2671130de28",
+      "name": "Mường Thanh Luxury Diễn Lâm",
+      "province": "Nghệ An",
+      "STAY": 9,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "6b08c2fe-42b5-5426-8da4-cf6718433c2a",
+      "name": "Mường Thanh Luxury Diễn Lâm Lakeview",
+      "province": "Nghệ An",
+      "STAY": 0,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "6fc38b1d-d029-5dfb-89dd-84d232c0122e",
+      "name": "Mường Thanh Luxury Lạng Sơn",
+      "province": "Lạng Sơn",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "71402c9a-5852-5fec-8444-8e2057ed8e4b",
+      "name": "Mường Thanh Grand Gia Lai",
+      "province": "Gia Lai",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "77305245-2b9c-5d7d-8f25-a5992e37dd98",
+      "name": "Mường Thanh Luxury Bắc Giang",
+      "province": "Bắc Ninh",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "79a34dfb-17f4-542e-8639-b4d1573403f9",
+      "name": "Mường Thanh Grand Đà Nẵng",
+      "province": "Đà Nẵng",
+      "STAY": 9,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "79b8df18-6acb-5078-806f-ac186f74435a",
+      "name": "Mường Thanh Luxury Nha Trang",
+      "province": "Khánh Hòa",
+      "STAY": 10,
+      "EXP": 0,
+      "SVC": 4
+    },
+    {
+      "id": "7a55952b-1b04-5ead-889d-88878442897b",
+      "name": "Diamond Stars Bến Tre",
+      "province": "Vĩnh Long",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "7dfb19ce-13ef-5843-802c-ee1345125e28",
+      "name": "Mường Thanh Holiday Suối Mơ",
+      "province": "Quảng Ninh",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "81c6470a-b9ac-5ac7-84ba-b5e40aaaa59a",
+      "name": "Mường Thanh Luxury Mộc Châu",
+      "province": "Sơn La",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "88169cd1-1be0-507d-8ecc-d2a0bba06866",
+      "name": "Mường Thanh Holiday Mũi Né",
+      "province": "Lâm Đồng",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "93ccba53-e80b-5cdc-8df9-84ffb56f41f1",
+      "name": "Mường Thanh Luxury Phú Thọ",
+      "province": "Phú Thọ",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "9c842c69-60a3-558c-87a0-07e5de122cb5",
+      "name": "Mường Thanh Luxury Phú Quốc",
+      "province": "An Giang",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "9e2d6725-d23f-5ddc-8d6a-ede6e5519b7c",
+      "name": "Khách sạn Sài Gòn Ban Mê",
+      "province": "Đắk Lắk",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "9f1582ff-6f59-5fe2-8031-ceefb1a7ce84",
+      "name": "May Plaza Hotel",
+      "province": "Thái Nguyên",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "a03d93d1-7557-5af0-8d8f-d7801aa29414",
+      "name": "Mường Thanh Grand Bãi Cháy",
+      "province": "Quảng Ninh",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "a3f0160a-d622-5610-8ebe-0248af8d367f",
+      "name": "Mường Thanh Grand Cửa Lò",
+      "province": "Nghệ An",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 4
+    },
+    {
+      "id": "a997b582-db83-5a8d-8232-a1b6b99afcc0",
+      "name": "Mường Thanh Luxury Sông Lam",
+      "province": "Nghệ An",
+      "STAY": 10,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "b0f358d7-8d9e-5076-8110-aa92336d66d3",
+      "name": "Meliá Vinpearl Tay Ninh",
+      "province": "Tây Ninh",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "b14b5e0e-bf12-5636-8638-d9599a431c61",
+      "name": "Khách sạn Sài Gòn Rạch Giá",
+      "province": "An Giang",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 0
+    },
+    {
+      "id": "b1ca4060-ed1c-500b-8cca-51a5fb74b5cb",
+      "name": "Mekong Riverside Boutique Resort & Spa",
+      "province": "Đồng Tháp",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "b200617d-5a61-5b66-8950-ea929ca95ab5",
+      "name": "Aurora Hotel Plaza",
+      "province": "Đồng Nai",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "b26c8bf9-58d8-55ee-8f99-cfdd35300917",
+      "name": "Hotel de la Coupole Sapa",
+      "province": "Lào Cai",
+      "STAY": 8,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "b3bec944-5839-5dde-8431-ef8e77132379",
+      "name": "Mường Thanh Luxury Hạ Long Centre",
+      "province": "Quảng Ninh",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "b92c754e-4560-5b4d-884f-d655fde7603b",
+      "name": "Mường Thanh Grand Hoàng Mai (Nghệ An)",
+      "province": "Nghệ An",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "bddfa888-545a-5463-8b1e-297126b42629",
+      "name": "Mường Thanh Grand Quảng Trị",
+      "province": "Quảng Trị",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "be2acf1d-f440-5422-8588-9af826761202",
+      "name": "Mường Thanh Grand Thanh Hóa",
+      "province": "Thanh Hóa",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "bf2e7d2e-9f1e-56d4-8ded-f0262c5e18d6",
+      "name": "Khách sạn Sài Gòn Vĩnh Long",
+      "province": "Vĩnh Long",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "c1702607-bff6-5edc-85b9-e192e6498638",
+      "name": "Mường Thanh Luxury Sông Hàn",
+      "province": "Đà Nẵng",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "c2f94507-3b7f-5c8b-8bfe-5bb453bdd8d4",
+      "name": "Mường Thanh Vinh",
+      "province": "Nghệ An",
+      "STAY": 4,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "c74b1d95-a459-577a-8bb6-d2dcd76b3e4f",
+      "name": "Mường Thanh Grand Quảng Nam",
+      "province": "Đà Nẵng",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "c9d9f58c-0441-5b3e-873a-787aea3d28f9",
+      "name": "Mường Thanh Luxury Khánh Hòa",
+      "province": "Khánh Hòa",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "ce502528-6826-5f7f-8bc1-09d64e9ec2de",
+      "name": "Mường Thanh Luxury Bắc Ninh",
+      "province": "Bắc Ninh",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "dd75919e-b82c-51ca-8684-6bd34fffa569",
+      "name": "Mường Thanh Luxury Sơn La",
+      "province": "Sơn La",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "df826381-fd3f-5c45-84fb-a4009d088958",
+      "name": "Mường Thanh Luxury Buôn Ma Thuột",
+      "province": "Đắk Lắk",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "e1a3a7bd-57a8-5c1e-82d1-750116c986d5",
+      "name": "Mường Thanh Grand Hà Nội",
+      "province": "Hà Nội",
+      "STAY": 9,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "ea3bd9de-f01a-501b-8e0d-641902f370f8",
+      "name": "Mường Thanh Grand Tuyên Quang",
+      "province": "Tuyên Quang",
+      "STAY": 3,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "ecb7b9ad-93c8-5d4f-8708-006c4aa9e486",
+      "name": "Mường Thanh Luxury Viễn Triều",
+      "province": "Khánh Hòa",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "ecbc7ffe-1b02-562a-8f4a-55ce71e2d53d",
+      "name": "Mường Thanh Luxury Cà Mau",
+      "province": "Cà Mau",
+      "STAY": 7,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "ef6957fe-5e70-5749-8e22-a91d0d4c6552",
+      "name": "Mường Thanh Lai Châu",
+      "province": "Lai Châu",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "f5e8dcd9-0701-575a-833d-489b6dd300dd",
+      "name": "Khách sạn Phú Cường Cà Mau",
+      "province": "Cà Mau",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 1
+    },
+    {
+      "id": "f8905275-152f-5cb6-8b92-65ab5a4a768b",
+      "name": "Mường Thanh Holiday Vũng Tàu",
+      "province": "Hồ Chí Minh",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 2
+    },
+    {
+      "id": "f8e9530c-41ec-5c7d-8a89-fd1253a80e51",
+      "name": "Mường Thanh Grand Điện Biên Phủ",
+      "province": "Điện Biên",
+      "STAY": 5,
+      "EXP": 0,
+      "SVC": 3
+    },
+    {
+      "id": "ff95a308-0a10-5872-8954-1b1ba3eadabe",
+      "name": "Mường Thanh Holiday Quảng Bình",
+      "province": "Quảng Trị",
+      "STAY": 6,
+      "EXP": 0,
+      "SVC": 2
+    }
+  ]
+}
