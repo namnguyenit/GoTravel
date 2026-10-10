@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./auth-theme.css";
+import hoiAnImage from "./assets/hoi-an-rain.jpg";
+import ninhBinhImage from "./assets/ninh-binh-river.jpg";
+import phuQuocImage from "./assets/phu-quoc-beach.jpg";
 import { safeRedirect } from "./platform-domains";
 import {
   AuthService,
@@ -16,6 +19,9 @@ import {
 
 type AuthView = "login" | "register" | "forgot-password" | "reset-password";
 
+const scenes = [phuQuocImage, ninhBinhImage, hoiAnImage] as const;
+const SCENE_DURATION_MS = 8500;
+
 export default function App() {
   // Query parameters: redirect_uri, mode, action
   const [redirectUri, setRedirectUri] = useState<string>("");
@@ -25,6 +31,39 @@ export default function App() {
   const [isLeaving, setIsLeaving] = useState(false);
   const [direction, setDirection] = useState<"forward" | "back">("forward");
   const transitionTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [activeScene, setActiveScene] = useState(0);
+  const [previousScene, setPreviousScene] = useState<number | null>(null);
+  const [scenePaused, setScenePaused] = useState(false);
+
+  const selectScene = (index: number) => {
+    if (index === activeScene) return;
+    setPreviousScene(activeScene);
+    setActiveScene(index);
+  };
+
+  useEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const compactScreen = window.matchMedia("(max-width: 700px)");
+    let timer: number | undefined;
+    const schedule = () => {
+      window.clearTimeout(timer);
+      const shouldPause = document.hidden || reducedMotion.matches || (compactScreen.matches && view !== "login");
+      setScenePaused(shouldPause);
+      if (!shouldPause) {
+        timer = window.setTimeout(() => selectScene((activeScene + 1) % scenes.length), SCENE_DURATION_MS);
+      }
+    };
+    schedule();
+    document.addEventListener("visibilitychange", schedule);
+    reducedMotion.addEventListener("change", schedule);
+    compactScreen.addEventListener("change", schedule);
+    return () => {
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", schedule);
+      reducedMotion.removeEventListener("change", schedule);
+      compactScreen.removeEventListener("change", schedule);
+    };
+  }, [activeScene, view]);
 
   const transitionTo = (nextView: AuthView) => {
     if (nextView === view && !isLeaving) return;
@@ -114,7 +153,7 @@ export default function App() {
     });
   }, []);
 
-  // Completion handoff to redirect_uri or GoStay
+  // Completion handoff to redirect_uri or GoTravel
   const handleAuthSuccess = () => {
     const destination = redirectUri || safeRedirect(null, window.location.origin);
     setSuccess("Xác thực thành công. Đang chuyển hướng...");
@@ -273,35 +312,33 @@ export default function App() {
 
   const description =
     view === "login"
-      ? "Truy cập GoTravel và GoTicket với GoID."
-      : view === "register"
-      ? "Điền thông tin để tạo tài khoản GoID."
+      ? "Đăng nhập một lần để tiếp tục cùng GoTravel và GoCar."
+    : view === "register"
+      ? "Một tài khoản cho những chuyến đi và điểm dừng chân của bạn."
       : view === "forgot-password"
       ? "Nhập email tài khoản để nhận mã xác thực đặt lại mật khẩu."
       : "Nhập mã xác thực trong email và tạo mật khẩu mới.";
 
   return (
-    <div className="sso-page-container">
+    <div className="sso-page-container" data-view={view}>
       <div className="auth-shell">
-        <aside className="auth-story" aria-label="GoID">
-          <div className="story-glow story-glow-one" aria-hidden="true" />
-          <div className="story-glow story-glow-two" aria-hidden="true" />
-          <div className="identity-brand"><img src="/brand/goid-symbol-white.svg" width="42" height="42" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">id</span><i>.</i></span></div>
-          <div className="identity-scene" aria-hidden="true">
-            <div className="scene-orbit orbit-one" />
-            <div className="scene-orbit orbit-two" />
-            <div className="scene-dot scene-dot-one" />
-            <div className="scene-dot scene-dot-two" />
-            <div className="scene-core"><img src="/brand/goid-symbol-white.svg" width="104" height="104" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">id</span><i>.</i></span></div>
-            <div className="scene-product scene-travel"><img src="/brand/gotravel-symbol.svg" width="35" height="35" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">travel</span><i>.</i></span></div>
-            <div className="scene-product scene-ticket"><img src="/brand/goticket-symbol.svg" width="35" height="35" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">ticket</span><i>.</i></span></div>
+        <aside className={`auth-story${scenePaused ? " is-paused" : ""}`} aria-label="Hình ảnh hành trình GoTravel và GoCar">
+          <div className="story-photos" aria-hidden="true">
+            {scenes.map((image, index) => (
+              <div
+                key={image}
+                className={`story-frame${index === activeScene ? " is-active" : index === previousScene ? " is-previous" : ""}`}
+              >
+                <img className="story-photo" src={image} alt="" loading="eager" />
+              </div>
+            ))}
           </div>
-        <div className="story-copy"><h2>Một tài khoản. Mọi hành trình.</h2><p>GoTravel · GoTicket</p></div>
-          <div className="story-bottom"><span className="story-line" /> GoID</div>
+          <div className="story-shade" aria-hidden="true" />
+          <img className="story-brand" src="/brand/goid-lockup-white.svg" width="164" height="64" alt="GoID" />
         </aside>
         <main className="gostay-auth-card">
           <div className="card-header-bar">
-          <div className="mobile-brand"><img src="/brand/goid-symbol.svg" width="40" height="40" alt="" /><span className="brand-wordmark">go<span className="brand-suffix">id</span><i>.</i></span></div>
+          <div className="mobile-brand"><img src="/brand/goid-lockup-black.svg" width="104" height="36" alt="GoID" /></div>
           <button
             type="button"
             className="header-back-btn"
@@ -319,7 +356,6 @@ export default function App() {
         <div className={`card-content-body${isLeaving ? " is-leaving" : ""}`} data-direction={direction} key={view} inert={isLeaving}>
           <h1 className="auth-main-title">{title}</h1>
           <p className="auth-sub-desc">{description}</p>
-
           {/* Status Alert Messages */}
           {error && (
             <div className="msg-alert danger" role="alert">
@@ -747,7 +783,7 @@ export default function App() {
       </div>
 
       <div className="sso-page-footer">
-        <span>© 2026 GoID</span><span>GoTravel · GoTicket</span>
+        <span>© 2026 GoID</span><span>GoTravel · GoCar</span>
       </div>
     </div>
   );
