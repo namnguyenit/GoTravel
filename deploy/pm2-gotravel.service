@@ -1,0 +1,17 @@
+[Unit]
+Description=PM2 applications for GoTravel and GoCar
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=forking
+Environment=PM2_HOME=/home/nhan/.pm2
+Environment=PATH=/home/nhan/.nodejs-22/bin:/home/nhan/.nodejs/bin:/usr/local/bin:/usr/bin:/bin
+PIDFile=/home/nhan/.pm2/pm2.pid
+ExecStart=/home/nhan/.nodejs/bin/pm2 resurrect
+ExecReload=/home/nhan/.nodejs/bin/pm2 reload all
+ExecStop=/home/nhan/.nodejs/bin/pm2 kill
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
