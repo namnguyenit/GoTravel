@@ -20,15 +20,17 @@ const trip: TransportTrip = {
 describe('TransportService', () => {
   const repo = { findTrip: jest.fn(), issueTickets: jest.fn(), voidTickets: jest.fn(),
     requestTripCancellation: jest.fn(), markTripCancellationProgress: jest.fn(),
-    hasTripCancellation: jest.fn() };
+    hasTripCancellation: jest.fn(), ticketForCheckIn: jest.fn(), markCheckedIn: jest.fn() };
   const integrations = { getFulfillment: jest.fn(), getOrderStatus: jest.fn(),
     setSaleEnabled: jest.fn(), requestTripCancellation: jest.fn() };
+  const staff = { verify: jest.fn() };
   const service = new TransportService(repo as unknown as TransportRepository,
-    integrations as unknown as TransportIntegrations, {} as StaffService);
+    integrations as unknown as TransportIntegrations, staff as unknown as StaffService);
 
   beforeEach(() => {
     jest.clearAllMocks();
     repo.findTrip.mockResolvedValue(trip);
+    repo.hasTripCancellation.mockResolvedValue(false);
   });
 
   it('quotes only valid stop direction with a server price', async () => {
@@ -77,5 +79,24 @@ describe('TransportService', () => {
     expect(integrations.setSaleEnabled.mock.invocationCallOrder[0])
       .toBeLessThan(repo.requestTripCancellation.mock.invocationCallOrder[0]);
     expect(repo.markTripCancellationProgress).toHaveBeenCalledWith('trip', false, false, 1, 0);
+  });
+
+  it('checks in only a confirmed ticket backed by sold inventory', async () => {
+    repo.ticketForCheckIn.mockResolvedValue({ id: 'ticket', orderId: 'order',
+      orderItemId: 'item', tripId: 'trip', status: 'ACTIVE',
+      departureAt: new Date(Date.now() + 60 * 60_000) });
+    staff.verify.mockResolvedValue({ operatorId: 'operator' });
+    integrations.getFulfillment.mockResolvedValue({ orderId: 'order', tripId: 'trip',
+      status: 'CONFIRMED', paymentMethod: 'ONLINE',
+      items: [{ orderItemId: 'item', seatId: 'seat', passengerName: 'Khách A',
+        pickupStopId: 'start', dropoffStopId: 'end' }] });
+    integrations.getOrderStatus.mockResolvedValue({ orderId: 'order', tripId: 'trip',
+      status: 'SOLD', seatIds: ['seat'] });
+
+    await expect(service.checkIn('signed-ticket', 'staff')).resolves.toEqual({
+      ticketId: 'ticket', status: 'CHECKED_IN',
+    });
+    expect(staff.verify).toHaveBeenCalledWith('staff', 'trip', 'CHECK_IN');
+    expect(repo.markCheckedIn).toHaveBeenCalledWith('ticket', 'staff');
   });
 });
