@@ -21,4 +21,11 @@ public interface InventoryLockRepository extends JpaRepository<InventoryLock, UU
     List<InventoryLock> findByInventoryCalendarListingIdAndInventoryCalendarDate(UUID listingId, LocalDate date);
     
     List<InventoryLock> findByLockStatusAndExpiresAtBefore(InventoryLockStatus lockStatus, LocalDateTime time);
+
+    List<InventoryLock> findTop200ByLockStatusAndExpiresAtBeforeOrderByExpiresAtAsc(
+            InventoryLockStatus lockStatus, LocalDateTime time);
+
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.data.jpa.repository.Query("select l from InventoryLock l where l.id = :id")
+    java.util.Optional<InventoryLock> findByIdForUpdate(@org.springframework.data.repository.query.Param("id") UUID id);
 }

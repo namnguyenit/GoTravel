@@ -36,6 +36,14 @@ public class PaymentController {
         return ResponseEntity.ok(ApiResponse.success("Tạo yêu cầu thanh toán thành công", vnpayService.createPayment(userId, request, clientIp(httpRequest))));
     }
 
+    @PostMapping("/create-mock")
+    public ResponseEntity<ApiResponse<PaymentResponse>> createMockPayment(
+            @RequestHeader("X-User-Id") UUID userId,
+            @RequestBody @Valid CreatePaymentRequest request) {
+        return ResponseEntity.ok(ApiResponse.success("Tạo thanh toán mô phỏng thành công",
+                paymentService.createMockPayment(userId, request)));
+    }
+
     private String clientIp(HttpServletRequest request) {
         // Only the trusted Gateway inserts this header; backend is bound to loopback.
         String forwarded = request.getHeader("X-User-Ip");

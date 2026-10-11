@@ -100,7 +100,7 @@ export class CreateTripUseCase implements ICreateTripUseCase {
         departureTime: departureDate,
         arrivalTime: arrivalDate,
         pricePerSeat: input.pricePerSeat,
-        status: TripStatus.SCHEDULED,
+        status: TripStatus.DRAFT,
       });
     } catch (error: any) {
       throw new BadRequestException(error.message);

@@ -39,7 +39,7 @@ export class Trip {
     this._departureTime = props.departureTime;
     this._arrivalTime = props.arrivalTime;
     this._pricePerSeat = props.pricePerSeat;
-    this._status = props.status || TripStatus.SCHEDULED;
+    this._status = props.status || TripStatus.DRAFT;
     this._createdAt = props.createdAt || new Date();
     this._updatedAt = props.updatedAt || new Date();
   }
@@ -85,7 +85,7 @@ export class Trip {
   }
 
   private validatePricePerSeat(pricePerSeat: number): void {
-    if (typeof pricePerSeat !== 'number' || isNaN(pricePerSeat) || pricePerSeat <= 0) {
+    if (!Number.isSafeInteger(pricePerSeat) || pricePerSeat <= 0) {
       throw new Error('Giá vé cơ bản trên mỗi ghế phải lớn hơn 0 VNĐ.');
     }
   }
@@ -94,8 +94,11 @@ export class Trip {
     if (this._status === TripStatus.DEPARTED) {
       throw new Error('Chuyến xe hiện đã ở trạng thái DEPARTED trước đó.');
     }
-    if (this._status !== TripStatus.SCHEDULED) {
-      throw new Error('Chỉ chuyến xe sắp chạy (SCHEDULED) mới có thể xuất bến.');
+    if (this._status !== TripStatus.ON_SALE && this._status !== TripStatus.STOP_SALE) {
+      throw new Error('Chỉ chuyến đã mở bán hoặc ngừng bán mới có thể xuất bến.');
+    }
+    if (this._departureTime > new Date()) {
+      throw new Error('Chuyến chưa đến giờ khởi hành.');
     }
     this._status = TripStatus.DEPARTED;
     this._updatedAt = new Date();
@@ -121,6 +124,9 @@ export class Trip {
     }
     if (this._status === TripStatus.COMPLETED) {
       throw new Error('Chuyến xe đã hoàn thành hành trình, không thể hủy chuyến.');
+    }
+    if (this._status !== TripStatus.DRAFT) {
+      throw new Error('Hủy chuyến đã công bố cần đi qua quy trình hủy vé và hoàn tiền.');
     }
     this._status = TripStatus.CANCELLED;
     this._updatedAt = new Date();

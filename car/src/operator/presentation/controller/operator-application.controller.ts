@@ -6,11 +6,12 @@ import {
   Param,
   Query,
   Body,
-  Headers,
   Inject,
-  BadRequestException,
   ForbiddenException,
+  Req,
 } from '@nestjs/common';
+import type { AuthenticatedRequest } from '../../../auth/auth-user';
+import { hasRole } from '../../../auth/auth-user';
 import { CreateOperatorApplicationDto } from '../dto/create-operator-application.dto';
 import { ProcessOperatorApplicationDto } from '../dto/process-operator-application.dto';
 import type { ICreateOperatorApplicationUseCase } from '../../application/port/create-operator-application.usecase.interface';
@@ -33,8 +34,8 @@ export class OperatorApplicationController {
     private readonly getMyStatusUseCase: IGetMyOperatorStatusUseCase,
   ) {}
 
-  private checkAdminRole(userRoles?: string): void {
-    if (!userRoles || !userRoles.toUpperCase().includes('ADMIN')) {
+  private checkAdminRole(request: AuthenticatedRequest): void {
+    if (!hasRole(request.authUser!, 'ADMIN')) {
       throw new ForbiddenException(
         'Bạn không có quyền thực hiện thao tác này. Chỉ Quản trị viên (Admin) mới có quyền truy cập.',
       );
@@ -46,15 +47,9 @@ export class OperatorApplicationController {
    */
   @Get('me')
   async getMyStatus(
-    @Headers('x-user-id') headerUserId?: string,
-    @Query('userId') queryUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || queryUserId;
-    if (!userId) {
-      throw new BadRequestException('Không tìm thấy thông tin định danh người dùng (x-user-id header).');
-    }
-
-    const result = await this.getMyStatusUseCase.execute({ userId });
+    const result = await this.getMyStatusUseCase.execute({ userId: request.authUser!.id });
     return OperatorApplicationPresentationMapper.toGetMyStatusApiResponse(result);
   }
 
@@ -64,15 +59,9 @@ export class OperatorApplicationController {
   @Post()
   async requestOperator(
     @Body() dto: CreateOperatorApplicationDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Body('userId') bodyUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || bodyUserId;
-    if (!userId) {
-      throw new BadRequestException('Không tìm thấy thông tin định danh người dùng (x-user-id header).');
-    }
-
-    const input = OperatorApplicationPresentationMapper.toInput(dto, userId);
+    const input = OperatorApplicationPresentationMapper.toInput(dto, request.authUser!.id);
     const result = await this.createApplicationUseCase.execute(input);
     return OperatorApplicationPresentationMapper.toCreateApiResponse(result);
   }
@@ -83,9 +72,9 @@ export class OperatorApplicationController {
   @Get()
   async getApplications(
     @Query('status') status?: OperatorApplicationStatus,
-    @Headers('x-user-roles') userRoles?: string,
+    @Req() request?: AuthenticatedRequest,
   ) {
-    this.checkAdminRole(userRoles);
+    this.checkAdminRole(request!);
 
     const list = await this.getApplicationsUseCase.execute(status);
     return OperatorApplicationPresentationMapper.toListApiResponse(list);
@@ -98,9 +87,9 @@ export class OperatorApplicationController {
   async processApplication(
     @Param('id') id: string,
     @Body() dto: ProcessOperatorApplicationDto,
-    @Headers('x-user-roles') userRoles?: string,
+    @Req() request?: AuthenticatedRequest,
   ) {
-    this.checkAdminRole(userRoles);
+    this.checkAdminRole(request!);
 
     const result = await this.processApplicationUseCase.execute({
       applicationId: id,
@@ -116,9 +105,9 @@ export class OperatorApplicationController {
   @Patch(':id/approve')
   async approveApplication(
     @Param('id') id: string,
-    @Headers('x-user-roles') userRoles?: string,
+    @Req() request?: AuthenticatedRequest,
   ) {
-    this.checkAdminRole(userRoles);
+    this.checkAdminRole(request!);
 
     const result = await this.processApplicationUseCase.execute({
       applicationId: id,
@@ -135,9 +124,9 @@ export class OperatorApplicationController {
     @Param('id') id: string,
     @Body('rejectReason') rejectReason?: string,
     @Body('reason') reason?: string,
-    @Headers('x-user-roles') userRoles?: string,
+    @Req() request?: AuthenticatedRequest,
   ) {
-    this.checkAdminRole(userRoles);
+    this.checkAdminRole(request!);
 
     const result = await this.processApplicationUseCase.execute({
       applicationId: id,

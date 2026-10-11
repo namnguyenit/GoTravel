@@ -1,5 +1,5 @@
 package com.Listing.CatalogandListing.enums;
 
 public enum ListingCategory {
-    STAY, EXP, SVC
+    STAY, EXP, SVC, TRANSPORT
 }

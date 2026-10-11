@@ -205,17 +205,32 @@ public class OrderService {
     public OrderPaymentSummaryResponse getPaymentSummary(UUID orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new AppException(OrderErrorCode.ORDER_NOT_FOUND));
+        if (order.getPaymentMethod() == com.GoTravel.CartandOrder.enums.PaymentMethod.CASH) {
+            throw new AppException(OrderErrorCode.INVALID_ORDER_STATE);
+        }
 
         return OrderPaymentSummaryResponse.builder()
                 .orderId(order.getId())
                 .userId(order.getUserId())
                 .hostId(order.getHostId())
+                .orderKind(order.getOrderKind().name())
+                .providerType(order.getOrderKind() == com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET
+                        ? "TRANSPORT" : "HOST")
+                .transportRefundDue(order.getTransportRefundDue())
+                .transportCancellationFee(order.getTransportCancellationFee())
                 .totalAmount(order.getTotalAmount())
                 .currency(order.getCurrency())
                 .status(order.getStatus().name())
                 .expiresAt(order.getExpiresAt())
                 .providerBreakdowns(buildProviderBreakdowns(order))
                 .build();
+    }
+
+    @Transactional(readOnly = true)
+    public boolean isTransportOrder(UUID orderId) {
+        return orderRepository.findById(orderId)
+                .map(order -> order.getOrderKind() == com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET)
+                .orElseThrow(() -> new AppException(OrderErrorCode.ORDER_NOT_FOUND));
     }
 
     @Transactional(readOnly = true)
@@ -271,6 +286,10 @@ public class OrderService {
         
         if (!order.getUserId().equals(userId)) {
             throw new AppException(OrderErrorCode.ORDER_NOT_FOUND);
+        }
+
+        if (order.getOrderKind() == com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET) {
+            throw new AppException(OrderErrorCode.INVALID_ORDER_STATE);
         }
 
         if (order.getStatus() != OrderStatus.PENDING && order.getStatus() != OrderStatus.PAYMENT_PENDING) {
@@ -341,7 +360,7 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public boolean hasCompletedListingOrder(UUID userId, UUID listingId) {
-        return orderRepository.hasPurchasedListing(userId, listingId, List.of(OrderStatus.CONFIRMED, OrderStatus.COMPLETED));
+        return orderRepository.hasPurchasedListing(userId, listingId, List.of(OrderStatus.COMPLETED));
     }
 
     private void refreshSelectedCartItemsFromCatalog(List<CartItem> items) {

@@ -5,8 +5,10 @@ import { GetTripsUseCase } from './application/usecase/get-trips.usecase';
 import { UpdateTripStatusUseCase } from './application/usecase/update-trip-status.usecase';
 import { SearchTripsUseCase } from './application/usecase/search-trips.usecase';
 import { PrismaTripRepository } from './infrastructure/repository/prisma-trip.repository';
+import { TransportModule } from '../transport/transport.module';
 
 @Module({
+  imports: [TransportModule],
   controllers: [TripController],
   providers: [
     {

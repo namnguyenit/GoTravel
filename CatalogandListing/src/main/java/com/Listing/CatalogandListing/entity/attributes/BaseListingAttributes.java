@@ -21,7 +21,8 @@ import java.util.List;
     @JsonSubTypes.Type(value = MakeupAttributes.class, name = "SVC_MAKEUP"),
     @JsonSubTypes.Type(value = HairStylingAttributes.class, name = "SVC_HAIR_STYLING"),
     @JsonSubTypes.Type(value = SpaAttributes.class, name = "SVC_SPA"),
-    @JsonSubTypes.Type(value = CateringAttributes.class, name = "SVC_CATERING")
+    @JsonSubTypes.Type(value = CateringAttributes.class, name = "SVC_CATERING"),
+    @JsonSubTypes.Type(value = TransportAttributes.class, name = "TRANSPORT")
 })
 @Data
 public abstract class BaseListingAttributes {

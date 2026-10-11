@@ -18,6 +18,10 @@ public class OrderPaymentSummaryResponse {
     private UUID orderId;
     private UUID userId;
     private UUID hostId;
+    private String orderKind;
+    private String providerType;
+    private java.math.BigDecimal transportRefundDue;
+    private java.math.BigDecimal transportCancellationFee;
     private BigDecimal totalAmount;
     private String currency;
     private String status;

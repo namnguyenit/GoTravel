@@ -1,6 +1,8 @@
 package com.GoTravel.CartandOrder.entity;
 
 import com.GoTravel.CartandOrder.enums.OrderStatus;
+import com.GoTravel.CartandOrder.enums.OrderKind;
+import com.GoTravel.CartandOrder.enums.PaymentMethod;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -28,11 +30,63 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "user_id", nullable = false)
+    @Column(name = "user_id")
     private UUID userId;
 
     @Column(name = "host_id")
     private UUID hostId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "order_kind", nullable = false)
+    @Builder.Default
+    private OrderKind orderKind = OrderKind.GOTRAVEL_LISTING;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method", nullable = false)
+    @Builder.Default
+    private PaymentMethod paymentMethod = PaymentMethod.ONLINE;
+
+    @Column(name = "transport_trip_id")
+    private UUID transportTripId;
+
+    @Column(name = "transport_hold_id")
+    private UUID transportHoldId;
+
+    @Column(name = "transport_idempotency_key", length = 120)
+    private String transportIdempotencyKey;
+
+    @Column(name = "transport_request_hash", length = 64)
+    private String transportRequestHash;
+
+    @Column(name = "transport_cashier_id")
+    private UUID transportCashierId;
+
+    @Column(name = "transport_cash_shift_id")
+    private UUID transportCashShiftId;
+
+    @Column(name = "transport_departure_at")
+    private LocalDateTime transportDepartureAt;
+
+    @Column(name = "transport_policy_version", length = 40)
+    private String transportPolicyVersion;
+
+    @Column(name = "transport_full_refund_hours")
+    private Integer transportFullRefundHours;
+
+    @Column(name = "transport_partial_refund_hours")
+    private Integer transportPartialRefundHours;
+
+    @Column(name = "transport_partial_fee_rate", precision = 8, scale = 6)
+    private BigDecimal transportPartialFeeRate;
+
+    @Column(name = "transport_cancellation_fee", precision = 18, scale = 0)
+    private BigDecimal transportCancellationFee;
+
+    @Column(name = "transport_refund_due", precision = 18, scale = 0)
+    private BigDecimal transportRefundDue;
+
+    @Column(name = "transport_cancellation_reason", length = 500)
+    private String transportCancellationReason;
 
     @Column(name = "order_number", nullable = false, unique = true)
     private String orderNumber;

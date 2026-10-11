@@ -27,17 +27,34 @@ public class PaymentNotificationScheduler {
                 var order = response == null ? null : response.getData();
                 if (order == null) throw new IllegalStateException("Order summary unavailable");
                 boolean alreadyConfirmed = "CONFIRMED".equals(order.getStatus()) || "COMPLETED".equals(order.getStatus());
+                boolean transport = "GOCAR_TICKET".equals(order.getOrderKind());
                 if (notification.isSuccessful() && !alreadyConfirmed) {
-                    if (!"PAYMENT_PENDING".equals(order.getStatus()) || order.getExpiresAt() == null
-                            || !order.getExpiresAt().isAfter(LocalDateTime.now(VnpayService.ZONE))) {
+                    var payment = transport ? paymentService.getPaymentStatusByOrderId(notification.getOrderId()) : null;
+                    if (transport && payment != null && "PAID_REVIEW".equals(payment.getStatus())) {
+                        var result = orders.notifyPaymentReview(notification.getOrderId());
+                        if (result == null || !result.isSuccess()) throw new IllegalStateException("Order review failed");
+                    } else if (transport && "FULFILLMENT_PENDING".equals(order.getStatus())) {
+                        // Cart owns the retry for ticket issuance after seats are sold.
+                    } else if (!"PAYMENT_PENDING".equals(order.getStatus()) || order.getExpiresAt() == null
+                            || (!transport && !order.getExpiresAt().isAfter(LocalDateTime.now(VnpayService.ZONE)))) {
                         paymentService.reviewVnpayPayment(notification.getOrderId());
+                        if (transport) {
+                            var result = orders.notifyPaymentReview(notification.getOrderId());
+                            if (result == null || !result.isSuccess()) throw new IllegalStateException("Order review failed");
+                        }
                     } else {
                         try {
                             var result = orders.notifyPaymentSuccess(notification.getOrderId());
                             if (result == null || !result.isSuccess()) throw new IllegalStateException("Order confirmation failed");
                         } catch (feign.FeignException e) {
                             // A definitive reservation/state rejection needs manual settlement, not endless retries.
-                            if (e.status() == 400 || e.status() == 409) paymentService.reviewVnpayPayment(notification.getOrderId());
+                            if (e.status() == 400 || e.status() == 409) {
+                                paymentService.reviewVnpayPayment(notification.getOrderId());
+                                if (transport) {
+                                    var review = orders.notifyPaymentReview(notification.getOrderId());
+                                    if (review == null || !review.isSuccess()) throw new IllegalStateException("Order review failed");
+                                }
+                            }
                             else throw e;
                         }
                     }

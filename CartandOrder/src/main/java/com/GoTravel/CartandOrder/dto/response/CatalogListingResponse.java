@@ -19,4 +19,5 @@ public class CatalogListingResponse {
     private BigDecimal basePrice;
     private String thumbnailUrl;
     private String status;
+    private String category;
 }

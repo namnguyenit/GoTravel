@@ -12,5 +12,7 @@ internal:
   service:
     token: ${INTERNAL_SERVICE_TOKEN:}
 services:
+  identity:
+    url: ${IDENTITY_SERVICE_URL:http://localhost:8080}
   order:
     url: ${ORDER_SERVICE_URL:http://localhost:8084}

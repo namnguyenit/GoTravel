@@ -5,6 +5,7 @@ import com.gotravel.PaymentandWallet.dto.request.CreatePaymentRequest;
 import com.gotravel.PaymentandWallet.dto.response.PaymentResponse;
 import com.gotravel.PaymentandWallet.dto.response.VnpayReturnResponse;
 import com.gotravel.PaymentandWallet.entity.PaymentRequest;
+import com.gotravel.PaymentandWallet.entity.PaymentOrderNotification;
 import com.gotravel.PaymentandWallet.entity.PaymentTransaction;
 import com.gotravel.PaymentandWallet.entity.VnpayPaymentAttempt;
 import com.gotravel.PaymentandWallet.enums.PaymentStatus;
@@ -125,10 +126,11 @@ public class VnpayService {
         if (order.getTotalAmount().compareTo(attempt.getAmount()) != 0
                 || !payment.getOrderId().equals(order.getOrderId())) return ack("04", "Invalid amount");
         var now = LocalDateTime.now(ZONE);
+        boolean transport = "GOCAR_TICKET".equals(order.getOrderKind());
         needsReview |= payment.getStatus() != PaymentStatus.PENDING
                 || !attempt.getExpiresAt().isAfter(paidAt)
                 || !"PAYMENT_PENDING".equalsIgnoreCase(order.getStatus())
-                || order.getExpiresAt() == null || !order.getExpiresAt().isAfter(now);
+                || order.getExpiresAt() == null || !order.getExpiresAt().isAfter(transport ? paidAt : now);
         attempt.setTransactionNo(transactionNo);
         attempt.setPaidAt(paidAt);
         attempt.setStatus(needsReview ? "REVIEW" : "SUCCEEDED");
@@ -139,6 +141,10 @@ public class VnpayService {
             payment.setStatus(PaymentStatus.PAID_REVIEW);
             payment.setPaidAt(paidAt);
             payments.save(payment);
+            if ("GOCAR_TICKET".equals(order.getOrderKind())) {
+                notifications.save(PaymentOrderNotification.builder().orderId(payment.getOrderId())
+                        .successful(true).createdAt(LocalDateTime.now(ZONE)).build());
+            }
         } else {
             paymentService.completeVnpayPayment(payment, order, paidAt);
         }

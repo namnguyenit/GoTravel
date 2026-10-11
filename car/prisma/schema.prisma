@@ -12,17 +12,34 @@ datasource db {
 // ============================================================================
 model Operator {
   id        String   @id @default(uuid())
-  userId    String   @map("user_id") // ID tài khoản chủ nhà xe (từ Identity Service)
+  userId    String   @unique @map("user_id") // ID tài khoản chủ nhà xe (từ Identity Service)
   name      String   // Tên nhà xe / công ty
 
   cars      Car[]
   routes    Route[]
   trips     Trip[]
+  staff     OperatorStaff[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("operators")
+}
+
+model OperatorStaff {
+  id           String   @id @default(uuid())
+  operatorId   String   @map("operator_id")
+  operator     Operator @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  userId       String   @map("user_id")
+  canSellCash  Boolean  @default(false) @map("can_sell_cash")
+  canCheckIn   Boolean  @default(false) @map("can_check_in")
+  active       Boolean  @default(true)
+  assignedBy   String   @map("assigned_by")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@unique([operatorId, userId])
+  @@map("operator_staff")
 }
 
 // ============================================================================
@@ -64,11 +81,26 @@ model Car {
   totalSeats   Int        @map("total_seats")           // Tổng số ghế
 
   trips        Trip[]
+  seatTemplates SeatTemplate[]
 
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @updatedAt @map("updated_at")
 
   @@map("cars")
+}
+
+model SeatTemplate {
+  id        String   @id @default(uuid())
+  carId     String   @map("car_id")
+  car       Car      @relation(fields: [carId], references: [id], onDelete: Restrict)
+  code      String   @db.VarChar(32)
+  level     Int      @default(1)
+  seatClass String   @default("STANDARD") @map("seat_class") @db.VarChar(32)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@unique([carId, code])
+  @@map("seat_templates")
 }
 
 enum CarType {
@@ -144,9 +176,13 @@ model Trip {
   departureTime DateTime   @map("departure_time") // Giờ xuất bến
   arrivalTime   DateTime   @map("arrival_time")   // Giờ đến dự kiến
   pricePerSeat  Float      @map("price_per_seat") // Giá vé cơ bản trên mỗi ghế (VNĐ)
-  status        TripStatus @default(SCHEDULED)
+  priceVnd      Decimal?   @map("price_vnd") @db.Decimal(18, 0)
+  offerListingId String?   @map("offer_listing_id")
+  status        TripStatus @default(DRAFT)
 
   tickets       Ticket[]
+  issuedTickets IssuedTicket[]
+  cancellation TripCancellation?
 
   createdAt     DateTime   @default(now()) @map("created_at")
   updatedAt     DateTime   @updatedAt @map("updated_at")
@@ -155,11 +191,57 @@ model Trip {
   @@map("trips")
 }
 
+model TripCancellation {
+  tripId       String   @id @map("trip_id")
+  trip         Trip     @relation(fields: [tripId], references: [id], onDelete: Restrict)
+  requestedBy  String   @map("requested_by")
+  reason       String   @db.VarChar(500)
+  status       String   @default("PROCESSING") @db.VarChar(32)
+  pendingOrders Int     @default(0) @map("pending_orders")
+  pendingRefunds Int    @default(0) @map("pending_refunds")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("trip_cancellations")
+}
+
 enum TripStatus {
+  DRAFT
+  PUBLISHING
+  ON_SALE
+  STOP_SALE
   SCHEDULED // Sắp chạy
   DEPARTED  // Đã xuất bến
   COMPLETED // Hoàn thành
   CANCELLED // Hủy chuyến
+}
+
+model IssuedTicket {
+  id            String             @id @default(uuid())
+  orderId       String             @map("order_id")
+  orderItemId   String             @unique @map("order_item_id")
+  tripId        String             @map("trip_id")
+  trip          Trip               @relation(fields: [tripId], references: [id], onDelete: Restrict)
+  seatId        String             @map("seat_id")
+  passengerName String             @map("passenger_name")
+  pickupStopId  String             @map("pickup_stop_id")
+  dropoffStopId String             @map("dropoff_stop_id")
+  tokenHash     String             @unique @map("token_hash")
+  status        IssuedTicketStatus @default(ACTIVE)
+  checkedInAt   DateTime?          @map("checked_in_at")
+  checkedInBy   String?            @map("checked_in_by")
+  createdAt     DateTime           @default(now()) @map("created_at")
+  updatedAt     DateTime           @updatedAt @map("updated_at")
+
+  @@index([tripId, status])
+  @@index([orderId])
+  @@map("issued_tickets")
+}
+
+enum IssuedTicketStatus {
+  ACTIVE
+  VOID
+  CHECKED_IN
 }
 
 // ============================================================================

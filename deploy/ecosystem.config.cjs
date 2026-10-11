@@ -26,9 +26,10 @@ module.exports = {
     {
       name: 'gocar-service',
       script: node,
-      args: ['--max-old-space-size=160', 'dist/main.js'],
+      args: ['--env-file=.env', '--max-old-space-size=160', 'dist/main.js'],
       cwd: inProject('car'),
       interpreter: 'none',
+      env: { GOCAR_ENABLED: 'true' },
       restart_delay: 5000,
     },
     {
@@ -93,3 +94,10 @@ module.exports = {
     },
   ],
 };
+
+// Opt in only for a controlled backend canary after migrations and contracts pass.
+if (process.env.GOCAR_ENABLED !== 'true') {
+  module.exports.apps = module.exports.apps.filter(
+    ({ name }) => name !== 'gocar-service' && name !== 'gocar-frontend',
+  );
+}

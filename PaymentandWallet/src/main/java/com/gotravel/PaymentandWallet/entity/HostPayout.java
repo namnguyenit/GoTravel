@@ -35,6 +35,10 @@ public class HostPayout {
     @Column(name = "host_id", nullable = false)
     private UUID hostId;
 
+    @Column(name = "provider_type", nullable = false, length = 16)
+    @Builder.Default
+    private String providerType = "HOST";
+
     @Column(name = "total_amount", nullable = false)
     private BigDecimal totalAmount;
 

@@ -26,6 +26,30 @@ public class OrderItem {
     @Column(name = "listing_id", nullable = false)
     private UUID listingId;
 
+    @Column(name = "transport_trip_id")
+    private UUID transportTripId;
+
+    @Column(name = "transport_seat_id")
+    private UUID transportSeatId;
+
+    @Column(name = "transport_seat_code", length = 32)
+    private String transportSeatCode;
+
+    @Column(name = "passenger_name")
+    private String passengerName;
+
+    @Column(name = "pickup_stop_id")
+    private UUID pickupStopId;
+
+    @Column(name = "dropoff_stop_id")
+    private UUID dropoffStopId;
+
+    @Column(name = "transport_ticket_id")
+    private UUID transportTicketId;
+
+    @Column(name = "transport_check_in_token", length = 256)
+    private String transportCheckInToken;
+
     @Column(name = "host_id")
     private UUID hostId;
 

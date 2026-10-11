@@ -17,6 +17,14 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, UUID> {
+    Optional<Order> findByUserIdAndTransportIdempotencyKey(UUID userId, String transportIdempotencyKey);
+    Optional<Order> findByTransportCashierIdAndTransportIdempotencyKey(UUID cashierId, String transportIdempotencyKey);
+    List<Order> findTop50ByOrderKindAndStatusOrderByCreatedAtAsc(
+            com.GoTravel.CartandOrder.enums.OrderKind orderKind, OrderStatus status);
+    Page<Order> findByOrderKindAndStatusInOrderByCreatedAtAsc(
+            com.GoTravel.CartandOrder.enums.OrderKind orderKind, List<OrderStatus> statuses, Pageable pageable);
+    List<Order> findTop50ByOrderKindAndStatusAndExpiresAtBeforeOrderByExpiresAtAsc(
+            com.GoTravel.CartandOrder.enums.OrderKind orderKind, OrderStatus status, LocalDateTime now);
     @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
     @Query("select o from Order o where o.id = :id")
     Optional<Order> findByIdForUpdate(@Param("id") UUID id);

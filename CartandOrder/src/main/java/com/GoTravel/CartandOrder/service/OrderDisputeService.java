@@ -114,6 +114,9 @@ public class OrderDisputeService {
     }
 
     private void forceCancelAndRefund(Order order, String reason) {
+        if (order.getOrderKind() == com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET) {
+            throw new AppException(OrderErrorCode.INVALID_ORDER_STATE);
+        }
         if (order.getStatus() != OrderStatus.CONFIRMED && order.getStatus() != OrderStatus.COMPLETED) {
             throw new AppException(OrderErrorCode.INVALID_ORDER_STATE);
         }

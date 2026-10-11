@@ -21,4 +21,7 @@ public interface OrderClient {
 
     @PutMapping("/api/v1/internal/orders/{orderId}/payment-failed")
     ApiResponse<Void> notifyPaymentFailed(@PathVariable("orderId") UUID orderId);
+
+    @PutMapping("/api/v1/internal/orders/{orderId}/payment-review")
+    ApiResponse<Void> notifyPaymentReview(@PathVariable("orderId") UUID orderId);
 }

@@ -6,10 +6,13 @@ import {
   Param,
   Body,
   Query,
-  Headers,
   Inject,
-  BadRequestException,
+  Req,
+  ForbiddenException,
 } from '@nestjs/common';
+import type { AuthenticatedRequest } from '../../../auth/auth-user';
+import { hasRole } from '../../../auth/auth-user';
+import { Public } from '../../../auth/public.decorator';
 import { CreateRouteDto } from '../dto/create-route.dto';
 import { GetRoutesQueryDto } from '../dto/get-routes-query.dto';
 import { UpdateRouteStatusDto } from '../dto/update-route-status.dto';
@@ -33,6 +36,7 @@ export class RouteController {
   ) {}
 
   @Get('locations')
+  @Public()
   async getLocations() {
     const result = await this.getRouteLocationsUseCase.execute();
     return RoutePresentationMapper.toGetRouteLocationsApiResponse(result);
@@ -41,17 +45,10 @@ export class RouteController {
   @Post()
   async createRoute(
     @Body() dto: CreateRouteDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Body('userId') bodyUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || bodyUserId;
-    if (!userId) {
-      throw new BadRequestException(
-        'Không tìm thấy thông tin định danh người dùng (x-user-id header).',
-      );
-    }
-
-    const input = RoutePresentationMapper.toCreateRouteInput(dto, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = RoutePresentationMapper.toCreateRouteInput(dto, request.authUser!.id);
     const result = await this.createRouteUseCase.execute(input);
     return RoutePresentationMapper.toCreateRouteApiResponse(result);
   }
@@ -59,17 +56,10 @@ export class RouteController {
   @Get()
   async getRoutes(
     @Query() query: GetRoutesQueryDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Query('userId') queryUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || queryUserId;
-    if (!userId) {
-      throw new BadRequestException(
-        'Không tìm thấy thông tin định danh người dùng (x-user-id header).',
-      );
-    }
-
-    const input = RoutePresentationMapper.toGetRoutesInput(query, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = RoutePresentationMapper.toGetRoutesInput(query, request.authUser!.id);
     const result = await this.getRoutesUseCase.execute(input);
     return RoutePresentationMapper.toGetRoutesApiResponse(result);
   }
@@ -78,18 +68,11 @@ export class RouteController {
   async updateRouteStatus(
     @Param('id') routeId: string,
     @Body() dto: UpdateRouteStatusDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Body('userId') bodyUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || bodyUserId;
-    if (!userId) {
-      throw new BadRequestException(
-        'Không tìm thấy thông tin định danh người dùng (x-user-id header).',
-      );
-    }
-
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
     const result = await this.updateRouteStatusUseCase.execute({
-      userId,
+      userId: request.authUser!.id,
       routeId,
       status: dto.status,
     });

@@ -37,6 +37,12 @@ public class Listing {
     @Column(name = "host_id")
     private UUID hostId;
 
+    @Column(name = "transport_operator_id")
+    private UUID transportOperatorId;
+
+    @Column(name = "transport_route_id")
+    private UUID transportRouteId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "complex_id")
     @com.fasterxml.jackson.annotation.JsonIgnore

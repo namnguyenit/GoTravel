@@ -18,7 +18,7 @@ export class GetTripsQueryDto {
 
   @IsOptional()
   @IsEnum(TripStatus, {
-    message: 'Trạng thái chuyến đi phải là SCHEDULED, DEPARTED, COMPLETED hoặc CANCELLED.',
+    message: 'Trạng thái chuyến đi không hợp lệ.',
   })
   status?: TripStatus;
 

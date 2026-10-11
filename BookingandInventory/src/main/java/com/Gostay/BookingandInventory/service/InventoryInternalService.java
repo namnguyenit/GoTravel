@@ -242,6 +242,20 @@ public class InventoryInternalService {
         }
     }
 
+    @Transactional
+    public void expireLock(UUID lockId) {
+        InventoryLock lock = lockRepository.findByIdForUpdate(lockId).orElse(null);
+        if (lock == null || lock.getLockStatus() != InventoryLockStatus.LOCKED ||
+                lock.getExpiresAt() == null || lock.getExpiresAt().isAfter(LocalDateTime.now())) {
+            return;
+        }
+        InventoryCalendar calendar = lock.getInventoryCalendar();
+        calendar.setAvailableQuantity(calendar.getAvailableQuantity() + lock.getLockedQuantity());
+        calendarRepository.save(calendar);
+        lock.setLockStatus(InventoryLockStatus.RELEASED);
+        lockRepository.save(lock);
+    }
+
     private void validateInitializeInventoryRequest(InitializeInventoryRequest request) {
         if (request == null || request.getListingId() == null || resolveQuantity(request) <= 0) {
             throw new AppException(InventoryErrorCode.INVALID_INVENTORY_ACTION);

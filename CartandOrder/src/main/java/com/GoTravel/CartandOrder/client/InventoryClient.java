@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.UUID;
 
-@FeignClient(name = "booking-inventory", url = "http://localhost:8083")
+@FeignClient(name = "booking-inventory", url = "${services.inventory.url:http://localhost:8083}")
 public interface InventoryClient {
 
     @PostMapping("/api/v1/internal/inventory/locks")

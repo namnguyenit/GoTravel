@@ -21,6 +21,8 @@ public class OrderResponse {
     private UUID hostId;
     private String orderNumber;
     private String status;
+    private String orderKind;
+    private String paymentMethod;
     private BigDecimal totalAmount;
     private String currency;
     private OrderCustomerInfo customerInfo;
@@ -50,6 +52,14 @@ public class OrderResponse {
         private UUID itemId;
         private UUID listingId;
         private UUID hostId;
+        private UUID transportTripId;
+        private UUID transportSeatId;
+        private String transportSeatCode;
+        private String passengerName;
+        private UUID pickupStopId;
+        private UUID dropoffStopId;
+        private UUID transportTicketId;
+        private String transportCheckInToken;
         private String listingTitle;
         private String thumbnailUrl;
         private LocalDate startDate;

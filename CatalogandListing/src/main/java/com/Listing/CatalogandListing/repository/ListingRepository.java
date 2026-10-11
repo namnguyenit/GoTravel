@@ -13,9 +13,11 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.Optional;
 
 @Repository
 public interface ListingRepository extends JpaRepository<Listing, UUID> {
+    Optional<Listing> findByTransportRouteId(UUID transportRouteId);
     List<Listing> findByHostId(UUID hostId);
     Page<Listing> findByHostId(UUID hostId, Pageable pageable);
     List<Listing> findByComplexId(UUID complexId);

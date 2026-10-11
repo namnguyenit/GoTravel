@@ -7,12 +7,15 @@ import { ISearchTripsUseCase } from '../port/search-trips.usecase.interface';
 import { SearchTripsInput } from '../dto/search-trips.input';
 import { SearchTripsOutput } from '../dto/search-trips.output';
 import type { ITripRepository } from '../../domain/repository/trip.repository.interface';
+import type { TransportIntegrations } from '../../../transport/application/transport-integrations.port';
 
 @Injectable()
 export class SearchTripsUseCase implements ISearchTripsUseCase {
   constructor(
     @Inject('ITripRepository')
     private readonly tripRepository: ITripRepository,
+    @Inject('TransportIntegrations')
+    private readonly inventory: TransportIntegrations,
   ) {}
 
   async execute(input: SearchTripsInput): Promise<SearchTripsOutput> {
@@ -57,6 +60,19 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
       page,
       limit,
     });
+
+    // Inventory is the source of truth for occupied seats. Fail the search
+    // when it cannot be reached rather than advertising stale availability.
+    await Promise.all(queryResult.trips.map(async (trip) => {
+      const seats = await this.inventory.getSeatStatus(trip.id);
+      const unavailable = seats.filter((seat) => seat.status !== 'AVAILABLE').length;
+      trip.seats = {
+        totalSeats: seats.length,
+        bookedSeats: unavailable,
+        availableSeats: seats.length - unavailable,
+        isSoldOut: unavailable === seats.length,
+      };
+    }));
 
     const totalPages = Math.ceil(queryResult.total / limit) || 0;
 

@@ -1,6 +1,5 @@
 package com.gotravel.PaymentandWallet.scheduler;
 
-import com.gotravel.PaymentandWallet.client.OrderClient;
 import com.gotravel.PaymentandWallet.entity.PaymentRequest;
 import com.gotravel.PaymentandWallet.entity.PaymentOrderNotification;
 import com.gotravel.PaymentandWallet.repository.PaymentOrderNotificationRepository;
@@ -27,7 +26,6 @@ import java.util.List;
 public class PaymentExpiryScheduler {
 
     private final PaymentRequestRepository paymentRequestRepository;
-    private final OrderClient orderClient;
     private final PaymentOrderNotificationRepository notifications;
     private final jakarta.persistence.EntityManager entityManager;
 
@@ -46,17 +44,8 @@ public class PaymentExpiryScheduler {
 
             log.info("Payment {} expired for order {}", payment.getPaymentCode(), payment.getOrderId());
 
-            if ("VNPAY".equals(payment.getProvider())) {
-                notifications.save(PaymentOrderNotification.builder().orderId(payment.getOrderId())
-                        .successful(false).createdAt(LocalDateTime.now(VnpayService.ZONE)).build());
-                continue;
-            }
-
-            try {
-                orderClient.notifyPaymentFailed(payment.getOrderId());
-            } catch (Exception e) {
-                log.error("Failed to notify CartOrder about expired payment for order {}", payment.getOrderId(), e);
-            }
+            notifications.save(PaymentOrderNotification.builder().orderId(payment.getOrderId())
+                    .successful(false).createdAt(LocalDateTime.now(VnpayService.ZONE)).build());
         }
     }
 }

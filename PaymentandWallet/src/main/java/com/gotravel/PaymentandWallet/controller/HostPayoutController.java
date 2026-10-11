@@ -14,6 +14,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -32,9 +36,9 @@ public class HostPayoutController {
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<Page<HostPayoutResponse>>> getMyPayouts(
-            @RequestHeader("X-User-Id") UUID hostId,
+            @AuthenticationPrincipal Jwt jwt,
             Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.getPayoutsByHost(hostId, pageable)));
+        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.getPayoutsByHost(actor(jwt), pageable)));
     }
 
     @GetMapping("/all")
@@ -66,9 +70,9 @@ public class HostPayoutController {
     @PutMapping("/admin/commission")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<CommissionConfigResponse>> updateCommissionConfig(
-            @RequestHeader("X-User-Id") UUID adminId,
+            @AuthenticationPrincipal Jwt jwt,
             @RequestBody @Valid UpdateCommissionConfigRequest request) {
-        return ResponseEntity.ok(ApiResponse.success("Cập nhật cấu hình hoa hồng thành công", hostPayoutService.updateCommissionConfig(adminId, request)));
+        return ResponseEntity.ok(ApiResponse.success("Cập nhật cấu hình hoa hồng thành công", hostPayoutService.updateCommissionConfig(actor(jwt), request)));
     }
 
     @PutMapping("/{payoutId}/mark-paid")
@@ -86,8 +90,17 @@ public class HostPayoutController {
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<ApiResponse<Void>> requestWithdrawal(@RequestHeader("X-User-Id") UUID hostId) {
-        hostPayoutService.requestWithdrawal(hostId);
+    public ResponseEntity<ApiResponse<Void>> requestWithdrawal(@AuthenticationPrincipal Jwt jwt) {
+        hostPayoutService.requestWithdrawal(actor(jwt));
         return ResponseEntity.ok(ApiResponse.success("Đã gửi yêu cầu rút tiền thành công"));
+    }
+
+    private UUID actor(Jwt jwt) {
+        if (jwt == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        try {
+            return UUID.fromString(jwt.getSubject());
+        } catch (Exception invalid) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        }
     }
 }

@@ -8,12 +8,16 @@ import { IGetTripsUseCase } from '../port/get-trips.usecase.interface';
 import { GetTripsInput } from '../dto/get-trips.input';
 import { GetTripsOutput } from '../dto/get-trips.output';
 import type { ITripRepository } from '../../domain/repository/trip.repository.interface';
+import type { TransportIntegrations } from '../../../transport/application/transport-integrations.port';
+import { TripStatus } from '../../domain/value-object/trip-status.enum';
 
 @Injectable()
 export class GetTripsUseCase implements IGetTripsUseCase {
   constructor(
     @Inject('ITripRepository')
     private readonly tripRepository: ITripRepository,
+    @Inject('TransportIntegrations')
+    private readonly inventory: TransportIntegrations,
   ) {}
 
   async execute(input: GetTripsInput): Promise<GetTripsOutput> {
@@ -48,6 +52,14 @@ export class GetTripsUseCase implements IGetTripsUseCase {
       page,
       limit,
     });
+
+    await Promise.all(queryResult.trips.map(async (item) => {
+      if (item.trip.status === TripStatus.ON_SALE || item.trip.status === TripStatus.STOP_SALE) {
+        const seats = await this.inventory.getSeatStatus(item.trip.id!);
+        item.bookedSeats = seats.filter((seat) => seat.status !== 'AVAILABLE').length;
+        item.car.totalSeats = seats.length;
+      }
+    }));
 
     const totalPages = Math.ceil(queryResult.total / limit) || 1;
 

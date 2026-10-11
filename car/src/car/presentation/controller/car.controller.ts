@@ -6,8 +6,11 @@ import {
   Query,
   Headers,
   Inject,
-  BadRequestException,
+  Req,
+  ForbiddenException,
 } from '@nestjs/common';
+import type { AuthenticatedRequest } from '../../../auth/auth-user';
+import { hasRole } from '../../../auth/auth-user';
 import { CreateCarDto } from '../dto/create-car.dto';
 import { GetCarsQueryDto } from '../dto/get-cars-query.dto';
 import type { IAddCarUseCase } from '../../application/port/add-car.usecase.interface';
@@ -26,15 +29,10 @@ export class CarController {
   @Post()
   async addCar(
     @Body() dto: CreateCarDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Body('userId') bodyUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || bodyUserId;
-    if (!userId) {
-      throw new BadRequestException('Không tìm thấy thông tin định danh người dùng (x-user-id header).');
-    }
-
-    const input = CarPresentationMapper.toAddCarInput(dto, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = CarPresentationMapper.toAddCarInput(dto, request.authUser!.id);
     const result = await this.addCarUseCase.execute(input);
     return CarPresentationMapper.toAddCarApiResponse(result);
   }
@@ -42,15 +40,10 @@ export class CarController {
   @Get()
   async getCars(
     @Query() query: GetCarsQueryDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Query('userId') queryUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || queryUserId;
-    if (!userId) {
-      throw new BadRequestException('Không tìm thấy thông tin định danh người dùng (x-user-id header).');
-    }
-
-    const input = CarPresentationMapper.toGetCarsInput(query, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = CarPresentationMapper.toGetCarsInput(query, request.authUser!.id);
     const result = await this.getCarsUseCase.execute(input);
     return CarPresentationMapper.toGetCarsApiResponse(result);
   }

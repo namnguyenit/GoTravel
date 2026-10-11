@@ -2,7 +2,7 @@ import {
   IsNotEmpty,
   IsUUID,
   IsISO8601,
-  IsNumber,
+  IsInt,
   Min,
 } from 'class-validator';
 
@@ -24,7 +24,7 @@ export class CreateTripDto {
   arrivalTime: string;
 
   @IsNotEmpty({ message: 'Giá vé cơ bản trên mỗi ghế không được để trống.' })
-  @IsNumber({}, { message: 'Giá vé cơ bản phải là số nguyên (VNĐ).' })
+  @IsInt({ message: 'Giá vé cơ bản phải là số nguyên (VNĐ).' })
   @Min(10000, { message: 'Giá vé cơ bản tối thiểu là 10.000 VNĐ.' })
   pricePerSeat: number;
 }

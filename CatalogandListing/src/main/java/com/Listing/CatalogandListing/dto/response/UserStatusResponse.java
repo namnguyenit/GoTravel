@@ -18,4 +18,5 @@ public class UserStatusResponse {
     Boolean isAllowed;
     String hostApprovalStatus;
     String enterpriseApprovalStatus;
+    String ticketVendorApprovalStatus;
 }

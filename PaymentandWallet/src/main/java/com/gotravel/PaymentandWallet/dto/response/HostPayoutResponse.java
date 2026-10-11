@@ -17,6 +17,7 @@ public class HostPayoutResponse {
     private UUID payoutId;
     private UUID orderId;
     private UUID hostId;
+    private String providerType;
     private BigDecimal totalAmount;
     private BigDecimal commissionRate;
     private BigDecimal commissionAmount;

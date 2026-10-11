@@ -74,7 +74,7 @@ export class PrismaTripRepository implements ITripRepository {
       where: {
         carId,
         id: excludeTripId ? { not: excludeTripId } : undefined,
-        status: { in: ['SCHEDULED', 'DEPARTED'] },
+        status: { in: ['DRAFT', 'PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED', 'DEPARTED'] },
         departureTime: { lt: arrivalTime },
         arrivalTime: { gt: departureTime },
       },
@@ -106,6 +106,7 @@ export class PrismaTripRepository implements ITripRepository {
             departureTime: raw.departureTime,
             arrivalTime: raw.arrivalTime,
             pricePerSeat: raw.pricePerSeat,
+            priceVnd: new Prisma.Decimal(raw.pricePerSeat),
             status: raw.status,
           },
         });
@@ -137,6 +138,7 @@ export class PrismaTripRepository implements ITripRepository {
         departureTime: raw.departureTime,
         arrivalTime: raw.arrivalTime,
         pricePerSeat: raw.pricePerSeat,
+        priceVnd: new Prisma.Decimal(raw.pricePerSeat),
         status: raw.status,
       },
     });
@@ -221,7 +223,7 @@ export class PrismaTripRepository implements ITripRepository {
       }),
       this.prisma.trip.count({ where }),
       this.prisma.trip.count({ where: { operatorId } }),
-      this.prisma.trip.count({ where: { operatorId, status: 'SCHEDULED' } }),
+      this.prisma.trip.count({ where: { operatorId, status: { in: ['DRAFT', 'PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED'] } } }),
       this.prisma.trip.count({ where: { operatorId, status: 'DEPARTED' } }),
       this.prisma.trip.count({ where: { operatorId, status: 'COMPLETED' } }),
       this.prisma.trip.count({ where: { operatorId, status: 'CANCELLED' } }),
@@ -242,7 +244,7 @@ export class PrismaTripRepository implements ITripRepository {
           type: model.car.type,
           totalSeats: model.car.totalSeats,
         },
-        bookedSeats: model.tickets ? model.tickets.length : 0,
+        bookedSeats: 0,
       })),
       total: totalCount,
       kpi: {
@@ -274,10 +276,10 @@ export class PrismaTripRepository implements ITripRepository {
 
     const startOfDay = new Date(`${departureDate}T00:00:00.000Z`);
     const endOfDay = new Date(`${departureDate}T23:59:59.999Z`);
-    const now = new Date();
+    const now = new Date(Date.now() + 15 * 60_000);
 
     const where: Prisma.TripWhereInput = {
-      status: 'SCHEDULED',
+      status: 'ON_SALE',
       departureTime: {
         gte: startOfDay > now ? startOfDay : now,
         lte: endOfDay,
@@ -336,18 +338,13 @@ export class PrismaTripRepository implements ITripRepository {
             },
           },
           car: true,
-          tickets: {
-            where: {
-              status: { in: ['BOOKED', 'PAID'] },
-            },
-          },
         },
       }),
       this.prisma.trip.count({ where }),
     ]);
 
     const trips: CustomerTripItem[] = tripModels.map((item) => {
-      const bookedSeats = item.tickets ? item.tickets.length : 0;
+      const bookedSeats = 0; // Replaced with Inventory availability by the use case.
       const totalSeats = item.car.totalSeats;
       const availableSeats = Math.max(0, totalSeats - bookedSeats);
       const isSoldOut = availableSeats === 0;

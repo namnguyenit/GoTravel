@@ -12,6 +12,12 @@ internal:
   service:
     token: ${INTERNAL_SERVICE_TOKEN:}
 services:
+  inventory:
+    url: ${INVENTORY_SERVICE_URL:http://localhost:8083}
+  car:
+    url: ${GOCAR_SERVICE_URL:http://127.0.0.1:3333}
+  payment:
+    url: ${PAYMENT_SERVICE_URL:http://localhost:8085}
   catalog:
     url: ${CATALOG_SERVICE_URL:http://localhost:8082}
   communication:

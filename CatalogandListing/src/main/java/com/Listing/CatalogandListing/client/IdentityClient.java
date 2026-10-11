@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.Listing.CatalogandListing.configuration.InternalFeignConfig;
 
-@FeignClient(name = "identity-service", url = "http://localhost:8080", configuration = InternalFeignConfig.class)
+@FeignClient(name = "identity-service", url = "${services.identity.url:http://localhost:8080}", configuration = InternalFeignConfig.class)
 public interface IdentityClient {
 
     @GetMapping("/api/users/internal/{userId}/status")

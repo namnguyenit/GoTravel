@@ -51,4 +51,36 @@ class PaymentNotificationSchedulerTest {
         verify(payments).reviewVnpayPayment(n.getOrderId());
         verify(orders, never()).notifyPaymentSuccess(any());
     }
+
+    @Test
+    void transportPaymentRecordedBeforeHoldExpiryCanBeProcessedAfterWorkerDelay() {
+        var n = pending("PAYMENT_PENDING");
+        when(orders.getPaymentSummary(n.getOrderId())).thenReturn(ApiResponse.success(
+                OrderPaymentSummaryResponse.builder().orderKind("GOCAR_TICKET")
+                        .status("PAYMENT_PENDING")
+                        .expiresAt(LocalDateTime.now(VnpayService.ZONE).minusSeconds(5)).build()));
+        when(orders.notifyPaymentSuccess(n.getOrderId())).thenReturn(ApiResponse.success("ok"));
+
+        scheduler.deliverPendingNotifications();
+
+        verify(orders).notifyPaymentSuccess(n.getOrderId());
+        verify(payments, never()).reviewVnpayPayment(n.getOrderId());
+        assertThat(n.getDeliveredAt()).isNotNull();
+    }
+
+    @Test
+    void paidReviewNotificationMakesTransportOrderVisibleForReconciliation() {
+        var n = pending("CANCELLED");
+        when(orders.getPaymentSummary(n.getOrderId())).thenReturn(ApiResponse.success(
+                OrderPaymentSummaryResponse.builder().orderKind("GOCAR_TICKET")
+                        .status("CANCELLED").build()));
+        when(payments.getPaymentStatusByOrderId(n.getOrderId())).thenReturn(
+                PaymentResponse.builder().status("PAID_REVIEW").build());
+        when(orders.notifyPaymentReview(n.getOrderId())).thenReturn(ApiResponse.success("ok"));
+
+        scheduler.deliverPendingNotifications();
+
+        verify(orders).notifyPaymentReview(n.getOrderId());
+        assertThat(n.getDeliveredAt()).isNotNull();
+    }
 }

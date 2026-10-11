@@ -77,6 +77,9 @@ public class ListingService {
     }
 
     public void createListing(String userId, SaveListingRequest request) {
+        if (request.getCategory() == ListingCategory.TRANSPORT) {
+            throw new AppException(ListingErrorCode.LISTING_ACCESS_DENIED);
+        }
         ensureUserCanManageListings(userId);
 
         validateCategoryAndAttributes(request.getCategory(), request.getSubCategory(), request.getAttributes());
@@ -111,6 +114,9 @@ public class ListingService {
     }
 
     public void updateListing(UUID listingId, String userId, SaveListingRequest request) {
+        if (request.getCategory() == ListingCategory.TRANSPORT) {
+            throw new AppException(ListingErrorCode.LISTING_ACCESS_DENIED);
+        }
         Listing listing = listingRepository.findById(listingId)
                 .orElseThrow(() -> new com.Listing.CatalogandListing.exception.AppException(
                         com.Listing.CatalogandListing.exception.ListingErrorCode.LISTING_NOT_FOUND));
@@ -118,6 +124,10 @@ public class ListingService {
         if (!listing.getHostId().equals(UUID.fromString(userId))) {
             throw new com.Listing.CatalogandListing.exception.AppException(
                     com.Listing.CatalogandListing.exception.ListingErrorCode.LISTING_ACCESS_DENIED);
+        }
+
+        if (listing.getCategory() == ListingCategory.TRANSPORT) {
+            throw new AppException(ListingErrorCode.LISTING_ACCESS_DENIED);
         }
 
         ensureUserCanManageListings(userId);

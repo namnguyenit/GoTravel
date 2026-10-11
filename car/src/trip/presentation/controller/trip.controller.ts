@@ -6,10 +6,13 @@ import {
   Param,
   Body,
   Query,
-  Headers,
   Inject,
-  BadRequestException,
+  Req,
+  ForbiddenException,
 } from '@nestjs/common';
+import type { AuthenticatedRequest } from '../../../auth/auth-user';
+import { hasRole } from '../../../auth/auth-user';
+import { Public } from '../../../auth/public.decorator';
 import { CreateTripDto } from '../dto/create-trip.dto';
 import { GetTripsQueryDto } from '../dto/get-trips-query.dto';
 import { UpdateTripStatusDto } from '../dto/update-trip-status.dto';
@@ -34,6 +37,7 @@ export class TripController {
   ) {}
 
   @Get('search')
+  @Public()
   async searchTrips(@Query() query: SearchTripsQueryDto) {
     const input = TripPresentationMapper.toSearchTripsInput(query);
     const result = await this.searchTripsUseCase.execute(input);
@@ -43,17 +47,10 @@ export class TripController {
   @Post()
   async createTrip(
     @Body() dto: CreateTripDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Body('userId') bodyUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || bodyUserId;
-    if (!userId) {
-      throw new BadRequestException(
-        'Không tìm thấy thông tin định danh người dùng (x-user-id header).',
-      );
-    }
-
-    const input = TripPresentationMapper.toCreateTripInput(dto, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = TripPresentationMapper.toCreateTripInput(dto, request.authUser!.id);
     const result = await this.createTripUseCase.execute(input);
     return TripPresentationMapper.toCreateTripApiResponse(result);
   }
@@ -61,17 +58,10 @@ export class TripController {
   @Get()
   async getTrips(
     @Query() query: GetTripsQueryDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Query('userId') queryUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || queryUserId;
-    if (!userId) {
-      throw new BadRequestException(
-        'Không tìm thấy thông tin định danh người dùng (x-user-id header).',
-      );
-    }
-
-    const input = TripPresentationMapper.toGetTripsInput(query, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = TripPresentationMapper.toGetTripsInput(query, request.authUser!.id);
     const result = await this.getTripsUseCase.execute(input);
     return TripPresentationMapper.toGetTripsApiResponse(result);
   }
@@ -80,17 +70,10 @@ export class TripController {
   async updateTripStatus(
     @Param('id') tripId: string,
     @Body() dto: UpdateTripStatusDto,
-    @Headers('x-user-id') headerUserId?: string,
-    @Body('userId') bodyUserId?: string,
+    @Req() request: AuthenticatedRequest,
   ) {
-    const userId = headerUserId || bodyUserId;
-    if (!userId) {
-      throw new BadRequestException(
-        'Không tìm thấy thông tin định danh người dùng (x-user-id header).',
-      );
-    }
-
-    const input = TripPresentationMapper.toUpdateTripStatusInput(tripId, dto, userId);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    const input = TripPresentationMapper.toUpdateTripStatusInput(tripId, dto, request.authUser!.id);
     const result = await this.updateTripStatusUseCase.execute(input);
     return TripPresentationMapper.toUpdateTripStatusApiResponse(result);
   }
