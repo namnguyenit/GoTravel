@@ -11,6 +11,7 @@ export type GeneralStatus =
   | 'INACTIVE'
   | 'SCHEDULED'
   | 'DEPARTED'
+  | 'DRAFT'
   | 'PUBLISHING'
   | 'ON_SALE'
   | 'STOP_SALE'
@@ -55,6 +56,7 @@ const STATUS_DICTIONARY: Record<
   OPERATION_PENDING: { label: 'Đang tiến hành', bg: 'bg-amber-50/80 backdrop-blur-xs border border-amber-500/25', text: 'text-amber-800', dot: 'bg-amber-500' },
 
   // Neutral / Info
+  DRAFT: { label: 'Bản nháp', bg: 'bg-stone-100/80 backdrop-blur-xs border border-stone-300/50', text: 'text-stone-700', dot: 'bg-stone-400' },
   DEPARTED: { label: 'Đã xuất bến', bg: 'bg-indigo-50/80 backdrop-blur-xs border border-indigo-500/25', text: 'text-indigo-800', dot: 'bg-indigo-500' },
   EXCHANGED: { label: 'Đã đổi vé', bg: 'bg-indigo-50/80 backdrop-blur-xs border border-indigo-500/25', text: 'text-indigo-800', dot: 'bg-indigo-500' },
   CLOSED: { label: 'Đã đóng ca', bg: 'bg-gray-100/80 backdrop-blur-xs border border-gray-300/40', text: 'text-gray-700', dot: 'bg-gray-400' },

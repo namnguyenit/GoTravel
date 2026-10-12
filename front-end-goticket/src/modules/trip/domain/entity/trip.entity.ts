@@ -101,6 +101,22 @@ export class TripEntity {
     return this.props.updatedAt;
   }
 
+  public isDraft(): boolean {
+    return this.props.status === TRIP_STATUS.DRAFT;
+  }
+
+  public isOnSale(): boolean {
+    return this.props.status === TRIP_STATUS.ON_SALE;
+  }
+
+  public isStopSale(): boolean {
+    return this.props.status === TRIP_STATUS.STOP_SALE;
+  }
+
+  public isPublishing(): boolean {
+    return this.props.status === TRIP_STATUS.PUBLISHING;
+  }
+
   public isScheduled(): boolean {
     return this.props.status === TRIP_STATUS.SCHEDULED;
   }

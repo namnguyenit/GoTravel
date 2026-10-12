@@ -393,6 +393,13 @@ export const CreateTripModal: React.FC<CreateTripModalProps> = ({
               </span>
             </div>
 
+            <div className="rounded-2xl border border-blue-200/80 bg-blue-50/70 p-3 text-[11px] text-blue-900 flex items-start gap-2.5">
+              <Info className="h-4 w-4 shrink-0 text-blue-600 mt-0.5" />
+              <span>
+                <strong>Quy trình vận hành:</strong> Chuyến xe mới tạo sẽ ở trạng thái <strong>Bản nháp (DRAFT)</strong>. Sau khi tạo, hãy bấm nút <strong>"Cấu hình & Mở bán vé"</strong> để chính thức kích hoạt chuyến cho hành khách tìm kiếm và đặt vé.
+              </span>
+            </div>
+
             <DialogFooter className="gap-2 pt-2 sm:gap-0">
               <Button
                 type="button"

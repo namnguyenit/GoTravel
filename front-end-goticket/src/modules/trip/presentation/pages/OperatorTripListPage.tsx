@@ -221,12 +221,12 @@ export const OperatorTripListPage: React.FC = () => {
   const handleTripCreated = (newTrip: TripEntity) => {
     setIsCreateModalOpen(false);
     setSuccessToast(
-      `Đã tạo thành công chuyến xe mới: "${newTrip.getSummaryRoute()}"`
+      `Đã tạo chuyến xe dạng Nháp: "${newTrip.getSummaryRoute()}". Vui lòng bấm "Cấu hình & Mở bán vé" trên thẻ chuyến để chính thức mở bán cho khách đặt vé.`
     );
     fetchTrips(1);
     setTimeout(() => {
       setSuccessToast(null);
-    }, 4000);
+    }, 8000);
   };
 
   const handleOpenRouteDetailModal = (trip: TripEntity) => {
@@ -381,6 +381,9 @@ export const OperatorTripListPage: React.FC = () => {
                 className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
               >
                 <option value="">Tất cả trạng thái</option>
+                <option value="DRAFT">Bản nháp (Chưa mở bán)</option>
+                <option value="ON_SALE">Đang mở bán</option>
+                <option value="STOP_SALE">Tạm dừng bán vé</option>
                 <option value="SCHEDULED">Sắp chạy</option>
                 <option value="DEPARTED">Đang chạy</option>
                 <option value="COMPLETED">Hoàn thành</option>

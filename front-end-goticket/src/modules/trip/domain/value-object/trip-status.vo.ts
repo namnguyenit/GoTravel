@@ -1,6 +1,7 @@
-export type TripStatus = "SCHEDULED" | "DEPARTED" | "COMPLETED" | "CANCELLED" | "PUBLISHING" | "ON_SALE" | "STOP_SALE";
+export type TripStatus = "DRAFT" | "SCHEDULED" | "DEPARTED" | "COMPLETED" | "CANCELLED" | "PUBLISHING" | "ON_SALE" | "STOP_SALE";
 
 export const TRIP_STATUS = {
+  DRAFT: "DRAFT" as TripStatus,
   SCHEDULED: "SCHEDULED" as TripStatus,
   DEPARTED: "DEPARTED" as TripStatus,
   COMPLETED: "COMPLETED" as TripStatus,
@@ -11,6 +12,7 @@ export const TRIP_STATUS = {
 } as const;
 
 export const TRIP_STATUS_LABELS: Record<TripStatus, string> = {
+  DRAFT: "Bản nháp",
   SCHEDULED: "Sắp chạy",
   DEPARTED: "Đang chạy",
   COMPLETED: "Hoàn thành",
@@ -21,6 +23,7 @@ export const TRIP_STATUS_LABELS: Record<TripStatus, string> = {
 };
 
 export const TRIP_STATUS_BADGE_CLASSES: Record<TripStatus, string> = {
+  DRAFT: "bg-stone-50 text-stone-700 border-stone-200 ring-stone-600/20",
   SCHEDULED: "bg-blue-50 text-blue-700 border-blue-200 ring-blue-600/20",
   DEPARTED: "bg-amber-50 text-amber-700 border-amber-200 ring-amber-600/20",
   COMPLETED:
@@ -34,6 +37,7 @@ export const TRIP_STATUS_BADGE_CLASSES: Record<TripStatus, string> = {
 export class TripStatusVO {
   public static isValid(status: string): status is TripStatus {
     return (
+      status === TRIP_STATUS.DRAFT ||
       status === TRIP_STATUS.SCHEDULED ||
       status === TRIP_STATUS.DEPARTED ||
       status === TRIP_STATUS.COMPLETED ||
@@ -45,6 +49,7 @@ export class TripStatusVO {
   }
 
   public static getLabel(status: TripStatus | string): string {
+    if (status === TRIP_STATUS.DRAFT) return TRIP_STATUS_LABELS.DRAFT;
     if (status === TRIP_STATUS.SCHEDULED) return TRIP_STATUS_LABELS.SCHEDULED;
     if (status === TRIP_STATUS.DEPARTED) return TRIP_STATUS_LABELS.DEPARTED;
     if (status === TRIP_STATUS.COMPLETED) return TRIP_STATUS_LABELS.COMPLETED;
@@ -56,6 +61,8 @@ export class TripStatusVO {
   }
 
   public static getBadgeClasses(status: TripStatus | string): string {
+    if (status === TRIP_STATUS.DRAFT)
+      return TRIP_STATUS_BADGE_CLASSES.DRAFT;
     if (status === TRIP_STATUS.SCHEDULED)
       return TRIP_STATUS_BADGE_CLASSES.SCHEDULED;
     if (status === TRIP_STATUS.DEPARTED)

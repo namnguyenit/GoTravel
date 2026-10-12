@@ -39,15 +39,8 @@ export const TripCard: React.FC<TripCardProps> = ({
 }) => {
   const occupancyRate = trip.getOccupancyRate();
 
-  // Map trip status to StatusBadge status
-  const badgeStatus: "SCHEDULED" | "DEPARTED" | "COMPLETED" | "CANCELLED" =
-    trip.isScheduled()
-      ? "SCHEDULED"
-      : trip.isDeparted()
-        ? "DEPARTED"
-        : trip.isCompleted()
-          ? "COMPLETED"
-          : "CANCELLED";
+  // Use actual trip status with first-class DRAFT and ON_SALE support
+  const badgeStatus = trip.status;
 
   return (
     <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 hover:border-[#FF385C]/50 hover:shadow-glass-lg transition-all duration-300">
@@ -64,6 +57,11 @@ export const TripCard: React.FC<TripCardProps> = ({
                   {trip.getSummaryRoute()}
                 </h3>
                 <StatusBadge status={badgeStatus} />
+                {trip.isDraft() && (
+                  <span className="text-[11px] font-semibold text-amber-700 bg-amber-50/90 px-2.5 py-0.5 rounded-full border border-amber-300/60 shadow-2xs">
+                    Chưa mở bán cho khách
+                  </span>
+                )}
               </div>
               <div className="mt-0.5">
                 <IdText id={trip.id} prefix="Chuyến" />
@@ -181,10 +179,14 @@ export const TripCard: React.FC<TripCardProps> = ({
         <div className="flex items-center space-x-2">
           <Link
             to={`/operator/trips/${trip.id}/manage`}
-            className="inline-flex h-8 items-center gap-1.5 rounded-full bg-coral-soft border border-[#FF385C]/20 px-3.5 text-xs font-bold text-[#FF385C] hover:bg-[#FF385C] hover:text-white transition-all shadow-2xs"
+            className={
+              trip.isDraft()
+                ? "inline-flex h-8 items-center gap-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 text-xs font-bold transition-all shadow-xs glow-emerald-sm"
+                : "inline-flex h-8 items-center gap-1.5 rounded-full bg-coral-soft border border-[#FF385C]/20 px-3.5 text-xs font-bold text-[#FF385C] hover:bg-[#FF385C] hover:text-white transition-all shadow-2xs"
+            }
           >
             <Sliders className="h-3.5 w-3.5" />
-            <span>Vận hành & Giá ghế</span>
+            <span>{trip.isDraft() ? "Cấu hình & Mở bán vé" : "Vận hành & Giá ghế"}</span>
           </Link>
         </div>
 
