@@ -115,7 +115,7 @@ export const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({
     (viewYear === minParsed.getFullYear() && viewMonth <= minParsed.getMonth());
 
   return (
-    <div ref={rootRef} className="relative w-full">
+    <div ref={rootRef} className={`relative w-full ${isOpen ? 'z-40' : 'z-10'}`}>
       {/* Trigger Button */}
       {variant === 'capsule' ? (
         <div

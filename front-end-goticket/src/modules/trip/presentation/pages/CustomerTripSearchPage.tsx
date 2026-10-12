@@ -224,7 +224,7 @@ export const CustomerTripSearchPage: React.FC = () => {
   return (
     <CustomerPageContainer className="space-y-6 pb-16">
       {/* Top Search Dock Section */}
-      <div className="bg-white/85 backdrop-blur-xl rounded-3xl p-5 sm:p-7 border border-white/80 shadow-md space-y-4">
+      <div className="relative z-30 bg-white/85 backdrop-blur-xl rounded-3xl p-5 sm:p-7 border border-white/80 shadow-md space-y-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100/80 pb-3.5">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-[#FF385C]">
@@ -256,7 +256,7 @@ export const CustomerTripSearchPage: React.FC = () => {
       </div>
 
       {/* Main Content Layout */}
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-12 items-start">
+      <div className="relative z-10 grid grid-cols-1 gap-6 lg:grid-cols-12 items-start">
         {/* Left Sidebar Filters (Desktop 3 cols) */}
         <div className="hidden lg:block lg:col-span-3 sticky top-24">
           <CustomerTripFilterSidebar

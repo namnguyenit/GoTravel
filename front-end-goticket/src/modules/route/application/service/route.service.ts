@@ -161,14 +161,43 @@ export class RouteService implements IRouteService {
             : Array.isArray(res)
               ? res
               : [];
-      const sanitized: string[] = Array.from(
-        new Set<string>(
-          list
-            .filter((item: unknown): item is string => typeof item === "string")
-            .map((item: string) => item.trim())
-            .filter(Boolean)
-        )
-      ).sort((a, b) => a.localeCompare(b, "vi"));
+      const rawStrings = list
+        .filter((item: unknown): item is string => typeof item === "string")
+        .map((item: string) => item.trim())
+        .filter(Boolean);
+
+      const locationMap = new Map<string, string>();
+      for (const loc of rawStrings) {
+        // Standardize key without accents and lowercase for deduplication
+        const key = loc
+          .normalize("NFD")
+          .replace(/\p{Diacritic}/gu, "")
+          .replace(/đ/gi, "d")
+          .toLowerCase()
+          .trim();
+
+        // Capitalize first letter of each word for clean display (e.g. "Hà Nội", "Đà Lạt")
+        const formatted = loc
+          .split(/\s+/)
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join(" ");
+
+        const existing = locationMap.get(key);
+        if (!existing) {
+          locationMap.set(key, formatted);
+        } else {
+          // Prefer Title Case / more uppercase letters
+          const existingUpper = (existing.match(/[A-ZÀ-Ỹ]/g) || []).length;
+          const currentUpper = (formatted.match(/[A-ZÀ-Ỹ]/g) || []).length;
+          if (currentUpper > existingUpper) {
+            locationMap.set(key, formatted);
+          }
+        }
+      }
+
+      const sanitized: string[] = Array.from(locationMap.values()).sort((a, b) =>
+        a.localeCompare(b, "vi")
+      );
       this.cachedLocations = sanitized;
       return sanitized;
     } catch {

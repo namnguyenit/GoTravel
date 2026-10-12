@@ -7,6 +7,7 @@ import type {
   ExchangeRequest,
   AmendTicketRequest,
   TicketAmendmentRecord,
+  TransportCheckoutPayload,
 } from '../port/booking.service.interface';
 import { OrderEntity } from '../../domain/entity/order.entity';
 import { httpClient, type IHttpClient } from '@/shared/infrastructure/http/HttpPort';
@@ -16,6 +17,22 @@ export class BookingService implements IBookingService {
 
   constructor(http: IHttpClient = httpClient) {
     this.http = http;
+  }
+
+  async checkout(idempotencyKey: string, payload: TransportCheckoutPayload): Promise<OrderEntity> {
+    if (!idempotencyKey?.trim()) throw new Error('Idempotency key không hợp lệ.');
+    if (!payload?.tripId) throw new Error('Mã chuyến xe không hợp lệ.');
+    const response = await this.http.post<any>(
+      '/api/v1/orders/transport/checkout',
+      payload,
+      {
+        headers: {
+          'Idempotency-Key': idempotencyKey.trim(),
+        },
+      }
+    );
+    const data = response?.data || response;
+    return OrderEntity.fromApiResponse(data);
   }
 
   async getOrder(orderId: string): Promise<OrderEntity> {

@@ -78,7 +78,23 @@ export interface UserOrdersResult {
   limit: number;
 }
 
+export interface TransportCheckoutPassenger {
+  seatId: string;
+  name: string;
+  pickupStopId: string;
+  dropoffStopId: string;
+}
+
+export interface TransportCheckoutPayload {
+  tripId: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  passengers: TransportCheckoutPassenger[];
+}
+
 export interface IBookingService {
+  checkout(idempotencyKey: string, payload: TransportCheckoutPayload): Promise<OrderEntity>;
   getOrder(orderId: string): Promise<OrderEntity>;
   getUserOrders(page?: number, limit?: number): Promise<UserOrdersResult>;
   getHostOrders(page?: number, limit?: number): Promise<UserOrdersResult>;
@@ -99,3 +115,4 @@ export interface IBookingService {
   amendItem(orderId: string, itemId: string, request: AmendTicketRequest): Promise<TicketAmendmentRecord>;
   retryAmendment(commandId: string): Promise<TicketAmendmentRecord>;
 }
+

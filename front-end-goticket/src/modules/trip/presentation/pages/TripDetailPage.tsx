@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { tripService } from '../../composition';
+import { bookingService } from '@/modules/booking/composition';
+import type { TransportCheckoutPayload } from '@/modules/booking/application/port/booking.service.interface';
 import type { TripPublicDetail, TripStopItem } from '../../application/port/trip.service.interface';
 import type { SeatEntity } from '../../domain/entity/seat.entity';
 import { SeatMap } from '../components/SeatMap';
 import { PassengerForm, type PassengerInput } from '../components/PassengerForm';
 import { useAuth } from '@/modules/auth/presentation/context/AuthContext';
-import { httpClient } from '@/shared/infrastructure/http/HttpPort';
 import { MoneyVo, formatVnd } from '@/shared/domain/money.vo';
 import {
   MapPin,
@@ -48,7 +49,7 @@ export const TripDetailPage: React.FC = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Stable idempotency key for this draft intent
-  const [idempotencyKey] = useState<string>(() => crypto.randomUUID());
+  const [idempotencyKey, setIdempotencyKey] = useState<string>(() => crypto.randomUUID());
 
   // Pre-fill contact info when user logs in
   useEffect(() => {
@@ -213,43 +214,29 @@ export const TripDetailPage: React.FC = () => {
       setSubmitting(true);
       setSubmitError(null);
 
-      // Call API to hold seats and create order intent
-      const payload = {
+      // Call API to reserve seats and checkout order
+      const payload: TransportCheckoutPayload = {
         tripId: trip.id,
-        items: selectedSeats.map((seat) => ({
+        fullName: contactName.trim(),
+        email: contactEmail.trim(),
+        phone: contactPhone.trim(),
+        passengers: selectedSeats.map((seat) => ({
           seatId: seat.id,
-          passengerName: passengers[seat.id].name.trim(),
+          name: passengers[seat.id].name.trim(),
           pickupStopId: passengers[seat.id].pickupStopId,
           dropoffStopId: passengers[seat.id].dropoffStopId,
         })),
-        contactInfo: {
-          fullName: contactName.trim(),
-          email: contactEmail.trim(),
-          phone: contactPhone.trim(),
-        },
       };
 
-      const res = await httpClient.post<{
-        orderId: string;
-        holdExpiresAt?: string;
-        countdownSeconds?: number;
-      }>(
-        '/api/v1/orders/hold',
-        payload,
-        {
-          headers: {
-            'Idempotency-Key': idempotencyKey,
-          },
-        }
-      );
-
-      const orderId = res?.orderId;
+      const order = await bookingService.checkout(idempotencyKey, payload);
+      const orderId = order.orderId;
       if (!orderId) {
         throw new Error('Máy chủ không trả về mã đơn hàng sau khi giữ chỗ.');
       }
 
       navigate(`/checkout/${orderId}`);
     } catch (err: unknown) {
+      setIdempotencyKey(crypto.randomUUID());
       setSubmitError(
         err instanceof Error ? err.message : 'Giữ chỗ không thành công. Ghế có thể đã có người khác chọn.'
       );

@@ -63,10 +63,30 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const styles = toneStyles[tone];
 
+  const deduplicatedLocations = useMemo(() => {
+    const map = new Map<string, string>();
+    for (const loc of locations) {
+      const trimmed = loc.trim();
+      if (!trimmed) continue;
+      const key = normalizeLocation(trimmed);
+      const existing = map.get(key);
+      if (!existing) {
+        map.set(key, trimmed);
+      } else {
+        const existingUpper = (existing.match(/[A-ZÀ-Ỹ]/g) || []).length;
+        const currentUpper = (trimmed.match(/[A-ZÀ-Ỹ]/g) || []).length;
+        if (currentUpper > existingUpper) {
+          map.set(key, trimmed);
+        }
+      }
+    }
+    return Array.from(map.values()).sort((a, b) => a.localeCompare(b, "vi"));
+  }, [locations]);
+
   const filteredLocations = useMemo(() => {
     const normalizedValue = normalizeLocation(value);
     const normalizedExcluded = normalizeLocation(excludedLocation);
-    const available = locations.filter(
+    const available = deduplicatedLocations.filter(
       (location) => normalizeLocation(location) !== normalizedExcluded
     );
     const isSelectedValue = available.some(
@@ -80,7 +100,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
       const normalizedLocation = normalizeLocation(location);
       return searchTokens.every((token) => normalizedLocation.includes(token));
     });
-  }, [excludedLocation, locations, value]);
+  }, [deduplicatedLocations, excludedLocation, value]);
 
   useEffect(() => {
     const handlePointerDown = (event: MouseEvent) => {
@@ -138,7 +158,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
   };
 
   return (
-    <div ref={rootRef} className="relative w-full">
+    <div ref={rootRef} className={`relative w-full ${isOpen ? "z-40" : "z-10"}`}>
       {variant !== "capsule" && (
         <div className="mb-1 flex items-center justify-between gap-2">
           <label
