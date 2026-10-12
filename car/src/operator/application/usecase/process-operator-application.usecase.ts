@@ -70,6 +70,7 @@ export class ProcessOperatorApplicationUseCase implements IProcessOperatorApplic
             id: savedOperator.id!,
             userId: savedOperator.userId,
             name: savedOperator.name,
+            status: savedOperator.status,
             createdAt: savedOperator.createdAt!,
             updatedAt: savedOperator.updatedAt!,
           }

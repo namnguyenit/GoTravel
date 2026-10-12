@@ -18,6 +18,10 @@ import java.util.UUID;
 public interface HostPayoutRepository extends JpaRepository<HostPayout, UUID> {
     Page<HostPayout> findByHostIdOrderByCreatedAtDesc(UUID hostId, Pageable pageable);
     Page<HostPayout> findAllByOrderByCreatedAtDesc(Pageable pageable);
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @org.springframework.data.jpa.repository.Query("select p from HostPayout p where p.id=:id")
+    java.util.Optional<HostPayout> findByIdForUpdate(@org.springframework.data.repository.query.Param("id") UUID id);
+
     List<HostPayout> findByStatus(PayoutStatus status);
     List<HostPayout> findByOrderId(UUID orderId);
     boolean existsByOrderIdAndHostId(UUID orderId, UUID hostId);

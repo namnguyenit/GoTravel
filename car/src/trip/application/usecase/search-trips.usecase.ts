@@ -1,8 +1,8 @@
 import {
-  Inject,
-  Injectable,
-  BadRequestException,
-} from '@nestjs/common';
+  vietnamDayBounds,
+  vietnamToday,
+} from '../../domain/value-object/vietnam-day';
+import { Inject, Injectable, BadRequestException } from '@nestjs/common';
 import { ISearchTripsUseCase } from '../port/search-trips.usecase.interface';
 import { SearchTripsInput } from '../dto/search-trips.input';
 import { SearchTripsOutput } from '../dto/search-trips.output';
@@ -21,23 +21,37 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
   async execute(input: SearchTripsInput): Promise<SearchTripsOutput> {
     // 1. Validate điểm đi và điểm đến
     if (!input.origin || !input.origin.trim()) {
-      throw new BadRequestException('Điểm khởi hành (origin) không được để trống.');
+      throw new BadRequestException(
+        'Điểm khởi hành (origin) không được để trống.',
+      );
     }
 
     if (!input.destination || !input.destination.trim()) {
-      throw new BadRequestException('Điểm đến (destination) không được để trống.');
+      throw new BadRequestException(
+        'Điểm đến (destination) không được để trống.',
+      );
     }
 
     // 2. Validate ngày khởi hành
-    if (!input.departureDate || !/^\d{4}-\d{2}-\d{2}$/.test(input.departureDate)) {
+    if (
+      !input.departureDate ||
+      !/^\d{4}-\d{2}-\d{2}$/.test(input.departureDate)
+    ) {
       throw new BadRequestException(
         'Ngày khởi hành (departureDate) phải có định dạng YYYY-MM-DD.',
       );
     }
 
-    const todayStr = new Date().toISOString().slice(0, 10);
+    try {
+      vietnamDayBounds(input.departureDate);
+    } catch {
+      throw new BadRequestException('Ngày khởi hành không hợp lệ.');
+    }
+    const todayStr = vietnamToday();
     if (input.departureDate < todayStr) {
-      throw new BadRequestException('Ngày khởi hành không được ở trong quá khứ.');
+      throw new BadRequestException(
+        'Ngày khởi hành không được ở trong quá khứ.',
+      );
     }
 
     // 3. Chuẩn hóa phân trang & sắp xếp
@@ -46,8 +60,51 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
     const sortBy = input.sortBy || 'departureTime';
     const sortOrder = input.sortOrder || 'asc';
 
+    if (
+      input.minPrice !== undefined &&
+      input.maxPrice !== undefined &&
+      BigInt(input.minPrice) > BigInt(input.maxPrice)
+    ) {
+      throw new BadRequestException(
+        'Giá tối đa phải lớn hơn hoặc bằng giá tối thiểu',
+      );
+    }
+    const { start: dayStart, end: dayEnd } = vietnamDayBounds(
+      input.departureDate,
+    );
+    const slots = [...(input.timeSlots ?? [])];
+    if (input.timeOfDay)
+      slots.push(
+        {
+          morning: '05:00-12:00',
+          afternoon: '12:00-18:00',
+          evening: '18:00-00:00',
+        }[input.timeOfDay],
+      );
+    const departureRanges = slots.flatMap((slot) => {
+      if (!/^(?:[01]\d|2[0-3]):[0-5]\d-(?:[01]\d|2[0-3]):[0-5]\d$/.test(slot))
+        throw new BadRequestException('Khoảng giờ không hợp lệ');
+      const [from, to] = slot.split('-').map((time) => {
+        const [h, m] = time.split(':').map(Number);
+        return h * 60 + m;
+      });
+      if (from === to)
+        throw new BadRequestException('Khoảng giờ phải có độ dài lớn hơn 0');
+      const at = (minutes: number) =>
+        new Date(dayStart.getTime() + minutes * 60_000);
+      return to > from
+        ? [{ start: at(from), end: at(to) }]
+        : [
+            { start: at(from), end: new Date(dayEnd.getTime() + 1) },
+            { start: dayStart, end: at(to) },
+          ].filter((range) => range.start < range.end);
+    });
+    const activeRouteIds = await this.inventory.activeOfferRoutes();
+
     // 4. Truy vấn chuyến xe từ Repository
     const queryResult = await this.tripRepository.searchCustomerTrips({
+      activeRouteIds,
+      departureRanges,
       origin: input.origin.trim(),
       destination: input.destination.trim(),
       departureDate: input.departureDate,
@@ -63,16 +120,20 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
 
     // Inventory is the source of truth for occupied seats. Fail the search
     // when it cannot be reached rather than advertising stale availability.
-    await Promise.all(queryResult.trips.map(async (trip) => {
-      const seats = await this.inventory.getSeatStatus(trip.id);
-      const unavailable = seats.filter((seat) => seat.status !== 'AVAILABLE').length;
-      trip.seats = {
-        totalSeats: seats.length,
-        bookedSeats: unavailable,
-        availableSeats: seats.length - unavailable,
-        isSoldOut: unavailable === seats.length,
-      };
-    }));
+    await Promise.all(
+      queryResult.trips.map(async (trip) => {
+        const seats = await this.inventory.getSeatStatus(trip.id);
+        const unavailable = seats.filter(
+          (seat) => seat.status !== 'AVAILABLE',
+        ).length;
+        trip.seats = {
+          totalSeats: seats.length,
+          bookedSeats: unavailable,
+          availableSeats: seats.length - unavailable,
+          isSoldOut: unavailable === seats.length,
+        };
+      }),
+    );
 
     const totalPages = Math.ceil(queryResult.total / limit) || 0;
 

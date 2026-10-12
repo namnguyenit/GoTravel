@@ -26,7 +26,8 @@ public class JdbcTransportInventoryRepository implements TransportInventoryRepos
                     rs.getObject("trip_id", UUID.class),
                     rs.getObject("operator_id", UUID.class),
                     rs.getTimestamp("departure_at").toInstant(),
-                    rs.getBoolean("sale_enabled"));
+                    rs.getBoolean("sale_enabled"),
+                    rs.getInt("sync_version"));
 
     private static final RowMapper<TransportInventory.Seat> SEAT_MAPPER = (rs, row) ->
             new TransportInventory.Seat(
@@ -37,6 +38,12 @@ public class JdbcTransportInventoryRepository implements TransportInventoryRepos
                     rs.getObject("order_id", UUID.class),
                     rs.getObject("hold_id", UUID.class),
                     rs.getTimestamp("expires_at") == null ? null : rs.getTimestamp("expires_at").toInstant());
+
+    @Override
+    public void recordSeatBlock(UUID tripId, UUID actorId, List<UUID> seatIds, boolean blocked, String reason) {
+        for (UUID seatId : seatIds) jdbc.update("insert into transport_seat_block_audit(id,trip_id,seat_id,actor_id,blocked,reason) values (?,?,?,?,?,?)",
+                UUID.randomUUID(), tripId, seatId, actorId, blocked, reason);
+    }
 
     @Override
     public void lockKey(UUID key) {
@@ -83,8 +90,8 @@ public class JdbcTransportInventoryRepository implements TransportInventoryRepos
 
     @Override
     public void createTrip(TransportInventory.Trip trip, List<TransportInventory.Seat> seats) {
-        jdbc.update("insert into transport_trip_inventory(trip_id, operator_id, departure_at, sale_enabled) values (?, ?, ?, false)",
-                trip.id(), trip.operatorId(), Timestamp.from(trip.departureAt()));
+        jdbc.update("insert into transport_trip_inventory(trip_id, operator_id, departure_at, sale_enabled, sync_version) values (?, ?, ?, false, ?)",
+                trip.id(), trip.operatorId(), Timestamp.from(trip.departureAt()), trip.syncVersion());
         for (var seat : seats) {
             jdbc.update("insert into transport_trip_seats(trip_id, seat_id, seat_code, status) values (?, ?, ?, 'AVAILABLE')",
                     seat.tripId(), seat.seatId(), seat.code());
@@ -92,8 +99,8 @@ public class JdbcTransportInventoryRepository implements TransportInventoryRepos
     }
 
     @Override
-    public void setSaleEnabled(UUID tripId, boolean enabled) {
-        jdbc.update("update transport_trip_inventory set sale_enabled = ? where trip_id = ?", enabled, tripId);
+    public void setSaleEnabled(UUID tripId, boolean enabled, int version) {
+        jdbc.update("update transport_trip_inventory set sale_enabled = ?, sync_version = ? where trip_id = ?", enabled, version, tripId);
     }
 
     @Override

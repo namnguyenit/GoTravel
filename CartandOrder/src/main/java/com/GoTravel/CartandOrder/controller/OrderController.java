@@ -11,6 +11,7 @@ import com.GoTravel.CartandOrder.dto.response.OrderDisputeResponse;
 import com.GoTravel.CartandOrder.dto.response.OrderResponse;
 import com.GoTravel.CartandOrder.enums.DisputeStatus;
 import com.GoTravel.CartandOrder.enums.OrderStatus;
+import com.GoTravel.CartandOrder.enums.OrderKind;
 import com.GoTravel.CartandOrder.service.OrderService;
 import com.GoTravel.CartandOrder.service.OrderDisputeService;
 import jakarta.validation.Valid;
@@ -97,8 +98,9 @@ public class OrderController {
             @RequestHeader("X-User-Id") UUID userId,
             @RequestParam(required = false) List<OrderStatus> statuses,
             @RequestParam(defaultValue = "") String search,
+            @RequestParam(required = false) OrderKind orderKind,
             Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success(orderService.getUserOrders(userId, pageable, statuses, search)));
+        return ResponseEntity.ok(ApiResponse.success(orderService.getUserOrders(userId, pageable, statuses, search, orderKind)));
     }
 
     @PostMapping("/disputes")
@@ -135,7 +137,7 @@ public class OrderController {
     public ResponseEntity<ApiResponse<OrderResponse>> resendTicketEmail(
             @RequestHeader("X-User-Id") UUID userId,
             @PathVariable UUID orderId) {
-        return ResponseEntity.ok(ApiResponse.success("Đã gửi lại vé điện tử", orderService.resendTicketEmail(userId, orderId)));
+        return ResponseEntity.ok(ApiResponse.success("Đã tiếp nhận yêu cầu gửi lại vé điện tử", orderService.resendTicketEmail(userId, orderId)));
     }
 
     @GetMapping("/check-purchased/{listingId}")

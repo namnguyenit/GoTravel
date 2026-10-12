@@ -2,6 +2,7 @@ import { TripStatus } from '../../domain/value-object/trip-status.enum';
 
 export interface TripOccupancyOutput {
   bookedSeats: number;
+  blockedSeats?: number;
   availableSeats: number;
   occupancyRate: number;
 }
@@ -26,6 +27,7 @@ export interface TripItemOutput {
   departureTime: Date;
   arrivalTime: Date;
   pricePerSeat: number;
+  priceVnd?: string;
   status: TripStatus;
   route: TripRouteOutput;
   car: TripCarOutput;

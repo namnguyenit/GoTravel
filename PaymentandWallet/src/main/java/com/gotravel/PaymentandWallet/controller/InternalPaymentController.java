@@ -42,6 +42,12 @@ public class InternalPaymentController {
         return ResponseEntity.ok(ApiResponse.success(paymentService.transportCommission()));
     }
 
+    @GetMapping("/transport/cash-summary")
+    public ResponseEntity<ApiResponse<PaymentService.CashSettlementSummary>> cashSummary(
+            @RequestParam(required = false) UUID operatorId) {
+        return ResponseEntity.ok(ApiResponse.success(paymentService.cashSettlementSummary(operatorId)));
+    }
+
     public record CashSettlementRequest(UUID shiftId, UUID operatorId, java.math.BigDecimal grossAmount,
                                         java.math.BigDecimal commissionDue, String commissionVersion,
                                         java.math.BigDecimal commissionRate) {}

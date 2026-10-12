@@ -31,7 +31,7 @@ const post = async (url: string, body: unknown) => {
     body: JSON.stringify(body)
   });
   const data = await res.json();
-  if (!res.ok || data.status === 'ERROR' || data.errorCode) {
+  if (!res.ok || data.success === false || data.status === 'ERROR' || data.errorCode) {
     const err = new Error(data.message || 'Yêu cầu xác thực thất bại');
     (err as Error & { code?: string }).code = data.errorCode || data.code || 'UNAUTHENTICATED';
     throw err;
@@ -66,13 +66,16 @@ export const AuthService = {
     post('/api/v1/auth/reset-password', payload),
 
   getMe: async (): Promise<UserProfile | null> => {
-    try {
-      const session = await fetch('/api/v1/auth/session', { credentials: 'include' });
-      if (!session.ok) return null;
-      const res = await fetch('/api/v1/me', { credentials: 'include' });
-      if (!res.ok) return null;
-      const data = await res.json();
-      return (data.data || data) as UserProfile;
-    } catch { return null; }
+    const session = await fetch('/api/v1/auth/session', { credentials: 'include', cache: 'no-store' });
+    if (session.status === 401) return null;
+    if (!session.ok) throw new Error('Chưa thể kiểm tra phiên đăng nhập. Vui lòng thử lại sau.');
+    const res = await fetch('/api/v1/me', { credentials: 'include', cache: 'no-store' });
+    if (res.status === 401) return null;
+    if (!res.ok) throw new Error('Chưa thể tải thông tin tài khoản. Vui lòng thử lại sau.');
+    const data = await res.json();
+    if (data.success === false) throw new Error(data.message || 'Chưa thể tải thông tin tài khoản.');
+    const profile = data.data || data;
+    if (!profile.id && !profile.sub) throw new Error('Máy chủ chưa trả về thông tin tài khoản hợp lệ.');
+    return profile as UserProfile;
   },
 };

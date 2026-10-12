@@ -40,6 +40,18 @@ public class InternalServiceTokenFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+        if (TransportInternalAccess.applies(request) && TransportInternalAccess.required(request)) {
+            if (!TransportInternalAccess.allows(request)) {
+                reject(response, HttpServletResponse.SC_UNAUTHORIZED, "TRANSPORT_SERVICE_SCOPE_DENIED");
+                return;
+            }
+            var scoped = new UsernamePasswordAuthenticationToken(request.getHeader("X-Internal-Caller"), null,
+                    List.of(new SimpleGrantedAuthority(AUTHORITY)));
+            SecurityContextHolder.getContext().setAuthentication(scoped);
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         if (expectedToken.length == 0) {
             reject(response, HttpServletResponse.SC_SERVICE_UNAVAILABLE, "INTERNAL_SERVICE_TOKEN_NOT_CONFIGURED");
             return;

@@ -139,7 +139,7 @@ public class UserController {
     }
 
     @GetMapping("/me")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public ApiRequest<UserResponse> getMyInfo() {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info(SecurityContextHolder.getContext().getAuthentication().toString());
@@ -147,7 +147,7 @@ public class UserController {
     }
 
     @PutMapping("/me")
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     public ApiRequest<UserResponse> updateMyInfo(@RequestBody UserUpdateRequest userUpdateRequest) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         return ApiRequest.success(SuccessCode.UPDATE_MY_INFO_SUCCESS, userService.updateUser(userId, userUpdateRequest));

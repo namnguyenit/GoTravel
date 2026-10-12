@@ -31,6 +31,10 @@ public class TripCancellationService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lý do hủy chuyến không hợp lệ");
         String normalized = reason.trim();
         transactions.executeWithoutResult(status -> {
+            jdbc.execute("select pg_advisory_xact_lock(74100101)");
+            jdbc.update("update transport_exchange_cases e set status='REPLACEMENT_CANCELLED',last_error='REPLACEMENT_TRIP_CANCELLED',updated_at=now() " +
+                    "from orders n where e.new_order_id=n.id and n.transport_trip_id=? and e.status not in ('COMPLETED','EXCEPTION_RESOLVED')", tripId);
+            jdbc.update("update transport_item_operations set state='ABORTING',next_attempt_at=now(),updated_at=now() where kind='EXCHANGE' and (cast(plan_json as jsonb)->>'newTripId')=? and state in ('PREPARED','HELD','WAITING_FUNDS')",tripId.toString());
             jdbc.update("insert into transport_trip_cancellations(trip_id,reason) values (?,?) " +
                     "on conflict (trip_id) do nothing", tripId, normalized);
         });
@@ -73,7 +77,7 @@ public class TripCancellationService {
                 String.class, tripId);
         // A trip has at most 100 saleable seats, while prior expired orders are already terminal.
         var activeIds = jdbc.query("select id from orders where order_kind='GOCAR_TICKET' " +
-                        "and transport_trip_id=? and status not in ('CANCELLED','REFUNDED','REFUND_PENDING') " +
+                        "and exists(select 1 from order_items i where i.order_id=orders.id and i.transport_trip_id=?) and status not in ('CANCELLED','REFUNDED','REFUND_PENDING') " +
                         "order by created_at,id",
                 (rs, row) -> rs.getObject(1, UUID.class), tripId);
         String lastError = null;
@@ -86,16 +90,20 @@ public class TripCancellationService {
             }
         }
         Integer pending = jdbc.queryForObject("select count(*) from orders where order_kind='GOCAR_TICKET' " +
-                "and transport_trip_id=? and status not in ('CANCELLED','REFUNDED','REFUND_PENDING')",
+                "and exists(select 1 from order_items i where i.order_id=orders.id and i.transport_trip_id=?) and status not in ('CANCELLED','REFUNDED','REFUND_PENDING')",
                 Integer.class, tripId);
         Integer pendingRefunds = jdbc.queryForObject("select count(*) from orders where order_kind='GOCAR_TICKET' " +
-                "and transport_trip_id=? and status='REFUND_PENDING'", Integer.class, tripId);
+                "and exists(select 1 from order_items i where i.order_id=orders.id and i.transport_trip_id=?) and status='REFUND_PENDING'", Integer.class, tripId);
         ApiResponse<List<TransportInventoryClient.SeatView>> response = inventory.seats(tripId);
         var seats = response == null ? null : response.getData();
         if (seats == null || seats.isEmpty())
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Chưa đối chiếu được tồn ghế chuyến");
         boolean busy = seats.stream().anyMatch(seat -> seat.status() == null ||
                 !List.of("AVAILABLE", "BLOCKED").contains(seat.status()));
+        pending = jdbc.queryForObject("select count(*) from order_items i join orders o on o.id=i.order_id where o.order_kind='GOCAR_TICKET' and i.transport_trip_id=? and o.status not in ('CANCELLED','REFUNDED','REFUND_PENDING') and i.transport_item_state in ('ACTIVE','OPERATION_PENDING')",Integer.class,tripId);
+        pendingRefunds = jdbc.queryForObject("select (select count(*) from transport_item_operations where state in ('REFUND_PENDING','ABORT_REFUND_PENDING') and ((cast(plan_json as jsonb)->>'oldTripId')=? or (cast(plan_json as jsonb)->>'newTripId')=?))+(select count(*) from orders o where o.order_kind='GOCAR_TICKET' and o.transport_trip_id=? and o.status='REFUND_PENDING' and not exists(select 1 from transport_item_operations x where x.order_id=o.id))",Integer.class,tripId.toString(),tripId.toString(),tripId);
+        Integer legacy=jdbc.queryForObject("select count(*) from orders where order_kind='GOCAR_TICKET' and transport_trip_id=? and status not in ('CANCELLED','REFUNDED','REFUND_PENDING','CONFIRMED','COMPLETED')",Integer.class,tripId);
+        pending += legacy;
         boolean safe = pending == 0 && !busy;
         boolean complete = safe && pendingRefunds == 0;
         String status = complete ? "COMPLETED" : safe ? "REFUND_PENDING" : "PROCESSING";

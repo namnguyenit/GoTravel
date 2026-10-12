@@ -22,11 +22,15 @@ export class GetTripsUseCase implements IGetTripsUseCase {
 
   async execute(input: GetTripsInput): Promise<GetTripsOutput> {
     if (!input.userId || !input.userId.trim()) {
-      throw new BadRequestException('Vui lòng cung cấp mã người dùng (userId).');
+      throw new BadRequestException(
+        'Vui lòng cung cấp mã người dùng (userId).',
+      );
     }
 
     // 1. Kiểm tra / lấy Operator ID của User
-    const operatorId = await this.tripRepository.findOperatorIdByUserId(input.userId);
+    const operatorId = await this.tripRepository.findOperatorIdByUserId(
+      input.userId,
+    );
     if (!operatorId) {
       throw new ForbiddenException(
         'Tài khoản của bạn chưa được cấp quyền Nhà xe (Operator). Vui lòng nộp đơn đăng ký Nhà xe và chờ Admin phê duyệt.',
@@ -53,13 +57,27 @@ export class GetTripsUseCase implements IGetTripsUseCase {
       limit,
     });
 
-    await Promise.all(queryResult.trips.map(async (item) => {
-      if (item.trip.status === TripStatus.ON_SALE || item.trip.status === TripStatus.STOP_SALE) {
-        const seats = await this.inventory.getSeatStatus(item.trip.id!);
-        item.bookedSeats = seats.filter((seat) => seat.status !== 'AVAILABLE').length;
-        item.car.totalSeats = seats.length;
-      }
-    }));
+    const blockedByTrip = new Map<string, number>();
+    await Promise.all(
+      queryResult.trips.map(async (item) => {
+        if (
+          item.trip.status === TripStatus.ON_SALE ||
+          item.trip.status === TripStatus.STOP_SALE ||
+          item.trip.status === TripStatus.DEPARTED ||
+          item.trip.status === TripStatus.COMPLETED
+        ) {
+          const seats = await this.inventory.getSeatStatus(item.trip.id!);
+          item.bookedSeats = seats.filter((seat) =>
+            ['HELD', 'SOLD'].includes(seat.status),
+          ).length;
+          blockedByTrip.set(
+            item.trip.id!,
+            seats.filter((seat) => seat.status === 'BLOCKED').length,
+          );
+          item.car.totalSeats = seats.length;
+        }
+      }),
+    );
 
     const totalPages = Math.ceil(queryResult.total / limit) || 1;
 
@@ -75,9 +93,15 @@ export class GetTripsUseCase implements IGetTripsUseCase {
       data: queryResult.trips.map((item) => {
         const totalSeats = item.car.totalSeats;
         const bookedSeats = item.bookedSeats;
-        const availableSeats = Math.max(0, totalSeats - bookedSeats);
+        const blockedSeats = blockedByTrip.get(item.trip.id!) ?? 0;
+        const availableSeats = Math.max(
+          0,
+          totalSeats - bookedSeats - blockedSeats,
+        );
         const occupancyRate =
-          totalSeats > 0 ? Number(((bookedSeats / totalSeats) * 100).toFixed(2)) : 0;
+          totalSeats > 0
+            ? Number(((bookedSeats / totalSeats) * 100).toFixed(2))
+            : 0;
 
         return {
           id: item.trip.id!,
@@ -85,6 +109,7 @@ export class GetTripsUseCase implements IGetTripsUseCase {
           departureTime: item.trip.departureTime,
           arrivalTime: item.trip.arrivalTime,
           pricePerSeat: item.trip.pricePerSeat,
+          priceVnd: item.trip.priceVnd,
           status: item.trip.status,
           route: {
             id: item.route.id,
@@ -100,6 +125,7 @@ export class GetTripsUseCase implements IGetTripsUseCase {
           },
           occupancy: {
             bookedSeats,
+            blockedSeats,
             availableSeats,
             occupancyRate,
           },

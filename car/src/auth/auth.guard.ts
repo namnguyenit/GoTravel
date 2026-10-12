@@ -7,7 +7,12 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { createPublicKey, timingSafeEqual, verify, type JsonWebKey } from 'node:crypto';
+import {
+  createPublicKey,
+  timingSafeEqual,
+  verify,
+  type JsonWebKey,
+} from 'node:crypto';
 import type { AuthenticatedRequest } from './auth-user';
 import { PUBLIC_ROUTE } from './public.decorator';
 import { INTERNAL_ROUTE } from './internal.decorator';
@@ -42,12 +47,53 @@ export class AuthGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest<AuthenticatedRequest>();
-    if (this.reflector.getAllAndOverride<boolean>(INTERNAL_ROUTE, [
-      context.getHandler(), context.getClass(),
-    ])) {
+    const internalAccess = this.reflector.getAllAndOverride<
+      string[] | boolean | undefined
+    >(INTERNAL_ROUTE, [
+        context.getHandler(),
+        context.getClass(),
+      ]);
+    if (internalAccess) {
+      const scopedRequired =
+        process.env.TRANSPORT_INTERNAL_AUTH_REQUIRED === 'true';
+      const caller = request.headers['x-internal-caller'];
+      if (scopedRequired || caller !== undefined) {
+        let callers: Record<string, string>;
+        try {
+          callers = JSON.parse(
+            process.env.TRANSPORT_INTERNAL_CALLERS || '{}',
+          ) as Record<string, string>;
+        } catch {
+          throw new UnauthorizedException(
+            'Cấu hình service identity không hợp lệ',
+          );
+        }
+        const expected =
+          typeof caller === 'string' ? callers[caller] : undefined;
+        const provided = request.headers['x-internal-service-token'];
+        // Cart owns checkout, ticket fulfillment and staff delegation.
+        const allowedCallers = Array.isArray(internalAccess)
+          ? internalAccess
+          : ['cart'];
+        if (
+          typeof caller !== 'string' ||
+          !allowedCallers.includes(caller) ||
+          typeof expected !== 'string' ||
+          expected.length < 32 ||
+          typeof provided !== 'string'
+        ) {
+          throw new UnauthorizedException('Service không có quyền gọi GoCar');
+        }
+        const left = Buffer.from(expected);
+        const right = Buffer.from(provided);
+        if (left.length !== right.length || !timingSafeEqual(left, right))
+          throw new UnauthorizedException();
+        return true;
+      }
       const configured = process.env.INTERNAL_SERVICE_TOKEN;
       const supplied = request.headers['x-internal-service-token'];
-      if (!configured || typeof supplied !== 'string') throw new UnauthorizedException();
+      if (!configured || typeof supplied !== 'string')
+        throw new UnauthorizedException();
       const left = Buffer.from(configured);
       const right = Buffer.from(supplied);
       if (left.length !== right.length || !timingSafeEqual(left, right)) {
@@ -61,11 +107,17 @@ export class AuthGuard implements CanActivate {
     }
     const token = header.slice(7);
     const claims = await this.verifyJwt(token);
-    if (typeof claims.sub !== 'string' || !claims.sub || claims.sub.length > 200) {
+    if (
+      typeof claims.sub !== 'string' ||
+      !claims.sub ||
+      claims.sub.length > 200
+    ) {
       throw new UnauthorizedException('Access token không hợp lệ');
     }
     const roles = new Set(
-      typeof claims.scope === 'string' ? claims.scope.split(/\s+/).filter(Boolean) : [],
+      typeof claims.scope === 'string'
+        ? claims.scope.split(/\s+/).filter(Boolean)
+        : [],
     );
     await this.verifyAccountStatus(claims.sub, roles);
     request.authUser = { id: claims.sub, roles };
@@ -73,15 +125,21 @@ export class AuthGuard implements CanActivate {
   }
 
   private async verifyJwt(token: string): Promise<Claims> {
-    if (token.length > 12000) throw new UnauthorizedException('Access token không hợp lệ');
+    if (token.length > 12000)
+      throw new UnauthorizedException('Access token không hợp lệ');
     const pieces = token.split('.');
-    if (pieces.length !== 3) throw new UnauthorizedException('Access token không hợp lệ');
+    if (pieces.length !== 3)
+      throw new UnauthorizedException('Access token không hợp lệ');
     try {
-      const header = JSON.parse(Buffer.from(pieces[0], 'base64url').toString()) as {
+      const header = JSON.parse(
+        Buffer.from(pieces[0], 'base64url').toString(),
+      ) as {
         alg?: string;
         kid?: string;
       };
-      const claims = JSON.parse(Buffer.from(pieces[1], 'base64url').toString()) as Claims;
+      const claims = JSON.parse(
+        Buffer.from(pieces[1], 'base64url').toString(),
+      ) as Claims;
       if (header.alg !== 'RS256' || !header.kid) {
         throw new UnauthorizedException('Access token không hợp lệ');
       }
@@ -107,11 +165,16 @@ export class AuthGuard implements CanActivate {
         claims.exp <= now ||
         (typeof claims.nbf === 'number' && claims.nbf > now)
       ) {
-        throw new UnauthorizedException('Access token không hợp lệ hoặc đã hết hạn');
+        throw new UnauthorizedException(
+          'Access token không hợp lệ hoặc đã hết hạn',
+        );
       }
       return claims;
     } catch (error) {
-      if (error instanceof UnauthorizedException || error instanceof ServiceUnavailableException) {
+      if (
+        error instanceof UnauthorizedException ||
+        error instanceof ServiceUnavailableException
+      ) {
         throw error;
       }
       throw new UnauthorizedException('Access token không hợp lệ');
@@ -121,9 +184,12 @@ export class AuthGuard implements CanActivate {
   private async getKeys(): Promise<Jwk[]> {
     if (this.jwks && this.jwks.expiresAt > Date.now()) return this.jwks.keys;
     try {
-      const response = await fetch(this.identityUrl + '/.well-known/jwks.json', {
-        signal: AbortSignal.timeout(5000),
-      });
+      const response = await fetch(
+        this.identityUrl + '/.well-known/jwks.json',
+        {
+          signal: AbortSignal.timeout(5000),
+        },
+      );
       if (!response.ok) throw new Error('JWKS unavailable');
       const data = (await response.json()) as { keys?: Jwk[] };
       if (!Array.isArray(data.keys)) throw new Error('Invalid JWKS');
@@ -134,14 +200,20 @@ export class AuthGuard implements CanActivate {
     }
   }
 
-  private async verifyAccountStatus(userId: string, roles: Set<string>): Promise<void> {
+  private async verifyAccountStatus(
+    userId: string,
+    roles: Set<string>,
+  ): Promise<void> {
     const internalToken = process.env.INTERNAL_SERVICE_TOKEN;
     if (!internalToken) {
       throw new ServiceUnavailableException('Chưa cấu hình xác thực nội bộ');
     }
     try {
       const response = await fetch(
-        this.identityUrl + '/api/users/internal/' + encodeURIComponent(userId) + '/status',
+        this.identityUrl +
+          '/api/users/internal/' +
+          encodeURIComponent(userId) +
+          '/status',
         {
           headers: { 'x-internal-service-token': internalToken },
           signal: AbortSignal.timeout(5000),
@@ -151,7 +223,8 @@ export class AuthGuard implements CanActivate {
       const payload = (await response.json()) as {
         data?: { isAllowed?: boolean; ticketVendorApprovalStatus?: string };
       };
-      if (!payload.data?.isAllowed) throw new ForbiddenException('Tài khoản không hoạt động');
+      if (!payload.data?.isAllowed)
+        throw new ForbiddenException('Tài khoản không hoạt động');
       if (
         (roles.has('ROLE_TICKET_VENDOR') || roles.has('TICKET_VENDOR')) &&
         payload.data.ticketVendorApprovalStatus !== 'APPROVED'
@@ -160,7 +233,9 @@ export class AuthGuard implements CanActivate {
       }
     } catch (error) {
       if (error instanceof ForbiddenException) throw error;
-      throw new ServiceUnavailableException('Không kiểm tra được trạng thái tài khoản');
+      throw new ServiceUnavailableException(
+        'Không kiểm tra được trạng thái tài khoản',
+      );
     }
   }
 }

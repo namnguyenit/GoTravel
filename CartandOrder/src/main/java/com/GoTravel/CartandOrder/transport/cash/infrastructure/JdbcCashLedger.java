@@ -85,13 +85,15 @@ public class JdbcCashLedger implements CashLedger {
         BigDecimal commissionRate = (BigDecimal) shifts.get(0)[1];
         String commissionVersion = (String) shifts.get(0)[2];
         BigDecimal gross = jdbc.queryForObject(
-                "select coalesce(sum(amount),0) from transport_cash_receipts where shift_id=?",
-                BigDecimal.class, shiftId);
+                "select (select coalesce(sum(amount),0) from transport_cash_receipts where shift_id=?)+(select coalesce(sum(amount),0) from transport_operation_cash_proofs where shift_id=?)",
+                BigDecimal.class, shiftId,shiftId);
         BigDecimal refunds = jdbc.queryForObject(
                 "select coalesce(sum(c.amount),0) from transport_refund_confirmations c " +
                         "join transport_cash_receipts r on r.order_id=c.order_id " +
                         "where r.shift_id=? and c.payment_method='CASH'",
                 BigDecimal.class, shiftId);
+        BigDecimal itemRefunds=jdbc.queryForObject("select coalesce(sum(p.amount),0) from transport_operation_refund_proofs p where p.refund_method='CASH' and p.shift_id=?",BigDecimal.class,shiftId);
+        refunds=refunds.add(itemRefunds);
         BigDecimal expected = gross.subtract(refunds);
         BigDecimal variance = countedAmount.subtract(expected);
         BigDecimal commissionDue = gross.multiply(commissionRate).setScale(0, RoundingMode.HALF_UP);
@@ -140,6 +142,47 @@ public class JdbcCashLedger implements CashLedger {
     public void markRefundAdjustmentSent(UUID orderId) {
         jdbc.update("update transport_cash_refund_outbox set delivered_at=now() " +
                 "where order_id=? and delivered_at is null", orderId);
+    }
+
+    @Override
+    public List<Shift> listShiftsByOperator(UUID operatorId, int limit, int offset) {
+        return jdbc.query("select * from transport_cash_shifts where operator_id=? order by opened_at desc limit ? offset ?",
+                (rs, row) -> new Shift(rs.getObject("id", UUID.class),
+                        rs.getObject("actor_id", UUID.class), rs.getObject("operator_id", UUID.class),
+                        rs.getTimestamp("opened_at").toInstant(), rs.getString("commission_version"),
+                        rs.getBigDecimal("commission_rate")), operatorId, limit, offset);
+    }
+
+    @Override
+    public List<Shift> listShiftsByActor(UUID actorId, int limit) {
+        return jdbc.query("select * from transport_cash_shifts where actor_id=? order by opened_at desc limit ?",
+                (rs, row) -> new Shift(rs.getObject("id", UUID.class),
+                        rs.getObject("actor_id", UUID.class), rs.getObject("operator_id", UUID.class),
+                        rs.getTimestamp("opened_at").toInstant(), rs.getString("commission_version"),
+                        rs.getBigDecimal("commission_rate")), actorId, limit);
+    }
+
+    @Override
+    public ShiftDetail findShiftDetail(UUID shiftId) {
+        var shift = jdbc.query("select * from transport_cash_shifts where id=?",
+                (rs, row) -> new ShiftDetail(rs.getObject("id", UUID.class),
+                        rs.getObject("actor_id", UUID.class), rs.getObject("operator_id", UUID.class),
+                        rs.getTimestamp("opened_at").toInstant(),
+                        rs.getTimestamp("closed_at") == null ? null : rs.getTimestamp("closed_at").toInstant(),
+                        rs.getBigDecimal("gross_amount"), rs.getBigDecimal("expected_amount"),
+                        rs.getBigDecimal("counted_amount"), rs.getBigDecimal("variance"),
+                        rs.getBigDecimal("commission_due"), rs.getString("commission_version"),
+                        null,null), shiftId).stream().findFirst().orElse(null);
+        if (shift == null) return null;
+        var receipts = jdbc.query("select * from transport_cash_receipts where shift_id=? order by received_at asc",
+                (rs, row) -> new Receipt(rs.getObject("id", UUID.class),
+                        rs.getString("receipt_no"), rs.getObject("order_id", UUID.class),
+                        rs.getObject("shift_id", UUID.class), rs.getBigDecimal("amount"),
+                        rs.getTimestamp("received_at").toInstant()), shiftId);
+        return new ShiftDetail(shift.id(), shift.actorId(), shift.operatorId(), shift.openedAt(),
+                shift.closedAt(), shift.grossAmount(), shift.expectedAmount(), shift.countedAmount(),
+                shift.variance(), shift.commissionDue(), shift.commissionVersion(), receipts,
+                jdbc.queryForList("select 'TOPUP' as kind,p.operation_id,p.amount,p.reference,p.received_at as recorded_at from transport_operation_cash_proofs p where p.shift_id=? union all select 'REFUND' as kind,p.operation_id,p.amount,p.reference,p.recorded_at from transport_operation_refund_proofs p where p.refund_method='CASH' and p.shift_id=?",shiftId,shiftId));
     }
 
     private ResponseStatusException conflict(String message) {

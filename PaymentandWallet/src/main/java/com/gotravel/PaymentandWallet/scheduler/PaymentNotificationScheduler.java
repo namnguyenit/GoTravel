@@ -27,8 +27,11 @@ public class PaymentNotificationScheduler {
                 var order = response == null ? null : response.getData();
                 if (order == null) throw new IllegalStateException("Order summary unavailable");
                 boolean alreadyConfirmed = "CONFIRMED".equals(order.getStatus()) || "COMPLETED".equals(order.getStatus());
-                boolean transport = "GOCAR_TICKET".equals(order.getOrderKind());
-                if (notification.isSuccessful() && !alreadyConfirmed) {
+                boolean transport = ("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()));
+                if ("GOCAR_EXCHANGE".equals(order.getOrderKind())) {
+                    var result=orders.notifyPaymentSuccess(notification.getOrderId());
+                    if(result==null||!result.isSuccess())throw new IllegalStateException("Item operation payment signal pending");
+                } else if (notification.isSuccessful() && !alreadyConfirmed) {
                     var payment = transport ? paymentService.getPaymentStatusByOrderId(notification.getOrderId()) : null;
                     if (transport && payment != null && "PAID_REVIEW".equals(payment.getStatus())) {
                         var result = orders.notifyPaymentReview(notification.getOrderId());

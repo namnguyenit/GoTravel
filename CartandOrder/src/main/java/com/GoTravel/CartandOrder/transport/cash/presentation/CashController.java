@@ -40,6 +40,27 @@ public class CashController {
         return ResponseEntity.ok(ApiResponse.success(cash.openShift(actor(jwt), request.tripId())));
     }
 
+    @GetMapping("/shifts/me")
+    public ResponseEntity<ApiResponse<java.util.List<CashLedger.Shift>>> getMyShifts(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(ApiResponse.success(cash.getMyShifts(actor(jwt))));
+    }
+
+    @GetMapping("/shifts")
+    public ResponseEntity<ApiResponse<java.util.List<CashLedger.Shift>>> listShifts(
+            @AuthenticationPrincipal Jwt jwt,
+            @RequestParam(required = false) UUID operatorId,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return ResponseEntity.ok(ApiResponse.success(cash.listOperatorShifts(actor(jwt), operatorId, page, size)));
+    }
+
+    @GetMapping("/shifts/{shiftId}")
+    public ResponseEntity<ApiResponse<CashLedger.ShiftDetail>> getShiftDetail(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID shiftId) {
+        return ResponseEntity.ok(ApiResponse.success(cash.getShiftDetail(actor(jwt), shiftId)));
+    }
+
     @PostMapping("/shifts/close")
     public ResponseEntity<ApiResponse<CashLedger.ClosedShift>> closeShift(@AuthenticationPrincipal Jwt jwt,
             @RequestBody @Valid CloseShiftRequest request) {

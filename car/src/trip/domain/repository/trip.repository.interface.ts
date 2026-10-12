@@ -64,12 +64,14 @@ export interface CarRef {
 }
 
 export interface CustomerTripSearchParams {
+  activeRouteIds?: string[];
+  departureRanges?: Array<{ start: Date; end: Date }>;
   origin: string;
   destination: string;
   departureDate: string;
   type?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  minPrice?: string;
+  maxPrice?: string;
   operatorId?: string;
   sortBy?: 'departureTime' | 'pricePerSeat';
   sortOrder?: 'asc' | 'desc';
@@ -81,7 +83,8 @@ export interface CustomerTripItem {
   id: string;
   departureTime: Date;
   arrivalTime: Date;
-  pricePerSeat: number;
+  pricePerSeat: number | null;
+  fromPriceVnd: string;
   status: TripStatus;
   operator: {
     id: string;
@@ -130,5 +133,7 @@ export interface ITripRepository {
   findById(id: string): Promise<Trip | null>;
   save(trip: Trip): Promise<Trip>;
   findManyByOperatorId(params: TripFilterParams): Promise<TripListQueryResult>;
-  searchCustomerTrips(params: CustomerTripSearchParams): Promise<CustomerTripSearchResult>;
+  searchCustomerTrips(
+    params: CustomerTripSearchParams,
+  ): Promise<CustomerTripSearchResult>;
 }

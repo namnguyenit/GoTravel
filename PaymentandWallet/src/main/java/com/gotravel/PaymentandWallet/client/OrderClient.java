@@ -12,6 +12,10 @@ import java.util.UUID;
 
 @FeignClient(name = "cart-order", url = "${services.cart-order.url:http://localhost:8084}", configuration = InternalFeignConfig.class)
 public interface OrderClient {
+ @GetMapping("/api/v1/internal/orders/transport/item-operations/{id}") ApiResponse<com.gotravel.PaymentandWallet.transport.application.TransportItemMoneyService.PlanView> itemOperation(@PathVariable("id") UUID id);
+ @GetMapping("/api/v1/internal/orders/transport/item-operations/{id}/cash-proof") ApiResponse<com.gotravel.PaymentandWallet.transport.domain.ItemMoneyLedger.Proof> itemCashProof(@PathVariable("id") UUID id);
+ @GetMapping("/api/v1/internal/orders/transport/item-operations/{id}/refund-proof") ApiResponse<com.gotravel.PaymentandWallet.transport.domain.ItemMoneyLedger.Proof> itemRefundProof(@PathVariable("id") UUID id);
+
 
     @GetMapping("/api/v1/internal/orders/{orderId}/payment-summary")
     ApiResponse<OrderPaymentSummaryResponse> getPaymentSummary(@PathVariable("orderId") UUID orderId);

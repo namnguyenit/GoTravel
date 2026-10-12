@@ -75,6 +75,20 @@ public class HostPayoutController {
         return ResponseEntity.ok(ApiResponse.success("Cập nhật cấu hình hoa hồng thành công", hostPayoutService.updateCommissionConfig(actor(jwt), request)));
     }
 
+    @PostMapping("/transport/{payoutId}/withdraw")
+    public ResponseEntity<ApiResponse<HostPayoutResponse>> requestTransportWithdrawal(@AuthenticationPrincipal Jwt jwt,@PathVariable UUID payoutId) {
+        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.requestTransportWithdrawal(payoutId,actor(jwt))));
+    }
+
+    public record TransportPayoutProof(java.math.BigDecimal amount,String reference,String evidenceUrl) {}
+
+    @PutMapping("/transport/{payoutId}/mark-paid")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Void>> markTransportPaid(@AuthenticationPrincipal Jwt jwt,@PathVariable UUID payoutId,@RequestBody TransportPayoutProof proof) {
+        hostPayoutService.markTransportPaid(payoutId,actor(jwt),proof.amount(),proof.reference(),proof.evidenceUrl());
+        return ResponseEntity.ok(ApiResponse.success("Đã ghi chứng cứ chi trả vận tải theo net payable"));
+    }
+
     @PutMapping("/{payoutId}/mark-paid")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ApiResponse<Void>> markAsPaid(@PathVariable UUID payoutId) {

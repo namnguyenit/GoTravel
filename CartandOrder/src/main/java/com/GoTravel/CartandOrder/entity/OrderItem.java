@@ -47,8 +47,21 @@ public class OrderItem {
     @Column(name = "transport_ticket_id")
     private UUID transportTicketId;
 
+    @Column(name = "transport_boarding_status", length = 16)
+    private String transportBoardingStatus;
+
     @Column(name = "transport_check_in_token", length = 256)
     private String transportCheckInToken;
+
+    @Column(name = "transport_ticket_revision")
+    @Builder.Default
+    private Integer transportTicketRevision = 1;
+
+    @Column(name = "transport_item_state") @Builder.Default
+    private String transportItemState = "ACTIVE";
+    @Column(name = "transport_original_amount") private BigDecimal transportOriginalAmount;
+    @Column(name = "transport_departure_at") private java.time.LocalDateTime transportDepartureAt;
+    @Column(name = "transport_refund_total") @Builder.Default private BigDecimal transportRefundTotal = BigDecimal.ZERO;
 
     @Column(name = "host_id")
     private UUID hostId;

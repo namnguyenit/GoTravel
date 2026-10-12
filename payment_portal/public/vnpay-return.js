@@ -21,10 +21,22 @@ async function check() {
     el('result-icon').textContent = result.result === 'SUCCESS' ? '✓' : ['FAILED', 'EXPIRED', 'REVIEW'].includes(result.result) ? '!' : '…';
     el('result-title').textContent = message[0]; el('result-message').textContent = message[1];
     const home = new URL(result.frontendUrl);
-    if (home.protocol !== 'https:' || home.username || home.password) throw new Error('Địa chỉ GoTravel không hợp lệ.');
-    el('home-link').href = home.origin + '/';
-    el('order-link').href = home.origin + '/orders/completed?orderId=' + encodeURIComponent(result.orderId);
-    el('order-link').textContent = 'Xem đơn hàng'; el('order-reference').textContent = 'Mã đơn: ' + result.orderId;
+    if (home.protocol !== 'https:' || home.username || home.password) throw new Error('Địa chỉ dịch vụ không hợp lệ.');
+    const isTransport = result.orderKind === 'GOCAR_TICKET' || result.orderKind === 'GOCAR_EXCHANGE'
+      || home.hostname.includes('gocar') || home.hostname.includes('goticket');
+
+    if (isTransport) {
+      el('home-link').href = home.origin + '/';
+      el('home-link').textContent = 'Quay về GoTicket ↗';
+      el('order-link').href = home.origin + '/payment/return?orderId=' + encodeURIComponent(result.orderId);
+      el('order-link').textContent = 'Xem vé & mã QR';
+    } else {
+      el('home-link').href = home.origin + '/';
+      el('home-link').textContent = 'Quay về GoTravel ↗';
+      el('order-link').href = home.origin + '/orders/completed?orderId=' + encodeURIComponent(result.orderId);
+      el('order-link').textContent = 'Xem đơn hàng';
+    }
+    el('order-reference').textContent = 'Mã đơn: ' + (result.orderNumber || result.orderId);
     clearTimeout(timer);
     if (['PENDING', 'CONFIRMING'].includes(result.result) && ++tries < 24) timer = setTimeout(check, 2500);
   } catch (error) {

@@ -2,6 +2,7 @@ export interface OperatorProps {
   id?: string;
   userId: string;
   name: string;
+  status?: 'ACTIVE' | 'SUSPENDED';
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -10,6 +11,7 @@ export class Operator {
   private readonly _id?: string;
   private readonly _userId: string;
   private _name: string;
+  private readonly _status: 'ACTIVE' | 'SUSPENDED';
   private readonly _createdAt?: Date;
   private _updatedAt?: Date;
 
@@ -20,6 +22,7 @@ export class Operator {
     this._id = props.id;
     this._userId = props.userId.trim();
     this._name = props.name.trim();
+    this._status = props.status || 'ACTIVE';
     this._createdAt = props.createdAt || new Date();
     this._updatedAt = props.updatedAt || new Date();
   }
@@ -55,6 +58,10 @@ export class Operator {
 
   get name(): string {
     return this._name;
+  }
+
+  get status(): 'ACTIVE' | 'SUSPENDED' {
+    return this._status;
   }
 
   get createdAt(): Date | undefined {

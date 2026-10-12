@@ -1,0 +1,51 @@
+NHIỆM VỤ: TRIỂN KHAI FRONTEND GOTICKET TRONG HỆ SINH THÁI GOTRAVEL/GOCAR
+
+Bạn không cần lịch sử chat nhưng phải đọc source và tài liệu bên dưới. Workspace: /home/DoANLienNganh. Frontend: /home/DoANLienNganh/front-end-goticket (đã đổi tên từ car_front-end). Backend vận tải vẫn /home/DoANLienNganh/car và vẫn tên GoCar; thương hiệu UI mới là GoTicket. Không đổi business kind GOCAR_TICKET/GOCAR_EXCHANGE để khớp tên UI.
+
+ĐỌC THEO THỨ TỰ, KHÔNG CHỈ ĐỌC FILE NÀY:
+1. front-end-goticket/FRONTEND_GOTICKET_PLAN.md toàn bộ: thiết kế, wireframe, screens, state, API sequences, G1–G9, checklist P0–P5.
+2. front-end-goticket/API_REFERENCE.md: method/path/authorization/signature/source từng endpoint.
+3. front-end-goticket/DTO_REFERENCE.md và API_INVENTORY.json: validators/types/inline records, alias Gateway chưa chắc runtime đúng.
+4. car/BACKEND_COMPLETION_PLAN.md mục 20–21, car/BACKEND_OPERATIONS.md và source hiện tại.
+5. front-end-goticket/.skill/clean-architecture-frontend-skill.md; /home/trungcao/.codex/skills/impeccable/SKILL.md nếu có. Thông báo khi sử dụng skill. Kiểm tra AGENTS.md áp dụng trước sửa.
+
+HIỆN TRẠNG:
+- Mới đổi tên folder, package/title, paths trong car.sh và deploy/ecosystem.config.cjs, viết tài liệu. Chưa code frontend mới. Source frontend cũ còn để tham khảo, không phải kiến trúc/luồng auth đúng cho bản mới.
+- Nhiều backend files đang dirty từ đợt remake. Không reset/checkout/overwrite các thay đổi này. Không commit/push nếu chưa được yêu cầu.
+- Backend chưa build/generate/test/migrate trên hệ thống đang phục vụ. Inventory là static source, không phải API đã hoạt động. Đọc lại source trước dùng, ghi khác biệt nếu contract đổi.
+- Giữ GoCar frontend/backend tắt; không bật PM2/tunnel/public preview, migrate live DB, gọi ngân hàng/mail người thật khi chưa được yêu cầu. Chủ dự án muốn code trước, test sau; không chạy vòng test liên tục. Lập kế hoạch kiểm chứng ở milestone cuối và báo phần chưa kiểm chứng.
+
+PHẠM VI SẢN PHẨM:
+React frontend vé XE KHÁCH một chiều; customer tìm/chọn/đặt/trả/nhận QR/đổi/hủy/review/dispute/profile; owner quản lý xe/ghế/tuyến/stops/trip/offer/staff/đơn/quầy/ca/báo cáo/payout; staff scoped check-in/counter/lifecycle/ca theo capability; admin KYC/moderation/orders/attention/refund/operations/cancellation/reconciliation/outbox/settlements/accounts/policies. Không tàu, không bán lại ghế theo từng chặng, không coupons/bank CRUD/CRUD khác bằng endpoint tưởng tượng.
+
+NGUYÊN TẮC:
+- Frontend gọi Gateway /api/v1 qua HttpPort, cookie HttpOnly credentials include, mutation X-CSRF-Token; không JWT localStorage, không X-User-* giả/internal keys, không fallback port service.
+- Identity là SSO/KYC/roles; Inventory giữ ghế; Catalog duyệt offer/content/reviews; Cart là coordinator/orders/operations/cash; GoPay là payments/refunds/payout. Không tự viết bản thứ hai của các service này trong frontend.
+- Ghế click chọn mới SELECTED local; checkout server thành công mới HELD 15 phút. Timer dùng expiresAt server, reload không gia hạn. Max 10 passenger seats và cùng trip.
+- Stable Idempotency-Key/commandId/operationId theo một intent; timeout retry cùng ID/payload, không tạo charge/order thứ hai. SERVER quyết định giá/phí/hủy/quyền/trạng thái.
+- Payment received khác tickets issued; PAID_REVIEW/refund pending không phải mất tiền/đã hoàn. Query URL/animation/mock UI không xác nhận tiền. Mock payment chỉ qua GoPay được server cho phép, isolated test DB.
+- Exchange theo từng item, cùng nhà xe; online topup resourceId=operationId, thu chênh lệch; không trả toàn bộ giá vé mới bằng order cũ. Vé QR revision mới sau commit, QR cũ không dùng lại.
+- CASH chỉ nhà xe/staff có SELL_CASH và ca mở; xác nhận nhận tiền thực, không giả guest account/online-payment cho CASH; staff allTrips không tự cấp quyền finance.
+- QR/contact/KYC không leak trong manifest/list/log/analytics/cache; owner buyer hoặc endpoint CASH document có quyền mới render QR.
+- Money exact decimal strings/BigInt; giữ khác biệt legacy numeric DTO. Ngày Việt Nam +07:00, order LocalDateTime không offset phải parse zone rõ; Spring page0 khác GoCar page1. Envelope decode theo endpoint, không unwrap data đệ quy.
+
+CÓ CẦN ĐI SANG SERVICE KHÁC KHÔNG? CÓ, CHO PHỤ THUỘC TÍCH HỢP CỤ THỂ:
+G1/G2: APIGateway/src/gateway/default-config.json và registry/security mapping: public detail/stops/seats/operator profile đúng GET; staff/check-in và Catalog transport content routes. Không mở public mọi mutation.
+G3: payment_portal/server.js + public/app.js: GoTicket origins và typed order/operation handoff, scoped trusted reads, return allowlist; giữ GoTravel {orderId} launch tương thích. Body resourceKind/resourceId trong plan là ĐỀ XUẤT chưa implement.
+G4: auth_front-end/src/platform-domains.ts, Gateway allowed origins/cookie config và frontend env: SSO return GoTicket domain/3334 chưa có allowlist. Không sửa giao diện GoTravel, không mở redirect arbitrary.
+G5: Cart paged order lists, Catalog moderation lists, Payment payout lists: thêm transport filter server với đúng totals và authorization, giữ request không filter tương thích GoTravel; không lọc một page trên client rồi gọi đủ lịch sử.
+G6: Read/API cần cho màn đã chốt còn thiếu: route detail, public operator list nếu dùng, vendor offer list/staff lookup, admin trip/order projection, vendor bank setup. Chọn tối thiểu, ghi contract mới/proposed rõ, không giả sử HOST bank hoặc admin API dùng cho vendor được.
+G7: Cart cash shift/detail và finance projections phải đủ original/delta/refund/commission movements sau item ops. Browser không query internal ledger trực tiếp.
+G8: Compile/generate/migration gate còn pending; ví dụ Cart TransportOrderController.java thiếu import java.util.List. Không đánh dấu API chạy chỉ vì đã có source. Khi được yêu cầu kiểm chứng mới chạy có phạm vi.
+G9: Identity duyệt TICKET_VENDOR hiện chưa tự provision GoCar Operator. car/src/operator/operator.module.ts bind local application use cases; local approve chỉ tạo Operator, không duyệt Identity/cấp role. Nối server provision/sync idempotent theo Identity userId và approval; một nguồn KYC, không hai hệ approve độc lập, không browser tự tạo nhà xe. Xem §9.3.
+
+Không tự mở scope sửa toàn bộ service chung; chỉ đổi contract/phụ thuộc thực sự cần cho GoTicket và ghi tương thích GoTravel. Source là authority, tài liệu có thể cũ; API mới phải cập nhật API_REFERENCE/DTO/inventory/mapping/checklist. Không đặt button hoạt động giả cho API thiếu.
+
+CÁCH TIẾN HÀNH:
+1. Chụp git status, đọc tài liệu/source và xác định bước chưa hoàn thành. Không chạy script migrate/start/build/test như một phần discovery.
+2. Chọn thiết kế theo impeccable và tokens/wireframes trong plan, dùng ảnh du lịch thật và wordmark GoTicket; không AI hero/badge/doanh số giả. Thiết kế hài hòa xanh GoCar, accent GoTravel, tiếng Việt tự nhiên, responsive/reduced motion.
+3. Triển khai theo P0→P1→P2→P3→P4, xử lý dependencies cần thiết trước khi đánh dấu screen tích hợp xong. Clean Architecture: domain/application ports/infrastructure/composition/presentation; single instance/factory qua composition, không new service trong UI.
+4. Mỗi lần xong tích đúng checkbox và ghi files/APIs/status implemented-vs-applied-vs-verified. Không tích phase vì có skeleton/mock screens.
+5. Cuối mỗi lượt ghi: đã làm, còn thiếu, integration dependencies, chưa kiểm chứng, file/hàm đang dở và bước tiếp theo. Hoàn thành source khác production ready; P5 gate chưa chạy thì báo rõ.
+
+Bắt đầu từ checklist thực tế mới nhất trong FRONTEND_GOTICKET_PLAN.md; không cần hỏi lại những quyết định scope đã chốt ở đó. Nếu chưa có lệnh code mà chỉ được yêu cầu review/plan, chỉ review/plan và báo chỗ cần sửa.

@@ -18,8 +18,26 @@ public class InternalFeignConfig {
             }
 
             String token = internalServiceToken == null ? "" : internalServiceToken.trim();
-            if (!token.isEmpty()) {
-                requestTemplate.header(InternalServiceTokenFilter.HEADER_NAME, token);
+            if (!token.isEmpty()) requestTemplate.header(InternalServiceTokenFilter.HEADER_NAME, token);
+            String path = requestTemplate.path();
+            boolean scopedPath = path.contains("/transport") || path.contains("/internal/car/staff");
+            if(scopedPath) {
+                String target = path.contains("/internal/car/") ? "car" :
+                        path.contains("/internal/inventory/") ? "inventory" :
+                        path.contains("/internal/payments/") ? "payment" :
+                        path.contains("/communications/") ? "communication" :
+                        path.contains("/internal/catalog/") ? "catalog" : "cart";
+                String json = System.getenv("TRANSPORT_INTERNAL_TOKENS");
+                if (json != null && !json.isBlank()) {
+                    try {
+                        var tokens = new com.fasterxml.jackson.databind.ObjectMapper().readTree(json);
+                        String scopedToken = tokens.path(target).asText("");
+                        if (scopedToken.length() < 32) throw new IllegalStateException("Missing transport destination credential");
+                        requestTemplate.removeHeader(InternalServiceTokenFilter.HEADER_NAME);
+                        requestTemplate.header(InternalServiceTokenFilter.HEADER_NAME, scopedToken);
+                        requestTemplate.header("X-Internal-Caller", "catalog");
+                    } catch (java.io.IOException invalid) { throw new IllegalStateException("Invalid transport credential configuration"); }
+                }
             }
         };
     }

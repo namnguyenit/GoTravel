@@ -126,7 +126,7 @@ public class VnpayService {
         if (order.getTotalAmount().compareTo(attempt.getAmount()) != 0
                 || !payment.getOrderId().equals(order.getOrderId())) return ack("04", "Invalid amount");
         var now = LocalDateTime.now(ZONE);
-        boolean transport = "GOCAR_TICKET".equals(order.getOrderKind());
+        boolean transport = ("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()));
         needsReview |= payment.getStatus() != PaymentStatus.PENDING
                 || !attempt.getExpiresAt().isAfter(paidAt)
                 || !"PAYMENT_PENDING".equalsIgnoreCase(order.getStatus())
@@ -141,7 +141,7 @@ public class VnpayService {
             payment.setStatus(PaymentStatus.PAID_REVIEW);
             payment.setPaidAt(paidAt);
             payments.save(payment);
-            if ("GOCAR_TICKET".equals(order.getOrderKind())) {
+            if (("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()))) {
                 notifications.save(PaymentOrderNotification.builder().orderId(payment.getOrderId())
                         .successful(true).createdAt(LocalDateTime.now(ZONE)).build());
             }
@@ -167,9 +167,13 @@ public class VnpayService {
         if (payment.getStatus() == PaymentStatus.PAID_REVIEW || "REVIEW".equals(attempt.getStatus())) result = "REVIEW";
         else if (payment.getStatus() == PaymentStatus.COMPLETED) result = orderConfirmed ? "SUCCESS" : "CONFIRMING";
         else if (!"00".equals(fields.get("vnp_ResponseCode")) || !"00".equals(fields.get("vnp_TransactionStatus")) || "FAILED".equals(attempt.getStatus())) result = "FAILED";
-        else if (payment.getStatus() == PaymentStatus.EXPIRED) result = "EXPIRED";
+        var order = paymentService.getInternalOrderPaymentSummary(payment.getOrderId());
+        boolean isTransport = order != null && ("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()));
+        String frontendUrl = isTransport ? "https://gocar.nonnet123.io.vn" : config.getFrontendUrl();
+        String orderKind = order != null ? order.getOrderKind() : null;
+
         return new VnpayReturnResponse(payment.getOrderId(), payment.getId(), result,
-                fields.get("vnp_ResponseCode"), config.getFrontendUrl(), orderConfirmed);
+                fields.get("vnp_ResponseCode"), frontendUrl, orderConfirmed, orderKind);
     }
 
     private boolean validAmount(Map<String, String> fields, VnpayPaymentAttempt attempt) {

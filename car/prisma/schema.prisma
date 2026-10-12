@@ -11,19 +11,31 @@ datasource db {
 // 1. Operator (Nhà xe chính thức)
 // ============================================================================
 model Operator {
-  id        String   @id @default(uuid())
-  userId    String   @unique @map("user_id") // ID tài khoản chủ nhà xe (từ Identity Service)
-  name      String   // Tên nhà xe / công ty
+  id             String         @id @default(uuid())
+  userId         String         @unique @map("user_id") // ID tài khoản chủ nhà xe (từ Identity Service)
+  name           String         // Tên pháp nhân nhà xe (đồng bộ từ Identity KYC)
+  status         OperatorStatus @default(ACTIVE)
+  displayName    String?        @map("display_name")
+  logoUrl        String?        @map("logo_url")
+  contactPhone   String?        @map("contact_phone")
+  contactAddress String?        @map("contact_address")
+  description    String?        @map("description")
 
   cars      Car[]
   routes    Route[]
   trips     Trip[]
   staff     OperatorStaff[]
+  stops     OperatorStop[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("operators")
+}
+
+enum OperatorStatus {
+  ACTIVE
+  SUSPENDED
 }
 
 model OperatorStaff {
@@ -33,6 +45,9 @@ model OperatorStaff {
   userId       String   @map("user_id")
   canSellCash  Boolean  @default(false) @map("can_sell_cash")
   canCheckIn   Boolean  @default(false) @map("can_check_in")
+  canManageTrip Boolean @default(false) @map("can_manage_trip")
+  canCloseShift Boolean @default(false) @map("can_close_shift")
+  tripIds      String[] @default([]) @map("trip_ids")
   active       Boolean  @default(true)
   assignedBy   String   @map("assigned_by")
   createdAt    DateTime @default(now()) @map("created_at")
@@ -96,6 +111,8 @@ model SeatTemplate {
   code      String   @db.VarChar(32)
   level     Int      @default(1)
   seatClass String   @default("STANDARD") @map("seat_class") @db.VarChar(32)
+  row       Int      @default(0)
+  column    Int      @default(0)
   active    Boolean  @default(true)
   createdAt DateTime @default(now()) @map("created_at")
 
@@ -144,11 +161,15 @@ enum RouteStatus {
 // 4. RouteStop (Điểm dừng / Đón trả trên tuyến)
 // ============================================================================
 model RouteStop {
-  id             String   @id @default(uuid())
-  routeId        String   @map("route_id")
-  route          Route    @relation(fields: [routeId], references: [id], onDelete: Cascade)
-  name           String   // Tên điểm dừng (VD: Bến xe Nước Ngầm, Trạm dừng Phủ Lý)
-  order          Int      // Thứ tự điểm dừng trên tuyến (0, 1, 2, 3...)
+  id             String        @id @default(uuid())
+  routeId        String        @map("route_id")
+  route          Route         @relation(fields: [routeId], references: [id], onDelete: Cascade)
+  operatorStopId String?       @map("operator_stop_id")
+  operatorStop   OperatorStop? @relation(fields: [operatorStopId], references: [id], onDelete: SetNull)
+  name           String        // Tên điểm dừng (VD: Bến xe Nước Ngầm, Trạm dừng Phủ Lý)
+  address        String?
+  province       String?
+  order          Int           // Thứ tự điểm dừng trên tuyến (0, 1, 2, 3...)
 
   // Quan hệ với Ticket (Điểm đón và điểm trả)
   pickUpTickets  Ticket[] @relation("PickUpPoint")
@@ -159,6 +180,27 @@ model RouteStop {
 
   @@unique([routeId, order]) // Thứ tự điểm dừng trên cùng 1 tuyến phải là duy nhất
   @@map("route_stops")
+}
+
+// ============================================================================
+// 4b. OperatorStop (Danh mục điểm dừng nhà xe)
+// ============================================================================
+model OperatorStop {
+  id         String      @id @default(uuid())
+  operatorId String      @map("operator_id")
+  operator   Operator    @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  name       String
+  address    String
+  province   String
+  active     Boolean     @default(true)
+
+  routeStops RouteStop[]
+
+  createdAt  DateTime    @default(now()) @map("created_at")
+  updatedAt  DateTime    @updatedAt @map("updated_at")
+
+  @@index([operatorId, active])
+  @@map("operator_stops")
 }
 
 // ============================================================================
@@ -177,8 +219,18 @@ model Trip {
   arrivalTime   DateTime   @map("arrival_time")   // Giờ đến dự kiến
   pricePerSeat  Float      @map("price_per_seat") // Giá vé cơ bản trên mỗi ghế (VNĐ)
   priceVnd      Decimal?   @map("price_vnd") @db.Decimal(18, 0)
+  searchPriceVnd Decimal? @map("search_price_vnd") @db.Decimal(18, 0)
   offerListingId String?   @map("offer_listing_id")
   status        TripStatus @default(DRAFT)
+  saleSnapshot  Json?      @map("sale_snapshot")
+  classPrices   Json?      @map("class_prices")
+  stopOverrides Json?      @map("stop_overrides")
+  publishAttempts Int     @default(0) @map("publish_attempts")
+  publishRetryAt DateTime? @map("publish_retry_at")
+  publishError  String?   @map("publish_error")
+  inventorySyncVersion Int @default(0) @map("inventory_sync_version")
+  inventorySyncedVersion Int @default(0) @map("inventory_synced_version")
+  completionSyncedAt DateTime? @map("completion_synced_at")
 
   tickets       Ticket[]
   issuedTickets IssuedTicket[]
@@ -228,20 +280,42 @@ model IssuedTicket {
   dropoffStopId String             @map("dropoff_stop_id")
   tokenHash     String             @unique @map("token_hash")
   status        IssuedTicketStatus @default(ACTIVE)
+  tokenGeneration Int             @default(1) @map("token_generation")
+  revision      Int                @default(1)
   checkedInAt   DateTime?          @map("checked_in_at")
   checkedInBy   String?            @map("checked_in_by")
   createdAt     DateTime           @default(now()) @map("created_at")
   updatedAt     DateTime           @updatedAt @map("updated_at")
+
+  amendments    TransportTicketAmendment[]
+  itemOperations TransportItemOperation[]
 
   @@index([tripId, status])
   @@index([orderId])
   @@map("issued_tickets")
 }
 
+model TransportTicketAmendment {
+  commandId   String       @id @map("command_id")
+  ticketId    String       @map("ticket_id")
+  ticket      IssuedTicket @relation(fields: [ticketId], references: [id], onDelete: Restrict)
+  orderItemId String       @map("order_item_id")
+  orderId     String       @map("order_id")
+  revision    Int          @map("revision")
+  payloadHash String       @map("payload_hash")
+  result      Json         @map("result")
+  appliedAt   DateTime     @default(now()) @map("applied_at")
+
+  @@index([ticketId])
+  @@index([orderItemId])
+  @@map("transport_ticket_amendments")
+}
+
 enum IssuedTicketStatus {
   ACTIVE
   VOID
   CHECKED_IN
+  NO_SHOW
 }
 
 // ============================================================================
@@ -273,4 +347,43 @@ enum TicketStatus {
   BOOKED    // Đã đặt / giữ chỗ
   PAID      // Đã thanh toán
   CANCELLED // Đã hủy vé
+}
+
+model TransportQuoteRecord {
+  id        String   @id @default(uuid())
+  tripId    String   @map("trip_id")
+  version   String
+  hash      String
+  payload   Json
+  expiresAt DateTime @map("expires_at")
+  orderId   String?  @unique @map("order_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  @@index([expiresAt])
+  @@map("transport_quotes")
+}
+
+model TransportAudit {
+  id        String   @id @default(uuid())
+  actorId   String   @map("actor_id")
+  tripId    String?  @map("trip_id")
+  action    String
+  detail    Json
+  createdAt DateTime @default(now()) @map("created_at")
+  @@index([tripId, createdAt])
+  @@map("transport_audit")
+}
+
+model TransportItemOperation {
+ id String @id
+ ticketId String @map("ticket_id")
+ ticket IssuedTicket @relation(fields:[ticketId],references:[id],onDelete:Restrict)
+ requestHash String @map("request_hash")
+ status String
+ plan Json
+ previousTicket Json? @map("previous_ticket")
+ result Json?
+ createdAt DateTime @default(now()) @map("created_at")
+ updatedAt DateTime @updatedAt @map("updated_at")
+ @@index([ticketId,status], map:"transport_item_operations_ticket_status_idx")
+ @@map("transport_item_operations")
 }

@@ -8,7 +8,10 @@ import { UpdateRouteStatusOutput } from '../../application/dto/update-route-stat
 import { GetRouteLocationsOutput } from '../../application/dto/get-route-locations.output';
 
 export class RoutePresentationMapper {
-  public static toCreateRouteInput(dto: CreateRouteDto, userId: string): CreateRouteInput {
+  public static toCreateRouteInput(
+    dto: CreateRouteDto,
+    userId: string,
+  ): CreateRouteInput {
     return {
       userId,
       origin: dto.origin,
@@ -38,7 +41,10 @@ export class RoutePresentationMapper {
     };
   }
 
-  public static toGetRoutesInput(query: GetRoutesQueryDto, userId: string): GetRoutesInput {
+  public static toGetRoutesInput(
+    query: GetRoutesQueryDto,
+    userId: string,
+  ): GetRoutesInput {
     return {
       userId,
       search: query.search,
@@ -62,7 +68,9 @@ export class RoutePresentationMapper {
     };
   }
 
-  public static toUpdateRouteStatusApiResponse(output: UpdateRouteStatusOutput) {
+  public static toUpdateRouteStatusApiResponse(
+    output: UpdateRouteStatusOutput,
+  ) {
     return {
       success: true,
       code: 'UPDATE_ROUTE_STATUS_SUCCESS',
@@ -79,7 +87,9 @@ export class RoutePresentationMapper {
     };
   }
 
-  public static toGetRouteLocationsApiResponse(output: GetRouteLocationsOutput) {
+  public static toGetRouteLocationsApiResponse(
+    output: GetRouteLocationsOutput,
+  ) {
     return {
       success: true,
       code: 'GET_ROUTE_LOCATIONS_SUCCESS',
@@ -89,5 +99,28 @@ export class RoutePresentationMapper {
       },
     };
   }
-}
 
+  public static toUpdateRouteApiResponse(
+    route: import('../../domain/entity/route.entity').Route,
+  ) {
+    return {
+      success: true,
+      code: 'UPDATE_ROUTE_SUCCESS',
+      message: 'Cập nhật tuyến đường thành công!',
+      data: {
+        id: route.id,
+        operatorId: route.operatorId,
+        origin: route.origin,
+        destination: route.destination,
+        status: route.status,
+        stops: route.stops.map((s) => ({
+          id: s.id,
+          name: s.name,
+          order: s.order,
+        })),
+        createdAt: route.createdAt,
+        updatedAt: route.updatedAt,
+      },
+    };
+  }
+}

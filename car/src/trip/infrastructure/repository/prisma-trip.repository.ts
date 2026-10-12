@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { vietnamDayBounds } from '../../domain/value-object/vietnam-day';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import {
   ITripRepository,
@@ -74,7 +79,16 @@ export class PrismaTripRepository implements ITripRepository {
       where: {
         carId,
         id: excludeTripId ? { not: excludeTripId } : undefined,
-        status: { in: ['DRAFT', 'PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED', 'DEPARTED'] },
+        status: {
+          in: [
+            'DRAFT',
+            'PUBLISHING',
+            'ON_SALE',
+            'STOP_SALE',
+            'SCHEDULED',
+            'DEPARTED',
+          ],
+        },
         departureTime: { lt: arrivalTime },
         arrivalTime: { gt: departureTime },
       },
@@ -100,15 +114,17 @@ export class PrismaTripRepository implements ITripRepository {
 
     if (raw.id) {
       const saved = await this.prisma.$transaction(async (tx) => {
+        await tx.$queryRaw`SELECT id FROM trips WHERE id = ${raw.id} FOR UPDATE`;
+        const current = await tx.trip.findUniqueOrThrow({
+          where: { id: raw.id },
+        });
+        const domain = TripMapper.toDomain(current);
+        domain.changeStatus(
+          raw.status as import('../../domain/value-object/trip-status.enum').TripStatus,
+        );
         const updated = await tx.trip.update({
           where: { id: raw.id },
-          data: {
-            departureTime: raw.departureTime,
-            arrivalTime: raw.arrivalTime,
-            pricePerSeat: raw.pricePerSeat,
-            priceVnd: new Prisma.Decimal(raw.pricePerSeat),
-            status: raw.status,
-          },
+          data: { status: raw.status, inventorySyncVersion: { increment: 1 } },
         });
 
         // Nếu trạng thái cập nhật thành CANCELLED, tự động chuyển các vé đã đặt sang CANCELLED
@@ -130,23 +146,63 @@ export class PrismaTripRepository implements ITripRepository {
       return TripMapper.toDomain(saved);
     }
 
-    const created = await this.prisma.trip.create({
-      data: {
-        operatorId: raw.operatorId,
-        routeId: raw.routeId,
-        carId: raw.carId,
-        departureTime: raw.departureTime,
-        arrivalTime: raw.arrivalTime,
-        pricePerSeat: raw.pricePerSeat,
-        priceVnd: new Prisma.Decimal(raw.pricePerSeat),
-        status: raw.status,
-      },
+    const created = await this.prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT id FROM cars WHERE id=${raw.carId} FOR UPDATE`;
+      await tx.$queryRaw`SELECT id FROM operators WHERE id=${raw.operatorId} FOR UPDATE`;
+      await tx.$queryRaw`SELECT id FROM routes WHERE id=${raw.routeId} FOR UPDATE`;
+      const car = await tx.car.findUnique({ where: { id: raw.carId } });
+      const route = await tx.route.findUnique({ where: { id: raw.routeId } });
+      const operator = await tx.operator.findUnique({
+        where: { id: raw.operatorId },
+      });
+      if (
+        !car ||
+        !route ||
+        !operator ||
+        car.operatorId !== raw.operatorId ||
+        route.operatorId !== raw.operatorId ||
+        car.status !== 'ACTIVE' ||
+        route.status !== 'ACTIVE' ||
+        operator.status !== 'ACTIVE'
+      )
+        throw new BadRequestException(
+          'Xe, tuyến hoặc nhà xe không còn hoạt động',
+        );
+      if (
+        raw.departureTime <= new Date() ||
+        (await tx.trip.findFirst({
+          where: {
+            carId: raw.carId,
+            status: { not: 'CANCELLED' },
+            departureTime: { lt: raw.arrivalTime },
+            arrivalTime: { gt: raw.departureTime },
+          },
+        }))
+      )
+        throw new ConflictException(
+          'Giờ khởi hành không hợp lệ hoặc xe bị trùng lịch',
+        );
+      return tx.trip.create({
+        data: {
+          operatorId: raw.operatorId,
+          routeId: raw.routeId,
+          carId: raw.carId,
+          departureTime: raw.departureTime,
+          arrivalTime: raw.arrivalTime,
+          pricePerSeat: raw.pricePerSeat,
+          priceVnd: new Prisma.Decimal(raw.pricePerSeat),
+          searchPriceVnd: new Prisma.Decimal(raw.pricePerSeat),
+          status: raw.status,
+        },
+      });
     });
 
     return TripMapper.toDomain(created);
   }
 
-  async findManyByOperatorId(params: TripFilterParams): Promise<TripListQueryResult> {
+  async findManyByOperatorId(
+    params: TripFilterParams,
+  ): Promise<TripListQueryResult> {
     const {
       operatorId,
       keyword,
@@ -177,8 +233,8 @@ export class PrismaTripRepository implements ITripRepository {
     }
 
     if (departureDate && departureDate.trim() !== '') {
-      const startOfDay = new Date(`${departureDate}T00:00:00.000Z`);
-      const endOfDay = new Date(`${departureDate}T23:59:59.999Z`);
+      const { start: startOfDay, end: endOfDay } =
+        vietnamDayBounds(departureDate);
       where.departureTime = {
         gte: startOfDay,
         lte: endOfDay,
@@ -223,7 +279,14 @@ export class PrismaTripRepository implements ITripRepository {
       }),
       this.prisma.trip.count({ where }),
       this.prisma.trip.count({ where: { operatorId } }),
-      this.prisma.trip.count({ where: { operatorId, status: { in: ['DRAFT', 'PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED'] } } }),
+      this.prisma.trip.count({
+        where: {
+          operatorId,
+          status: {
+            in: ['DRAFT', 'PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED'],
+          },
+        },
+      }),
       this.prisma.trip.count({ where: { operatorId, status: 'DEPARTED' } }),
       this.prisma.trip.count({ where: { operatorId, status: 'COMPLETED' } }),
       this.prisma.trip.count({ where: { operatorId, status: 'CANCELLED' } }),
@@ -274,18 +337,23 @@ export class PrismaTripRepository implements ITripRepository {
       limit = 10,
     } = params;
 
-    const startOfDay = new Date(`${departureDate}T00:00:00.000Z`);
-    const endOfDay = new Date(`${departureDate}T23:59:59.999Z`);
+    const { start: startOfDay, end: endOfDay } =
+      vietnamDayBounds(departureDate);
     const now = new Date(Date.now() + 15 * 60_000);
 
     const where: Prisma.TripWhereInput = {
       status: 'ON_SALE',
+      inventorySyncVersion: {
+        equals: this.prisma.trip.fields.inventorySyncedVersion,
+      },
+      operator: { status: 'ACTIVE' },
       departureTime: {
         gte: startOfDay > now ? startOfDay : now,
         lte: endOfDay,
       },
       route: {
         status: 'ACTIVE',
+        id: { in: params.activeRouteIds ?? [] },
         origin: { contains: origin, mode: 'insensitive' },
         destination: { contains: destination, mode: 'insensitive' },
       },
@@ -302,12 +370,12 @@ export class PrismaTripRepository implements ITripRepository {
     }
 
     if (minPrice !== undefined || maxPrice !== undefined) {
-      where.pricePerSeat = {};
+      where.searchPriceVnd = {};
       if (minPrice !== undefined) {
-        where.pricePerSeat.gte = minPrice;
+        where.searchPriceVnd.gte = new Prisma.Decimal(minPrice);
       }
       if (maxPrice !== undefined) {
-        where.pricePerSeat.lte = maxPrice;
+        where.searchPriceVnd.lte = new Prisma.Decimal(maxPrice);
       }
     }
 
@@ -315,12 +383,24 @@ export class PrismaTripRepository implements ITripRepository {
       where.operatorId = operatorId;
     }
 
+    const intervals = params.departureRanges ?? [];
+    if (intervals.length)
+      where.AND = [
+        {
+          OR: intervals.map((range) => ({
+            departureTime: { gte: range.start, lt: range.end },
+          })),
+        },
+      ];
+
     const skip = (page - 1) * limit;
 
     const [tripModels, total] = await Promise.all([
       this.prisma.trip.findMany({
         where,
-        orderBy: { [sortBy]: sortOrder },
+        orderBy: {
+          [sortBy === 'pricePerSeat' ? 'searchPriceVnd' : sortBy]: sortOrder,
+        },
         skip,
         take: limit,
         include: {
@@ -353,17 +433,32 @@ export class PrismaTripRepository implements ITripRepository {
         id: item.id,
         departureTime: item.departureTime,
         arrivalTime: item.arrivalTime,
-        pricePerSeat: item.pricePerSeat,
+        fromPriceVnd: (
+          item.searchPriceVnd ??
+          item.priceVnd ??
+          item.pricePerSeat
+        ).toString(),
+        pricePerSeat: Number.isSafeInteger(
+          Number(item.searchPriceVnd ?? item.priceVnd ?? item.pricePerSeat),
+        )
+          ? Number(item.searchPriceVnd ?? item.priceVnd ?? item.pricePerSeat)
+          : null,
         status: item.status as any,
         operator: {
           id: item.operator.id,
-          name: item.operator.name,
+          name:
+            (item as any).saleSnapshot?.operatorProfile?.name ??
+            item.operator.name,
         },
         route: {
           id: item.route.id,
-          origin: item.route.origin,
-          destination: item.route.destination,
-          stops: (item.route.stops || []).map((stop) => ({
+          origin: (item as any).saleSnapshot?.origin ?? item.route.origin,
+          destination:
+            (item as any).saleSnapshot?.destination ?? item.route.destination,
+          stops: (
+            ((item as any).saleSnapshot?.stops ?? item.route.stops) ||
+            []
+          ).map((stop: any) => ({
             id: stop.id,
             name: stop.name,
             order: stop.order,
@@ -371,9 +466,11 @@ export class PrismaTripRepository implements ITripRepository {
         },
         car: {
           id: item.car.id,
-          name: item.car.name,
-          licensePlate: item.car.licensePlate,
-          type: item.car.type,
+          name: (item as any).saleSnapshot?.vehicle?.name ?? item.car.name,
+          licensePlate:
+            (item as any).saleSnapshot?.vehicle?.licensePlate ??
+            item.car.licensePlate,
+          type: (item as any).saleSnapshot?.vehicle?.type ?? item.car.type,
           totalSeats: item.car.totalSeats,
         },
         seats: {

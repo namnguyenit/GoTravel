@@ -55,8 +55,8 @@ public class TransportOfferService {
         listing.setTransportRouteId(request.routeId());
         listing.setCategory(ListingCategory.TRANSPORT);
         listing.setSubCategory(SubCategory.NONE);
-        listing.setTitle(request.origin().trim() + " – " + request.destination().trim());
-        listing.setDescription(request.description());
+        if (existing.isEmpty()) listing.setTitle(request.origin().trim() + " – " + request.destination().trim());
+        if (existing.isEmpty() || request.description() != null) listing.setDescription(request.description());
         listing.setProvince(request.province() == null || request.province().isBlank()
                 ? request.origin().trim() : request.province().trim());
         listing.setBasePrice(request.fromPrice());
@@ -64,7 +64,7 @@ public class TransportOfferService {
         listing.setLatitude(request.latitude());
         listing.setLongitude(request.longitude());
         listing.setLocation(GeometryUtil.createPoint(request.longitude(), request.latitude()));
-        listing.setThumbnailUrl(request.thumbnailUrl());
+        if (existing.isEmpty() || request.thumbnailUrl() != null) listing.setThumbnailUrl(request.thumbnailUrl());
         listing.setAttributes(attributes);
         if (existing.isEmpty()) {
             listing.setStatus(ListingStatus.PENDING);
@@ -76,15 +76,57 @@ public class TransportOfferService {
     }
 
     @Transactional(readOnly = true)
+    public java.util.List<UUID> activeRouteIds() {
+        var routes = listings.findActiveTransportRouteIds();
+        var owners = new java.util.HashMap<UUID, Boolean>();
+        return routes.stream().filter(routeId -> {
+            var listing = listings.findByTransportRouteId(routeId).orElseThrow();
+            return owners.computeIfAbsent(listing.getHostId(), owner -> {
+                var status = identity.checkUserStatus(owner.toString());
+                if (status == null || status.getData() == null) throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Identity không xác nhận được nhà xe");
+                return Boolean.TRUE.equals(status.getData().getIsAllowed()) && "APPROVED".equals(status.getData().getTicketVendorApprovalStatus());
+            });
+        }).toList();
+    }
+
+    @Transactional(readOnly = true)
     public OfferResult getByRoute(UUID routeId) {
         Listing listing = listings.findByTransportRouteId(routeId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Chưa có offer cho tuyến"));
         return new OfferResult(listing.getId(), listing.getStatus().name());
     }
 
+    @Transactional
+    public OfferResult updateContent(UUID userId, UUID listingId, ContentUpdate content) {
+        var account = identity.checkUserStatus(userId.toString());
+        if (account == null || account.getData() == null ||
+                !Boolean.TRUE.equals(account.getData().getIsAllowed()) ||
+                !"APPROVED".equals(account.getData().getTicketVendorApprovalStatus()))
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Nhà xe chưa được duyệt");
+        Listing listing = listings.findById(listingId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (listing.getCategory() != ListingCategory.TRANSPORT || !userId.equals(listing.getHostId()))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        if (content.thumbnailUrl() != null && !content.thumbnailUrl().isBlank()) {
+            java.net.URI url;
+            try { url = java.net.URI.create(content.thumbnailUrl()); }
+            catch (Exception invalid) { throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "URL ảnh không hợp lệ"); }
+            if (!"https".equalsIgnoreCase(url.getScheme()) || url.getHost() == null)
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Ảnh phải dùng URL HTTPS");
+        }
+        listing.setTitle(content.title().trim()); listing.setDescription(content.description().trim());
+        listing.setThumbnailUrl(content.thumbnailUrl());
+        // Content changes go through moderation. Suspension is never bypassed by editing.
+        if (listing.getStatus() == ListingStatus.ACTIVE) listing.setStatus(ListingStatus.PENDING);
+        listings.save(listing);
+        return new OfferResult(listing.getId(), listing.getStatus().name());
+    }
+
     private boolean blank(String value) {
         return value == null || value.isBlank();
     }
+
+    public record ContentUpdate(String title, String description, String thumbnailUrl) {}
 
     public record OfferRequest(
             UUID operatorId, UUID operatorUserId, UUID routeId,

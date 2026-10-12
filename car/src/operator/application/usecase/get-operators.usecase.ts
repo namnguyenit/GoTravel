@@ -30,6 +30,7 @@ export class GetOperatorsUseCase implements IGetOperatorsUseCase {
         id: op.id!,
         userId: op.userId,
         name: op.name,
+        status: op.status,
         createdAt: op.createdAt!,
         updatedAt: op.updatedAt!,
       })),

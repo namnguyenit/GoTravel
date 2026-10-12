@@ -36,22 +36,23 @@ public class CancellationPolicy {
         order.setTransportPartialFeeRate(partialFeeRate);
     }
 
-    public Quote quote(Order order) {
-        if (order.getTransportDepartureAt() == null || order.getTransportFullRefundHours() == null ||
+    public Quote quote(Order order) { return quoteAmount(order,order.getTransportDepartureAt(),order.getTotalAmount()); }
+    public Quote quoteAmount(Order order,LocalDateTime departureAt,BigDecimal amount) {
+        if (departureAt == null || order.getTransportFullRefundHours() == null ||
                 order.getTransportPartialRefundHours() == null || order.getTransportPartialFeeRate() == null) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Đơn chưa có chính sách hủy được chốt");
         }
         long minutes = Duration.between(LocalDateTime.now(VN_ZONE),
-                order.getTransportDepartureAt()).toMinutes();
+                departureAt).toMinutes();
         if (minutes < (long) order.getTransportPartialRefundHours() * 60) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
                     "Gần giờ khởi hành; chuyển bộ phận hỗ trợ xử lý hủy");
         }
         BigDecimal fee = minutes >= (long) order.getTransportFullRefundHours() * 60
                 ? BigDecimal.ZERO
-                : order.getTotalAmount().multiply(order.getTransportPartialFeeRate())
+                : amount.multiply(order.getTransportPartialFeeRate())
                         .setScale(0, RoundingMode.HALF_UP);
-        return new Quote(fee, order.getTotalAmount().subtract(fee), order.getTransportPolicyVersion());
+        return new Quote(fee, amount.subtract(fee), order.getTransportPolicyVersion());
     }
 
     public record Quote(BigDecimal fee, BigDecimal refundDue, String policyVersion) {}

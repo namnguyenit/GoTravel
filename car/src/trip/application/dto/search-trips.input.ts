@@ -3,8 +3,10 @@ export interface SearchTripsInput {
   destination: string;
   departureDate: string;
   type?: string;
-  minPrice?: number;
-  maxPrice?: number;
+  timeOfDay?: 'morning' | 'afternoon' | 'evening';
+  timeSlots?: string[];
+  minPrice?: string;
+  maxPrice?: string;
   operatorId?: string;
   sortBy?: 'departureTime' | 'pricePerSeat';
   sortOrder?: 'asc' | 'desc';

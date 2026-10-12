@@ -55,6 +55,10 @@ replay_pid*.log
 CSE702013_Report-Hoan thanh chuong 1/
 bieudo/
 *.patch
+.release-backups/
+*.dump
+*.sqlite
+
 
 Project Context.md
 BACKEND_REPORT_ALIGNMENT_REVIEW.md

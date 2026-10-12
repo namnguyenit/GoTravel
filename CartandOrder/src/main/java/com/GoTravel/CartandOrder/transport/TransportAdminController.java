@@ -28,6 +28,27 @@ import java.util.UUID;
 @PreAuthorize("hasRole('ADMIN')")
 public class TransportAdminController {
     private final TransportOrderService service;
+    private final TransportNotificationService notifications;
+    private final TransportOperationsReportService reports;
+    @GetMapping("/reports/{operatorUserId}")
+    public ResponseEntity<ApiResponse<java.util.Map<String,Object>>> report(@PathVariable UUID operatorUserId,
+            @RequestParam java.time.LocalDate from, @RequestParam java.time.LocalDate to) {
+        return ResponseEntity.ok(ApiResponse.success(reports.report(operatorUserId, from, to)));
+    }
+    @GetMapping("/reports/overview")
+    public ResponseEntity<ApiResponse<java.util.Map<String,Object>>> overviewReport(
+            @RequestParam java.time.LocalDate from, @RequestParam java.time.LocalDate to) {
+        return ResponseEntity.ok(ApiResponse.success(reports.adminOverviewReport(from, to)));
+    }
+    @GetMapping("/notifications")
+    public ResponseEntity<ApiResponse<java.util.List<java.util.Map<String,Object>>>> notifications() {
+        return ResponseEntity.ok(ApiResponse.success(notifications.pending()));
+    }
+    @PostMapping("/notifications/{eventId}/retry")
+    public ResponseEntity<ApiResponse<Void>> retryNotification(@PathVariable UUID eventId) {
+        notifications.retry(eventId);
+        return ResponseEntity.ok(ApiResponse.success("Đã xếp lại email thất bại"));
+    }
     private final TransportExchangeService exchanges;
     private final TripCancellationService tripCancellations;
     private final TransportReconciliationService reconciliation;
@@ -70,6 +91,18 @@ public class TransportAdminController {
         catch (Exception invalid) { throw new ResponseStatusException(HttpStatus.UNAUTHORIZED); }
         return ResponseEntity.ok(ApiResponse.success(exchanges.request(actor,
                 request.oldOrderId(), request.newOrderId(), request.reason())));
+    }
+
+    @GetMapping("/exchanges/exceptions")
+    public ResponseEntity<ApiResponse<java.util.List<java.util.Map<String,Object>>>> exchangeExceptions() {
+        return ResponseEntity.ok(ApiResponse.success(exchanges.exceptions()));
+    }
+    @PostMapping("/exchanges/{oldOrderId}/resolve-exception")
+    public ResponseEntity<ApiResponse<Void>> resolveExchange(@AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID oldOrderId, @RequestBody @Valid ReconciliationNote request) {
+        if (jwt==null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        exchanges.resolveException(UUID.fromString(jwt.getSubject()),oldOrderId,request.note());
+        return ResponseEntity.ok(ApiResponse.success("Đã đóng ngoại lệ đổi vé theo chứng cứ trạng thái đơn"));
     }
 
     @GetMapping("/exchanges/{oldOrderId}")

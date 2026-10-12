@@ -10,7 +10,22 @@ const port = Number(process.env.PAYMENT_PORTAL_PORT || 3336);
 const host = process.env.PAYMENT_PORTAL_HOST || '0.0.0.0';
 const gateway = new URL(process.env.PAYMENT_GATEWAY_URL || 'http://127.0.0.1:5555');
 const gostay = new URL(process.env.GOSTAY_BASE_URL || 'https://gotravel.trungcaodev.io.vn');
-const allowedLaunchOrigins = new Set([gostay.origin, 'https://gotrvel.trungcaodev.io.vn', 'https://gotravel.trungcaodev.io.vn', 'https://gostay.nonnet123.io.vn', 'http://localhost:3000', 'http://127.0.0.1:3000']);
+const goticket = new URL(process.env.GOTICKET_BASE_URL || 'http://localhost:3334');
+const allowedLaunchOrigins = new Set([
+  gostay.origin,
+  goticket.origin,
+  'https://gotrvel.trungcaodev.io.vn',
+  'https://gotravel.trungcaodev.io.vn',
+  'https://gostay.nonnet123.io.vn',
+  'https://goticket.trungcaodev.io.vn',
+  'https://goticket.nonnet123.io.vn',
+  'https://gocar.nonnet123.io.vn',
+  'https://gocar.trungcaodev.io.vn',
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'http://localhost:3334',
+  'http://127.0.0.1:3334',
+]);
 const sessions = new Map();
 const sessionLifetimeMs = 30 * 60 * 1000;
 
@@ -36,6 +51,7 @@ const uuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-
 const apiRoutes = [
   ['GET', /^\/api\/v1\/auth\/session$/],
   ['GET', /^\/api\/v1\/orders\/[0-9a-f-]{36}$/i],
+  ['GET', /^\/api\/v1\/orders\/transport\/item-operations\/[0-9a-f-]{36}$/i],
   ['GET', /^\/api\/v1\/payments\/order\/[0-9a-f-]{36}$/i],
   ['GET', /^\/api\/v1\/payments\/[0-9a-f-]{36}$/i],
   ['POST', /^\/api\/v1\/payments\/create$/],
@@ -135,7 +151,10 @@ const server = http.createServer(async (req, res) => {
   const pathname = url.pathname;
 
   if (pathname === '/launch') {
-    const origin = req.headers.origin;
+    let origin = req.headers.origin;
+    if (!origin && req.headers.referer) {
+      try { origin = new URL(req.headers.referer).origin; } catch {}
+    }
     if (!allowedLaunchOrigins.has(origin)) return sendJson(res, 403, { message: 'Nguồn truy cập không hợp lệ.' });
     const cors = {
       'access-control-allow-origin': origin,
@@ -150,21 +169,37 @@ const server = http.createServer(async (req, res) => {
     let input;
     try { input = await readJson(req); }
     catch { return sendJson(res, 400, { message: 'Yêu cầu không hợp lệ.' }, cors); }
-    if (!uuid.test(input?.orderId || '')) return sendJson(res, 400, { message: 'Mã đơn không hợp lệ.' }, cors);
+    const orderId = input?.orderId;
+    const operationId = input?.operationId;
+    if ((orderId && operationId) || (!uuid.test(orderId || '') && !uuid.test(operationId || ''))) {
+      return sendJson(res, 400, { message: 'Mã đơn hoặc mã thao tác không hợp lệ.' }, cors);
+    }
     const token = accessToken(req);
     if (!token) return sendJson(res, 401, { message: 'Bạn cần đăng nhập GoID trước khi thanh toán.' }, cors);
     try {
       const identity = await gatewayGet('/api/v1/auth/session', req.headers.cookie);
       if (identity.status !== 200) return sendJson(res, 401, { message: 'Phiên đăng nhập đã hết hạn.' }, cors);
-      const orderResult = await gatewayGet(`/api/v1/orders/${input.orderId}`, req.headers.cookie);
-      if (orderResult.status !== 200 || orderResult.data?.orderId !== input.orderId) {
-        return sendJson(res, 404, { message: 'Không tìm thấy đơn hàng của bạn.' }, cors);
+      const resourceType = operationId ? 'OPERATION' : 'ORDER';
+      const resourceId = operationId || orderId;
+      const resourceResult = operationId
+        ? await gatewayGet(`/api/v1/orders/transport/item-operations/${operationId}`, req.headers.cookie)
+        : await gatewayGet(`/api/v1/orders/${orderId}`, req.headers.cookie);
+      const matches = operationId
+        ? resourceResult.data?.operationId === operationId
+        : resourceResult.data?.orderId === orderId;
+      if (resourceResult.status !== 200 || !matches) {
+        return sendJson(res, 404, { message: 'Không tìm thấy giao dịch được phép thanh toán.' }, cors);
+      }
+      const amount = operationId ? resourceResult.data?.topup : resourceResult.data?.totalAmount;
+      if (!Number.isFinite(Number(amount)) || Number(amount) <= 0) {
+        return sendJson(res, 409, { message: 'Giao dịch này không có khoản cần thanh toán.' }, cors);
       }
       const ticket = randomBytes(32).toString('hex');
       sessions.set(ticket, {
-        orderId: input.orderId,
+        orderId: resourceId,
+        resourceType,
         gostayOrigin: origin,
-        amount: orderResult.data.totalAmount,
+        amount,
         tokenDigest: createHash('sha256').update(token).digest(),
         expiresAt: Date.now() + sessionLifetimeMs,
       });
@@ -177,7 +212,12 @@ const server = http.createServer(async (req, res) => {
     if (req.method !== 'GET') return sendJson(res, 405, { message: 'Method not allowed' });
     const session = sessionFor(req, url.searchParams.get('ticket'));
     if (!session) return sendJson(res, 404, { message: 'Phiên thanh toán không tồn tại hoặc đã hết hạn.' });
-    return sendJson(res, 200, { orderId: session.orderId, amount: session.amount, gostayOrigin: session.gostayOrigin });
+    return sendJson(res, 200, {
+      orderId: session.orderId,
+      resourceType: session.resourceType,
+      amount: session.amount,
+      gostayOrigin: session.gostayOrigin,
+    });
   }
 
   if (pathname.startsWith('/api/')) {

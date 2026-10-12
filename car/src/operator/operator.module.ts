@@ -1,40 +1,25 @@
+import { PrismaOperatorProfileRepository } from './infrastructure/repository/prisma-operator-profile.repository';
 import { Module } from '@nestjs/common';
-import { OperatorApplicationController } from './presentation/controller/operator-application.controller';
 import { OperatorController } from './presentation/controller/operator.controller';
-import { CreateOperatorApplicationUseCase } from './application/usecase/create-operator-application.usecase';
-import { ProcessOperatorApplicationUseCase } from './application/usecase/process-operator-application.usecase';
-import { GetOperatorApplicationsUseCase } from './application/usecase/get-operator-applications.usecase';
-import { GetMyOperatorStatusUseCase } from './application/usecase/get-my-operator-status.usecase';
 import { GetOperatorsUseCase } from './application/usecase/get-operators.usecase';
-import { PrismaOperatorApplicationRepository } from './infrastructure/repository/prisma-operator-application.repository';
 import { PrismaOperatorRepository } from './infrastructure/repository/prisma-operator.repository';
+import { OperatorProfileService } from './application/operator-profile.service';
+import { OperatorInternalController } from './presentation/controller/operator-internal.controller';
 
 @Module({
-  controllers: [OperatorApplicationController, OperatorController],
+  controllers: [
+    OperatorController,
+    OperatorInternalController,
+  ],
   providers: [
     {
-      provide: 'IOperatorApplicationRepository',
-      useClass: PrismaOperatorApplicationRepository,
+      provide: 'OperatorProfileRepository',
+      useClass: PrismaOperatorProfileRepository,
     },
+    OperatorProfileService,
     {
       provide: 'IOperatorRepository',
       useClass: PrismaOperatorRepository,
-    },
-    {
-      provide: 'ICreateOperatorApplicationUseCase',
-      useClass: CreateOperatorApplicationUseCase,
-    },
-    {
-      provide: 'IProcessOperatorApplicationUseCase',
-      useClass: ProcessOperatorApplicationUseCase,
-    },
-    {
-      provide: 'IGetOperatorApplicationsUseCase',
-      useClass: GetOperatorApplicationsUseCase,
-    },
-    {
-      provide: 'IGetMyOperatorStatusUseCase',
-      useClass: GetMyOperatorStatusUseCase,
     },
     {
       provide: 'IGetOperatorsUseCase',
@@ -42,13 +27,9 @@ import { PrismaOperatorRepository } from './infrastructure/repository/prisma-ope
     },
   ],
   exports: [
-    'IOperatorApplicationRepository',
     'IOperatorRepository',
-    'ICreateOperatorApplicationUseCase',
-    'IProcessOperatorApplicationUseCase',
-    'IGetOperatorApplicationsUseCase',
-    'IGetMyOperatorStatusUseCase',
     'IGetOperatorsUseCase',
+    OperatorProfileService,
   ],
 })
 export class OperatorModule {}

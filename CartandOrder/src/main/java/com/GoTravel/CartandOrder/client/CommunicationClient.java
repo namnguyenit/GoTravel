@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 @FeignClient(name = "communication-service", url = "${services.communication.url:http://localhost:5001}", configuration = InternalFeignConfig.class)
 public interface CommunicationClient {
 
+    @PostMapping("/api/v1/communications/email/transport")
+    ApiResponse<EmailSendResponse> sendTransportEmail(@RequestBody com.GoTravel.CartandOrder.transport.TransportNotificationService.Mail request);
+
     @PostMapping("/api/v1/communications/email/ticket")
     ApiResponse<EmailSendResponse> sendTicketEmail(@RequestBody TicketEmailRequest request);
 

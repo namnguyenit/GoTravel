@@ -13,15 +13,101 @@ import type { TransportTrip } from '../domain/transport.types';
 
 @Injectable()
 export class HttpTransportIntegrations implements TransportIntegrations {
-  private readonly catalogUrl = process.env.CATALOG_INTERNAL_URL || 'http://127.0.0.1:8082';
-  private readonly inventoryUrl = process.env.INVENTORY_INTERNAL_URL || 'http://127.0.0.1:8083';
-  private readonly cartUrl = process.env.CART_INTERNAL_URL || 'http://127.0.0.1:8084';
+  private readonly catalogUrl =
+    process.env.CATALOG_INTERNAL_URL || 'http://127.0.0.1:8082';
+  private readonly inventoryUrl =
+    process.env.INVENTORY_INTERNAL_URL || 'http://127.0.0.1:8083';
+  private readonly cartUrl =
+    process.env.CART_INTERNAL_URL || 'http://127.0.0.1:8084';
+
+  async seatOwnership(
+    orderId: string,
+    tripId: string,
+    seatId: string,
+  ): Promise<{
+    orderId: string;
+    tripId: string;
+    seatId: string;
+    status: string;
+  }> {
+    return this.call(
+      this.inventoryUrl,
+      '/api/v1/internal/inventory/transport/orders/' +
+        orderId +
+        '/trips/' +
+        tripId +
+        '/seats/' +
+        seatId,
+      'GET',
+    );
+  }
+  async itemOperation(
+    id: string,
+  ): Promise<{ plan: Record<string, unknown>; state: string }> {
+    return this.call(
+      this.cartUrl,
+      '/api/v1/internal/orders/transport/item-operations/' + id,
+      'GET',
+    );
+  }
+  async itemInventory(
+    id: string,
+  ): Promise<{ operationId: string; state: string }> {
+    return this.call(
+      this.inventoryUrl,
+      '/api/v1/internal/inventory/transport/item-operations/' + id,
+      'GET',
+    );
+  }
+  async getOffer(routeId: string): Promise<OfferReceipt> {
+    return this.call(
+      this.catalogUrl,
+      '/api/v1/internal/catalog/transport-offers/routes/' + routeId,
+      'GET',
+    );
+  }
+  async activeOfferRoutes(): Promise<string[]> {
+    return this.call(
+      this.catalogUrl,
+      '/api/v1/internal/catalog/transport-offers/active-routes',
+      'GET',
+    );
+  }
+
+  async completeTrip(tripId: string): Promise<void> {
+    await this.call(
+      this.cartUrl,
+      '/api/v1/internal/orders/transport/trips/' + tripId + '/complete',
+      'PUT',
+    );
+  }
+
+  async changeSeatBlock(
+    tripId: string,
+    seatIds: string[],
+    blocked: boolean,
+    actorId: string,
+    reason: string,
+  ) {
+    await this.call(
+      this.inventoryUrl,
+      '/api/v1/internal/inventory/transport/trips/' + tripId + '/seat-blocks',
+      'PUT',
+      { seatIds, blocked, actorId, reason },
+    );
+  }
 
   async requestTripCancellation(tripId: string, reason: string) {
-    return this.call<{ safeToCancel: boolean; completed: boolean;
-      pendingOrders: number; pendingRefunds: number }>(
-      this.cartUrl, '/api/v1/internal/orders/transport/trips/' + tripId + '/cancellation',
-      'PUT', { reason },
+    return this.call<{
+      safeToCancel: boolean;
+      completed: boolean;
+      pendingOrders: number;
+      pendingRefunds: number;
+    }>(
+      this.cartUrl,
+      '/api/v1/internal/orders/transport/trips/' + tripId + '/cancellation',
+      'PUT',
+      { reason },
     );
   }
 
@@ -38,7 +124,12 @@ export class HttpTransportIntegrations implements TransportIntegrations {
         destination: trip.destination,
         province: trip.origin,
         description: null,
-        fromPrice: trip.priceVnd,
+        fromPrice: trip.seats
+          .map((seat) =>
+            BigInt(trip.classPrices?.[seat.seatClass] ?? trip.priceVnd!),
+          )
+          .reduce((a, b) => (a < b ? a : b))
+          .toString(),
         latitude: null,
         longitude: null,
         thumbnailUrl: null,
@@ -59,16 +150,28 @@ export class HttpTransportIntegrations implements TransportIntegrations {
     );
   }
 
-  async setSaleEnabled(tripId: string, enabled: boolean): Promise<void> {
-    await this.call(
+  async setSaleEnabled(
+    tripId: string,
+    enabled: boolean,
+    version: number,
+  ): Promise<{ saleEnabled: boolean; syncVersion: number }> {
+    const query =
+      version !== undefined
+        ? '/sale-enabled?enabled=' +
+          String(enabled) +
+          '&version=' +
+          String(version)
+        : '/sale-enabled?enabled=' + String(enabled);
+    return this.call(
       this.inventoryUrl,
-      '/api/v1/internal/inventory/transport/trips/' + tripId +
-      '/sale-enabled?enabled=' + String(enabled),
+      '/api/v1/internal/inventory/transport/trips/' + tripId + query,
       'PUT',
     );
   }
 
-  async getSeatStatus(tripId: string): Promise<Array<{ seatId: string; code: string; status: string }>> {
+  async getSeatStatus(
+    tripId: string,
+  ): Promise<Array<{ seatId: string; code: string; status: string }>> {
     return this.call(
       this.inventoryUrl,
       '/api/v1/internal/inventory/transport/trips/' + tripId + '/seats',
@@ -92,15 +195,48 @@ export class HttpTransportIntegrations implements TransportIntegrations {
     );
   }
 
-  private async call<T>(baseUrl: string, path: string, method: string, body?: unknown): Promise<T> {
-    const token = process.env.INTERNAL_SERVICE_TOKEN;
-    if (!token) throw new ServiceUnavailableException('Chưa cấu hình token nội bộ');
+  private async call<T>(
+    baseUrl: string,
+    path: string,
+    method: string,
+    body?: unknown,
+  ): Promise<T> {
+    let token = process.env.INTERNAL_SERVICE_TOKEN;
+    const configured = process.env.TRANSPORT_INTERNAL_TOKENS;
+    if (configured) {
+      const target =
+        baseUrl === this.catalogUrl
+          ? 'catalog'
+          : baseUrl === this.inventoryUrl
+            ? 'inventory'
+            : 'cart';
+      let tokens: Record<string, string>;
+      try {
+        tokens = JSON.parse(configured) as Record<string, string>;
+      } catch {
+        throw new ServiceUnavailableException(
+          'Cấu hình service credential không hợp lệ',
+        );
+      }
+      token = tokens[target];
+      if (!token || token.length < 32)
+        throw new ServiceUnavailableException(
+          'Thiếu credential cho service đích',
+        );
+    } else if (process.env.TRANSPORT_INTERNAL_AUTH_REQUIRED === 'true') {
+      throw new ServiceUnavailableException(
+        'Chưa cấu hình credential riêng cho GoCar',
+      );
+    }
+    if (!token)
+      throw new ServiceUnavailableException('Chưa cấu hình token nội bộ');
     let response: Response;
     try {
       response = await fetch(baseUrl + path, {
         method,
         headers: {
           'x-internal-service-token': token,
+          ...(configured ? { 'x-internal-caller': 'car' } : {}),
           ...(body === undefined ? {} : { 'content-type': 'application/json' }),
         },
         body: body === undefined ? undefined : JSON.stringify(body),
@@ -110,10 +246,12 @@ export class HttpTransportIntegrations implements TransportIntegrations {
       throw new ServiceUnavailableException('Service liên kết chưa sẵn sàng');
     }
     if (!response.ok) {
-      throw new BadGatewayException('Service liên kết trả lỗi ' + response.status);
+      throw new BadGatewayException(
+        'Service liên kết trả lỗi ' + response.status,
+      );
     }
     const result = (await response.json()) as { success?: boolean; data?: T };
-    if (!result.success || result.data === undefined && method === 'GET') {
+    if (!result.success || (result.data === undefined && method === 'GET')) {
       throw new BadGatewayException('Service liên kết không xác nhận kết quả');
     }
     return result.data as T;

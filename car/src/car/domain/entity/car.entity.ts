@@ -103,4 +103,27 @@ export class Car {
   get updatedAt(): Date | undefined {
     return this._updatedAt;
   }
+
+  public updateInfo(
+    name?: string,
+    type?: CarType,
+    licensePlate?: string,
+  ): void {
+    if (name !== undefined) {
+      this.validateName(name);
+      this._name = name.trim();
+    }
+    if (type !== undefined) {
+      this._type = type;
+    }
+    if (licensePlate !== undefined) {
+      this._licensePlate = new LicensePlate(licensePlate);
+    }
+    this._updatedAt = new Date();
+  }
+
+  public changeStatus(newStatus: CarStatus): void {
+    this._status = newStatus;
+    this._updatedAt = new Date();
+  }
 }

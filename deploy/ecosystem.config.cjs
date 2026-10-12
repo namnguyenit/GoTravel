@@ -25,11 +25,9 @@ module.exports = {
     },
     {
       name: 'gocar-service',
-      script: node,
-      args: ['--env-file=.env', '--max-old-space-size=160', 'dist/main.js'],
-      cwd: inProject('car'),
-      interpreter: 'none',
-      env: { GOCAR_ENABLED: 'true' },
+      script: inProject('deploy/start-gocar.sh'),
+      cwd: root,
+      interpreter: '/bin/bash',
       restart_delay: 5000,
     },
     {
@@ -76,9 +74,9 @@ module.exports = {
     },
     {
       name: 'gocar-frontend',
-      script: inProject('car_front-end/node_modules/vite/bin/vite.js'),
+      script: inProject('front-end-goticket/node_modules/vite/bin/vite.js'),
       args: ['preview', '--outDir', 'dist', '--port', '3334', '--host', '127.0.0.1', '--strictPort'],
-      cwd: inProject('car_front-end'),
+      cwd: inProject('front-end-goticket'),
       interpreter: node,
       env: { NODE_ENV: 'production' },
       restart_delay: 5000,

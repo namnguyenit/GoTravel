@@ -21,10 +21,11 @@ public class InternalOrderController {
 
     private final OrderService orderService;
     private final TransportOrderService transportOrders;
+    private final com.GoTravel.CartandOrder.transport.adjustment.application.ItemOperationService itemOperations;
 
     @GetMapping("/{orderId}/payment-summary")
     public ResponseEntity<ApiResponse<OrderPaymentSummaryResponse>> getPaymentSummary(@PathVariable UUID orderId) {
-        return ResponseEntity.ok(ApiResponse.success(orderService.getPaymentSummary(orderId)));
+        return ResponseEntity.ok(ApiResponse.success(itemOperations.exists(orderId)?itemOperations.paymentSummary(orderId):orderService.getPaymentSummary(orderId)));
     }
 
     @GetMapping("/{orderId}/transport-fulfillment")
@@ -35,20 +36,23 @@ public class InternalOrderController {
 
     @PutMapping("/{orderId}/payment-success")
     public ResponseEntity<ApiResponse<Void>> handlePaymentSuccess(@PathVariable UUID orderId) {
-        if (orderService.isTransportOrder(orderId)) transportOrders.paymentSuccess(orderId);
+        if (itemOperations.exists(orderId)) itemOperations.paymentSignal(orderId);
+        else if (orderService.isTransportOrder(orderId)) transportOrders.paymentSuccess(orderId);
         else orderService.confirmPayment(orderId);
         return ResponseEntity.ok(ApiResponse.success("Đã ghi nhận thanh toán thành công"));
     }
 
     @PutMapping("/{orderId}/payment-failed")
     public ResponseEntity<ApiResponse<Void>> handlePaymentFailed(@PathVariable UUID orderId) {
-        if (orderService.isTransportOrder(orderId)) transportOrders.paymentFailed(orderId);
+        if (itemOperations.exists(orderId)) itemOperations.paymentSignal(orderId);
+        else if (orderService.isTransportOrder(orderId)) transportOrders.paymentFailed(orderId);
         else orderService.failPayment(orderId);
         return ResponseEntity.ok(ApiResponse.success("Đã ghi nhận thanh toán thất bại"));
     }
 
     @PutMapping("/{orderId}/payment-review")
     public ResponseEntity<ApiResponse<Void>> handlePaymentReview(@PathVariable UUID orderId) {
+        if (itemOperations.exists(orderId)) { itemOperations.paymentSignal(orderId); return ResponseEntity.ok(ApiResponse.success("Đã ghi nhận tiền chênh lệch cần đối soát")); }
         if (!orderService.isTransportOrder(orderId)) {
             throw new org.springframework.web.server.ResponseStatusException(
                     org.springframework.http.HttpStatus.CONFLICT, "Chỉ hỗ trợ đối soát vé xe");

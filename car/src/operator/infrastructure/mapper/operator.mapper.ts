@@ -7,6 +7,7 @@ export class OperatorMapper {
       id: model.id,
       userId: model.userId,
       name: model.name,
+      status: model.status,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
     });
@@ -17,6 +18,7 @@ export class OperatorMapper {
       id: entity.id,
       userId: entity.userId,
       name: entity.name,
+      status: entity.status,
     };
   }
 }

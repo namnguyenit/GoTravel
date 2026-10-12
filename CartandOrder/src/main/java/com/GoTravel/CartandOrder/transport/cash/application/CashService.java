@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -49,7 +50,51 @@ public class CashService {
     public CashLedger.ClosedShift closeShift(UUID actorId, BigDecimal countedAmount) {
         if (countedAmount == null || countedAmount.signum() < 0 || countedAmount.scale() > 0)
             throw conflict("Số tiền kiểm đếm không hợp lệ");
+        var shift = ledger.active(actorId);
+        if (shift == null) throw conflict("Không có ca đang mở");
+        var authorization = car.authorizeOperator(actorId, shift.operatorId());
+        if (authorization == null || !authorization.isSuccess() || authorization.getData() == null)
+            throw conflict("Nhân viên không có quyền chốt ca");
         return transactions.execute(status -> ledger.close(actorId, countedAmount));
+    }
+
+    public List<CashLedger.Shift> getMyShifts(UUID actorId) {
+        return ledger.listShiftsByActor(actorId, 50);
+    }
+
+    public List<CashLedger.Shift> listOperatorShifts(UUID actorId, UUID operatorId, int page, int size) {
+        var response = car.readScope(actorId, operatorId);
+        if (response == null || !response.isSuccess() || response.getData() == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền truy cập ca thu tiền");
+        }
+        var scope = response.getData();
+        if (scope.allowedCapabilities() == null || !scope.allowedCapabilities().contains("CASH_VIEW")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Nhân viên không có quyền xem tài chính/ca thu tiền (CASH_VIEW)");
+        }
+        if(!scope.allTrips() && !actorId.equals(scope.ownerUserId()))return ledger.listShiftsByActor(actorId,50).stream().filter(s->s.operatorId().equals(scope.operatorId())).toList();
+        int limit = Math.min(100, Math.max(1, size));
+        int offset = Math.max(0, page) * limit;
+        return ledger.listShiftsByOperator(scope.operatorId(), limit, offset);
+    }
+
+    public CashLedger.ShiftDetail getShiftDetail(UUID actorId, UUID shiftId) {
+        var detail = ledger.findShiftDetail(shiftId);
+        if (detail == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy ca thu tiền");
+        }
+        if (detail.actorId().equals(actorId)) {
+            return detail;
+        }
+        var response = car.readScope(actorId, detail.operatorId());
+        if (response == null || !response.isSuccess() || response.getData() == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền xem chi tiết ca này");
+        }
+        var scope = response.getData();
+        if (scope.allowedCapabilities() == null || !scope.allowedCapabilities().contains("CASH_VIEW")) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Nhân viên không có quyền xem tài chính/ca thu tiền (CASH_VIEW)");
+        }
+        if(!scope.allTrips() && !actorId.equals(scope.ownerUserId()))throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Chỉ được xem ca của chính mình");
+        return detail;
     }
 
     @Scheduled(fixedDelay = 30000)

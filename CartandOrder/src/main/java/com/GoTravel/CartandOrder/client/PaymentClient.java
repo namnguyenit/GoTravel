@@ -18,6 +18,9 @@ public interface PaymentClient {
     record ManualTransportRefundRequest(java.math.BigDecimal amount, String reference,
                                         String evidenceUrl, UUID recordedBy) {}
     record TransportCommission(String version, java.math.BigDecimal rate) {}
+    record CashSettlementSummary(long shifts, java.math.BigDecimal grossAmount, java.math.BigDecimal refundedAmount,
+                                java.math.BigDecimal commissionDue, java.math.BigDecimal commissionPaid,
+                                java.math.BigDecimal outstandingAmount) {}
     record CashSettlement(UUID shiftId, UUID operatorId, java.math.BigDecimal grossAmount,
                           java.math.BigDecimal commissionDue, String commissionVersion,
                           java.math.BigDecimal commissionRate) {}
@@ -25,8 +28,14 @@ public interface PaymentClient {
                                 java.math.BigDecimal refundAmount, java.math.BigDecimal commissionReversal,
                                 String commissionVersion, java.math.BigDecimal commissionRate) {}
 
+    @GetMapping("/api/v1/internal/payments/transport/funds-report")
+    ApiResponse<java.util.Map<String,Object>> getTransportFundsReport(@org.springframework.web.bind.annotation.RequestParam(value="ownerUserId",required=false)UUID ownerUserId,@org.springframework.web.bind.annotation.RequestParam("from")java.time.LocalDate from,@org.springframework.web.bind.annotation.RequestParam("to")java.time.LocalDate to);
     @GetMapping("/api/v1/internal/payments/transport/commission")
     ApiResponse<TransportCommission> getTransportCommission();
+
+    @GetMapping("/api/v1/internal/payments/transport/cash-summary")
+    ApiResponse<CashSettlementSummary> getCashSettlementSummary(
+            @org.springframework.web.bind.annotation.RequestParam(value = "operatorId", required = false) UUID operatorId);
 
     @PutMapping("/api/v1/internal/payments/transport/cash-settlements/{shiftId}")
     ApiResponse<Void> recordCashSettlement(@PathVariable("shiftId") UUID shiftId,

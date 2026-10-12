@@ -45,6 +45,7 @@ public class HostPayoutService {
     private final PaymentRequestRepository paymentRequestRepository;
     private final PaymentTransactionRepository paymentTransactionRepository;
     private final PaymentMapper paymentMapper;
+    private final com.gotravel.PaymentandWallet.transport.application.TransportSettlementService transportSettlement;
     private static final String DEFAULT_COMMISSION_CONFIG_ID = "DEFAULT";
     private static final BigDecimal DEFAULT_COMMISSION_RATE = new BigDecimal("0.05");
 
@@ -162,11 +163,34 @@ public class HostPayoutService {
         HostPayout payout = hostPayoutRepository.findById(payoutId)
                 .orElseThrow(() -> new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
 
+        if("TRANSPORT".equals(payout.getProviderType()))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT,"Dùng API transport mark-paid kèm chứng cứ và net payable");
         payout.setStatus(PayoutStatus.PAID);
         payout.setPaidAt(LocalDateTime.now());
         hostPayoutRepository.save(payout);
 
         log.info("Payout {} marked as PAID. Host {} receives {}", payoutId, payout.getHostId(), payout.getHostAmount());
+    }
+
+    private void applyNet(HostPayout payout) {
+        var net=transportSettlement.prepare(payout);
+        payout.setTotalAmount(net.gross());payout.setCommissionAmount(net.commission());payout.setHostAmount(net.payable());
+    }
+
+    @Transactional
+    public HostPayoutResponse requestTransportWithdrawal(UUID payoutId,UUID ownerId) {
+        var payout=hostPayoutRepository.findByIdForUpdate(payoutId).orElseThrow(()->new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
+        if(!ownerId.equals(payout.getHostId()) || !"TRANSPORT".equals(payout.getProviderType()) || !List.of(PayoutStatus.PENDING,PayoutStatus.REQUESTED).contains(payout.getStatus()))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT);
+        applyNet(payout);payout.setStatus(PayoutStatus.REQUESTED);
+        return paymentMapper.toHostPayoutResponse(hostPayoutRepository.save(payout));
+    }
+
+    @Transactional
+    public void markTransportPaid(UUID payoutId,UUID actorId,BigDecimal amount,String reference,String evidence) {
+        HostPayout payout=hostPayoutRepository.findByIdForUpdate(payoutId).orElseThrow(()->new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
+        if(!"TRANSPORT".equals(payout.getProviderType()) || payout.getStatus()==PayoutStatus.CANCELLED)throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT);
+        if(payout.getStatus()!=PayoutStatus.PAID)applyNet(payout);
+        transportSettlement.proof(payout,actorId,amount,reference,evidence);
+        if(payout.getStatus()!=PayoutStatus.PAID){payout.setStatus(PayoutStatus.PAID);payout.setPaidAt(LocalDateTime.now());hostPayoutRepository.save(payout);}
     }
 
     private LocalDate toLocalDate(Object value) {
@@ -205,7 +229,7 @@ public class HostPayoutService {
     public void markAllAsPaidByHost(UUID hostId) {
         java.util.List<HostPayout> payouts = hostPayoutRepository.findByHostIdOrderByCreatedAtDesc(hostId, Pageable.unpaged())
                 .stream()
-                .filter(p -> p.getStatus() == PayoutStatus.PENDING || p.getStatus() == PayoutStatus.REQUESTED)
+                .filter(p -> !"TRANSPORT".equals(p.getProviderType()) && (p.getStatus() == PayoutStatus.PENDING || p.getStatus() == PayoutStatus.REQUESTED))
                 .toList();
 
         if (payouts.isEmpty()) {
@@ -213,6 +237,8 @@ public class HostPayoutService {
         }
 
         LocalDateTime now = LocalDateTime.now();
+        // Transport transfers require an individual proof; a bulk mark cannot provide it.
+        if(payouts.stream().anyMatch(p->"TRANSPORT".equals(p.getProviderType())))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT,"Có payout vận tải; ghi chứng cứ từng khoản trước");
         for (HostPayout payout : payouts) {
             payout.setStatus(PayoutStatus.PAID);
             payout.setPaidAt(now);
@@ -229,7 +255,7 @@ public class HostPayoutService {
     public void requestWithdrawal(UUID hostId) {
         java.util.List<HostPayout> pendingPayouts = hostPayoutRepository.findByHostIdOrderByCreatedAtDesc(hostId, Pageable.unpaged())
             .stream()
-            .filter(p -> p.getStatus() == PayoutStatus.PENDING)
+            .filter(p -> !"TRANSPORT".equals(p.getProviderType()) && p.getStatus() == PayoutStatus.PENDING)
             .toList();
 
         if (pendingPayouts.isEmpty()) {
@@ -237,6 +263,7 @@ public class HostPayoutService {
         }
 
         for (HostPayout payout : pendingPayouts) {
+            if("TRANSPORT".equals(payout.getProviderType()))applyNet(payout);
             payout.setStatus(PayoutStatus.REQUESTED);
             hostPayoutRepository.save(payout);
         }

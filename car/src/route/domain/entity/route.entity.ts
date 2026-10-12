@@ -62,12 +62,21 @@ export class Route {
   }
 
   private validateDestination(destination: string): void {
-    if (!destination || destination.trim().length < 2 || destination.trim().length > 100) {
-      throw new Error('Điểm đến (destination) phải có độ dài từ 2 đến 100 ký tự.');
+    if (
+      !destination ||
+      destination.trim().length < 2 ||
+      destination.trim().length > 100
+    ) {
+      throw new Error(
+        'Điểm đến (destination) phải có độ dài từ 2 đến 100 ký tự.',
+      );
     }
   }
 
-  private validateOriginAndDestination(origin: string, destination: string): void {
+  private validateOriginAndDestination(
+    origin: string,
+    destination: string,
+  ): void {
     if (origin.trim().toLowerCase() === destination.trim().toLowerCase()) {
       throw new Error('Điểm xuất phát và điểm đến không được trùng nhau.');
     }
@@ -75,13 +84,17 @@ export class Route {
 
   private validateStops(stops: RouteStop[]): void {
     if (!stops || stops.length < 2) {
-      throw new Error('Tuyến đường phải có ít nhất 2 điểm dừng (gồm điểm đầu và điểm cuối).');
+      throw new Error(
+        'Tuyến đường phải có ít nhất 2 điểm dừng (gồm điểm đầu và điểm cuối).',
+      );
     }
 
     const orders = new Set<number>();
     for (const stop of stops) {
       if (orders.has(stop.order)) {
-        throw new Error(`Thứ tự điểm dừng (order: ${stop.order}) bị trùng lặp.`);
+        throw new Error(
+          `Thứ tự điểm dừng (order: ${stop.order}) bị trùng lặp.`,
+        );
       }
       orders.add(stop.order);
     }
@@ -128,6 +141,27 @@ export class Route {
       }
     }
     this._status = newStatus;
+    this._updatedAt = new Date();
+  }
+
+  public update(
+    origin?: string,
+    destination?: string,
+    stops?: RouteStop[],
+  ): void {
+    if (origin !== undefined) {
+      this.validateOrigin(origin);
+      this._origin = origin.trim();
+    }
+    if (destination !== undefined) {
+      this.validateDestination(destination);
+      this._destination = destination.trim();
+    }
+    this.validateOriginAndDestination(this._origin, this._destination);
+    if (stops !== undefined) {
+      this.validateStops(stops);
+      this._stops = stops;
+    }
     this._updatedAt = new Date();
   }
 }

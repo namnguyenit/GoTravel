@@ -4,6 +4,7 @@ import {
   IsISO8601,
   IsInt,
   Min,
+  Max,
 } from 'class-validator';
 
 export class CreateTripDto {
@@ -16,15 +17,28 @@ export class CreateTripDto {
   carId: string;
 
   @IsNotEmpty({ message: 'Thời gian xuất bến không được để trống.' })
-  @IsISO8601({}, { message: 'Thời gian xuất bến phải là chuỗi ngày giờ theo định dạng ISO 8601.' })
+  @IsISO8601(
+    {},
+    {
+      message:
+        'Thời gian xuất bến phải là chuỗi ngày giờ theo định dạng ISO 8601.',
+    },
+  )
   departureTime: string;
 
   @IsNotEmpty({ message: 'Thời gian đến dự kiến không được để trống.' })
-  @IsISO8601({}, { message: 'Thời gian đến dự kiến phải là chuỗi ngày giờ theo định dạng ISO 8601.' })
+  @IsISO8601(
+    {},
+    {
+      message:
+        'Thời gian đến dự kiến phải là chuỗi ngày giờ theo định dạng ISO 8601.',
+    },
+  )
   arrivalTime: string;
 
   @IsNotEmpty({ message: 'Giá vé cơ bản trên mỗi ghế không được để trống.' })
   @IsInt({ message: 'Giá vé cơ bản phải là số nguyên (VNĐ).' })
   @Min(10000, { message: 'Giá vé cơ bản tối thiểu là 10.000 VNĐ.' })
+  @Max(Number.MAX_SAFE_INTEGER)
   pricePerSeat: number;
 }

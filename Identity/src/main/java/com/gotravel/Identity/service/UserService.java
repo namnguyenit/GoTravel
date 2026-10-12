@@ -50,6 +50,7 @@ public class UserService {
     final TicketVendorProfileRepository ticketVendorProfileRepository;
     final com.gotravel.Identity.repository.EnterpriseProfileRepository enterpriseProfileRepository;
     final PasswordEncoder passwordEncoder;
+    final GoCarOperatorClient goCarOperatorClient;
     /**
      * hàm sẽ set role mặc định là USER khi tạo tài khoản và setProvider Local
      * user thì phải set role và provider và isActive
@@ -463,6 +464,9 @@ public class UserService {
 
         profile.setApprovalStatus(Approval_status.valueOf(status));
         if (profile.getApprovalStatus() == Approval_status.APPROVED) {
+            // Provision trước khi ghi APPROVED. Endpoint GoCar là upsert nên admin có
+            // thể retry an toàn nếu mạng lỗi mà không tạo trùng nhà xe.
+            goCarOperatorClient.provision(user.getId(), profile);
             Role role = roleRepository.findById("TICKET_VENDOR")
                     .orElseThrow(() -> new AppException(UserErrorCode.ROLE_NOT_FOUND));
             user.getRoles().add(role);

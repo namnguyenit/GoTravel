@@ -150,7 +150,7 @@ export default function App() {
       if (profile) {
         window.location.replace(target);
       }
-    });
+    }).catch(() => setError('Chưa thể kiểm tra phiên đăng nhập hiện tại. Vui lòng tải lại trang để thử lại.'));
   }, []);
 
   // Completion handoff to redirect_uri or GoTravel

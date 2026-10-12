@@ -16,7 +16,7 @@ The current server keeps GoCar off until the production migration, GoTravel regr
 
 ## Local build
 
-Use Node 22 and the dependencies already installed in this checkout, or install from the lockfile. Copy `.env.example` to `.env` and supply the **same** internal service token used by the Spring services. Use a separate random signing key of at least 32 bytes for tickets. Leave `GOCAR_ENABLED=false` until all migrations, configuration and cross-service checks have passed.
+Use Node 22 and the dependencies already installed in this checkout, or install from the lockfile. Copy `.env.example` to `.env`; configure receiver-specific `TRANSPORT_INTERNAL_CALLERS` and outgoing `TRANSPORT_INTERNAL_TOKENS` for transport routes. The legacy internal token is retained only for compatible shared GoTravel/Identity calls. Use a separate random signing key of at least 32 bytes for tickets. Leave `GOCAR_ENABLED=false` until all migrations, configuration and cross-service checks have passed.
 
 ```bash
 ./node_modules/.bin/prisma validate
@@ -35,6 +35,9 @@ Do not use `prisma db push` against the shared environment. Migration scripts ar
 6. `CartandOrder/scripts/2026101102_transport_trip_cancellations.sql`
 7. `CartandOrder/scripts/2026101103_transport_reconciliation.sql`
 8. `PaymentandWallet/scripts/20261011_transport_manual_refunds.sql`
+9. `car/prisma/migrations/20261011060000_transport_operations/migration.sql`
+10. `BookingandInventory/scripts/2026101102_transport_seat_blocks.sql`
+11. `CartandOrder/scripts/2026101104_transport_operations.sql`
 
 Before applying the GoCar migration, check for duplicate `operators.user_id` and overlapping active schedules for one vehicle; its unique and exclusion constraints will reject either. The services must not start a transport-enabled build before their corresponding migration has finished. Keep GoTravel smoke checks in the gate.
 
@@ -53,3 +56,33 @@ Before applying the GoCar migration, check for duplicate `operators.user_id` and
 - VNPAY and bank refunds require a real external refund plus administrative evidence; the manual confirmation endpoint records that evidence. It is not a transfer API.
 - `PAID_REVIEW` and cash reconciliation states require staff attention. The admin `GET /api/v1/orders/transport/admin/attention` endpoint lists these orders.
 - A production rollout still needs GoTravel regression on the migrated release environment, real provider sandbox verification, backup/rollback rehearsal and a controlled canary. Until then, keep GoCar disabled.
+
+## Additional operations (implementation awaiting validation)
+
+See `BACKEND_OPERATIONS.md` for manifest, lifecycle, no-show, blocking, class pricing,
+quote claims, transport emails, staff scopes, assisted CASH/online exchange, reports
+and receiver-specific internal credentials. The latest work intentionally did not run
+builds/tests, migrate databases, invoke email/payment providers or restart services.
+Generate the Prisma client during the subsequent build stage before compiling the new models.
+The previous test results do not validate these additions.
+
+
+## Per-item exchange / cancellation and GoPay ledger
+
+Source now includes C4–C6: same-operator seat/trip exchange, per-item cancellation,
+15-minute replacement reservations, actual ONLINE/CASH delta funding, rotated ticket
+QR revisions, source-based refund obligations and net settlement with immutable evidence.
+Original order totals remain the original charge; current item fares and actual refunds
+are exposed separately as exact VND strings. Bank refunds are external operations
+followed by evidence registration, not automatic transfers from this backend.
+
+The authoritative checklist/file handoff is [BACKEND_COMPLETION_PLAN.md](BACKEND_COMPLETION_PLAN.md),
+sections 20–21. Public/internal APIs, payment operationId flow and recovery instructions
+are in [BACKEND_OPERATIONS.md](BACKEND_OPERATIONS.md). Its schema prerequisite section
+extends the older migration list above, including operator stops, inventory versioning,
+amendments/notification leases, operator profiles and item/money operation tables.
+Each service uses its own database; do not combine all SQL into a shared schema.
+
+Completion here means source implementation. Compile/Prisma generation, isolated
+cross-service tests, GoTravel regression and live migration/release remain deferred.
+No new service has been started; GoCar front/backend remain off. No commit/push was made.

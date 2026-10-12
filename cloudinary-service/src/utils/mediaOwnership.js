@@ -5,6 +5,7 @@ const ROLE = {
     ADMIN: "ADMIN",
     ENTERPRISE: "ENTERPRISE",
     HOST: "HOST",
+    VENDOR: "TICKET_VENDOR",
     USER: "USER",
 };
 
@@ -112,6 +113,12 @@ export const buildMediaAccess = (req, actionType) => {
             deletePrefixes: [`enterprises/${userId}/`],
             canDeletePrivate: false,
         };
+    }
+
+    if (hasRole(req, ROLE.VENDOR)) {
+        if (actionType === "secure") throw throwError("FORBIDDEN");
+        return { folder: buildScopedFolder("transport", userId, requestedFolder),
+            deletePrefixes: [`transport/${userId}/`], canDeletePrivate: false };
     }
 
     if (hasRole(req, ROLE.HOST)) {

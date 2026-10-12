@@ -1,5 +1,7 @@
 import {
   IsEnum,
+  IsArray,
+  ArrayMaxSize,
   IsInt,
   IsNotEmpty,
   IsNumber,
@@ -21,11 +23,25 @@ export class SearchTripsQueryDto {
   @IsString({ message: 'Điểm đến phải là chuỗi ký tự.' })
   destination: string;
 
-  @IsNotEmpty({ message: 'Ngày khởi hành (departureDate) không được để trống.' })
+  @IsNotEmpty({
+    message: 'Ngày khởi hành (departureDate) không được để trống.',
+  })
   @Matches(/^\d{4}-\d{2}-\d{2}$/, {
     message: 'Ngày khởi hành (departureDate) phải có định dạng YYYY-MM-DD.',
   })
   departureDate: string;
+
+  @IsOptional()
+  @IsEnum(['morning', 'afternoon', 'evening'])
+  timeOfDay?: 'morning' | 'afternoon' | 'evening';
+
+  @IsOptional()
+  @IsArray()
+  @ArrayMaxSize(8)
+  @Matches(/^(?:[01]\d|2[0-3]):[0-5]\d-(?:[01]\d|2[0-3]):[0-5]\d$/, {
+    each: true,
+  })
+  timeSlots?: string[];
 
   @IsOptional()
   @IsEnum(['SLEEPER', 'LIMOUSINE', 'SEAT'], {
@@ -34,16 +50,13 @@ export class SearchTripsQueryDto {
   type?: string;
 
   @IsOptional()
-  @Type(() => Number)
-  @IsNumber({}, { message: 'Giá vé tối thiểu phải là số.' })
-  @Min(0, { message: 'Giá vé tối thiểu không được âm.' })
-  minPrice?: number;
-
+  @Type(() => String)
+  @Matches(/^\d{1,18}$/)
+  minPrice?: string;
   @IsOptional()
-  @Type(() => Number)
-  @IsNumber({}, { message: 'Giá vé tối đa phải là số.' })
-  @Min(0, { message: 'Giá vé tối đa không được âm.' })
-  maxPrice?: number;
+  @Type(() => String)
+  @Matches(/^\d{1,18}$/)
+  maxPrice?: string;
 
   @IsOptional()
   @IsUUID('all', { message: 'Mã nhà xe (operatorId) phải là UUID hợp lệ.' })

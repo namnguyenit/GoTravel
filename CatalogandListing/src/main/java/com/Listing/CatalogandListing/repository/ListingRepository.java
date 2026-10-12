@@ -17,6 +17,8 @@ import java.util.Optional;
 
 @Repository
 public interface ListingRepository extends JpaRepository<Listing, UUID> {
+    @Query("select l.transportRouteId from Listing l where l.category=com.Listing.CatalogandListing.enums.ListingCategory.TRANSPORT and l.status=com.Listing.CatalogandListing.enums.ListingStatus.ACTIVE and l.transportRouteId is not null")
+    List<UUID> findActiveTransportRouteIds();
     Optional<Listing> findByTransportRouteId(UUID transportRouteId);
     List<Listing> findByHostId(UUID hostId);
     Page<Listing> findByHostId(UUID hostId, Pageable pageable);

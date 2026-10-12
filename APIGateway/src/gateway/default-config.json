@@ -1395,47 +1395,6 @@
       "paramTypes": {}
     },
     {
-      "id": "5e762e53-09b9-4e9b-8297-ddefe0a495a7",
-      "name": "car /api/v1/operator-applications",
-      "description": "",
-      "methods": [
-        "GET",
-        "POST",
-        "PUT",
-        "PATCH",
-        "DELETE",
-        "HEAD"
-      ],
-      "matchType": "prefix",
-      "sourcePath": "/api/v1/operator-applications",
-      "upstreamPath": "/operator-applications",
-      "serviceKey": "car",
-      "enabled": true,
-      "auth": "jwt",
-      "roles": [],
-      "priority": 0,
-      "timeoutMs": 15000,
-      "changeOrigin": true,
-      "preserveQuery": true,
-      "forwardAuthorization": true,
-      "query": {
-        "set": {},
-        "remove": []
-      },
-      "headers": {
-        "request": {},
-        "response": {},
-        "removeRequest": [],
-        "removeResponse": []
-      },
-      "rateLimit": {
-        "enabled": false,
-        "limit": 100,
-        "windowMs": 60000
-      },
-      "paramTypes": {}
-    },
-    {
       "id": "3521979c-4d23-46d4-b96d-e855f600dcc0",
       "name": "car /api/v1/operators",
       "description": "",
@@ -1587,6 +1546,150 @@
         "limit": 100,
         "windowMs": 60000
       },
+      "paramTypes": {}
+    },
+    {
+      "id": "e4a2a11b-7128-406a-a111-96860bc80101",
+      "name": "car /api/v1/trips/:id (public detail)",
+      "description": "Public detail of trip using snapshot",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/trips/:id",
+      "upstreamPath": "/trips/:id",
+      "serviceKey": "car",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 10,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": { "set": {}, "remove": [] },
+      "headers": { "request": {}, "response": {}, "removeRequest": [], "removeResponse": [] },
+      "rateLimit": { "enabled": false, "limit": 100, "windowMs": 60000 },
+      "paramTypes": { "id": "uuid" }
+    },
+    {
+      "id": "e4a2a11b-7128-406a-a111-96860bc80102",
+      "name": "car /api/v1/trips/:id/stops (public stops)",
+      "description": "Public stops of trip using snapshot",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/trips/:id/stops",
+      "upstreamPath": "/trips/:id/stops",
+      "serviceKey": "car",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 10,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": { "set": {}, "remove": [] },
+      "headers": { "request": {}, "response": {}, "removeRequest": [], "removeResponse": [] },
+      "rateLimit": { "enabled": false, "limit": 100, "windowMs": 60000 },
+      "paramTypes": { "id": "uuid" }
+    },
+    {
+      "id": "e4a2a11b-7128-406a-a111-96860bc80103",
+      "name": "car /api/v1/trips/:id/seats (public seats)",
+      "description": "Public seats layout of trip",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/trips/:id/seats",
+      "upstreamPath": "/trips/:id/seats",
+      "serviceKey": "car",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 10,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": { "set": {}, "remove": [] },
+      "headers": { "request": {}, "response": {}, "removeRequest": [], "removeResponse": [] },
+      "rateLimit": { "enabled": false, "limit": 100, "windowMs": 60000 },
+      "paramTypes": { "id": "uuid" }
+    },
+    {
+      "id": "e4a2a11b-7128-406a-a111-96860bc80104",
+      "name": "car /api/v1/operators/:id/profile (public profile)",
+      "description": "Public commercial profile of operator",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/operators/:id/profile",
+      "upstreamPath": "/operators/:id/profile",
+      "serviceKey": "car",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 10,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": { "set": {}, "remove": [] },
+      "headers": { "request": {}, "response": {}, "removeRequest": [], "removeResponse": [] },
+      "rateLimit": { "enabled": false, "limit": 100, "windowMs": 60000 },
+      "paramTypes": { "id": "uuid" }
+    },
+    {
+      "id": "e4a2a11b-7128-406a-a111-96860bc80105",
+      "name": "car /api/v1/staff",
+      "description": "Staff assignment and trip routes",
+      "methods": [
+        "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"
+      ],
+      "matchType": "prefix",
+      "sourcePath": "/api/v1/staff",
+      "upstreamPath": "/staff",
+      "serviceKey": "car",
+      "enabled": true,
+      "auth": "jwt",
+      "roles": [],
+      "priority": 0,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": true,
+      "query": { "set": {}, "remove": [] },
+      "headers": { "request": {}, "response": {}, "removeRequest": [], "removeResponse": [] },
+      "rateLimit": { "enabled": false, "limit": 100, "windowMs": 60000 },
+      "paramTypes": {}
+    },
+    {
+      "id": "e4a2a11b-7128-406a-a111-96860bc80106",
+      "name": "car /api/v1/tickets",
+      "description": "Ticket check-in and no-show routes",
+      "methods": [
+        "GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"
+      ],
+      "matchType": "prefix",
+      "sourcePath": "/api/v1/tickets",
+      "upstreamPath": "/tickets",
+      "serviceKey": "car",
+      "enabled": true,
+      "auth": "jwt",
+      "roles": [],
+      "priority": 0,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": true,
+      "query": { "set": {}, "remove": [] },
+      "headers": { "request": {}, "response": {}, "removeRequest": [], "removeResponse": [] },
+      "rateLimit": { "enabled": false, "limit": 100, "windowMs": 60000 },
       "paramTypes": {}
     },
     {
@@ -2882,10 +2985,16 @@
       "https://gostay.nonnet123.io.vn",
       "https://auth.nonnet123.io.vn",
       "https://pay.nonnet123.io.vn",
+      "https://goticket.trungcaodev.io.vn",
+      "https://goticket.nonnet123.io.vn",
+      "https://gocar.nonnet123.io.vn",
+      "https://gocar.trungcaodev.io.vn",
       "http://localhost:3000",
+      "http://localhost:3334",
       "http://localhost:3335",
       "http://localhost:3336",
       "http://127.0.0.1:3000",
+      "http://127.0.0.1:3334",
       "http://127.0.0.1:3335",
       "http://127.0.0.1:3336"
     ],

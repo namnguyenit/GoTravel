@@ -8,6 +8,7 @@ import {
 import { IUpdateTripStatusUseCase } from '../port/update-trip-status.usecase.interface';
 import { UpdateTripStatusInput } from '../dto/update-trip-status.input';
 import { UpdateTripStatusOutput } from '../dto/update-trip-status.output';
+import { TransportOperationsService } from '../../../transport/application/transport-operations.service';
 import type { ITripRepository } from '../../domain/repository/trip.repository.interface';
 
 @Injectable()
@@ -15,11 +16,14 @@ export class UpdateTripStatusUseCase implements IUpdateTripStatusUseCase {
   constructor(
     @Inject('ITripRepository')
     private readonly tripRepository: ITripRepository,
+    private readonly operations: TransportOperationsService,
   ) {}
 
   async execute(input: UpdateTripStatusInput): Promise<UpdateTripStatusOutput> {
     if (!input.userId || !input.userId.trim()) {
-      throw new BadRequestException('Vui lòng cung cấp mã người dùng (userId).');
+      throw new BadRequestException(
+        'Vui lòng cung cấp mã người dùng (userId).',
+      );
     }
 
     if (!input.tripId || !input.tripId.trim()) {
@@ -27,7 +31,9 @@ export class UpdateTripStatusUseCase implements IUpdateTripStatusUseCase {
     }
 
     // 1. Kiểm tra / lấy Operator ID của User
-    const operatorId = await this.tripRepository.findOperatorIdByUserId(input.userId);
+    const operatorId = await this.tripRepository.findOperatorIdByUserId(
+      input.userId,
+    );
     if (!operatorId) {
       throw new ForbiddenException(
         'Tài khoản của bạn chưa được cấp quyền Nhà xe (Operator). Vui lòng nộp đơn đăng ký Nhà xe và chờ Admin phê duyệt.',
@@ -42,17 +48,18 @@ export class UpdateTripStatusUseCase implements IUpdateTripStatusUseCase {
       );
     }
 
-    // 3. Thực hiện chuyển đổi trạng thái thông qua Domain Entity (State Machine)
-    try {
-      trip.changeStatus(input.status);
-    } catch (error: any) {
-      throw new BadRequestException(error.message);
+    if (!['DEPARTED', 'COMPLETED'].includes(input.status)) {
+      throw new BadRequestException(
+        'Dùng API publish/stop-sale/cancellation cho các trạng thái bán và hủy.',
+      );
     }
-
-    // 4. Lưu trạng thái mới vào CSDL thông qua Repository
-    const savedTrip = await this.tripRepository.save(trip);
-
-    // 5. Trả về DTO kết quả
+    const result = await this.operations.lifecycle(
+      input.tripId,
+      input.userId,
+      input.status as 'DEPARTED' | 'COMPLETED',
+    );
+    const savedTrip = await this.tripRepository.findById(input.tripId);
+    if (!savedTrip) throw new NotFoundException();
     return {
       id: savedTrip.id!,
       operatorId: savedTrip.operatorId,
@@ -61,9 +68,11 @@ export class UpdateTripStatusUseCase implements IUpdateTripStatusUseCase {
       departureTime: savedTrip.departureTime,
       arrivalTime: savedTrip.arrivalTime,
       pricePerSeat: savedTrip.pricePerSeat,
+      priceVnd: savedTrip.priceVnd,
       status: savedTrip.status,
       createdAt: savedTrip.createdAt!,
       updatedAt: savedTrip.updatedAt!,
+      inventorySyncPending: result.inventorySyncPending,
     };
   }
 }

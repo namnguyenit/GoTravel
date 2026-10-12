@@ -4,9 +4,11 @@ import {
   ArrayMinSize,
   IsArray,
   IsInt,
+  IsOptional,
   IsNotEmpty,
   IsString,
   IsUUID,
+  Matches,
   Max,
   Min,
   MaxLength,
@@ -14,24 +16,38 @@ import {
 } from 'class-validator';
 
 export class SeatDefinitionDto {
-  @IsString() @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   code!: string;
-  @IsInt() @Min(1) @Max(3)
+  @IsInt()
+  @Min(1)
+  @Max(3)
   level!: number;
-  @IsString() @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   seatClass!: string;
+  @IsOptional() @IsInt() @Min(0) @Max(100) row?: number;
+  @IsOptional() @IsInt() @Min(0) @Max(10) column?: number;
 }
 
 export class ReplaceSeatsDto {
-  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(100)
-  @ValidateNested({ each: true }) @Type(() => SeatDefinitionDto)
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(100)
+  @ValidateNested({ each: true })
+  @Type(() => SeatDefinitionDto)
   seats!: SeatDefinitionDto[];
 }
 
 export class QuotePassengerDto {
-  @IsUUID()
+  @Matches(
+    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+    { message: 'seatId must be a UUID' },
+  )
   seatId!: string;
-  @IsString() @IsNotEmpty() @MaxLength(255)
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(255)
   name!: string;
   @IsUUID()
   pickupStopId!: string;
@@ -42,8 +58,11 @@ export class QuotePassengerDto {
 export class QuoteRequestDto {
   @IsUUID()
   tripId!: string;
-  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(10)
-  @ValidateNested({ each: true }) @Type(() => QuotePassengerDto)
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(10)
+  @ValidateNested({ each: true })
+  @Type(() => QuotePassengerDto)
   passengers!: QuotePassengerDto[];
 }
 
@@ -52,9 +71,13 @@ export class IssueTicketItemDto {
   orderItemId!: string;
   @IsUUID()
   tripId!: string;
-  @IsUUID()
+  @Matches(
+    /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/,
+    { message: 'seatId must be a UUID' },
+  )
   seatId!: string;
-  @IsString() @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   passengerName!: string;
   @IsUUID()
   pickupStopId!: string;
@@ -65,12 +88,28 @@ export class IssueTicketItemDto {
 export class IssueTicketsDto {
   @IsUUID()
   orderId!: string;
-  @IsArray() @ArrayMinSize(1) @ArrayMaxSize(10)
-  @ValidateNested({ each: true }) @Type(() => IssueTicketItemDto)
+  @IsArray()
+  @ArrayMinSize(1)
+  @ArrayMaxSize(10)
+  @ValidateNested({ each: true })
+  @Type(() => IssueTicketItemDto)
   items!: IssueTicketItemDto[];
 }
 
 export class CheckInDto {
-  @IsString() @IsNotEmpty()
+  @IsString()
+  @IsNotEmpty()
   token!: string;
+}
+
+export class AmendTicketDto {
+  @IsUUID() @IsNotEmpty() commandId!: string;
+  @IsUUID() @IsNotEmpty() orderId!: string;
+  @IsUUID() @IsNotEmpty() orderItemId!: string;
+  @IsUUID() @IsNotEmpty() ticketId!: string;
+  @IsInt() @Min(1) expectedRevision!: number;
+  @IsString() @IsNotEmpty() @MaxLength(64) payloadHash!: string;
+  @IsString() @IsNotEmpty() @MaxLength(255) passengerName!: string;
+  @IsUUID() @IsNotEmpty() pickupStopId!: string;
+  @IsUUID() @IsNotEmpty() dropoffStopId!: string;
 }

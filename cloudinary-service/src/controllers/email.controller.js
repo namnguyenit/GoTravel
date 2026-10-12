@@ -1,3 +1,4 @@
+import { buildTransportEmail } from "../utils/transportEmail.js";
 import { createTransporter, getDefaultSender, isSmtpConfigured, smtpConfig } from "../configs/smtp.config.js";
 import { renderForgotPasswordEmail, renderRefundEmail } from "../utils/emailTemplates.js";
 import { buildTicketEmail } from "../utils/ticketEmail.js";
@@ -18,7 +19,7 @@ const badRequest = (res, message, code = "BAD_REQUEST") => res.status(400).json(
     data: null,
 });
 
-const sendEmail = async ({ to, subject, html, attachments = [] }) => {
+const sendEmail = async ({ to, subject, html, attachments = [], messageId }) => {
     const transporter = createTransporter();
     const info = await transporter.sendMail({
         from: getDefaultSender(),
@@ -26,6 +27,7 @@ const sendEmail = async ({ to, subject, html, attachments = [] }) => {
         subject,
         html,
         attachments,
+        ...(messageId ? { messageId } : {}),
     });
 
     return {
@@ -104,4 +106,16 @@ export const sendRefundEmail = async (req, res, next) => {
     } catch (error) {
         return next(error);
     }
+};
+
+export const sendTransportEmail = async (req, res, next) => {
+    try {
+        const payload = req.body || {};
+        if (typeof payload.to !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.to)) {
+            return badRequest(res, "Email người nhận không hợp lệ");
+        }
+        const template = await buildTransportEmail(payload);
+        const result = await sendEmail({ to: payload.to, ...template });
+        return success(res, "Đã gửi thông báo vé xe", result);
+    } catch (error) { return next(error); }
 };

@@ -12,7 +12,10 @@ import { SearchTripsInput } from '../../application/dto/search-trips.input';
 import { SearchTripsOutput } from '../../application/dto/search-trips.output';
 
 export class TripPresentationMapper {
-  public static toCreateTripInput(dto: CreateTripDto, userId: string): CreateTripInput {
+  public static toCreateTripInput(
+    dto: CreateTripDto,
+    userId: string,
+  ): CreateTripInput {
     return {
       userId,
       routeId: dto.routeId,
@@ -30,12 +33,18 @@ export class TripPresentationMapper {
       message: 'Lên lịch chuyến xe mới thành công!',
       data: {
         id: output.id,
+        ...('inventorySyncPending' in output
+          ? { inventorySyncPending: output.inventorySyncPending }
+          : {}),
         operatorId: output.operatorId,
         routeId: output.routeId,
         carId: output.carId,
         departureTime: output.departureTime,
         arrivalTime: output.arrivalTime,
-        pricePerSeat: output.pricePerSeat,
+        pricePerSeat: Number.isSafeInteger(output.pricePerSeat)
+          ? output.pricePerSeat
+          : null,
+        ...('priceVnd' in output ? { priceVnd: output.priceVnd } : {}),
         status: output.status,
         createdAt: output.createdAt,
         updatedAt: output.updatedAt,
@@ -43,7 +52,10 @@ export class TripPresentationMapper {
     };
   }
 
-  public static toGetTripsInput(query: GetTripsQueryDto, userId: string): GetTripsInput {
+  public static toGetTripsInput(
+    query: GetTripsQueryDto,
+    userId: string,
+  ): GetTripsInput {
     return {
       userId,
       keyword: query.keyword,
@@ -90,12 +102,18 @@ export class TripPresentationMapper {
       message: 'Cập nhật trạng thái chuyến xe thành công!',
       data: {
         id: output.id,
+        ...('inventorySyncPending' in output
+          ? { inventorySyncPending: output.inventorySyncPending }
+          : {}),
         operatorId: output.operatorId,
         routeId: output.routeId,
         carId: output.carId,
         departureTime: output.departureTime,
         arrivalTime: output.arrivalTime,
-        pricePerSeat: output.pricePerSeat,
+        pricePerSeat: Number.isSafeInteger(output.pricePerSeat)
+          ? output.pricePerSeat
+          : null,
+        ...('priceVnd' in output ? { priceVnd: output.priceVnd } : {}),
         status: output.status,
         createdAt: output.createdAt,
         updatedAt: output.updatedAt,
@@ -103,8 +121,12 @@ export class TripPresentationMapper {
     };
   }
 
-  public static toSearchTripsInput(query: SearchTripsQueryDto): SearchTripsInput {
+  public static toSearchTripsInput(
+    query: SearchTripsQueryDto,
+  ): SearchTripsInput {
     return {
+      timeOfDay: query.timeOfDay,
+      timeSlots: query.timeSlots,
       origin: query.origin,
       destination: query.destination,
       departureDate: query.departureDate,

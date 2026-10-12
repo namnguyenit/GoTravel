@@ -58,14 +58,37 @@ public class TransportInventoryService {
         repository.createTrip(new TransportInventory.Trip(tripId, operatorId, departureAt, false), seats);
     }
 
+    public record SaleStatusResult(UUID tripId, boolean saleEnabled, int syncVersion) {}
+
     @Transactional
-    public void setSaleEnabled(UUID tripId, boolean enabled) {
+    public SaleStatusResult setSaleEnabled(UUID tripId, boolean enabled, int version) {
+        repository.lockKey(tripId);
         var trip = repository.findTripForUpdate(tripId)
                 .orElseThrow(() -> badRequest("Chuyến chưa khởi tạo inventory"));
-        if (enabled && !trip.departureAt().isAfter(clock.instant())) {
-            throw conflict("Chuyến đã khởi hành");
+
+        if (version > trip.syncVersion()) {
+            if (enabled && !trip.departureAt().isAfter(clock.instant())) {
+                throw conflict("Chuyến đã khởi hành");
+            }
+            repository.setSaleEnabled(tripId, enabled, version);
+            return new SaleStatusResult(tripId, enabled, version);
+        } else if (version == trip.syncVersion()) {
+            if (enabled == trip.saleEnabled()) {
+                return new SaleStatusResult(tripId, trip.saleEnabled(), trip.syncVersion());
+            } else {
+                throw conflict("Xung đột version trạng thái bán: version " + version + " đã có trạng thái " + trip.saleEnabled());
+            }
+        } else {
+            // Stale version: ignore update, keep existing state
+            return new SaleStatusResult(tripId, trip.saleEnabled(), trip.syncVersion());
         }
-        repository.setSaleEnabled(tripId, enabled);
+    }
+
+    @Transactional
+    public SaleStatusResult setSaleEnabled(UUID tripId, boolean enabled) {
+        var trip = repository.findTripForUpdate(tripId)
+                .orElseThrow(() -> badRequest("Chuyến chưa khởi tạo inventory"));
+        return setSaleEnabled(tripId, enabled, trip.syncVersion() + 1);
     }
 
     @Transactional
@@ -152,6 +175,24 @@ public class TransportInventoryService {
     }
 
     @Transactional
+    public void changeSeatBlock(UUID tripId, UUID actorId, List<UUID> requestedSeats, boolean blocked, String reason) {
+        if (tripId == null || actorId == null || requestedSeats == null || requestedSeats.isEmpty() ||
+                requestedSeats.size() > 100 || requestedSeats.stream().anyMatch(Objects::isNull) ||
+                new HashSet<>(requestedSeats).size() != requestedSeats.size() ||
+                reason == null || reason.isBlank() || reason.length() > 500) throw badRequest("Lệnh chặn ghế không hợp lệ");
+        var trip = repository.findTripForUpdate(tripId).orElseThrow(() -> badRequest("Không có chuyến"));
+        if (!trip.departureAt().isAfter(clock.instant())) throw conflict("Chuyến đã khởi hành");
+        var seats = repository.findSeatsForUpdate(tripId, requestedSeats.stream().sorted().toList());
+        if (seats.size() != requestedSeats.size() || seats.stream().anyMatch(seat ->
+                seat.status() != TransportInventory.SeatStatus.AVAILABLE &&
+                seat.status() != TransportInventory.SeatStatus.BLOCKED)) throw conflict("Không được chặn/nhả ghế đang giữ hoặc đã bán");
+        repository.updateSeats(seats.stream().map(seat -> seat.change(blocked ?
+                TransportInventory.SeatStatus.BLOCKED : TransportInventory.SeatStatus.AVAILABLE,
+                null, null, null)).toList());
+        repository.recordSeatBlock(tripId, actorId, requestedSeats, blocked, reason.trim());
+    }
+
+    @Transactional
     public void cancelSold(UUID orderId) {
         repository.lockKey(orderId);
         var hold = repository.findHoldForUpdate(orderId)
@@ -199,6 +240,12 @@ public class TransportInventoryService {
         return new ResponseStatusException(HttpStatus.CONFLICT, message);
     }
 
+    @Transactional public SeatOwnership seatOwnership(UUID orderId,UUID tripId,UUID seatId) {
+        var seat=repository.findSeatsForUpdate(tripId,List.of(seatId)).stream().findFirst().orElseThrow(()->badRequest("Không có ghế"));
+        if(!orderId.equals(seat.orderId())) throw conflict("Ghế không thuộc đơn");
+        return new SeatOwnership(orderId,tripId,seatId,seat.status().name());
+    }
+    public record SeatOwnership(UUID orderId,UUID tripId,UUID seatId,String status){}
     public record SeatDefinition(UUID seatId, String code) {}
     public record SeatView(UUID seatId, String code, String status) {}
     public record HoldResult(UUID holdId, Instant expiresAt, List<UUID> seatIds) {}

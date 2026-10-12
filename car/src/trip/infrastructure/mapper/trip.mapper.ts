@@ -1,4 +1,7 @@
-import { Trip as PrismaTripModel, TripStatus as PrismaTripStatus } from '@prisma/client';
+import {
+  Trip as PrismaTripModel,
+  TripStatus as PrismaTripStatus,
+} from '@prisma/client';
 import { Trip } from '../../domain/entity/trip.entity';
 import { TripStatus } from '../../domain/value-object/trip-status.enum';
 
@@ -12,6 +15,7 @@ export class TripMapper {
       departureTime: model.departureTime,
       arrivalTime: model.arrivalTime,
       pricePerSeat: model.pricePerSeat,
+      priceVnd: model.priceVnd?.toString(),
       status: model.status as unknown as TripStatus,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,

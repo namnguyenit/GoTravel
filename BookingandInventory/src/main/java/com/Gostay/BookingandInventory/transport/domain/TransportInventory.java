@@ -10,7 +10,11 @@ public final class TransportInventory {
     public enum SeatStatus { AVAILABLE, HELD, SOLD, BLOCKED }
     public enum HoldStatus { HELD, SOLD, RELEASED, EXPIRED, CANCELLED }
 
-    public record Trip(UUID id, UUID operatorId, Instant departureAt, boolean saleEnabled) {}
+    public record Trip(UUID id, UUID operatorId, Instant departureAt, boolean saleEnabled, int syncVersion) {
+        public Trip(UUID id, UUID operatorId, Instant departureAt, boolean saleEnabled) {
+            this(id, operatorId, departureAt, saleEnabled, 0);
+        }
+    }
 
     public record Seat(
             UUID tripId, UUID seatId, String code, SeatStatus status,

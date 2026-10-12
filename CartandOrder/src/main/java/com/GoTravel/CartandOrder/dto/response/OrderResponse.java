@@ -24,6 +24,9 @@ public class OrderResponse {
     private String orderKind;
     private String paymentMethod;
     private BigDecimal totalAmount;
+    @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING)
+    private BigDecimal transportActiveFareAmount;
+    private String transportOriginalChargeVnd;
     private String currency;
     private OrderCustomerInfo customerInfo;
     private LocalDateTime expiresAt;
@@ -59,7 +62,14 @@ public class OrderResponse {
         private UUID pickupStopId;
         private UUID dropoffStopId;
         private UUID transportTicketId;
+        private String transportBoardingStatus;
         private String transportCheckInToken;
+        private Integer transportTicketRevision;
+        private String transportItemState;
+        private BigDecimal transportRefundTotal;
+        private String transportFareVnd;
+        private String transportRefundedVnd;
+        private java.time.LocalDateTime transportDepartureAt;
         private String listingTitle;
         private String thumbnailUrl;
         private LocalDate startDate;

@@ -8,6 +8,7 @@ export interface TripProps {
   departureTime: Date;
   arrivalTime: Date;
   pricePerSeat: number;
+  priceVnd?: string;
   status?: TripStatus;
   createdAt?: Date;
   updatedAt?: Date;
@@ -21,6 +22,7 @@ export class Trip {
   private _departureTime: Date;
   private _arrivalTime: Date;
   private _pricePerSeat: number;
+  private readonly _priceVnd: string;
   private _status: TripStatus;
   private readonly _createdAt?: Date;
   private _updatedAt?: Date;
@@ -30,7 +32,14 @@ export class Trip {
     this.validateRouteId(props.routeId);
     this.validateCarId(props.carId);
     this.validateTimes(props.departureTime, props.arrivalTime);
-    this.validatePricePerSeat(props.pricePerSeat);
+    if (props.priceVnd !== undefined) {
+      if (
+        !/^[1-9]\d{0,17}$/.test(props.priceVnd) ||
+        !Number.isFinite(props.pricePerSeat) ||
+        props.pricePerSeat <= 0
+      )
+        throw new Error('Giá VND không hợp lệ');
+    } else this.validatePricePerSeat(props.pricePerSeat);
 
     this._id = props.id;
     this._operatorId = props.operatorId;
@@ -39,6 +48,7 @@ export class Trip {
     this._departureTime = props.departureTime;
     this._arrivalTime = props.arrivalTime;
     this._pricePerSeat = props.pricePerSeat;
+    this._priceVnd = props.priceVnd ?? String(props.pricePerSeat);
     this._status = props.status || TripStatus.DRAFT;
     this._createdAt = props.createdAt || new Date();
     this._updatedAt = props.updatedAt || new Date();
@@ -48,7 +58,9 @@ export class Trip {
     return new Trip(props);
   }
 
-  public static reconstruct(props: Required<TripProps>): Trip {
+  public static reconstruct(
+    props: Required<Omit<TripProps, 'priceVnd'>> & Pick<TripProps, 'priceVnd'>,
+  ): Trip {
     return new Trip(props);
   }
 
@@ -71,11 +83,19 @@ export class Trip {
   }
 
   private validateTimes(departureTime: Date, arrivalTime: Date): void {
-    if (!departureTime || !(departureTime instanceof Date) || isNaN(departureTime.getTime())) {
+    if (
+      !departureTime ||
+      !(departureTime instanceof Date) ||
+      isNaN(departureTime.getTime())
+    ) {
       throw new Error('Thời gian xuất bến không hợp lệ.');
     }
 
-    if (!arrivalTime || !(arrivalTime instanceof Date) || isNaN(arrivalTime.getTime())) {
+    if (
+      !arrivalTime ||
+      !(arrivalTime instanceof Date) ||
+      isNaN(arrivalTime.getTime())
+    ) {
       throw new Error('Thời gian đến dự kiến không hợp lệ.');
     }
 
@@ -90,12 +110,21 @@ export class Trip {
     }
   }
 
+  get priceVnd(): string {
+    return this._priceVnd;
+  }
+
   public depart(): void {
     if (this._status === TripStatus.DEPARTED) {
       throw new Error('Chuyến xe hiện đã ở trạng thái DEPARTED trước đó.');
     }
-    if (this._status !== TripStatus.ON_SALE && this._status !== TripStatus.STOP_SALE) {
-      throw new Error('Chỉ chuyến đã mở bán hoặc ngừng bán mới có thể xuất bến.');
+    if (
+      this._status !== TripStatus.ON_SALE &&
+      this._status !== TripStatus.STOP_SALE
+    ) {
+      throw new Error(
+        'Chỉ chuyến đã mở bán hoặc ngừng bán mới có thể xuất bến.',
+      );
     }
     if (this._departureTime > new Date()) {
       throw new Error('Chuyến chưa đến giờ khởi hành.');
@@ -109,8 +138,12 @@ export class Trip {
       throw new Error('Chuyến xe hiện đã ở trạng thái COMPLETED trước đó.');
     }
     if (this._status !== TripStatus.DEPARTED) {
-      throw new Error('Chỉ chuyến xe đang chạy (DEPARTED) mới có thể đánh dấu hoàn thành.');
+      throw new Error(
+        'Chỉ chuyến xe đang chạy (DEPARTED) mới có thể đánh dấu hoàn thành.',
+      );
     }
+    if (this._arrivalTime > new Date())
+      throw new Error('Chuyến chưa đến giờ kết thúc dự kiến.');
     this._status = TripStatus.COMPLETED;
     this._updatedAt = new Date();
   }
@@ -120,13 +153,19 @@ export class Trip {
       throw new Error('Chuyến xe hiện đã ở trạng thái CANCELLED trước đó.');
     }
     if (this._status === TripStatus.DEPARTED) {
-      throw new Error('Chuyến xe đã xuất bến và đang trong hành trình di chuyển, không thể hủy chuyến.');
+      throw new Error(
+        'Chuyến xe đã xuất bến và đang trong hành trình di chuyển, không thể hủy chuyến.',
+      );
     }
     if (this._status === TripStatus.COMPLETED) {
-      throw new Error('Chuyến xe đã hoàn thành hành trình, không thể hủy chuyến.');
+      throw new Error(
+        'Chuyến xe đã hoàn thành hành trình, không thể hủy chuyến.',
+      );
     }
     if (this._status !== TripStatus.DRAFT) {
-      throw new Error('Hủy chuyến đã công bố cần đi qua quy trình hủy vé và hoàn tiền.');
+      throw new Error(
+        'Hủy chuyến đã công bố cần đi qua quy trình hủy vé và hoàn tiền.',
+      );
     }
     this._status = TripStatus.CANCELLED;
     this._updatedAt = new Date();
@@ -148,7 +187,9 @@ export class Trip {
         this.cancel();
         break;
       default:
-        throw new Error(`Không thể chuyển trạng thái chuyến xe về ${newStatus}.`);
+        throw new Error(
+          `Không thể chuyển trạng thái chuyến xe về ${newStatus}.`,
+        );
     }
   }
 

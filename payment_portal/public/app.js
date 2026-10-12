@@ -3,6 +3,7 @@ const el = id => document.getElementById(id);
 const views = ['loading', 'error', 'payment', 'success', 'expired'];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 let orderId = '', paymentId = '', pollTimer = null, checking = false, launching = false;
+let resourceType = 'ORDER';
 let home = window.location.hostname === 'pay.nonnet123.io.vn' ? 'https://gostay.nonnet123.io.vn' : 'https://gotravel.trungcaodev.io.vn';
 let currentOrder = null;
 const money = value => value !== null && value !== undefined && Number.isFinite(Number(value))
@@ -68,6 +69,35 @@ function renderOrder(order) {
   });
   el('order-items').replaceChildren(...products);
 }
+function renderOperation(operation) {
+  if (operation?.operationId !== orderId || operation.topup == null
+      || !Number.isFinite(Number(operation.topup)) || Number(operation.topup) <= 0) {
+    throw new Error('Thông tin thanh toán chênh lệch không hợp lệ.');
+  }
+  currentOrder = { totalAmount: operation.topup };
+  const plan = operation.plan || {};
+  el('order-id').textContent = operation.operationId;
+  el('order-created').textContent = dateLabel(operation.createdAt, true);
+  el('order-status').textContent = ({ WAITING_FUNDS: 'Chờ thanh toán chênh lệch', COMPLETED: 'Hoàn tất',
+    REFUND_PENDING: 'Chờ hoàn tiền', ABORTED: 'Đã dừng' })[operation.state] || 'Đang xử lý';
+  el('order-expiry-row').hidden = !operation.expiresAt;
+  el('order-expiry').textContent = dateLabel(operation.expiresAt, true);
+  el('customer-name').textContent = plan.passengerName || 'Hành khách';
+  el('customer-phone').textContent = '—';
+  el('customer-email').textContent = '—';
+  el('item-count').textContent = operation.kind === 'EXCHANGE' ? 'Đổi vé xe' : 'Điều chỉnh vé';
+  el('amount').textContent = money(operation.topup);
+  const article = node('article', 'order-item');
+  const top = node('div', 'item-main');
+  top.append(node('div', 'item-thumbnail', '1'), node('h4', 'item-title', operation.kind === 'EXCHANGE' ? 'Phần chênh lệch đổi vé' : 'Điều chỉnh vé'));
+  const details = node('dl', 'item-details');
+  detail(details, 'Giá vé cũ', money(operation.oldAmount));
+  detail(details, 'Giá vé mới', money(operation.newAmount));
+  detail(details, 'Phí áp dụng', money(operation.fee));
+  detail(details, 'Cần thanh toán thêm', money(operation.topup));
+  article.append(top, details);
+  el('order-items').replaceChildren(article);
+}
 function validatePayment(payment) {
   if (!UUID.test(payment?.paymentId || '') || payment.orderId !== orderId || payment.amount == null
       || !Number.isFinite(Number(payment.amount)) || Number(payment.amount) !== Number(currentOrder?.totalAmount)) {
@@ -106,10 +136,15 @@ async function apply(payment) {
   const status = String(payment.status).toUpperCase();
   if (status === 'COMPLETED') {
     el('vnpay-button').disabled = true;
-    const order = await api(`/orders/${encodeURIComponent(orderId)}`);
-    renderOrder(order);
-    if (['CONFIRMED', 'COMPLETED'].includes(String(order.status).toUpperCase())) {
-      stop(); el('success-order').textContent = order.orderNumber || orderId; show('success');
+    const resource = resourceType === 'OPERATION'
+      ? await api(`/orders/transport/item-operations/${encodeURIComponent(orderId)}`)
+      : await api(`/orders/${encodeURIComponent(orderId)}`);
+    if (resourceType === 'OPERATION') renderOperation(resource); else renderOrder(resource);
+    const resourceReady = resourceType === 'OPERATION'
+      ? ['COMPLETED', 'REFUND_PENDING'].includes(String(resource.state).toUpperCase())
+      : ['CONFIRMED', 'COMPLETED'].includes(String(resource.status).toUpperCase());
+    if (resourceReady) {
+      stop(); el('success-order').textContent = resource.orderNumber || resource.operationId || orderId; show('success');
     } else {
       show('payment'); el('update-note').textContent = 'Đã nhận thanh toán. Đang xác nhận đơn hàng, vui lòng chờ.';
     }
@@ -134,12 +169,21 @@ async function start() {
   try {
     const response = await fetch(`/session?ticket=${encodeURIComponent(ticket)}`, { credentials: 'include', cache: 'no-store' });
     if (!response.ok) throw new Error('Phiên thanh toán đã hết hạn. Hãy mở lại từ đơn hàng trên GoTravel.');
-    const session = await response.json(); orderId = session.orderId; home = new URL(session.gostayOrigin).origin;
+    const session = await response.json(); orderId = session.orderId; resourceType = session.resourceType || 'ORDER'; home = new URL(session.gostayOrigin).origin;
     if (!UUID.test(orderId)) throw new Error('Mã đơn hàng không hợp lệ.');
     for (const id of ['header-home', 'error-home', 'expired-home']) el(id).href = home + '/';
-    el('view-order').href = home + '/orders/completed?orderId=' + encodeURIComponent(orderId);
     await api('/auth/session');
-    renderOrder(await api(`/orders/${encodeURIComponent(orderId)}`));
+    const orderData = resourceType === 'OPERATION'
+      ? await api(`/orders/transport/item-operations/${encodeURIComponent(orderId)}`)
+      : await api(`/orders/${encodeURIComponent(orderId)}`);
+    if (resourceType === 'OPERATION') renderOperation(orderData); else renderOrder(orderData);
+    if (resourceType === 'OPERATION') {
+      el('view-order').href = home + '/account/operations/' + encodeURIComponent(orderId);
+    } else if (orderData?.orderKind === 'GOCAR_TICKET') {
+      el('view-order').href = home + '/payment/return?orderId=' + encodeURIComponent(orderId);
+    } else {
+      el('view-order').href = home + '/orders/completed?orderId=' + encodeURIComponent(orderId);
+    }
     let payment;
     try { payment = await api(`/payments/order/${encodeURIComponent(orderId)}`); }
     catch (error) { if (error.status !== 404) throw error; }

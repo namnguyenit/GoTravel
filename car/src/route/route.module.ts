@@ -1,6 +1,8 @@
+import { PrismaUpdateRouteManagement } from './infrastructure/repository/prisma-update-route.management';
 import { Module } from '@nestjs/common';
 import { RouteController } from './presentation/controller/route.controller';
 import { CreateRouteUseCase } from './application/usecase/create-route.usecase';
+import { UpdateRouteUseCase } from './application/usecase/update-route.usecase';
 import { GetRoutesUseCase } from './application/usecase/get-routes.usecase';
 import { UpdateRouteStatusUseCase } from './application/usecase/update-route-status.usecase';
 import { GetRouteLocationsUseCase } from './application/usecase/get-route-locations.usecase';
@@ -9,6 +11,7 @@ import { PrismaRouteRepository } from './infrastructure/repository/prisma-route.
 @Module({
   controllers: [RouteController],
   providers: [
+    { provide: 'RouteManagementPort', useClass: PrismaUpdateRouteManagement },
     {
       provide: 'IRouteRepository',
       useClass: PrismaRouteRepository,
@@ -16,6 +19,10 @@ import { PrismaRouteRepository } from './infrastructure/repository/prisma-route.
     {
       provide: 'ICreateRouteUseCase',
       useClass: CreateRouteUseCase,
+    },
+    {
+      provide: 'IUpdateRouteUseCase',
+      useClass: UpdateRouteUseCase,
     },
     {
       provide: 'IGetRoutesUseCase',
@@ -33,6 +40,7 @@ import { PrismaRouteRepository } from './infrastructure/repository/prisma-route.
   exports: [
     'IRouteRepository',
     'ICreateRouteUseCase',
+    'IUpdateRouteUseCase',
     'IGetRoutesUseCase',
     'IUpdateRouteStatusUseCase',
     'IGetRouteLocationsUseCase',

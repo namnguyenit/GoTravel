@@ -53,6 +53,7 @@ public class OrderService {
     private final CatalogClient catalogClient;
     private final CommunicationClient communicationClient;
     private final OrderMapper orderMapper;
+    private final com.GoTravel.CartandOrder.transport.TransportNotificationService transportNotifications;
     @Value("${frontend.base-url:https://gotravel.trungcaodev.io.vn}")
     private String frontendBaseUrl;
 
@@ -235,11 +236,17 @@ public class OrderService {
 
     @Transactional(readOnly = true)
     public Page<OrderResponse> getUserOrders(UUID userId, Pageable pageable) {
-        return getUserOrders(userId, pageable, null, "");
+        return getUserOrders(userId, pageable, null, "", null);
     }
 
     @Transactional(readOnly = true)
     public Page<OrderResponse> getUserOrders(UUID userId, Pageable pageable, List<OrderStatus> statuses, String search) {
+        return getUserOrders(userId, pageable, statuses, search, null);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<OrderResponse> getUserOrders(UUID userId, Pageable pageable, List<OrderStatus> statuses,
+                                             String search, com.GoTravel.CartandOrder.enums.OrderKind orderKind) {
         List<OrderStatus> selectedStatuses = statuses == null || statuses.isEmpty()
                 ? List.of(OrderStatus.values()) : statuses;
         String keyword = search == null ? "" : search.trim().toLowerCase(Locale.ROOT);
@@ -247,8 +254,10 @@ public class OrderService {
         String pattern = "%" + keyword.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
         Pageable boundedPage = PageRequest.of(Math.max(0, pageable.getPageNumber()),
                 Math.min(100, Math.max(1, pageable.getPageSize())));
-        return orderRepository.findUserHistory(userId, selectedStatuses, pattern, boundedPage)
-                .map(orderMapper::toOrderResponse);
+        Page<Order> orders = orderKind == null
+                ? orderRepository.findUserHistory(userId, selectedStatuses, pattern, boundedPage)
+                : orderRepository.findUserHistoryByKind(userId, orderKind, selectedStatuses, pattern, boundedPage);
+        return orders.map(orderMapper::toOrderResponse);
     }
 
     @Transactional(readOnly = true)
@@ -332,7 +341,11 @@ public class OrderService {
             throw new AppException(OrderErrorCode.INVALID_ORDER_STATE);
         }
 
-        deliverTicketEmail(order, true);
+        if (order.getOrderKind() == com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET) {
+            transportNotifications.requestResend(userId, orderId);
+        } else {
+            deliverTicketEmail(order, true);
+        }
         orderRepository.save(order);
         return orderMapper.toOrderResponse(order);
     }
@@ -490,6 +503,8 @@ public class OrderService {
     }
 
     private List<OrderPaymentSummaryResponse.ProviderBreakdown> buildProviderBreakdowns(Order order) {
+        // Transport item fares may change after delta exchange; the original payment summary remains immutable.
+        if(order.getOrderKind()==com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET)return List.of(OrderPaymentSummaryResponse.ProviderBreakdown.builder().hostId(order.getHostId()).totalAmount(order.getTotalAmount()).build());
         Map<UUID, BigDecimal> totalsByHost = new LinkedHashMap<>();
 
         for (OrderItem item : order.getItems()) {

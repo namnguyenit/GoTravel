@@ -24,6 +24,11 @@ public class TransportOfferController {
         return ResponseEntity.ok(ApiResponse.success(service.upsert(request)));
     }
 
+    @GetMapping("/active-routes")
+    public ResponseEntity<ApiResponse<java.util.List<UUID>>> activeRoutes() {
+        return ResponseEntity.ok(ApiResponse.success(service.activeRouteIds()));
+    }
+
     @GetMapping("/routes/{routeId}")
     public ResponseEntity<ApiResponse<TransportOfferService.OfferResult>> get(@PathVariable UUID routeId) {
         return ResponseEntity.ok(ApiResponse.success(service.getByRoute(routeId)));

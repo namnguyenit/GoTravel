@@ -52,6 +52,7 @@ public class TransportOrderService {
     private final CashLedger cashLedger;
     private final CancellationPolicy cancellationPolicy;
     private final JdbcTemplate jdbc;
+    private final com.GoTravel.CartandOrder.transport.adjustment.application.ItemOperationService itemOperations;
 
     public com.GoTravel.CartandOrder.dto.response.OrderResponse checkout(
             UUID userId, String idempotencyKey, TransportCheckoutRequest request) {
@@ -114,6 +115,9 @@ public class TransportOrderService {
                         .orderKind(OrderKind.GOCAR_TICKET)
                         .paymentMethod(method)
                         .transportTripId(quote.tripId())
+                        .transportQuoteId(quote.quoteId())
+                        .transportQuoteVersion(quote.quoteVersion())
+                        .transportQuoteHash(quote.quoteHash())
                         .transportIdempotencyKey(idempotencyKey)
                         .transportRequestHash(requestHash)
                         .transportCashierId(cashierId)
@@ -140,6 +144,8 @@ public class TransportOrderService {
                             .quantity(1)
                             .unitPrice(seat.price())
                             .totalPrice(seat.price())
+                            .transportOriginalAmount(seat.price())
+                            .transportDepartureAt(LocalDateTime.ofInstant(quote.departureAt(), VN_ZONE))
                             .transportTripId(quote.tripId())
                             .transportSeatId(seat.seatId())
                             .transportSeatCode(seat.code())
@@ -158,6 +164,8 @@ public class TransportOrderService {
                     .orElseThrow(() -> duplicate);
         }
         try {
+            var claimed = car.claimQuote(quote.quoteId(), new GoCarClient.ClaimQuoteRequest(order.getId(), quote.quoteHash()));
+            if (claimed == null || !claimed.isSuccess()) throw conflict("Báo giá chưa được chốt");
             var reserved = inventory.reserve(quote.tripId(), new TransportInventoryClient.ReserveRequest(
                     order.getId(), quote.seats().stream().map(TransportQuote.SeatQuote::seatId).toList()));
             if (reserved == null || !reserved.isSuccess() || reserved.getData() == null ||
@@ -204,7 +212,9 @@ public class TransportOrderService {
                     trusted.amount() == null || trusted.amount().compareTo(order.getTotalAmount()) != 0) {
                 throw conflict("Giao dịch không khớp order");
             }
-            if (order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.FULFILLMENT_PENDING ||
+            if (order.getStatus() == OrderStatus.COMPLETED || order.getStatus() == OrderStatus.REFUNDED ||
+                    order.getStatus() == OrderStatus.REFUND_PENDING ||
+                    order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.FULFILLMENT_PENDING ||
                     order.getStatus() == OrderStatus.PAID_REVIEW) return;
             if (order.getStatus() != OrderStatus.PAYMENT_PENDING ||
                     order.getExpiresAt() == null || trusted.paidAt().isAfter(order.getExpiresAt())) {
@@ -228,7 +238,9 @@ public class TransportOrderService {
         if (payment != null && payment.getData() != null &&
                 "COMPLETED".equals(payment.getData().status())) return;
         var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
-        if (order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.FULFILLMENT_PENDING ||
+        if (order.getStatus() == OrderStatus.COMPLETED || order.getStatus() == OrderStatus.REFUNDED ||
+                    order.getStatus() == OrderStatus.REFUND_PENDING ||
+                    order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.FULFILLMENT_PENDING ||
                 order.getStatus() == OrderStatus.PAID_REVIEW) return;
         transactions.executeWithoutResult(status -> {
             var current = orders.findByIdForUpdate(orderId).orElseThrow();
@@ -254,7 +266,7 @@ public class TransportOrderService {
                     paid.amount().compareTo(current.getTotalAmount()) != 0) {
                 throw conflict("Giao dịch không khớp order");
             }
-            if (current.getStatus() == OrderStatus.CONFIRMED ||
+            if (current.getStatus() == OrderStatus.COMPLETED || current.getStatus() == OrderStatus.CONFIRMED ||
                     current.getStatus() == OrderStatus.FULFILLMENT_PENDING ||
                     current.getStatus() == OrderStatus.REFUND_PENDING ||
                     current.getStatus() == OrderStatus.REFUNDED) return;
@@ -296,6 +308,24 @@ public class TransportOrderService {
         tryRelease(orderId);
     }
 
+    public CancellationPolicy.Quote cancellationPreview(UUID actorId, UUID orderId) {
+        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        if (order.getOrderKind() != OrderKind.GOCAR_TICKET || order.getStatus() != OrderStatus.CONFIRMED ||
+                !(actorId.equals(order.getUserId()) || actorId.equals(order.getTransportCashierId())))
+            throw conflict("Không có quyền xem chính sách hủy của đơn");
+        if (order.getPaymentMethod() == PaymentMethod.CASH) {
+            var authorized = car.authorizeStaff(actorId, order.getTransportTripId(), "SELL_CASH");
+            if (authorized == null || authorized.getData() == null) throw conflict("Nhân viên đã mất quyền");
+        }
+        BigDecimal fee=BigDecimal.ZERO,refund=BigDecimal.ZERO;
+        for(var item:order.getItems())if("ACTIVE".equals(item.getTransportItemState())){
+            var quote=cancellationPolicy.quoteAmount(order,item.getTransportDepartureAt()==null?order.getTransportDepartureAt():item.getTransportDepartureAt(),item.getTotalPrice());
+            fee=fee.add(quote.fee());refund=refund.add(quote.refundDue());
+        }
+        if(fee.add(refund).signum()==0)throw conflict("Đơn không còn vé có thể hủy");
+        return new CancellationPolicy.Quote(fee,refund,order.getTransportPolicyVersion());
+    }
+
     public void cancelPaid(UUID actorId, UUID orderId, String reason) {
         var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET || order.getStatus() != OrderStatus.CONFIRMED) {
@@ -308,12 +338,16 @@ public class TransportOrderService {
             var allowed = car.authorizeStaff(actorId, order.getTransportTripId(), "SELL_CASH");
             if (allowed == null || allowed.getData() == null) throw conflict("Nhân viên đã mất quyền");
         }
+        if (order.getItems().stream().anyMatch(i -> i.getTransportTicketId()!=null)) {
+            cancelIssuedItems(actorId,orderId,null,false);
+            return;
+        }
         var quote = cancellationPolicy.quote(order);
         transactions.executeWithoutResult(status -> {
             var current = orders.findByIdForUpdate(orderId).orElseThrow();
             if (current.getStatus() != OrderStatus.CONFIRMED) throw conflict("Order đã đổi trạng thái");
             Integer activeExchange = jdbc.queryForObject("select count(*) from transport_exchange_cases " +
-                            "where (new_order_id=? or old_order_id=?) and status='PROCESSING'",
+                            "where (new_order_id=? or old_order_id=?) and status not in ('COMPLETED','REPLACEMENT_CANCELLED','EXCEPTION_RESOLVED')",
                     Integer.class, orderId, orderId);
             if (activeExchange != null && activeExchange > 0)
                 throw conflict("Đơn đang trong quy trình đổi vé");
@@ -351,15 +385,30 @@ public class TransportOrderService {
             if (current.getStatus() == OrderStatus.CANCELLATION_PENDING) {
                 current.setStatus(OrderStatus.REFUND_PENDING);
                 orders.save(current);
+                TransportNotificationService.enqueue(jdbc, current, "CANCELLED");
             }
         });
     }
 
     /** Called only by the durable trip-cancellation coordinator after sale was disabled. */
+    private void cancelIssuedItems(UUID actorId,UUID orderId,UUID tripId,boolean forced) {
+        var order=orders.findById(orderId).orElseThrow();
+        for(var item:order.getItems()) {
+            if(tripId!=null&&!tripId.equals(item.getTransportTripId())) continue;
+            if("OPERATION_PENDING".equals(item.getTransportItemState())) throw conflict("Vé đang có operation; worker sẽ tiếp tục hủy sau khi kết thúc");
+            if(!"ACTIVE".equals(item.getTransportItemState())||item.getTransportTicketId()==null)continue;
+            itemOperations.request(actorId,orderId,item.getId(),"CANCEL",new com.GoTravel.CartandOrder.transport.adjustment.application.ItemOperationService.Request(UUID.randomUUID(),null,null,null,null),forced);
+        }
+    }
+
     public void cancelForTrip(UUID orderId, UUID tripId, String reason) {
         var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET ||
-                !tripId.equals(order.getTransportTripId())) throw conflict("Order không thuộc chuyến cần hủy");
+                order.getItems().stream().noneMatch(i->tripId.equals(i.getTransportTripId()))) throw conflict("Order không thuộc chuyến cần hủy");
+        if (order.getItems().stream().anyMatch(i -> i.getTransportTicketId()!=null) && order.getStatus()!=OrderStatus.CANCELLED) {
+            cancelIssuedItems(order.getHostId(),orderId,tripId,true);
+            return;
+        }
         if (order.getStatus() == OrderStatus.CANCELLED || order.getStatus() == OrderStatus.REFUNDED ||
                 order.getStatus() == OrderStatus.REFUND_PENDING) return;
         if (order.getStatus() == OrderStatus.PAID_REVIEW) {
@@ -419,10 +468,9 @@ public class TransportOrderService {
         });
     }
 
-    public void cancelForExchange(UUID oldOrderId, String reason) {
+    public void cancelForExchange(UUID oldOrderId, UUID newOrderId, String reason) {
         var order = orders.findById(oldOrderId).orElseThrow(() -> badRequest("Không có đơn cũ"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET ||
-                order.getPaymentMethod() != PaymentMethod.ONLINE ||
                 (order.getStatus() != OrderStatus.CONFIRMED &&
                         order.getStatus() != OrderStatus.CANCELLATION_PENDING &&
                         order.getStatus() != OrderStatus.REFUND_PENDING &&
@@ -430,7 +478,18 @@ public class TransportOrderService {
             throw conflict("Đơn cũ không đủ điều kiện đổi vé");
         }
         if (order.getStatus() == OrderStatus.REFUND_PENDING || order.getStatus() == OrderStatus.REFUNDED) return;
-        markFullRefundForTrip(oldOrderId, reason);
+        Integer itemChanges=jdbc.queryForObject("select count(*) from transport_item_operations where order_id=?",Integer.class,oldOrderId);
+        if(itemChanges!=null&&itemChanges>0)throw conflict("Đơn đã có item operation; dùng luồng đổi từng vé");
+        transactions.executeWithoutResult(status -> {
+            jdbc.execute("select pg_advisory_xact_lock(74100101)");
+            UUID first = oldOrderId.compareTo(newOrderId)<0 ? oldOrderId : newOrderId;
+            UUID second = first.equals(oldOrderId) ? newOrderId : oldOrderId;
+            orders.findByIdForUpdate(first).orElseThrow(); orders.findByIdForUpdate(second).orElseThrow();
+            var replacement = orders.findById(newOrderId).orElseThrow();
+            Integer cancelling = jdbc.queryForObject("select count(*) from transport_trip_cancellations where trip_id=?",Integer.class,replacement.getTransportTripId());
+            if (replacement.getStatus()!=OrderStatus.CONFIRMED || (cancelling!=null && cancelling>0)) throw conflict("Chuyến/đơn thay thế đang hủy");
+            markFullRefundForTrip(oldOrderId, reason);
+        });
         processPaidCancellation(oldOrderId);
     }
 
@@ -475,6 +534,7 @@ public class TransportOrderService {
             }
             current.setStatus(OrderStatus.REFUNDED);
             orders.save(current);
+            TransportNotificationService.enqueue(jdbc, current, "REFUNDED");
         });
     }
 
@@ -519,6 +579,7 @@ public class TransportOrderService {
             current.setTransportCancellationReason("Đã thu tiền nhưng không cấp được ghế");
             current.setStatus(OrderStatus.REFUND_PENDING);
             orders.save(current);
+            TransportNotificationService.enqueue(jdbc, current, "CANCELLED");
         });
     }
 
@@ -582,6 +643,7 @@ public class TransportOrderService {
             }
             current.setStatus(OrderStatus.CONFIRMED);
             orders.save(current);
+            TransportNotificationService.enqueue(jdbc, current, "TICKET");
         });
     }
 
@@ -593,6 +655,7 @@ public class TransportOrderService {
                     (order.getStatus() != OrderStatus.FULFILLMENT_PENDING &&
                             order.getStatus() != OrderStatus.CASH_RECEIVED_PENDING_RECONCILIATION &&
                             order.getStatus() != OrderStatus.CONFIRMED &&
+                            order.getStatus() != OrderStatus.COMPLETED &&
                             !(order.getStatus() == OrderStatus.CANCELLATION_PENDING &&
                                     order.getTransportRefundDue() != null))) {
                 throw conflict("Order chưa đủ điều kiện phát vé");
@@ -601,17 +664,31 @@ public class TransportOrderService {
                     order.getStatus().name(), order.getPaymentMethod().name(),
                     order.getItems().stream().map(item -> new FulfillmentItem(
                             item.getId(), item.getTransportSeatId(), item.getPassengerName(),
-                            item.getPickupStopId(), item.getDropoffStopId())).toList());
+                            item.getPickupStopId(), item.getDropoffStopId(),item.getTransportTripId(),item.getTransportItemState(),item.getTransportBoardingStatus(),item.getTransportTicketRevision())).toList());
         });
     }
 
     public record FulfillmentSummary(UUID orderId, UUID tripId, String status,
                                      String paymentMethod, List<FulfillmentItem> items) {}
     public record FulfillmentItem(UUID orderItemId, UUID seatId, String passengerName,
-                                  UUID pickupStopId, UUID dropoffStopId) {}
+                                  UUID pickupStopId, UUID dropoffStopId,UUID tripId,String itemState,String boardingStatus,Integer ticketRevision) {}
 
     @Scheduled(fixedDelay = 30000)
     public void reconcile() {
+        // An interrupted checkout may leave PENDING before it ever receives a hold.
+        for (UUID id : jdbc.query("select id from orders where order_kind='GOCAR_TICKET' and status='PENDING' " +
+                "and created_at < now() - interval '2 minutes' order by created_at limit 50",
+                (rs,row) -> rs.getObject(1,UUID.class))) {
+            try {
+                transactions.executeWithoutResult(status -> {
+                    var current = orders.findByIdForUpdate(id).orElseThrow();
+                    if (current.getStatus() == OrderStatus.PENDING) {
+                        current.setStatus(OrderStatus.CANCELLATION_PENDING); orders.save(current);
+                    }
+                });
+                tryRelease(id);
+            } catch (Exception error) { log.warn("Interrupted checkout {} retained for cleanup", id); }
+        }
         for (var order : orders.findTop50ByOrderKindAndStatusAndExpiresAtBeforeOrderByExpiresAtAsc(
                 OrderKind.GOCAR_TICKET, OrderStatus.PAYMENT_PENDING, LocalDateTime.now(VN_ZONE))) {
             try {
@@ -728,11 +805,15 @@ public class TransportOrderService {
     private void validateQuote(TransportQuote quote, TransportCheckoutRequest request) {
         if (quote == null || !request.tripId().equals(quote.tripId()) ||
                 quote.listingId() == null || quote.operatorUserId() == null ||
+                quote.quoteId() == null || quote.quoteVersion() == null || quote.quoteHash() == null ||
+                !quote.quoteVersion().matches("[a-f0-9]{64}") || !quote.quoteHash().matches("[a-f0-9]{64}") ||
                 quote.departureAt() == null || quote.expiresAt() == null ||
                 !quote.expiresAt().isAfter(Instant.now()) ||
                 quote.totalAmount() == null || quote.totalAmount().compareTo(BigDecimal.ZERO) <= 0 ||
                 !"VND".equals(quote.currency()) || quote.seats() == null ||
-                quote.seats().size() != request.passengers().size()) {
+                quote.seats().size() != request.passengers().size() ||
+                quote.seats().stream().anyMatch(seat -> seat.price() == null || seat.price().signum() <= 0 ||
+                    seat.price().stripTrailingZeros().scale() > 0)) {
             throw conflict("Báo giá chuyến không hợp lệ");
         }
         var requested = request.passengers().stream().map(TransportCheckoutRequest.Passenger::seatId)
@@ -745,6 +826,85 @@ public class TransportOrderService {
                 sum.compareTo(quote.totalAmount()) != 0) {
             throw conflict("Ghế hoặc tổng tiền báo giá không khớp");
         }
+    }
+
+    public org.springframework.data.domain.Page<com.GoTravel.CartandOrder.dto.response.OrderResponse> listVendorOrders(
+            UUID actorId, UUID operatorId, OrderStatus status, UUID tripId, PaymentMethod method,String search,java.time.LocalDate from,java.time.LocalDate to,org.springframework.data.domain.Pageable pageable) {
+        var response = car.readScope(actorId, operatorId);
+        if (response == null || !response.isSuccess() || response.getData() == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền truy cập đơn của nhà xe");
+        }
+        var scope = response.getData();
+        if(search!=null&&search.length()>120)throw badRequest("Từ khóa quá dài");
+        if(from!=null&&to!=null&&to.isBefore(from))throw badRequest("Khoảng ngày không hợp lệ");
+        if(!scope.allTrips()&&(scope.allowedTripIds()==null||scope.allowedTripIds().isEmpty()))return org.springframework.data.domain.Page.empty(pageable);
+        var orderPage=orders.findAll((org.springframework.data.jpa.domain.Specification<Order>)(root,query,cb)->{
+            query.distinct(true);var predicates=new java.util.ArrayList<jakarta.persistence.criteria.Predicate>();
+            predicates.add(cb.equal(root.get("orderKind"),OrderKind.GOCAR_TICKET));predicates.add(cb.equal(root.get("hostId"),scope.ownerUserId()));
+            var items=root.join("items");
+            if(!scope.allTrips())predicates.add(items.get("transportTripId").in(scope.allowedTripIds()));
+            if(tripId!=null)predicates.add(cb.equal(items.get("transportTripId"),tripId));
+            if(status!=null)predicates.add(cb.equal(root.get("status"),status));if(method!=null)predicates.add(cb.equal(root.get("paymentMethod"),method));
+            if(from!=null)predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"),from.atStartOfDay()));
+            if(to!=null)predicates.add(cb.lessThan(root.get("createdAt"),to.plusDays(1).atStartOfDay()));
+            if(search!=null&&!search.isBlank()){String term="%"+search.trim().toLowerCase(java.util.Locale.ROOT).replace("\\","\\\\").replace("%","\\%").replace("_","\\_")+"%";
+                predicates.add(cb.or(cb.like(cb.lower(root.get("orderNumber")),term,'\\'),cb.like(cb.lower(items.get("passengerName")),term,'\\')));}
+            return cb.and(predicates.toArray(jakarta.persistence.criteria.Predicate[]::new));
+        },org.springframework.data.domain.PageRequest.of(pageable.getPageNumber(),pageable.getPageSize(),org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC,"createdAt")));
+        return orderPage.map(order -> scopedVendorResponse(order,scope));
+    }
+
+    public com.GoTravel.CartandOrder.dto.response.OrderResponse getVendorOrderDetail(UUID actorId, UUID orderId) {
+        var order = orders.findById(orderId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy đơn hàng"));
+        if (order.getOrderKind() != OrderKind.GOCAR_TICKET) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Không phải đơn vé xe");
+        }
+        var response = car.readScope(actorId, null);
+        if (response == null || !response.isSuccess() || response.getData() == null) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền truy cập đơn này");
+        }
+        var scope = response.getData();
+        if (!order.getHostId().equals(scope.ownerUserId())) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Đơn không thuộc nhà xe được phân quyền");
+        }
+        if (!scope.allTrips()) {
+            if (scope.allowedTripIds() == null || order.getItems().stream().noneMatch(i->scope.allowedTripIds().contains(i.getTransportTripId()))) {
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Đơn nằm ngoài phạm vi chuyến được phân công");
+            }
+        }
+        return scopedVendorResponse(order,scope);
+    }
+
+    public record CounterTicketDocument(UUID orderId,String orderNumber,UUID itemId,UUID ticketId,String passengerName,String routeTitle,UUID tripId,String seatCode,UUID pickupStopId,UUID dropoffStopId,LocalDateTime departureAt,int revision,String checkInToken){}
+    public CounterTicketDocument counterTicket(UUID actorId,UUID orderId,UUID itemId){
+        var order=orders.findById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if(order.getOrderKind()!=OrderKind.GOCAR_TICKET || order.getPaymentMethod()!=PaymentMethod.CASH || cashLedger.findReceipt(orderId)==null)throw conflict("Chỉ cấp chứng từ vé cho đơn tiền mặt đã thực thu");
+        var item=order.getItems().stream().filter(i->i.getId().equals(itemId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        var authorized=car.authorizeStaff(actorId,item.getTransportTripId(),"SELL_CASH");
+        if(authorized==null||!authorized.isSuccess()||authorized.getData()==null)throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+        if(!"ACTIVE".equals(item.getTransportItemState()) || item.getTransportTicketId()==null || item.getTransportCheckInToken()==null)throw conflict("Vé chưa phát hành hoặc đã đổi/hủy");
+        return new CounterTicketDocument(orderId,order.getOrderNumber(),itemId,item.getTransportTicketId(),item.getPassengerName(),item.getListingTitle(),item.getTransportTripId(),item.getTransportSeatCode(),item.getPickupStopId(),item.getDropoffStopId(),item.getTransportDepartureAt(),item.getTransportTicketRevision(),item.getTransportCheckInToken());
+    }
+
+    private com.GoTravel.CartandOrder.dto.response.OrderResponse scopedVendorResponse(Order order,GoCarClient.StaffReadScope scope){
+        var response=toVendorOrderResponse(order);
+        if(!scope.allTrips()){
+          response.setItems(response.getItems().stream().filter(i->scope.allowedTripIds().contains(i.getTransportTripId())).toList());
+          response.setTotalAmount(null);
+          response.setTransportOriginalChargeVnd(null);
+          response.setTransportActiveFareAmount(response.getItems().stream().filter(i->List.of("ACTIVE","OPERATION_PENDING","COMPLETED").contains(i.getTransportItemState())).map(com.GoTravel.CartandOrder.dto.response.OrderResponse.OrderItemResponse::getTotalPrice).reduce(BigDecimal.ZERO,BigDecimal::add));
+        }
+        return response;
+    }
+    public com.GoTravel.CartandOrder.dto.response.OrderResponse toVendorOrderResponse(Order order) {
+        var res = mapper.toOrderResponse(order);
+        if (res != null && res.getItems() != null) {
+            for (var item : res.getItems()) {
+                item.setTransportCheckInToken(null);
+            }
+        }
+        return res;
     }
 
     private ResponseStatusException badRequest(String message) {

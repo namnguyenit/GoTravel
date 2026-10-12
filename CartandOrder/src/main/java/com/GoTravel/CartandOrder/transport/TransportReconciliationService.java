@@ -38,7 +38,7 @@ public class TransportReconciliationService {
     private final CashLedger cash;
     private final TransactionTemplate transactions;
 
-    private record Item(UUID id, UUID seatId) {}
+    private record Item(UUID id, UUID seatId,UUID tripId,String state) {}
     private record Snapshot(UUID orderId, UUID tripId, OrderStatus status, PaymentMethod method,
                             LocalDateTime expiresAt, LocalDateTime updatedAt, List<Item> items) {}
     public record Finding(UUID orderId, String issueCode, String status, String detail,
@@ -66,11 +66,11 @@ public class TransportReconciliationService {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             return new Snapshot(orderId, order.getTransportTripId(), order.getStatus(),
                     order.getPaymentMethod(), order.getExpiresAt(), order.getUpdatedAt(),
-                    order.getItems().stream().map(item -> new Item(item.getId(), item.getTransportSeatId())).toList());
+                    order.getItems().stream().map(item -> new Item(item.getId(), item.getTransportSeatId(),item.getTransportTripId(),item.getTransportItemState())).toList());
         });
         Map<String, String> issues = new HashMap<>();
         boolean complete = true;
-        var now = LocalDateTime.now();
+        var now = LocalDateTime.now(java.time.ZoneId.of("Asia/Ho_Chi_Minh"));
         if (snapshot.status() == OrderStatus.PAID_REVIEW) issues.put("PAID_REVIEW", "Đã nhận tiền nhưng ghế/vé cần đối soát");
         if (snapshot.status() == OrderStatus.CASH_RECEIVED_PENDING_RECONCILIATION)
             issues.put("CASH_FULFILLMENT_PENDING", "Đã ghi biên nhận tiền mặt nhưng chưa cấp đủ vé");
@@ -84,12 +84,22 @@ public class TransportReconciliationService {
                 && snapshot.expiresAt() != null && snapshot.expiresAt().isBefore(now.minusMinutes(1)))
             issues.put("EXPIRED_ORDER_ACTIVE", "Giữ ghế hết hạn nhưng đơn vẫn chờ thanh toán");
 
-        try {
+        Integer changedItems=jdbc.queryForObject("select count(*) from transport_item_operations where order_id=?",Integer.class,orderId);
+        boolean itemFlow=changedItems!=null&&changedItems>0;
+        if(itemFlow) {
+            Integer pending=jdbc.queryForObject("select count(*) from transport_item_operations where order_id=? and state not in ('COMPLETED','ABORTED') and updated_at<now()-interval '5 minutes'",Integer.class,orderId);
+            if(pending!=null&&pending>0)issues.put("ITEM_OPERATION_PENDING","Item operation/hoàn chênh lệch chưa kết thúc");
+            for(var item:snapshot.items())if(List.of("ACTIVE","COMPLETED").contains(item.state())){
+                try{var owned=inventory.ownership(orderId,item.tripId(),item.seatId());if(owned==null||!owned.isSuccess()||owned.getData()==null||!"SOLD".equals(owned.getData().status()))issues.put("INVENTORY_MISMATCH","Ghế hiện tại không SOLD/không thuộc order");}
+                catch(Exception unavailable){complete=false;issues.put("INVENTORY_UNAVAILABLE","Chưa đối chiếu được ghế hiện tại");}
+            }
+        }
+        if(!itemFlow) try {
             var response = inventory.orderStatus(orderId);
             var hold = response == null ? null : response.getData();
             if (hold == null || snapshot.tripId() == null || !snapshot.tripId().equals(hold.tripId())) {
                 issues.put("INVENTORY_MISMATCH", "Không có hold/ghế đúng chuyến");
-            } else if (snapshot.status() == OrderStatus.CONFIRMED && !"SOLD".equals(hold.status())) {
+            } else if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) && !"SOLD".equals(hold.status())) {
                 issues.put("INVENTORY_MISMATCH", "Đơn đã xác nhận nhưng ghế không ở trạng thái SOLD");
             } else if ((snapshot.status() == OrderStatus.REFUND_PENDING ||
                     snapshot.status() == OrderStatus.REFUNDED || snapshot.status() == OrderStatus.CANCELLED) &&
@@ -107,15 +117,12 @@ public class TransportReconciliationService {
             var response = car.orderTickets(orderId);
             var tickets = response == null ? null : response.getData();
             if (tickets == null) throw new IllegalStateException("No ticket response");
-            if (snapshot.status() == OrderStatus.CONFIRMED) {
-                Set<UUID> items = new HashSet<>(snapshot.items().stream().map(Item::id).toList());
-                Set<UUID> ticketItems = new HashSet<>(tickets.stream().map(GoCarClient.TicketStatus::orderItemId).toList());
-                if (tickets.size() != items.size() || !ticketItems.equals(items) ||
-                        tickets.stream().anyMatch(ticket -> snapshot.tripId() == null ||
-                                !snapshot.tripId().equals(ticket.tripId()) || ticket.status() == null ||
-                                !List.of("ACTIVE", "CHECKED_IN").contains(ticket.status()))) {
-                    issues.put("TICKETS_MISMATCH", "Vé GoCar không khớp ghế/đơn đã xác nhận");
-                }
+            if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED)) {
+                if (tickets.size()!=snapshot.items().size() || snapshot.items().stream().anyMatch(item -> {
+                    var ticket=tickets.stream().filter(t->t.orderItemId().equals(item.id())).findFirst().orElse(null);
+                    if(ticket==null||!item.tripId().equals(ticket.tripId())||!item.seatId().equals(ticket.seatId()))return true;
+                    return List.of("VOID","REFUND_PENDING","REFUNDED").contains(item.state())?!"VOID".equals(ticket.status()):"COMPLETED".equals(item.state())?!List.of("CHECKED_IN","NO_SHOW").contains(ticket.status()):!List.of("ACTIVE","CHECKED_IN").contains(ticket.status());
+                })) issues.put("TICKETS_MISMATCH","Ticket/item hiện tại không khớp");
             } else if ((snapshot.status() == OrderStatus.REFUND_PENDING ||
                     snapshot.status() == OrderStatus.REFUNDED || snapshot.status() == OrderStatus.CANCELLED) &&
                     tickets.stream().anyMatch(ticket -> !"VOID".equals(ticket.status()))) {
@@ -129,16 +136,16 @@ public class TransportReconciliationService {
             try {
                 var response = payments.getPaymentStatus(orderId);
                 var payment = response == null ? null : response.getData();
-                if (snapshot.status() == OrderStatus.CONFIRMED &&
+                if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) &&
                         (payment == null || !"COMPLETED".equals(payment.status()))) {
                     issues.put("PAYMENT_MISMATCH", "Đơn có vé nhưng GoPay chưa ghi hoàn tất thanh toán");
                 }
-                if (snapshot.status() == OrderStatus.REFUNDED &&
+                if (!itemFlow && snapshot.status() == OrderStatus.REFUNDED &&
                         (payment == null || !"REFUNDED".equals(payment.status()))) {
                     issues.put("PAYMENT_MISMATCH", "Cart ghi đã hoàn nhưng GoPay chưa xác nhận hoàn");
                 }
             } catch (FeignException.NotFound missing) {
-                if (snapshot.status() == OrderStatus.CONFIRMED ||
+                if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) ||
                         snapshot.status() == OrderStatus.REFUNDED ||
                         snapshot.status() == OrderStatus.REFUND_PENDING)
                     issues.put("PAYMENT_MISMATCH", "Không tìm thấy giao dịch GoPay của đơn");
@@ -146,7 +153,7 @@ public class TransportReconciliationService {
                 complete = false;
                 issues.put("GOPAY_UNAVAILABLE", "Chưa truy vấn được GoPay");
             }
-        } else if (snapshot.status() == OrderStatus.CONFIRMED ||
+        } else if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) ||
                 snapshot.status() == OrderStatus.CASH_RECEIVED_PENDING_RECONCILIATION) {
             try {
                 if (cash.findReceipt(orderId) == null)

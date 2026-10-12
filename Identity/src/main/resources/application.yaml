@@ -28,3 +28,7 @@ password-reset:
 internal:
   service:
     token: ${INTERNAL_SERVICE_TOKEN:}
+gocar:
+  service:
+    url: ${GOCAR_SERVICE_URL:http://127.0.0.1:3333}
+    scoped-token: ${CAR_INTERNAL_SERVICE_TOKEN:}

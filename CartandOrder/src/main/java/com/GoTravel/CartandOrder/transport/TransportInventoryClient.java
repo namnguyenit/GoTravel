@@ -11,6 +11,9 @@ import java.util.UUID;
 
 @FeignClient(name = "transport-inventory", url = "${services.inventory.url:http://127.0.0.1:8083}", configuration = InternalFeignConfig.class)
 public interface TransportInventoryClient {
+    record SeatOwnership(UUID orderId,UUID tripId,UUID seatId,String status){}
+    @GetMapping("/api/v1/internal/inventory/transport/orders/{orderId}/trips/{tripId}/seats/{seatId}")
+    ApiResponse<SeatOwnership> ownership(@PathVariable("orderId")UUID orderId,@PathVariable("tripId")UUID tripId,@PathVariable("seatId")UUID seatId);
     record ReserveRequest(UUID orderId, List<UUID> seatIds) {}
     record HoldResult(UUID holdId, Instant expiresAt, List<UUID> seatIds) {}
     record HoldStatus(UUID orderId, UUID tripId, List<UUID> seatIds,

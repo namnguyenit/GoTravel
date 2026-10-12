@@ -16,9 +16,12 @@ export function safeRedirect(target: string | null, currentOrigin: string) {
   if (!target) return fallback;
   try {
     const url = new URL(target, currentOrigin);
-    const allowed = [...groups.flatMap(group => Object.values(group)), "https://gotrvel.trungcaodev.io.vn"];
+    const allowed = [...groups.flatMap(group => Object.values(group)), "https://gotrvel.trungcaodev.io.vn",
+      "https://gocar.nonnet123.io.vn", "https://gocar.trungcaodev.io.vn",
+      "https://goticket.trungcaodev.io.vn", "https://goticket.nonnet123.io.vn"];
     if (["localhost", "127.0.0.1", "[::1]"].includes(new URL(currentOrigin).hostname)) {
-      allowed.push("http://localhost:3000", "http://127.0.0.1:3000", "http://[::1]:3000");
+      allowed.push("http://localhost:3000", "http://127.0.0.1:3000", "http://[::1]:3000",
+                   "http://localhost:3334", "http://127.0.0.1:3334", "http://[::1]:3334");
     }
     if (!allowed.includes(url.origin) || url.username || url.password) return fallback;
     return url.href;

@@ -103,6 +103,7 @@ public class PaymentService {
 
         PaymentRequest paymentRequest = PaymentRequest.builder()
                 .orderId(order.getOrderId())
+                .orderKind(order.getOrderKind())
                 .userId(userId)
                 .hostId(resolvePaymentRequestHostId(order))
                 .paymentCode(paymentCode)
@@ -207,7 +208,7 @@ public class PaymentService {
         log.info("Payment {} received for order {}. Review={}",
                 paymentCode, paymentRequest.getOrderId(), review);
 
-        if (!review || "GOCAR_TICKET".equals(order.getOrderKind())) {
+        if (!review || ("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()))) {
             notificationRepository.save(PaymentOrderNotification.builder().orderId(paymentRequest.getOrderId())
                     .successful(true).createdAt(LocalDateTime.now(VnpayService.ZONE)).build());
         }
@@ -245,6 +246,9 @@ public class PaymentService {
         PaymentRequest paymentRequest = paymentRequestRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
 
+        if ("GOCAR_TICKET".equals(paymentRequest.getOrderKind()) || "GOCAR_EXCHANGE".equals(paymentRequest.getOrderKind())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Transport hoàn qua coordinator và chứng cứ thực tế");
+        }
         if (paymentRequest.getStatus() == PaymentStatus.REFUNDED) {
             return;
         }
@@ -282,6 +286,8 @@ public class PaymentService {
                 recordedBy == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bằng chứng hoàn tiền không hợp lệ");
         }
+        Integer itemAccounts=jdbc.queryForObject("select count(*) from transport_item_accounts where order_id=?",Integer.class,orderId);
+        if(itemAccounts!=null&&itemAccounts>0)throw new ResponseStatusException(HttpStatus.CONFLICT,"Đơn đã phân bổ tiền theo item; dùng item refund coordinator");
         var candidate = paymentRequestRepository.findByOrderId(orderId)
                 .orElseThrow(() -> new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
         var payment = paymentRequestRepository.findByIdForUpdate(candidate.getId()).orElseThrow();
@@ -459,12 +465,20 @@ public class PaymentService {
         var refunds = jdbc.query("select coalesce(sum(refund_amount),0),coalesce(sum(commission_reversal),0) " +
                         "from transport_cash_refund_adjustments" + where,
                 (rs, row) -> new BigDecimal[]{rs.getBigDecimal(1), rs.getBigDecimal(2)}, args).get(0);
+        String itemWhere=operatorId==null?"":" and s.operator_id=?";
+        var itemRefunds=jdbc.query("select coalesce(sum(a.amount),0),coalesce(sum(a.commission_reversal),0) from transport_item_cash_refund_allocations a join transport_item_money_events e on e.operation_id=a.operation_id and e.kind='REFUND' join transport_cash_settlements s on s.shift_id=a.shift_id where 1=1"+itemWhere,(rs,row)->new BigDecimal[]{rs.getBigDecimal(1),rs.getBigDecimal(2)},args).get(0);
+        refunds[0]=refunds[0].add(itemRefunds[0]);refunds[1]=refunds[1].add(itemRefunds[1]);
         String paidWhere = operatorId == null ? "" : " where s.operator_id=?";
         BigDecimal paid = jdbc.queryForObject("select coalesce(sum(p.amount),0) " +
                         "from transport_cash_commission_payments p " +
                         "join transport_cash_settlements s on s.shift_id=p.shift_id" + paidWhere,
                 BigDecimal.class, args);
-        BigDecimal due = ((BigDecimal) base[2]).subtract(refunds[1]);
+        BigDecimal due = jdbc.queryForObject("""
+            select coalesce(sum(round(s.gross_amount*s.commission_rate
+              -coalesce((select sum(r.refund_amount*s.commission_rate) from transport_cash_refund_adjustments r where r.shift_id=s.shift_id),0)
+              -coalesce((select sum(a.commission_reversal) from transport_item_cash_refund_allocations a join transport_item_money_events e on e.operation_id=a.operation_id and e.kind='REFUND' where a.shift_id=s.shift_id),0),0)),0)
+            from transport_cash_settlements s
+            """ + (operatorId==null?"":" where s.operator_id=?"),BigDecimal.class,args);
         return new CashSettlementSummary((long) base[0], (BigDecimal) base[1], refunds[0],
                 due, paid, due.subtract(paid));
     }
@@ -482,7 +496,7 @@ public class PaymentService {
                 evidenceUrl.length() > 1000 || adminId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bằng chứng thu hoa hồng không hợp lệ");
         }
-        var due = jdbc.query("select commission_due from transport_cash_settlements where shift_id=? for update",
+        var due = jdbc.query("select gross_amount*commission_rate from transport_cash_settlements where shift_id=? for update",
                 (rs, row) -> rs.getBigDecimal(1), shiftId).stream().findFirst().orElse(null);
         var prior = jdbc.query("select amount,reference,evidence_url,recorded_by " +
                         "from transport_cash_commission_payments where shift_id=?",
@@ -493,9 +507,10 @@ public class PaymentService {
                     evidenceUrl.trim().equals(prior[2]) && adminId.equals(prior[3])) return;
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Ca đã có chứng từ nộp hoa hồng khác");
         }
-        BigDecimal reversal = jdbc.queryForObject("select coalesce(sum(commission_reversal),0) " +
-                "from transport_cash_refund_adjustments where shift_id=?", BigDecimal.class, shiftId);
-        if (due == null || due.subtract(reversal).compareTo(amount) != 0) {
+        BigDecimal reversal = jdbc.queryForObject("select coalesce(sum(r.refund_amount*s.commission_rate),0) from transport_cash_refund_adjustments r join transport_cash_settlements s on s.shift_id=r.shift_id where r.shift_id=?",BigDecimal.class,shiftId);
+        BigDecimal itemReversal=jdbc.queryForObject("select coalesce(sum(a.commission_reversal),0) from transport_item_cash_refund_allocations a join transport_item_money_events e on e.operation_id=a.operation_id and e.kind='REFUND' where a.shift_id=?",BigDecimal.class,shiftId);
+        reversal=reversal.add(itemReversal);
+        if (due == null || due.subtract(reversal).setScale(0,RoundingMode.HALF_UP).compareTo(amount) != 0) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Số tiền hoa hồng không khớp ca sau hoàn tiền");
         }
         jdbc.update("insert into transport_cash_commission_payments(id,shift_id,amount,reference,evidence_url,recorded_by) " +
@@ -609,7 +624,7 @@ public class PaymentService {
         paymentRequestRepository.save(paymentRequest);
         if (!review) createProviderPayouts(paymentRequest, order);
 
-        if (!review || "GOCAR_TICKET".equals(order.getOrderKind())) {
+        if (!review || ("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()))) {
             notificationRepository.save(PaymentOrderNotification.builder().orderId(paymentRequest.getOrderId())
                     .successful(true).createdAt(LocalDateTime.now(VnpayService.ZONE)).build());
         }
@@ -686,6 +701,7 @@ public class PaymentService {
     }
 
     private void createProviderPayouts(PaymentRequest paymentRequest, OrderPaymentSummaryResponse order) {
+        if ("GOCAR_EXCHANGE".equals(order.getOrderKind())) return; // top-up stays in the item allocation ledger
         validateProviderBreakdowns(order);
 
         for (OrderPaymentSummaryResponse.ProviderBreakdown breakdown : order.getProviderBreakdowns()) {
@@ -701,6 +717,7 @@ public class PaymentService {
                 throw new IllegalStateException("Invalid provider commission rate");
             }
             BigDecimal commissionAmount = providerTotal.multiply(commissionRate);
+            if (transport) commissionAmount = commissionAmount.setScale(0, RoundingMode.HALF_UP);
             BigDecimal hostAmount = providerTotal.subtract(commissionAmount);
 
             HostPayout payout = HostPayout.builder()

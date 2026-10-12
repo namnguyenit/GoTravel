@@ -64,6 +64,13 @@ public class Order {
     @Column(name = "transport_cash_shift_id")
     private UUID transportCashShiftId;
 
+    @Column(name = "transport_quote_id")
+    private UUID transportQuoteId;
+    @Column(name = "transport_quote_version", length = 64)
+    private String transportQuoteVersion;
+    @Column(name = "transport_quote_hash", length = 64)
+    private String transportQuoteHash;
+
     @Column(name = "transport_departure_at")
     private LocalDateTime transportDepartureAt;
 

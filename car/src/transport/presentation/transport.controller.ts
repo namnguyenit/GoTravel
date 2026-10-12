@@ -4,6 +4,7 @@ import {
   ForbiddenException,
   Get,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   Req,
@@ -13,13 +14,20 @@ import type { AuthenticatedRequest } from '../../auth/auth-user';
 import { hasRole } from '../../auth/auth-user';
 import { Internal } from '../../auth/internal.decorator';
 import { Public } from '../../auth/public.decorator';
+import { TransportOperationsService } from '../application/transport-operations.service';
 import { TransportService } from '../application/transport.service';
 import {
   CheckInDto,
   IssueTicketsDto,
   QuoteRequestDto,
   ReplaceSeatsDto,
+  AmendTicketDto,
 } from './transport.dto';
+
+class ClaimQuoteDto {
+  @IsString() @IsNotEmpty() @MaxLength(64) quoteHash!: string;
+  @IsString() @IsNotEmpty() @MaxLength(64) orderId!: string;
+}
 
 class CancelTripDto {
   @IsString() @IsNotEmpty() @MaxLength(500) reason: string;
@@ -27,40 +35,78 @@ class CancelTripDto {
 
 @Controller()
 export class TransportController {
-  constructor(private readonly service: TransportService) {}
+  constructor(
+    private readonly service: TransportService,
+    private readonly operations: TransportOperationsService,
+  ) {}
 
   @Put('cars/:carId/seats')
   replaceSeatTemplate(
-    @Param('carId') carId: string,
+    @Param('carId', new ParseUUIDPipe()) carId: string,
     @Body() body: ReplaceSeatsDto,
     @Req() request: AuthenticatedRequest,
   ) {
-    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
-    return this.service.replaceSeatTemplate(carId, request.authUser!.id, body.seats);
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR'))
+      throw new ForbiddenException();
+    return this.service.replaceSeatTemplate(
+      carId,
+      request.authUser!.id,
+      body.seats,
+    );
   }
 
   @Post('trips/:tripId/publish')
-  publish(@Param('tripId') tripId: string, @Req() request: AuthenticatedRequest) {
-    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
-    return this.service.publish(tripId, request.authUser!.id);
+  publish(
+    @Param('tripId', new ParseUUIDPipe()) tripId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.operations.publish(tripId, request.authUser!.id);
+  }
+
+  @Post('trips/:tripId/resume-sale')
+  resume(
+    @Param('tripId', new ParseUUIDPipe()) tripId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.operations.publish(tripId, request.authUser!.id);
   }
 
   @Post('trips/:tripId/stop-sale')
-  stopSale(@Param('tripId') tripId: string, @Req() request: AuthenticatedRequest) {
-    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
-    return this.service.stopSale(tripId, request.authUser!.id);
+  stopSale(
+    @Param('tripId', new ParseUUIDPipe()) tripId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.operations.stopSale(tripId, request.authUser!.id);
   }
 
   @Post('trips/:tripId/cancel')
-  cancelTrip(@Param('tripId') tripId: string, @Body() body: CancelTripDto,
-    @Req() request: AuthenticatedRequest) {
-    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
-    return this.service.requestTripCancellation(tripId, request.authUser!.id, body.reason);
+  cancelTrip(
+    @Param('tripId', new ParseUUIDPipe()) tripId: string,
+    @Body() body: CancelTripDto,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    return this.operations.cancelTrip(
+      tripId,
+      request.authUser!.id,
+      body.reason,
+    );
+  }
+
+  @Get('trips/:tripId')
+  @Public()
+  detail(@Param('tripId', new ParseUUIDPipe()) tripId: string) {
+    return this.service.publicDetail(tripId);
+  }
+
+  @Get('trips/:tripId/stops')
+  @Public()
+  async stops(@Param('tripId', new ParseUUIDPipe()) tripId: string) {
+    return (await this.service.publicDetail(tripId)).stops;
   }
 
   @Get('trips/:tripId/seats')
   @Public()
-  seatMap(@Param('tripId') tripId: string) {
+  seatMap(@Param('tripId', new ParseUUIDPipe()) tripId: string) {
     return this.service.seatMap(tripId);
   }
 
@@ -76,14 +122,29 @@ export class TransportInternalController {
 
   @Get('orders/:orderId/tickets')
   @Internal()
-  async orderTickets(@Param('orderId') orderId: string) {
+  async orderTickets(@Param('orderId', new ParseUUIDPipe()) orderId: string) {
     return { success: true, data: await this.service.orderTickets(orderId) };
+  }
+
+  @Post('quotes/:quoteId/claim')
+  @Internal()
+  async claimQuote(
+    @Param('quoteId', new ParseUUIDPipe()) quoteId: string,
+    @Body() dto: ClaimQuoteDto,
+  ) {
+    return {
+      success: true,
+      data: await this.service.claimQuote(quoteId, dto.orderId, dto.quoteHash),
+    };
   }
 
   @Post('quote')
   @Internal()
   async quote(@Body() body: QuoteRequestDto) {
-    return { success: true, data: await this.service.quote(body.tripId, body.passengers) };
+    return {
+      success: true,
+      data: await this.service.quote(body.tripId, body.passengers),
+    };
   }
 
   @Post('tickets')
@@ -91,19 +152,28 @@ export class TransportInternalController {
   async issueTickets(@Body() body: IssueTicketsDto) {
     return {
       success: true,
-      data: await this.service.issueTickets(body.orderId, body.items.map((item) => ({
-        orderItemId: item.orderItemId,
-        seatId: item.seatId,
-        passengerName: item.passengerName,
-        pickupStopId: item.pickupStopId,
-        dropoffStopId: item.dropoffStopId,
-      }))),
+      data: await this.service.issueTickets(
+        body.orderId,
+        body.items.map((item) => ({
+          orderItemId: item.orderItemId,
+          seatId: item.seatId,
+          passengerName: item.passengerName,
+          pickupStopId: item.pickupStopId,
+          dropoffStopId: item.dropoffStopId,
+        })),
+      ),
     };
   }
 
   @Post('tickets/void-order/:orderId')
   @Internal()
-  async voidTickets(@Param('orderId') orderId: string) {
+  async voidTickets(@Param('orderId', new ParseUUIDPipe()) orderId: string) {
     return { success: true, data: await this.service.voidTickets(orderId) };
+  }
+
+  @Post('tickets/amend')
+  @Internal()
+  async amendTicket(@Body() body: AmendTicketDto) {
+    return { success: true, data: await this.service.amendTicket(body) };
   }
 }

@@ -24,6 +24,15 @@ public class TransportInventoryController {
     public record SeatDefinition(@NotNull UUID seatId, @NotNull String code) {}
     public record ReserveRequest(@NotNull UUID orderId, @NotEmpty List<@NotNull UUID> seatIds) {}
 
+    public record SeatBlockRequest(@NotNull UUID actorId, @NotEmpty List<@NotNull UUID> seatIds,
+                                   boolean blocked, @NotNull String reason) {}
+    @PutMapping("/trips/{tripId}/seat-blocks")
+    public ResponseEntity<ApiResponse<Void>> changeSeatBlock(@PathVariable UUID tripId,
+            @RequestBody @Valid SeatBlockRequest request) {
+        service.changeSeatBlock(tripId, request.actorId(), request.seatIds(), request.blocked(), request.reason());
+        return ResponseEntity.ok(ApiResponse.success("Đã cập nhật chặn ghế"));
+    }
+
     @PutMapping("/trips/{tripId}")
     public ResponseEntity<ApiResponse<Void>> initialize(@PathVariable UUID tripId,
                                                          @RequestBody @Valid InitializeRequest request) {
@@ -33,10 +42,12 @@ public class TransportInventoryController {
     }
 
     @PutMapping("/trips/{tripId}/sale-enabled")
-    public ResponseEntity<ApiResponse<Void>> setSaleEnabled(@PathVariable UUID tripId,
-                                                              @RequestParam boolean enabled) {
-        service.setSaleEnabled(tripId, enabled);
-        return ResponseEntity.ok(ApiResponse.success("Đã cập nhật trạng thái mở bán"));
+    public ResponseEntity<ApiResponse<TransportInventoryService.SaleStatusResult>> setSaleEnabled(
+            @PathVariable UUID tripId,
+            @RequestParam boolean enabled,
+            @RequestParam int version) {
+        var result = service.setSaleEnabled(tripId, enabled, version);
+        return ResponseEntity.ok(ApiResponse.success(result));
     }
 
     @GetMapping("/trips/{tripId}/seats")
@@ -56,6 +67,8 @@ public class TransportInventoryController {
         return ResponseEntity.ok(ApiResponse.success("Đã bán ghế"));
     }
 
+    @GetMapping("/orders/{orderId}/trips/{tripId}/seats/{seatId}")
+    public ApiResponse<TransportInventoryService.SeatOwnership> seatOwnership(@PathVariable UUID orderId,@PathVariable UUID tripId,@PathVariable UUID seatId){return ApiResponse.success(service.seatOwnership(orderId,tripId,seatId));}
     @GetMapping("/orders/{orderId}/status")
     public ResponseEntity<ApiResponse<TransportInventoryService.HoldStatusView>> orderStatus(
             @PathVariable UUID orderId) {

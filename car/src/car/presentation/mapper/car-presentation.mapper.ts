@@ -35,7 +35,10 @@ export class CarPresentationMapper {
     };
   }
 
-  public static toGetCarsInput(query: GetCarsQueryDto, userId: string): GetCarsInput {
+  public static toGetCarsInput(
+    query: GetCarsQueryDto,
+    userId: string,
+  ): GetCarsInput {
     return {
       userId,
       keyword: query.keyword,
@@ -56,6 +59,65 @@ export class CarPresentationMapper {
         kpi: output.kpi,
         pagination: output.pagination,
         data: output.data,
+      },
+    };
+  }
+
+  public static toCarDetailApiResponse(
+    output: import('../../domain/repository/car.repository.interface').CarDetailResult,
+  ) {
+    const car = output.car;
+    return {
+      success: true,
+      code: 'GET_CAR_DETAIL_SUCCESS',
+      message: 'Lấy thông tin chi tiết xe thành công.',
+      data: {
+        id: car.id,
+        operatorId: car.operatorId,
+        name: car.name,
+        type: car.type,
+        status: car.status,
+        licensePlate: car.licensePlate.getValue(),
+        totalSeats: car.totalSeats,
+        seatTemplates: output.seatTemplates,
+        createdAt: car.createdAt,
+        updatedAt: car.updatedAt,
+      },
+    };
+  }
+
+  public static toUpdateCarApiResponse(
+    car: import('../../domain/entity/car.entity').Car,
+  ) {
+    return {
+      success: true,
+      code: 'UPDATE_CAR_SUCCESS',
+      message: 'Cập nhật thông tin xe thành công.',
+      data: {
+        id: car.id,
+        operatorId: car.operatorId,
+        name: car.name,
+        type: car.type,
+        status: car.status,
+        licensePlate: car.licensePlate.getValue(),
+        totalSeats: car.totalSeats,
+        createdAt: car.createdAt,
+        updatedAt: car.updatedAt,
+      },
+    };
+  }
+
+  public static toUpdateCarStatusApiResponse(
+    car: import('../../domain/entity/car.entity').Car,
+  ) {
+    return {
+      success: true,
+      code: 'UPDATE_CAR_STATUS_SUCCESS',
+      message: 'Cập nhật trạng thái xe thành công.',
+      data: {
+        id: car.id,
+        status: car.status,
+        updatedAt: car.updatedAt,
       },
     };
   }

@@ -12,6 +12,12 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TripCancellationController {
     private final TripCancellationService service;
+    private final TransportCompletionService completion;
+    @PutMapping("/{tripId}/complete")
+    public ResponseEntity<ApiResponse<Void>> complete(@PathVariable UUID tripId) {
+        completion.complete(tripId);
+        return ResponseEntity.ok(ApiResponse.success("Đã đồng bộ hoàn thành chuyến"));
+    }
 
     public record CancelRequest(String reason) {}
 

@@ -8,6 +8,18 @@ const tokenMatches = (provided, expected) => {
 };
 
 export const verifyInternalToken = (req, res, next) => {
+    if (req.path === '/transport' &&
+        (process.env.TRANSPORT_INTERNAL_AUTH_REQUIRED === 'true' || req.headers['x-internal-caller'])) {
+        let callers;
+        try { callers = JSON.parse(process.env.TRANSPORT_INTERNAL_CALLERS || '{}'); }
+        catch { return res.status(503).json({ success: false, code: 'INVALID_TRANSPORT_AUTH_CONFIG' }); }
+        const token = callers.cart;
+        if (req.headers['x-internal-caller'] !== 'cart' || typeof token !== 'string' || token.length < 32 ||
+            !tokenMatches(req.headers['x-internal-service-token'], token)) {
+            return res.status(401).json({ success: false, code: 'TRANSPORT_SERVICE_SCOPE_DENIED' });
+        }
+        return next();
+    }
     const configuredToken =
         process.env.EMAIL_INTERNAL_TOKEN ||
         process.env.INTERNAL_SERVICE_TOKEN;

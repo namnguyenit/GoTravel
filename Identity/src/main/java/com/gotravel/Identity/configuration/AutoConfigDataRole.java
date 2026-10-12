@@ -50,6 +50,12 @@ public class AutoConfigDataRole {
                         .build();
                 roleRepository.save(role);
             }
+            if(!roleRepository.existsById("STAFF")){
+                Role role = Role.builder()
+                        .name(com.gotravel.Identity.enums.Role.STAFF.name())
+                        .build();
+                roleRepository.save(role);
+            }
             log.info("server was create some role");
         };
     }

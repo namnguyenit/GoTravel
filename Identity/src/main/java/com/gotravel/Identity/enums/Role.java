@@ -5,5 +5,6 @@ public enum Role {
     ADMIN,
     HOST,
     ENTERPRISE,
-    TICKET_VENDOR
+    TICKET_VENDOR,
+    STAFF
 }
