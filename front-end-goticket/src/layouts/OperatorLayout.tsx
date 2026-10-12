@@ -55,7 +55,14 @@ export const OperatorLayout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--gt-canvas)] flex flex-col font-sans">
+    <div className="relative min-h-screen bg-[var(--gt-canvas)] flex flex-col font-sans">
+      {/* Ambient optical canvas spots */}
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div className="absolute -top-32 left-1/2 -translate-x-1/2 h-[450px] w-[900px] rounded-full bg-gradient-to-b from-[#FFF0F2]/50 to-transparent blur-3xl" />
+        <div className="absolute top-[30%] -right-40 h-[400px] w-[600px] rounded-full bg-gradient-to-bl from-[#FFF4EA]/40 to-transparent blur-3xl" />
+        <div className="absolute top-[70%] -left-40 h-[400px] w-[600px] rounded-full bg-gradient-to-tr from-[#FFF0F2]/30 to-transparent blur-3xl" />
+      </div>
+
       <PortalTopbar
         roleBadge="Nhà xe"
         scopeTitle={user?.operatorName || 'Nhà xe đối tác'}

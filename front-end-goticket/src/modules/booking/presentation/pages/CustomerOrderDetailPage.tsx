@@ -232,13 +232,13 @@ export const CustomerOrderDetailPage: React.FC = () => {
   return (
     <CustomerPageContainer className="space-y-6 pb-20">
       {/* Breadcrumb Navigation & Top Actions */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100 pb-4 print:hidden">
-        <div className="flex items-center gap-1.5 text-xs text-gray-400">
-          <Link to="/" className="hover:text-gray-900 transition-colors">Trang chủ</Link>
-          <ChevronRight className="w-3 h-3" />
-          <Link to="/account/tickets" className="hover:text-gray-900 transition-colors">Vé của tôi</Link>
-          <ChevronRight className="w-3 h-3" />
-          <span className="font-bold text-gray-800 font-mono">#{order.orderNumber}</span>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100/70 pb-4 print:hidden">
+        <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/80 shadow-2xs">
+          <Link to="/" className="hover:text-coral transition-colors">Trang chủ</Link>
+          <ChevronRight className="w-3 h-3 text-gray-400" />
+          <Link to="/account/tickets" className="hover:text-coral transition-colors">Vé của tôi</Link>
+          <ChevronRight className="w-3 h-3 text-gray-400" />
+          <span className="font-bold text-gray-900 font-mono">#{order.orderNumber}</span>
         </div>
 
         <div className="flex items-center gap-2">
@@ -248,7 +248,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
             size="sm"
             onClick={handleSendEmail}
             disabled={sendingEmail}
-            className="rounded-full text-xs font-semibold h-9 px-4 border-gray-200"
+            className="rounded-full text-xs font-semibold h-9 px-4 border-white/80 bg-white/80 backdrop-blur-md hover:bg-white shadow-2xs"
           >
             {sendingEmail ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" /> : <Mail className="w-3.5 h-3.5 mr-1.5" />}
             <span>Gửi lại Email</span>
@@ -259,7 +259,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
             variant="outline"
             size="sm"
             onClick={() => window.print()}
-            className="rounded-full text-xs font-semibold h-9 px-4 border-gray-200"
+            className="rounded-full text-xs font-semibold h-9 px-4 border-white/80 bg-white/80 backdrop-blur-md hover:bg-white shadow-2xs"
           >
             <Printer className="w-3.5 h-3.5 mr-1.5" />
             <span>In vé điện tử</span>
@@ -268,14 +268,14 @@ export const CustomerOrderDetailPage: React.FC = () => {
       </div>
 
       {emailMessage && (
-        <div className="p-3.5 bg-blue-50 border border-blue-200 text-xs text-blue-800 rounded-2xl font-medium print:hidden">
+        <div className="p-3.5 bg-blue-50/90 backdrop-blur-sm border border-blue-200 text-xs text-blue-800 rounded-2xl font-medium print:hidden shadow-2xs">
           {emailMessage}
         </div>
       )}
 
       {/* Order Overview Card */}
-      <div className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-7 shadow-2xs space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-4">
+      <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-6 sm:p-7 shadow-md space-y-4">
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100/80 pb-4">
           <div>
             <div className="flex items-center gap-2.5">
               <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
@@ -334,15 +334,15 @@ export const CustomerOrderDetailPage: React.FC = () => {
             <div
               key={item.itemId || index}
               className={`
-                bg-white rounded-3xl border p-6 sm:p-7 shadow-2xs space-y-6 transition-all
-                ${isInvalidTicket ? 'border-rose-200 bg-rose-50/20' : 'border-gray-200/90'}
+                rounded-3xl border p-6 sm:p-7 shadow-md space-y-6 transition-all backdrop-blur-md
+                ${isInvalidTicket ? 'border-rose-200/80 bg-rose-50/30' : 'border-white/80 bg-white/85 hover:border-coral/30 hover:shadow-xl'}
               `}
             >
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 {/* Left: Ticket Info */}
                 <div className="space-y-4 flex-1">
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="text-2xl font-black text-[#FF385C] tabular-nums">
+                    <span className="text-2xl font-black text-[#FF385C] tabular-nums px-3.5 py-1 rounded-full bg-[#FFF0F2] border border-[#FF385C]/20">
                       Ghế {item.transportSeatCode}
                     </span>
                     <span className="text-xs font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-800">
@@ -382,7 +382,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                     </p>
                   )}
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-500 bg-[#FAF9F6] p-4 rounded-2xl border border-gray-100">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-500 bg-white/60 backdrop-blur-xs p-4 rounded-2xl border border-white/70 shadow-2xs">
                     {item.transportDepartureAt && (
                       <div className="flex items-center gap-2">
                         <Calendar className="w-4 h-4 text-[#FF385C]" />
@@ -400,14 +400,14 @@ export const CustomerOrderDetailPage: React.FC = () => {
                     <div className="flex flex-wrap items-center gap-2.5 pt-2 print:hidden">
                       <Link
                         to={`/account/orders/${order.orderId}/items/${item.itemId}/amend`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-sm px-4 py-2 text-xs font-bold text-gray-700 hover:bg-white hover:border-gray-300 shadow-2xs transition-all"
                       >
                         <PencilLine className="h-3.5 w-3.5" />
                         <span>Sửa thông tin</span>
                       </Link>
                       <Link
                         to={`/account/orders/${order.orderId}/items/${item.itemId}/exchange`}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 px-4 py-2 text-xs font-bold text-gray-700 hover:bg-gray-50 transition-colors"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-sm px-4 py-2 text-xs font-bold text-gray-700 hover:bg-white hover:border-gray-300 shadow-2xs transition-all"
                       >
                         <RotateCcw className="h-3.5 w-3.5" />
                         <span>Đổi chuyến/ghế</span>
@@ -415,7 +415,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleOpenCancelModal(item)}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 hover:bg-rose-50 px-4 py-2 rounded-full border border-rose-200 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-600 bg-rose-50/70 hover:bg-rose-100/80 px-4 py-2 rounded-full border border-rose-200/80 transition-all cursor-pointer shadow-2xs"
                       >
                         <Ban className="h-3.5 w-3.5" />
                         <span>Hủy vé & Hoàn tiền</span>
@@ -433,7 +433,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                           setReviewComment('');
                           setReviewMessage('');
                         }}
-                        className="inline-flex items-center gap-1.5 rounded-full border border-amber-200 bg-amber-50 px-4 py-2 text-xs font-bold text-amber-800 hover:bg-amber-100 transition-colors cursor-pointer"
+                        className="inline-flex items-center gap-1.5 rounded-full border border-amber-200/80 bg-amber-50/80 backdrop-blur-sm px-4 py-2 text-xs font-bold text-amber-800 hover:bg-amber-100 transition-all cursor-pointer shadow-2xs"
                       >
                         <Star className="h-3.5 w-3.5" />
                         Đánh giá chuyến đi
@@ -444,29 +444,29 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
                 {/* Right: QR Code for boarding */}
                 {isInvalidTicket ? (
-                  <div className="flex flex-col items-center justify-center p-5 bg-rose-50/50 rounded-2xl border border-rose-200 shrink-0 text-center sm:w-[200px]">
+                  <div className="flex flex-col items-center justify-center p-5 bg-rose-50/60 backdrop-blur-sm rounded-3xl border border-rose-200/80 shrink-0 text-center sm:w-[210px] shadow-2xs">
                     <X className="w-8 h-8 text-rose-600 mb-2" />
                     <span className="text-xs font-bold text-rose-700">Vé không còn hiệu lực</span>
                     <span className="text-[11px] text-rose-500 mt-0.5">Không thể dùng mã QR để lên xe</span>
                   </div>
                 ) : isBoarded ? (
-                  <div className="flex flex-col items-center justify-center p-5 bg-purple-50/50 rounded-2xl border border-purple-200 shrink-0 text-center sm:w-[200px]">
+                  <div className="flex flex-col items-center justify-center p-5 bg-purple-50/60 backdrop-blur-sm rounded-3xl border border-purple-200/80 shrink-0 text-center sm:w-[210px] shadow-2xs">
                     <CheckCircle2 className="w-8 h-8 text-purple-600 mb-2" />
                     <span className="text-xs font-bold text-purple-700">Đã hoàn tất check-in</span>
                     <span className="text-[11px] text-purple-500 mt-0.5">Mã QR đã được quét lên xe</span>
                   </div>
                 ) : isOperationPending ? (
-                  <div className="flex sm:w-[200px] shrink-0 flex-col items-center justify-center rounded-2xl border border-amber-200 bg-amber-50/50 p-5 text-center">
+                  <div className="flex sm:w-[210px] shrink-0 flex-col items-center justify-center rounded-3xl border border-amber-200/80 bg-amber-50/60 backdrop-blur-sm p-5 text-center shadow-2xs">
                     <Loader2 className="mb-2 h-8 w-8 animate-spin text-amber-600" />
                     <span className="text-xs font-bold text-amber-800">Đang xử lý yêu cầu</span>
                     <span className="mt-0.5 text-[11px] text-amber-600">Vé tạm khóa đến khi xử lý xong</span>
                   </div>
                 ) : hasValidToken && item.transportItemState === 'ACTIVE' ? (
-                  <div className="flex flex-col items-center justify-center p-5 bg-[#FAF9F6] rounded-2xl border border-gray-200/80 shrink-0 text-center sm:w-[200px]">
-                    <div className="p-3 bg-white rounded-xl shadow-2xs border border-gray-200/60">
+                  <div className="flex flex-col items-center justify-center p-5 bg-white/90 backdrop-blur-lg rounded-3xl border border-white/85 shrink-0 text-center sm:w-[210px] shadow-md">
+                    <div className="p-3 bg-white rounded-2xl shadow-xs border border-gray-100">
                       <QrCodeView value={item.transportCheckInToken!} size={140} />
                     </div>
-                    <span className="text-[11px] font-bold text-gray-700 mt-2 block uppercase tracking-wider">
+                    <span className="text-[11px] font-bold text-gray-700 mt-2.5 block uppercase tracking-wider">
                       Mã soát vé lên xe
                     </span>
                     <span className="font-mono text-[10px] text-gray-400 mt-0.5 block max-w-[140px] truncate">
@@ -474,7 +474,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                     </span>
                   </div>
                 ) : (
-                  <div className="flex flex-col items-center justify-center p-5 bg-gray-50 rounded-2xl border border-dashed border-gray-200 shrink-0 text-center sm:w-[200px]">
+                  <div className="flex flex-col items-center justify-center p-5 bg-gray-50/60 backdrop-blur-sm rounded-3xl border border-dashed border-gray-300 shrink-0 text-center sm:w-[210px]">
                     <Clock className="w-8 h-8 text-gray-400 mb-2" />
                     <span className="text-xs font-bold text-gray-600">Chưa có mã QR</span>
                   </div>
@@ -487,7 +487,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
       {/* Cancellation Modal with Financial Breakdown */}
       <Dialog open={Boolean(cancelModalItem)} onOpenChange={(val) => !val && setCancelModalItem(null)}>
-        <DialogContent className="max-w-md rounded-[28px] p-6 sm:p-7 border-gray-100 shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
+        <DialogContent className="max-w-md rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold text-gray-900 leading-snug">
               Xác nhận hủy vé & Hoàn tiền
@@ -508,7 +508,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
             </div>
           ) : cancelPreview ? (
             <div className="space-y-4 py-2 text-xs">
-              <div className="p-4 bg-[#FAF9F6] rounded-2xl border border-gray-200/80 space-y-2.5">
+              <div className="p-4 bg-white/70 backdrop-blur-xs rounded-2xl border border-white/80 space-y-2.5 shadow-2xs">
                 <div className="flex justify-between text-gray-600">
                   <span>Giá vé gốc:</span>
                   <MoneyText amount={cancelPreview.originalFareVnd} size="xs" variant="ink" />
@@ -550,7 +550,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                 type="button"
                 disabled={cancelling}
                 onClick={handleConfirmCancelItem}
-                className="bg-rose-600 hover:bg-rose-700 text-white rounded-full px-5 text-xs font-bold h-10 transition-colors"
+                className="bg-rose-600 hover:bg-rose-700 text-white rounded-full px-5 text-xs font-bold h-10 transition-colors shadow-sm"
               >
                 {cancelling && <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />}
                 Xác nhận hủy vé
@@ -562,7 +562,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
       {/* Review Dialog */}
       <Dialog open={Boolean(reviewItem)} onOpenChange={(val) => !val && setReviewItem(null)}>
-        <DialogContent className="max-w-md rounded-[28px] p-6 sm:p-7 border-gray-100 shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
+        <DialogContent className="max-w-md rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold text-gray-900 leading-snug">
               Đánh giá trải nghiệm chuyến đi

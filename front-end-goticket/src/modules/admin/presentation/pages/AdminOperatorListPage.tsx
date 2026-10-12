@@ -136,6 +136,7 @@ export const AdminOperatorListPage: React.FC = () => {
       {/* Editorial Page Header */}
       <PageHeader
         title="Quản lý Đối tác Nhà xe"
+        eyebrow="Hệ thống Vận tải Toàn quốc"
         description="Theo dõi danh sách các đơn vị vận tải đã đăng ký, quản lý trạng thái hoạt động và tra cứu tài khoản chủ sở hữu."
         breadcrumbs={[
           { label: "Admin GoTicket", to: "/admin" },
@@ -147,9 +148,9 @@ export const AdminOperatorListPage: React.FC = () => {
             size="sm"
             onClick={fetchOperators}
             disabled={loading}
-            className="gap-2"
+            className="rounded-full border-white/80 bg-white/80 backdrop-blur-md shadow-xs gap-2 px-4 py-2 text-xs font-bold"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
             <span>Làm mới</span>
           </Button>
         }
@@ -181,7 +182,7 @@ export const AdminOperatorListPage: React.FC = () => {
       </div>
 
       {/* Search & Filter Bar */}
-      <SurfaceCard className="p-4 sm:p-5">
+      <SurfaceCard className="p-4 sm:p-5 rounded-[28px]">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           {/* Search Input Form */}
           <form
@@ -189,19 +190,19 @@ export const AdminOperatorListPage: React.FC = () => {
             className="flex flex-1 items-center gap-2 max-w-xl"
           >
             <div className="relative flex-1">
-              <Search className="absolute top-2.5 left-3 h-4 w-4 text-muted" />
+              <Search className="absolute top-3 left-3.5 h-4 w-4 text-[var(--gt-muted)]" />
               <input
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Tìm kiếm theo tên nhà xe..."
-                className="w-full h-9 pl-9 pr-8 text-xs sm:text-sm bg-canvas border border-line rounded-xl focus:border-coral focus:ring-1 focus:ring-coral focus:outline-none transition-colors"
+                className="w-full h-10 pl-10 pr-8 text-xs sm:text-sm bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs"
               />
               {searchTerm && (
                 <button
                   type="button"
                   onClick={() => setSearchTerm("")}
-                  className="absolute right-2.5 top-2.5 text-muted hover:text-ink"
+                  className="absolute right-3 top-3 text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -210,7 +211,7 @@ export const AdminOperatorListPage: React.FC = () => {
             <Button
               type="submit"
               size="sm"
-              variant="default"
+              className="rounded-full px-5 h-10 bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm font-bold text-xs"
             >
               Tìm kiếm
             </Button>
@@ -220,7 +221,7 @@ export const AdminOperatorListPage: React.FC = () => {
                 variant="ghost"
                 size="sm"
                 onClick={handleClearSearch}
-                className="text-xs"
+                className="rounded-full text-xs h-10 px-3.5"
               >
                 Xóa lọc
               </Button>
@@ -229,7 +230,7 @@ export const AdminOperatorListPage: React.FC = () => {
 
           {/* Filter & Sort Controls */}
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center gap-1.5 text-xs text-muted">
+            <div className="flex items-center gap-1.5 text-xs text-[var(--gt-muted)]">
               <SlidersHorizontal className="h-3.5 w-3.5" />
               <span>Sắp xếp:</span>
               <select
@@ -244,7 +245,7 @@ export const AdminOperatorListPage: React.FC = () => {
                         ? "name_asc"
                         : "name_desc"
                 }
-                className="h-8 rounded-lg border border-line bg-canvas px-2.5 text-xs font-medium text-ink focus:border-coral focus:outline-none"
+                className="h-9 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-3 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none shadow-xs"
               >
                 <option value="newest">Ngày tạo: Mới nhất</option>
                 <option value="oldest">Ngày tạo: Cũ nhất</option>
@@ -253,7 +254,7 @@ export const AdminOperatorListPage: React.FC = () => {
               </select>
             </div>
 
-            <div className="flex items-center gap-1.5 text-xs text-muted">
+            <div className="flex items-center gap-1.5 text-xs text-[var(--gt-muted)]">
               <span>Hiển thị:</span>
               <select
                 aria-label="Số bản ghi trên mỗi trang"
@@ -262,11 +263,11 @@ export const AdminOperatorListPage: React.FC = () => {
                   setLimit(Number(e.target.value));
                   setPage(1);
                 }}
-                className="h-8 rounded-lg border border-line bg-canvas px-2 text-xs font-medium text-ink focus:border-coral focus:outline-none"
+                className="h-9 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-3 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none shadow-xs"
               >
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={50}>50</option>
+                <option value={10}>10 bản ghi</option>
+                <option value={20}>20 bản ghi</option>
+                <option value={50}>50 bản ghi</option>
               </select>
             </div>
           </div>
@@ -275,22 +276,22 @@ export const AdminOperatorListPage: React.FC = () => {
 
       {/* Error Alert */}
       {error && (
-        <div className="rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs sm:text-sm text-rose-800 flex items-center justify-between">
+        <div className="rounded-[24px] border border-rose-200/80 bg-rose-50/80 backdrop-blur-md p-4 text-xs sm:text-sm text-rose-800 flex items-center justify-between shadow-xs">
           <span>{error}</span>
-          <Button variant="ghost" size="sm" onClick={() => setError(null)} className="h-7 text-xs text-rose-800">
+          <Button variant="ghost" size="sm" onClick={() => setError(null)} className="h-7 text-xs text-rose-800 rounded-full">
             Đóng
           </Button>
         </div>
       )}
 
       {/* Operator Data View */}
-      <SurfaceCard className="p-0 overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-line flex items-center justify-between">
+      <SurfaceCard className="p-0 overflow-hidden rounded-[32px]">
+        <div className="p-5 sm:p-6 border-b border-[var(--gt-border)]/60 flex items-center justify-between">
           <div>
-            <h2 className="font-serif font-bold text-base text-ink">
+            <h2 className="font-black text-base text-[var(--gt-ink)]">
               Danh sách Nhà xe ({pagination.total})
             </h2>
-            <p className="text-xs text-muted mt-0.5">
+            <p className="text-xs text-[var(--gt-muted)] mt-0.5">
               {searchQuery
                 ? `Kết quả tìm kiếm cho từ khóa "${searchQuery}"`
                 : "Danh sách tất cả các đơn vị vận tải đã được phê duyệt"}
@@ -299,11 +300,11 @@ export const AdminOperatorListPage: React.FC = () => {
         </div>
 
         {loading ? (
-          <div className="p-12">
+          <div className="p-14">
             <LoadingState message="Đang tải danh sách nhà xe..." />
           </div>
         ) : operators.length === 0 ? (
-          <div className="p-12">
+          <div className="p-14">
             <EmptyState
               title={searchQuery ? "Không tìm thấy nhà xe" : "Chưa có nhà xe nào"}
               description={
@@ -313,7 +314,7 @@ export const AdminOperatorListPage: React.FC = () => {
               }
               action={
                 searchQuery ? (
-                  <Button variant="outline" size="sm" onClick={handleClearSearch}>
+                  <Button variant="outline" size="sm" onClick={handleClearSearch} className="rounded-full text-xs">
                     Xóa bộ lọc tìm kiếm
                   </Button>
                 ) : undefined
@@ -325,31 +326,31 @@ export const AdminOperatorListPage: React.FC = () => {
             {/* Desktop Table View */}
             <div className="hidden lg:block overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-line bg-canvas/70 font-semibold text-muted uppercase tracking-wider text-[11px]">
-                  <tr>
-                    <th className="px-5 py-3.5">STT</th>
-                    <th className="px-5 py-3.5">Nhà xe</th>
-                    <th className="px-5 py-3.5">Mã Nhà xe</th>
-                    <th className="px-5 py-3.5">Chủ sở hữu (User ID)</th>
-                    <th className="px-5 py-3.5">Ngày tham gia</th>
-                    <th className="px-5 py-3.5">Trạng thái</th>
-                    <th className="px-5 py-3.5 text-right">Thao tác</th>
+                <thead>
+                  <tr className="border-b border-[var(--gt-border)]/60 bg-white/50 backdrop-blur-xs font-bold text-[var(--gt-muted)] uppercase tracking-wider text-[11px]">
+                    <th className="px-5 py-4">STT</th>
+                    <th className="px-5 py-4">Nhà xe</th>
+                    <th className="px-5 py-4">Mã Nhà xe</th>
+                    <th className="px-5 py-4">Chủ sở hữu (User ID)</th>
+                    <th className="px-5 py-4">Ngày tham gia</th>
+                    <th className="px-5 py-4">Trạng thái</th>
+                    <th className="px-5 py-4 text-right">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line/60">
+                <tbody className="divide-y divide-white/60">
                   {operators.map((op, idx) => {
                     const stt = (pagination.page - 1) * pagination.limit + idx + 1;
                     return (
-                      <tr key={op.id} className="hover:bg-coral-soft/20 transition-colors">
-                        <td className="px-5 py-4 font-semibold text-muted">
+                      <tr key={op.id} className="hover:bg-white/60 transition-colors">
+                        <td className="px-5 py-4 font-bold text-[var(--gt-muted)]">
                           {stt}
                         </td>
                         <td className="px-5 py-4">
                           <div className="flex items-center gap-2.5">
-                            <div className="w-8 h-8 rounded-xl bg-coral-soft text-coral flex items-center justify-center shrink-0">
-                              <Building2 className="w-4 h-4" />
+                            <div className="w-9 h-9 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center shrink-0 shadow-xs">
+                              <Building2 className="w-4.5 h-4.5" />
                             </div>
-                            <span className="font-semibold text-ink text-sm">
+                            <span className="font-bold text-[var(--gt-ink)] text-sm">
                               {op.name}
                             </span>
                           </div>
@@ -364,7 +365,7 @@ export const AdminOperatorListPage: React.FC = () => {
                               type="button"
                               variant="ghost"
                               size="sm"
-                              className="h-7 px-2 text-xs text-coral hover:bg-coral-soft gap-1"
+                              className="h-7 px-2.5 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
                               onClick={() =>
                                 setSelectedUserForModal({
                                   userId: op.userId,
@@ -377,9 +378,9 @@ export const AdminOperatorListPage: React.FC = () => {
                             </Button>
                           </div>
                         </td>
-                        <td className="px-5 py-4 text-muted">
-                          <div className="flex items-center gap-1.5">
-                            <Calendar className="w-3.5 h-3.5 text-muted/80" />
+                        <td className="px-5 py-4 text-[var(--gt-muted)]">
+                          <div className="flex items-center gap-1.5 font-medium">
+                            <Calendar className="w-3.5 h-3.5 text-[var(--gt-muted)]/80" />
                             <span>{op.getFormattedCreatedAt()}</span>
                           </div>
                         </td>
@@ -398,8 +399,8 @@ export const AdminOperatorListPage: React.FC = () => {
                             onClick={() => setOperatorToToggle(op)}
                             className={
                               op.status === "ACTIVE"
-                                ? "border-rose-200 text-rose-700 hover:bg-rose-50"
-                                : "border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                                ? "rounded-full border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs px-3.5 py-1.5 font-bold shadow-xs"
+                                : "rounded-full border-emerald-200/80 text-emerald-700 hover:bg-emerald-50 text-xs px-3.5 py-1.5 font-bold shadow-xs"
                             }
                           >
                             <Power className="mr-1.5 h-3.5 w-3.5" />
@@ -414,19 +415,19 @@ export const AdminOperatorListPage: React.FC = () => {
             </div>
 
             {/* Mobile / Tablet Card View */}
-            <div className="block lg:hidden divide-y divide-line/60">
+            <div className="block lg:hidden divide-y divide-white/60">
               {operators.map((op, idx) => {
                 const stt = (pagination.page - 1) * pagination.limit + idx + 1;
                 return (
-                  <div key={op.id} className="p-4 space-y-3">
+                  <div key={op.id} className="p-4 sm:p-5 space-y-3 hover:bg-white/50 transition-colors">
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-2.5">
-                        <span className="text-xs font-bold text-muted w-5">#{stt}</span>
-                        <div className="w-8 h-8 rounded-xl bg-coral-soft text-coral flex items-center justify-center shrink-0">
-                          <Building2 className="w-4 h-4" />
+                        <span className="text-xs font-bold text-[var(--gt-muted)] w-5">#{stt}</span>
+                        <div className="w-9 h-9 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center shrink-0 shadow-xs">
+                          <Building2 className="w-4.5 h-4.5" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-sm text-ink">{op.name}</h3>
+                          <h3 className="font-bold text-sm text-[var(--gt-ink)]">{op.name}</h3>
                           <IdText id={op.id} />
                         </div>
                       </div>
@@ -437,7 +438,7 @@ export const AdminOperatorListPage: React.FC = () => {
                       />
                     </div>
 
-                    <div className="flex flex-wrap items-center justify-between text-xs text-muted pt-1">
+                    <div className="flex flex-wrap items-center justify-between text-xs text-[var(--gt-muted)] pt-1">
                       <div className="flex items-center gap-1.5">
                         <User className="w-3.5 h-3.5" />
                         <span>Chủ: </span>
@@ -449,12 +450,12 @@ export const AdminOperatorListPage: React.FC = () => {
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-end gap-2 pt-2 border-t border-line/40">
+                    <div className="flex items-center justify-end gap-2 pt-2.5 border-t border-[var(--gt-border)]/50">
                       <Button
                         type="button"
                         variant="ghost"
                         size="sm"
-                        className="h-8 text-xs text-coral hover:bg-coral-soft gap-1"
+                        className="h-8 px-3 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
                         onClick={() =>
                           setSelectedUserForModal({
                             userId: op.userId,
@@ -474,8 +475,8 @@ export const AdminOperatorListPage: React.FC = () => {
                         onClick={() => setOperatorToToggle(op)}
                         className={
                           op.status === "ACTIVE"
-                            ? "h-8 border-rose-200 text-rose-700 hover:bg-rose-50 text-xs"
-                            : "h-8 border-emerald-200 text-emerald-700 hover:bg-emerald-50 text-xs"
+                            ? "h-8 rounded-full border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs px-3.5 font-bold shadow-xs"
+                            : "h-8 rounded-full border-emerald-200/80 text-emerald-700 hover:bg-emerald-50 text-xs px-3.5 font-bold shadow-xs"
                         }
                       >
                         <Power className="mr-1 h-3.5 w-3.5" />
@@ -489,7 +490,7 @@ export const AdminOperatorListPage: React.FC = () => {
 
             {/* Pagination Controls */}
             {pagination.totalPages > 1 && (
-              <div className="p-4 border-t border-line">
+              <div className="p-4 sm:p-5 border-t border-[var(--gt-border)]/60 bg-white/40">
                 <Pagination
                   currentPage={pagination.page}
                   totalPages={pagination.totalPages}

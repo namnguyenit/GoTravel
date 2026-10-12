@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
   const isTicketsActive = location.pathname.startsWith('/account/tickets');
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-gray-200/80 no-print">
+    <header className="sticky top-0 z-40 w-full bg-white/80 backdrop-blur-xl border-b border-white/60 shadow-xs no-print">
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Brand Wordmark */}
         <BrandWordmark to="/" />
@@ -86,7 +86,7 @@ export const Navbar: React.FC = () => {
                     className="fixed inset-0 z-40"
                     onClick={() => setDropdownOpen(false)}
                   />
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-[24px] shadow-[0_20px_45px_rgba(15,23,42,0.15)] border border-gray-100 py-2.5 z-50 text-sm animate-in fade-in zoom-in-95 duration-150">
+                  <div className="absolute right-0 mt-2 w-64 bg-white/95 backdrop-blur-2xl rounded-[28px] shadow-[0_24px_50px_rgba(15,23,42,0.16)] border border-white/80 py-2.5 z-50 text-sm animate-in fade-in zoom-in-95 duration-150">
                     <div className="px-4 py-2.5 border-b border-gray-100">
                       <p className="font-bold text-gray-900 truncate">{user.fullName}</p>
                       <p className="text-xs text-gray-400 truncate">{user.email}</p>
@@ -222,7 +222,7 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu Panel */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-100 bg-white px-5 py-5 flex flex-col gap-4 animate-in slide-in-from-top-2 duration-150">
+        <div className="md:hidden border-t border-white/60 bg-white/95 backdrop-blur-2xl px-5 py-5 flex flex-col gap-4 shadow-xl animate-in slide-in-from-top-2 duration-150">
           <div className="space-y-1">
             <div className="text-[11px] font-bold uppercase tracking-wider text-gray-400 px-2 mb-1">
               Khách hàng

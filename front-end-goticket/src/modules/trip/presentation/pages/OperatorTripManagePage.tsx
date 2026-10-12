@@ -223,40 +223,40 @@ export const OperatorTripManagePage: React.FC = () => {
 
       {/* Thông tin chuyến nháp */}
       {isDraft && (
-        <SurfaceCard className="p-6">
+        <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
           <div className="flex items-center gap-2 mb-1">
-            <Sliders className="h-4 w-4 text-[var(--gt-coral)]" />
-            <h2 className="text-base font-bold text-[var(--gt-ink)]">Cấu hình chuyến nháp</h2>
+            <Sliders className="h-4 w-4 text-[#FF385C]" />
+            <h2 className="text-base font-bold text-gray-900">Cấu hình chuyến nháp</h2>
           </div>
-          <p className="text-xs text-[var(--gt-muted)] mb-5">
+          <p className="text-xs text-gray-500 mb-5">
             Các trường thời gian và giá cơ bản chỉ được phép chỉnh sửa khi chuyến đang ở trạng thái Nháp (DRAFT).
           </p>
 
           <div className="grid gap-4 md:grid-cols-3">
             <div>
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Giờ xuất bến
               </label>
               <input
                 type="datetime-local"
                 value={departureTime}
                 onChange={(e) => setDepartureTime(e.target.value)}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Giờ đến dự kiến
               </label>
               <input
                 type="datetime-local"
                 value={arrivalTime}
                 onChange={(e) => setArrivalTime(e.target.value)}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
             <div>
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Giá vé cơ bản (VNĐ)
               </label>
               <input
@@ -264,16 +264,16 @@ export const OperatorTripManagePage: React.FC = () => {
                 value={basePrice}
                 onChange={(e) => setBasePrice(e.target.value.replace(/\D/g, ''))}
                 placeholder="250000"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
           </div>
 
-          <div className="mt-5 pt-4 border-t border-[var(--gt-border)] flex justify-end">
+          <div className="mt-5 pt-4 border-t border-gray-100/80 flex justify-end">
             <Button
               disabled={busy || !departureTime || !arrivalTime || !basePrice}
               onClick={() => void saveDraft()}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
             >
               <Save className="h-4 w-4 mr-2" />
               Lưu thông tin nháp
@@ -284,12 +284,12 @@ export const OperatorTripManagePage: React.FC = () => {
 
       {/* Điểm đón trả của chuyến */}
       {isDraft && routeStops.length >= 2 && (
-        <SurfaceCard className="p-6">
+        <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
           <div className="flex items-center gap-2 mb-1">
-            <MapPin className="h-4 w-4 text-[var(--gt-coral)]" />
-            <h2 className="text-base font-bold text-[var(--gt-ink)]">Lộ trình & Điểm đón trả</h2>
+            <MapPin className="h-4 w-4 text-[#FF385C]" />
+            <h2 className="text-base font-bold text-gray-900">Lộ trình & Điểm đón trả</h2>
           </div>
-          <p className="text-xs text-[var(--gt-muted)] mb-5">
+          <p className="text-xs text-gray-500 mb-5">
             Cấu hình quyền đón/trả và giờ dự kiến riêng cho từng điểm dừng thuộc chuyến này.
           </p>
 
@@ -300,16 +300,16 @@ export const OperatorTripManagePage: React.FC = () => {
               return (
                 <div
                   key={routeStop.id}
-                  className="grid items-center gap-3 rounded-2xl border border-[var(--gt-border)] bg-[var(--gt-canvas)] p-3.5 md:grid-cols-[48px_1fr_180px_220px]"
+                  className="grid items-center gap-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-2xs md:grid-cols-[48px_1fr_180px_220px]"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-white font-mono text-xs font-bold text-[var(--gt-coral)] shadow-xs">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-coral-soft font-mono text-xs font-bold text-[#FF385C] border border-[#FF385C]/20 shadow-xs">
                     #{index + 1}
                   </span>
                   <div>
-                    <strong className="block text-xs font-bold text-[var(--gt-ink)]">
+                    <strong className="block text-xs font-bold text-gray-900">
                       {routeStop.name}
                     </strong>
-                    <span className="text-[11px] text-[var(--gt-muted)]">
+                    <span className="text-[11px] text-gray-500 font-medium">
                       {index === 0
                         ? 'Điểm đầu tuyến'
                         : index === routeStops.length - 1
@@ -318,7 +318,7 @@ export const OperatorTripManagePage: React.FC = () => {
                     </span>
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-[var(--gt-muted)] mb-1">
+                    <label className="block text-[11px] font-semibold text-gray-500 mb-1">
                       Hình thức
                     </label>
                     <select
@@ -332,7 +332,7 @@ export const OperatorTripManagePage: React.FC = () => {
                           )
                         )
                       }
-                      className="w-full rounded-xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)]"
+                      className="w-full rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-gray-900 focus:border-[#FF385C] shadow-2xs"
                     >
                       <option value="BOTH">Đón và trả</option>
                       <option value="PICKUP">Chỉ đón</option>
@@ -340,7 +340,7 @@ export const OperatorTripManagePage: React.FC = () => {
                     </select>
                   </div>
                   <div>
-                    <label className="block text-[11px] font-semibold text-[var(--gt-muted)] mb-1">
+                    <label className="block text-[11px] font-semibold text-gray-500 mb-1">
                       Giờ dự kiến
                     </label>
                     <input
@@ -353,7 +353,7 @@ export const OperatorTripManagePage: React.FC = () => {
                           )
                         )
                       }
-                      className="w-full rounded-xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)]"
+                      className="w-full rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-gray-900 focus:border-[#FF385C] shadow-2xs"
                     />
                   </div>
                 </div>
@@ -361,11 +361,11 @@ export const OperatorTripManagePage: React.FC = () => {
             })}
           </div>
 
-          <div className="mt-5 pt-4 border-t border-[var(--gt-border)] flex justify-end">
+          <div className="mt-5 pt-4 border-t border-gray-100/80 flex justify-end">
             <Button
               disabled={busy}
               onClick={() => void saveStops()}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
             >
               <Save className="h-4 w-4 mr-2" />
               Lưu cấu hình điểm dừng
@@ -375,9 +375,9 @@ export const OperatorTripManagePage: React.FC = () => {
       )}
 
       {/* Mở bán & Vòng đời */}
-      <SurfaceCard className="p-6">
-        <h2 className="text-base font-bold text-[var(--gt-ink)] mb-1">Mở bán & Vòng đời chuyến xe</h2>
-        <p className="text-xs text-[var(--gt-muted)] mb-5">
+      <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
+        <h2 className="text-base font-bold text-gray-900 mb-1">Mở bán & Vòng đời chuyến xe</h2>
+        <p className="text-xs text-gray-500 mb-5">
           Quản lý các sự kiện chuyển trạng thái vận hành của chuyến xe theo đúng quy trình nghiệp vụ.
         </p>
 
@@ -385,7 +385,7 @@ export const OperatorTripManagePage: React.FC = () => {
           <Button
             disabled={busy || !isDraft}
             onClick={() => void run('publish')}
-            className="bg-emerald-600 hover:bg-emerald-700 text-white"
+            className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-2xs"
           >
             <PlayCircle className="h-4 w-4 mr-2" />
             Phát hành / Mở bán
@@ -395,7 +395,7 @@ export const OperatorTripManagePage: React.FC = () => {
             variant="outline"
             disabled={busy}
             onClick={() => void run('stop-sale')}
-            className="border-amber-300 bg-amber-50 text-amber-800 hover:bg-amber-100"
+            className="rounded-full border-amber-300 bg-amber-50/90 text-amber-800 hover:bg-amber-100 shadow-2xs"
           >
             <PauseCircle className="h-4 w-4 mr-2" />
             Tạm dừng bán vé
@@ -405,7 +405,7 @@ export const OperatorTripManagePage: React.FC = () => {
             variant="outline"
             disabled={busy}
             onClick={() => void run('resume-sale')}
-            className="border-emerald-300 bg-emerald-50 text-emerald-800 hover:bg-emerald-100"
+            className="rounded-full border-emerald-300 bg-emerald-50/90 text-emerald-800 hover:bg-emerald-100 shadow-2xs"
           >
             <PlayCircle className="h-4 w-4 mr-2" />
             Mở bán lại
@@ -415,7 +415,7 @@ export const OperatorTripManagePage: React.FC = () => {
             variant="outline"
             disabled={busy}
             onClick={() => void run('lifecycle', 'put', { status: 'DEPARTED' })}
-            className="border-blue-200 text-blue-800 hover:bg-blue-50"
+            className="rounded-full border-blue-200 bg-white/90 text-blue-800 hover:bg-blue-50 shadow-2xs"
           >
             Xác nhận xuất bến
           </Button>
@@ -424,7 +424,7 @@ export const OperatorTripManagePage: React.FC = () => {
             variant="outline"
             disabled={busy}
             onClick={() => void run('lifecycle', 'put', { status: 'COMPLETED' })}
-            className="border-stone-300 text-stone-800 hover:bg-stone-50"
+            className="rounded-full border-stone-300 bg-white/90 text-stone-800 hover:bg-stone-50 shadow-2xs"
           >
             Hoàn thành chuyến
           </Button>
@@ -436,7 +436,7 @@ export const OperatorTripManagePage: React.FC = () => {
               setCancelReasonInput(reason);
               setCancelModalOpen(true);
             }}
-            className="border-rose-300 text-rose-700 hover:bg-rose-50"
+            className="rounded-full border-rose-300 bg-white/90 text-rose-700 hover:bg-rose-50 shadow-2xs"
           >
             <Ban className="h-4 w-4 mr-2" />
             Hủy chuyến xe
@@ -447,9 +447,9 @@ export const OperatorTripManagePage: React.FC = () => {
       {/* Giá theo hạng & Chặn/Mở ghế */}
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Giá theo hạng */}
-        <SurfaceCard className="p-6">
+        <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
           <div className="flex items-center justify-between mb-1">
-            <h2 className="text-base font-bold text-[var(--gt-ink)]">Giá theo hạng ghế</h2>
+            <h2 className="text-base font-bold text-gray-900">Giá theo hạng ghế</h2>
             <Button
               variant="outline"
               size="sm"
@@ -457,13 +457,13 @@ export const OperatorTripManagePage: React.FC = () => {
                 setNewClassNameInput('');
                 setAddClassModalOpen(true);
               }}
-              className="text-xs"
+              className="text-xs rounded-full border-gray-200/80 bg-white/90 shadow-2xs"
             >
               <Plus className="h-3.5 w-3.5 mr-1" />
               Thêm hạng ghế
             </Button>
           </div>
-          <p className="text-xs text-[var(--gt-muted)] mb-4">
+          <p className="text-xs text-gray-500 mb-4">
             Định giá vé riêng cho từng phân hạng như VIP, STANDARD, v.v.
           </p>
 
@@ -471,9 +471,9 @@ export const OperatorTripManagePage: React.FC = () => {
             {Object.entries(prices).map(([name, value]) => (
               <div
                 key={name}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--gt-border)] p-3 bg-white"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-white/80 p-3 bg-white/70 backdrop-blur-md shadow-2xs"
               >
-                <span className="font-mono text-xs font-bold text-[var(--gt-ink)]">
+                <span className="font-mono text-xs font-bold text-gray-900">
                   {name}
                 </span>
                 <div className="flex items-center gap-2">
@@ -487,19 +487,19 @@ export const OperatorTripManagePage: React.FC = () => {
                       }))
                     }
                     placeholder="250000"
-                    className="w-36 rounded-xl border border-[var(--gt-border)] px-3 py-1.5 text-right font-mono text-xs font-bold outline-none focus:border-[var(--gt-coral)]"
+                    className="w-36 rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-right font-mono text-xs font-bold outline-none focus:border-[#FF385C] shadow-2xs"
                   />
-                  <span className="text-xs font-semibold text-[var(--gt-muted)]">VNĐ</span>
+                  <span className="text-xs font-semibold text-gray-500">VNĐ</span>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-5 pt-4 border-t border-[var(--gt-border)] flex justify-end">
+          <div className="mt-5 pt-4 border-t border-gray-100/80 flex justify-end">
             <Button
               disabled={busy}
               onClick={() => void savePrices()}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
             >
               <Save className="h-4 w-4 mr-2" />
               Lưu bảng giá ghế
@@ -508,20 +508,20 @@ export const OperatorTripManagePage: React.FC = () => {
         </SurfaceCard>
 
         {/* Chặn hoặc mở ghế */}
-        <SurfaceCard className="p-6">
-          <h2 className="text-base font-bold text-[var(--gt-ink)] mb-1">Chặn hoặc mở ghế</h2>
-          <p className="text-xs text-[var(--gt-muted)] mb-3">
+        <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
+          <h2 className="text-base font-bold text-gray-900 mb-1">Chặn hoặc mở ghế</h2>
+          <p className="text-xs text-gray-500 mb-3">
             Chọn một hoặc nhiều ghế để khóa bảo trì hoặc mở lại chỗ cho khách đặt.
           </p>
 
           <input
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="w-full rounded-2xl border border-[var(--gt-border)] px-3.5 py-2 text-xs font-medium text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)] mb-3"
+            className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-medium text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs mb-3"
             placeholder="Lý do khóa / mở ghế (ví dụ: Bảo trì ghế hỏng)"
           />
 
-          <div className="max-h-60 overflow-y-auto rounded-2xl border border-[var(--gt-border)] bg-[var(--gt-canvas)] p-3">
+          <div className="max-h-60 overflow-y-auto rounded-2xl border border-white/80 bg-white/50 backdrop-blur-md p-3 shadow-2xs">
             <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
               {seats.map((seat) => {
                 const id = seat.seatId || seat.id || '';
@@ -537,12 +537,12 @@ export const OperatorTripManagePage: React.FC = () => {
                         items.includes(id) ? items.filter((v) => v !== id) : [...items, id]
                       )
                     }
-                    className={`h-9 rounded-xl text-xs font-bold transition-all ${
+                    className={`h-9 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[var(--gt-coral)] text-white shadow-xs'
+                        ? 'bg-[#FF385C] text-white shadow-xs glow-coral-sm'
                         : isBlocked
                         ? 'bg-rose-100 text-rose-700 border border-rose-200'
-                        : 'bg-white text-[var(--gt-ink)] border border-[var(--gt-border)] hover:border-[var(--gt-coral)]'
+                        : 'bg-white/90 text-gray-900 border border-gray-200/80 hover:border-[#FF385C]'
                     }`}
                   >
                     {seat.code || id.slice(0, 4)}
@@ -553,8 +553,8 @@ export const OperatorTripManagePage: React.FC = () => {
           </div>
 
           <div className="mt-4 flex items-center justify-between">
-            <span className="text-xs text-[var(--gt-muted)]">
-              Đã chọn: <strong className="text-[var(--gt-ink)]">{selected.length}</strong> ghế
+            <span className="text-xs text-gray-500">
+              Đã chọn: <strong className="text-gray-900 font-bold">{selected.length}</strong> ghế
             </span>
 
             <div className="flex gap-2">
@@ -562,14 +562,14 @@ export const OperatorTripManagePage: React.FC = () => {
                 variant="outline"
                 disabled={!selected.length || !reason.trim() || busy}
                 onClick={() => void block(false)}
-                className="border-emerald-300 text-emerald-700 hover:bg-emerald-50 text-xs"
+                className="rounded-full border-emerald-300 bg-emerald-50/90 text-emerald-700 hover:bg-emerald-100 text-xs shadow-2xs"
               >
                 Mở lại ghế
               </Button>
               <Button
                 disabled={!selected.length || !reason.trim() || busy}
                 onClick={() => void block(true)}
-                className="bg-rose-600 hover:bg-rose-700 text-white text-xs"
+                className="rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs shadow-2xs"
               >
                 Chặn ghế đã chọn
               </Button>
@@ -580,7 +580,7 @@ export const OperatorTripManagePage: React.FC = () => {
 
       {/* Cancel Trip Dialog (replacing window.prompt) */}
       <Dialog open={cancelModalOpen} onOpenChange={setCancelModalOpen}>
-        <DialogContent className="sm:max-w-[460px]">
+        <DialogContent className="sm:max-w-[460px] rounded-[28px] border-white/80 bg-white/95 backdrop-blur-xl p-6 shadow-glass-lg">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold text-rose-700">
               Xác nhận hủy chuyến xe
@@ -591,7 +591,7 @@ export const OperatorTripManagePage: React.FC = () => {
           </DialogHeader>
 
           <div className="py-2">
-            <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
               Lý do hủy chuyến (bắt buộc)
             </label>
             <input
@@ -599,18 +599,18 @@ export const OperatorTripManagePage: React.FC = () => {
               value={cancelReasonInput}
               onChange={(e) => setCancelReasonInput(e.target.value)}
               placeholder="VD: Xe gặp sự cố kỹ thuật đột xuất"
-              className="w-full rounded-2xl border border-[var(--gt-border)] p-3 text-xs font-medium text-[var(--gt-ink)] outline-none focus:border-rose-500"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 p-3 text-xs font-medium text-gray-900 outline-none focus:border-rose-500 shadow-2xs"
             />
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => setCancelModalOpen(false)}>
+            <Button variant="outline" onClick={() => setCancelModalOpen(false)} className="rounded-full">
               Quay lại
             </Button>
             <Button
               disabled={!cancelReasonInput.trim()}
               onClick={handleConfirmCancelTrip}
-              className="bg-rose-600 hover:bg-rose-700 text-white"
+              className="rounded-full bg-rose-600 hover:bg-rose-700 text-white shadow-2xs"
             >
               Xác nhận hủy chuyến
             </Button>
@@ -620,9 +620,9 @@ export const OperatorTripManagePage: React.FC = () => {
 
       {/* Add Seat Class Dialog (replacing window.prompt) */}
       <Dialog open={addClassModalOpen} onOpenChange={setAddClassModalOpen}>
-        <DialogContent className="sm:max-w-[420px]">
+        <DialogContent className="sm:max-w-[420px] rounded-[28px] border-white/80 bg-white/95 backdrop-blur-xl p-6 shadow-glass-lg">
           <DialogHeader>
-            <DialogTitle className="text-base font-bold text-[var(--gt-ink)]">
+            <DialogTitle className="text-base font-bold text-gray-900">
               Thêm phân hạng ghế mới
             </DialogTitle>
             <DialogDescription className="text-xs text-gray-500">
@@ -631,7 +631,7 @@ export const OperatorTripManagePage: React.FC = () => {
           </DialogHeader>
 
           <div className="py-2">
-            <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+            <label className="block text-xs font-semibold text-gray-700 mb-1.5">
               Mã hạng ghế
             </label>
             <input
@@ -639,18 +639,18 @@ export const OperatorTripManagePage: React.FC = () => {
               value={newClassNameInput}
               onChange={(e) => setNewClassNameInput(e.target.value.toUpperCase())}
               placeholder="VIP"
-              className="w-full rounded-2xl border border-[var(--gt-border)] p-3 font-mono text-xs font-bold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 p-3 font-mono text-xs font-bold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
             />
           </div>
 
           <DialogFooter className="gap-2 sm:gap-0">
-            <Button variant="outline" onClick={() => setAddClassModalOpen(false)}>
+            <Button variant="outline" onClick={() => setAddClassModalOpen(false)} className="rounded-full">
               Hủy
             </Button>
             <Button
               disabled={!newClassNameInput.trim()}
               onClick={handleConfirmAddClass}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
             >
               Thêm hạng ghế
             </Button>

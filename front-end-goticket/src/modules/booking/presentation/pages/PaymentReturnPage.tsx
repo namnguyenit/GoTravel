@@ -91,7 +91,7 @@ export const PaymentReturnPage: React.FC = () => {
 
   return (
     <CustomerPageContainer className="py-12">
-      <div className="max-w-xl mx-auto bg-white rounded-3xl border border-gray-200/90 p-8 sm:p-10 shadow-2xs text-center space-y-6">
+      <div className="max-w-xl mx-auto bg-white/85 backdrop-blur-2xl rounded-[32px] border border-white/80 p-8 sm:p-10 shadow-2xl text-center space-y-6">
         {loading || (isPending && pollCount < 8) ? (
           <div className="space-y-4 py-8">
             <div className="w-16 h-16 rounded-full bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center mx-auto">

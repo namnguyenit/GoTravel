@@ -292,13 +292,13 @@ export const TripDetailPage: React.FC = () => {
       </div>
 
       {/* Trip Header Banner */}
-      <div className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-7 shadow-2xs flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-6 sm:p-7 shadow-md flex flex-wrap items-center justify-between gap-4">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-black text-[#111827] font-editorial tracking-tight">
               {trip.route.origin} → {trip.route.destination}
             </h1>
-            <span className="px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-xs font-bold">
+            <span className="px-3.5 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-gray-200/60 text-gray-700 text-xs font-bold shadow-2xs">
               {trip.vehicle?.type || 'Xe khách'}
             </span>
           </div>
@@ -310,7 +310,7 @@ export const TripDetailPage: React.FC = () => {
                 <span>Xe: {trip.vehicle.name} ({trip.vehicle.licensePlate})</span>
               </>
             )}
-            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full ml-1">
+            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50/80 border border-emerald-500/20 px-2.5 py-0.5 rounded-full ml-1 shadow-2xs">
               <ShieldCheck className="w-3 h-3 text-emerald-600" /> Đã xác thực KYC
             </span>
           </p>
@@ -333,7 +333,7 @@ export const TripDetailPage: React.FC = () => {
         {/* Left Column */}
         <div className="lg:col-span-8 space-y-6">
           {/* Stops & Schedule Card */}
-          <div className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-7 shadow-2xs space-y-4">
+          <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-6 sm:p-7 shadow-sm space-y-4">
             <h3 className="font-bold text-base text-[#111827] flex items-center gap-2">
               <MapPin className="w-4 h-4 text-[#FF385C]" />
               Lộ trình và các trạm dừng
@@ -386,7 +386,7 @@ export const TripDetailPage: React.FC = () => {
         <div className="lg:col-span-4 sticky top-24 space-y-4">
           <form
             onSubmit={handleProceedToCheckout}
-            className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-7 space-y-5 shadow-2xs"
+            className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-6 sm:p-7 space-y-5 shadow-md"
           >
             <h3 className="font-bold text-base text-[#111827] border-b border-gray-100 pb-3">
               Tóm tắt chuyến đi
@@ -431,7 +431,7 @@ export const TripDetailPage: React.FC = () => {
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                   placeholder="Nguyễn Văn A"
-                  className="w-full px-4 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                  className="w-full px-4 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
                 />
               </div>
 
@@ -445,7 +445,7 @@ export const TripDetailPage: React.FC = () => {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   placeholder="example@gmail.com"
-                  className="w-full px-4 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                  className="w-full px-4 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
                 />
               </div>
 
@@ -459,7 +459,7 @@ export const TripDetailPage: React.FC = () => {
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
                   placeholder="0912345678"
-                  className="w-full px-4 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                  className="w-full px-4 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
                 />
               </div>
             </div>
@@ -513,6 +513,31 @@ export const TripDetailPage: React.FC = () => {
           </form>
         </div>
       </div>
+
+      {/* Floating Panoramic Glass Capsule Summary Dock (Mobile Only) */}
+      {selectedSeats.length > 0 && (
+        <div className="lg:hidden fixed bottom-5 left-4 right-4 z-40 h-16 rounded-full bg-white/92 backdrop-blur-2xl border border-white/85 shadow-2xl px-5 flex items-center justify-between animate-in slide-in-from-bottom-4 duration-200">
+          <div className="flex flex-col">
+            <span className="text-[11px] font-bold text-gray-500">
+              Đã chọn <strong className="text-gray-900 tabular-nums">{selectedSeats.length}</strong> ghế
+            </span>
+            <MoneyText amount={totalAmount.toString()} size="sm" variant="coral" />
+          </div>
+          <button
+            type="button"
+            onClick={handleProceedToCheckout}
+            disabled={submitting}
+            className="h-10 px-5 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold glow-coral-sm transition-all cursor-pointer flex items-center gap-1.5"
+          >
+            {submitting ? (
+              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            ) : (
+              <span>Tiếp tục</span>
+            )}
+            <ChevronRight className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )}
     </CustomerPageContainer>
   );
 };

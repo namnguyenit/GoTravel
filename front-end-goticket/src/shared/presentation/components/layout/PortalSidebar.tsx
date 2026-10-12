@@ -44,13 +44,13 @@ export const PortalSidebar: React.FC<PortalSidebarProps> = ({
       {/* Sidebar container */}
       <aside
         className={`
-          fixed md:static inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200/80 flex flex-col
+          fixed md:static inset-y-0 left-0 z-50 w-64 bg-white/85 backdrop-blur-xl border-r border-white/70 shadow-xs flex flex-col
           transform transition-transform duration-200 ease-out md:translate-x-0
-          ${isOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'}
+          ${isOpen ? 'translate-x-0 shadow-2xl bg-white/95' : '-translate-x-full'}
         `}
       >
         {headerSlot && (
-          <div className="p-4 border-b border-gray-100">
+          <div className="p-4 border-b border-gray-100/80">
             {headerSlot}
           </div>
         )}
@@ -76,11 +76,11 @@ export const PortalSidebar: React.FC<PortalSidebarProps> = ({
                       end={item.end}
                       onClick={onClose}
                       className={({ isActive }) => `
-                        flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-semibold transition-all
+                        flex items-center justify-between px-3.5 py-2.5 rounded-full text-sm font-semibold transition-all
                         ${
                           isActive
-                            ? 'bg-[#FFF0F2] text-[#FF385C] shadow-2xs font-bold'
-                            : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                            ? 'bg-[#FFF0F2] text-[#FF385C] shadow-2xs font-bold border border-[#FF385C]/20'
+                            : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
                         }
                       `}
                     >

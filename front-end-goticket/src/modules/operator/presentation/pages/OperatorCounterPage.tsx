@@ -282,12 +282,12 @@ export const OperatorCounterPage: React.FC = () => {
 
   if (!hasSellCash) {
     return (
-      <div className="max-w-md mx-auto my-16 p-8 bg-white rounded-3xl border border-[var(--gt-border)] text-center shadow-sm">
+      <div className="max-w-md mx-auto my-16 p-8 bg-white/80 backdrop-blur-xl rounded-[28px] border border-white/80 text-center shadow-glass">
         <ShieldAlert className="w-10 h-10 text-rose-600 mx-auto mb-3" />
-        <h3 className="font-bold text-lg text-[var(--gt-ink)] mb-1">
+        <h3 className="font-bold text-lg text-gray-900 mb-1">
           Chưa được cấp quyền bán vé tại quầy
         </h3>
-        <p className="text-xs text-[var(--gt-muted)]">
+        <p className="text-xs text-gray-500">
           Tài khoản của bạn cần có quyền SELL_CASH và một ca thu tiền đang mở để thực hiện tác nghiệp bán vé thu tiền mặt.
         </p>
       </div>
@@ -296,13 +296,13 @@ export const OperatorCounterPage: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* Top Header */}
+      {/* Page Header */}
       <PageHeader
         title="Quầy bán vé & Thu tiền mặt"
         eyebrow="Kênh Nhà Xe · Tác nghiệp trực tiếp"
         description="Xuất vé trực tiếp tại bến, giữ chỗ theo thời gian thực và ghi nhận biên lai thu tiền mặt vào ca làm việc."
         actions={
-          <div className="flex items-center gap-1.5 rounded-full bg-[var(--gt-coral-soft)] px-3.5 py-1.5 text-xs font-bold text-[var(--gt-coral)]">
+          <div className="flex items-center gap-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#FF385C] shadow-2xs">
             <Wallet className="w-3.5 h-3.5" />
             <span>Quyền: SELL_CASH</span>
           </div>
@@ -324,10 +324,11 @@ export const OperatorCounterPage: React.FC = () => {
           const isIssued = ['CONFIRMED', 'COMPLETED'].includes(successOrder.status || '');
           return (
             <SurfaceCard
-              className={`p-8 text-center space-y-4 border ${
+              variant="glass"
+              className={`p-8 text-center space-y-4 rounded-[28px] border backdrop-blur-xl shadow-glass ${
                 isIssued
-                  ? 'bg-emerald-50/60 border-emerald-200'
-                  : 'bg-amber-50/60 border-amber-200'
+                  ? 'bg-emerald-50/80 border-emerald-200'
+                  : 'bg-amber-50/80 border-amber-200'
               }`}
             >
               {isIssued ? (
@@ -344,30 +345,30 @@ export const OperatorCounterPage: React.FC = () => {
                   ? 'Đã xuất vé và thu tiền mặt thành công!'
                   : 'Đã thu tiền mặt thành công, vé đang chờ phát hành!'}
               </h2>
-              <p className="text-xs text-[var(--gt-muted)]">
+              <p className="text-xs text-gray-500">
                 {isIssued
                   ? 'Vé điện tử đã phát hành và sẵn sàng lên xe.'
                   : `Đã ghi nhận tiền mặt nhưng đơn hàng đang chờ phát hành (Trạng thái: ${
                       successOrder.status || 'PENDING'
                     }).`}
               </p>
-              <div className="text-xs">
+              <div className="text-xs text-gray-600">
                 Mã đơn bán vé:{' '}
-                <strong className="font-mono text-[var(--gt-ink)]">
+                <strong className="font-mono text-gray-900 font-bold">
                   {successOrder.orderNumber || successOrder.id || successOrder.orderId}
                 </strong>
               </div>
 
               {successOrder.receipt && (
-                <div className="max-w-md mx-auto p-4 bg-white rounded-2xl border border-[var(--gt-border)] text-xs space-y-2 text-left shadow-xs">
+                <div className="max-w-md mx-auto p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-white/80 text-xs space-y-2 text-left shadow-2xs">
                   <div className="flex justify-between">
-                    <span className="text-[var(--gt-muted)]">Biên nhận thu tiền:</span>
-                    <strong className="font-mono text-[var(--gt-ink)]">
+                    <span className="text-gray-500 font-medium">Biên nhận thu tiền:</span>
+                    <strong className="font-mono text-gray-900 font-bold">
                       {successOrder.receipt.receiptNo}
                     </strong>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[var(--gt-muted)]">Số tiền đã thu:</span>
+                    <span className="text-gray-500 font-medium">Số tiền đã thu:</span>
                     <MoneyText
                       amount={successOrder.receipt.amount}
                       weight="bold"
@@ -375,9 +376,9 @@ export const OperatorCounterPage: React.FC = () => {
                     />
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[var(--gt-muted)]">Trạng thái đơn:</span>
+                    <span className="text-gray-500 font-medium">Trạng thái đơn:</span>
                     <span
-                      className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                         isIssued
                           ? 'bg-emerald-100 text-emerald-800'
                           : 'bg-amber-100 text-amber-800'
@@ -393,14 +394,14 @@ export const OperatorCounterPage: React.FC = () => {
                 <Button
                   variant="outline"
                   onClick={() => window.print()}
-                  className="rounded-xl"
+                  className="rounded-full border-gray-200/80 bg-white/90 shadow-2xs"
                 >
                   <Printer className="w-4 h-4 mr-2" />
                   In vé & Biên lai
                 </Button>
                 <Button
                   onClick={() => setSuccessOrder(null)}
-                  className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-xl"
+                  className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full shadow-md glow-coral-sm"
                 >
                   Bán vé cho khách tiếp theo
                 </Button>
@@ -410,7 +411,7 @@ export const OperatorCounterPage: React.FC = () => {
         })()
       ) : pendingCashOrder ? (
         /* Step 2: Awaiting physical cash confirmation card */
-        <SurfaceCard className="bg-amber-50/50 border border-amber-200 p-6 space-y-5">
+        <SurfaceCard variant="glass" className="bg-amber-50/70 backdrop-blur-xl border border-amber-200 p-6 space-y-5 rounded-[28px] shadow-glass">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-600 flex items-center justify-center">
               <Banknote className="w-6 h-6" />
@@ -425,7 +426,7 @@ export const OperatorCounterPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="p-4 bg-white rounded-2xl border border-amber-100 space-y-2 text-xs">
+          <div className="p-4 bg-white/90 backdrop-blur-md rounded-2xl border border-white/80 space-y-2 text-xs shadow-2xs">
             <div className="flex items-center justify-between">
               <span className="text-amber-900 font-medium">Khách hàng:</span>
               <strong className="text-amber-950">{customerName} - {customerPhone}</strong>
@@ -449,7 +450,7 @@ export const OperatorCounterPage: React.FC = () => {
             <Button
               disabled={receivingCash || cancellingUnpaid}
               onClick={handleReceiveCashPayment}
-              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl py-3 text-xs font-bold"
+              className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full py-3 text-xs font-bold shadow-2xs"
             >
               {receivingCash ? (
                 <>
@@ -468,7 +469,7 @@ export const OperatorCounterPage: React.FC = () => {
               variant="outline"
               disabled={receivingCash || cancellingUnpaid}
               onClick={() => setIsCancelConfirmOpen(true)}
-              className="border-amber-300 text-amber-900 hover:bg-amber-100 rounded-xl"
+              className="border-amber-300 text-amber-900 hover:bg-amber-100 rounded-full shadow-2xs"
             >
               <XCircle className="w-4 h-4 mr-1.5" />
               Hủy giữ chỗ
@@ -480,22 +481,22 @@ export const OperatorCounterPage: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column (7 cols): Trip selector & Seat map */}
           <div className="lg:col-span-7 space-y-5">
-            <SurfaceCard className="p-5 space-y-3">
-              <label className="block text-xs font-bold text-[var(--gt-muted)] uppercase tracking-wider">
+            <SurfaceCard variant="glass" className="p-5 space-y-3 rounded-[28px] border border-white/80 shadow-glass">
+              <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">
                 Chọn chuyến xe vận hành
               </label>
               {loadingTrips ? (
-                <div className="py-4 text-xs text-[var(--gt-muted)] flex items-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin text-[var(--gt-coral)]" />
+                <div className="py-4 text-xs text-gray-500 flex items-center gap-2">
+                  <Loader2 className="w-4 h-4 animate-spin text-[#FF385C]" />
                   <span>Đang tải các chuyến xe...</span>
                 </div>
               ) : trips.length === 0 ? (
-                <p className="text-xs text-[var(--gt-muted)]">Chưa có chuyến xe nào đang mở bán.</p>
+                <p className="text-xs text-gray-500">Chưa có chuyến xe nào đang mở bán.</p>
               ) : (
                 <select
                   value={selectedTripId}
                   onChange={(e) => setSelectedTripId(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-white border border-[var(--gt-border)] rounded-2xl focus:border-[var(--gt-coral)] text-[var(--gt-ink)] font-semibold outline-none"
+                  className="w-full px-4 py-2.5 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 font-semibold outline-none shadow-2xs"
                 >
                   {trips.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -509,11 +510,11 @@ export const OperatorCounterPage: React.FC = () => {
 
             {/* Seat Map */}
             {loadingSeats ? (
-              <SurfaceCard className="py-16 text-center">
+              <SurfaceCard variant="glass" className="py-16 text-center rounded-[28px]">
                 <LoadingState message="Đang tải sơ đồ ghế của chuyến..." />
               </SurfaceCard>
             ) : seats.length > 0 ? (
-              <SurfaceCard className="p-5">
+              <SurfaceCard variant="glass" className="p-5 rounded-[28px] border border-white/80 shadow-glass">
                 <SeatMap
                   seats={seats}
                   selectedSeatIds={selectedSeatIds}
@@ -521,34 +522,34 @@ export const OperatorCounterPage: React.FC = () => {
                 />
               </SurfaceCard>
             ) : selectedTripId ? (
-              <SurfaceCard className="p-8 text-center text-xs text-[var(--gt-muted)]">
+              <SurfaceCard variant="glass" className="p-8 text-center text-xs text-gray-500 rounded-[28px]">
                 Chưa có cấu hình sơ đồ ghế cho chuyến này.
               </SurfaceCard>
             ) : null}
           </div>
 
           {/* Right Column (5 cols): Stops and Checkout Form */}
-          <SurfaceCard className="lg:col-span-5 p-6 space-y-5">
-            <h2 className="font-bold text-base text-[var(--gt-ink)] border-b border-[var(--gt-border)] pb-3">
+          <SurfaceCard variant="glass" className="lg:col-span-5 p-6 space-y-5 rounded-[28px] border border-white/80 shadow-glass">
+            <h2 className="font-bold text-base text-gray-900 border-b border-gray-100/80 pb-3">
               Thông tin bán vé tại quầy
             </h2>
 
             <form onSubmit={handleCashCheckout} className="space-y-4">
               {/* Stops Selection */}
-              <div className="space-y-3 p-4 bg-[var(--gt-canvas)] rounded-2xl border border-[var(--gt-border)]">
-                <h3 className="text-xs font-bold text-[var(--gt-ink)] flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[var(--gt-coral)]" />
+              <div className="space-y-3 p-4 bg-white/70 backdrop-blur-md rounded-2xl border border-white/80 shadow-2xs">
+                <h3 className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-[#FF385C]" />
                   Điểm đón & Điểm trả thực tế
                 </h3>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-[var(--gt-muted)] mb-1">
+                  <label className="block text-[11px] font-semibold text-gray-500 mb-1">
                     Điểm đón khách <span className="text-rose-600">*</span>
                   </label>
                   <select
                     value={selectedPickupStopId}
                     onChange={(e) => setSelectedPickupStopId(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-white border border-[var(--gt-border)] rounded-xl focus:border-[var(--gt-coral)] text-[var(--gt-ink)] outline-none font-medium"
+                    className="w-full px-3.5 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
                   >
                     {pickupStops.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -559,13 +560,13 @@ export const OperatorCounterPage: React.FC = () => {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-semibold text-[var(--gt-muted)] mb-1">
+                  <label className="block text-[11px] font-semibold text-gray-500 mb-1">
                     Điểm trả khách <span className="text-rose-600">*</span>
                   </label>
                   <select
                     value={selectedDropoffStopId}
                     onChange={(e) => setSelectedDropoffStopId(e.target.value)}
-                    className="w-full px-3 py-2 text-xs bg-white border border-[var(--gt-border)] rounded-xl focus:border-[var(--gt-coral)] text-[var(--gt-ink)] outline-none font-medium"
+                    className="w-full px-3.5 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
                   >
                     {dropoffStops.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -578,7 +579,7 @@ export const OperatorCounterPage: React.FC = () => {
 
               {/* Passenger Info */}
               <div>
-                <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Họ và tên hành khách <span className="text-rose-600">*</span>
                 </label>
                 <input
@@ -587,12 +588,12 @@ export const OperatorCounterPage: React.FC = () => {
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="VD: Trần Văn B"
-                  className="w-full px-3 py-2 text-xs bg-white border border-[var(--gt-border)] rounded-xl focus:border-[var(--gt-coral)] text-[var(--gt-ink)] outline-none font-medium"
+                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Số điện thoại <span className="text-rose-600">*</span>
                 </label>
                 <input
@@ -601,12 +602,12 @@ export const OperatorCounterPage: React.FC = () => {
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   placeholder="VD: 0912345678"
-                  className="w-full px-3 py-2 text-xs bg-white border border-[var(--gt-border)] rounded-xl focus:border-[var(--gt-coral)] text-[var(--gt-ink)] outline-none font-medium"
+                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1">
+                <label className="block text-xs font-semibold text-gray-700 mb-1">
                   Email (tùy chọn)
                 </label>
                 <input
@@ -614,22 +615,22 @@ export const OperatorCounterPage: React.FC = () => {
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
                   placeholder="Để trống sẽ dùng email quầy"
-                  className="w-full px-3 py-2 text-xs bg-white border border-[var(--gt-border)] rounded-xl focus:border-[var(--gt-coral)] text-[var(--gt-ink)] outline-none font-medium"
+                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>
 
               {/* Order Summary */}
-              <div className="pt-2 border-t border-[var(--gt-border)] space-y-2 text-xs">
-                <div className="flex justify-between text-[var(--gt-muted)]">
+              <div className="pt-2 border-t border-gray-100/80 space-y-2 text-xs">
+                <div className="flex justify-between text-gray-500 font-medium">
                   <span>Ghế đang chọn ({selectedSeats.length}):</span>
-                  <strong className="text-[var(--gt-ink)]">
+                  <strong className="text-gray-900 font-bold">
                     {selectedSeats.length > 0
                       ? selectedSeats.map((s) => s.code).join(', ')
                       : 'Chưa chọn'}
                   </strong>
                 </div>
                 <div className="flex justify-between items-center text-sm pt-1">
-                  <span className="font-bold text-[var(--gt-ink)]">Tổng tiền thu mặt:</span>
+                  <span className="font-bold text-gray-900">Tổng tiền thu mặt:</span>
                   <MoneyText
                     amount={totalAmount.toNumber()}
                     size="lg"
@@ -642,7 +643,7 @@ export const OperatorCounterPage: React.FC = () => {
               <Button
                 type="submit"
                 disabled={submitting || selectedSeats.length === 0}
-                className="w-full py-3 bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold rounded-2xl shadow-xs"
+                className="w-full py-3 bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold rounded-full shadow-md glow-coral-sm cursor-pointer"
               >
                 {submitting ? (
                   <>

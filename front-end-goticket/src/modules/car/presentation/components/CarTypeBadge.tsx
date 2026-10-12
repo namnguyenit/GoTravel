@@ -29,7 +29,7 @@ export const CarTypeBadge: React.FC<CarTypeBadgeProps> = ({
   return (
     <Badge
       variant="outline"
-      className={`border font-medium ${config.badgeClasses.border} ${config.badgeClasses.bg} ${config.badgeClasses.text} ${className}`}
+      className={`rounded-full px-3 py-0.5 text-xs font-semibold backdrop-blur-xs border ${config.badgeClasses.border} ${config.badgeClasses.bg} ${config.badgeClasses.text} ${className}`}
     >
       {label}
     </Badge>

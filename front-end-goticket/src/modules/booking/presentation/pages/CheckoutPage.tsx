@@ -152,7 +152,7 @@ export const CheckoutPage: React.FC = () => {
   return (
     <CustomerPageContainer className="space-y-6 pb-20">
       {/* Stepper Progress */}
-      <div className="bg-white rounded-3xl border border-gray-200/90 p-4 sm:p-6 shadow-2xs">
+      <div className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-4 sm:p-6 shadow-md">
         <div className="flex items-center justify-between max-w-2xl mx-auto">
           <div className="flex flex-col items-center gap-1.5 text-center">
             <div className="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs shadow-2xs">
@@ -171,7 +171,7 @@ export const CheckoutPage: React.FC = () => {
           <div className="flex-1 h-0.5 bg-[#FF385C] mx-2" />
 
           <div className="flex flex-col items-center gap-1.5 text-center">
-            <div className="w-8 h-8 rounded-full bg-[#FF385C] text-white flex items-center justify-center font-black text-xs ring-4 ring-[#FFF0F2] shadow-xs">
+            <div className="w-8 h-8 rounded-full bg-[#FF385C] text-white flex items-center justify-center font-black text-xs ring-4 ring-[#FFF0F2] shadow-xs glow-coral-sm">
               3
             </div>
             <span className="text-xs font-black text-[#FF385C]">Thanh toán</span>
@@ -179,7 +179,7 @@ export const CheckoutPage: React.FC = () => {
           <div className="flex-1 h-0.5 bg-gray-200 mx-2" />
 
           <div className="flex flex-col items-center gap-1.5 text-center">
-            <div className="w-8 h-8 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center font-bold text-xs">
+            <div className="w-8 h-8 rounded-full bg-white/80 border border-gray-200/60 text-gray-400 flex items-center justify-center font-bold text-xs shadow-2xs">
               4
             </div>
             <span className="text-xs font-semibold text-gray-400">Nhận vé QR</span>
@@ -189,9 +189,9 @@ export const CheckoutPage: React.FC = () => {
 
       {/* Expiration Banner */}
       {isExpired ? (
-        <div className="p-5 sm:p-6 bg-rose-50 rounded-3xl border border-rose-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div className="p-5 sm:p-6 bg-rose-50/90 backdrop-blur-md rounded-3xl border border-rose-300/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-3.5 text-rose-700">
-            <div className="w-10 h-10 rounded-2xl bg-rose-100 flex items-center justify-center shrink-0">
+            <div className="w-10 h-10 rounded-2xl bg-rose-100/90 border border-rose-200 flex items-center justify-center shrink-0 shadow-2xs">
               <Clock className="w-5 h-5 text-rose-600" />
             </div>
             <div>
@@ -203,23 +203,23 @@ export const CheckoutPage: React.FC = () => {
           </div>
           <Link
             to="/search"
-            className="px-5 py-2.5 bg-rose-600 text-white text-xs font-bold rounded-full hover:bg-rose-700 transition-colors shrink-0"
+            className="px-6 py-2.5 bg-rose-600 text-white text-xs font-bold rounded-full hover:bg-rose-700 shadow-xs transition-colors shrink-0"
           >
             Tìm chuyến xe khác
           </Link>
         </div>
       ) : (
         <div
-          className={`p-5 sm:p-6 rounded-3xl border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 transition-colors ${
+          className={`p-5 sm:p-6 rounded-3xl border backdrop-blur-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-md transition-all ${
             isLowTime
               ? 'bg-amber-50/90 border-amber-300 text-amber-900'
-              : 'bg-white border-gray-200/90 text-gray-900 shadow-2xs'
+              : 'bg-white/85 border-white/80 text-gray-900'
           }`}
         >
           <div className="flex items-center gap-3.5">
             <div
-              className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
-                isLowTime ? 'bg-amber-100 text-amber-700' : 'bg-[#FFF0F2] text-[#FF385C]'
+              className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-2xs ${
+                isLowTime ? 'bg-amber-100 text-amber-700 border border-amber-200' : 'bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20'
               }`}
             >
               <Clock className="w-5 h-5" />
@@ -251,8 +251,8 @@ export const CheckoutPage: React.FC = () => {
         {/* Left Column (7 cols): Order Details & Tickets */}
         <div className="lg:col-span-7 space-y-6">
           {/* Order Header Card */}
-          <div className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-7 space-y-4 shadow-2xs">
-            <div className="flex items-center justify-between border-b border-gray-100 pb-3.5">
+          <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-6 sm:p-7 space-y-4 shadow-sm">
+            <div className="flex items-center justify-between border-b border-gray-100/80 pb-3.5">
               <div>
                 <span className="text-[11px] font-bold uppercase tracking-wider text-gray-400">
                   Mã đơn đặt vé
@@ -261,7 +261,7 @@ export const CheckoutPage: React.FC = () => {
                   {order.orderNumber}
                 </p>
               </div>
-              <span className="px-3 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] text-xs font-bold">
+              <span className="px-3.5 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20 text-xs font-bold shadow-2xs">
                 {order.items.length} vé xe khách
               </span>
             </div>
@@ -330,7 +330,7 @@ export const CheckoutPage: React.FC = () => {
 
         {/* Right Column (5 cols): Payment Panel */}
         <div className="lg:col-span-5 sticky top-24 space-y-4">
-          <div className="bg-white rounded-3xl border border-gray-200/90 p-6 sm:p-7 space-y-6 shadow-2xs">
+          <div className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-6 sm:p-7 space-y-6 shadow-md">
             <h3 className="font-bold text-base text-[#111827] border-b border-gray-100 pb-3">
               Chi tiết thanh toán
             </h3>

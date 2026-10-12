@@ -160,39 +160,39 @@ export const AmendTicketPage: React.FC = () => {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
         {/* Form chỉnh sửa */}
         <div className="lg:col-span-7">
-          <SurfaceCard className="p-6 md:p-8">
-            <div className="flex items-center gap-2.5 border-b border-[var(--gt-border-soft)] pb-4">
-              <PencilLine className="h-5 w-5 text-[var(--gt-coral)]" />
-              <h2 className="text-base font-bold text-[var(--gt-ink)]">
+          <SurfaceCard variant="glass" className="p-6 md:p-8">
+            <div className="flex items-center gap-2.5 border-b border-gray-100/80 pb-4">
+              <PencilLine className="h-5 w-5 text-coral" />
+              <h2 className="text-base font-bold text-gray-900">
                 Cập nhật thông tin hành khách & điểm đón/trả
               </h2>
             </div>
 
             <form onSubmit={submit} className="mt-6 space-y-5">
               <div className="space-y-1.5">
-                <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                  Họ và tên hành khách <span className="text-[var(--gt-coral)]">*</span>
+                <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                  Họ và tên hành khách <span className="text-coral">*</span>
                 </label>
                 <input
                   required
                   maxLength={120}
                   value={passengerName}
                   onChange={(e) => setPassengerName(e.target.value)}
-                  className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)] focus:ring-2 focus:ring-[var(--gt-coral-soft)]"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
                   placeholder="Ví dụ: Nguyễn Văn A"
                 />
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                    Điểm đón khách <span className="text-[var(--gt-coral)]">*</span>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    Điểm đón khách <span className="text-coral">*</span>
                   </label>
                   <select
                     required
                     value={pickupStopId}
                     onChange={(e) => setPickupStopId(e.target.value)}
-                    className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)] focus:ring-2 focus:ring-[var(--gt-coral-soft)]"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
                   >
                     <option value="">Chọn điểm đón</option>
                     {pickupStops.map((stop) => (
@@ -204,14 +204,14 @@ export const AmendTicketPage: React.FC = () => {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                    Điểm trả khách <span className="text-[var(--gt-coral)]">*</span>
+                  <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                    Điểm trả khách <span className="text-coral">*</span>
                   </label>
                   <select
                     required
                     value={dropoffStopId}
                     onChange={(e) => setDropoffStopId(e.target.value)}
-                    className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-4 py-3 text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)] focus:ring-2 focus:ring-[var(--gt-coral-soft)]"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
                   >
                     <option value="">Chọn điểm trả</option>
                     {dropoffStops.map((stop) => (
@@ -234,7 +234,7 @@ export const AmendTicketPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="btn-coral flex w-full items-center justify-center gap-2 py-3.5 text-sm font-bold shadow-md disabled:opacity-50 sm:w-auto sm:px-8"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white py-3.5 text-sm font-bold shadow-md glow-coral-sm transition-all disabled:opacity-50 sm:w-auto sm:px-8 cursor-pointer"
                 >
                   {saving ? (
                     <RefreshCw className="h-4 w-4 animate-spin" />
@@ -250,16 +250,16 @@ export const AmendTicketPage: React.FC = () => {
 
         {/* Lịch sử chỉnh sửa */}
         <div className="lg:col-span-5">
-          <SurfaceCard className="p-6 md:p-8">
-            <div className="flex items-center gap-2.5 border-b border-[var(--gt-border-soft)] pb-4">
-              <History className="h-5 w-5 text-[var(--gt-muted)]" />
-              <h2 className="text-base font-bold text-[var(--gt-ink)]">
+          <SurfaceCard variant="glass" className="p-6 md:p-8">
+            <div className="flex items-center gap-2.5 border-b border-gray-100/80 pb-4">
+              <History className="h-5 w-5 text-gray-400" />
+              <h2 className="text-base font-bold text-gray-900">
                 Lịch sử các lần chỉnh sửa
               </h2>
             </div>
 
             {history.length === 0 ? (
-              <p className="mt-4 text-xs text-[var(--gt-muted)]">
+              <p className="mt-4 text-xs text-gray-400 font-medium">
                 Vé này chưa từng có yêu cầu sửa đổi thông tin.
               </p>
             ) : (
@@ -267,22 +267,22 @@ export const AmendTicketPage: React.FC = () => {
                 {history.map((row) => (
                   <div
                     key={row.commandId}
-                    className="rounded-2xl border border-[var(--gt-border)] bg-[var(--gt-surface-soft)] p-4 text-sm"
+                    className="rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xs p-4 text-sm shadow-2xs"
                   >
                     <div className="flex items-center justify-between">
-                      <strong className="text-sm font-bold text-[var(--gt-ink)]">
+                      <strong className="text-sm font-bold text-gray-900">
                         {row.passengerName}
                       </strong>
                       <StatusBadge status={row.status} />
                     </div>
 
-                    <p className="mt-1 text-xs text-[var(--gt-muted)]">
+                    <p className="mt-1 text-xs text-gray-500">
                       Lúc {new Date(row.createdAt).toLocaleString('vi-VN')}
                       {row.newRevision ? ` · Phiên bản: rev-${row.newRevision}` : ''}
                     </p>
 
                     {row.errorReason && (
-                      <p className="mt-2 text-xs text-[var(--gt-danger)]">
+                      <p className="mt-2 text-xs text-rose-600">
                         {row.errorReason}
                       </p>
                     )}
@@ -292,14 +292,14 @@ export const AmendTicketPage: React.FC = () => {
                         type="button"
                         disabled={saving}
                         onClick={() => void retry(row.commandId)}
-                        className="mt-3 inline-flex items-center gap-1.5 rounded-xl border border-[var(--gt-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--gt-ink)] transition hover:border-[var(--gt-coral)] hover:text-[var(--gt-coral)]"
+                        className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-800 transition hover:border-coral hover:text-coral cursor-pointer"
                       >
                         <RefreshCw className="h-3 w-3" /> Thử đồng bộ lại
                       </button>
                     )}
 
                     {row.status === 'PENDING' && (
-                      <p className="mt-2 flex items-center gap-1.5 text-xs text-[var(--gt-warning)]">
+                      <p className="mt-2 flex items-center gap-1.5 text-xs text-amber-600 font-medium">
                         <Clock className="h-3.5 w-3.5" /> Hệ thống đang đồng bộ
                       </p>
                     )}

@@ -38,15 +38,15 @@ export const TicketStubCard: React.FC<TicketStubCardProps> = ({
 }) => {
   return (
     <div
-      className={`relative bg-white rounded-3xl border border-gray-200/90 shadow-2xs overflow-hidden flex flex-col md:flex-row ${className}`}
+      className={`relative bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 shadow-md overflow-hidden flex flex-col md:flex-row ${className}`}
     >
       {/* Left / Main Stub */}
       <div className="flex-1 p-5 sm:p-6 space-y-4">
-        <div className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100">
+        <div className="flex items-center justify-between gap-3 pb-3 border-b border-gray-100/80">
           <div className="flex items-center gap-2">
             <span className="font-bold text-xs uppercase tracking-wider text-gray-500">Vé lên xe</span>
             {ticketCode && (
-              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded bg-gray-100 text-gray-700">
+              <span className="font-mono text-xs font-semibold px-2 py-0.5 rounded-full bg-white/80 border border-gray-200/60 text-gray-700 shadow-2xs">
                 #{ticketCode.slice(-6).toUpperCase()}
               </span>
             )}
@@ -84,7 +84,7 @@ export const TicketStubCard: React.FC<TicketStubCardProps> = ({
           </div>
         </div>
 
-        <div className="bg-[#FAF9F6] p-3.5 rounded-2xl space-y-2 border border-gray-100/80">
+        <div className="bg-white/70 backdrop-blur-sm p-3.5 rounded-2xl space-y-2 border border-white/80 shadow-2xs">
           <div className="flex items-start gap-2 text-xs">
             <MapPin className="w-3.5 h-3.5 text-[#FF385C] shrink-0 mt-0.5" />
             <div className="min-w-0">
@@ -114,17 +114,17 @@ export const TicketStubCard: React.FC<TicketStubCardProps> = ({
 
       {/* Perforation Divider on Desktop */}
       <div className="hidden md:flex flex-col items-center justify-between py-3 relative w-0">
-        <div className="w-4 h-4 rounded-full bg-[#FAF9F6] -mt-5 border-b border-gray-200/90" />
+        <div className="w-4 h-4 rounded-full bg-[#FAF9F6] -mt-5 border-b border-gray-200/90 shadow-inner" />
         <div className="w-0.5 h-full border-r border-dashed border-gray-300" />
-        <div className="w-4 h-4 rounded-full bg-[#FAF9F6] -mb-5 border-t border-gray-200/90" />
+        <div className="w-4 h-4 rounded-full bg-[#FAF9F6] -mb-5 border-t border-gray-200/90 shadow-inner" />
       </div>
 
       {/* Right / QR Stub */}
-      <div className="md:w-56 bg-gray-50/70 p-5 sm:p-6 flex flex-col items-center justify-center text-center border-t md:border-t-0 md:border-l border-gray-100">
+      <div className="md:w-56 bg-white/70 backdrop-blur-md p-5 sm:p-6 flex flex-col items-center justify-center text-center border-t md:border-t-0 md:border-l border-white/60">
         {qrSlot ? (
           qrSlot
         ) : (
-          <div className="p-3 bg-white rounded-2xl shadow-xs border border-gray-200/80 mb-2">
+          <div className="p-3 bg-white rounded-2xl shadow-md border border-white/90 mb-2">
             <QrCode className="w-20 h-20 text-gray-800" />
           </div>
         )}
@@ -132,7 +132,7 @@ export const TicketStubCard: React.FC<TicketStubCardProps> = ({
           Mã vé điện tử QR
         </span>
         {price && (
-          <div className="mt-2 pt-2 border-t border-gray-200/80 w-full text-center">
+          <div className="mt-2 pt-2 border-t border-gray-200/60 w-full text-center">
             <span className="text-[11px] text-gray-400 block">Thành tiền</span>
             <MoneyText amount={price} size="sm" variant="coral" />
           </div>

@@ -46,6 +46,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 
 type Mode =
   | 'offers'
@@ -521,6 +522,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       {/* Editorial Page Header */}
       <PageHeader
         title={page.title}
+        eyebrow="Trung tâm Tác nghiệp Điều hành Admin"
         description={page.description}
         breadcrumbs={[
           { label: 'Admin GoTicket', to: '/admin' },
@@ -528,7 +530,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         ]}
         actions={
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline-flex items-center px-3 py-1 rounded-full bg-coral-soft text-coral text-xs font-semibold">
+            <span className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] text-xs font-bold border border-[var(--gt-coral)]/20 shadow-xs">
               {rows.length} mục dữ liệu
             </span>
             <Button
@@ -536,9 +538,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               size="sm"
               onClick={() => void load()}
               disabled={loading}
-              className="gap-2"
+              className="rounded-full border-white/80 bg-white/80 backdrop-blur-md shadow-xs gap-2 px-4 py-2 text-xs font-bold"
             >
-              <RefreshCcw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCcw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
               <span>Tải lại</span>
             </Button>
           </div>
@@ -547,62 +549,65 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
       {/* Notifications and Alerts */}
       {error && (
-        <div className="flex items-start gap-2.5 rounded-2xl border border-rose-200 bg-rose-50 p-4 text-xs sm:text-sm text-rose-800">
+        <div className="flex items-start gap-2.5 rounded-[24px] border border-rose-200/80 bg-rose-50/80 backdrop-blur-md p-4 text-xs sm:text-sm text-rose-800 shadow-xs">
           <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" />
-          <span>{error}</span>
+          <span className="font-medium">{error}</span>
         </div>
       )}
 
       {notice && (
-        <div className="flex items-start gap-2.5 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-xs sm:text-sm text-emerald-800">
+        <div className="flex items-start gap-2.5 rounded-[24px] border border-emerald-200/80 bg-emerald-50/80 backdrop-blur-md p-4 text-xs sm:text-sm text-emerald-800 shadow-xs">
           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" />
-          <span>{notice}</span>
+          <span className="font-medium">{notice}</span>
         </div>
       )}
 
       {/* MODE 1: CANCELLATIONS */}
       {mode === 'cancellations' && (
         <div className="space-y-6">
-          <SurfaceCard className="p-6 space-y-4">
-            <h2 className="font-serif font-bold text-base text-ink flex items-center gap-2">
-              <Ban className="w-5 h-5 text-coral" />
-              <span>Khởi tạo Hủy chuyến cấp Quản trị</span>
-            </h2>
-            <p className="text-xs text-muted">
-              Hủy toàn bộ chuyến xe, tự động giải phóng ghế, đánh dấu hủy vé và chuyển các đơn đã thanh toán sang trạng thái hoàn tiền saga.
-            </p>
+          <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
+            <div className="space-y-1">
+              <h2 className="font-black text-base text-[var(--gt-ink)] flex items-center gap-2">
+                <Ban className="w-5 h-5 text-[var(--gt-coral)]" />
+                <span>Khởi tạo Hủy chuyến cấp Quản trị</span>
+              </h2>
+              <p className="text-xs text-[var(--gt-muted)]">
+                Hủy toàn bộ chuyến xe, tự động giải phóng ghế, đánh dấu hủy vé và chuyển các đơn đã thanh toán sang trạng thái hoàn tiền saga.
+              </p>
+            </div>
 
             <div className="grid gap-4 sm:grid-cols-[1fr_1.8fr]">
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-ink">Mã UUID Chuyến xe</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[var(--gt-ink)]">Mã UUID Chuyến xe</label>
                 <input
                   type="text"
                   value={tripId}
                   onChange={(e) => setTripId(e.target.value)}
                   placeholder="Nhập UUID chuyến xe cần hủy..."
-                  className="w-full h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                  className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
                 />
               </div>
-              <div className="space-y-1">
-                <label className="text-xs font-semibold text-ink">Lý do hủy chuyến (bắt buộc)</label>
+              <div className="space-y-1.5">
+                <label className="text-xs font-bold text-[var(--gt-ink)]">Lý do hủy chuyến (bắt buộc)</label>
                 <input
                   type="text"
                   value={cancelReason}
                   onChange={(e) => setCancelReason(e.target.value)}
                   placeholder="Lý do hủy chuyến (Ví dụ: Thời tiết bão lũ, sự cố kỹ thuật xe...)"
                   maxLength={500}
-                  className="w-full h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                  className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
                 />
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-line">
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[var(--gt-border)]/60">
               <div className="flex flex-wrap items-center gap-2">
                 <Button
                   variant="outline"
                   size="sm"
                   disabled={busy !== '' || !tripId.trim()}
                   onClick={() => void checkCancellation()}
+                  className="rounded-full text-xs font-bold px-4 py-2 border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                 >
                   Kiểm tra tiến trình
                 </Button>
@@ -611,6 +616,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   size="sm"
                   disabled={busy !== '' || !tripId.trim()}
                   onClick={() => setAdminLifecycle('DEPARTED')}
+                  className="rounded-full text-xs font-bold px-4 py-2 border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                 >
                   Đánh dấu Đã khởi hành
                 </Button>
@@ -619,6 +625,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   size="sm"
                   disabled={busy !== '' || !tripId.trim()}
                   onClick={() => setAdminLifecycle('COMPLETED')}
+                  className="rounded-full text-xs font-bold px-4 py-2 border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                 >
                   Đánh dấu Hoàn thành
                 </Button>
@@ -629,6 +636,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 size="sm"
                 disabled={busy !== '' || !tripId.trim() || !cancelReason.trim()}
                 onClick={() => void submitCancellation()}
+                className="rounded-full text-xs font-bold px-5 py-2.5 shadow-xs"
               >
                 Hủy chuyến xe
               </Button>
@@ -637,13 +645,13 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
           {/* Cancellation Progress Structured Card */}
           {cancelProgress && (
-            <SurfaceCard className="p-6 space-y-4">
-              <div className="flex items-center justify-between">
+            <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
+              <div className="flex items-center justify-between border-b border-[var(--gt-border)]/60 pb-3">
                 <div className="space-y-0.5">
-                  <h3 className="font-serif font-bold text-base text-ink">
+                  <h3 className="font-bold text-base text-[var(--gt-ink)]">
                     Tiến trình Hủy chuyến Saga
                   </h3>
-                  <p className="text-xs text-muted">
+                  <p className="text-xs text-[var(--gt-muted)]">
                     Trạng thái phân tán: Giải phóng ghế & hoàn tiền đơn hàng
                   </p>
                 </div>
@@ -653,25 +661,25 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                <div className="rounded-xl border border-line bg-canvas p-3">
-                  <span className="text-[10px] text-muted font-bold uppercase">Mã chuyến</span>
-                  <IdText id={tripId} />
+                <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Mã chuyến</span>
+                  <div className="mt-1"><IdText id={tripId} /></div>
                 </div>
-                <div className="rounded-xl border border-line bg-canvas p-3">
-                  <span className="text-[10px] text-muted font-bold uppercase">Số vé đã xử lý</span>
-                  <span className="text-sm font-bold text-ink block mt-0.5">
+                <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Số vé đã xử lý</span>
+                  <span className="text-base font-black text-[var(--gt-ink)] block mt-0.5">
                     {cancelProgress.processedTickets ?? cancelProgress.refundedCount ?? '—'}
                   </span>
                 </div>
-                <div className="rounded-xl border border-line bg-canvas p-3">
-                  <span className="text-[10px] text-muted font-bold uppercase">Tổng tiền hoàn</span>
-                  <span className="text-sm font-bold text-coral block mt-0.5">
+                <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Tổng tiền hoàn</span>
+                  <span className="text-base font-black text-[var(--gt-coral)] block mt-0.5 font-mono">
                     {formatVnd(String(cancelProgress.totalRefundAmount ?? 0))}
                   </span>
                 </div>
-                <div className="rounded-xl border border-line bg-canvas p-3">
-                  <span className="text-[10px] text-muted font-bold uppercase">Lỗi ngoại lệ</span>
-                  <span className="text-sm font-bold text-rose-600 block mt-0.5">
+                <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Lỗi ngoại lệ</span>
+                  <span className="text-base font-black text-rose-600 block mt-0.5">
                     {cancelProgress.errors?.length ?? 0}
                   </span>
                 </div>
@@ -682,14 +690,14 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 <button
                   type="button"
                   onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-                  className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--gt-coral)] hover:underline"
                 >
                   {showTechnicalDetails ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
                   <span>{showTechnicalDetails ? 'Ẩn chi tiết kỹ thuật' : 'Xem chi tiết kỹ thuật (Saga Payload)'}</span>
                 </button>
 
                 {showTechnicalDetails && (
-                  <pre className="mt-3 max-h-72 overflow-auto rounded-xl border border-line bg-canvas p-4 text-[11px] font-mono text-ink">
+                  <pre className="mt-3 max-h-72 overflow-auto rounded-2xl border border-white/80 bg-white/80 backdrop-blur-md p-4 text-[11px] font-mono text-[var(--gt-ink)] shadow-xs">
                     {JSON.stringify(cancelProgress, null, 2)}
                   </pre>
                 )}
@@ -701,20 +709,20 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
       {/* MODE 2 & 7: POLICIES & PAYOUTS COMMISSION BAR */}
       {(mode === 'payouts' || mode === 'policies') && (
-        <SurfaceCard className="p-6 space-y-4">
+        <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
           <div className="space-y-0.5">
-            <h2 className="font-serif font-bold text-base text-ink flex items-center gap-2">
-              <Coins className="w-5 h-5 text-coral" />
+            <h2 className="font-bold text-base text-[var(--gt-ink)] flex items-center gap-2">
+              <Coins className="w-5 h-5 text-[var(--gt-coral)]" />
               <span>Cấu hình Tỷ lệ Hoa hồng Sàn GoTicket</span>
             </h2>
-            <p className="text-xs text-muted">
+            <p className="text-xs text-[var(--gt-muted)]">
               Tỷ lệ phần trăm doanh thu sàn khấu trừ trên mỗi vé bán thành công.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-end gap-4">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-ink">
+          <div className="flex flex-wrap items-end gap-3.5 pt-1">
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
                 Tỷ lệ hoa hồng (0 – 0.5)
               </label>
               <input
@@ -724,12 +732,12 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 step="0.0001"
                 value={commissionRate}
                 onChange={(e) => setCommissionRate(e.target.value)}
-                className="w-40 h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-44 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
             </div>
 
-            <div className="space-y-1 flex-1 min-w-[240px]">
-              <label className="text-xs font-semibold text-ink">
+            <div className="space-y-1.5 flex-1 min-w-[240px]">
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
                 Lý do điều chỉnh chính sách
               </label>
               <input
@@ -737,7 +745,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 value={commissionReason}
                 onChange={(e) => setCommissionReason(e.target.value)}
                 placeholder={String(commission?.reason ?? 'Nhập lý do thay đổi...')}
-                className="w-full h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
             </div>
 
@@ -746,6 +754,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               size="sm"
               disabled={busy !== ''}
               onClick={saveCommission}
+              className="h-11 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-6 font-bold"
             >
               Lưu hoa hồng
             </Button>
@@ -755,13 +764,13 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
       {/* CASH COMMISSION SETTLEMENT FOR PAYOUTS */}
       {mode === 'payouts' && (
-        <SurfaceCard className="p-6 space-y-4">
+        <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
           <div className="space-y-0.5">
-            <h2 className="font-serif font-bold text-base text-ink flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-coral" />
+            <h2 className="font-bold text-base text-[var(--gt-ink)] flex items-center gap-2">
+              <CreditCard className="w-5 h-5 text-[var(--gt-coral)]" />
               <span>Đối soát & Quyết toán Hoa hồng Tiền mặt</span>
             </h2>
-            <p className="text-xs text-muted">
+            <p className="text-xs text-[var(--gt-muted)]">
               Tổng kết thu chi ca bán vé tiền mặt tại quầy của các đối tác nhà xe.
             </p>
           </div>
@@ -776,11 +785,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               { label: 'Hoa hồng đã nộp', key: 'commissionPaid', isMoney: true },
               { label: 'Còn thiếu', key: 'outstandingAmount', isMoney: true },
             ].map(({ label, key, isMoney }) => (
-              <div key={key} className="rounded-xl border border-line bg-canvas p-3">
-                <span className="block text-[10px] font-bold uppercase text-muted">
+              <div key={key} className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+                <span className="block text-[10px] font-bold uppercase text-[var(--gt-muted)] tracking-wider">
                   {label}
                 </span>
-                <strong className="mt-1 block text-sm font-bold text-ink">
+                <strong className="mt-1 block text-sm font-black text-[var(--gt-ink)] font-mono">
                   {isMoney
                     ? formatVnd(String(cashSummary?.[key] ?? 0))
                     : String(cashSummary?.[key] ?? 0)}
@@ -789,27 +798,27 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             ))}
           </div>
 
-          <div className="flex flex-wrap items-end gap-3 pt-3 border-t border-line">
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-ink">Mã ca tiền mặt</label>
+          <div className="flex flex-wrap items-end gap-3.5 pt-3 border-t border-[var(--gt-border)]/60">
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-[var(--gt-ink)]">Mã ca tiền mặt</label>
               <input
                 type="text"
                 value={cashShiftId}
                 onChange={(e) => setCashShiftId(e.target.value)}
                 placeholder="UUID ca tiền mặt..."
-                className="w-64 h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-64 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
             </div>
 
-            <div className="space-y-1">
-              <label className="text-xs font-semibold text-ink">Số tiền hoa hồng</label>
+            <div className="space-y-1.5">
+              <label className="text-xs font-bold text-[var(--gt-ink)]">Số tiền hoa hồng</label>
               <input
                 type="text"
                 inputMode="numeric"
                 value={cashAmount}
                 onChange={(e) => setCashAmount(e.target.value.replace(/\D/g, ''))}
                 placeholder="Số tiền VND..."
-                className="w-44 h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-48 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
             </div>
 
@@ -818,6 +827,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               size="sm"
               disabled={busy !== ''}
               onClick={markCashCommissionPaid}
+              className="h-11 rounded-full text-xs font-bold px-5 border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
             >
               Ghi nhận đã nộp
             </Button>
@@ -827,12 +837,12 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
       {/* BACKEND-FIXED POLICIES NOTICE */}
       {mode === 'policies' && (
-        <SurfaceCard className="p-6 space-y-2 border-amber-200 bg-amber-50/60">
-          <h2 className="font-serif font-bold text-base text-amber-950 flex items-center gap-2">
+        <SurfaceCard className="p-6 sm:p-7 space-y-2 rounded-[32px] border-amber-400/40 bg-amber-500/10 backdrop-blur-xl shadow-glass">
+          <h2 className="font-bold text-base text-amber-950 flex items-center gap-2">
             <AlertOctagon className="w-5 h-5 text-amber-700" />
             <span>Chính sách nghiệp vụ được backend kiểm soát</span>
           </h2>
-          <p className="text-xs text-amber-900 leading-relaxed">
+          <p className="text-xs text-amber-900 leading-relaxed font-medium">
             Các chính sách như thời hạn giữ ghế tạm (hold TTL: 15 phút), điều kiện đổi vé, phí hủy vé tự động, thuế VAT và mã giảm giá hiện đang được cố định an toàn trong logic nghiệp vụ của backend. Giao diện không dựng các biểu mẫu lưu cấu hình giả lập.
           </p>
         </SurfaceCard>
@@ -840,19 +850,19 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
       {/* MAIN DATA TABLE FOR GENERAL MODES */}
       {mode !== 'cancellations' && mode !== 'policies' && (
-        <SurfaceCard className="p-0 overflow-hidden">
-          <div className="p-4 sm:p-5 border-b border-line flex items-center justify-between">
-            <h2 className="font-serif font-bold text-base text-ink">
+        <SurfaceCard className="p-0 overflow-hidden rounded-[32px]">
+          <div className="p-5 sm:p-6 border-b border-[var(--gt-border)]/60 flex items-center justify-between">
+            <h2 className="font-black text-base text-[var(--gt-ink)]">
               Danh sách Hồ sơ Vận hành ({rows.length})
             </h2>
           </div>
 
           {loading ? (
-            <div className="p-12">
+            <div className="p-14">
               <LoadingState message="Đang tải dữ liệu hồ sơ..." />
             </div>
           ) : rows.length === 0 ? (
-            <div className="p-12">
+            <div className="p-14">
               <EmptyState
                 title="Không có hồ sơ nào cần xử lý"
                 description="Tất cả các nghiệp vụ trong phân hệ này đã được đồng bộ hoàn tất."
@@ -861,16 +871,16 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-line bg-canvas/70 font-semibold text-muted uppercase tracking-wider text-[11px]">
-                  <tr>
-                    <th className="px-5 py-3.5">Mã ID</th>
-                    <th className="px-5 py-3.5">Đối tượng</th>
-                    <th className="px-5 py-3.5">Trạng thái</th>
-                    <th className="px-5 py-3.5">Chi tiết / Giá trị</th>
-                    <th className="px-5 py-3.5 text-right">Xử lý</th>
+                <thead>
+                  <tr className="border-b border-[var(--gt-border)]/60 bg-white/50 backdrop-blur-xs font-bold text-[var(--gt-muted)] uppercase tracking-wider text-[11px]">
+                    <th className="px-5 py-4">Mã ID</th>
+                    <th className="px-5 py-4">Đối tượng</th>
+                    <th className="px-5 py-4">Trạng thái</th>
+                    <th className="px-5 py-4">Chi tiết / Giá trị</th>
+                    <th className="px-5 py-4 text-right">Xử lý</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line/60">
+                <tbody className="divide-y divide-white/60">
                   {rows.map((row, index) => {
                     const id =
                       row.listingId ??
@@ -887,15 +897,15 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                       (row.isActive === false ? 'BANNED' : 'ACTIVE');
 
                     return (
-                      <tr key={String(id)} className="hover:bg-coral-soft/20 transition-colors">
-                        <td className="px-5 py-4 font-mono font-bold text-ink">
+                      <tr key={String(id)} className="hover:bg-white/60 transition-colors">
+                        <td className="px-5 py-4 font-mono font-bold text-[var(--gt-ink)]">
                           <IdText id={id} />
                         </td>
                         <td className="px-5 py-4">
-                          <strong className="block text-ink text-xs font-semibold">
+                          <strong className="block text-[var(--gt-ink)] text-xs font-bold">
                             {row.title ?? row.name ?? row.orderNumber ?? row.providerType ?? row.message ?? 'Hồ sơ vận tải'}
                           </strong>
-                          <span className="text-muted text-[11px] block mt-0.5">
+                          <span className="text-[var(--gt-muted)] text-[11px] block mt-0.5 font-medium">
                             {row.hostId
                               ? `Nhà cung cấp: ${String(row.hostId).slice(0, 8)}...`
                               : row.createdAt
@@ -906,7 +916,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                         <td className="px-5 py-4">
                           <StatusBadge status={String(status)} size="sm" />
                         </td>
-                        <td className="px-5 py-4 text-muted max-w-sm">
+                        <td className="px-5 py-4 text-[var(--gt-muted)] max-w-sm">
                           {mode === 'payouts' ? (
                             <MoneyText
                               amount={row.hostAmount ?? row.totalAmount ?? 0}
@@ -914,7 +924,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                               size="sm"
                             />
                           ) : (
-                            <span className="text-xs text-ink block">
+                            <span className="text-xs text-[var(--gt-ink)] block font-medium">
                               {String(row.description ?? row.reason ?? row.detail ?? row.totalAmount ?? '—')}
                             </span>
                           )}
@@ -929,7 +939,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                   size="sm"
                                   disabled={busy !== ''}
                                   onClick={() => updateOffer(row, 'ACTIVE')}
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
                                 >
                                   Duyệt
                                 </Button>
@@ -938,7 +948,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                   size="sm"
                                   disabled={busy !== ''}
                                   onClick={() => updateOffer(row, 'HIDDEN')}
-                                  className="h-7 text-xs border-rose-200 text-rose-700 hover:bg-rose-50"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-rose-200/80 text-rose-700 hover:bg-rose-50 shadow-xs"
                                 >
                                   Ẩn
                                 </Button>
@@ -959,7 +969,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       'Đã mở hồ sơ rà soát hoàn tiền.'
                                     )
                                   }
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                                 >
                                   Mở rà soát
                                 </Button>
@@ -968,7 +978,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                   size="sm"
                                   disabled={busy !== ''}
                                   onClick={() => openRefundModal(row)}
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
                                 >
                                   Ghi nhận hoàn
                                 </Button>
@@ -989,7 +999,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       'Đã yêu cầu worker xử lý lại nghiệp vụ.'
                                     )
                                   }
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                                 >
                                   Chạy lại
                                 </Button>
@@ -1004,7 +1014,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       'Đã yêu cầu dừng nghiệp vụ.'
                                     )
                                   }
-                                  className="h-7 text-xs border-rose-200 text-rose-700 hover:bg-rose-50"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-rose-200/80 text-rose-700 hover:bg-rose-50 shadow-xs"
                                 >
                                   Dừng
                                 </Button>
@@ -1014,7 +1024,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                     size="sm"
                                     disabled={busy !== ''}
                                     onClick={() => openRefundModal(row)}
-                                    className="h-7 text-xs"
+                                    className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
                                   >
                                     Ghi nhận hoàn
                                   </Button>
@@ -1036,7 +1046,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       'Đã quét lại đơn hàng thành công.'
                                     )
                                   }
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                                 >
                                   Quét lại
                                 </Button>
@@ -1059,7 +1069,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       },
                                     });
                                   }}
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                                 >
                                   Ghi chú
                                 </Button>
@@ -1073,7 +1083,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                 size="sm"
                                 disabled={busy !== ''}
                                 onClick={() => openPayoutModal(row)}
-                                className="h-7 text-xs"
+                                className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-4 font-bold"
                               >
                                 Đánh dấu đã chi
                               </Button>
@@ -1103,10 +1113,10 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       },
                                     });
                                   }}
-                                  className={`h-7 text-xs ${
+                                  className={`h-8 rounded-full text-xs px-3 font-bold shadow-xs ${
                                     row.isActive === false
-                                      ? 'border-emerald-200 text-emerald-700 hover:bg-emerald-50'
-                                      : 'border-rose-200 text-rose-700 hover:bg-rose-50'
+                                      ? 'border-emerald-200/80 text-emerald-700 hover:bg-emerald-50'
+                                      : 'border-rose-200/80 text-rose-700 hover:bg-rose-50'
                                   }`}
                                 >
                                   {row.isActive === false ? 'Mở khóa' : 'Khóa'}
@@ -1123,7 +1133,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       role: 'TICKET_VENDOR',
                                     })
                                   }
-                                  className="h-7 text-xs"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                                 >
                                   Cấp quyền
                                 </Button>
@@ -1139,7 +1149,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                       role: 'TICKET_VENDOR',
                                     })
                                   }
-                                  className="h-7 text-xs border-amber-200 text-amber-700 hover:bg-amber-50"
+                                  className="h-8 rounded-full text-xs px-3 font-bold border-amber-200/80 text-amber-700 hover:bg-amber-50 shadow-xs"
                                 >
                                   Thu hồi
                                 </Button>
@@ -1160,7 +1170,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       {/* SECONDARY ROWS FOR RECONCILIATION */}
       {mode === 'reconciliation' && secondaryRows.length > 0 && (
         <SurfaceCard className="p-6 space-y-4">
-          <h2 className="font-serif font-bold text-base text-ink">
+          <h2 className="text-base font-black text-[var(--gt-ink)] tracking-tight">
             Thông báo Lỗi & Ngoại lệ Đổi vé ({secondaryRows.length})
           </h2>
           <div className="space-y-2.5">
@@ -1169,13 +1179,13 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               return (
                 <div
                   key={`${row._kind}-${id}`}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-canvas p-3.5 text-xs"
+                  className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-4 text-xs shadow-xs"
                 >
                   <div>
-                    <strong className="text-ink font-semibold">
+                    <strong className="text-[var(--gt-ink)] font-bold">
                       {row._kind === 'NOTIFICATION' ? 'Thông báo email chưa gửi' : 'Ngoại lệ đổi vé'}
                     </strong>
-                    <p className="mt-0.5 text-muted">
+                    <p className="mt-0.5 text-[var(--gt-muted)]">
                       {row.message ?? row.reason ?? String(id)}
                     </p>
                   </div>
@@ -1191,7 +1201,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                           'Đã đưa thông báo vào hàng đợi gửi lại.'
                         )
                       }
-                      className="h-7 text-xs"
+                      className="h-8 rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white text-xs px-4 font-bold shadow-coral-sm"
                     >
                       Gửi lại
                     </Button>
@@ -1215,7 +1225,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                           },
                         });
                       }}
-                      className="h-7 text-xs"
+                      className="h-8 rounded-full border-white/80 bg-white/70 hover:bg-white text-[var(--gt-ink)] text-xs px-4 font-bold shadow-xs"
                     >
                       Đóng ngoại lệ
                     </Button>
@@ -1231,43 +1241,43 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       {mode === 'reconciliation' && (
         <SurfaceCard className="p-6 space-y-4">
           <div className="space-y-0.5">
-            <h2 className="font-serif font-bold text-base text-ink">
+            <h2 className="text-base font-black text-[var(--gt-ink)] tracking-tight">
               Đổi vé Hỗ trợ Giữa hai Đơn đã Thanh toán
             </h2>
-            <p className="text-xs text-muted">
+            <p className="text-xs text-[var(--gt-muted)]">
               Dành cho hồ sơ legacy cần đối chiếu thủ công; luồng đổi từng vé của khách vẫn chạy qua item operation.
             </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-ink">Mã đơn cũ</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">Mã đơn cũ</label>
               <input
                 type="text"
                 value={exchangeOldOrderId}
                 onChange={(e) => setExchangeOldOrderId(e.target.value)}
                 placeholder="UUID đơn cũ..."
-                className="w-full h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-ink">Mã đơn mới</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">Mã đơn mới</label>
               <input
                 type="text"
                 value={exchangeNewOrderId}
                 onChange={(e) => setExchangeNewOrderId(e.target.value)}
                 placeholder="UUID đơn mới..."
-                className="w-full h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-semibold text-ink">Lý do hỗ trợ</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">Lý do hỗ trợ</label>
               <input
                 type="text"
                 value={exchangeReason}
                 onChange={(e) => setExchangeReason(e.target.value)}
                 placeholder="Lý do đổi vé hỗ trợ..."
-                className="w-full h-10 px-3 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
@@ -1282,14 +1292,15 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               !exchangeReason.trim()
             }
             onClick={() => void createAssistedExchange()}
+            className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 py-2 text-xs font-bold shadow-coral-sm"
           >
             Tạo hồ sơ đổi vé
           </Button>
 
           {exchangeCase && (
-            <div className="mt-3 rounded-xl border border-line bg-canvas p-4 text-xs font-mono text-ink">
+            <div className="mt-3 rounded-2xl border border-white/80 bg-white/80 backdrop-blur-md p-4 text-xs font-mono text-[var(--gt-ink)] shadow-xs">
               <h4 className="font-bold mb-2">Hồ sơ đổi vé đã tạo:</h4>
-              <pre>{JSON.stringify(exchangeCase, null, 2)}</pre>
+              <pre className="overflow-x-auto text-[11px]">{JSON.stringify(exchangeCase, null, 2)}</pre>
             </div>
           )}
         </SurfaceCard>
@@ -1300,30 +1311,30 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         open={refundDialog.open}
         onOpenChange={(open) => setRefundDialog((d) => ({ ...d, open }))}
       >
-        <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
-          <DialogHeader className="space-y-1 text-left">
-            <DialogTitle className="text-lg font-serif font-bold text-ink">
+        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
+          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
+            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
               Ghi nhận Hoàn tiền Thủ công
             </DialogTitle>
-            <DialogDescription className="text-xs text-muted">
+            <DialogDescription className="text-xs text-[var(--gt-muted)]">
               Nhập chứng từ và số tiền hoàn trả cho khách hàng
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-3 py-2 text-xs">
+          <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Số tiền hoàn (VND) *</label>
+              <label className="font-bold text-[var(--gt-ink)]">Số tiền hoàn (VND) *</label>
               <input
                 type="text"
                 value={refundDialog.amount}
                 onChange={(e) =>
                   setRefundDialog((d) => ({ ...d, amount: e.target.value }))
                 }
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all"
               />
             </div>
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Mã tham chiếu giao dịch *</label>
+              <label className="font-bold text-[var(--gt-ink)]">Mã tham chiếu giao dịch *</label>
               <input
                 type="text"
                 value={refundDialog.reference}
@@ -1331,11 +1342,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setRefundDialog((d) => ({ ...d, reference: e.target.value }))
                 }
                 placeholder="Ví dụ: REFUND_VNPAY_123456"
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Đường dẫn bằng chứng / biên lai</label>
+              <label className="font-bold text-[var(--gt-ink)]">Đường dẫn bằng chứng / biên lai</label>
               <input
                 type="text"
                 value={refundDialog.evidenceUrl}
@@ -1343,16 +1354,17 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setRefundDialog((d) => ({ ...d, evidenceUrl: e.target.value }))
                 }
                 placeholder="https://..."
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
 
-          <DialogFooter className="gap-2 sm:justify-end pt-2">
+          <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setRefundDialog((d) => ({ ...d, open: false }))}
+              className="rounded-full px-5 text-xs font-semibold"
             >
               Hủy
             </Button>
@@ -1361,6 +1373,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               size="sm"
               disabled={!refundDialog.amount.trim() || !refundDialog.reference.trim()}
               onClick={handleConfirmRefund}
+              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
             >
               Lưu bằng chứng hoàn
             </Button>
@@ -1373,19 +1386,19 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         open={cashPaidDialog.open}
         onOpenChange={(open) => setCashPaidDialog((d) => ({ ...d, open }))}
       >
-        <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
-          <DialogHeader className="space-y-1 text-left">
-            <DialogTitle className="text-lg font-serif font-bold text-ink">
+        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
+          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
+            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
               Ghi nhận Nộp Hoa hồng Tiền mặt
             </DialogTitle>
-            <DialogDescription className="text-xs text-muted">
+            <DialogDescription className="text-xs text-[var(--gt-muted)]">
               Xác nhận đã thu hoa hồng cho ca #{cashShiftId} với số tiền {formatVnd(cashAmount)}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-3 py-2 text-xs">
+          <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Mã tham chiếu chứng từ *</label>
+              <label className="font-bold text-[var(--gt-ink)]">Mã tham chiếu chứng từ *</label>
               <input
                 type="text"
                 value={cashPaidDialog.reference}
@@ -1393,11 +1406,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setCashPaidDialog((d) => ({ ...d, reference: e.target.value }))
                 }
                 placeholder="Ví dụ: CASH_RECEIPT_0987"
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Đường dẫn biên lai</label>
+              <label className="font-bold text-[var(--gt-ink)]">Đường dẫn biên lai</label>
               <input
                 type="text"
                 value={cashPaidDialog.evidenceUrl}
@@ -1405,16 +1418,17 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setCashPaidDialog((d) => ({ ...d, evidenceUrl: e.target.value }))
                 }
                 placeholder="https://..."
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
 
-          <DialogFooter className="gap-2 sm:justify-end pt-2">
+          <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setCashPaidDialog((d) => ({ ...d, open: false }))}
+              className="rounded-full px-5 text-xs font-semibold"
             >
               Hủy
             </Button>
@@ -1423,6 +1437,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               size="sm"
               disabled={!cashPaidDialog.reference.trim()}
               onClick={handleConfirmCashPaid}
+              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
             >
               Xác nhận đã nộp
             </Button>
@@ -1435,31 +1450,32 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         open={noteDialog.open}
         onOpenChange={(open) => setNoteDialog((d) => ({ ...d, open }))}
       >
-        <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
-          <DialogHeader className="space-y-1 text-left">
-            <DialogTitle className="text-lg font-serif font-bold text-ink">
+        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
+          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
+            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
               {noteDialog.title}
             </DialogTitle>
-            <DialogDescription className="text-xs text-muted">
+            <DialogDescription className="text-xs text-[var(--gt-muted)]">
               {noteDialog.description}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-3 py-2 text-xs">
+          <div className="space-y-3.5 py-2 text-xs">
             <textarea
               rows={3}
               value={noteInput}
               onChange={(e) => setNoteInput(e.target.value)}
               placeholder="Nhập nội dung ghi chú..."
-              className="w-full p-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink text-xs"
+              className="w-full p-3.5 bg-white/80 border border-white/80 rounded-2xl focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] text-xs shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
             />
           </div>
 
-          <DialogFooter className="gap-2 sm:justify-end pt-2">
+          <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setNoteDialog((d) => ({ ...d, open: false }))}
+              className="rounded-full px-5 text-xs font-semibold"
             >
               Hủy
             </Button>
@@ -1472,6 +1488,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 setNoteDialog((d) => ({ ...d, open: false }));
                 await noteDialog.onSubmit(text);
               }}
+              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
             >
               Lưu ghi chú
             </Button>
@@ -1484,19 +1501,19 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         open={payoutDialog.open}
         onOpenChange={(open) => setPayoutDialog((d) => ({ ...d, open }))}
       >
-        <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
-          <DialogHeader className="space-y-1 text-left">
-            <DialogTitle className="text-lg font-serif font-bold text-ink">
+        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
+          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
+            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
               Đánh dấu Đã Chi trả Quyết toán
             </DialogTitle>
-            <DialogDescription className="text-xs text-muted">
+            <DialogDescription className="text-xs text-[var(--gt-muted)]">
               Xác nhận lệnh chuyển khoản cho đối tác nhà xe với số tiền {formatVnd(String(payoutDialog.row?.hostAmount ?? 0))}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-3 py-2 text-xs">
+          <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Mã tham chiếu ngân hàng *</label>
+              <label className="font-bold text-[var(--gt-ink)]">Mã tham chiếu ngân hàng *</label>
               <input
                 type="text"
                 value={payoutDialog.reference}
@@ -1504,11 +1521,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setPayoutDialog((d) => ({ ...d, reference: e.target.value }))
                 }
                 placeholder="Ví dụ: FT2310129994"
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Đường dẫn ủy nhiệm chi / biên lai</label>
+              <label className="font-bold text-[var(--gt-ink)]">Đường dẫn ủy nhiệm chi / biên lai</label>
               <input
                 type="text"
                 value={payoutDialog.evidenceUrl}
@@ -1516,16 +1533,17 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setPayoutDialog((d) => ({ ...d, evidenceUrl: e.target.value }))
                 }
                 placeholder="https://..."
-                className="w-full h-9 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
 
-          <DialogFooter className="gap-2 sm:justify-end pt-2">
+          <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setPayoutDialog((d) => ({ ...d, open: false }))}
+              className="rounded-full px-5 text-xs font-semibold"
             >
               Hủy
             </Button>
@@ -1534,6 +1552,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               size="sm"
               disabled={!payoutDialog.reference.trim()}
               onClick={handleConfirmPayout}
+              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
             >
               Xác nhận đã chi
             </Button>
@@ -1546,26 +1565,26 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         open={roleDialog.open}
         onOpenChange={(open) => setRoleDialog((d) => ({ ...d, open }))}
       >
-        <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
-          <DialogHeader className="space-y-1 text-left">
-            <DialogTitle className="text-lg font-serif font-bold text-ink">
+        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
+          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
+            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
               {roleDialog.mode === 'GRANT' ? 'Cấp Vai trò Người dùng' : 'Thu hồi Vai trò'}
             </DialogTitle>
-            <DialogDescription className="text-xs text-muted">
+            <DialogDescription className="text-xs text-[var(--gt-muted)]">
               Tài khoản #{roleDialog.userId}
             </DialogDescription>
           </DialogHeader>
 
-          <div className="space-y-3 py-2 text-xs">
+          <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-semibold text-ink">Chọn vai trò</label>
+              <label className="font-bold text-[var(--gt-ink)]">Chọn vai trò</label>
               <select
                 aria-label="Chọn vai trò người dùng"
                 value={roleDialog.role}
                 onChange={(e) =>
                   setRoleDialog((d) => ({ ...d, role: e.target.value }))
                 }
-                className="w-full h-10 px-3 bg-canvas border border-line rounded-xl focus:border-coral focus:outline-none text-ink"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all"
               >
                 <option value="TICKET_VENDOR">TICKET_VENDOR (Chủ nhà xe)</option>
                 <option value="STAFF">STAFF (Nhân viên vận hành)</option>
@@ -1575,11 +1594,12 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             </div>
           </div>
 
-          <DialogFooter className="gap-2 sm:justify-end pt-2">
+          <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
               size="sm"
               onClick={() => setRoleDialog((d) => ({ ...d, open: false }))}
+              className="rounded-full px-5 text-xs font-semibold"
             >
               Hủy
             </Button>
@@ -1587,6 +1607,12 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               variant={roleDialog.mode === 'GRANT' ? 'default' : 'destructive'}
               size="sm"
               onClick={handleConfirmRoleChange}
+              className={cn(
+                "rounded-full px-5 text-xs font-bold",
+                roleDialog.mode === 'GRANT'
+                  ? "bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white shadow-coral-sm"
+                  : "bg-rose-600 hover:bg-rose-700 text-white shadow-xs"
+              )}
             >
               {roleDialog.mode === 'GRANT' ? 'Cấp quyền' : 'Thu hồi'}
             </Button>

@@ -46,13 +46,13 @@ export const CustomerTripFilterSidebar: React.FC<
 
   return (
     <div
-      className={`space-y-6 rounded-[24px] border border-gray-200/80 bg-white p-5 shadow-2xs ${className}`}
+      className={`space-y-6 rounded-3xl border border-white/80 bg-white/85 backdrop-blur-md p-6 shadow-md ${className}`}
     >
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-gray-100 pb-3.5">
+      <div className="flex items-center justify-between border-b border-gray-100/80 pb-3.5">
         <div className="flex items-center space-x-2">
-          <div className="w-7 h-7 rounded-lg bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center">
-            <Filter className="h-3.5 w-3.5" />
+          <div className="w-8 h-8 rounded-full bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center border border-[#FF385C]/20 shadow-2xs">
+            <Filter className="h-4 w-4" />
           </div>
           <h3 className="text-sm font-bold text-[#111827]">Bộ lọc tìm kiếm</h3>
         </div>
@@ -74,7 +74,7 @@ export const CustomerTripFilterSidebar: React.FC<
           <Bus className="h-3.5 w-3.5 text-[#FF385C]" />
           Loại xe khách
         </label>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           {CAR_TYPES.map((type) => {
             const isSelected = filters.carType === type.value;
             return (
@@ -82,10 +82,10 @@ export const CustomerTripFilterSidebar: React.FC<
                 key={type.value}
                 type="button"
                 onClick={() => onChange({ ...filters, carType: type.value })}
-                className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between rounded-full px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
                   isSelected
-                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold shadow-2xs"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold border border-[#FF385C]/25 shadow-2xs"
+                    : "text-gray-700 hover:bg-white/70 hover:text-gray-900 border border-transparent"
                 }`}
               >
                 <span>{type.label}</span>
@@ -97,12 +97,12 @@ export const CustomerTripFilterSidebar: React.FC<
       </div>
 
       {/* Time Range Filter */}
-      <div className="space-y-2.5 border-t border-gray-100 pt-4">
+      <div className="space-y-2.5 border-t border-gray-100/80 pt-4">
         <label className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wider text-gray-400 uppercase">
           <Clock className="h-3.5 w-3.5 text-[#FF385C]" />
           Giờ xuất bến
         </label>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           {TIME_RANGES.map((tr) => {
             const isSelected = filters.timeRange === tr.value;
             return (
@@ -110,10 +110,10 @@ export const CustomerTripFilterSidebar: React.FC<
                 key={tr.value}
                 type="button"
                 onClick={() => onChange({ ...filters, timeRange: tr.value })}
-                className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between rounded-full px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
                   isSelected
-                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold shadow-2xs"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold border border-[#FF385C]/25 shadow-2xs"
+                    : "text-gray-700 hover:bg-white/70 hover:text-gray-900 border border-transparent"
                 }`}
               >
                 <span>{tr.label}</span>
@@ -125,12 +125,12 @@ export const CustomerTripFilterSidebar: React.FC<
       </div>
 
       {/* Price Range Filter */}
-      <div className="space-y-2.5 border-t border-gray-100 pt-4">
+      <div className="space-y-2.5 border-t border-gray-100/80 pt-4">
         <label className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wider text-gray-400 uppercase">
           <DollarSign className="h-3.5 w-3.5 text-[#FF385C]" />
           Mức giá vé
         </label>
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           {PRICE_RANGES.map((pr) => {
             const isSelected = filters.priceRange === pr.value;
             return (
@@ -138,10 +138,10 @@ export const CustomerTripFilterSidebar: React.FC<
                 key={pr.value}
                 type="button"
                 onClick={() => onChange({ ...filters, priceRange: pr.value })}
-                className={`w-full flex items-center justify-between rounded-xl px-3 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
+                className={`w-full flex items-center justify-between rounded-full px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
                   isSelected
-                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold shadow-2xs"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold border border-[#FF385C]/25 shadow-2xs"
+                    : "text-gray-700 hover:bg-white/70 hover:text-gray-900 border border-transparent"
                 }`}
               >
                 <span>{pr.label}</span>
@@ -153,7 +153,7 @@ export const CustomerTripFilterSidebar: React.FC<
       </div>
 
       {/* Filter Stats Footer */}
-      <div className="border-t border-gray-100 pt-3 text-center text-xs text-gray-400">
+      <div className="border-t border-gray-100/80 pt-3 text-center text-xs text-gray-400">
         Tìm thấy <strong className="text-gray-900 font-bold tabular-nums">{totalResults}</strong>{" "}
         chuyến xe phù hợp
       </div>

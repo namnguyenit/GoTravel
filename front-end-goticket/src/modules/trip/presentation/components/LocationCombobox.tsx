@@ -244,7 +244,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
       </div>
 
       {isOpen && (
-        <div className="animate-in fade-in slide-in-from-top-2 duration-200 absolute top-full left-0 z-50 mt-2.5 w-full min-w-[320px] overflow-hidden rounded-[26px] border border-gray-100 bg-white p-2 shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
+        <div className="animate-in fade-in slide-in-from-top-2 duration-200 absolute top-full left-0 z-50 mt-2.5 w-full min-w-[320px] overflow-hidden rounded-[28px] border border-white/80 bg-white/95 backdrop-blur-2xl p-2.5 shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
           <div
             id={listboxId}
             role="listbox"

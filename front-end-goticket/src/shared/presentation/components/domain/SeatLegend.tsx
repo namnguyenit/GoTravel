@@ -30,7 +30,7 @@ export const SeatLegend: React.FC<{ className?: string }> = ({ className = '' })
 
   return (
     <div
-      className={`flex flex-wrap items-center justify-center gap-4 sm:gap-6 py-3 px-4 bg-gray-50/80 rounded-2xl border border-gray-200/60 text-xs font-semibold text-gray-700 ${className}`}
+      className={`flex flex-wrap items-center justify-center gap-4 sm:gap-6 py-3 px-6 bg-white/80 backdrop-blur-md rounded-full border border-white/80 text-xs font-semibold text-gray-700 shadow-2xs ${className}`}
     >
       {items.map((item, idx) => (
         <div key={idx} className="flex items-center gap-2">

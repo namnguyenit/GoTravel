@@ -163,18 +163,20 @@ export const OperatorStopsPage: React.FC = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Create Stop Form (5 cols) */}
-        <SurfaceCard className="lg:col-span-5 p-6 space-y-4">
-          <div className="flex items-center gap-2 border-b border-[var(--gt-border-soft)] pb-3">
-            <Plus className="w-4 h-4 text-[var(--gt-coral)]" />
-            <h2 className="font-bold text-base text-[var(--gt-ink)]">
+        <SurfaceCard variant="glass" className="lg:col-span-5 p-6 space-y-4 rounded-3xl">
+          <div className="flex items-center gap-2 border-b border-gray-100/80 pb-3">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-soft text-coral border border-coral/20">
+              <Plus className="w-3.5 h-3.5" />
+            </div>
+            <h2 className="font-bold text-base text-gray-900">
               Thêm điểm đón / trả mới
             </h2>
           </div>
 
           <form onSubmit={handleCreateStop} className="space-y-4 pt-1">
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Tên điểm dừng <span className="text-[var(--gt-coral)]">*</span>
+              <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Tên điểm dừng <span className="text-coral">*</span>
               </label>
               <input
                 type="text"
@@ -182,13 +184,13 @@ export const OperatorStopsPage: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="VD: Bến xe Miền Đông mới / VP Quận 1"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Địa chỉ chi tiết <span className="text-[var(--gt-coral)]">*</span>
+              <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Địa chỉ chi tiết <span className="text-coral">*</span>
               </label>
               <input
                 type="text"
@@ -196,13 +198,13 @@ export const OperatorStopsPage: React.FC = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="VD: 501 Hoàng Hữu Nam, Long Bình"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Tỉnh / Thành phố <span className="text-[var(--gt-coral)]">*</span>
+              <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                Tỉnh / Thành phố <span className="text-coral">*</span>
               </label>
               <input
                 type="text"
@@ -210,14 +212,14 @@ export const OperatorStopsPage: React.FC = () => {
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder="VD: TP. Hồ Chí Minh"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
               />
             </div>
 
             <button
               type="submit"
               disabled={submitting}
-              className="btn-coral flex w-full items-center justify-center gap-2 py-3 text-xs font-bold shadow-sm disabled:opacity-50"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white py-3 text-xs font-bold shadow-md glow-coral-sm transition-all disabled:opacity-50 cursor-pointer"
             >
               {submitting ? 'Đang tạo...' : 'Lưu điểm đón/trả mới'}
             </button>
@@ -227,17 +229,17 @@ export const OperatorStopsPage: React.FC = () => {
         {/* Stop List (7 cols) */}
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-bold text-base text-[var(--gt-ink)]">
+            <h2 className="font-bold text-base text-gray-900">
               Danh sách điểm đón / trả ({stops.length})
             </h2>
           </div>
 
           {loading ? (
-            <SurfaceCard className="p-8">
+            <SurfaceCard variant="glass" className="p-8 rounded-3xl">
               <LoadingState message="Đang tải danh sách điểm đón trả..." />
             </SurfaceCard>
           ) : stops.length === 0 ? (
-            <SurfaceCard className="p-8">
+            <SurfaceCard variant="glass" className="p-8 rounded-3xl">
               <EmptyState
                 icon={MapPin}
                 title="Chưa có điểm đón/trả nào"
@@ -249,26 +251,27 @@ export const OperatorStopsPage: React.FC = () => {
               {stops.map((stop) => (
                 <SurfaceCard
                   key={stop.id}
-                  className={`p-4 transition ${
-                    stop.archived ? 'opacity-60 bg-[var(--gt-surface-soft)]' : ''
+                  variant="glass"
+                  className={`p-4 transition rounded-3xl ${
+                    stop.archived ? 'opacity-60 bg-white/40' : ''
                   }`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-[var(--gt-coral-soft)] text-[var(--gt-coral)] mt-0.5">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-coral-soft text-coral mt-0.5 border border-coral/20 shadow-2xs">
                         <MapPin className="h-4 w-4" />
                       </div>
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="font-bold text-sm text-[var(--gt-ink)]">
+                          <h3 className="font-bold text-sm text-gray-900">
                             {stop.name}
                           </h3>
                           <StatusBadge status={stop.archived ? 'CANCELLED' : 'ACTIVE'} />
                         </div>
-                        <p className="mt-1 text-xs text-[var(--gt-text)]">
+                        <p className="mt-1 text-xs text-gray-600 font-medium">
                           {stop.address || 'Chưa cập nhật địa chỉ'}
                         </p>
-                        <p className="mt-0.5 text-[11px] font-semibold text-[var(--gt-muted)]">
+                        <p className="mt-0.5 text-[11px] font-semibold text-gray-400">
                           Khu vực: {stop.province || 'Toàn quốc'}
                         </p>
                       </div>
@@ -278,7 +281,7 @@ export const OperatorStopsPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => openEditModal(stop)}
-                        className="rounded-xl border border-[var(--gt-border)] bg-white p-2 text-[var(--gt-muted)] hover:text-[var(--gt-ink)] hover:border-gray-400 transition"
+                        className="rounded-full border border-gray-200/80 bg-white/90 p-2 text-gray-500 hover:text-gray-900 hover:border-gray-400 shadow-2xs transition cursor-pointer"
                         title="Chỉnh sửa điểm"
                       >
                         <Edit2 className="h-3.5 w-3.5" />
@@ -287,7 +290,7 @@ export const OperatorStopsPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => setArchiveTarget(stop)}
-                          className="rounded-xl border border-[var(--gt-border)] bg-white p-2 text-[var(--gt-muted)] hover:text-[var(--gt-danger)] hover:border-rose-300 transition"
+                          className="rounded-full border border-gray-200/80 bg-white/90 p-2 text-gray-500 hover:text-rose-600 hover:border-rose-300 shadow-2xs transition cursor-pointer"
                           title="Lưu trữ điểm"
                         >
                           <Archive className="h-3.5 w-3.5" />

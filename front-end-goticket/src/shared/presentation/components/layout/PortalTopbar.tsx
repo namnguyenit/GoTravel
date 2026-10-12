@@ -20,7 +20,7 @@ export const PortalTopbar: React.FC<PortalTopbarProps> = ({
   const { user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-30 h-16 bg-white/95 backdrop-blur-md border-b border-gray-200/80 px-4 sm:px-6 flex items-center justify-between">
+    <header className="sticky top-0 z-30 h-16 bg-white/80 backdrop-blur-xl border-b border-white/60 shadow-xs px-4 sm:px-6 flex items-center justify-between">
       <div className="flex items-center gap-3">
         {onToggleSidebar && (
           <button
@@ -38,7 +38,7 @@ export const PortalTopbar: React.FC<PortalTopbarProps> = ({
 
       <div className="flex items-center gap-3 sm:gap-4 text-sm">
         {scopeTitle && (
-          <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-gray-50 rounded-full border border-gray-200/60 text-xs font-semibold text-gray-800 max-w-[240px] truncate">
+          <div className="hidden md:flex items-center gap-2 px-3.5 py-1 bg-white/80 backdrop-blur-md rounded-full border border-white/80 shadow-2xs text-xs font-semibold text-gray-800 max-w-[240px] truncate">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
             <span className="truncate">{scopeTitle}</span>
           </div>
@@ -46,7 +46,7 @@ export const PortalTopbar: React.FC<PortalTopbarProps> = ({
 
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white text-xs font-medium text-gray-600 hover:text-[#FF385C] hover:border-[#FF385C]/30 hover:bg-[#FFF0F2]/40 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md text-xs font-medium text-gray-700 shadow-2xs hover:text-[#FF385C] hover:border-[#FF385C]/40 hover:bg-[#FFF0F2] transition-all"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Kênh khách hàng</span>

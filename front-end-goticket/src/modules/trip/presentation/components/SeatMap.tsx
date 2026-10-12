@@ -53,10 +53,10 @@ export const SeatMap: React.FC<SeatMapProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-3xl border border-gray-200/90 p-5 sm:p-6 space-y-6 shadow-2xs">
+    <div className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-5 sm:p-7 space-y-6 shadow-md">
       {/* Deck Selector if multi-deck */}
       {decks.length > 1 && (
-        <div className="flex items-center justify-center gap-2 border-b border-gray-100 pb-4">
+        <div className="flex items-center justify-center gap-2 border-b border-gray-100/80 pb-4">
           {decks.map((deckNumber) => (
             <button
               key={deckNumber}
@@ -64,8 +64,8 @@ export const SeatMap: React.FC<SeatMapProps> = ({
               onClick={() => setActiveDeck(deckNumber)}
               className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
                 activeDeck === deckNumber
-                  ? 'bg-[#FF385C] text-white shadow-xs'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200/80 hover:text-gray-900'
+                  ? 'bg-[#FF385C] text-white shadow-xs glow-coral-sm'
+                  : 'bg-white/80 border border-gray-200/60 text-gray-600 hover:bg-white hover:text-gray-900'
               }`}
             >
               Tầng {deckNumber}
@@ -75,9 +75,9 @@ export const SeatMap: React.FC<SeatMapProps> = ({
       )}
 
       {/* Front of vehicle indicator */}
-      <div className="flex items-center justify-between px-6 py-3 bg-[#FAF9F6] rounded-2xl border border-gray-200/70 text-xs font-semibold text-gray-600">
+      <div className="flex items-center justify-between px-6 py-3 bg-white/70 backdrop-blur-md rounded-2xl border border-white/80 text-xs font-semibold text-gray-600 shadow-2xs">
         <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-lg bg-white border border-gray-200 flex items-center justify-center text-gray-900 shadow-2xs">
+          <div className="w-6 h-6 rounded-lg bg-white border border-gray-200/80 flex items-center justify-center text-gray-900 shadow-2xs">
             🛞
           </div>
           <span className="font-bold text-gray-800">Tài xế</span>
@@ -90,7 +90,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
 
       {/* Seat Grid Layout */}
       <div className="flex justify-center overflow-x-auto py-2">
-        <div className="inline-grid gap-3 p-5 bg-[#FAF9F6] rounded-3xl border border-gray-200/80 shadow-2xs">
+        <div className="inline-grid gap-3.5 p-6 bg-white/75 backdrop-blur-lg rounded-3xl border border-white/80 shadow-inner">
           {Array.from({ length: rowCount }, (_, rIdx) => {
             const rowNum = minRow + rIdx;
             return (
@@ -110,15 +110,15 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                   const isSold = seat.isSold();
                   const isBlocked = seat.isBlocked();
 
-                  let buttonClass = 'bg-white border-gray-300 text-gray-800 hover:border-[#FF385C] hover:bg-[#FFF0F2]/40 shadow-2xs';
+                  let buttonClass = 'bg-white/95 border-gray-200/80 text-gray-800 hover:border-[#FF385C] hover:bg-[#FFF0F2] shadow-2xs';
                   if (isSelected) {
-                    buttonClass = 'bg-[#FF385C] border-[#FF385C] text-white ring-2 ring-[#FF385C]/30 shadow-md scale-105';
+                    buttonClass = 'bg-[#FF385C] border-[#FF385C] text-white ring-4 ring-[#FF385C]/25 shadow-lg scale-105 glow-coral-sm';
                   } else if (isHeld) {
-                    buttonClass = 'bg-amber-50 border-amber-300 text-amber-800 cursor-not-allowed opacity-80';
+                    buttonClass = 'bg-amber-50/90 border-amber-300 text-amber-800 cursor-not-allowed opacity-80';
                   } else if (isSold) {
-                    buttonClass = 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed';
+                    buttonClass = 'bg-gray-100/80 border-gray-200 text-gray-400 cursor-not-allowed';
                   } else if (isBlocked) {
-                    buttonClass = 'bg-rose-50 border-rose-200 text-rose-600 cursor-not-allowed opacity-70';
+                    buttonClass = 'bg-rose-50/80 border-rose-200 text-rose-600 cursor-not-allowed opacity-70';
                   }
 
                   return (
@@ -130,7 +130,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                       aria-label={seat.getAccessibleLabel(isSelected)}
                       aria-pressed={isSelected}
                       className={`
-                        w-12 h-14 sm:w-14 sm:h-16 rounded-xl border-2 flex flex-col items-center justify-center p-1
+                        w-12 h-14 sm:w-14 sm:h-16 rounded-2xl border-2 flex flex-col items-center justify-center p-1
                         transition-all duration-150 relative group cursor-pointer
                         ${buttonClass}
                       `}

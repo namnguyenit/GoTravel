@@ -99,7 +99,7 @@ export const OperatorDashboardPage: React.FC = () => {
         description={`Mã đối tác: ${operatorId} · Kênh điều hành vận tải hành khách liên tỉnh`}
         eyebrow="Bảng điều khiển nhà xe"
         actions={
-          <Button asChild className="bg-[#FF385C] hover:bg-[#E61E4F] text-white">
+          <Button asChild className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md transition-all">
             <Link to="/operator/cars?action=new">
               <PlusCircle className="h-4 w-4 mr-2" />
               Thêm Xe Khách
@@ -113,26 +113,26 @@ export const OperatorDashboardPage: React.FC = () => {
         {quickModules.map((item) => {
           const Icon = item.icon;
           return (
-            <SurfaceCard key={item.to} className="p-6 flex flex-col justify-between hover:border-[var(--gt-coral)] transition-colors">
+            <SurfaceCard key={item.to} variant="glass-interactive" className="p-6 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[var(--gt-coral-soft)] text-[var(--gt-coral)]">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-coral-soft text-coral border border-coral/20 shadow-2xs">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <ArrowRight className="h-4 w-4 text-[var(--gt-muted)] opacity-60" />
+                  <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-coral group-hover:translate-x-0.5 transition-all" />
                 </div>
-                <h3 className="mt-4 font-bold text-base text-[var(--gt-ink)]">
+                <h3 className="mt-4 font-bold text-base text-gray-900">
                   {item.title}
                 </h3>
-                <p className="mt-1 text-xs text-[var(--gt-muted)] leading-relaxed">
+                <p className="mt-1 text-xs text-gray-500 font-medium leading-relaxed">
                   {item.description}
                 </p>
               </div>
 
-              <div className="mt-5 pt-4 border-t border-[var(--gt-border-soft)]">
+              <div className="mt-5 pt-4 border-t border-gray-100/80">
                 <Link
                   to={item.to}
-                  className="text-xs font-bold text-[var(--gt-coral)] hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-bold text-coral hover:underline inline-flex items-center gap-1"
                 >
                   {item.actionText} →
                 </Link>

@@ -224,8 +224,8 @@ export const CustomerTripSearchPage: React.FC = () => {
   return (
     <CustomerPageContainer className="space-y-6 pb-16">
       {/* Top Search Dock Section */}
-      <div className="bg-white rounded-3xl p-5 sm:p-7 border border-gray-200/90 shadow-2xs space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100 pb-3.5">
+      <div className="bg-white/85 backdrop-blur-xl rounded-3xl p-5 sm:p-7 border border-white/80 shadow-md space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100/80 pb-3.5">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-[#FF385C]">
               Tìm chuyến xe khách
@@ -237,7 +237,7 @@ export const CustomerTripSearchPage: React.FC = () => {
             </h1>
           </div>
           {currentDepartureDate && (
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-600 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-200/70 w-fit">
+            <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-700 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-white/80 shadow-2xs w-fit">
               <Calendar className="h-3.5 w-3.5 text-[#FF385C]" />
               <span>Khởi hành: </span>
               <strong className="text-gray-900 tabular-nums">{currentDepartureDate}</strong>
@@ -270,7 +270,7 @@ export const CustomerTripSearchPage: React.FC = () => {
         {/* Right Search Results (9 cols) */}
         <div className="space-y-4 lg:col-span-9">
           {/* Sorting & Result Count Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl border border-gray-200/80 bg-white p-3.5 sm:p-4 shadow-2xs">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl sm:rounded-full border border-white/80 bg-white/85 backdrop-blur-md p-3.5 sm:p-4 shadow-2xs">
             <div className="flex items-center gap-3">
               {/* Mobile Filter Toggle Button */}
               <Button

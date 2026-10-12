@@ -101,10 +101,10 @@ export const OperatorProfilePage: React.FC = () => {
       />
 
       {/* Brand Identity Preview Card */}
-      <SurfaceCard className="p-6">
+      <SurfaceCard variant="glass" className="p-6 rounded-[28px] border border-white/80 shadow-glass">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="h-16 w-16 rounded-2xl bg-[var(--gt-canvas)] border border-[var(--gt-border)] flex items-center justify-center overflow-hidden shrink-0 shadow-xs">
+            <div className="h-16 w-16 rounded-2xl bg-white/80 border border-white/90 flex items-center justify-center overflow-hidden shrink-0 shadow-2xs">
               {form.logoUrl && !logoPreviewError ? (
                 <img
                   src={form.logoUrl}
@@ -113,14 +113,14 @@ export const OperatorProfilePage: React.FC = () => {
                   onError={() => setLogoPreviewError(true)}
                 />
               ) : (
-                <Building2 className="h-7 w-7 text-[var(--gt-coral)]" />
+                <Building2 className="h-7 w-7 text-[#FF385C]" />
               )}
             </div>
             <div>
-              <h2 className="text-lg font-bold text-[var(--gt-ink)]">
+              <h2 className="text-lg font-bold text-gray-900">
                 {form.displayName || profile?.name || 'Nhà xe đối tác'}
               </h2>
-              <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-[var(--gt-muted)]">
+              <div className="flex flex-wrap items-center gap-2 mt-1 text-xs text-gray-500">
                 <span>Pháp nhân KYC: <strong>{profile?.name}</strong></span>
                 <span>·</span>
                 <span>Mã: <strong className="font-mono">{profile?.id?.slice(0, 8)}...</strong></span>
@@ -130,10 +130,10 @@ export const OperatorProfilePage: React.FC = () => {
 
           <div>
             <span
-              className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold ${
+              className={`inline-flex items-center gap-1.5 rounded-full px-3.5 py-1 text-xs font-bold shadow-2xs ${
                 profile?.status === 'ACTIVE'
-                  ? 'bg-emerald-50 text-emerald-800 border border-emerald-200'
-                  : 'bg-rose-50 text-rose-800 border border-rose-200'
+                  ? 'bg-emerald-50/90 text-emerald-800 border border-emerald-200'
+                  : 'bg-rose-50/90 text-rose-800 border border-rose-200'
               }`}
             >
               <ShieldCheck className="h-3.5 w-3.5" />
@@ -162,11 +162,11 @@ export const OperatorProfilePage: React.FC = () => {
       )}
 
       {/* Profile Form */}
-      <SurfaceCard className="p-6">
+      <SurfaceCard variant="glass" className="p-6 rounded-[28px] border border-white/80 shadow-glass">
         <form onSubmit={submit} className="space-y-5">
           <div className="grid gap-5 md:grid-cols-2">
             <div>
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Tên thương hiệu hiển thị <span className="text-rose-600">*</span>
               </label>
               <input
@@ -176,12 +176,12 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.displayName}
                 onChange={(e) => update('displayName', e.target.value)}
                 placeholder="VD: Xe Khách Phương Trang"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Số điện thoại liên hệ
               </label>
               <input
@@ -189,12 +189,12 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.contactPhone}
                 onChange={(e) => update('contactPhone', e.target.value)}
                 placeholder="VD: 1900 6067"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Địa chỉ văn phòng / bến liên hệ
               </label>
               <input
@@ -202,12 +202,12 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.contactAddress}
                 onChange={(e) => update('contactAddress', e.target.value)}
                 placeholder="VD: 272 Đề Thám, Phường Phạm Ngũ Lão, Quận 1, TP. Hồ Chí Minh"
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 URL ảnh Logo (kích thước đề xuất: 256x256)
               </label>
               <input
@@ -216,12 +216,12 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.logoUrl}
                 onChange={(e) => update('logoUrl', e.target.value)}
                 placeholder="https://..."
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-medium text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-medium text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
 
             <div className="md:col-span-2">
-              <label className="block text-xs font-semibold text-[var(--gt-ink)] mb-1.5">
+              <label className="block text-xs font-semibold text-gray-700 mb-1.5">
                 Giới thiệu dịch vụ & chính sách nhà xe
               </label>
               <textarea
@@ -230,16 +230,16 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.description}
                 onChange={(e) => update('description', e.target.value)}
                 placeholder="Giới thiệu về kinh nghiệm phục vụ, các tuyến thế mạnh, tiêu chuẩn dòng xe..."
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white p-3.5 text-xs font-medium text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                className="w-full rounded-[24px] border border-gray-200/80 bg-white/90 p-4 text-xs font-medium text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
               />
             </div>
           </div>
 
-          <div className="pt-4 border-t border-[var(--gt-border)] flex justify-end">
+          <div className="pt-4 border-t border-gray-100/80 flex justify-end">
             <Button
               type="submit"
               disabled={saving}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-2xl px-6 font-bold"
+              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full px-7 py-2.5 font-bold shadow-md glow-coral-sm cursor-pointer"
             >
               {saving ? (
                 <>

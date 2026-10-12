@@ -349,20 +349,20 @@ export const OperatorTripListPage: React.FC = () => {
       <TripKpiCards kpi={kpi} loading={loading} />
 
       {/* Toolbar: Search, Filters & Sort */}
-      <SurfaceCard className="p-4 sm:p-5">
+      <SurfaceCard variant="glass" className="p-4 sm:p-5 rounded-[28px]">
         <form
           onSubmit={handleSearchSubmit}
           className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between"
         >
           {/* Keyword Search Form */}
           <div className="relative flex-1 sm:max-w-xs">
-            <Search className="absolute top-3 left-3 h-4 w-4 text-[var(--gt-muted)]" />
+            <Search className="absolute top-3 left-3.5 h-4 w-4 text-gray-400" />
             <input
               type="text"
               placeholder="Lộ trình, tên xe, biển số..."
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
-              className="w-full rounded-2xl border border-[var(--gt-border)] bg-white py-2 pl-9 pr-3 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)] focus:ring-2 focus:ring-[var(--gt-coral-soft)]"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-10 pr-3.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 shadow-2xs"
             />
           </div>
 
@@ -370,7 +370,7 @@ export const OperatorTripListPage: React.FC = () => {
           <div className="flex flex-wrap items-center gap-2.5">
             {/* Status Filter */}
             <div className="flex items-center space-x-1.5">
-              <span className="text-xs font-medium text-[var(--gt-muted)]">
+              <span className="text-xs font-semibold text-gray-500">
                 Trạng thái:
               </span>
               <select
@@ -378,7 +378,7 @@ export const OperatorTripListPage: React.FC = () => {
                 onChange={(e) =>
                   setStatusFilter(e.target.value as TripStatus | "")
                 }
-                className="rounded-2xl border border-[var(--gt-border)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--gt-ink)] focus:border-[var(--gt-coral)] focus:outline-none"
+                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
               >
                 <option value="">Tất cả trạng thái</option>
                 <option value="SCHEDULED">Sắp chạy</option>
@@ -390,26 +390,26 @@ export const OperatorTripListPage: React.FC = () => {
 
             {/* Departure Date Filter */}
             <div className="flex items-center space-x-1.5">
-              <span className="text-xs font-medium text-[var(--gt-muted)]">
+              <span className="text-xs font-semibold text-gray-500">
                 Ngày:
               </span>
               <input
                 type="date"
                 value={departureDateFilter}
                 onChange={(e) => setDepartureDateFilter(e.target.value)}
-                className="rounded-2xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 text-xs font-medium text-[var(--gt-ink)] focus:border-[var(--gt-coral)] focus:outline-none"
+                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
               />
             </div>
 
             {/* Sort Control */}
             <div className="flex items-center space-x-1.5">
-              <span className="text-xs font-medium text-[var(--gt-muted)]">
+              <span className="text-xs font-semibold text-gray-500">
                 Sắp xếp:
               </span>
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="rounded-2xl border border-[var(--gt-border)] bg-white px-3 py-1.5 text-xs font-medium text-[var(--gt-ink)] focus:border-[var(--gt-coral)] focus:outline-none"
+                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
               >
                 <option value="departureTime_asc">
                   Giờ xuất bến (Sớm nhất)
@@ -425,7 +425,7 @@ export const OperatorTripListPage: React.FC = () => {
 
             <button
               type="submit"
-              className="rounded-2xl bg-[var(--gt-ink)] px-4 py-1.5 text-xs font-bold text-white transition hover:bg-black"
+              className="rounded-full bg-gray-900 px-5 py-2 text-xs font-bold text-white transition hover:bg-black shadow-2xs cursor-pointer"
             >
               Lọc
             </button>
@@ -435,7 +435,7 @@ export const OperatorTripListPage: React.FC = () => {
                 variant="ghost"
                 size="sm"
                 onClick={handleResetFilters}
-                className="h-8 px-2 text-xs text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
+                className="h-8 rounded-full px-3 text-xs text-gray-500 hover:text-gray-900"
               >
                 <RotateCcw className="mr-1 h-3.5 w-3.5" />
                 <span>Đặt lại</span>
@@ -447,11 +447,11 @@ export const OperatorTripListPage: React.FC = () => {
 
       {/* Trip Cards List */}
       {loading ? (
-        <SurfaceCard className="p-8">
+        <SurfaceCard variant="glass" className="p-8 rounded-[28px]">
           <LoadingState message="Đang tải danh sách các chuyến xe..." />
         </SurfaceCard>
       ) : trips.length === 0 ? (
-        <SurfaceCard className="p-8">
+        <SurfaceCard variant="glass" className="p-8 rounded-[28px]">
           <EmptyState
             icon={CalendarClock}
             title={
@@ -468,7 +468,7 @@ export const OperatorTripListPage: React.FC = () => {
               !isStaffView ? (
                 <Button
                   onClick={() => setIsCreateModalOpen(true)}
-                  className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+                  className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   <span>Lên lịch chuyến xe đầu tiên</span>
@@ -500,7 +500,7 @@ export const OperatorTripListPage: React.FC = () => {
           </div>
 
           {pagination.totalPages > 1 && (
-            <SurfaceCard className="p-4">
+            <SurfaceCard variant="glass" className="p-4 rounded-[28px]">
               <Pagination
                 currentPage={pagination.page}
                 totalPages={pagination.totalPages}

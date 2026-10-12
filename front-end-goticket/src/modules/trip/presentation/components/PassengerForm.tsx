@@ -59,18 +59,18 @@ export const PassengerForm: React.FC<PassengerFormProps> = ({
           return (
             <div
               key={seat.id}
-              className="p-5 sm:p-6 bg-white rounded-3xl border border-gray-200/90 shadow-2xs space-y-4"
+              className="p-5 sm:p-6 bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 shadow-2xs space-y-4"
             >
-              <div className="flex items-center justify-between border-b border-gray-100 pb-3">
+              <div className="flex items-center justify-between border-b border-gray-100/80 pb-3">
                 <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center font-black text-xs">
+                  <div className="w-7 h-7 rounded-full bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center font-black text-xs border border-[#FF385C]/20 shadow-2xs">
                     {index + 1}
                   </div>
                   <span className="font-bold text-sm text-[#111827]">
                     Hành khách ghế <span className="text-[#FF385C] font-black">{seat.code}</span> (Tầng {seat.deck})
                   </span>
                 </div>
-                <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-gray-100 text-gray-700">
+                <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-white/80 backdrop-blur-xs border border-gray-200/60 text-gray-700 shadow-2xs">
                   {seat.seatClass === 'VIP' ? 'Hạng VIP' : 'Hạng Tiêu chuẩn'}
                 </span>
               </div>
@@ -89,7 +89,7 @@ export const PassengerForm: React.FC<PassengerFormProps> = ({
                       value={pass.name}
                       onChange={(e) => onChangePassenger(seat.id, { name: e.target.value })}
                       placeholder="VD: Nguyễn Văn A"
-                      className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                      className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
                     />
                   </div>
                 </div>
@@ -104,7 +104,7 @@ export const PassengerForm: React.FC<PassengerFormProps> = ({
                     <select
                       value={pass.pickupStopId}
                       onChange={(e) => onChangePassenger(seat.id, { pickupStopId: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium cursor-pointer"
+                      className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium cursor-pointer"
                     >
                       {pickupStops.map((stop) => (
                         <option key={stop.id} value={stop.id}>
@@ -125,7 +125,7 @@ export const PassengerForm: React.FC<PassengerFormProps> = ({
                     <select
                       value={pass.dropoffStopId}
                       onChange={(e) => onChangePassenger(seat.id, { dropoffStopId: e.target.value })}
-                      className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium cursor-pointer"
+                      className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium cursor-pointer"
                     >
                       {dropoffStops.map((stop) => (
                         <option key={stop.id} value={stop.id}>

@@ -37,7 +37,7 @@ export const CustomerTripDetailModal: React.FC<
 
   return (
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[640px] rounded-[28px] p-6 sm:p-7 border-gray-100 shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[640px] rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
         <DialogHeader>
           <div className="flex items-start space-x-3.5">
             <div className="rounded-2xl bg-[#FFF0F2] p-3 text-[#FF385C] shrink-0 mt-0.5">

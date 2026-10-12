@@ -209,19 +209,19 @@ export const OperatorRouteListPage: React.FC = () => {
       />
 
       {/* Toolbar */}
-      <SurfaceCard className="p-4 sm:p-5">
+      <SurfaceCard variant="glass" className="p-4 sm:p-5 rounded-[28px]">
         <form
           onSubmit={handleSearchSubmit}
           className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
         >
           <div className="relative flex-1 sm:max-w-md">
-            <Search className="absolute top-3 left-3.5 h-4 w-4 text-[var(--gt-muted)]" />
+            <Search className="absolute top-3 left-3.5 h-4 w-4 text-gray-400" />
             <input
               type="text"
               placeholder="Tìm theo điểm đi, điểm đến hoặc mã tuyến..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full rounded-2xl border border-[var(--gt-border)] bg-white py-2.5 pl-10 pr-4 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)] focus:ring-2 focus:ring-[var(--gt-coral-soft)]"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-10 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 shadow-2xs"
             />
           </div>
 
@@ -229,7 +229,7 @@ export const OperatorRouteListPage: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as RouteStatus | "")}
-              className="rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
             >
               <option value="">Tất cả trạng thái</option>
               <option value={ROUTE_STATUS.ACTIVE}>Đang hoạt động</option>
@@ -239,7 +239,7 @@ export const OperatorRouteListPage: React.FC = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
             >
               <option value="createdAt_desc">Mới nhất trước</option>
               <option value="origin_asc">Điểm đi (A-Z)</option>
@@ -248,7 +248,7 @@ export const OperatorRouteListPage: React.FC = () => {
 
             <button
               type="submit"
-              className="rounded-2xl bg-[var(--gt-ink)] px-5 py-2.5 text-xs font-bold text-white transition hover:bg-black"
+              className="rounded-full bg-gray-900 px-6 py-2.5 text-xs font-bold text-white transition hover:bg-black shadow-2xs cursor-pointer"
             >
               Lọc
             </button>
@@ -258,11 +258,11 @@ export const OperatorRouteListPage: React.FC = () => {
 
       {/* Main List */}
       {loading ? (
-        <SurfaceCard className="p-8">
+        <SurfaceCard variant="glass" className="p-8 rounded-[28px]">
           <LoadingState message="Đang tải danh sách tuyến đường..." />
         </SurfaceCard>
       ) : routes.length === 0 ? (
-        <SurfaceCard className="p-8">
+        <SurfaceCard variant="glass" className="p-8 rounded-[28px]">
           <EmptyState
             icon={RouteIcon}
             title="Chưa có tuyến đường nào"
@@ -270,7 +270,7 @@ export const OperatorRouteListPage: React.FC = () => {
             action={
               <Button
                 onClick={() => setIsCreateModalOpen(true)}
-                className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+                className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
               >
                 Tạo tuyến mới ngay
               </Button>
@@ -290,7 +290,7 @@ export const OperatorRouteListPage: React.FC = () => {
             ))}
           </div>
 
-          <SurfaceCard className="p-4">
+          <SurfaceCard variant="glass" className="p-4 rounded-[28px]">
             <Pagination
               currentPage={pagination.page}
               totalPages={pagination.totalPages}

@@ -262,26 +262,28 @@ export const StaffCheckInPage: React.FC = () => {
         eyebrow="Kênh Nhân Viên · Tác nghiệp bến xe"
         description="Quét mã QR trên vé điện tử hành khách hoặc nhập token để xác thực và đánh dấu lên xe theo thời gian thực."
         actions={
-          <div className="flex items-center gap-1.5 rounded-full bg-[var(--gt-coral-soft)] px-3.5 py-1.5 text-xs font-bold text-[var(--gt-coral)]">
-            <ShieldCheck className="w-3.5 h-3.5" />
+          <div className="flex items-center gap-2 rounded-full bg-[var(--gt-coral-soft)]/80 backdrop-blur-md border border-[var(--gt-coral)]/20 px-4 py-2 text-xs font-bold text-[var(--gt-coral)] shadow-xs">
+            <ShieldCheck className="w-4 h-4" />
             <span>Quyền: CHECK_IN</span>
           </div>
         }
       />
 
       {offlineQueue.length > 0 && (
-        <SurfaceCard className="bg-amber-50/60 border border-amber-200 p-4 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2 text-xs text-amber-900">
-            <AlertTriangle className="h-4 w-4 text-amber-600 shrink-0" />
+        <SurfaceCard className="bg-amber-500/10 backdrop-blur-xl border border-amber-400/40 rounded-[28px] p-4.5 flex flex-wrap items-center justify-between gap-3 shadow-glass">
+          <div className="flex items-center gap-3 text-xs text-amber-900 font-medium">
+            <span className="w-8 h-8 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+              <AlertTriangle className="h-4 w-4 text-amber-700" />
+            </span>
             <span>
-              <strong>{offlineQueue.length} mã vé</strong> đang chờ gửi lại do mất kết nối. Các mã này chưa được ghi nhận trên máy chủ.
+              <strong className="font-bold">{offlineQueue.length} mã vé</strong> đang chờ gửi lại do mất kết nối. Các mã này chưa được ghi nhận trên máy chủ.
             </span>
           </div>
           <Button
             size="sm"
             disabled={loading}
             onClick={() => void retryOfflineQueue()}
-            className="bg-amber-800 hover:bg-amber-900 text-white text-xs font-bold rounded-xl"
+            className="rounded-full bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold px-4 py-2 shadow-xs"
           >
             <RefreshCw className={`h-3.5 w-3.5 mr-1.5 ${loading ? 'animate-spin' : ''}`} />
             Gửi lại ngay
@@ -290,13 +292,71 @@ export const StaffCheckInPage: React.FC = () => {
       )}
 
       {/* Input & Scanner Form */}
-      <SurfaceCard className="p-6 space-y-5">
-        <form onSubmit={handleCheckIn} className="space-y-4">
+      <SurfaceCard className="p-6 sm:p-8 space-y-6 rounded-[32px]">
+        {/* Camera Scanner Viewport Capsule */}
+        {cameraOpen ? (
+          <div className="relative overflow-hidden rounded-[32px] bg-black/90 backdrop-blur-2xl border-2 border-white/80 shadow-glass-xl text-white">
+            <div className="relative aspect-video w-full max-h-[420px] flex items-center justify-center overflow-hidden bg-black">
+              <video
+                ref={videoRef}
+                playsInline
+                muted
+                className="w-full h-full object-cover"
+              />
+
+              {/* HUD Targeting Reticle & Scanline */}
+              <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+                {/* Vignette */}
+                <div className="absolute inset-0 bg-radial from-transparent via-transparent to-black/60" />
+
+                {/* Target Frame Box */}
+                <div className="relative w-64 h-64 sm:w-72 sm:h-72 border-2 border-white/40 rounded-3xl p-3 flex flex-col justify-between">
+                  {/* Corner accents */}
+                  <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-[var(--gt-coral)] rounded-tl-xl shadow-[0_0_12px_#FF385C]" />
+                  <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-[var(--gt-coral)] rounded-tr-xl shadow-[0_0_12px_#FF385C]" />
+                  <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-[var(--gt-coral)] rounded-bl-xl shadow-[0_0_12px_#FF385C]" />
+                  <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-[var(--gt-coral)] rounded-br-xl shadow-[0_0_12px_#FF385C]" />
+
+                  {/* Pulsing Scanline */}
+                  <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--gt-coral)] to-transparent shadow-[0_0_16px_#FF385C] animate-pulse" />
+                </div>
+              </div>
+
+              {/* Top Status Capsule */}
+              <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-auto">
+                <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-semibold text-white">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                  <span>AI QR SCANNER SẴN SÀNG</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={stopCamera}
+                  className="p-2 rounded-full bg-black/60 hover:bg-black/80 backdrop-blur-md border border-white/20 text-white transition-colors"
+                  aria-label="Đóng camera"
+                >
+                  <CameraOff className="w-4 h-4 text-rose-400" />
+                </button>
+              </div>
+
+              {/* Bottom Instructions Capsule */}
+              <div className="absolute bottom-4 inset-x-4 flex justify-center pointer-events-none">
+                <p className="px-5 py-2 rounded-full bg-black/70 backdrop-blur-md border border-white/20 text-xs font-medium text-white/90 text-center shadow-lg">
+                  {cameraHint || 'Đưa toàn bộ mã QR trên vé điện tử vào giữa khung hình camera'}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        <form onSubmit={handleCheckIn} className="space-y-5">
           <div>
             <label className="block text-xs font-bold text-[var(--gt-muted)] uppercase tracking-wider mb-2">
               Mã vé điện tử / Token soát vé (QR Token)
             </label>
-            <div className="relative">
+            <div className="relative group">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[var(--gt-muted)] group-focus-within:text-[var(--gt-coral)] transition-colors">
+                <QrCode className="w-5 h-5" />
+              </div>
               <input
                 type="text"
                 autoFocus
@@ -304,25 +364,25 @@ export const StaffCheckInPage: React.FC = () => {
                 value={tokenInput}
                 onChange={(e) => setTokenInput(e.target.value)}
                 placeholder="Quét mã QR hoặc dán chuỗi token vé tại đây..."
-                className="w-full px-4 py-3 bg-[var(--gt-canvas)] border border-[var(--gt-border)] rounded-2xl text-base font-mono text-[var(--gt-ink)] focus:outline-none focus:border-[var(--gt-coral)] focus:bg-white transition-all font-semibold"
+                className="w-full pl-12 pr-4 py-3.5 bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl text-base font-mono text-[var(--gt-ink)] placeholder:text-[var(--gt-muted)]/60 focus:outline-none focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 shadow-glass transition-all font-semibold"
               />
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-1">
             <Button
               type="submit"
               disabled={loading || !tokenInput.trim()}
-              className="py-3.5 rounded-2xl text-xs font-bold text-white bg-[#FF385C] hover:bg-[#E61E4F] shadow-xs"
+              className="py-4 rounded-full text-xs font-bold text-white bg-[#FF385C] hover:bg-[#E61E4F] shadow-coral-sm hover:shadow-coral-md transition-all flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin" />
                   Đang kiểm tra vé...
                 </>
               ) : (
                 <>
-                  <ShieldCheck className="w-4 h-4 mr-2" />
+                  <ShieldCheck className="w-4.5 h-4.5" />
                   Xác nhận soát vé lên xe
                 </>
               )}
@@ -332,38 +392,22 @@ export const StaffCheckInPage: React.FC = () => {
               type="button"
               variant="outline"
               onClick={() => (cameraOpen ? stopCamera() : void startCamera())}
-              className="py-3.5 rounded-2xl text-xs font-bold"
+              className="py-4 rounded-full text-xs font-bold border-white/80 bg-white/70 backdrop-blur-md hover:bg-white text-[var(--gt-ink)] shadow-glass transition-all flex items-center justify-center gap-2"
             >
               {cameraOpen ? (
                 <>
-                  <CameraOff className="h-4 w-4 mr-2 text-rose-600" />
-                  Đóng camera
+                  <CameraOff className="h-4 w-4 text-rose-600" />
+                  Đóng camera quét
                 </>
               ) : (
                 <>
-                  <Camera className="h-4 w-4 mr-2 text-[var(--gt-coral)]" />
-                  Quét QR bằng camera
+                  <Camera className="h-4 w-4 text-[var(--gt-coral)]" />
+                  Mở camera quét QR trực tiếp
                 </>
               )}
             </Button>
           </div>
         </form>
-
-        {(cameraOpen || cameraHint) && (
-          <div className="overflow-hidden rounded-2xl border border-[var(--gt-border)] bg-stone-900">
-            {cameraOpen && (
-              <video
-                ref={videoRef}
-                playsInline
-                muted
-                className="aspect-video w-full object-cover"
-              />
-            )}
-            <p className="px-4 py-3 text-center text-xs font-semibold text-white">
-              {cameraHint}
-            </p>
-          </div>
-        )}
 
         {/* Error notification */}
         {error && (
@@ -378,46 +422,53 @@ export const StaffCheckInPage: React.FC = () => {
 
       {/* Last Successful Check-in Result Card */}
       {lastCheckIn && (
-        <SurfaceCard className="bg-emerald-50/60 border border-emerald-200 p-6 space-y-4 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between border-b border-emerald-200 pb-3">
-            <div className="flex items-center gap-2 text-emerald-900">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-              <span className="font-bold text-sm">Soát vé thành công!</span>
+        <SurfaceCard className="bg-emerald-500/10 backdrop-blur-xl border border-emerald-400/40 rounded-[32px] p-6 sm:p-7 space-y-4 shadow-glass animate-in fade-in duration-200">
+          <div className="flex items-center justify-between border-b border-emerald-200/50 pb-3.5">
+            <div className="flex items-center gap-2.5 text-emerald-900">
+              <div className="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+              </div>
+              <div>
+                <span className="font-extrabold text-sm text-emerald-950 block">Soát vé thành công!</span>
+                <span className="text-[11px] text-emerald-700/80">Hành khách hợp lệ và đã ghi nhận lên xe</span>
+              </div>
             </div>
-            <span className="text-xs text-emerald-700 font-mono font-bold">
+            <div className="rounded-full bg-white/80 backdrop-blur-sm px-3.5 py-1 text-xs text-emerald-800 font-mono font-bold border border-emerald-200/60 shadow-xs">
               {lastCheckIn.checkedInAt}
-            </span>
+            </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 text-xs">
-            <div>
-              <span className="text-[var(--gt-muted)] block">Vị trí ghế ngồi</span>
-              <strong className="text-xl font-black text-emerald-950 font-mono">
+          <div className="grid grid-cols-2 gap-4 text-xs pt-1">
+            <div className="bg-white/60 backdrop-blur-sm p-4 rounded-2xl border border-white/80">
+              <span className="text-[var(--gt-muted)] block text-[11px] font-semibold uppercase tracking-wider">Vị trí ghế ngồi</span>
+              <strong className="text-2xl font-black text-emerald-950 font-mono mt-0.5 block">
                 Ghế {lastCheckIn.seatCode}
               </strong>
             </div>
 
-            <div>
-              <span className="text-[var(--gt-muted)] block">Hành khách</span>
-              <strong className="text-base font-bold text-emerald-950">
+            <div className="bg-white/60 backdrop-blur-sm p-4 rounded-2xl border border-white/80">
+              <span className="text-[var(--gt-muted)] block text-[11px] font-semibold uppercase tracking-wider">Hành khách</span>
+              <strong className="text-lg font-bold text-emerald-950 mt-0.5 block">
                 {lastCheckIn.passengerName}
               </strong>
             </div>
           </div>
 
-          <p className="text-[11px] text-emerald-800">
-            Trạng thái vé đã được cập nhật thành:{' '}
-            <strong className="uppercase">ĐÃ SOÁT VÉ (CHECKED_IN)</strong> trên hệ thống.
-          </p>
+          <div className="flex items-center gap-2 text-[11px] text-emerald-800 bg-emerald-50/80 rounded-xl px-3.5 py-2">
+            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <span>
+              Trạng thái vé đã cập nhật: <strong className="uppercase font-bold">ĐÃ SOÁT VÉ (CHECKED_IN)</strong> trên hệ thống vận hành.
+            </span>
+          </div>
         </SurfaceCard>
       )}
 
       {/* Manifest section */}
-      <SurfaceCard className="p-6 space-y-4">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between border-b border-[var(--gt-border)] pb-4">
+      <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between border-b border-[var(--gt-border)]/60 pb-4">
           <div>
-            <h2 className="flex items-center gap-2 font-bold text-sm text-[var(--gt-ink)]">
-              <User className="h-4 w-4 text-[var(--gt-coral)]" />
+            <h2 className="flex items-center gap-2 font-bold text-base text-[var(--gt-ink)]">
+              <User className="h-4.5 w-4.5 text-[var(--gt-coral)]" />
               Danh sách hành khách theo chuyến (Manifest)
             </h2>
             <p className="mt-1 text-xs text-[var(--gt-muted)]">
@@ -432,7 +483,7 @@ export const StaffCheckInPage: React.FC = () => {
                 setSelectedTripId(event.target.value);
                 void loadManifest(event.target.value);
               }}
-              className="min-h-10 max-w-xs rounded-2xl border border-[var(--gt-border)] bg-white px-3 py-1.5 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none"
+              className="min-h-10 max-w-xs rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none shadow-xs"
             >
               <option value="">Chọn chuyến xe</option>
               {trips.map((trip) => (
@@ -448,7 +499,7 @@ export const StaffCheckInPage: React.FC = () => {
               size="sm"
               disabled={!selectedTripId || manifestLoading}
               onClick={() => void loadManifest()}
-              className="rounded-2xl text-xs"
+              className="rounded-full text-xs px-3.5 py-2 bg-white/80 border-white/80 shadow-xs"
             >
               <RefreshCw className={`h-3.5 w-3.5 ${manifestLoading ? 'animate-spin' : ''}`} />
             </Button>
@@ -456,18 +507,18 @@ export const StaffCheckInPage: React.FC = () => {
         </div>
 
         {manifestLoading ? (
-          <div className="py-8">
+          <div className="py-12">
             <LoadingState message="Đang tải danh sách hành khách..." />
           </div>
         ) : selectedTripId && manifest.length === 0 ? (
-          <div className="py-8 text-center text-xs text-[var(--gt-muted)]">
+          <div className="py-12 text-center text-xs text-[var(--gt-muted)]">
             Chuyến này chưa có hành khách đặt chỗ.
           </div>
         ) : manifest.length > 0 ? (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto -mx-2 sm:mx-0">
             <table className="w-full text-left text-xs">
-              <thead className="bg-[var(--gt-canvas)] font-bold text-[var(--gt-muted)] border-b border-[var(--gt-border)]">
-                <tr>
+              <thead>
+                <tr className="border-b border-[var(--gt-border)]/60 text-[11px] font-bold text-[var(--gt-muted)] uppercase tracking-wider">
                   <th className="px-4 py-3">Ghế</th>
                   <th className="px-4 py-3">Hành khách</th>
                   <th className="px-4 py-3">Bản sửa</th>
@@ -475,20 +526,22 @@ export const StaffCheckInPage: React.FC = () => {
                   <th className="px-4 py-3 text-right">Thao tác</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--gt-border)]">
+              <tbody className="divide-y divide-white/60">
                 {manifest.map((passenger) => (
-                  <tr key={passenger.ticketId} className="hover:bg-stone-50 transition-colors">
-                    <td className="px-4 py-3 font-mono font-bold text-[var(--gt-coral)]">
-                      <Armchair className="mr-1.5 inline h-4 w-4" />
-                      {passenger.seat?.code || '—'}
+                  <tr key={passenger.ticketId} className="hover:bg-white/60 transition-colors">
+                    <td className="px-4 py-3.5 font-mono font-bold text-[var(--gt-coral)]">
+                      <div className="flex items-center gap-1.5">
+                        <Armchair className="h-4 w-4" />
+                        <span>{passenger.seat?.code || '—'}</span>
+                      </div>
                     </td>
-                    <td className="px-4 py-3 font-bold text-[var(--gt-ink)]">
+                    <td className="px-4 py-3.5 font-bold text-[var(--gt-ink)]">
                       {passenger.passengerName}
                     </td>
-                    <td className="px-4 py-3 font-mono text-[var(--gt-muted)]">
-                      R{passenger.revision}
+                    <td className="px-4 py-3.5 font-mono text-[var(--gt-muted)]">
+                      <span className="px-2 py-0.5 rounded-full bg-stone-100/80 text-[11px]">R{passenger.revision}</span>
                     </td>
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3.5">
                       <StatusBadge
                         status={
                           passenger.status === 'CHECKED_IN'
@@ -499,13 +552,13 @@ export const StaffCheckInPage: React.FC = () => {
                         }
                       />
                     </td>
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-4 py-3.5 text-right">
                       {passenger.status === 'ACTIVE' && (
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => setTicketToMarkNoShow(passenger.ticketId)}
-                          className="border-rose-200 text-rose-700 hover:bg-rose-50 text-xs rounded-xl"
+                          className="border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs rounded-full px-3.5 py-1.5"
                         >
                           <XCircle className="w-3.5 h-3.5 mr-1" />
                           Đánh dấu vắng mặt
@@ -534,3 +587,4 @@ export const StaffCheckInPage: React.FC = () => {
     </div>
   );
 };
+

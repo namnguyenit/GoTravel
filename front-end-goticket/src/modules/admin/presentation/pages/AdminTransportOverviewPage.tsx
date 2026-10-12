@@ -116,14 +116,15 @@ export const AdminTransportOverviewPage: React.FC = () => {
       {/* Editorial Page Header */}
       <PageHeader
         title="Vận tải GoTicket · Tổng quan"
+        eyebrow="Trung tâm Điều hành Nền tảng"
         description="Giám sát mạng lưới nhà xe, phê duyệt hồ sơ đối tác KYC, kiểm soát giao dịch vé và xử lý các ngoại lệ vận hành."
         breadcrumbs={[
           { label: 'Admin GoTicket', to: '/admin' },
           { label: 'Tổng quan' },
         ]}
         actions={
-          <Button asChild variant="default">
-            <Link to="/admin/applications" className="gap-2">
+          <Button asChild variant="default" className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm px-5 py-2.5 font-bold text-xs">
+            <Link to="/admin/applications" className="gap-2 flex items-center">
               <FileCheck2 className="w-4 h-4" />
               <span>Duyệt hồ sơ ({stats.pendingApplications})</span>
             </Link>
@@ -172,32 +173,32 @@ export const AdminTransportOverviewPage: React.FC = () => {
 
       {/* Operations Quick Modules */}
       <div>
-        <div className="mb-4">
-          <h2 className="text-lg font-serif font-bold text-ink">
+        <div className="mb-5">
+          <h2 className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
             Phân hệ Quản trị & Vận hành
           </h2>
-          <p className="text-xs text-muted mt-0.5">
+          <p className="text-xs text-[var(--gt-muted)] mt-1">
             Truy cập nhanh vào các tính năng điều hành hệ sinh thái vé xe GoTicket
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <SurfaceCard className="p-6 flex flex-col justify-between hover:border-coral/40 transition-all hover:shadow-card group">
-            <div className="space-y-3">
-              <div className="w-11 h-11 rounded-2xl bg-coral-soft text-coral flex items-center justify-center transition-transform group-hover:scale-105">
-                <Building2 className="w-5 h-5" />
+          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-coral)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
+            <div className="space-y-3.5">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
+                <Building2 className="w-5.5 h-5.5" />
               </div>
-              <h3 className="font-serif font-bold text-base text-ink group-hover:text-coral transition-colors">
+              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-coral)] transition-colors">
                 Nhà xe & Trạng thái hoạt động
               </h3>
-              <p className="text-xs text-muted leading-relaxed">
-                Xem toàn bộ {stats.totalOperators} nhà xe đối tác, tạm đình chỉ vi phạm hoặc kích hoạt lại sau kiểm tra.
+              <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
+                Xem toàn bộ {stats.totalOperators} nhà xe đối tác, tạm đình chỉ vi phạm hoặc kích hoạt lại sau kiểm tra chất lượng.
               </p>
             </div>
-            <div className="pt-4 mt-2 border-t border-line/60">
+            <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
               <Link
                 to="/admin/operators"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-dark"
+                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-coral)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
               >
                 <span>Mở quản lý nhà xe</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -205,22 +206,22 @@ export const AdminTransportOverviewPage: React.FC = () => {
             </div>
           </SurfaceCard>
 
-          <SurfaceCard className="p-6 flex flex-col justify-between hover:border-coral/40 transition-all hover:shadow-card group">
-            <div className="space-y-3">
-              <div className="w-11 h-11 rounded-2xl bg-coral-soft text-coral flex items-center justify-center transition-transform group-hover:scale-105">
-                <Receipt className="w-5 h-5" />
+          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-coral)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
+            <div className="space-y-3.5">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
+                <Receipt className="w-5.5 h-5.5" />
               </div>
-              <h3 className="font-serif font-bold text-base text-ink group-hover:text-coral transition-colors">
+              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-coral)] transition-colors">
                 Đơn hàng & Ngoại lệ tranh chấp
               </h3>
-              <p className="text-xs text-muted leading-relaxed">
-                Tra cứu đơn hàng chéo nhà xe, duyệt hoàn tiền, xử lý yêu cầu hủy vé hoặc can thiệp sự cố vận hành.
+              <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
+                Tra cứu đơn hàng chéo nhà xe, duyệt hoàn tiền, xử lý yêu cầu hủy vé hoặc can thiệp sự cố vận hành phát sinh.
               </p>
             </div>
-            <div className="pt-4 mt-2 border-t border-line/60">
+            <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
               <Link
                 to="/admin/orders"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-dark"
+                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-coral)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
               >
                 <span>Tra cứu đơn hàng</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -228,22 +229,22 @@ export const AdminTransportOverviewPage: React.FC = () => {
             </div>
           </SurfaceCard>
 
-          <SurfaceCard className="p-6 flex flex-col justify-between hover:border-coral/40 transition-all hover:shadow-card group">
-            <div className="space-y-3">
-              <div className="w-11 h-11 rounded-2xl bg-coral-soft text-coral flex items-center justify-center transition-transform group-hover:scale-105">
-                <Scale className="w-5 h-5" />
+          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-coral)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
+            <div className="space-y-3.5">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
+                <Scale className="w-5.5 h-5.5" />
               </div>
-              <h3 className="font-serif font-bold text-base text-ink group-hover:text-coral transition-colors">
+              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-coral)] transition-colors">
                 Trung tâm Vận hành Admin
               </h3>
-              <p className="text-xs text-muted leading-relaxed">
+              <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
                 7 chế độ chuyên sâu: Kiểm duyệt mở bán, hoàn tiền, hủy chuyến, đối soát số liệu, đối soát tiền mặt & hoa hồng.
               </p>
             </div>
-            <div className="pt-4 mt-2 border-t border-line/60">
+            <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
               <Link
                 to="/admin/reconciliation"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-coral hover:text-coral-dark"
+                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-coral)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
               >
                 <span>Mở trung tâm vận hành</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -255,3 +256,4 @@ export const AdminTransportOverviewPage: React.FC = () => {
     </div>
   );
 };
+

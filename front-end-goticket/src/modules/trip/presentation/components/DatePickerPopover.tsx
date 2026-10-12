@@ -157,7 +157,7 @@ export const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({
 
       {/* Popover Dropdown matching LocationCombobox styling */}
       {isOpen && (
-        <div className="animate-in fade-in slide-in-from-top-2 duration-200 absolute top-full left-0 lg:right-0 lg:left-auto z-50 mt-2.5 w-[310px] sm:w-[330px] rounded-[28px] border border-gray-100 bg-white p-4 shadow-[0_24px_50px_rgba(15,23,42,0.18)] select-none">
+        <div className="animate-in fade-in slide-in-from-top-2 duration-200 absolute top-full left-0 lg:right-0 lg:left-auto z-50 mt-2.5 w-[310px] sm:w-[330px] rounded-[28px] border border-white/80 bg-white/95 backdrop-blur-2xl p-4 shadow-[0_24px_50px_rgba(15,23,42,0.18)] select-none">
           {/* Header Month / Year Navigation */}
           <div className="flex items-center justify-between pb-3 border-b border-gray-100/90 mb-3">
             <button

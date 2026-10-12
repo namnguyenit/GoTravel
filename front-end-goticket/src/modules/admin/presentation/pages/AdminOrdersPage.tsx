@@ -152,6 +152,7 @@ export const AdminOrdersPage: React.FC = () => {
       {/* Editorial Page Header */}
       <PageHeader
         title="Quản trị Đơn hàng Toàn hệ thống"
+        eyebrow="Kiểm soát Giao dịch & Cưỡng chế"
         description="Theo dõi toàn bộ đơn đặt vé trên GoTicket, kiểm soát trạng thái giao dịch và thực hiện can thiệp cưỡng chế khi có sự cố."
         breadcrumbs={[
           { label: 'Admin GoTicket', to: '/admin' },
@@ -163,9 +164,9 @@ export const AdminOrdersPage: React.FC = () => {
             size="sm"
             onClick={fetchOrders}
             disabled={loading}
-            className="gap-2"
+            className="rounded-full border-white/80 bg-white/80 backdrop-blur-md shadow-xs gap-2 px-4 py-2 text-xs font-bold"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
             <span>Làm mới</span>
           </Button>
         }
@@ -176,7 +177,7 @@ export const AdminOrdersPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setStatusFilter('ALL')}
-          className="text-left w-full focus:outline-none"
+          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
         >
           <MetricCard
             label="Tổng đơn tải"
@@ -190,7 +191,7 @@ export const AdminOrdersPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setStatusFilter('CONFIRMED')}
-          className="text-left w-full focus:outline-none"
+          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
         >
           <MetricCard
             label="Đã xác nhận"
@@ -204,7 +205,7 @@ export const AdminOrdersPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setStatusFilter('PENDING')}
-          className="text-left w-full focus:outline-none"
+          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
         >
           <MetricCard
             label="Chờ thanh toán"
@@ -218,7 +219,7 @@ export const AdminOrdersPage: React.FC = () => {
         <button
           type="button"
           onClick={() => setStatusFilter('CANCELLED')}
-          className="text-left w-full focus:outline-none"
+          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
         >
           <MetricCard
             label="Đã hủy"
@@ -233,18 +234,18 @@ export const AdminOrdersPage: React.FC = () => {
       {/* Feedback banner */}
       {feedback && (
         <div
-          className={`flex items-center justify-between rounded-2xl p-4 text-xs sm:text-sm border ${
+          className={`flex items-center justify-between rounded-[24px] p-4 text-xs sm:text-sm border backdrop-blur-md shadow-xs ${
             feedback.type === 'success'
-              ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
-              : 'border-rose-200 bg-rose-50 text-rose-800'
+              ? 'border-emerald-200/80 bg-emerald-50/80 text-emerald-800'
+              : 'border-rose-200/80 bg-rose-50/80 text-rose-800'
           }`}
         >
-          <span>{feedback.message}</span>
+          <span className="font-medium">{feedback.message}</span>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setFeedback(null)}
-            className="h-7 text-xs"
+            className="h-7 text-xs rounded-full"
           >
             Đóng
           </Button>
@@ -252,10 +253,10 @@ export const AdminOrdersPage: React.FC = () => {
       )}
 
       {/* Search & Status Filter Toolbar */}
-      <SurfaceCard className="p-4 sm:p-5">
+      <SurfaceCard className="p-4 sm:p-5 rounded-[28px]">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           {/* Status Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-canvas rounded-xl border border-line">
+          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-white/60 backdrop-blur-sm rounded-full border border-white/80 shadow-xs">
             {[
               { key: 'ALL', label: `Tất cả (${kpis.total})` },
               { key: 'CONFIRMED', label: `Đã xác nhận (${kpis.confirmed})` },
@@ -266,10 +267,10 @@ export const AdminOrdersPage: React.FC = () => {
                 key={tab.key}
                 type="button"
                 onClick={() => setStatusFilter(tab.key)}
-                className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors ${
+                className={`px-4 py-2 text-xs font-bold rounded-full transition-all ${
                   statusFilter === tab.key
-                    ? 'bg-coral text-white shadow-xs'
-                    : 'text-muted hover:text-ink'
+                    ? 'bg-[#FF385C] text-white shadow-coral-sm'
+                    : 'text-[var(--gt-muted)] hover:text-[var(--gt-ink)]'
                 }`}
               >
                 {tab.label}
@@ -279,19 +280,19 @@ export const AdminOrdersPage: React.FC = () => {
 
           {/* Search Box */}
           <div className="relative flex-1 max-w-sm">
-            <Search className="absolute top-2.5 left-3 h-4 w-4 text-muted" />
+            <Search className="absolute top-3 left-3.5 h-4 w-4 text-[var(--gt-muted)]" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Tìm theo mã đơn, email, họ tên..."
-              className="w-full h-9 pl-9 pr-8 text-xs bg-canvas border border-line rounded-xl focus:border-coral focus:ring-1 focus:ring-coral focus:outline-none transition-colors"
+              className="w-full h-10 pl-10 pr-8 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs"
             />
             {searchTerm && (
               <button
                 type="button"
                 onClick={() => setSearchTerm('')}
-                className="absolute right-2.5 top-2.5 text-muted hover:text-ink"
+                className="absolute right-3 top-3 text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -301,23 +302,23 @@ export const AdminOrdersPage: React.FC = () => {
       </SurfaceCard>
 
       {/* Orders List / Table */}
-      <SurfaceCard className="p-0 overflow-hidden">
-        <div className="p-4 sm:p-5 border-b border-line flex items-center justify-between">
-          <h2 className="font-serif font-bold text-base text-ink">
+      <SurfaceCard className="p-0 overflow-hidden rounded-[32px]">
+        <div className="p-5 sm:p-6 border-b border-[var(--gt-border)]/60 flex items-center justify-between">
+          <h2 className="font-black text-base text-[var(--gt-ink)]">
             Danh sách đơn hàng ({filteredOrders.length})
           </h2>
         </div>
 
         {loading ? (
-          <div className="p-12">
+          <div className="p-14">
             <LoadingState message="Đang tải danh sách đơn hàng..." />
           </div>
         ) : error ? (
-          <div className="p-12 text-center text-rose-600 text-xs">
+          <div className="p-14 text-center text-rose-600 text-xs font-semibold">
             {error}
           </div>
         ) : filteredOrders.length === 0 ? (
-          <div className="p-12">
+          <div className="p-14">
             <EmptyState
               title="Không tìm thấy đơn hàng"
               description={
@@ -327,7 +328,7 @@ export const AdminOrdersPage: React.FC = () => {
               }
               action={
                 searchTerm ? (
-                  <Button variant="outline" size="sm" onClick={() => setSearchTerm('')}>
+                  <Button variant="outline" size="sm" onClick={() => setSearchTerm('')} className="rounded-full text-xs">
                     Xóa tìm kiếm
                   </Button>
                 ) : undefined
@@ -339,38 +340,38 @@ export const AdminOrdersPage: React.FC = () => {
             {/* Desktop Table View */}
             <div className="hidden lg:block overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="border-b border-line bg-canvas/70 font-semibold text-muted uppercase tracking-wider text-[11px]">
-                  <tr>
-                    <th className="px-5 py-3.5">Mã đơn hàng</th>
-                    <th className="px-5 py-3.5">Khách hàng</th>
-                    <th className="px-5 py-3.5">Ngày đặt</th>
-                    <th className="px-5 py-3.5 text-right">Tổng thanh toán</th>
-                    <th className="px-5 py-3.5 text-center">Trạng thái</th>
-                    <th className="px-5 py-3.5 text-right">Thao tác</th>
+                <thead>
+                  <tr className="border-b border-[var(--gt-border)]/60 bg-white/50 backdrop-blur-xs font-bold text-[var(--gt-muted)] uppercase tracking-wider text-[11px]">
+                    <th className="px-5 py-4">Mã đơn hàng</th>
+                    <th className="px-5 py-4">Khách hàng</th>
+                    <th className="px-5 py-4">Ngày đặt</th>
+                    <th className="px-5 py-4 text-right">Tổng thanh toán</th>
+                    <th className="px-5 py-4 text-center">Trạng thái</th>
+                    <th className="px-5 py-4 text-right">Thao tác</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-line/60">
+                <tbody className="divide-y divide-white/60">
                   {filteredOrders.map((order) => (
-                    <tr key={order.orderId} className="hover:bg-coral-soft/20 transition-colors">
+                    <tr key={order.orderId} className="hover:bg-white/60 transition-colors">
                       <td className="px-5 py-4">
                         <div className="space-y-0.5">
-                          <span className="font-mono font-bold text-ink block text-xs">
+                          <span className="font-mono font-bold text-[var(--gt-ink)] block text-xs">
                             {order.orderNumber}
                           </span>
                           <IdText id={order.orderId} />
                         </div>
                       </td>
                       <td className="px-5 py-4">
-                        <span className="font-semibold text-ink block text-xs">
+                        <span className="font-bold text-[var(--gt-ink)] block text-xs">
                           {order.customerName}
                         </span>
-                        <span className="text-muted text-[11px] block">
+                        <span className="text-[var(--gt-muted)] text-[11px] block">
                           {order.customerEmail || 'Không có email'}
                         </span>
                       </td>
-                      <td className="px-5 py-4 text-muted">
+                      <td className="px-5 py-4 text-[var(--gt-muted)] font-medium">
                         <div className="flex items-center gap-1.5">
-                          <Calendar className="w-3.5 h-3.5 text-muted/80" />
+                          <Calendar className="w-3.5 h-3.5 text-[var(--gt-muted)]/80" />
                           <span>{new Date(order.createdAt).toLocaleDateString('vi-VN')}</span>
                         </div>
                       </td>
@@ -386,7 +387,7 @@ export const AdminOrdersPage: React.FC = () => {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-8 px-2 text-xs text-coral hover:bg-coral-soft gap-1"
+                            className="h-8 px-3 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
                             onClick={() => setSelectedOrder(order)}
                           >
                             <Eye className="w-3.5 h-3.5" />
@@ -398,7 +399,7 @@ export const AdminOrdersPage: React.FC = () => {
                               type="button"
                               variant="outline"
                               size="sm"
-                              className="h-8 border-rose-200 text-rose-700 hover:bg-rose-50 text-xs"
+                              className="h-8 rounded-full border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs px-3 font-bold shadow-xs"
                               onClick={() => setOrderToCancel(order)}
                             >
                               <Ban className="w-3.5 h-3.5 mr-1" />
@@ -414,32 +415,32 @@ export const AdminOrdersPage: React.FC = () => {
             </div>
 
             {/* Mobile / Tablet Card View */}
-            <div className="block lg:hidden divide-y divide-line/60">
+            <div className="block lg:hidden divide-y divide-white/60">
               {filteredOrders.map((order) => (
-                <div key={order.orderId} className="p-4 space-y-3">
+                <div key={order.orderId} className="p-4 sm:p-5 space-y-3 hover:bg-white/50 transition-colors">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <span className="font-mono font-bold text-ink text-sm block">
+                      <span className="font-mono font-bold text-[var(--gt-ink)] text-sm block">
                         #{order.orderNumber}
                       </span>
-                      <span className="text-xs text-muted block">{order.customerName}</span>
+                      <span className="text-xs text-[var(--gt-muted)] block">{order.customerName}</span>
                     </div>
                     <StatusBadge status={order.status} size="sm" />
                   </div>
 
-                  <div className="flex items-center justify-between text-xs pt-1">
-                    <span className="text-muted">
+                  <div className="flex items-center justify-between text-xs pt-1 font-medium">
+                    <span className="text-[var(--gt-muted)]">
                       {new Date(order.createdAt).toLocaleDateString('vi-VN')}
                     </span>
                     <MoneyText amount={order.totalAmount} variant="coral" size="sm" />
                   </div>
 
-                  <div className="flex items-center justify-end gap-2 pt-2 border-t border-line/40">
+                  <div className="flex items-center justify-end gap-2 pt-2.5 border-t border-[var(--gt-border)]/50">
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="h-8 text-xs text-coral hover:bg-coral-soft gap-1"
+                      className="h-8 px-3 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
                       onClick={() => setSelectedOrder(order)}
                     >
                       <Eye className="w-3.5 h-3.5" />
@@ -451,7 +452,7 @@ export const AdminOrdersPage: React.FC = () => {
                         type="button"
                         variant="outline"
                         size="sm"
-                        className="h-8 border-rose-200 text-rose-700 hover:bg-rose-50 text-xs"
+                        className="h-8 rounded-full border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs px-3 font-bold shadow-xs"
                         onClick={() => setOrderToCancel(order)}
                       >
                         <Ban className="w-3.5 h-3.5 mr-1" />
@@ -480,60 +481,61 @@ export const AdminOrdersPage: React.FC = () => {
 
       {/* Order Detail Modal */}
       <Dialog open={Boolean(selectedOrder)} onOpenChange={(open) => !open && setSelectedOrder(null)}>
-        <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
-          <DialogHeader className="space-y-1 text-left">
-            <div className="flex items-center space-x-1.5 text-xs font-semibold text-coral">
-              <ShoppingBag className="h-3.5 w-3.5" />
-              <span>Chi tiết Đơn hàng #{selectedOrder?.orderNumber}</span>
+        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
+          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
+            <div className="flex items-center space-x-1.5 text-xs font-bold text-[var(--gt-coral)] uppercase tracking-wider">
+              <ShoppingBag className="h-4 w-4" />
+              <span>Đơn hàng #{selectedOrder?.orderNumber}</span>
             </div>
-            <DialogTitle className="text-lg font-serif font-bold text-ink">
+            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
               Thông tin Đơn vé Vận tải
             </DialogTitle>
-            <DialogDescription className="text-xs text-muted">
+            <DialogDescription className="text-xs text-[var(--gt-muted)]">
               Dữ liệu lưu vết tại hệ thống thanh toán và điều hành GoTicket
             </DialogDescription>
           </DialogHeader>
 
           {selectedOrder && (
-            <div className="space-y-3 py-2 text-xs">
-              <div className="flex items-center justify-between rounded-xl border border-line bg-canvas p-3">
-                <span className="font-semibold text-ink">Trạng thái</span>
+            <div className="space-y-3.5 py-2 text-xs">
+              <div className="flex items-center justify-between rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+                <span className="font-bold text-[var(--gt-ink)]">Trạng thái</span>
                 <StatusBadge status={selectedOrder.status} size="sm" />
               </div>
 
-              <div className="space-y-2 divide-y divide-line/60 rounded-2xl border border-line bg-surface p-4">
+              <div className="space-y-2.5 divide-y divide-[var(--gt-border)]/50 rounded-2xl border border-white/80 bg-white/60 backdrop-blur-sm p-4 shadow-xs">
                 <div className="flex items-center justify-between pb-2">
-                  <span className="text-muted">Mã định danh ID</span>
+                  <span className="text-[var(--gt-muted)] font-medium">Mã định danh ID</span>
                   <IdText id={selectedOrder.orderId} />
                 </div>
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-muted">Khách hàng</span>
-                  <span className="font-semibold text-ink">{selectedOrder.customerName}</span>
+                  <span className="text-[var(--gt-muted)] font-medium">Khách hàng</span>
+                  <span className="font-bold text-[var(--gt-ink)]">{selectedOrder.customerName}</span>
                 </div>
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-muted">Email</span>
-                  <span className="font-medium text-ink">{selectedOrder.customerEmail || 'Chưa cung cấp'}</span>
+                  <span className="text-[var(--gt-muted)] font-medium">Email</span>
+                  <span className="font-medium text-[var(--gt-ink)]">{selectedOrder.customerEmail || 'Chưa cung cấp'}</span>
                 </div>
                 <div className="flex items-center justify-between py-2">
-                  <span className="text-muted">Ngày tạo</span>
-                  <span className="text-ink">
+                  <span className="text-[var(--gt-muted)] font-medium">Ngày tạo</span>
+                  <span className="text-[var(--gt-ink)] font-semibold">
                     {new Date(selectedOrder.createdAt).toLocaleString('vi-VN')}
                   </span>
                 </div>
                 <div className="flex items-center justify-between pt-2">
-                  <span className="font-bold text-ink">Tổng giá trị</span>
+                  <span className="font-black text-[var(--gt-ink)] text-sm">Tổng giá trị</span>
                   <MoneyText amount={selectedOrder.totalAmount} variant="coral" size="base" />
                 </div>
               </div>
             </div>
           )}
 
-          <DialogFooter className="sm:justify-end pt-2">
+          <DialogFooter className="sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               type="button"
               variant="outline"
               size="sm"
               onClick={() => setSelectedOrder(null)}
+              className="rounded-full px-5 text-xs font-semibold"
             >
               Đóng
             </Button>

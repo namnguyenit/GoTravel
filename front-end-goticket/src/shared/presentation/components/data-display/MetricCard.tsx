@@ -24,13 +24,13 @@ export const MetricCard: React.FC<MetricCardProps> = ({
   className = '',
 }) => {
   const iconBg = {
-    default: 'bg-gray-100 text-gray-700',
-    coral: 'bg-[#FFF0F2] text-[#FF385C]',
-    emerald: 'bg-emerald-50 text-emerald-600',
+    default: 'bg-white/90 text-gray-700 border border-gray-200/60 shadow-2xs',
+    coral: 'bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20 shadow-2xs',
+    emerald: 'bg-emerald-50 text-emerald-600 border border-emerald-500/20 shadow-2xs',
   }[variant];
 
   return (
-    <div className={`bg-white rounded-2xl p-5 border border-gray-200/80 shadow-2xs hover:shadow-xs transition-shadow flex flex-col justify-between ${className}`}>
+    <div className={`bg-white/85 backdrop-blur-md rounded-2xl sm:rounded-3xl p-5 border border-white/80 shadow-2xs hover:shadow-md hover:border-[#FF385C]/30 transition-all flex flex-col justify-between ${className}`}>
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{label}</p>
@@ -39,7 +39,7 @@ export const MetricCard: React.FC<MetricCardProps> = ({
           </div>
         </div>
         {Icon && (
-          <div className={`p-2.5 rounded-xl shrink-0 ${iconBg}`}>
+          <div className={`p-2.5 rounded-2xl shrink-0 ${iconBg}`}>
             <Icon className="w-5 h-5" />
           </div>
         )}

@@ -154,6 +154,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
               variant="outline"
               onClick={add}
               disabled={seats.length >= 100}
+              className="rounded-full border-gray-200/80 bg-white/80 backdrop-blur-xs hover:bg-white text-xs font-bold shadow-2xs"
             >
               <Plus className="h-4 w-4 mr-2" />
               Thêm ghế
@@ -161,7 +162,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
             <Button
               onClick={() => void save()}
               disabled={saving}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md transition-all text-xs font-bold"
             >
               {saving ? (
                 <RefreshCw className="h-4 w-4 animate-spin mr-2" />
@@ -184,15 +185,17 @@ export const OperatorSeatLayoutPage: React.FC = () => {
       {/* Levels & Seats Grid */}
       <div className="space-y-6">
         {levels.map((level) => (
-          <SurfaceCard key={level} className="p-6 md:p-8">
-            <div className="flex items-center justify-between border-b border-[var(--gt-border-soft)] pb-4 mb-6">
+          <SurfaceCard key={level} variant="glass" className="p-6 md:p-8 rounded-[32px]">
+            <div className="flex items-center justify-between border-b border-gray-100/80 pb-4 mb-6">
               <div className="flex items-center gap-2">
-                <Layers className="h-5 w-5 text-[var(--gt-coral)]" />
-                <h2 className="text-base font-bold text-[var(--gt-ink)]">
+                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-coral-soft text-coral border border-coral/20">
+                  <Layers className="h-4 w-4" />
+                </div>
+                <h2 className="text-base font-bold text-gray-900">
                   Cấu hình Tầng {level}
                 </h2>
               </div>
-              <span className="text-xs font-semibold text-[var(--gt-muted)]">
+              <span className="rounded-full px-3 py-1 bg-white/90 border border-gray-200/80 text-xs font-bold text-gray-600 shadow-2xs">
                 {seats.filter((s) => s.level === level).length} vị trí
               </span>
             </div>
@@ -203,12 +206,12 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                   seat.level === level && (
                     <div
                       key={index}
-                      className="rounded-2xl border border-[var(--gt-border)] bg-[var(--gt-surface-soft)] p-4 space-y-3"
+                      className="rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xs p-4 space-y-3 shadow-2xs hover:border-coral/30 hover:bg-white/90 transition-all"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                          <Armchair className="h-4 w-4 text-[var(--gt-coral)]" />
-                          <span className="font-mono font-bold text-sm text-[var(--gt-ink)]">
+                          <Armchair className="h-4 w-4 text-coral" />
+                          <span className="rounded-full px-2.5 py-0.5 bg-coral-soft text-coral border border-coral/20 font-mono font-bold text-xs">
                             {seat.code}
                           </span>
                         </div>
@@ -216,7 +219,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                           type="button"
                           onClick={() => remove(index)}
                           aria-label="Xóa ghế"
-                          className="rounded-xl p-1 text-[var(--gt-muted)] hover:text-[var(--gt-danger)] hover:bg-rose-50 transition-colors"
+                          className="rounded-full p-1.5 text-gray-400 hover:text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer"
                         >
                           <Trash2 className="h-3.5 w-3.5" />
                         </button>
@@ -224,29 +227,29 @@ export const OperatorSeatLayoutPage: React.FC = () => {
 
                       <div className="grid grid-cols-2 gap-2 text-xs">
                         <div>
-                          <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--gt-muted)]">
+                          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
                             Mã ghế
                           </label>
                           <input
                             value={seat.code}
                             onChange={(e) => update(index, { code: e.target.value.toUpperCase() })}
-                            className="mt-1 w-full rounded-xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 font-mono text-xs font-bold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                            className="mt-1 w-full rounded-xl border border-gray-200/80 bg-white/90 px-2.5 py-1.5 font-mono text-xs font-bold text-gray-900 outline-none focus:border-coral shadow-2xs"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--gt-muted)]">
+                          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
                             Hạng ghế
                           </label>
                           <input
                             value={seat.seatClass}
                             onChange={(e) => update(index, { seatClass: e.target.value.toUpperCase() })}
-                            className="mt-1 w-full rounded-xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                            className="mt-1 w-full rounded-xl border border-gray-200/80 bg-white/90 px-2.5 py-1.5 text-xs font-semibold text-gray-900 outline-none focus:border-coral shadow-2xs"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--gt-muted)]">
+                          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
                             Tầng
                           </label>
                           <input
@@ -255,12 +258,12 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                             max={3}
                             value={seat.level}
                             onChange={(e) => update(index, { level: Number(e.target.value) })}
-                            className="mt-1 w-full rounded-xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 text-xs font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                            className="mt-1 w-full rounded-xl border border-gray-200/80 bg-white/90 px-2.5 py-1.5 text-xs font-semibold text-gray-900 outline-none focus:border-coral shadow-2xs"
                           />
                         </div>
 
                         <div>
-                          <label className="text-[10px] font-bold uppercase tracking-wider text-[var(--gt-muted)]">
+                          <label className="text-[10px] font-bold uppercase tracking-wider text-gray-400">
                             Hàng / Cột
                           </label>
                           <div className="mt-1 flex gap-1">
@@ -271,7 +274,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                               max={50}
                               value={seat.row}
                               onChange={(e) => update(index, { row: Number(e.target.value) })}
-                              className="w-1/2 rounded-xl border border-[var(--gt-border)] bg-white px-1.5 py-1.5 text-xs text-center font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                              className="w-1/2 rounded-xl border border-gray-200/80 bg-white/90 px-1.5 py-1.5 text-xs text-center font-semibold text-gray-900 outline-none focus:border-coral shadow-2xs"
                             />
                             <input
                               aria-label="Cột"
@@ -280,7 +283,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                               max={10}
                               value={seat.column}
                               onChange={(e) => update(index, { column: Number(e.target.value) })}
-                              className="w-1/2 rounded-xl border border-[var(--gt-border)] bg-white px-1.5 py-1.5 text-xs text-center font-semibold text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+                              className="w-1/2 rounded-xl border border-gray-200/80 bg-white/90 px-1.5 py-1.5 text-xs text-center font-semibold text-gray-900 outline-none focus:border-coral shadow-2xs"
                             />
                           </div>
                         </div>

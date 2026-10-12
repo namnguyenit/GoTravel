@@ -28,12 +28,12 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
   const availableSeats = trip.getAvailableSeats();
 
   return (
-    <div className="group overflow-hidden rounded-[24px] border border-gray-200/90 bg-white shadow-2xs transition-all hover:border-[#FF385C]/40 hover:shadow-md">
+    <div className="group overflow-hidden rounded-3xl border border-white/80 bg-white/85 backdrop-blur-md shadow-2xs transition-all hover:border-[#FF385C]/40 hover:bg-white/92 hover:shadow-lg">
       <div className="p-5 sm:p-6">
         {/* Card Header: Operator & Badges */}
-        <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-gray-100 pb-3.5">
+        <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-gray-100/80 pb-3.5">
           <div className="flex items-center space-x-2.5">
-            <div className="w-8 h-8 rounded-xl bg-gray-50 border border-gray-100 text-gray-700 flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-2xl bg-white/90 border border-gray-200/60 text-gray-700 flex items-center justify-center font-bold shadow-2xs">
               <Bus className="w-4 h-4 text-[#FF385C]" />
             </div>
             <div>
@@ -41,7 +41,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
                 {trip.operator.name}
               </h3>
               <div className="flex items-center gap-2 mt-0.5">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full">
+                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50/80 border border-emerald-500/20 px-2.5 py-0.5 rounded-full shadow-2xs">
                   <ShieldCheck className="h-3 w-3 text-emerald-600" />
                   Đối tác KYC
                 </span>
@@ -54,16 +54,16 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-gray-200/60 text-gray-700 shadow-2xs">
               {trip.getCarTypeLabel()}
             </span>
 
             {isSoldOut ? (
-              <span className="rounded-full border border-rose-200 bg-rose-50 px-3 py-1 text-xs font-bold text-rose-700">
+              <span className="rounded-full border border-rose-300/60 bg-rose-50/80 px-3 py-1 text-xs font-bold text-rose-700 shadow-2xs">
                 Hết vé
               </span>
             ) : (
-              <span className="flex items-center gap-1.5 rounded-full border border-emerald-200/80 bg-emerald-50 px-3 py-1 text-xs font-bold text-emerald-700 tabular-nums">
+              <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-50/80 backdrop-blur-xs px-3 py-1 text-xs font-bold text-emerald-700 tabular-nums shadow-2xs">
                 <Users className="h-3 w-3" />
                 Còn {availableSeats} chỗ
               </span>

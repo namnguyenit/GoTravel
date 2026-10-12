@@ -94,9 +94,9 @@ export const OperatorReportsPage: React.FC = () => {
       />
 
       {/* Date Range Bar */}
-      <SurfaceCard className="p-5 flex flex-wrap items-end gap-3.5">
+      <SurfaceCard variant="glass" className="p-5 flex flex-wrap items-end gap-3.5 rounded-[28px] border border-white/80 shadow-glass">
         <div>
-          <label className="block text-xs font-semibold text-[var(--gt-muted)] mb-1">
+          <label className="block text-xs font-semibold text-gray-500 mb-1">
             Từ ngày
           </label>
           <input
@@ -104,11 +104,11 @@ export const OperatorReportsPage: React.FC = () => {
             value={from}
             max={to}
             onChange={(e) => setFrom(e.target.value)}
-            className="block rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2 text-xs font-medium text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-[var(--gt-muted)] mb-1">
+          <label className="block text-xs font-semibold text-gray-500 mb-1">
             Đến ngày
           </label>
           <input
@@ -116,13 +116,13 @@ export const OperatorReportsPage: React.FC = () => {
             value={to}
             min={from}
             onChange={(e) => setTo(e.target.value)}
-            className="block rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2 text-xs font-medium text-[var(--gt-ink)] outline-none focus:border-[var(--gt-coral)]"
+            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
           />
         </div>
         <Button
           onClick={() => void load()}
           disabled={loading}
-          className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-2xl text-xs font-bold px-4"
+          className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full text-xs font-bold px-5 py-2 shadow-md glow-coral-sm cursor-pointer"
         >
           <RefreshCw className={`h-3.5 w-3.5 mr-2 ${loading ? 'animate-spin' : ''}`} />
           Cập nhật số liệu
@@ -139,7 +139,7 @@ export const OperatorReportsPage: React.FC = () => {
       )}
 
       {loading ? (
-        <SurfaceCard className="p-12 text-center">
+        <SurfaceCard variant="glass" className="p-12 text-center rounded-[28px]">
           <LoadingState message="Đang tổng hợp báo cáo tài chính..." />
         </SurfaceCard>
       ) : (
@@ -167,20 +167,20 @@ export const OperatorReportsPage: React.FC = () => {
           </div>
 
           {/* Breakdown Table */}
-          <SurfaceCard className="overflow-hidden p-0">
-            <div className="border-b border-[var(--gt-border)] p-4 sm:p-5">
-              <h2 className="font-bold text-sm text-[var(--gt-ink)]">
+          <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 shadow-glass">
+            <div className="border-b border-gray-100/80 p-4 sm:p-5 bg-white/60 backdrop-blur-md">
+              <h2 className="font-bold text-sm text-gray-900">
                 Phân bổ theo Phương thức thanh toán & Trạng thái
               </h2>
             </div>
             {rows.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[var(--gt-muted)]">
+              <div className="p-8 text-center text-xs text-gray-500">
                 Chưa có dữ liệu giao dịch trong khoảng thời gian đã chọn.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[var(--gt-canvas)] font-bold text-[var(--gt-muted)] border-b border-[var(--gt-border)]">
+                  <thead className="bg-white/60 backdrop-blur-md font-bold text-gray-500 border-b border-gray-100/80">
                     <tr>
                       <th className="px-5 py-3.5">Phương thức</th>
                       <th className="px-5 py-3.5">Trạng thái</th>
@@ -188,18 +188,18 @@ export const OperatorReportsPage: React.FC = () => {
                       <th className="px-5 py-3.5 text-right">Tổng giá trị</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[var(--gt-border)]">
+                  <tbody className="divide-y divide-gray-100/80">
                     {rows.map((row, index) => (
-                      <tr key={index} className="hover:bg-stone-50 transition-colors">
-                        <td className="px-5 py-3.5 font-bold text-[var(--gt-ink)]">
+                      <tr key={index} className="hover:bg-white/60 transition-colors">
+                        <td className="px-5 py-3.5 font-bold text-gray-900">
                           {String(row.payment_method || '—')}
                         </td>
                         <td className="px-5 py-3.5">
-                          <span className="rounded-full bg-[var(--gt-canvas)] border border-[var(--gt-border)] px-2.5 py-0.5 text-[11px] font-semibold text-[var(--gt-ink)]">
+                          <span className="rounded-full bg-white/90 border border-gray-200/80 px-3 py-0.5 text-[11px] font-semibold text-gray-700 shadow-2xs">
                             {String(row.status || '—')}
                           </span>
                         </td>
-                        <td className="px-5 py-3.5 text-right font-medium">
+                        <td className="px-5 py-3.5 text-right font-medium text-gray-600">
                           {String(row.order_count || 0)}
                         </td>
                         <td className="px-5 py-3.5 text-right">
@@ -218,20 +218,20 @@ export const OperatorReportsPage: React.FC = () => {
           </SurfaceCard>
 
           {/* Payouts Table */}
-          <SurfaceCard className="overflow-hidden p-0">
-            <div className="border-b border-[var(--gt-border)] p-4 sm:p-5">
-              <h2 className="font-bold text-sm text-[var(--gt-ink)]">
+          <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 shadow-glass">
+            <div className="border-b border-gray-100/80 p-4 sm:p-5 bg-white/60 backdrop-blur-md">
+              <h2 className="font-bold text-sm text-gray-900">
                 Khoản đối soát và Yêu cầu giải ngân
               </h2>
             </div>
             {payouts.length === 0 ? (
-              <div className="p-8 text-center text-xs text-[var(--gt-muted)]">
+              <div className="p-8 text-center text-xs text-gray-500">
                 Chưa có khoản đối soát vận tải nào được ghi nhận.
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[var(--gt-canvas)] font-bold text-[var(--gt-muted)] border-b border-[var(--gt-border)]">
+                  <thead className="bg-white/60 backdrop-blur-md font-bold text-gray-500 border-b border-gray-100/80">
                     <tr>
                       <th className="px-5 py-3.5">Mã đơn / Đối soát</th>
                       <th className="px-5 py-3.5 text-right">Thực nhận</th>
@@ -239,9 +239,9 @@ export const OperatorReportsPage: React.FC = () => {
                       <th className="px-5 py-3.5 text-right">Thao tác</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[var(--gt-border)]">
+                  <tbody className="divide-y divide-gray-100/80">
                     {payouts.map((row) => (
-                      <tr key={String(row.payoutId)} className="hover:bg-stone-50 transition-colors">
+                      <tr key={String(row.payoutId)} className="hover:bg-white/60 transition-colors">
                         <td className="px-5 py-3.5">
                           <IdText id={String(row.orderId || row.payoutId)} />
                         </td>
@@ -253,7 +253,7 @@ export const OperatorReportsPage: React.FC = () => {
                           />
                         </td>
                         <td className="px-5 py-3.5">
-                          <span className="rounded-full bg-[var(--gt-canvas)] border border-[var(--gt-border)] px-2.5 py-0.5 text-[11px] font-semibold text-[var(--gt-ink)]">
+                          <span className="rounded-full bg-white/90 border border-gray-200/80 px-3 py-0.5 text-[11px] font-semibold text-gray-700 shadow-2xs">
                             {String(row.status)}
                           </span>
                         </td>
@@ -262,7 +262,7 @@ export const OperatorReportsPage: React.FC = () => {
                             <Button
                               size="sm"
                               onClick={() => setSelectedPayoutToWithdraw(String(row.payoutId))}
-                              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl"
+                              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-full shadow-2xs"
                             >
                               <ArrowUpRight className="h-3.5 w-3.5 mr-1" />
                               Yêu cầu rút

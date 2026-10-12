@@ -74,52 +74,54 @@ export const CustomerTicketsPage: React.FC = () => {
         }
       />
 
-      {/* Tabs Filter */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-1">
-        <button
-          type="button"
-          onClick={() => setTab('ALL')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            tab === 'ALL'
-              ? 'bg-[#111827] text-white shadow-xs'
-              : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          Tất cả đơn ({orders.length})
-        </button>
-        <button
-          type="button"
-          onClick={() => setTab('CONFIRMED')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            tab === 'CONFIRMED'
-              ? 'bg-[#FF385C] text-white shadow-xs'
-              : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          Đã phát vé ({confirmedCount})
-        </button>
-        <button
-          type="button"
-          onClick={() => setTab('PENDING')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            tab === 'PENDING'
-              ? 'bg-amber-600 text-white shadow-xs'
-              : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          Chờ thanh toán ({pendingCount})
-        </button>
-        <button
-          type="button"
-          onClick={() => setTab('CANCELLED')}
-          className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
-            tab === 'CANCELLED'
-              ? 'bg-rose-600 text-white shadow-xs'
-              : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'
-          }`}
-        >
-          Đã hủy ({cancelledCount})
-        </button>
+      {/* Status Filter Capsule Tabs Dock */}
+      <div className="flex items-center overflow-x-auto pb-1">
+        <div className="inline-flex items-center gap-1.5 p-1.5 rounded-full bg-white/85 backdrop-blur-xl border border-white/80 shadow-sm">
+          <button
+            type="button"
+            onClick={() => setTab('ALL')}
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              tab === 'ALL'
+                ? 'bg-[#111827] text-white shadow-xs'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
+            }`}
+          >
+            Tất cả đơn ({orders.length})
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab('CONFIRMED')}
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              tab === 'CONFIRMED'
+                ? 'bg-coral-soft text-coral border border-coral/30 shadow-xs'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
+            }`}
+          >
+            Đã phát vé ({confirmedCount})
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab('PENDING')}
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              tab === 'PENDING'
+                ? 'bg-amber-50 text-amber-700 border border-amber-200 shadow-xs'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
+            }`}
+          >
+            Chờ thanh toán ({pendingCount})
+          </button>
+          <button
+            type="button"
+            onClick={() => setTab('CANCELLED')}
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+              tab === 'CANCELLED'
+                ? 'bg-rose-50 text-rose-700 border border-rose-200 shadow-xs'
+                : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
+            }`}
+          >
+            Đã hủy ({cancelledCount})
+          </button>
+        </div>
       </div>
 
       {/* Main Content List */}
@@ -163,15 +165,15 @@ export const CustomerTicketsPage: React.FC = () => {
             return (
               <div
                 key={order.orderId}
-                className="bg-white rounded-3xl border border-gray-200/90 p-5 sm:p-6 shadow-2xs hover:border-[#FF385C]/30 hover:shadow-sm transition-all space-y-4"
+                className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-5 sm:p-6 shadow-md hover:border-[#FF385C]/35 hover:shadow-xl transition-all space-y-4"
               >
                 {/* Header Row */}
-                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100 pb-3.5">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100/80 pb-3.5">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-gray-800 bg-gray-100 px-2.5 py-1 rounded-md">
+                    <span className="font-mono text-xs font-bold text-gray-800 bg-white/90 border border-gray-200/60 px-3 py-1 rounded-full shadow-2xs">
                       #{order.orderNumber}
                     </span>
-                    <span className="text-xs text-gray-400 tabular-nums">
+                    <span className="text-xs text-gray-500 tabular-nums font-medium">
                       {new Date(order.createdAt).toLocaleString('vi-VN')}
                     </span>
                   </div>
@@ -187,10 +189,10 @@ export const CustomerTicketsPage: React.FC = () => {
                   {order.items.map((item, idx) => (
                     <div
                       key={item.itemId || idx}
-                      className="p-3.5 bg-[#FAF9F6] rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-gray-100"
+                      className="p-3.5 bg-white/60 backdrop-blur-xs rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-white/70 shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="text-xs font-black px-2.5 py-1 rounded-md bg-[#FFF0F2] text-[#FF385C] tabular-nums">
+                        <span className="text-xs font-black px-3 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20 tabular-nums">
                           Ghế {item.transportSeatCode}
                         </span>
                         <span className="text-xs font-bold text-gray-900">
@@ -205,7 +207,7 @@ export const CustomerTicketsPage: React.FC = () => {
 
                       <div className="flex items-center gap-3 text-xs text-gray-500">
                         {item.transportDepartureAt && (
-                          <span className="tabular-nums">
+                          <span className="tabular-nums font-medium">
                             {new Date(item.transportDepartureAt).toLocaleDateString('vi-VN')}
                           </span>
                         )}
@@ -233,7 +235,7 @@ export const CustomerTicketsPage: React.FC = () => {
                     ) : isConfirmed ? (
                       <Link
                         to={`/account/orders/${order.orderId}`}
-                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#111827] hover:bg-[#FF385C] text-white text-xs font-bold transition-colors"
+                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#111827] hover:bg-[#FF385C] text-white text-xs font-bold shadow-xs hover:glow-coral-sm transition-all"
                       >
                         <QrCode className="w-3.5 h-3.5" />
                         <span>Xem vé QR</span>
@@ -241,7 +243,7 @@ export const CustomerTicketsPage: React.FC = () => {
                     ) : (
                       <Link
                         to={`/account/orders/${order.orderId}`}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200 text-gray-700 text-xs font-semibold hover:bg-gray-50 transition-colors"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-gray-200/80 bg-white/80 text-gray-700 text-xs font-semibold hover:bg-white hover:border-gray-300 transition-colors shadow-2xs"
                       >
                         <span>Chi tiết</span>
                         <ArrowRight className="w-3.5 h-3.5" />
@@ -255,7 +257,7 @@ export const CustomerTicketsPage: React.FC = () => {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-2xs">
+            <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-4 shadow-sm">
               <Pagination
                 currentPage={page}
                 totalPages={totalPages}

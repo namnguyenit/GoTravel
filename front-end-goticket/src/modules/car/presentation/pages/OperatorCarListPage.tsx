@@ -255,7 +255,7 @@ export const OperatorCarListPage: React.FC = () => {
         actions={
           <Button
             onClick={() => setIsAddModalOpen(true)}
-            className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+            className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md transition-all cursor-pointer"
           >
             <Plus className="h-4 w-4 mr-2" />
             Thêm xe mới
@@ -267,19 +267,19 @@ export const OperatorCarListPage: React.FC = () => {
       <CarKpiCards kpi={kpi} loading={loading} />
 
       {/* Toolbar: Search & Filters */}
-      <SurfaceCard className="p-4 sm:p-5">
+      <SurfaceCard variant="glass" className="p-4 sm:p-5">
         <form
           onSubmit={handleSearchSubmit}
           className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between"
         >
           <div className="relative flex-1 sm:max-w-md">
-            <Search className="absolute top-3 left-3.5 h-4 w-4 text-[var(--gt-muted)]" />
+            <Search className="absolute top-3 left-4 h-4 w-4 text-gray-400" />
             <input
               type="text"
               placeholder="Tìm theo tên xe, biển số..."
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
-              className="w-full rounded-2xl border border-[var(--gt-border)] bg-white py-2.5 pl-10 pr-4 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)] focus:ring-2 focus:ring-[var(--gt-coral-soft)]"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-11 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
             />
           </div>
 
@@ -287,7 +287,7 @@ export const OperatorCarListPage: React.FC = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral shadow-2xs"
             >
               <option value="">Tất cả loại xe</option>
               <option value="SLEEPER">Xe giường nằm</option>
@@ -298,7 +298,7 @@ export const OperatorCarListPage: React.FC = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral shadow-2xs"
             >
               <option value="createdAt_desc">Mới nhất trước</option>
               <option value="name_asc">Tên xe (A-Z)</option>
@@ -308,7 +308,7 @@ export const OperatorCarListPage: React.FC = () => {
 
             <button
               type="submit"
-              className="rounded-2xl bg-[var(--gt-ink)] px-5 py-2.5 text-xs font-bold text-white transition hover:bg-black"
+              className="rounded-full bg-[#111827] px-6 py-2.5 text-xs font-bold text-white transition hover:bg-black shadow-sm cursor-pointer"
             >
               Lọc
             </button>
@@ -318,11 +318,11 @@ export const OperatorCarListPage: React.FC = () => {
 
       {/* Main List / Table */}
       {loading ? (
-        <SurfaceCard className="p-8">
+        <SurfaceCard variant="glass" className="p-8">
           <LoadingState message="Đang tải danh sách đội xe..." />
         </SurfaceCard>
       ) : cars.length === 0 ? (
-        <SurfaceCard className="p-8">
+        <SurfaceCard variant="glass" className="p-8">
           <EmptyState
             icon={Bus}
             title="Chưa tìm thấy xe nào"
@@ -330,7 +330,7 @@ export const OperatorCarListPage: React.FC = () => {
             action={
               <Button
                 onClick={() => setIsAddModalOpen(true)}
-                className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+                className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md"
               >
                 Đăng ký xe mới ngay
               </Button>
@@ -338,11 +338,11 @@ export const OperatorCarListPage: React.FC = () => {
           />
         </SurfaceCard>
       ) : (
-        <SurfaceCard className="overflow-hidden p-0">
+        <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-3xl">
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse text-xs">
               <thead>
-                <tr className="border-b border-[var(--gt-border-soft)] bg-[var(--gt-surface-soft)] text-[11px] font-bold uppercase tracking-wider text-[var(--gt-muted)]">
+                <tr className="border-b border-gray-100/80 bg-white/50 text-[11px] font-bold uppercase tracking-wider text-gray-400">
                   <th className="py-3.5 px-5">Tên xe & Phương tiện</th>
                   <th className="py-3.5 px-5">Biển số</th>
                   <th className="py-3.5 px-5">Phân loại xe</th>
@@ -351,37 +351,39 @@ export const OperatorCarListPage: React.FC = () => {
                   <th className="py-3.5 px-5 text-right">Thao tác</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[var(--gt-border-soft)]">
+              <tbody className="divide-y divide-gray-100/60">
                 {cars.map((car) => (
                   <tr
                     key={car.id}
-                    className="hover:bg-[var(--gt-surface-soft)]/50 transition-colors"
+                    className="hover:bg-white/60 transition-colors"
                   >
                     <td className="py-4 px-5">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[var(--gt-coral-soft)] text-[var(--gt-coral)] shrink-0">
+                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-coral-soft text-coral shrink-0 border border-coral/20">
                           <Bus className="h-4 w-4" />
                         </div>
                         <div>
-                          <p className="font-bold text-sm text-[var(--gt-ink)]">
+                          <p className="font-bold text-sm text-gray-900">
                             {car.name}
                           </p>
-                          <p className="text-[11px] text-[var(--gt-muted)] font-mono">
+                          <p className="text-[11px] text-gray-400 font-mono">
                             ID: {car.id.slice(0, 8)}...
                           </p>
                         </div>
                       </div>
                     </td>
 
-                    <td className="py-4 px-5 font-mono font-bold text-sm text-[var(--gt-ink)]">
-                      {car.licensePlate}
+                    <td className="py-4 px-5">
+                      <span className="rounded-full px-3 py-1 bg-white/90 border border-gray-200/90 font-mono text-xs font-bold text-gray-800 shadow-2xs">
+                        {car.licensePlate}
+                      </span>
                     </td>
 
                     <td className="py-4 px-5">
                       <CarTypeBadge type={car.type} />
                     </td>
 
-                    <td className="py-4 px-5 text-center font-bold text-sm tabular-nums text-[var(--gt-ink)]">
+                    <td className="py-4 px-5 text-center font-bold text-sm tabular-nums text-gray-900">
                       {car.totalSeats} ghế
                     </td>
 
@@ -393,7 +395,7 @@ export const OperatorCarListPage: React.FC = () => {
                       <div className="flex items-center justify-end gap-2">
                         <Link
                           to={`/operator/cars/${car.id}/seats`}
-                          className="inline-flex items-center gap-1 rounded-xl border border-[var(--gt-border)] bg-white px-2.5 py-1.5 text-xs font-bold text-[var(--gt-ink)] transition hover:border-[var(--gt-coral)] hover:text-[var(--gt-coral)]"
+                          className="inline-flex items-center gap-1.5 rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-bold text-gray-800 transition hover:border-coral hover:text-coral shadow-2xs"
                           title="Cấu hình sơ đồ ghế"
                         >
                           <Grid3X3 className="h-3.5 w-3.5" />
@@ -403,7 +405,7 @@ export const OperatorCarListPage: React.FC = () => {
                         <button
                           type="button"
                           onClick={() => openEditDialog(car)}
-                          className="rounded-xl border border-[var(--gt-border)] bg-white p-1.5 text-[var(--gt-muted)] transition hover:text-[var(--gt-ink)] hover:border-gray-400"
+                          className="rounded-full border border-gray-200/80 bg-white/90 p-1.5 text-gray-500 transition hover:text-gray-900 hover:border-gray-400 shadow-2xs cursor-pointer"
                           title="Sửa thông tin xe"
                         >
                           <Edit2 className="h-3.5 w-3.5" />
@@ -418,7 +420,7 @@ export const OperatorCarListPage: React.FC = () => {
                               nextStatus: e.target.value as CarStatus,
                             })
                           }
-                          className="rounded-xl border border-[var(--gt-border)] bg-white px-2 py-1 text-xs font-semibold text-[var(--gt-ink)] outline-none"
+                          className="rounded-full border border-gray-200/80 bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-800 outline-none shadow-2xs"
                         >
                           <option value="ACTIVE">Hoạt động</option>
                           <option value="MAINTENANCE">Bảo trì</option>
@@ -433,7 +435,7 @@ export const OperatorCarListPage: React.FC = () => {
           </div>
 
           {/* Pagination */}
-          <div className="border-t border-[var(--gt-border-soft)] p-4">
+          <div className="border-t border-gray-100/80 p-4">
             <Pagination
               currentPage={pagination.page}
               totalPages={pagination.totalPages}
