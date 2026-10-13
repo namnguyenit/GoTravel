@@ -67,7 +67,7 @@ public class TransportOfferService {
         if (existing.isEmpty() || request.thumbnailUrl() != null) listing.setThumbnailUrl(request.thumbnailUrl());
         listing.setAttributes(attributes);
         if (existing.isEmpty()) {
-            listing.setStatus(ListingStatus.PENDING);
+            listing.setStatus(ListingStatus.ACTIVE);
             listing.setAverageRating(BigDecimal.ZERO);
             listing.setTotalReviews(0);
         }

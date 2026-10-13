@@ -242,12 +242,17 @@ export class HttpTransportIntegrations implements TransportIntegrations {
         body: body === undefined ? undefined : JSON.stringify(body),
         signal: AbortSignal.timeout(5000),
       });
-    } catch {
-      throw new ServiceUnavailableException('Service liên kết chưa sẵn sàng');
+    } catch (err: any) {
+      console.error('Failed to call internal service', baseUrl + path, err);
+      throw new ServiceUnavailableException(
+        'Service liên kết chưa sẵn sàng: ' + (err?.message || String(err)),
+      );
     }
     if (!response.ok) {
+      const errText = await response.text().catch(() => '');
+      console.error('Internal service returned non-ok', response.status, errText);
       throw new BadGatewayException(
-        'Service liên kết trả lỗi ' + response.status,
+        `Service liên kết trả lỗi ${response.status}: ${errText}`,
       );
     }
     const result = (await response.json()) as { success?: boolean; data?: T };

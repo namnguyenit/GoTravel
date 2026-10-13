@@ -473,12 +473,15 @@ export class PrismaTransportRepository implements TransportRepository {
       if (seats.length !== car.totalSeats) {
         throw new BadRequestException('Số ghế phải đúng bằng tổng ghế của xe');
       }
-      const used = await tx.trip.count({
-        where: { carId, status: { not: 'CANCELLED' } },
+      const existingTemplatesCount = await tx.seatTemplate.count({
+        where: { carId },
       });
-      if (used > 0)
+      const activeOrPublishedTripsCount = await tx.trip.count({
+        where: { carId, status: { notIn: ['CANCELLED', 'DRAFT'] } },
+      });
+      if (existingTemplatesCount > 0 && activeOrPublishedTripsCount > 0)
         throw new ConflictException(
-          'Xe đã gắn với chuyến; không thể đổi sơ đồ ghế',
+          'Xe đã gắn với chuyến đang mở bán hoặc vận hành; không thể đổi sơ đồ ghế',
         );
       await tx.seatTemplate.deleteMany({ where: { carId } });
       await tx.seatTemplate.createMany({

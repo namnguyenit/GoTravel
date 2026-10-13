@@ -54,8 +54,9 @@ export const OperatorSeatLayoutPage: React.FC = () => {
             }))
           : [];
 
+        const hasExisting = current.length > 0;
         setSeats(
-          current.length
+          hasExisting
             ? current
             : Array.from({ length: data.totalSeats }, (_, i) => ({
                 code: `A${String(i + 1).padStart(2, '0')}`,
@@ -65,6 +66,10 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                 column: i % 4,
               }))
         );
+        if (!hasExisting) {
+          setIsDirty(true);
+          setMessage(`Phương tiện này chưa lưu sơ đồ ghế trong hệ thống. Đã tự động tạo sơ đồ mẫu ${data.totalSeats} ghế. Vui lòng bấm "Lưu sơ đồ (${data.totalSeats}) *" để kích hoạt.`);
+        }
       } catch (reason) {
         setError(reason instanceof Error ? reason.message : 'Không thể tải sơ đồ ghế.');
       } finally {
