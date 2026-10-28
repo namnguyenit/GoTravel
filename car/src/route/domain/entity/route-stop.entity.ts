@@ -3,6 +3,8 @@ export interface RouteStopProps {
   routeId?: string;
   name: string;
   order: number;
+  address?: string | null;
+  province?: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -12,6 +14,8 @@ export class RouteStop {
   private _routeId?: string;
   private _name: string;
   private _order: number;
+  private _address?: string | null;
+  private _province?: string | null;
   private readonly _createdAt?: Date;
   private _updatedAt?: Date;
 
@@ -23,6 +27,8 @@ export class RouteStop {
     this._routeId = props.routeId;
     this._name = props.name.trim();
     this._order = props.order;
+    this._address = props.address ?? null;
+    this._province = props.province ?? null;
     this._createdAt = props.createdAt || new Date();
     this._updatedAt = props.updatedAt || new Date();
   }
@@ -31,7 +37,7 @@ export class RouteStop {
     return new RouteStop(props);
   }
 
-  public static reconstruct(props: Required<RouteStopProps>): RouteStop {
+  public static reconstruct(props: RouteStopProps): RouteStop {
     return new RouteStop(props);
   }
 
@@ -61,6 +67,14 @@ export class RouteStop {
 
   get order(): number {
     return this._order;
+  }
+
+  get address(): string | null | undefined {
+    return this._address;
+  }
+
+  get province(): string | null | undefined {
+    return this._province;
   }
 
   get createdAt(): Date | undefined {

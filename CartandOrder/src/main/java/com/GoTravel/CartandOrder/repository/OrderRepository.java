@@ -17,6 +17,9 @@ import org.springframework.data.repository.query.Param;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, UUID>,org.springframework.data.jpa.repository.JpaSpecificationExecutor<Order> {
+    /** Fully initialized read snapshot for coordinators running without a web persistence context. */
+    @Query("select distinct o from Order o left join fetch o.items where o.id = :id")
+    Optional<Order> findWithItemsById(@Param("id") UUID id);
     Optional<Order> findByUserIdAndTransportIdempotencyKey(UUID userId, String transportIdempotencyKey);
     Optional<Order> findByTransportCashierIdAndTransportIdempotencyKey(UUID cashierId, String transportIdempotencyKey);
     List<Order> findTop50ByOrderKindAndStatusOrderByCreatedAtAsc(

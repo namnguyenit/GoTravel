@@ -2972,6 +2972,42 @@
         "windowMs": 60000
       },
       "paramTypes": {}
+    },
+    {
+      "id": "c62b1d30-495d-4a9e-bd06-ff645aba9260",
+      "name": "GoTicket cancellation policy",
+      "description": "",
+      "methods": [
+        "GET"
+      ],
+      "matchType": "exact",
+      "sourcePath": "/api/v1/orders/transport/cancellation-policy",
+      "upstreamPath": "/api/v1/public/transport/cancellation-policy",
+      "serviceKey": "cart",
+      "enabled": true,
+      "auth": "public",
+      "roles": [],
+      "priority": 100,
+      "timeoutMs": 15000,
+      "changeOrigin": true,
+      "preserveQuery": true,
+      "forwardAuthorization": false,
+      "query": {
+        "set": {},
+        "remove": []
+      },
+      "headers": {
+        "request": {},
+        "response": {},
+        "removeRequest": [],
+        "removeResponse": []
+      },
+      "rateLimit": {
+        "enabled": false,
+        "limit": 100,
+        "windowMs": 60000
+      },
+      "paramTypes": {}
     }
   ],
   "settings": {

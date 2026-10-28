@@ -7,6 +7,7 @@ import type {
 } from './transport.types';
 
 export interface TransportRepository {
+  stopSalesAtDeparture(): Promise<void>;
   pendingInventorySync(): Promise<string[]>;
   synchronizeInventory(
     tripId: string,

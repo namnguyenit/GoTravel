@@ -9,7 +9,13 @@
     "lint": "oxlint",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,json}\"",
+    "seed:customer": "node scripts/seed-goticket-customer.mjs",
+    "seed:vendor": "node scripts/seed-goticket-vendor.mjs",
+    "seed:staff": "node scripts/seed-goticket-staff.mjs",
+    "seed:admin": "node scripts/seed-goticket-admin.mjs",
+    "seed:all": "node scripts/seed-goticket-customer.mjs && node scripts/seed-goticket-vendor.mjs && node scripts/seed-goticket-staff.mjs && node scripts/seed-goticket-admin.mjs",
+    "prebuild": "node ../deploy/sync-goticket-provinces.mjs"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.2.6",
@@ -20,6 +26,7 @@
     "@types/qrcode": "^1.5.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "jsqr": "^1.4.0",
     "lucide-react": "^1.45.0",
     "qrcode": "^1.5.4",
     "react": "^19.2.8",

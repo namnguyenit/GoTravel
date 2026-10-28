@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { TripStatusVO } from '../../domain/value-object/trip-status.vo';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import {
   ArrowLeft,
   Ban,
@@ -52,6 +53,7 @@ const toLocalInput = (value?: string) => {
 
 export const OperatorTripManagePage: React.FC = () => {
   const { tripId } = useParams<{ tripId: string }>();
+  const tripsPath = useLocation().pathname.startsWith('/staff') ? '/staff/trips' : '/operator/trips';
   const [detail, setDetail] = useState<any>(null);
   const [seats, setSeats] = useState<Seat[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
@@ -64,6 +66,7 @@ export const OperatorTripManagePage: React.FC = () => {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
+  const [now, setNow] = useState(Date.now);
 
   // Dialog states replacing window.prompt
   const [cancelModalOpen, setCancelModalOpen] = useState(false);
@@ -76,22 +79,31 @@ export const OperatorTripManagePage: React.FC = () => {
     setBusy(true);
     setError('');
     try {
-      const [manage, seatMap] = await Promise.all([
-        httpClient.get<any>(`/api/v1/trips/${tripId}/manage`),
-        httpClient.get<any>(`/api/v1/trips/${tripId}/seats`),
-      ]);
+      const manage = await httpClient.get<any>(`/api/v1/trips/${tripId}/manage`);
+      let seatMap: any = [];
+      if (manage.offerListingId && !['DRAFT', 'CANCELLED', 'PUBLISHING'].includes(manage.status)) {
+        try {
+          seatMap = await httpClient.get<any>(`/api/v1/trips/${tripId}/manage/seats`);
+        } catch (seatError) {
+          setError(seatError instanceof Error ? seatError.message : 'Không thể tải trạng thái ghế.');
+        }
+      }
       const seatRows = Array.isArray(seatMap) ? seatMap : Array.isArray(seatMap?.seats) ? seatMap.seats : [];
       const routeStops: RouteStop[] = Array.isArray(manage?.route?.stops) ? manage.route.stops : [];
       const savedStops: StopOverride[] = Array.isArray(manage?.stopOverrides) ? manage.stopOverrides : [];
       setDetail(manage);
       setSeats(seatRows);
+      setSelected([]);
       setDepartureTime(toLocalInput(manage?.departureTime));
       setArrivalTime(toLocalInput(manage?.arrivalTime));
       setBasePrice(String(manage?.priceVnd ?? ''));
       setPrices(
-        manage?.classPrices && typeof manage.classPrices === 'object'
-          ? Object.fromEntries(Object.entries(manage.classPrices).map(([key, value]) => [key, String(value)]))
-          : { STANDARD: String(manage?.priceVnd ?? '') }
+        Object.fromEntries(
+          [...new Set<string>((manage?.car?.seatTemplates || [])
+            .filter((seat: any) => seat.active !== false)
+            .map((seat: any) => String(seat.seatClass || 'STANDARD')))]
+            .map((name) => [name, String(manage?.classPrices?.[name] ?? manage?.priceVnd ?? '')]),
+        ),
       );
       setStopOverrides(
         routeStops.map((stop, index) => {
@@ -113,9 +125,12 @@ export const OperatorTripManagePage: React.FC = () => {
 
   useEffect(() => {
     void load();
+    const timer = window.setInterval(() => setNow(Date.now()), 10_000);
+    return () => window.clearInterval(timer);
   }, [tripId]);
 
   const run = async (path: string, method: 'post' | 'put' | 'patch' = 'post', body?: unknown) => {
+    if (busy) return;
     setBusy(true);
     setError('');
     setMessage('');
@@ -147,12 +162,13 @@ export const OperatorTripManagePage: React.FC = () => {
       })),
     });
 
-  const savePrices = () =>
-    run('class-prices', 'put', {
-      classPrices: Object.fromEntries(
-        Object.entries(prices).filter(([, value]) => /^\d+$/.test(value) && Number(value) > 0)
-      ),
-    });
+  const savePrices = () => {
+    if (Object.values(prices).some((value) => !/^[1-9]\d{0,17}$/.test(value))) {
+      setError('Mỗi hạng ghế cần giá VND nguyên dương hợp lệ.');
+      return;
+    }
+    return run('class-prices', 'put', { classPrices: prices });
+  };
 
   const block = (blocked: boolean) =>
     run('seat-blocks', 'put', { seatIds: selected, blocked, reason });
@@ -166,12 +182,28 @@ export const OperatorTripManagePage: React.FC = () => {
   const handleConfirmAddClass = () => {
     const formatted = newClassNameInput.trim().toUpperCase().replace(/[^A-Z0-9_]/g, '');
     if (!formatted) return;
+    if (!(detail?.car?.seatTemplates || []).some((seat: any) => seat.active !== false && seat.seatClass === formatted)) {
+      setError('Hạng ghế này không có trong sơ đồ xe. Hãy cấu hình hạng trên xe trước.');
+      return;
+    }
     setPrices((curr) => ({ ...curr, [formatted]: '' }));
     setNewClassNameInput('');
     setAddClassModalOpen(false);
   };
 
   const isDraft = detail?.status === 'DRAFT';
+  const departureReached = new Date(detail?.departureTime).getTime() <= now;
+  const routeDeleted = Boolean(detail?.route?.deletedAt);
+  const planningAllowed = !routeDeleted && detail?.route?.status === 'ACTIVE' && detail?.car?.status === 'ACTIVE';
+  const canOpenSale = isDraft && !departureReached && planningAllowed;
+  const canResumeSale = detail?.status === 'STOP_SALE' && !departureReached && planningAllowed && Boolean(detail?.offerListingId);
+  const canComplete = ['ON_SALE', 'STOP_SALE', 'SCHEDULED', 'DEPARTED'].includes(detail?.status)
+    && new Date(detail?.arrivalTime).getTime() <= now;
+  const displayStatus = departureReached && ['ON_SALE', 'PUBLISHING', 'SCHEDULED'].includes(detail?.status)
+    ? 'STOP_SALE' : detail?.status;
+  const statusLabel = displayStatus === 'STOP_SALE'
+    ? departureReached ? 'Đã đến giờ khởi hành · Đã ngừng bán' : 'Đã ngừng bán'
+    : TripStatusVO.getLabel(displayStatus || '');
   const routeStops: RouteStop[] = Array.isArray(detail?.route?.stops) ? detail.route.stops : [];
 
   if (busy && !detail) {
@@ -191,14 +223,12 @@ export const OperatorTripManagePage: React.FC = () => {
             <IdText id={tripId || ''} prefix="Chuyến" />
             <span>·</span>
             <span>Trạng thái chuyến:</span>
-            <span className="font-bold text-[var(--gt-ink)]">{detail?.status || 'N/A'}</span>
-            <span>·</span>
-            <span>Mở bán:</span>
-            <span className="font-bold text-[var(--gt-coral)]">{detail?.saleStatus || 'CHƯA MỞ'}</span>
+            <StatusBadge status={displayStatus || 'DRAFT'} label={statusLabel} />
+            {['COMPLETED', 'CANCELLED', 'DEPARTED'].includes(displayStatus) && <StatusBadge status="STOP_SALE" label="Đã ngừng bán" />}
           </div>
         }
         breadcrumbs={[
-          { label: 'Danh sách chuyến xe', to: '/operator/trips' },
+          { label: 'Danh sách chuyến xe', to: tripsPath },
           { label: `Vận hành ${tripId?.slice(0, 8)}` },
         ]}
       />
@@ -235,7 +265,7 @@ export const OperatorTripManagePage: React.FC = () => {
           <div className="grid gap-4 md:grid-cols-3">
             <div>
               <label className="block text-xs font-semibold text-gray-700 mb-1.5">
-                Giờ xuất bến
+                Giờ khởi hành
               </label>
               <input
                 type="datetime-local"
@@ -376,14 +406,16 @@ export const OperatorTripManagePage: React.FC = () => {
 
       {/* Mở bán & Vòng đời */}
       <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
-        <h2 className="text-base font-bold text-gray-900 mb-1">Mở bán & Vòng đời chuyến xe</h2>
+        <h2 className="text-base font-bold text-gray-900 mb-1">Bán vé & Lịch khởi hành</h2>
         <p className="text-xs text-gray-500 mb-5">
-          Quản lý các sự kiện chuyển trạng thái vận hành của chuyến xe theo đúng quy trình nghiệp vụ.
+          Đến giờ khởi hành, hệ thống tự ngừng bán vé. Nhà xe không cần bấm xác nhận xuất bến.
         </p>
+        {departureReached && <p className="mb-4 text-sm text-stone-700">Đã qua giờ khởi hành. Không thể mở bán lại chuyến này.</p>}
+        {routeDeleted && <p className="mb-4 text-sm text-stone-700">Tuyến đã được xóa khỏi danh mục. Lịch sử chuyến và vé vẫn được giữ; không thể phát hành hoặc mở bán lại từ tuyến này.</p>}
 
         <div className="flex flex-wrap items-center gap-2.5">
           <Button
-            disabled={busy || !isDraft}
+            disabled={busy || !canOpenSale}
             onClick={() => void run('publish')}
             className="rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-2xs"
           >
@@ -393,17 +425,17 @@ export const OperatorTripManagePage: React.FC = () => {
 
           <Button
             variant="outline"
-            disabled={busy}
+            disabled={busy || detail?.status !== 'ON_SALE' || departureReached}
             onClick={() => void run('stop-sale')}
             className="rounded-full border-amber-300 bg-amber-50/90 text-amber-800 hover:bg-amber-100 shadow-2xs"
           >
             <PauseCircle className="h-4 w-4 mr-2" />
-            Tạm dừng bán vé
+            Ngừng bán vé
           </Button>
 
           <Button
             variant="outline"
-            disabled={busy}
+            disabled={busy || !canResumeSale}
             onClick={() => void run('resume-sale')}
             className="rounded-full border-emerald-300 bg-emerald-50/90 text-emerald-800 hover:bg-emerald-100 shadow-2xs"
           >
@@ -413,16 +445,7 @@ export const OperatorTripManagePage: React.FC = () => {
 
           <Button
             variant="outline"
-            disabled={busy}
-            onClick={() => void run('lifecycle', 'put', { status: 'DEPARTED' })}
-            className="rounded-full border-blue-200 bg-white/90 text-blue-800 hover:bg-blue-50 shadow-2xs"
-          >
-            Xác nhận xuất bến
-          </Button>
-
-          <Button
-            variant="outline"
-            disabled={busy}
+            disabled={busy || !canComplete}
             onClick={() => void run('lifecycle', 'put', { status: 'COMPLETED' })}
             className="rounded-full border-stone-300 bg-white/90 text-stone-800 hover:bg-stone-50 shadow-2xs"
           >
@@ -431,7 +454,7 @@ export const OperatorTripManagePage: React.FC = () => {
 
           <Button
             variant="outline"
-            disabled={busy}
+            disabled={busy || !['ON_SALE', 'STOP_SALE'].includes(detail?.status)}
             onClick={() => {
               setCancelReasonInput(reason);
               setCancelModalOpen(true);

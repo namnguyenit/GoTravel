@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { adminOperatorService } from "../../composition";
 import type { OperatorEntity } from "../../domain/entity/operator.entity";
 import type { PaginationMeta } from "../../application/port/admin-operator.service.interface";
@@ -30,6 +30,7 @@ import {
 import { AdminUserDetailModal } from "../components/AdminUserDetailModal";
 
 export const AdminOperatorListPage: React.FC = () => {
+  const sequence = useRef(0); const changing = useRef(false);
   const [operators, setOperators] = useState<OperatorEntity[]>([]);
   const [pagination, setPagination] = useState<PaginationMeta>({
     page: 1,
@@ -59,6 +60,7 @@ export const AdminOperatorListPage: React.FC = () => {
   const [updatingOperatorId, setUpdatingOperatorId] = useState<string | null>(null);
 
   const fetchOperators = async () => {
+    const current = ++sequence.current;
     setLoading(true);
     setError(null);
     try {
@@ -69,19 +71,21 @@ export const AdminOperatorListPage: React.FC = () => {
         sortBy,
         sortOrder,
       });
+      if (sequence.current !== current) return;
       setOperators(res.data);
       setPagination(res.pagination);
     } catch (err: unknown) {
       const msg =
         err instanceof Error ? err.message : "Lỗi tải danh sách nhà xe";
-      setError(msg);
+      if (sequence.current === current) setError(msg);
     } finally {
-      setLoading(false);
+      if (sequence.current === current) setLoading(false);
     }
   };
 
   useEffect(() => {
     void fetchOperators();
+    return () => { sequence.current++; };
   }, [searchQuery, page, limit, sortBy, sortOrder]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -115,8 +119,9 @@ export const AdminOperatorListPage: React.FC = () => {
   };
 
   const handleConfirmToggle = async () => {
-    if (!operatorToToggle) return;
-    const next = operatorToToggle.status === "SUSPENDED" ? "ACTIVE" : "SUSPENDED";
+    if (!operatorToToggle || changing.current) return;
+    changing.current = true;
+    const next = operatorToToggle.status === "ACTIVE" ? "SUSPENDED" : "ACTIVE";
     const wording = next === "SUSPENDED" ? "đình chỉ" : "kích hoạt lại";
     setUpdatingOperatorId(operatorToToggle.id);
     setError(null);
@@ -127,7 +132,7 @@ export const AdminOperatorListPage: React.FC = () => {
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : `Không thể ${wording} nhà xe.`);
     } finally {
-      setUpdatingOperatorId(null);
+      changing.current = false; setUpdatingOperatorId(null);
     }
   };
 
@@ -387,7 +392,7 @@ export const AdminOperatorListPage: React.FC = () => {
                         <td className="px-5 py-4">
                           <StatusBadge
                             status={op.status}
-                            label={op.status === "ACTIVE" ? "Đang hoạt động" : "Đã đình chỉ"}
+                            label={op.status === "ACTIVE" ? "Đang hoạt động" : op.status === "SUSPENDED" ? "Đã đình chỉ" : "Ngừng hoạt động"}
                           />
                         </td>
                         <td className="px-5 py-4 text-right">
@@ -433,7 +438,7 @@ export const AdminOperatorListPage: React.FC = () => {
                       </div>
                       <StatusBadge
                         status={op.status}
-                        label={op.status === "ACTIVE" ? "Đang hoạt động" : "Đã đình chỉ"}
+                        label={op.status === "ACTIVE" ? "Đang hoạt động" : op.status === "SUSPENDED" ? "Đã đình chỉ" : "Ngừng hoạt động"}
                         size="sm"
                       />
                     </div>
@@ -520,7 +525,7 @@ export const AdminOperatorListPage: React.FC = () => {
         description={
           operatorToToggle?.status === "ACTIVE"
             ? `Bạn có chắc chắn muốn đình chỉ hoạt động của nhà xe "${operatorToToggle?.name}"? Các tuyến chuyến đang bán sẽ bị tạm dừng.`
-            : `Bạn có chắc chắn muốn kích hoạt lại đối tác nhà xe "${operatorToToggle?.name}"?`
+            : `Kích hoạt lại đối tác nhà xe "${operatorToToggle?.name}"? Các chuyến bị dừng trước đó vẫn cần nhà xe mở bán lại nếu còn đủ điều kiện.`
         }
         confirmLabel={operatorToToggle?.status === "ACTIVE" ? "Xác nhận đình chỉ" : "Kích hoạt"}
         variant={operatorToToggle?.status === "ACTIVE" ? "danger" : "primary"}

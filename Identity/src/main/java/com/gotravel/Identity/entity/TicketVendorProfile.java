@@ -44,6 +44,8 @@ public class TicketVendorProfile {
 
     String taxCode;
     String contactPhone;
+    @Column(name = "logo_url", length = 2048)
+    String logoUrl;
     @Column(length = 2048)
     String documentFrontUrl;
 

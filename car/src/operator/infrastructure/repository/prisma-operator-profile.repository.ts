@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  BadRequestException,
   ForbiddenException,
   Injectable,
   NotFoundException,
@@ -23,11 +24,13 @@ export class PrismaOperatorProfileRepository implements OperatorProfileRepositor
         userId: input.userId,
         name: input.companyName,
         displayName: input.companyName,
+        logoUrl: input.logoUrl || null,
         contactPhone: input.contactPhone || null,
         contactAddress: input.companyAddress || null,
         status: 'ACTIVE',
       } as any,
       update: {
+        ...(input.logoUrl ? { logoUrl: input.logoUrl } : {}),
         name: input.companyName,
         contactPhone: input.contactPhone || null,
         contactAddress: input.companyAddress || null,
@@ -101,6 +104,51 @@ export class PrismaOperatorProfileRepository implements OperatorProfileRepositor
     };
   }
 
+  private async assertUploadedLogo(userId: string, value: string) {
+    try {
+      const url = new URL(value);
+      const cloud = process.env.OPERATOR_LOGO_CLOUD_NAME;
+      const path = decodeURIComponent(url.pathname);
+      if (
+        !cloud ||
+        url.protocol !== 'https:' ||
+        url.hostname !== 'res.cloudinary.com' ||
+        url.port ||
+        url.username ||
+        url.password ||
+        url.search ||
+        url.hash
+      )
+        throw new Error();
+      const prefix = `/${cloud}/image/upload/`;
+      if (!path.startsWith(prefix)) throw new Error();
+      const asset = path.slice(prefix.length).replace(/^v[0-9]+\//, '');
+      if (
+        !['transport', 'admins', 'enterprises'].some((scope) =>
+          asset.startsWith(`${scope}/${userId}/operator-logos/`),
+        ) ||
+        !/\.(?:webp|png|jpe?g)$/i.test(asset)
+      )
+        throw new Error();
+      const response = await fetch(url, {
+        method: 'HEAD',
+        redirect: 'error',
+        signal: AbortSignal.timeout(6000),
+      });
+      if (
+        !response.ok ||
+        !/^image\/(?:webp|png|jpe?g)(?:;|$)/i.test(
+          response.headers.get('content-type') || '',
+        )
+      )
+        throw new Error();
+    } catch {
+      throw new BadRequestException(
+        'Logo phải là ảnh được tải từ máy qua mục chọn logo của chính nhà xe. Vui lòng chọn ảnh và thử lại.',
+      );
+    }
+  }
+
   async updateMyProfile(userId: string, dto: UpdateOperatorProfileDto) {
     const operator = (await this.prisma.operator.findFirst({
       where: { userId },
@@ -108,6 +156,13 @@ export class PrismaOperatorProfileRepository implements OperatorProfileRepositor
 
     if (!operator)
       throw new NotFoundException('Tài khoản chưa có nhà xe được liên kết');
+
+    const logo = dto.logoUrl !== undefined ? dto.logoUrl : operator.logoUrl;
+    if (typeof logo !== 'string' || !logo.trim())
+      throw new BadRequestException(
+        'Vui lòng chọn và tải logo nhà xe trước khi lưu hồ sơ.',
+      );
+    if (logo !== operator.logoUrl) await this.assertUploadedLogo(userId, logo);
 
     const updated = (await this.prisma.operator.update({
       where: { id: operator.id },

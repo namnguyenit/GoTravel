@@ -26,10 +26,17 @@ export class StaffService {
     active: boolean,
     scope?: StaffScope,
   ) {
+    if (!(await this.accounts.isApprovedVendor(ownerUserId))) {
+      throw new ForbiddenException('Nhà xe chưa được phê duyệt hoặc đang bị khóa');
+    }
+    const ownerOperator = await this.staff.getOperatorByOwnerUserId(ownerUserId);
+    if (!ownerOperator || ownerOperator.status !== 'ACTIVE') {
+      throw new NotFoundException('Không có nhà xe thuộc tài khoản');
+    }
     if (!(await this.accounts.isActive(staffUserId))) {
       throw new ForbiddenException('Nhân viên không có tài khoản hoạt động');
     }
-    return this.staff.assign(
+    const assignment = await this.staff.assign(
       ownerUserId,
       staffUserId,
       canSellCash,
@@ -37,6 +44,10 @@ export class StaffService {
       active,
       scope,
     );
+    if (active && this.accounts.grantStaffRole) {
+      await this.accounts.grantStaffRole(staffUserId);
+    }
+    return assignment;
   }
 
   async verifyOperator(
@@ -86,20 +97,27 @@ export class StaffService {
     if (!(await this.accounts.isActive(staffUserId))) {
       throw new ForbiddenException('Tài khoản không hoạt động');
     }
-    return this.staff.getAssignmentsForStaff(staffUserId);
+    const assignments = await this.staff.getAssignmentsForStaff(staffUserId);
+    const verified = await Promise.all(assignments.map(async (assignment: any) =>
+      (await this.accounts.isApprovedVendor(assignment.operator.userId)) ? assignment : null,
+    ));
+    return verified.filter((assignment) => assignment !== null);
   }
 
   async getAssignedTripsForStaff(staffUserId: string) {
     if (!(await this.accounts.isActive(staffUserId))) {
       throw new ForbiddenException('Tài khoản không hoạt động');
     }
-    return this.staff.getAssignedTripsForStaff(staffUserId);
+    const assignments = await this.getAssignmentsForStaff(staffUserId);
+    const allowedOperators = new Set(assignments.map((assignment: any) => assignment.operatorId));
+    const trips = await this.staff.getAssignedTripsForStaff(staffUserId);
+    return trips.filter((trip: any) => allowedOperators.has(trip.operatorId));
   }
 
   async getReadScope(actorId: string, operatorId?: string) {
     const ownerOperator = await this.staff.getOperatorByOwnerUserId(actorId);
     if (ownerOperator && (!operatorId || ownerOperator.id === operatorId)) {
-      if (!(await this.accounts.isApprovedVendor(actorId))) {
+      if (ownerOperator.status !== 'ACTIVE' || !(await this.accounts.isApprovedVendor(actorId))) {
         throw new ForbiddenException(
           'Tài khoản nhà xe chưa được phê duyệt hoặc đang bị khóa',
         );
@@ -120,7 +138,7 @@ export class StaffService {
     }
 
     const staff = await this.staff.getStaffRecord(actorId, operatorId);
-    if (!staff) {
+    if (!staff || staff.operator.status !== 'ACTIVE') {
       throw new ForbiddenException(
         'Nhân viên không có quyền hoặc không thuộc nhà xe',
       );
@@ -151,5 +169,11 @@ export class StaffService {
       allowedTripIds: staff.tripIds || [],
       allTrips: !staff.tripIds || staff.tripIds.length === 0,
     };
+  }
+  async lookupStaff(ownerUserId: string, query: string) {
+    if (!(await this.accounts.isApprovedVendor(ownerUserId))) {
+      throw new ForbiddenException('Tài khoản nhà xe chưa được phê duyệt hoặc đang bị khóa');
+    }
+    return this.accounts.lookup(query);
   }
 }

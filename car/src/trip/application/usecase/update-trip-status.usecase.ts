@@ -30,24 +30,14 @@ export class UpdateTripStatusUseCase implements IUpdateTripStatusUseCase {
       throw new BadRequestException('Vui lòng cung cấp mã chuyến xe (tripId).');
     }
 
-    // 1. Kiểm tra / lấy Operator ID của User
-    const operatorId = await this.tripRepository.findOperatorIdByUserId(
-      input.userId,
-    );
-    if (!operatorId) {
-      throw new ForbiddenException(
-        'Tài khoản của bạn chưa được cấp quyền Nhà xe (Operator). Vui lòng nộp đơn đăng ký Nhà xe và chờ Admin phê duyệt.',
-      );
-    }
-
-    // 2. Tìm chuyến xe theo ID
+    // 1. Kiểm tra chuyến xe tồn tại
     const trip = await this.tripRepository.findById(input.tripId);
-    if (!trip || trip.operatorId !== operatorId) {
-      throw new NotFoundException(
-        'Không tìm thấy chuyến xe yêu cầu hoặc bạn không có quyền thao tác trên chuyến xe này.',
-      );
+    if (!trip) {
+      throw new NotFoundException('Không tìm thấy chuyến xe yêu cầu.');
     }
 
+    // lifecycle() authorizes against this trip's operator and staff capabilities.
+    // Owning a different operator must not reject an otherwise valid assignment.
     if (!['DEPARTED', 'COMPLETED'].includes(input.status)) {
       throw new BadRequestException(
         'Dùng API publish/stop-sale/cancellation cho các trạng thái bán và hủy.',

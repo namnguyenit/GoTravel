@@ -223,7 +223,7 @@ public class TransportInventoryService {
     @Transactional
     public HoldStatusView orderStatus(UUID orderId) {
         var hold = repository.findHoldForUpdate(orderId)
-                .orElseThrow(() -> badRequest("Không có hold của order"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không có bản ghi giữ ghế của đơn"));
         return new HoldStatusView(hold.orderId(), hold.tripId(), hold.seatIds(), hold.status().name(),
                 hold.expiresAt());
     }

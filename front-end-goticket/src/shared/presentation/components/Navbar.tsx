@@ -194,7 +194,7 @@ export const Navbar: React.FC = () => {
             <div className="flex items-center gap-2.5">
               <button
                 type="button"
-                onClick={() => login('/account/tickets')}
+                onClick={() => login()}
                 className="px-4 py-2 rounded-full text-xs font-bold text-[#FF385C] hover:bg-[#FFF0F2] transition-colors cursor-pointer"
               >
                 Đăng nhập
@@ -233,7 +233,7 @@ export const Navbar: React.FC = () => {
               className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[#FFF0F2] hover:text-[#FF385C]"
             >
               <Compass className="w-4 h-4 text-[#FF385C]" />
-              Tìm chuyến xe
+              Khám phá
             </Link>
             <Link
               to="/account/tickets"

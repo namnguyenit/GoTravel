@@ -8,5 +8,6 @@ public class ResolveOrderDisputeRequest {
     @NotBlank(message = "Action không được để trống")
     private String action;
 
+    @jakarta.validation.constraints.Size(max = 2000)
     private String adminNote;
 }

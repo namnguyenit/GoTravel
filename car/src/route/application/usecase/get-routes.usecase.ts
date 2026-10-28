@@ -68,10 +68,13 @@ export class GetRoutesUseCase implements IGetRoutesUseCase {
         origin: route.origin,
         destination: route.destination,
         status: route.status,
+        dailyActivity: queryResult.dailyActivity?.[route.id!],
         stops: route.stops.map((stop) => ({
           id: stop.id!,
           name: stop.name,
           order: stop.order,
+          address: stop.address,
+          province: stop.province,
         })),
         createdAt: route.createdAt!,
         updatedAt: route.updatedAt!,

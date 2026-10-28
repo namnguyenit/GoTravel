@@ -5,6 +5,14 @@
 export type AppRole = 'CUSTOMER' | 'TICKET_VENDOR' | 'STAFF' | 'ADMIN';
 export type StaffCapability = 'CHECK_IN' | 'SELL_CASH' | 'MANAGE_TRIP' | 'CASH_VIEW' | 'CLOSE_SHIFT';
 
+export interface StaffAssignment {
+  operatorId: string;
+  operatorName: string;
+  capabilities: StaffCapability[];
+  tripIds: string[];
+  allTrips: boolean;
+}
+
 export interface UserSessionProps {
   id: string;
   email: string;
@@ -17,6 +25,9 @@ export interface UserSessionProps {
   staffCapabilities?: StaffCapability[];
   staffTripIds?: string[];
   staffAllTrips?: boolean;
+  staffAssignments?: StaffAssignment[];
+  staffAssignmentError?: string | null;
+  staffPortalScope?: boolean;
 }
 
 export class UserSession {
@@ -33,6 +44,16 @@ export class UserSession {
   get staffCapabilities(): StaffCapability[] { return this.props.staffCapabilities ?? []; }
   get staffTripIds(): string[] { return this.props.staffTripIds ?? []; }
   get staffAllTrips(): boolean { return this.props.staffAllTrips ?? false; }
+  get staffAssignments(): StaffAssignment[] { return this.props.staffAssignments ?? []; }
+  get staffAssignmentError(): string | null { return this.props.staffAssignmentError ?? null; }
+
+  forStaffOperator(operatorId: string): UserSession | null {
+    const assignment = this.staffAssignments.find(a => a.operatorId === operatorId);
+    if (!assignment) return null;
+    return new UserSession({ ...this.props, operatorId: assignment.operatorId,
+      operatorName: assignment.operatorName, staffCapabilities: assignment.capabilities,
+      staffTripIds: assignment.tripIds, staffAllTrips: assignment.allTrips, staffPortalScope: true });
+  }
 
   public isAdmin(): boolean {
     return this.props.roles.includes('ADMIN');
@@ -55,6 +76,8 @@ export class UserSession {
   }
 
   public hasCapability(capability: StaffCapability): boolean {
+    // In the staff portal, an unrelated vendor/admin role cannot replace the assignment.
+    if (this.props.staffPortalScope) return this.staffCapabilities.includes(capability);
     // Owner nhà xe có toàn bộ capabilities
     if (this.isVendor()) return true;
     if (this.isAdmin()) return true;

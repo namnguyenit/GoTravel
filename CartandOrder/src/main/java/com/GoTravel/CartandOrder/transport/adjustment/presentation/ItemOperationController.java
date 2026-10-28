@@ -30,6 +30,7 @@ public class ItemOperationController {
  }
  @PostMapping("/admin/item-operations/{id}/refund") @PreAuthorize("hasRole('ADMIN')") public ApiResponse<String> refund(@AuthenticationPrincipal Jwt jwt,@PathVariable UUID id,@RequestBody Proof proof){service.refund(actor(jwt),id,proof.amount(),proof.reference(),proof.evidenceUrl(),proof.refundMethod(),proof.cashShiftId());return ApiResponse.success("Đã ghi chứng cứ hoàn; GoPay sẽ đối chiếu");}
  @GetMapping("/admin/item-operations/attention") @PreAuthorize("hasRole('ADMIN')") public ApiResponse<java.util.List<ItemOperationRepository.Operation>> attention(){return ApiResponse.success(service.attention());}
+ @GetMapping("/admin/item-operations/attention/page") @PreAuthorize("hasRole('ADMIN')") public ApiResponse<org.springframework.data.domain.Page<ItemOperationRepository.Operation>> attentionPage(@RequestParam(required=false) String search,@RequestParam(required=false) String state,org.springframework.data.domain.Pageable pageable){return ApiResponse.success(service.attention(search,state,pageable));}
  @PostMapping("/admin/item-operations/{id}/retry") @PreAuthorize("hasRole('ADMIN')") public ApiResponse<String> adminRetry(@PathVariable UUID id){service.adminRetry(id);return ApiResponse.success("Đã yêu cầu worker xử lý lại");}
 
 }

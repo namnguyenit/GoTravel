@@ -7,6 +7,10 @@ export interface CreateCarDTO {
   type: CarType;
   licensePlate: string;
   totalSeats: number;
+  deckCount?: number;
+  seatColumns?: number;
+  lowerDeckSeats?: number;
+  seatClass?: string;
 }
 
 export interface GetCarsParams {
@@ -39,6 +43,7 @@ export interface GetCarsResult {
 }
 
 export interface ICarService {
+  deleteCar(id: string): Promise<void>;
   getCars(params?: GetCarsParams): Promise<GetCarsResult>;
   addCar(dto: CreateCarDTO): Promise<CarEntity>;
   updateCar(id: string, dto: Partial<Pick<CreateCarDTO, 'name' | 'type' | 'licensePlate'>>): Promise<CarEntity>;

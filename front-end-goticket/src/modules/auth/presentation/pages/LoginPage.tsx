@@ -1,18 +1,24 @@
 import React, { useEffect } from 'react';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { Navigate, useLocation, useSearchParams } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { loginDestination } from '../../application/auth-navigation';
 import { authService } from '../../composition';
 import { BrandWordmark } from '@/shared/presentation/components';
 import { RefreshCw } from 'lucide-react';
 
 export const LoginPage: React.FC = () => {
   const location = useLocation();
+  const { user, loading, sessionError, refreshSession } = useAuth();
   const [params] = useSearchParams();
   const returnPath = params.get('returnTo') || (location.state as { returnTo?: string } | null)?.returnTo || '/';
   const targetUrl = authService.getLoginUrl(returnPath);
 
   useEffect(() => {
-    window.location.replace(targetUrl);
-  }, [targetUrl]);
+    if (!loading && !user && !sessionError) window.location.replace(targetUrl);
+  }, [targetUrl, loading, user, sessionError]);
+
+  if (user && !loading && !sessionError) return <Navigate to={loginDestination(user, returnPath)} replace />;
+  if (sessionError) return <div role="alert" className="p-10 text-center"><p>{sessionError}</p><button type="button" onClick={() => void refreshSession()} className="mt-4 rounded-full border px-5 py-2">Thử lại</button></div>;
 
   return (
     <div className="flex min-h-[70vh] flex-col items-center justify-center p-6 text-center">

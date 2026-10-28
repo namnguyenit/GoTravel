@@ -8,7 +8,6 @@ import {
   Route as RouteIcon,
   CalendarDays,
   ShoppingBag,
-  Store,
   Wallet,
   Users,
   BarChart3,
@@ -40,8 +39,7 @@ export const OperatorLayout: React.FC = () => {
       groupTitle: 'Bán vé & Dịch vụ',
       items: [
         { label: 'Quản lý vé & Đơn', to: '/operator/orders', icon: ShoppingBag },
-        { label: 'Quầy bán vé', to: '/operator/counter', icon: Store },
-        { label: 'Ca thu tiền mặt', to: '/operator/shifts', icon: Wallet },
+        { label: 'Doanh số nhân viên', to: '/operator/counter-sales', icon: Wallet },
       ],
     },
     {

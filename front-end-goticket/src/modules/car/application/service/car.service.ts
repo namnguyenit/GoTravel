@@ -73,8 +73,8 @@ export class CarService implements ICarService {
     }
 
     const totalSeats = Number(dto.totalSeats);
-    if (!totalSeats || totalSeats <= 0 || totalSeats > 60) {
-      throw new Error("Số ghế phải từ 1 đến 60.");
+    if (!Number.isInteger(totalSeats) || totalSeats <= 0 || totalSeats > 100) {
+      throw new Error("Số ghế phải là số nguyên từ 1 đến 100.");
     }
 
     const payload = {
@@ -82,10 +82,18 @@ export class CarService implements ICarService {
       licensePlate: LicensePlateVO.normalize(dto.licensePlate),
       type: dto.type,
       totalSeats: totalSeats,
+      deckCount: dto.deckCount,
+      seatColumns: dto.seatColumns,
+      lowerDeckSeats: dto.lowerDeckSeats,
+      seatClass: dto.seatClass,
     };
 
     const createdData = await this.http.post<any>('/api/v1/cars', payload);
     return CarEntity.fromApiResponse(createdData);
+  }
+
+  async deleteCar(id: string): Promise<void> {
+    await this.http.delete(`/api/v1/cars/${id}`);
   }
 
   async createCar(dto: CreateCarDTO): Promise<CarEntity> {

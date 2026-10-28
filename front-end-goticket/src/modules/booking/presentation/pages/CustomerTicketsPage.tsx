@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { bookingService } from '../../composition';
 import type { OrderEntity } from '../../domain/entity/order.entity';
@@ -26,32 +26,34 @@ export const CustomerTicketsPage: React.FC = () => {
   const [tab, setTab] = useState<'ALL' | 'CONFIRMED' | 'PENDING' | 'CANCELLED'>('ALL');
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+  const [searchInput, setSearchInput] = useState('');
+  const [search, setSearch] = useState('');
+  const request = useRef(0);
 
   const fetchOrders = async (targetPage = 1) => {
+    const current = ++request.current;
     try {
       setLoading(true);
       setError(null);
-      const res = await bookingService.getUserOrders(targetPage, 10);
+      const res = await bookingService.getUserOrders(targetPage, 10, tab, search);
+      if (current !== request.current) return;
       setOrders(res.orders);
       setTotalPages(res.totalPages);
       setPage(res.page);
     } catch (err: unknown) {
+      if (current !== request.current) return;
       setError(err instanceof Error ? err.message : 'Không thể tải danh sách vé của bạn.');
     } finally {
-      setLoading(false);
+      if (current === request.current) setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchOrders(1);
-  }, []);
+    return () => { request.current++; };
+  }, [tab, search]);
 
-  const filteredOrders = orders.filter((order) => {
-    if (tab === 'CONFIRMED') return order.isConfirmed();
-    if (tab === 'PENDING') return order.isPending();
-    if (tab === 'CANCELLED') return order.isCancelled();
-    return true;
-  });
+  const filteredOrders = orders;
 
   const confirmedCount = orders.filter((o) => o.isConfirmed()).length;
   const pendingCount = orders.filter((o) => o.isPending()).length;
@@ -86,7 +88,7 @@ export const CustomerTicketsPage: React.FC = () => {
                 : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
             }`}
           >
-            Tất cả đơn ({orders.length})
+            Tất cả đơn
           </button>
           <button
             type="button"
@@ -97,7 +99,7 @@ export const CustomerTicketsPage: React.FC = () => {
                 : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
             }`}
           >
-            Đã phát vé ({confirmedCount})
+            Đã phát vé
           </button>
           <button
             type="button"
@@ -108,7 +110,7 @@ export const CustomerTicketsPage: React.FC = () => {
                 : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
             }`}
           >
-            Chờ thanh toán ({pendingCount})
+            Chờ thanh toán / xử lý
           </button>
           <button
             type="button"
@@ -119,11 +121,18 @@ export const CustomerTicketsPage: React.FC = () => {
                 : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
             }`}
           >
-            Đã hủy ({cancelledCount})
+            Hủy / hoàn tiền
           </button>
         </div>
       </div>
 
+      <form className="flex flex-wrap gap-3" onSubmit={event => { event.preventDefault(); setSearch(searchInput.trim()); }}>
+        <input aria-label="Tìm vé đã đặt" maxLength={120} value={searchInput} onChange={event => setSearchInput(event.target.value)} placeholder="Mã đơn vé hoặc tên chuyến" className="min-h-11 min-w-48 flex-1 rounded-xl border bg-white p-3 text-base" />
+        <button type="submit" className="min-h-11 rounded-xl bg-coral px-5 font-semibold text-white">Tìm kiếm</button>
+        {search && <button type="button" onClick={() => { setSearch(''); setSearchInput(''); }} className="min-h-11 rounded-xl border px-4">Xóa tìm kiếm</button>}
+        <Link to="/account/disputes" className="inline-flex min-h-11 items-center rounded-xl border px-4 font-semibold">Khiếu nại & Hỗ trợ</Link>
+      </form>
+      <p className="text-sm text-muted">Đơn đặt vé mới nhất được hiển thị trước.</p>
       {/* Main Content List */}
       {loading ? (
         <LoadingState count={3} />
@@ -224,7 +233,7 @@ export const CustomerTicketsPage: React.FC = () => {
                   </span>
 
                   <div className="flex items-center gap-2.5 justify-end">
-                    {isPending ? (
+                    {isPending && order.paymentMethod !== 'CASH' ? (
                       <Link
                         to={`/checkout/${order.orderId}`}
                         className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold glow-coral-sm transition-all"

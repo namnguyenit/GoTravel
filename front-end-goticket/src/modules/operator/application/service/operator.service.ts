@@ -27,12 +27,4 @@ export class OperatorService implements IOperatorService {
     }
   }
 
-  async requestOperatorApplication(dto: {
-    name: string;
-    phone: string;
-    address: string;
-  }): Promise<any> {
-    void dto;
-    throw new Error("Hồ sơ nhà xe được đăng ký tại trang KYC GoID.");
-  }
 }

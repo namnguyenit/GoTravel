@@ -21,13 +21,14 @@ interface ConfirmToggleRouteModalProps {
   open: boolean;
   route: RouteEntity | null;
   isSubmitting?: boolean;
+  error?: string | null;
   onClose: () => void;
   onConfirm: () => void;
 }
 
 export const ConfirmToggleRouteModal: React.FC<
   ConfirmToggleRouteModalProps
-> = ({ open, route, isSubmitting = false, onClose, onConfirm }) => {
+> = ({ open, route, isSubmitting = false, error, onClose, onConfirm }) => {
   if (!route) return null;
 
   const isLocking = route.isActive();
@@ -66,6 +67,7 @@ export const ConfirmToggleRouteModal: React.FC<
           </div>
         </DialogHeader>
 
+        {error && <p role="alert" className="rounded-xl bg-rose-50 p-3 text-sm text-rose-800">{error}</p>}
         <div className="py-2">
           {isLocking ? (
             <div className="space-y-2.5 rounded-lg border border-amber-200/80 bg-amber-50/80 p-4 text-sm text-amber-900">
@@ -81,8 +83,7 @@ export const ConfirmToggleRouteModal: React.FC<
                 </p>
               </div>
               <div className="border-t border-amber-200/60 pt-2 pl-7 text-xs text-amber-700/90">
-                <strong>Lưu ý:</strong> Các chuyến xe đã lên lịch trước đó vẫn
-                sẽ tiếp tục hoạt động bình thường cho đến khi hoàn thành.
+                <strong>Lưu ý:</strong> Các chuyến đã mở bán vẫn tiếp tục hoạt động và bán vé theo trạng thái của chuyến. Muốn dừng bán hoặc hủy một chuyến, hãy thao tác tại trang quản lý chuyến.
               </div>
             </div>
           ) : (
@@ -94,8 +95,8 @@ export const ConfirmToggleRouteModal: React.FC<
                   <strong className="font-semibold text-emerald-950">
                     {route.origin} ➔ {route.destination}
                   </strong>{" "}
-                  để tiếp tục lên lịch chuyến xe? Tuyến sẽ hiển thị lại cho hành
-                  khách tìm kiếm.
+                  để tiếp tục lên lịch chuyến xe? Hành khách chỉ thấy chuyến
+                  khi có chuyến hợp lệ được mở bán, không phải khi mở khóa tuyến.
                 </p>
               </div>
             </div>

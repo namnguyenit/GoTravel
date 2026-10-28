@@ -33,6 +33,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
+    @ExceptionHandler(org.springframework.web.server.ResponseStatusException.class)
+    public ResponseEntity<ApiResponse<Void>> handleResponseStatusException(org.springframework.web.server.ResponseStatusException e) {
+        return ResponseEntity.status(e.getStatusCode()).body(ApiResponse.error(e.getStatusCode().value(),
+                "HTTP_" + e.getStatusCode().value(), e.getReason() == null ? "Không thể xử lý yêu cầu" : e.getReason()));
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<Void>> handleGlobalException(Exception e) {
         log.error("Unhandled exception: ", e);

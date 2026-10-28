@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import type { SeatEntity } from '../../domain/entity/seat.entity';
 import { Armchair, Check, Clock, Ban } from 'lucide-react';
 import { SeatLegend } from '@/shared/presentation/components/domain/SeatLegend';
+import { seatClassLabel } from '@/modules/car/domain/seat-classes';
 
 interface SeatMapProps {
   seats: SeatEntity[];
@@ -17,11 +18,12 @@ export const SeatMap: React.FC<SeatMapProps> = ({
   onToggleSeat,
 }) => {
   // Check if trip has multiple decks
-  const decks = Array.from(new Set(seats.map((s) => s.deck))).sort();
+  const decks = Array.from(new Set(seats.map((s) => s.deck))).sort((a, b) => a - b);
   const [activeDeck, setActiveDeck] = useState<number>(decks[0] || 1);
+  const shownDeck = decks.includes(activeDeck) ? activeDeck : decks[0] || 1;
 
   // Filter seats for current active deck
-  const currentDeckSeats = seats.filter((s) => s.deck === activeDeck);
+  const currentDeckSeats = seats.filter((s) => s.deck === shownDeck);
 
   // Find min/max rows and columns for grid layout
   const rows = currentDeckSeats.map((s) => s.row);
@@ -55,20 +57,22 @@ export const SeatMap: React.FC<SeatMapProps> = ({
   return (
     <div className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-5 sm:p-7 space-y-6 shadow-md">
       {/* Deck Selector if multi-deck */}
-      {decks.length > 1 && (
-        <div className="flex items-center justify-center gap-2 border-b border-gray-100/80 pb-4">
+      {decks.length > 0 && (
+        <div className="flex flex-wrap items-center justify-center gap-2 border-b border-gray-100/80 pb-4">
           {decks.map((deckNumber) => (
             <button
               key={deckNumber}
               type="button"
               onClick={() => setActiveDeck(deckNumber)}
-              className={`px-6 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                activeDeck === deckNumber
+              aria-pressed={shownDeck === deckNumber}
+              className={`min-h-11 px-4 py-2.5 rounded-full text-sm font-bold transition-all cursor-pointer ${
+                shownDeck === deckNumber
                   ? 'bg-[#FF385C] text-white shadow-xs glow-coral-sm'
                   : 'bg-white/80 border border-gray-200/60 text-gray-600 hover:bg-white hover:text-gray-900'
               }`}
             >
-              Tầng {deckNumber}
+              Tầng {deckNumber} · {seats.filter(s => s.deck === deckNumber && s.isAvailable()).length} ghế trống
+              {selectedSeatIds.some(id => seats.some(s => s.id === id && s.deck === deckNumber)) && <span className="ml-1">· Đã chọn {seats.filter(s => s.deck === deckNumber && selectedSeatIds.includes(s.id)).length}</span>}
             </button>
           ))}
         </div>
@@ -83,7 +87,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
           <span className="font-bold text-gray-800">Tài xế</span>
         </div>
         <span className="uppercase tracking-wider text-[11px] font-extrabold text-gray-400">
-          Đầu xe (Tầng {activeDeck})
+          Đầu xe (Tầng {shownDeck})
         </span>
         <div className="text-right text-[11px] font-bold text-gray-500">Cửa lên xe 🚪</div>
       </div>
@@ -128,6 +132,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                       disabled={!isAvailable && !isSelected}
                       onClick={() => handleSeatClick(seat)}
                       aria-label={seat.getAccessibleLabel(isSelected)}
+                      title={`Ghế ${seat.code} · Tầng ${seat.deck} · ${seatClassLabel(seat.seatClass)}`}
                       aria-pressed={isSelected}
                       className={`
                         w-12 h-14 sm:w-14 sm:h-16 rounded-2xl border-2 flex flex-col items-center justify-center p-1
@@ -167,6 +172,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
       </div>
 
       {/* Legend */}
+      <p className="text-sm text-gray-600">Hạng ghế tầng {shownDeck}: {[...new Set(currentDeckSeats.map(s => seatClassLabel(s.seatClass)))].join(', ')}. Chọn ghế để xem giá tương ứng.</p>
       <SeatLegend />
     </div>
   );

@@ -33,18 +33,23 @@ import java.time.LocalDate;
 public class HostPayoutController {
 
     private final HostPayoutService hostPayoutService;
+    private final com.gotravel.PaymentandWallet.service.PaymentService paymentService;
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<Page<HostPayoutResponse>>> getMyPayouts(
             @AuthenticationPrincipal Jwt jwt,
+            @RequestParam(required = false) String providerType,
             Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.getPayoutsByHost(actor(jwt), pageable)));
+        UUID owner = actor(jwt);
+        return ResponseEntity.ok(ApiResponse.success(providerType == null || providerType.isBlank()
+                ? hostPayoutService.getPayoutsByHost(owner, pageable)
+                : hostPayoutService.getFilteredPayouts(pageable, providerType, null, owner)));
     }
 
     @GetMapping("/all")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<Page<HostPayoutResponse>>> getAllPayouts(Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.getAllPayouts(pageable)));
+    public ResponseEntity<ApiResponse<Page<HostPayoutResponse>>> getAllPayouts(Pageable pageable, @RequestParam(required = false) String providerType, @RequestParam(required = false) String status, @RequestParam(required = false) UUID hostId) {
+        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.getFilteredPayouts(pageable, providerType, status, hostId)));
     }
 
     @GetMapping("/admin/summary")
@@ -75,12 +80,38 @@ public class HostPayoutController {
         return ResponseEntity.ok(ApiResponse.success("Cập nhật cấu hình hoa hồng thành công", hostPayoutService.updateCommissionConfig(actor(jwt), request)));
     }
 
+    @GetMapping("/transport/commission")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<CommissionConfigResponse>> transportCommission() {
+        return ResponseEntity.ok(ApiResponse.success(paymentService.getTransportCommissionConfig()));
+    }
+
+    @PutMapping("/transport/commission")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<CommissionConfigResponse>> updateTransportCommission(
+            @AuthenticationPrincipal Jwt jwt, @RequestBody @Valid UpdateCommissionConfigRequest request) {
+        return ResponseEntity.ok(ApiResponse.success(paymentService.updateTransportCommissionConfig(actor(jwt),request)));
+    }
+
+    @GetMapping("/transport/cash-settlements")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<Page<com.gotravel.PaymentandWallet.service.PaymentService.CashSettlementRow>>> cashSettlements(
+            Pageable pageable, @RequestParam(required=false) UUID operatorId) {
+        return ResponseEntity.ok(ApiResponse.success(paymentService.cashSettlements(operatorId,pageable)));
+    }
+
     @PostMapping("/transport/{payoutId}/withdraw")
     public ResponseEntity<ApiResponse<HostPayoutResponse>> requestTransportWithdrawal(@AuthenticationPrincipal Jwt jwt,@PathVariable UUID payoutId) {
         return ResponseEntity.ok(ApiResponse.success(hostPayoutService.requestTransportWithdrawal(payoutId,actor(jwt))));
     }
 
     public record TransportPayoutProof(java.math.BigDecimal amount,String reference,String evidenceUrl) {}
+
+    @PostMapping("/transport/{payoutId}/prepare")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<ApiResponse<HostPayoutResponse>> prepareTransportPayout(@PathVariable UUID payoutId) {
+        return ResponseEntity.ok(ApiResponse.success(hostPayoutService.prepareTransportPayout(payoutId)));
+    }
 
     @PutMapping("/transport/{payoutId}/mark-paid")
     @PreAuthorize("hasRole('ADMIN')")

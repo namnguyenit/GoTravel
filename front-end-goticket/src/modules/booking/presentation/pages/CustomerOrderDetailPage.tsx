@@ -6,6 +6,9 @@ import type { OrderEntity, OrderItemEntity } from '../../domain/entity/order.ent
 import type { CancelPreviewResult } from '../../application/port/booking.service.interface';
 import { QrCodeView } from '@/shared/presentation/components/QrCodeView';
 import { DateVo } from '@/shared/domain/date.vo';
+import { CancellationPolicyNotice } from '../components/CancellationPolicyNotice';
+import { REFUND_REASONS } from '../../domain/refund-reasons';
+import { supportStatusLabels } from '@/shared/utils/support-status';
 import {
   Ticket,
   Printer,
@@ -53,6 +56,9 @@ export const CustomerOrderDetailPage: React.FC = () => {
   const [previewLoading, setPreviewLoading] = useState<boolean>(false);
   const [previewError, setPreviewError] = useState<string | null>(null);
   const [cancelling, setCancelling] = useState<boolean>(false);
+  const [cancelReasonCode, setCancelReasonCode] = useState('');
+  const [cancelReasonText, setCancelReasonText] = useState('');
+  const [cancelReasonError, setCancelReasonError] = useState('');
   const [cancelSuccessMsg, setCancelSuccessMsg] = useState<string | null>(null);
   const [cancelOperationId, setCancelOperationId] = useState<string | null>(null);
   const [operationState, setOperationState] = useState<string | null>(null);
@@ -67,15 +73,13 @@ export const CustomerOrderDetailPage: React.FC = () => {
   const operationStorageKey = (itemId: string) => `goticket:cancel:${orderId || 'unknown'}:${itemId}`;
   const terminalOperationStates = new Set([
     'COMPLETED',
-    'REFUND_PENDING',
     'ABORTED',
-    'ABORT_REFUND_PENDING',
   ]);
 
-  const fetchOrder = async () => {
+  const fetchOrder = async (background = false) => {
     if (!orderId) return;
     try {
-      setLoading(true);
+      if (!background) setLoading(true);
       setError(null);
       const data = await bookingService.getOrder(orderId);
       setOrder(data);
@@ -101,7 +105,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
         if (disposed) return;
         const nextState = String(operation?.state || 'SUBMITTED');
         setOperationState(nextState);
-        await fetchOrder();
+        await fetchOrder(true);
         if (terminalOperationStates.has(nextState)) {
           sessionStorage.removeItem(operationStorageKey(cancelModalItem.itemId));
           if (timer) window.clearInterval(timer);
@@ -112,7 +116,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
     };
 
     void refreshOperation();
-    timer = window.setInterval(refreshOperation, 2000);
+    timer = window.setInterval(refreshOperation, 5000);
     return () => {
       disposed = true;
       if (timer) window.clearInterval(timer);
@@ -123,6 +127,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
   const handleOpenCancelModal = async (item: OrderItemEntity) => {
     if (!orderId) return;
     setCancelModalItem(item);
+    setCancelReasonCode(''); setCancelReasonText(''); setCancelReasonError('');
     setCancelPreview(null);
     setPreviewError(null);
     setPreviewLoading(true);
@@ -151,6 +156,10 @@ export const CustomerOrderDetailPage: React.FC = () => {
   // Confirm cancel item
   const handleConfirmCancelItem = async () => {
     if (!orderId || !cancelModalItem || !cancelPreview || !cancelOperationId) return;
+    if (!cancelReasonCode || (cancelReasonCode === 'OTHER' && cancelReasonText.trim().length < 5)) {
+      setCancelReasonError('Chọn lý do. Nếu chọn Khác, vui lòng mô tả ít nhất 5 ký tự.');
+      return;
+    }
 
     try {
       setCancelling(true);
@@ -158,28 +167,28 @@ export const CustomerOrderDetailPage: React.FC = () => {
         orderId,
         cancelModalItem.itemId,
         cancelOperationId,
-        'Khách hàng chủ động yêu cầu hủy vé trực tuyến'
+        { code: cancelReasonCode, text: cancelReasonText.trim() }
       );
 
       setCancelSuccessMsg(
-        'Yêu cầu hủy vé đã được gửi thành công. Hệ thống đang tiến hành thủ tục hoàn tiền.'
+        'Đã tiếp nhận yêu cầu hủy vé. Trạng thái và nghĩa vụ hoàn tiền sẽ cập nhật theo kết quả xử lý bên dưới.'
       );
       setOperationState('SUBMITTED');
-      await fetchOrder();
+      await fetchOrder(true);
     } catch (err: unknown) {
-      alert(err instanceof Error ? err.message : 'Hủy vé không thành công.');
+      setCancelReasonError(err instanceof Error ? err.message : 'Hủy vé không thành công.');
     } finally {
       setCancelling(false);
     }
   };
 
   const handleSendEmail = async () => {
-    if (!orderId) return;
+    if (!orderId || sendingEmail || !order || !['CONFIRMED', 'COMPLETED'].includes(order.status) || !order.customerInfo.email?.trim()) return;
     try {
       setSendingEmail(true);
       setEmailMessage('');
-      const res = await httpClient.post<{ message?: string }>(`/api/v1/orders/${orderId}/send-email`);
-      setEmailMessage(res?.message || 'Đã gửi lại vé điện tử và biên nhận vào hòm thư của bạn.');
+      const res = await httpClient.post<{ message?: string }>(`/api/v1/orders/${orderId}/ticket-email/resend`);
+      setEmailMessage(res?.message || 'Đã tiếp nhận yêu cầu gửi lại vé. Email sẽ được gửi đến địa chỉ đã đăng ký.');
     } catch (err: unknown) {
       setEmailMessage(err instanceof Error ? err.message : 'Không thể gửi email lúc này.');
     } finally {
@@ -192,9 +201,8 @@ export const CustomerOrderDetailPage: React.FC = () => {
     try {
       setReviewing(true);
       setReviewMessage('');
-      await httpClient.post('/api/v1/customer/reviews', {
+      await httpClient.post('/api/v1/catalog/reviews', {
         listingId: reviewItem.listingId,
-        orderItemId: reviewItem.itemId,
         rating: reviewRating,
         comment: reviewComment.trim(),
       });
@@ -231,6 +239,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
   return (
     <CustomerPageContainer className="space-y-6 pb-20">
+      {order.transportRefundSimulated && <p role="status" className="rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-950">Đơn có khoản hoàn mô phỏng để thử nghiệm. Ứng dụng đã ghi nhận kết quả; không có tiền được chuyển qua ngân hàng.</p>}
       {/* Breadcrumb Navigation & Top Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100/70 pb-4 print:hidden">
         <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/80 shadow-2xs">
@@ -241,8 +250,11 @@ export const CustomerOrderDetailPage: React.FC = () => {
           <span className="font-bold text-gray-900 font-mono">#{order.orderNumber}</span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button
+        <div className="flex flex-wrap items-center gap-2">
+          <Link to={`/account/disputes?orderId=${encodeURIComponent(order.orderId)}`} className="inline-flex min-h-10 items-center rounded-full border px-4 text-xs font-semibold">
+            Gửi yêu cầu hỗ trợ
+          </Link>
+          {['CONFIRMED', 'COMPLETED'].includes(order.status) && Boolean(order.customerInfo.email?.trim()) && <Button
             type="button"
             variant="outline"
             size="sm"
@@ -252,7 +264,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
           >
             {sendingEmail ? <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" /> : <Mail className="w-3.5 h-3.5 mr-1.5" />}
             <span>Gửi lại Email</span>
-          </Button>
+          </Button>}
 
           <Button
             type="button"
@@ -262,7 +274,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
             className="rounded-full text-xs font-semibold h-9 px-4 border-white/80 bg-white/80 backdrop-blur-md hover:bg-white shadow-2xs"
           >
             <Printer className="w-3.5 h-3.5 mr-1.5" />
-            <span>In vé điện tử</span>
+            <span>{['CONFIRMED', 'COMPLETED'].includes(order.status) ? 'In vé điện tử' : 'In thông tin đơn'}</span>
           </Button>
         </div>
       </div>
@@ -315,6 +327,9 @@ export const CustomerOrderDetailPage: React.FC = () => {
       </div>
 
       {/* Ticket Cards Listing */}
+      {order.status === 'REFUND_PENDING' && <div role="status" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+        Vé đã có yêu cầu hoàn tiền đang chờ xử lý. {order.transportRefundDue.isPositive() ? <>Khoản hoàn toàn đơn: <MoneyText amount={order.transportRefundDue.toString()} />.</> : 'Khoản hoàn từng vé được xử lý riêng theo chính sách hủy/đổi.'} Trạng thái chỉ chuyển sang đã hoàn khi có xác nhận thực tế.
+      </div>}
       <div className="space-y-4">
         <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
           <Ticket className="w-5 h-5 text-[#FF385C]" />
@@ -357,6 +372,8 @@ export const CustomerOrderDetailPage: React.FC = () => {
                       <span className="px-3 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700">
                         {item.transportItemState === 'REFUNDED'
                           ? 'Đã hoàn tiền'
+                          : item.transportItemState === 'REFUND_PENDING'
+                          ? 'Đã hủy · Chờ hoàn tiền'
                           : item.transportItemState === 'VOID'
                           ? 'Vé bị thu hồi'
                           : item.transportItemState === 'NO_SHOW' || item.transportBoardingStatus === 'NO_SHOW'
@@ -374,6 +391,8 @@ export const CustomerOrderDetailPage: React.FC = () => {
                         Vé hợp lệ
                       </span>
                     )}
+
+                    {item.transportRefundTotal.isPositive() && <span className="text-sm text-emerald-800">Đã hoàn: <MoneyText amount={item.transportRefundTotal.toString()} /></span>}
                   </div>
 
                   {item.listingTitle && (
@@ -396,6 +415,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                   </div>
 
                   {/* Actions for valid tickets */}
+                  <CancellationPolicyNotice policy={order.transportCancellationPolicy} departureAt={item.transportDepartureAt} snapshot />
                   {!isInvalidTicket && !isBoarded && !isOperationPending && item.transportItemState === 'ACTIVE' && order.isConfirmed() && (
                     <div className="flex flex-wrap items-center gap-2.5 pt-2 print:hidden">
                       <Link
@@ -487,7 +507,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
       {/* Cancellation Modal with Financial Breakdown */}
       <Dialog open={Boolean(cancelModalItem)} onOpenChange={(val) => !val && setCancelModalItem(null)}>
-        <DialogContent className="max-w-md rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-2xl">
+        <DialogContent className="max-w-md max-h-[90dvh] overflow-y-auto rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold text-gray-900 leading-snug">
               Xác nhận hủy vé & Hoàn tiền
@@ -526,14 +546,29 @@ export const CustomerOrderDetailPage: React.FC = () => {
               {cancelSuccessMsg ? (
                 <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl font-medium">
                   {cancelSuccessMsg}
+                  {operationState && <div className="mt-3"><StatusBadge status={operationState} label={supportStatusLabels[operationState]} /></div>}
+                  {cancelOperationId && <Link to={`/account/operations/${cancelOperationId}`} className="mt-3 inline-block text-sm underline">Theo dõi xử lý hủy vé và hoàn tiền</Link>}
                 </div>
               ) : (
                 <p className="text-[11px] text-gray-500 leading-relaxed">
-                  * Số tiền hoàn sẽ được hoàn trả tự động vào phương thức thanh toán ban đầu của bạn theo quy trình ngân hàng.
+                  Khoản hoàn được xử lý theo chính sách và xác nhận bằng chứng từ thực tế. Vé chỉ hiển thị đã hoàn tiền sau khi khoản hoàn được ghi nhận.
                 </p>
               )}
             </div>
           ) : null}
+
+          {cancelPreview && !cancelSuccessMsg && <div className="space-y-3">
+            <label className="block space-y-1 text-sm font-medium">Lý do yêu cầu hủy/hoàn vé
+              <select aria-label="Lý do yêu cầu hoàn tiền" value={cancelReasonCode} disabled={cancelling} onChange={e => { setCancelReasonCode(e.target.value); setCancelReasonError(''); }} className="min-h-11 w-full rounded-xl border bg-white p-3 text-base">
+                <option value="">Chọn lý do...</option>{REFUND_REASONS.map(reason => <option key={reason.code} value={reason.code}>{reason.label}</option>)}
+              </select>
+            </label>
+            <label className="block space-y-1 text-sm">{cancelReasonCode === 'OTHER' ? 'Mô tả lý do khác (bắt buộc)' : 'Thông tin thêm (không bắt buộc)'}
+              <textarea aria-label="Chi tiết lý do hoàn tiền" rows={3} maxLength={1000} value={cancelReasonText} disabled={cancelling} onChange={e => { setCancelReasonText(e.target.value); setCancelReasonError(''); }} placeholder="Cho chúng tôi biết lý do để hỗ trợ bạn tốt hơn..." className="w-full rounded-xl border p-3 text-base" />
+            </label>
+            <p className="text-sm text-gray-600">Số được hoàn được tính theo giá vé và chính sách bên trên. Lý do không tự thay đổi số tiền.</p>
+          </div>}
+          {cancelReasonError && <p role="alert" className="mt-3 text-sm text-red-700">{cancelReasonError}</p>}
 
           <DialogFooter className="mt-4 flex flex-row items-center justify-end gap-2.5">
             <Button
@@ -562,7 +597,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
       {/* Review Dialog */}
       <Dialog open={Boolean(reviewItem)} onOpenChange={(val) => !val && setReviewItem(null)}>
-        <DialogContent className="max-w-md rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-2xl">
+        <DialogContent className="max-w-md max-h-[90dvh] overflow-y-auto rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-2xl">
           <DialogHeader>
             <DialogTitle className="text-lg font-bold text-gray-900 leading-snug">
               Đánh giá trải nghiệm chuyến đi

@@ -8,6 +8,8 @@ export class RouteStopMapper {
       routeId: model.routeId,
       name: model.name,
       order: model.order,
+      address: model.address,
+      province: model.province,
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
     });
@@ -19,6 +21,8 @@ export class RouteStopMapper {
       routeId: entity.routeId || routeId,
       name: entity.name,
       order: entity.order,
+      address: entity.address ?? null,
+      province: entity.province ?? null,
     };
   }
 }

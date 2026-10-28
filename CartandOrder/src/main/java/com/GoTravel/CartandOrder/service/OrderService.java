@@ -273,6 +273,13 @@ public class OrderService {
     }
 
     @Transactional(readOnly = true)
+    public Page<OrderResponse> getAdminOrders(com.GoTravel.CartandOrder.enums.OrderKind kind, Pageable pageable) {
+        if (kind == null) return getAdminOrders(pageable);
+        return orderRepository.findAll((root, query, builder) -> builder.equal(root.get("orderKind"), kind), pageable)
+                .map(orderMapper::toOrderResponse);
+    }
+
+    @Transactional(readOnly = true)
     public AdminOrderSummaryResponse getAdminSummary() {
         return AdminOrderSummaryResponse.builder()
                 .totalOrders(orderRepository.count())

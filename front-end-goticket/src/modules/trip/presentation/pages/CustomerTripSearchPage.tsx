@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import { useDiscoverLocation } from "../hooks/useDiscoverLocation";
 import { tripService } from "../../composition";
 import type { CustomerTripEntity } from "../../domain/entity/customer-trip.entity";
 import type { TripPaginationMeta } from "../../application/port/trip.service.interface";
@@ -36,6 +37,18 @@ export const CustomerTripSearchPage: React.FC = () => {
   const currentOrigin = searchParams.get("origin") || "";
   const currentDestination = searchParams.get("destination") || "";
   const currentDepartureDate = searchParams.get("departureDate") || todayStr;
+  const discovering = !currentOrigin.trim() || !currentDestination.trim();
+  const queryDate =
+    searchParams.get("departureDate") || (discovering ? "" : todayStr);
+  const automaticLocation = !currentOrigin.trim() && !currentDestination.trim();
+  const geo = useDiscoverLocation(automaticLocation);
+  const [discovery, setDiscovery] = useState<{
+    origin?: string;
+    nearby: boolean;
+    fallback: boolean;
+  }>();
+  const sequence = useRef(0);
+  const preferredOrigin = automaticLocation ? geo.city : "";
 
   // Search Results state
   const [trips, setTrips] = useState<CustomerTripEntity[]>([]);
@@ -90,14 +103,8 @@ export const CustomerTripSearchPage: React.FC = () => {
   };
 
   const executeSearch = useCallback(
-    async (pageToFetch = 1) => {
-      if (!currentOrigin.trim() || !currentDestination.trim()) {
-        setTrips([]);
-        setLoading(false);
-        setError(null);
-        return;
-      }
-
+    async (pageToFetch = 1): Promise<void> => {
+      const current = ++sequence.current;
       setLoading(true);
       setError(null);
 
@@ -108,7 +115,9 @@ export const CustomerTripSearchPage: React.FC = () => {
         const res = await tripService.searchTrips({
           origin: currentOrigin,
           destination: currentDestination,
-          departureDate: currentDepartureDate,
+          departureDate: queryDate,
+          discover: discovering,
+          preferredOrigin: preferredOrigin || undefined,
           type: filters.carType || undefined,
           timeRange: filters.timeRange || undefined,
           minPrice,
@@ -119,9 +128,19 @@ export const CustomerTripSearchPage: React.FC = () => {
           limit: 10,
         });
 
+        if (current !== sequence.current) return;
+        if (
+          res.pagination.total > 0 &&
+          pageToFetch > res.pagination.totalPages
+        ) {
+          void executeSearch(1);
+          return;
+        }
         setTrips(res.data);
+        setDiscovery(res.discovery);
         setPagination(res.pagination);
       } catch (err: unknown) {
+        if (current !== sequence.current) return;
         setError(
           err instanceof Error
             ? err.message
@@ -129,13 +148,15 @@ export const CustomerTripSearchPage: React.FC = () => {
         );
         setTrips([]);
       } finally {
-        setLoading(false);
+        if (current === sequence.current) setLoading(false);
       }
     },
     [
       currentOrigin,
       currentDestination,
-      currentDepartureDate,
+      queryDate,
+      discovering,
+      preferredOrigin,
       filters.carType,
       filters.timeRange,
       filters.priceRange,
@@ -144,7 +165,10 @@ export const CustomerTripSearchPage: React.FC = () => {
   );
 
   useEffect(() => {
-    executeSearch(1);
+    void executeSearch(1);
+    return () => {
+      sequence.current++;
+    };
   }, [executeSearch]);
 
   const handleSearchFormSubmit = (criteria: {
@@ -224,23 +248,33 @@ export const CustomerTripSearchPage: React.FC = () => {
   return (
     <CustomerPageContainer className="space-y-6 pb-16">
       {/* Top Search Dock Section */}
-      <div className="relative z-30 bg-white/85 backdrop-blur-xl rounded-3xl p-5 sm:p-7 border border-white/80 shadow-md space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-gray-100/80 pb-3.5">
+      <div className="relative z-30 space-y-4 rounded-3xl border border-white/80 bg-white/85 p-5 shadow-md backdrop-blur-xl sm:p-7">
+        <div className="flex flex-col justify-between gap-2 border-b border-gray-100/80 pb-3.5 sm:flex-row sm:items-center">
           <div>
-            <div className="text-xs font-bold uppercase tracking-wider text-[#FF385C]">
+            <div className="text-xs font-bold tracking-wider text-[#FF385C] uppercase">
               Tìm chuyến xe khách
             </div>
-            <h1 className="text-xl sm:text-2xl font-black tracking-tight text-[#111827] mt-0.5 font-editorial">
+            <h1 className="font-editorial mt-0.5 text-xl font-black tracking-tight text-[#111827] sm:text-2xl">
               {currentOrigin && currentDestination
                 ? `${currentOrigin} → ${currentDestination}`
-                : "Tra cứu lộ trình & Lịch khởi hành"}
+                : discovery?.nearby
+                  ? `Từ ${discovery.origin} đi mọi nơi`
+                  : currentOrigin
+                    ? `Từ ${currentOrigin} đi mọi nơi`
+                    : currentDestination
+                      ? `Các chuyến đến ${currentDestination}`
+                      : "Khám phá chuyến xe"}
             </h1>
           </div>
           {currentDepartureDate && (
-            <div className="flex items-center gap-1.5 text-xs font-semibold text-gray-700 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-white/80 shadow-2xs w-fit">
+            <div className="flex w-fit items-center gap-1.5 rounded-full border border-white/80 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-2xs backdrop-blur-xs">
               <Calendar className="h-3.5 w-3.5 text-[#FF385C]" />
-              <span>Khởi hành: </span>
-              <strong className="text-gray-900 tabular-nums">{currentDepartureDate}</strong>
+              <span>
+                {discovering && !queryDate ? "Từ hôm nay: " : "Khởi hành: "}
+              </span>
+              <strong className="text-gray-900 tabular-nums">
+                {currentDepartureDate}
+              </strong>
             </div>
           )}
         </div>
@@ -256,9 +290,9 @@ export const CustomerTripSearchPage: React.FC = () => {
       </div>
 
       {/* Main Content Layout */}
-      <div className="relative z-10 grid grid-cols-1 gap-6 lg:grid-cols-12 items-start">
+      <div className="relative z-10 grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
         {/* Left Sidebar Filters (Desktop 3 cols) */}
-        <div className="hidden lg:block lg:col-span-3 sticky top-24">
+        <div className="sticky top-24 hidden lg:col-span-3 lg:block">
           <CustomerTripFilterSidebar
             filters={filters}
             onChange={setFilters}
@@ -270,7 +304,7 @@ export const CustomerTripSearchPage: React.FC = () => {
         {/* Right Search Results (9 cols) */}
         <div className="space-y-4 lg:col-span-9">
           {/* Sorting & Result Count Bar */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-2xl sm:rounded-full border border-white/80 bg-white/85 backdrop-blur-md p-3.5 sm:p-4 shadow-2xs">
+          <div className="flex flex-col justify-between gap-3 rounded-2xl border border-white/80 bg-white/85 p-3.5 shadow-2xs backdrop-blur-md sm:flex-row sm:items-center sm:rounded-full sm:p-4">
             <div className="flex items-center gap-3">
               {/* Mobile Filter Toggle Button */}
               <Button
@@ -278,26 +312,42 @@ export const CustomerTripSearchPage: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setMobileFilterOpen(true)}
-                className="lg:hidden rounded-full text-xs font-bold border-gray-200 h-9 px-3.5 text-gray-700 hover:text-[#FF385C]"
+                className="h-9 rounded-full border-gray-200 px-3.5 text-xs font-bold text-gray-700 hover:text-[#FF385C] lg:hidden"
               >
-                <Filter className="w-3.5 h-3.5 mr-1.5 text-[#FF385C]" />
+                <Filter className="mr-1.5 h-3.5 w-3.5 text-[#FF385C]" />
                 Bộ lọc {activeChips.length > 0 && `(${activeChips.length})`}
               </Button>
 
-              <div className="text-xs text-gray-500 font-medium">
+              <div className="text-xs font-medium text-gray-500">
                 {currentOrigin && currentDestination ? (
                   <span>
-                    Có <strong className="text-gray-900 font-bold tabular-nums">{pagination.total}</strong> chuyến từ{" "}
-                    <strong className="text-gray-900">{currentOrigin}</strong> đi{" "}
-                    <strong className="text-gray-900">{currentDestination}</strong>
+                    Có{" "}
+                    <strong className="font-bold text-gray-900 tabular-nums">
+                      {pagination.total}
+                    </strong>{" "}
+                    chuyến từ{" "}
+                    <strong className="text-gray-900">{currentOrigin}</strong>{" "}
+                    đi{" "}
+                    <strong className="text-gray-900">
+                      {currentDestination}
+                    </strong>
                   </span>
                 ) : (
-                  <span>Vui lòng chọn điểm đi và điểm đến</span>
+                  <span>
+                    Có{" "}
+                    <strong className="text-gray-900 tabular-nums">
+                      {pagination.total}
+                    </strong>{" "}
+                    chuyến
+                    {discovery?.nearby
+                      ? ` từ ${discovery.origin} đi mọi nơi`
+                      : " còn mở bán"}
+                  </span>
                 )}
               </div>
             </div>
 
-            <div className="flex items-center space-x-2 shrink-0">
+            <div className="flex shrink-0 items-center space-x-2">
               <span className="flex items-center text-xs font-semibold text-gray-400">
                 <ArrowUpDown className="mr-1 h-3.5 w-3.5" />
                 Sắp xếp:
@@ -305,7 +355,7 @@ export const CustomerTripSearchPage: React.FC = () => {
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-bold text-gray-700 focus:outline-hidden focus:border-[#FF385C] focus:bg-white transition-all cursor-pointer"
+                className="cursor-pointer rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-bold text-gray-700 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden"
               >
                 <option value="departureTime_asc">Giờ chạy: Sớm nhất</option>
                 <option value="departureTime_desc">Giờ chạy: Muộn nhất</option>
@@ -331,19 +381,16 @@ export const CustomerTripSearchPage: React.FC = () => {
               error={error}
               onRetry={() => executeSearch(pagination.page)}
             />
-          ) : !currentOrigin || !currentDestination ? (
-            /* Prompt State when no route selected */
-            <EmptyState
-              icon={Bus}
-              title="Chọn Điểm xuất phát và Điểm đến"
-              description="Vui lòng chọn Điểm xuất phát và Điểm đến ở thanh tìm kiếm phía trên để tra cứu các chuyến xe phù hợp."
-            />
           ) : trips.length === 0 ? (
             /* Empty State */
             <EmptyState
               icon={Bus}
               title="Không tìm thấy chuyến xe phù hợp"
-              description={`Hiện tại không có chuyến xe nào từ ${currentOrigin} đến ${currentDestination} vào ngày ${currentDepartureDate}.`}
+              description={
+                discovering
+                  ? "Chưa có chuyến còn mở bán phù hợp với bộ lọc hiện tại. Bạn có thể bỏ bộ lọc hoặc chọn tuyến và ngày khác."
+                  : `Hiện tại không có chuyến xe nào từ ${currentOrigin} đến ${currentDestination} vào ngày ${currentDepartureDate}.`
+              }
               action={
                 <div className="flex flex-wrap justify-center gap-2">
                   {activeChips.length > 0 && (
@@ -351,31 +398,38 @@ export const CustomerTripSearchPage: React.FC = () => {
                       variant="outline"
                       size="sm"
                       onClick={handleResetFilters}
-                      className="rounded-full text-xs font-semibold h-9 px-4 border-gray-200"
+                      className="h-9 rounded-full border-gray-200 px-4 text-xs font-semibold"
                     >
                       Xóa bộ lọc tìm kiếm
                     </Button>
                   )}
-                  <Button
-                    size="sm"
-                    onClick={() => {
-                      const nextDay = new Date(currentDepartureDate);
-                      nextDay.setDate(nextDay.getDate() + 1);
-                      const nextDayStr = new Date(
-                        nextDay.getTime() - nextDay.getTimezoneOffset() * 60000
+                  {!discovering && (
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        const nextDay = new Date(currentDepartureDate);
+                        nextDay.setDate(nextDay.getDate() + 1);
+                        const nextDayStr = new Date(
+                          nextDay.getTime() -
+                            nextDay.getTimezoneOffset() * 60000
+                        )
+                          .toISOString()
+                          .slice(0, 10);
+                        setSearchParams({
+                          origin: currentOrigin,
+                          destination: currentDestination,
+                          departureDate: nextDayStr,
+                        });
+                      }}
+                      className="glow-coral-sm h-9 rounded-full bg-[#FF385C] px-5 text-xs font-bold text-white transition-all hover:bg-[#E61E4F]"
+                    >
+                      Xem ngày hôm sau (
+                      {new Date(
+                        new Date(currentDepartureDate).getTime() + 86400000
+                      ).toLocaleDateString("vi-VN")}
                       )
-                        .toISOString()
-                        .slice(0, 10);
-                      setSearchParams({
-                        origin: currentOrigin,
-                        destination: currentDestination,
-                        departureDate: nextDayStr,
-                      });
-                    }}
-                    className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-xs font-bold text-white h-9 px-5 glow-coral-sm transition-all"
-                  >
-                    Xem ngày hôm sau ({new Date(new Date(currentDepartureDate).getTime() + 86400000).toLocaleDateString('vi-VN')})
-                  </Button>
+                    </Button>
+                  )}
                 </div>
               }
             />
@@ -386,6 +440,7 @@ export const CustomerTripSearchPage: React.FC = () => {
                 <CustomerTripCard
                   key={trip.id}
                   trip={trip}
+                  showDepartureDate={discovering && !queryDate}
                   onViewDetail={handleOpenDetail}
                   onSelectTrip={handleSelectTrip}
                 />
@@ -394,8 +449,8 @@ export const CustomerTripSearchPage: React.FC = () => {
           )}
 
           {/* Pagination Controls */}
-          {pagination.totalPages > 1 && (
-            <div className="bg-white rounded-2xl border border-gray-200/80 p-4 shadow-2xs">
+          {!error && pagination.totalPages > 1 && (
+            <div className="rounded-2xl border border-gray-200/80 bg-white p-4 shadow-2xs">
               <Pagination
                 currentPage={pagination.page}
                 totalPages={pagination.totalPages}
@@ -415,16 +470,18 @@ export const CustomerTripSearchPage: React.FC = () => {
             className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
             onClick={() => setMobileFilterOpen(false)}
           />
-          <div className="relative w-full max-w-xs bg-white h-full p-5 overflow-y-auto shadow-2xl flex flex-col justify-between z-10 animate-in slide-in-from-right duration-200">
+          <div className="animate-in slide-in-from-right relative z-10 flex h-full w-full max-w-xs flex-col justify-between overflow-y-auto bg-white p-5 shadow-2xl duration-200">
             <div>
-              <div className="flex items-center justify-between pb-3 border-b border-gray-100 mb-4">
-                <span className="font-bold text-base text-gray-900">Bộ lọc</span>
+              <div className="mb-4 flex items-center justify-between border-b border-gray-100 pb-3">
+                <span className="text-base font-bold text-gray-900">
+                  Bộ lọc
+                </span>
                 <button
                   type="button"
                   onClick={() => setMobileFilterOpen(false)}
-                  className="p-1 rounded-full text-gray-500 hover:bg-gray-100"
+                  className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
               <CustomerTripFilterSidebar
@@ -432,14 +489,14 @@ export const CustomerTripSearchPage: React.FC = () => {
                 onChange={setFilters}
                 onReset={handleResetFilters}
                 totalResults={pagination.total}
-                className="border-0 shadow-none p-0"
+                className="border-0 p-0 shadow-none"
               />
             </div>
-            <div className="pt-4 border-t border-gray-100">
+            <div className="border-t border-gray-100 pt-4">
               <Button
                 type="button"
                 onClick={() => setMobileFilterOpen(false)}
-                className="w-full bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full font-bold text-xs h-11"
+                className="h-11 w-full rounded-full bg-[#FF385C] text-xs font-bold text-white hover:bg-[#E61E4F]"
               >
                 Áp dụng bộ lọc
               </Button>

@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { BarChart3, RefreshCw, Ticket, WalletCards, ArrowUpRight } from 'lucide-react';
-import { httpClient } from '@/shared/infrastructure/http/HttpPort';
-import { formatVnd } from '@/shared/domain/money.vo';
+import React, { useEffect, useRef, useState } from "react";
+import {
+  BarChart3,
+  RefreshCw,
+  Ticket,
+  WalletCards,
+  ArrowUpRight,
+} from "lucide-react";
+import { httpClient } from "@/shared/infrastructure/http/HttpPort";
+import { formatVnd } from "@/shared/domain/money.vo";
+import { vietnamDate } from "@/shared/utils/vietnam-date";
 import {
   PageHeader,
   SurfaceCard,
@@ -14,71 +21,119 @@ import {
   EmptyState,
   Button,
   ConfirmDialog,
-} from '@/shared/presentation/components';
+  Pagination,
+} from "@/shared/presentation/components";
 
-const dateInput = (date: Date) => date.toISOString().slice(0, 10);
-const initialFrom = () => {
-  const date = new Date();
-  date.setDate(date.getDate() - 30);
-  return dateInput(date);
+const payoutStatusLabels: Record<string, string> = {
+  PAID: "Đã chi trả",
+  REQUESTED: "Chờ quyết toán",
+  PENDING: "Chưa yêu cầu rút",
+  CANCELLED: "Đã hủy khoản chi",
 };
+
+const dateInput = (date: Date) => vietnamDate(date);
+const initialFrom = () => vietnamDate(Date.now() - 30 * 24 * 60 * 60_000);
 
 export const OperatorReportsPage: React.FC = () => {
   const [from, setFrom] = useState(initialFrom());
   const [to, setTo] = useState(dateInput(new Date()));
   const [report, setReport] = useState<Record<string, unknown> | null>(null);
   const [payouts, setPayouts] = useState<Array<Record<string, unknown>>>([]);
+  const [payoutPageIndex, setPayoutPageIndex] = useState(1);
+  const [payoutPages, setPayoutPages] = useState(1);
+  const [payoutTotal, setPayoutTotal] = useState(0);
+  const requestSequence = useRef(0);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   // Withdraw confirm dialog
-  const [selectedPayoutToWithdraw, setSelectedPayoutToWithdraw] = useState<string | null>(null);
+  const [selectedPayoutToWithdraw, setSelectedPayoutToWithdraw] = useState<
+    string | null
+  >(null);
   const [withdrawing, setWithdrawing] = useState(false);
 
   const load = async () => {
+    const requestId = ++requestSequence.current;
     setLoading(true);
-    setError('');
+    setError("");
     try {
       const [reportData, payoutPage] = await Promise.all([
-        httpClient.get<Record<string, unknown>>('/api/v1/orders/transport/vendor/reports', {
-          params: { from, to },
+        httpClient.get<Record<string, unknown>>(
+          "/api/v1/orders/transport/vendor/reports",
+          {
+            params: { from, to },
+          }
+        ),
+        httpClient.get<any>("/api/v1/payouts/me", {
+          params: {
+            page: payoutPageIndex - 1,
+            size: 20,
+            providerType: "TRANSPORT",
+          },
         }),
-        httpClient.get<any>('/api/v1/payouts/me', { params: { page: 0, size: 50 } }),
       ]);
+      if (requestId !== requestSequence.current) return;
       setReport(reportData);
+      setPayoutPages(Math.max(1, Number(payoutPage?.totalPages || 0)));
+      setPayoutTotal(Number(payoutPage?.totalElements || 0));
       setPayouts(
         Array.isArray(payoutPage?.content)
-          ? payoutPage.content.filter((row: any) => row.providerType === 'TRANSPORT')
+          ? payoutPage.content.filter(
+              (row: any) => row.providerType === "TRANSPORT"
+            )
           : []
       );
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Không thể tải báo cáo vận hành.');
+      if (requestId !== requestSequence.current) return;
+      setError(
+        reason instanceof Error
+          ? reason.message
+          : "Không thể tải báo cáo vận hành."
+      );
     } finally {
-      setLoading(false);
+      if (requestId === requestSequence.current) setLoading(false);
     }
   };
 
   useEffect(() => {
     void load();
-  }, []);
+    return () => {
+      requestSequence.current += 1;
+    };
+  }, [payoutPageIndex]);
 
   const rows = Array.isArray(report?.ordersByMethodAndStatus)
     ? (report.ordersByMethodAndStatus as Array<Record<string, unknown>>)
     : [];
-  const totalOrders = rows.reduce((sum, row) => sum + Number(row.order_count || 0), 0);
-  const totalBooked = rows.reduce((sum, row) => sum + Number(row.booked_amount || 0), 0);
-  const totalRefunded = rows.reduce((sum, row) => sum + Number(row.refunded_amount || 0), 0);
+  const totalOrders = rows.reduce(
+    (sum, row) => sum + Number(row.order_count || 0),
+    0
+  );
+  const totalBooked = rows.reduce(
+    (sum, row) => sum + Number(row.booked_amount || 0),
+    0
+  );
+  const totalRefunded = rows.reduce(
+    (sum, row) => sum + Number(row.refunded_amount || 0),
+    0
+  );
 
   const handleConfirmWithdraw = async () => {
     if (!selectedPayoutToWithdraw) return;
     setWithdrawing(true);
-    setError('');
+    setError("");
     try {
-      await httpClient.post(`/api/v1/payouts/transport/${selectedPayoutToWithdraw}/withdraw`);
+      await httpClient.post(
+        `/api/v1/payouts/transport/${selectedPayoutToWithdraw}/withdraw`
+      );
       setSelectedPayoutToWithdraw(null);
       await load();
     } catch (reason) {
-      setError(reason instanceof Error ? reason.message : 'Không thể gửi yêu cầu rút tiền.');
+      setError(
+        reason instanceof Error
+          ? reason.message
+          : "Không thể gửi yêu cầu rút tiền."
+      );
     } finally {
       setWithdrawing(false);
     }
@@ -94,9 +149,12 @@ export const OperatorReportsPage: React.FC = () => {
       />
 
       {/* Date Range Bar */}
-      <SurfaceCard variant="glass" className="p-5 flex flex-wrap items-end gap-3.5 rounded-[28px] border border-white/80 shadow-glass">
+      <SurfaceCard
+        variant="glass"
+        className="shadow-glass flex flex-wrap items-end gap-3.5 rounded-[28px] border border-white/80 p-5"
+      >
         <div>
-          <label className="block text-xs font-semibold text-gray-500 mb-1">
+          <label className="mb-1 block text-xs font-semibold text-gray-500">
             Từ ngày
           </label>
           <input
@@ -104,11 +162,11 @@ export const OperatorReportsPage: React.FC = () => {
             value={from}
             max={to}
             onChange={(e) => setFrom(e.target.value)}
-            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
           />
         </div>
         <div>
-          <label className="block text-xs font-semibold text-gray-500 mb-1">
+          <label className="mb-1 block text-xs font-semibold text-gray-500">
             Đến ngày
           </label>
           <input
@@ -116,15 +174,17 @@ export const OperatorReportsPage: React.FC = () => {
             value={to}
             min={from}
             onChange={(e) => setTo(e.target.value)}
-            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
           />
         </div>
         <Button
           onClick={() => void load()}
           disabled={loading}
-          className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full text-xs font-bold px-5 py-2 shadow-md glow-coral-sm cursor-pointer"
+          className="glow-coral-sm cursor-pointer rounded-full bg-[#FF385C] px-5 py-2 text-xs font-bold text-white shadow-md hover:bg-[#E61E4F]"
         >
-          <RefreshCw className={`h-3.5 w-3.5 mr-2 ${loading ? 'animate-spin' : ''}`} />
+          <RefreshCw
+            className={`mr-2 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`}
+          />
           Cập nhật số liệu
         </Button>
       </SurfaceCard>
@@ -134,12 +194,15 @@ export const OperatorReportsPage: React.FC = () => {
           variant="error"
           title="Lỗi báo cáo"
           message={error}
-          onClose={() => setError('')}
+          onClose={() => setError("")}
         />
       )}
 
       {loading ? (
-        <SurfaceCard variant="glass" className="p-12 text-center rounded-[28px]">
+        <SurfaceCard
+          variant="glass"
+          className="rounded-[28px] p-12 text-center"
+        >
           <LoadingState message="Đang tổng hợp báo cáo tài chính..." />
         </SurfaceCard>
       ) : (
@@ -148,7 +211,7 @@ export const OperatorReportsPage: React.FC = () => {
           <div className="grid gap-4 md:grid-cols-3">
             <MetricCard
               label="Đơn vé trong kỳ"
-              value={totalOrders.toLocaleString('vi-VN')}
+              value={totalOrders.toLocaleString("vi-VN")}
               icon={Ticket}
               variant="default"
             />
@@ -167,9 +230,12 @@ export const OperatorReportsPage: React.FC = () => {
           </div>
 
           {/* Breakdown Table */}
-          <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 shadow-glass">
-            <div className="border-b border-gray-100/80 p-4 sm:p-5 bg-white/60 backdrop-blur-md">
-              <h2 className="font-bold text-sm text-gray-900">
+          <SurfaceCard
+            variant="glass"
+            className="shadow-glass overflow-hidden rounded-[28px] border border-white/80 p-0"
+          >
+            <div className="border-b border-gray-100/80 bg-white/60 p-4 backdrop-blur-md sm:p-5">
+              <h2 className="text-sm font-bold text-gray-900">
                 Phân bổ theo Phương thức thanh toán & Trạng thái
               </h2>
             </div>
@@ -180,7 +246,7 @@ export const OperatorReportsPage: React.FC = () => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-white/60 backdrop-blur-md font-bold text-gray-500 border-b border-gray-100/80">
+                  <thead className="border-b border-gray-100/80 bg-white/60 font-bold text-gray-500 backdrop-blur-md">
                     <tr>
                       <th className="px-5 py-3.5">Phương thức</th>
                       <th className="px-5 py-3.5">Trạng thái</th>
@@ -190,13 +256,16 @@ export const OperatorReportsPage: React.FC = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-100/80">
                     {rows.map((row, index) => (
-                      <tr key={index} className="hover:bg-white/60 transition-colors">
+                      <tr
+                        key={index}
+                        className="transition-colors hover:bg-white/60"
+                      >
                         <td className="px-5 py-3.5 font-bold text-gray-900">
-                          {String(row.payment_method || '—')}
+                          {String(row.payment_method || "—")}
                         </td>
                         <td className="px-5 py-3.5">
-                          <span className="rounded-full bg-white/90 border border-gray-200/80 px-3 py-0.5 text-[11px] font-semibold text-gray-700 shadow-2xs">
-                            {String(row.status || '—')}
+                          <span className="rounded-full border border-gray-200/80 bg-white/90 px-3 py-0.5 text-[11px] font-semibold text-gray-700 shadow-2xs">
+                            {String(row.status || "—")}
                           </span>
                         </td>
                         <td className="px-5 py-3.5 text-right font-medium text-gray-600">
@@ -218,9 +287,12 @@ export const OperatorReportsPage: React.FC = () => {
           </SurfaceCard>
 
           {/* Payouts Table */}
-          <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 shadow-glass">
-            <div className="border-b border-gray-100/80 p-4 sm:p-5 bg-white/60 backdrop-blur-md">
-              <h2 className="font-bold text-sm text-gray-900">
+          <SurfaceCard
+            variant="glass"
+            className="shadow-glass overflow-hidden rounded-[28px] border border-white/80 p-0"
+          >
+            <div className="border-b border-gray-100/80 bg-white/60 p-4 backdrop-blur-md sm:p-5">
+              <h2 className="text-sm font-bold text-gray-900">
                 Khoản đối soát và Yêu cầu giải ngân
               </h2>
             </div>
@@ -231,7 +303,7 @@ export const OperatorReportsPage: React.FC = () => {
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-white/60 backdrop-blur-md font-bold text-gray-500 border-b border-gray-100/80">
+                  <thead className="border-b border-gray-100/80 bg-white/60 font-bold text-gray-500 backdrop-blur-md">
                     <tr>
                       <th className="px-5 py-3.5">Mã đơn / Đối soát</th>
                       <th className="px-5 py-3.5 text-right">Thực nhận</th>
@@ -241,7 +313,10 @@ export const OperatorReportsPage: React.FC = () => {
                   </thead>
                   <tbody className="divide-y divide-gray-100/80">
                     {payouts.map((row) => (
-                      <tr key={String(row.payoutId)} className="hover:bg-white/60 transition-colors">
+                      <tr
+                        key={String(row.payoutId)}
+                        className="transition-colors hover:bg-white/60"
+                      >
                         <td className="px-5 py-3.5">
                           <IdText id={String(row.orderId || row.payoutId)} />
                         </td>
@@ -253,18 +328,27 @@ export const OperatorReportsPage: React.FC = () => {
                           />
                         </td>
                         <td className="px-5 py-3.5">
-                          <span className="rounded-full bg-white/90 border border-gray-200/80 px-3 py-0.5 text-[11px] font-semibold text-gray-700 shadow-2xs">
-                            {String(row.status)}
+                          <span className="rounded-full border border-gray-200/80 bg-white/90 px-3 py-0.5 text-[11px] font-semibold text-gray-700 shadow-2xs">
+                            {row.settlementSimulated === true
+                              ? "Đã chi trả mô phỏng"
+                              : payoutStatusLabels[String(row.status)] ||
+                                String(row.status)}
                           </span>
                         </td>
                         <td className="px-5 py-3.5 text-right">
-                          {['PENDING', 'AVAILABLE'].includes(String(row.status)) && (
+                          {["PENDING", "AVAILABLE"].includes(
+                            String(row.status)
+                          ) && (
                             <Button
                               size="sm"
-                              onClick={() => setSelectedPayoutToWithdraw(String(row.payoutId))}
-                              className="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-full shadow-2xs"
+                              onClick={() =>
+                                setSelectedPayoutToWithdraw(
+                                  String(row.payoutId)
+                                )
+                              }
+                              className="rounded-full bg-emerald-600 text-xs font-bold text-white shadow-2xs hover:bg-emerald-700"
                             >
-                              <ArrowUpRight className="h-3.5 w-3.5 mr-1" />
+                              <ArrowUpRight className="mr-1 h-3.5 w-3.5" />
                               Yêu cầu rút
                             </Button>
                           )}
@@ -278,6 +362,14 @@ export const OperatorReportsPage: React.FC = () => {
           </SurfaceCard>
         </>
       )}
+
+      <Pagination
+        currentPage={payoutPageIndex}
+        totalPages={payoutPages}
+        totalItems={payoutTotal}
+        onPageChange={setPayoutPageIndex}
+        disabled={loading}
+      />
 
       {/* Confirm withdraw dialog */}
       <ConfirmDialog

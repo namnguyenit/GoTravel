@@ -10,6 +10,10 @@ import type {
   IUpdateRouteUseCase,
   UpdateRouteInput,
 } from '../../application/port/update-route.usecase.interface';
+import type {
+  DeleteRouteInput,
+  DeleteRouteOutput,
+} from '../../application/port/delete-route.usecase.interface';
 import type { IRouteRepository } from '../../domain/repository/route.repository.interface';
 import { Route } from '../../domain/entity/route.entity';
 import { RouteStop } from '../../domain/entity/route-stop.entity';
@@ -42,7 +46,7 @@ export class PrismaUpdateRouteManagement implements IUpdateRouteUseCase {
         where: { id: routeId },
         include: { stops: { orderBy: { order: 'asc' } } },
       });
-      if (!existing || existing.operatorId !== operatorId) {
+      if (!existing || existing.deletedAt || existing.operatorId !== operatorId) {
         throw new NotFoundException('Không tìm thấy tuyến đường');
       }
 
@@ -50,24 +54,16 @@ export class PrismaUpdateRouteManagement implements IUpdateRouteUseCase {
       const activeTripsCount = await tx.trip.count({
         where: {
           routeId,
-          status: {
-            in: [
-              'PUBLISHING',
-              'ON_SALE',
-              'STOP_SALE',
-              'SCHEDULED',
-              'DEPARTED',
-              'COMPLETED',
-            ],
-          },
+          status: { not: 'DRAFT' },
         },
       });
       const legacyTickets = await tx.ticket.count({
         where: { trip: { routeId } },
       });
-      if (activeTripsCount > 0 || legacyTickets > 0) {
+      const issuedTickets = await tx.issuedTicket.count({ where: { trip: { routeId } } });
+      if (activeTripsCount > 0 || legacyTickets > 0 || issuedTickets > 0) {
         throw new ConflictException(
-          'Không thể sửa tuyến đường đã có chuyến xe mở bán hoặc hoàn tất. Vui lòng tạo tuyến mới.',
+          'Tuyến đã có chuyến được phát hành hoặc hủy; cần giữ nguyên lịch sử. Vui lòng tạo tuyến mới để thay đổi lộ trình.',
         );
       }
 
@@ -154,6 +150,8 @@ export class PrismaUpdateRouteManagement implements IUpdateRouteUseCase {
             routeId: s.routeId,
             name: s.name,
             order: s.order,
+            address: s.address,
+            province: s.province,
             createdAt: s.createdAt,
             updatedAt: s.updatedAt,
           }),
@@ -161,6 +159,49 @@ export class PrismaUpdateRouteManagement implements IUpdateRouteUseCase {
         createdAt: updated.createdAt,
         updatedAt: updated.updatedAt,
       });
+    });
+  }
+
+  async deleteRoute(input: DeleteRouteInput): Promise<DeleteRouteOutput> {
+    const { routeId, userId } = input;
+    if (!routeId || !routeId.trim())
+      throw new BadRequestException('Mã tuyến đường không hợp lệ');
+
+    const operatorId =
+      await this.routeRepository.findOperatorIdByUserId(userId);
+    if (!operatorId) {
+      throw new ForbiddenException('Tài khoản chưa được liên kết với nhà xe');
+    }
+
+    return this.prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT id FROM routes WHERE id = ${routeId} FOR UPDATE`;
+
+      const existing = await tx.route.findUnique({
+        where: { id: routeId },
+      });
+      if (!existing || existing.operatorId !== operatorId) {
+        throw new NotFoundException('Không tìm thấy tuyến đường');
+      }
+
+      // Idempotent archive. Existing trips, stops and tickets must keep their IDs.
+      if (existing.deletedAt) return { id: routeId, deleted: true };
+      await tx.route.update({
+        where: { id: routeId },
+        data: { deletedAt: new Date(), status: 'INACTIVE' },
+      });
+      // A publication in progress cannot retry using a removed planning route.
+      await tx.trip.updateMany({
+        where: { routeId, status: 'PUBLISHING' },
+        data: { status: 'STOP_SALE', inventorySyncVersion: { increment: 1 } },
+      });
+      await tx.transportAudit.create({
+        data: { actorId: userId, action: 'ARCHIVE_ROUTE', detail: { routeId } },
+      });
+
+      return {
+        id: routeId,
+        deleted: true,
+      };
     });
   }
 }

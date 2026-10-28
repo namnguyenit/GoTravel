@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { httpClient } from '@/shared/infrastructure/http/HttpPort';
+import { httpClient, ApiError } from '@/shared/infrastructure/http/HttpPort';
+import { stableCommand, clearStableCommand } from '@/shared/infrastructure/storage/stable-command';
+import { CashTicketDocuments } from '../components/CashTicketDocuments';
+import { vietnamDate } from '@/shared/utils/vietnam-date';
 import { useAuth } from '@/modules/auth/presentation/context/AuthContext';
 import { tripService } from '@/modules/trip/composition';
 import type { TripEntity } from '@/modules/trip/domain/entity/trip.entity';
@@ -7,6 +10,7 @@ import type { TripStopItem } from '@/modules/trip/application/port/trip.service.
 import type { SeatEntity } from '@/modules/trip/domain/entity/seat.entity';
 import { SeatMap } from '@/modules/trip/presentation/components/SeatMap';
 import { formatVnd, MoneyVo } from '@/shared/domain/money.vo';
+import { canPickupAt, canDropoffAt, isValidStopPair, orderedTripStops } from '@/modules/trip/domain/value-object/trip-stops';
 import {
   PageHeader,
   SurfaceCard,
@@ -38,6 +42,7 @@ export const OperatorCounterPage: React.FC = () => {
   // Trips selector
   const [trips, setTrips] = useState<TripEntity[]>([]);
   const [selectedTripId, setSelectedTripId] = useState<string>('');
+  const [saleDate, setSaleDate] = useState(() => vietnamDate());
   const [loadingTrips, setLoadingTrips] = useState<boolean>(true);
 
   // Seat map & selection
@@ -67,11 +72,40 @@ export const OperatorCounterPage: React.FC = () => {
   // Step 2 final confirmed order with cash receipt
   const [successOrder, setSuccessOrder] = useState<any | null>(null);
 
-  // Stable idempotency key
-  const [idempotencyKey, setIdempotencyKey] = useState<string>(() => crypto.randomUUID());
 
   // Check SELL_CASH capability
-  const hasSellCash = user?.hasCapability('SELL_CASH') || user?.isVendor() || user?.isAdmin();
+  const hasSellCash = user?.hasCapability('SELL_CASH');
+  const pendingCashKey = `goticket:cash-pending:${user?.id || 'anonymous'}`;
+
+  useEffect(() => {
+    if (!user?.id || !hasSellCash) return;
+    let active = true;
+    const saved = sessionStorage.getItem(pendingCashKey);
+    if (!saved) return;
+    void httpClient.get<any>(`/api/v1/orders/transport/vendor/${saved}`, { params: { operatorId: user?.operatorId } }).then((order) => {
+      if (!active) return;
+      if (order.status === 'CASH_PENDING') setPendingCashOrder(order);
+      else {
+        sessionStorage.removeItem(pendingCashKey);
+        if (['CONFIRMED', 'COMPLETED', 'CASH_RECEIVED_PENDING_RECONCILIATION', 'FULFILLMENT_PENDING'].includes(order.status)) setSuccessOrder(order);
+      }
+    }).catch((reason) => {
+      if (active) setError(reason instanceof Error ? reason.message : 'Không thể khôi phục đơn tiền mặt chưa hoàn tất.');
+    });
+    return () => { active = false; };
+  }, [pendingCashKey, hasSellCash, user?.id, user?.operatorId]);
+
+  useEffect(() => {
+    const orderId = successOrder?.orderId || successOrder?.id;
+    if (!orderId || ['CONFIRMED', 'COMPLETED', 'CANCELLED', 'REFUNDED'].includes(successOrder.status)) return;
+    let active = true;
+    const timer = window.setInterval(() => {
+      void httpClient.get<any>(`/api/v1/orders/transport/vendor/${orderId}`, { params: { operatorId: user?.operatorId } }).then((order) => {
+        if (active) setSuccessOrder((current: any) => ({ ...current, ...order }));
+      }).catch(() => undefined);
+    }, 3000);
+    return () => { active = false; window.clearInterval(timer); };
+  }, [successOrder?.orderId, successOrder?.id, successOrder?.status, user?.operatorId]);
 
   // Load operator trips
   useEffect(() => {
@@ -80,23 +114,23 @@ export const OperatorCounterPage: React.FC = () => {
       try {
         setLoadingTrips(true);
         let tripsList: any[] = [];
-        if (user?.isStaff() && !user?.isVendor()) {
-          tripsList = await tripService.getAssignedStaffTrips();
-        } else {
-          const res = await tripService.getTrips({ limit: 50 });
-          tripsList = res.data;
-        }
+        tripsList = await tripService.getAssignedStaffTrips(user?.operatorId || undefined);
 
         if (isMounted) {
-          const validTrips = tripsList.filter(
-            (t) => t.status === 'ON_SALE' || t.status === 'PUBLISHING' || t.status === 'STOP_SALE'
-          );
-          setTrips(validTrips.length > 0 ? validTrips : tripsList);
-          if (validTrips[0]) setSelectedTripId(validTrips[0].id);
-          else if (tripsList[0]) setSelectedTripId(tripsList[0].id);
+          // Phân loại: Các chuyến ON_SALE còn hiệu lực
+          const nowMs = Date.now();
+          const saleableTrips = tripsList
+            .filter((t) => vietnamDate(t.departureTime) === saleDate && t.status === 'ON_SALE' && new Date(t.departureTime).getTime() > nowMs)
+            .sort((a, b) => new Date(a.departureTime).getTime() - new Date(b.departureTime).getTime());
+
+          const combined = saleableTrips;
+          setTrips(combined);
+
+          // Tự động chọn chuyến đang mở bán gần nhất
+          setSelectedTripId(current => combined.some(trip => trip.id === current) ? current : combined[0]?.id || '');
         }
-      } catch {
-        if (isMounted) setTrips([]);
+      } catch (reason) {
+        if (isMounted) { setTrips([]); setSelectedTripId(''); setError(reason instanceof Error ? reason.message : 'Không tải được chuyến mở bán trong ngày đã chọn.'); }
       } finally {
         if (isMounted) setLoadingTrips(false);
       }
@@ -107,17 +141,29 @@ export const OperatorCounterPage: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [user]);
+  }, [user, saleDate]);
 
   // Load seats and stops when selected trip changes
   useEffect(() => {
-    if (!selectedTripId) return;
+    if (!selectedTripId) { setSeats([]); setStops([]); setSelectedSeatIds([]); return; }
 
     let isMounted = true;
     const fetchTripData = async () => {
       try {
         setLoadingSeats(true);
         setSelectedSeatIds([]);
+        setError(null);
+
+        const currentTrip = trips.find((t) => t.id === selectedTripId);
+        const nowMs = Date.now();
+        if (currentTrip && (currentTrip.status !== 'ON_SALE' || new Date(currentTrip.departureTime).getTime() <= nowMs)) {
+          setSeats([]);
+          setStops([]);
+          setError('Chuyến xe này đã dừng nhận khách hoặc đã qua giờ khởi hành. Vui lòng chọn chuyến xe đang mở bán.');
+          setLoadingSeats(false);
+          return;
+        }
+
         const [tripSeats, tripDetail] = await Promise.all([
           tripService.getTripSeats(selectedTripId),
           tripService.getTripDetail(selectedTripId),
@@ -125,13 +171,12 @@ export const OperatorCounterPage: React.FC = () => {
 
         if (isMounted) {
           setSeats(tripSeats);
-          const tripStops = tripDetail?.stops || [];
+          const tripStops = orderedTripStops(tripDetail?.stops || []);
           setStops(tripStops);
 
-          const pickup = tripStops.find((s) => s.type === 'PICKUP' || s.type === 'BOTH') || tripStops[0];
+          const pickup = tripStops.find(canPickupAt);
           const dropoff =
-            [...tripStops].reverse().find((s) => s.type === 'DROPOFF' || s.type === 'BOTH') ||
-            tripStops[tripStops.length - 1];
+            [...tripStops].reverse().find(canDropoffAt);
 
           setSelectedPickupStopId(pickup?.id || '');
           setSelectedDropoffStopId(dropoff?.id || '');
@@ -164,12 +209,13 @@ export const OperatorCounterPage: React.FC = () => {
     new MoneyVo(0)
   );
 
-  const pickupStops = stops.filter((s) => s.type === 'PICKUP' || s.type === 'BOTH');
-  const dropoffStops = stops.filter((s) => s.type === 'DROPOFF' || s.type === 'BOTH');
+  const pickupStops = stops.filter(canPickupAt);
+  const dropoffStops = stops.filter(canDropoffAt);
 
   // Step 1: Create cash checkout order
   const handleCashCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitting || pendingCashOrder || receivingCash) return;
     if (selectedSeats.length === 0) {
       setError('Vui lòng chọn ít nhất một ghế.');
       return;
@@ -178,8 +224,8 @@ export const OperatorCounterPage: React.FC = () => {
       setError('Vui lòng nhập đầy đủ tên và số điện thoại hành khách.');
       return;
     }
-    if (!selectedPickupStopId || !selectedDropoffStopId) {
-      setError('Vui lòng chọn trạm đón và trạm trả hợp lệ.');
+    if (!isValidStopPair(stops, selectedPickupStopId, selectedDropoffStopId)) {
+      setError('Điểm trả phải nằm sau điểm đón trên lộ trình và cho phép trả khách.');
       return;
     }
 
@@ -190,7 +236,7 @@ export const OperatorCounterPage: React.FC = () => {
       const payload = {
         tripId: selectedTripId,
         fullName: customerName.trim(),
-        email: customerEmail.trim() || 'quay.ve@goticket.vn',
+        email: customerEmail.trim() || null,
         phone: customerPhone.trim(),
         passengers: selectedSeats.map((seat) => ({
           seatId: seat.id,
@@ -202,17 +248,23 @@ export const OperatorCounterPage: React.FC = () => {
 
       const res = await httpClient.post<any>('/api/v1/orders/transport/cash/checkout', payload, {
         headers: {
-          'Idempotency-Key': idempotencyKey,
+          'Idempotency-Key': stableCommand(`cash:${user?.id}:${selectedTripId}`, payload),
         },
       });
 
       const orderData = res?.data || res;
+      if (!orderData.orderId && !orderData.id) throw new Error('Máy chủ chưa trả mã đơn tiền mặt. Hãy thử lại cùng yêu cầu.');
+      clearStableCommand(`cash:${user?.id}:${selectedTripId}`);
       setPendingCashOrder(orderData);
+      sessionStorage.setItem(pendingCashKey, orderData.orderId || orderData.id);
     } catch (err: unknown) {
+      if (err instanceof ApiError && err.status >= 400 && err.status < 500 && ![408, 429].includes(err.status)) {
+        clearStableCommand(`cash:${user?.id}:${selectedTripId}`);
+      }
       setError(
         err instanceof Error
           ? err.message
-          : 'Giữ chỗ bán vé tiền mặt thất bại. Vui lòng kiểm tra ca thu tiền mặt đang mở hoặc ghế đã được chọn.'
+          : 'Không giữ được ghế. Hãy tải lại sơ đồ và kiểm tra quyền bán vé của bạn.'
       );
     } finally {
       setSubmitting(false);
@@ -221,7 +273,7 @@ export const OperatorCounterPage: React.FC = () => {
 
   // Step 2: Confirm physical cash received
   const handleReceiveCashPayment = async () => {
-    if (!pendingCashOrder) return;
+    if (!pendingCashOrder || receivingCash || cancellingUnpaid) return;
     const orderId = pendingCashOrder.id || pendingCashOrder.orderId;
     if (!orderId) return;
 
@@ -229,11 +281,13 @@ export const OperatorCounterPage: React.FC = () => {
     setError(null);
 
     try {
-      const amountToCollect =
-        pendingCashOrder.totalPrice || pendingCashOrder.totalAmount || totalAmount.toNumber();
+      const amountToCollect = pendingCashOrder.transportOriginalChargeVnd ?? pendingCashOrder.totalAmount ?? pendingCashOrder.totalPrice;
+      if (amountToCollect === undefined || !/^[1-9]\d*$/.test(String(amountToCollect))) {
+        throw new Error('Máy chủ chưa trả về số tiền hợp lệ của đơn. Không thể xác nhận thu tiền.');
+      }
       const res = await httpClient.post<any>(
         `/api/v1/orders/transport/cash/orders/${orderId}/receive`,
-        { amount: amountToCollect }
+        { amount: String(amountToCollect) }
       );
 
       const receiptData = res?.data || res;
@@ -243,14 +297,15 @@ export const OperatorCounterPage: React.FC = () => {
         receipt: receiptData,
       });
       setPendingCashOrder(null);
+      sessionStorage.removeItem(pendingCashKey);
       setSelectedSeatIds([]);
       setCustomerName('');
       setCustomerPhone('');
       setCustomerEmail('');
-      setIdempotencyKey(crypto.randomUUID());
 
-      const updatedSeats = await tripService.getTripSeats(selectedTripId);
-      setSeats(updatedSeats);
+      void tripService.getTripSeats(selectedTripId).then(setSeats).catch(() => {
+        setError('Đã ghi nhận thu tiền; sơ đồ ghế chưa cập nhật được. Không cần thu tiền lại.');
+      });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Xác nhận thu tiền mặt thất bại.');
     } finally {
@@ -260,7 +315,7 @@ export const OperatorCounterPage: React.FC = () => {
 
   // Cancel unpaid cash checkout order via ConfirmDialog
   const handleConfirmCancelUnpaidOrder = async () => {
-    if (!pendingCashOrder) return;
+    if (!pendingCashOrder || cancellingUnpaid || receivingCash) return;
     const orderId = pendingCashOrder.id || pendingCashOrder.orderId;
     if (!orderId) return;
 
@@ -269,10 +324,11 @@ export const OperatorCounterPage: React.FC = () => {
     try {
       await httpClient.post<any>(`/api/v1/orders/transport/cash/orders/${orderId}/cancel-unpaid`);
       setPendingCashOrder(null);
-      setIdempotencyKey(crypto.randomUUID());
+      sessionStorage.removeItem(pendingCashKey);
 
-      const updatedSeats = await tripService.getTripSeats(selectedTripId);
-      setSeats(updatedSeats);
+      void tripService.getTripSeats(selectedTripId).then(setSeats).catch(() => {
+        setError('Đã gửi hủy giữ chỗ; chưa tải lại được sơ đồ ghế.');
+      });
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Hủy đơn giữ chỗ thất bại.');
     } finally {
@@ -288,7 +344,7 @@ export const OperatorCounterPage: React.FC = () => {
           Chưa được cấp quyền bán vé tại quầy
         </h3>
         <p className="text-xs text-gray-500">
-          Tài khoản của bạn cần có quyền SELL_CASH và một ca thu tiền đang mở để thực hiện tác nghiệp bán vé thu tiền mặt.
+          Bạn cần được nhà xe phân công quyền bán vé tiền mặt cho chuyến này.
         </p>
       </div>
     );
@@ -300,7 +356,7 @@ export const OperatorCounterPage: React.FC = () => {
       <PageHeader
         title="Quầy bán vé & Thu tiền mặt"
         eyebrow="Kênh Nhà Xe · Tác nghiệp trực tiếp"
-        description="Xuất vé trực tiếp tại bến, giữ chỗ theo thời gian thực và ghi nhận biên lai thu tiền mặt vào ca làm việc."
+        description="Chọn chuyến và ghế, nhập thông tin khách, rồi xác nhận số tiền thực nhận để phát hành vé."
         actions={
           <div className="flex items-center gap-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#FF385C] shadow-2xs">
             <Wallet className="w-3.5 h-3.5" />
@@ -390,15 +446,8 @@ export const OperatorCounterPage: React.FC = () => {
                 </div>
               )}
 
-              <div className="pt-2 flex justify-center gap-3">
-                <Button
-                  variant="outline"
-                  onClick={() => window.print()}
-                  className="rounded-full border-gray-200/80 bg-white/90 shadow-2xs"
-                >
-                  <Printer className="w-4 h-4 mr-2" />
-                  In vé & Biên lai
-                </Button>
+              {isIssued && <CashTicketDocuments orderId={successOrder.orderId || successOrder.id} />}
+              <div className="pt-2 flex justify-center gap-3 print:hidden">
                 <Button
                   onClick={() => setSuccessOrder(null)}
                   className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full shadow-md glow-coral-sm"
@@ -485,25 +534,41 @@ export const OperatorCounterPage: React.FC = () => {
               <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider">
                 Chọn chuyến xe vận hành
               </label>
+              <label className="block space-y-2 pb-3 text-sm font-semibold">
+                <span>Ngày khởi hành</span>
+                <input aria-label="Ngày khởi hành bán vé tại quầy" type="date" min={vietnamDate()} value={saleDate} onChange={event => { if (event.target.value) setSaleDate(event.target.value); }} className="min-h-11 w-full rounded-xl border bg-white px-3 text-base" />
+              </label>
               {loadingTrips ? (
                 <div className="py-4 text-xs text-gray-500 flex items-center gap-2">
                   <Loader2 className="w-4 h-4 animate-spin text-[#FF385C]" />
                   <span>Đang tải các chuyến xe...</span>
                 </div>
               ) : trips.length === 0 ? (
-                <p className="text-xs text-gray-500">Chưa có chuyến xe nào đang mở bán.</p>
+                <div className="space-y-2 text-sm text-gray-600"><p>Không có chuyến đang mở bán tại {user?.operatorName || 'nhà xe được phân công'} trong ngày đã chọn.</p><p>Quầy chỉ hiện chuyến thuộc phạm vi phân công, đã mở bán và chưa đến giờ khởi hành. Không cần chờ sát giờ chạy.</p></div>
               ) : (
                 <select
                   value={selectedTripId}
-                  onChange={(e) => setSelectedTripId(e.target.value)}
+                  onChange={(e) => {
+                    setError(null);
+                    setSelectedTripId(e.target.value);
+                  }}
                   className="w-full px-4 py-2.5 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 font-semibold outline-none shadow-2xs"
                 >
-                  {trips.map((t) => (
-                    <option key={t.id} value={t.id}>
-                      {t.route ? `${t.route.origin} ➔ ${t.route.destination}` : 'Chuyến xe'} (
-                      {new Date(t.departureTime).toLocaleString('vi-VN')}) - {t.car?.name || 'Xe khách'}
-                    </option>
-                  ))}
+                  {trips.map((t) => {
+                    const isPassed = new Date(t.departureTime).getTime() <= Date.now();
+                    const isSaleable = t.status === 'ON_SALE' && !isPassed;
+                    const badge = isSaleable
+                      ? '[ĐANG MỞ BÁN]'
+                      : isPassed
+                      ? '[ĐÃ QUA GIỜ]'
+                      : `[${t.status}]`;
+                    return (
+                      <option key={t.id} value={t.id}>
+                        {badge} {t.route ? `${t.route.origin} ➔ ${t.route.destination}` : 'Chuyến xe'} (
+                        {new Date(t.departureTime).toLocaleString('vi-VN')}) - {t.car?.name || 'Xe khách'}
+                      </option>
+                    );
+                  })}
                 </select>
               )}
             </SurfaceCard>
@@ -614,7 +679,7 @@ export const OperatorCounterPage: React.FC = () => {
                   type="email"
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
-                  placeholder="Để trống sẽ dùng email quầy"
+                  placeholder="Không bắt buộc khi nhận vé tại quầy"
                   className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>

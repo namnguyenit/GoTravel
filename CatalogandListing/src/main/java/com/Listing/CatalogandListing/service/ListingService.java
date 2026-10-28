@@ -183,21 +183,25 @@ public class ListingService {
     }
 
     public PaginationResponse<ListingDetailResponse> getAllListings(String status, int page, int size, String keyword) {
-        Pageable pageable = org.springframework.data.domain.PageRequest.of(page, size);
-        Page<Listing> listingPage;
-        ListingStatus enumStatus = null;
-        if (status != null && !status.isBlank()) {
-            enumStatus = ListingStatus.valueOf(status.toUpperCase());
-        }
+        return getAllListings(status, page, size, keyword, null);
+    }
 
-        String cleanKeyword = keyword == null ? "" : keyword.trim();
-        if (!cleanKeyword.isBlank()) {
-            listingPage = listingRepository.searchForAdmin(enumStatus, cleanKeyword, pageable);
-        } else if (enumStatus != null) {
-            listingPage = listingRepository.findByStatus(enumStatus, pageable);
-        } else {
-            listingPage = listingRepository.findAll(pageable);
-        }
+    public PaginationResponse<ListingDetailResponse> getAllListings(String status, int page, int size, String keyword,
+            com.Listing.CatalogandListing.enums.ListingCategory category) {
+        Pageable pageable = org.springframework.data.domain.PageRequest.of(Math.max(0, page), Math.min(100, Math.max(1, size)),
+                org.springframework.data.domain.Sort.by("createdAt").descending().and(org.springframework.data.domain.Sort.by("id")));
+        ListingStatus enumStatus = status == null || status.isBlank() ? null : ListingStatus.valueOf(status.toUpperCase(java.util.Locale.ROOT));
+        String term = keyword == null ? "" : keyword.trim().toLowerCase(java.util.Locale.ROOT);
+        String pattern = "%" + term.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
+        org.springframework.data.jpa.domain.Specification<Listing> scope = (r,q,b) -> {
+            var predicates = new java.util.ArrayList<jakarta.persistence.criteria.Predicate>();
+            if (category != null) predicates.add(b.equal(r.get("category"), category));
+            if (enumStatus != null) predicates.add(b.equal(r.get("status"), enumStatus));
+            if (!term.isBlank()) predicates.add(b.or(b.like(b.lower(r.get("title")), pattern, '!'),
+                    b.like(b.lower(r.get("description")), pattern, '!'), b.like(b.lower(r.get("province")), pattern, '!')));
+            return b.and(predicates.toArray(jakarta.persistence.criteria.Predicate[]::new));
+        };
+        Page<Listing> listingPage = listingRepository.findAll(scope, pageable);
 
         java.util.List<ListingDetailResponse> dtoList = listingPage.getContent()
                 .stream()

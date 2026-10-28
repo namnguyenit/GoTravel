@@ -26,6 +26,7 @@ model Operator {
   trips     Trip[]
   staff     OperatorStaff[]
   stops     OperatorStop[]
+  seatClasses OperatorSeatClass[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -36,6 +37,17 @@ model Operator {
 enum OperatorStatus {
   ACTIVE
   SUSPENDED
+}
+
+model OperatorSeatClass {
+  id String @id @default(uuid())
+  operatorId String @map("operator_id")
+  operator Operator @relation(fields: [operatorId], references: [id], onDelete: Cascade)
+  code String @db.VarChar(32)
+  label String @db.VarChar(80)
+  createdAt DateTime @default(now()) @map("created_at")
+  @@unique([operatorId, code])
+  @@map("operator_seat_classes")
 }
 
 model OperatorStaff {
@@ -94,6 +106,7 @@ model Car {
   status       CarStatus  @default(ACTIVE)              // Trạng thái xe (Đang hoạt động, Bảo trì/Hỏng, Tạm ngừng)
   licensePlate String     @unique @map("license_plate") // Biển số xe
   totalSeats   Int        @map("total_seats")           // Tổng số ghế
+  deletedAt    DateTime?  @map("deleted_at") // Hide from fleet; preserve trip and ticket history.
 
   trips        Trip[]
   seatTemplates SeatTemplate[]
@@ -101,6 +114,7 @@ model Car {
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @updatedAt @map("updated_at")
 
+  @@index([operatorId, deletedAt])
   @@map("cars")
 }
 
@@ -142,6 +156,7 @@ model Route {
   origin      String      // Điểm khởi hành (VD: Hà Nội)
   destination String      // Điểm đến (VD: Đà Nẵng)
   status      RouteStatus @default(ACTIVE)
+  deletedAt   DateTime?   @map("deleted_at") // Removed from the planning catalog; history keeps its FK.
 
   stops       RouteStop[]
   trips       Trip[]
@@ -149,6 +164,7 @@ model Route {
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
 
+  @@index([operatorId, deletedAt])
   @@map("routes")
 }
 

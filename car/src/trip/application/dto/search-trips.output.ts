@@ -8,6 +8,7 @@ export interface SearchTripsPaginationOutput {
 }
 
 export interface SearchTripsOutput {
+  discovery?: { origin?: string; nearby: boolean; fallback: boolean };
   pagination: SearchTripsPaginationOutput;
   data: CustomerTripItem[];
 }

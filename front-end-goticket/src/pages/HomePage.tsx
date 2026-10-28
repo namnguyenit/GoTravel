@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
 } from 'lucide-react';
@@ -8,7 +8,6 @@ import { TripSearchQueryVO } from '../modules/trip/domain/value-object/trip-sear
 import vietnamScenicPass from '../assets/travel/vietnam-scenic-pass.jpg';
 import ninhBinhImg from '../assets/travel/ninh-binh-river.jpg';
 import hoiAnImg from '../assets/travel/hoi-an-rain.jpg';
-import phuQuocImg from '../assets/travel/phu-quoc-beach.jpg';
 
 interface PopularDestination {
   title: string;
@@ -17,7 +16,6 @@ interface PopularDestination {
   destination: string;
   image: string;
   tag: string;
-  priceEstimate: string;
 }
 
 const POPULAR_DESTINATIONS: PopularDestination[] = [
@@ -28,7 +26,6 @@ const POPULAR_DESTINATIONS: PopularDestination[] = [
     destination: 'Ninh Bình',
     image: ninhBinhImg,
     tag: 'Di sản Tràng An',
-    priceEstimate: 'Từ 150.000 đ',
   },
   {
     title: 'Hội An',
@@ -37,16 +34,6 @@ const POPULAR_DESTINATIONS: PopularDestination[] = [
     destination: 'Hội An',
     image: hoiAnImg,
     tag: 'Phố cổ ven sông',
-    priceEstimate: 'Từ 120.000 đ',
-  },
-  {
-    title: 'Phú Quốc',
-    subtitle: 'Rạch Giá / Hà Tiên ➔ Phú Quốc',
-    origin: 'Rạch Giá',
-    destination: 'Hà Tiên',
-    image: phuQuocImg,
-    tag: 'Biển đảo Tây Nam',
-    priceEstimate: 'Từ 280.000 đ',
   },
 ];
 
@@ -63,14 +50,6 @@ export const HomePage: React.FC = () => {
       `/search?origin=${encodeURIComponent(criteria.origin)}&destination=${encodeURIComponent(
         criteria.destination
       )}&departureDate=${encodeURIComponent(criteria.departureDate)}`
-    );
-  };
-
-  const handleDestinationClick = (origin: string, destination: string) => {
-    navigate(
-      `/search?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(
-        destination
-      )}&departureDate=${encodeURIComponent(todayStr)}`
     );
   };
 
@@ -109,18 +88,18 @@ export const HomePage: React.FC = () => {
         <section className="space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
             <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A1D20]">Điểm đến kết nối phổ biến</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A1D20]">Gợi ý tuyến xe</h2>
             </div>
             <p className="text-sm text-[#6B7280] max-w-md">
-              Các chặng xe khách chất lượng cao được hành khách lựa chọn nhiều nhất trong mùa du lịch này.
+              Chọn tuyến và ngày khởi hành để xem chuyến đang mở bán cùng giá vé hiện tại.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {POPULAR_DESTINATIONS.map((dest, idx) => (
-              <div
-                key={idx}
-                onClick={() => handleDestinationClick(dest.origin, dest.destination)}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+            {POPULAR_DESTINATIONS.map((dest) => (
+              <Link
+                key={dest.title}
+                to={`/search?${new URLSearchParams({ origin: dest.origin, destination: dest.destination, departureDate: todayStr })}`}
                 className="group cursor-pointer bg-white rounded-3xl border border-gray-200/90 overflow-hidden hover:border-[#FF385C] hover:shadow-xl transition-all duration-300 flex flex-col"
               >
                 <div className="relative h-52 w-full overflow-hidden bg-[#EDF2F5]">
@@ -137,10 +116,6 @@ export const HomePage: React.FC = () => {
                     </span>
                   </div>
 
-                  <div className="absolute bottom-3 left-3.5 right-3.5 flex items-baseline justify-between text-white">
-                    <span className="text-xs font-medium text-white/80">Giá vé tham khảo</span>
-                    <span className="text-sm font-extrabold text-amber-300">{dest.priceEstimate}</span>
-                  </div>
                 </div>
 
                 <div className="p-5 flex items-center justify-between bg-white flex-1">
@@ -154,7 +129,7 @@ export const HomePage: React.FC = () => {
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

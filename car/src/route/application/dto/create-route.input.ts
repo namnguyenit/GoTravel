@@ -1,6 +1,8 @@
 export interface CreateRouteStopInput {
   name: string;
   order: number;
+  address?: string;
+  province?: string;
 }
 
 export interface CreateRouteInput {

@@ -75,3 +75,10 @@ start-all.sh
 test_booking_flow.sh
 test_full_flow.sh
 test_payment_demo.sh
+
+# Private GoTicket demo seed runs (credentials, QR tokens, manifests)
+.data/goticket-demo/
+.data/goticket-journey-audit/
+
+# Generated local GoTicket checks; source scripts remain tracked
+front-end-goticket/scripts/*-test-log.json

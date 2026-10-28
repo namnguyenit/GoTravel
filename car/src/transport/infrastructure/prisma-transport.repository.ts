@@ -28,6 +28,30 @@ import {
 export class PrismaTransportRepository implements TransportRepository {
   constructor(private readonly prisma: PrismaService) {}
 
+  async stopSalesAtDeparture(): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      // UPDATE rechecks the predicate after a concurrent publish/cancellation.
+      // The version increment queues a durable, retryable Inventory disable.
+      const stopped = await tx.$queryRaw<Array<{ id: string }>>`
+        UPDATE trips SET status = 'STOP_SALE',
+          inventory_sync_version = inventory_sync_version + 1,
+          updated_at = CURRENT_TIMESTAMP AT TIME ZONE 'UTC'
+        WHERE status IN ('ON_SALE', 'PUBLISHING', 'SCHEDULED')
+          AND departure_time <= (CURRENT_TIMESTAMP AT TIME ZONE 'UTC')
+        RETURNING id`;
+      if (stopped.length) {
+        await tx.transportAudit.createMany({
+          data: stopped.map(({ id }) => ({
+            tripId: id,
+            actorId: 'SYSTEM',
+            action: 'AUTO_STOP_SALE',
+            detail: { reason: 'DEPARTURE_TIME_REACHED' },
+          })),
+        });
+      }
+    });
+  }
+
   async pendingInventorySync() {
     const rows = await this.prisma.$queryRaw<Array<{ id: string }>>`
       SELECT id FROM trips WHERE offer_listing_id IS NOT NULL
@@ -464,25 +488,18 @@ export class PrismaTransportRepository implements TransportRepository {
     }>,
   ): Promise<SeatTemplate[]> {
     return this.prisma.$transaction(async (tx) => {
+      await tx.$queryRaw`SELECT id FROM cars WHERE id = ${carId} FOR UPDATE`;
       const car = await tx.car.findUnique({
         where: { id: carId },
         include: { operator: true },
       });
-      if (!car || car.operator.userId !== operatorUserId)
+      if (!car || car.deletedAt || car.operator.userId !== operatorUserId)
         throw new NotFoundException('Không tìm thấy xe');
       if (seats.length !== car.totalSeats) {
         throw new BadRequestException('Số ghế phải đúng bằng tổng ghế của xe');
       }
-      const existingTemplatesCount = await tx.seatTemplate.count({
-        where: { carId },
-      });
-      const activeOrPublishedTripsCount = await tx.trip.count({
-        where: { carId, status: { notIn: ['CANCELLED', 'DRAFT'] } },
-      });
-      if (existingTemplatesCount > 0 && activeOrPublishedTripsCount > 0)
-        throw new ConflictException(
-          'Xe đã gắn với chuyến đang mở bán hoặc vận hành; không thể đổi sơ đồ ghế',
-        );
+      // Published trips read their immutable saleSnapshot, not this vehicle template.
+      // Changes apply to future publications; keep the vehicle lock shared with publish.
       await tx.seatTemplate.deleteMany({ where: { carId } });
       await tx.seatTemplate.createMany({
         data: seats.map((seat) => ({
@@ -539,7 +556,9 @@ export class PrismaTransportRepository implements TransportRepository {
       if (
         trip.operator.status !== 'ACTIVE' ||
         trip.car.status !== 'ACTIVE' ||
-        trip.route.status !== 'ACTIVE'
+        trip.car.deletedAt !== null ||
+        trip.route.status !== 'ACTIVE' ||
+        trip.route.deletedAt !== null
       ) {
         throw new ConflictException(
           'Nhà xe, xe hoặc tuyến đang ngừng hoạt động',
@@ -575,6 +594,7 @@ export class PrismaTransportRepository implements TransportRepository {
         trip.departureTime <= new Date() ||
         trip.route.status !== 'ACTIVE' ||
         trip.car.status !== 'ACTIVE' ||
+        trip.car.deletedAt !== null ||
         !trip.priceVnd ||
         trip.priceVnd.lessThanOrEqualTo(0) ||
         trip.car.seatTemplates.filter((seat) => seat.active).length !==
@@ -606,7 +626,12 @@ export class PrismaTransportRepository implements TransportRepository {
 
   async markTripOnSale(tripId: string, listingId: string): Promise<void> {
     const changed = await this.prisma.trip.updateMany({
-      where: { id: tripId, status: { in: ['PUBLISHING', 'ON_SALE'] } },
+      where: {
+        id: tripId,
+        status: { in: ['PUBLISHING', 'ON_SALE'] },
+        departureTime: { gt: new Date() },
+        route: { deletedAt: null },
+      },
       data: {
         status: 'ON_SALE',
         offerListingId: listingId,
@@ -1106,18 +1131,25 @@ export class PrismaTransportRepository implements TransportRepository {
           type: trip.car.type!,
           licensePlate: trip.car.licensePlate!,
         },
-        operatorProfile: frozen.operatorProfile ?? {
-          id: trip.operatorId,
-          name: trip.operator.displayName ?? trip.operator.name!,
-          logoUrl: trip.operator.logoUrl ?? null,
-          contactPhone: trip.operator.contactPhone ?? null,
+        operatorProfile: {
+          ...(frozen.operatorProfile ?? {
+            id: trip.operatorId,
+            name: trip.operator.displayName ?? trip.operator.name!,
+            contactPhone: trip.operator.contactPhone ?? null,
+          }),
+          logoUrl:
+            trip.operator.logoUrl ?? frozen.operatorProfile?.logoUrl ?? null,
         },
         operatorStatus: trip.operator.status,
         inventorySyncPending:
           (trip as any).inventorySyncVersion !==
           (trip as any).inventorySyncedVersion,
-        departureAt: frozen.departureAt ? new Date(frozen.departureAt) : trip.departureTime,
-        arrivalAt: frozen.arrivalAt ? new Date(frozen.arrivalAt) : trip.arrivalTime,
+        departureAt: frozen.departureAt
+          ? new Date(frozen.departureAt)
+          : trip.departureTime,
+        arrivalAt: frozen.arrivalAt
+          ? new Date(frozen.arrivalAt)
+          : trip.arrivalTime,
       };
     }
     let stops: RouteStop[] = [];
@@ -1144,25 +1176,76 @@ export class PrismaTransportRepository implements TransportRepository {
         })
         .sort((a, b) => a.order - b.order);
     } else {
-      stops = trip.route.stops
-        .map((stop) => ({
+      const sortedRouteStops = [...trip.route.stops].sort(
+        (a, b) => a.order - b.order,
+      );
+      const totalStops = sortedRouteStops.length;
+      const minOrder = sortedRouteStops[0]?.order ?? 0;
+      const maxOrder = sortedRouteStops[totalStops - 1]?.order ?? 0;
+      const originLower = (trip.route.origin || '').toLowerCase().trim();
+      const destLower = (trip.route.destination || '').toLowerCase().trim();
+
+      stops = sortedRouteStops.map((stop, idx) => {
+        const isStart = stop.order === minOrder;
+        const isEnd = stop.order === maxOrder;
+        const prov = ((stop as any)?.province || '').toLowerCase().trim();
+        const nameLower = stop.name.toLowerCase();
+
+        let isPickup = false;
+        let isDropoff = false;
+
+        if (
+          prov &&
+          originLower &&
+          (prov.includes(originLower) || originLower.includes(prov))
+        ) {
+          isPickup = true;
+          isDropoff = false;
+        } else if (
+          prov &&
+          destLower &&
+          (prov.includes(destLower) || destLower.includes(prov))
+        ) {
+          isPickup = false;
+          isDropoff = true;
+        } else if (originLower && nameLower.includes(originLower)) {
+          isPickup = true;
+          isDropoff = false;
+        } else if (destLower && nameLower.includes(destLower)) {
+          isPickup = false;
+          isDropoff = true;
+        } else if (isStart) {
+          isPickup = true;
+          isDropoff = false;
+        } else if (isEnd) {
+          isPickup = false;
+          isDropoff = true;
+        } else {
+          if (idx < Math.ceil(totalStops / 2)) {
+            isPickup = true;
+            isDropoff = false;
+          } else {
+            isPickup = false;
+            isDropoff = true;
+          }
+        }
+
+        return {
           id: stop.id,
           name: stop.name,
           order: stop.order,
-          scheduledAt:
-            stop.order === Math.min(...trip.route.stops.map((s) => s.order))
-              ? trip.departureTime.toISOString()
-              : stop.order === Math.max(...trip.route.stops.map((s) => s.order))
-                ? trip.arrivalTime.toISOString()
-                : undefined,
-          pickupAllowed:
-            stop.order !== Math.max(...trip.route.stops.map((s) => s.order)),
-          dropoffAllowed:
-            stop.order !== Math.min(...trip.route.stops.map((s) => s.order)),
+          scheduledAt: isStart
+            ? trip.departureTime.toISOString()
+            : isEnd
+              ? trip.arrivalTime.toISOString()
+              : undefined,
+          pickupAllowed: isPickup,
+          dropoffAllowed: isDropoff,
+          stopType: (isPickup ? 'PICKUP' : 'DROPOFF') as any,
           address: (stop as any)?.address ?? null,
           province: (stop as any)?.province ?? null,
-        }))
-        .sort((a, b) => a.order - b.order);
+        };
+      });
     }
 
     const snapshot: TransportTrip = {

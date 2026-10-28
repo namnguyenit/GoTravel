@@ -134,15 +134,17 @@ export class TripEntity {
   }
 
   public canDepart(): boolean {
-    return this.props.status === TRIP_STATUS.SCHEDULED;
+    return this.props.status === TRIP_STATUS.ON_SALE || this.props.status === TRIP_STATUS.STOP_SALE;
   }
 
   public canComplete(): boolean {
-    return this.props.status === TRIP_STATUS.DEPARTED;
+    return [TRIP_STATUS.DEPARTED, TRIP_STATUS.ON_SALE, TRIP_STATUS.STOP_SALE, TRIP_STATUS.SCHEDULED].includes(this.props.status)
+      && new Date(this.props.arrivalTime).getTime() <= Date.now();
   }
 
   public canCancel(): boolean {
-    return this.props.status === TRIP_STATUS.SCHEDULED;
+    // Cancellation requires a reason and the cancellation saga in the manage page.
+    return false;
   }
 
   public isTerminal(): boolean {

@@ -31,9 +31,9 @@ export class PrismaStaffRepository implements StaffRepository {
         throw new NotFoundException('Chuyến không thuộc nhà xe');
     }
     const permissions = {
-      canManageTrip: scope.canManageTrip ?? false,
-      canCloseShift: scope.canCloseShift ?? false,
-      tripIds: scope.tripIds ?? [],
+      ...(scope.canManageTrip !== undefined ? { canManageTrip: scope.canManageTrip } : {}),
+      ...(scope.canCloseShift !== undefined ? { canCloseShift: scope.canCloseShift } : {}),
+      ...(scope.tripIds !== undefined ? { tripIds: [...new Set(scope.tripIds)] } : {}),
     };
     await this.prisma.$transaction(async (tx) => {
       await tx.operatorStaff.upsert({
@@ -83,7 +83,7 @@ export class PrismaStaffRepository implements StaffRepository {
     const operator = await this.prisma.operator.findUnique({
       where: { id: operatorId },
     });
-    if (!operator) return null;
+    if (!operator || operator.status !== 'ACTIVE') return null;
     if (operator.userId === actorId)
       return { operatorId, ownerUserId: operator.userId };
     const staff = (await this.prisma.operatorStaff.findUnique({
@@ -113,7 +113,7 @@ export class PrismaStaffRepository implements StaffRepository {
       include: { operator: true },
     });
     if (
-      !trip ||
+      !trip || trip.operator.status !== 'ACTIVE' ||
       ![
         'DRAFT',
         'PUBLISHING',
@@ -160,7 +160,7 @@ export class PrismaStaffRepository implements StaffRepository {
 
   async getAssignmentsForStaff(staffUserId: string) {
     return this.prisma.operatorStaff.findMany({
-      where: { userId: staffUserId, active: true },
+      where: { userId: staffUserId, active: true, operator: { status: 'ACTIVE' } },
       include: {
         operator: { select: { id: true, name: true, userId: true } },
       },
@@ -170,7 +170,7 @@ export class PrismaStaffRepository implements StaffRepository {
 
   async getAssignedTripsForStaff(staffUserId: string) {
     const assignments = await this.prisma.operatorStaff.findMany({
-      where: { userId: staffUserId, active: true },
+      where: { userId: staffUserId, active: true, operator: { status: 'ACTIVE' } },
     });
     if (assignments.length === 0) return [];
 
@@ -209,6 +209,7 @@ export class PrismaStaffRepository implements StaffRepository {
     return this.prisma.operatorStaff.findFirst({
       where,
       include: { operator: true },
+      orderBy: { createdAt: 'desc' },
     });
   }
 }

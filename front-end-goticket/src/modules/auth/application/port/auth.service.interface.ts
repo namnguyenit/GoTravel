@@ -4,7 +4,7 @@ export interface IAuthService {
   /**
    * Lấy phiên đăng nhập hiện tại từ Identity/Gateway session cookie
    */
-  getSession(): Promise<UserSession | null>;
+  getSession(signal?: AbortSignal): Promise<UserSession | null>;
 
   /**
    * Đăng xuất khỏi hệ thống
@@ -16,4 +16,5 @@ export interface IAuthService {
    */
   getLoginUrl(returnPath?: string): string;
   getRegisterUrl(returnPath?: string): string;
+  getLogoutUrl(): string;
 }

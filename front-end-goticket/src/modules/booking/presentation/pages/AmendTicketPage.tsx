@@ -2,6 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, CheckCircle2, Clock, History, PencilLine, RefreshCw, Sparkles, User } from 'lucide-react';
 import { bookingService } from '../../composition';
+import { isValidStopPair } from '@/modules/trip/domain/value-object/trip-stops';
+import { stableCommand, clearStableCommand, completeStableCommand } from '@/shared/infrastructure/storage/stable-command';
+import { ApiError } from '@/shared/infrastructure/http/HttpPort';
 import { tripService } from '@/modules/trip/composition';
 import type { OrderItemEntity } from '../../domain/entity/order.entity';
 import type { TicketAmendmentRecord } from '../../application/port/booking.service.interface';
@@ -34,6 +37,9 @@ export const AmendTicketPage: React.FC = () => {
   const loadHistory = async (order: string, itemValue: string) => {
     const rows = await bookingService.getItemAmendments(order, itemValue);
     setHistory(rows);
+    for (const row of rows) {
+      if (terminal.has(row.status)) completeStableCommand(`goticket:amend:${order}:${itemValue}`, row.commandId);
+    }
     return rows;
   };
 
@@ -47,13 +53,16 @@ export const AmendTicketPage: React.FC = () => {
         if (!current) throw new Error('Không tìm thấy vé trong đơn hàng này.');
         if (!current.isCancelable()) throw new Error('Chỉ có thể sửa vé đang có hiệu lực và chưa soát.');
         const [stopRows, historyRows] = await Promise.all([
-          tripService.getTripStops(current.transportTripId),
+          bookingService.getTicketTrip(orderId, itemId).then((trip) => trip.stops),
           bookingService.getItemAmendments(orderId, itemId),
         ]);
         if (!active) return;
         setItem(current);
         setStops(stopRows);
         setHistory(historyRows);
+        for (const row of historyRows) {
+          if (terminal.has(row.status)) completeStableCommand(`goticket:amend:${orderId}:${itemId}`, row.commandId);
+        }
         setPassengerName(current.passengerName);
         setPickupStopId(current.pickupStopId || '');
         setDropoffStopId(current.dropoffStopId || '');
@@ -82,24 +91,31 @@ export const AmendTicketPage: React.FC = () => {
 
   const submit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if (!orderId || !itemId || !passengerName.trim() || !pickupStopId || !dropoffStopId) return;
+    if (!orderId || !itemId || !passengerName.trim() || !pickupStopId || !dropoffStopId || saving) return;
+    if (!isValidStopPair(stops, pickupStopId, dropoffStopId)) {
+      setError('Điểm trả phải nằm sau điểm đón trên lộ trình.');
+      return;
+    }
     const key = `goticket:amend:${orderId}:${itemId}`;
-    const commandId = sessionStorage.getItem(key) || crypto.randomUUID();
-    sessionStorage.setItem(key, commandId);
     setSaving(true);
     setError('');
     setMessage('');
     try {
+      const commandId = stableCommand(key, { passengerName: passengerName.trim(), pickupStopId, dropoffStopId });
       const result = await bookingService.amendItem(orderId, itemId, {
         commandId,
         passengerName: passengerName.trim(),
         pickupStopId,
         dropoffStopId,
       });
-      if (terminal.has(result.status)) sessionStorage.removeItem(key);
+      if (terminal.has(result.status)) {
+        sessionStorage.removeItem(key);
+        clearStableCommand(key);
+      }
       setMessage(result.status === 'COMPLETED' ? 'Thông tin vé đã được cập nhật và phát hành phiên bản mới.' : 'Yêu cầu đã được ghi nhận và đang đồng bộ vé.');
       await loadHistory(orderId, itemId);
     } catch (reason) {
+      if (reason instanceof ApiError && reason.status >= 400 && reason.status < 500 && ![408, 429].includes(reason.status)) clearStableCommand(key);
       setError(reason instanceof Error ? reason.message : 'Không thể gửi yêu cầu sửa vé. Bạn có thể thử lại an toàn.');
     } finally {
       setSaving(false);

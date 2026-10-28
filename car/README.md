@@ -1,5 +1,8 @@
 # GoCar backend
 
+> **Hướng dẫn hiện trạng (18/10/2026):** đọc [README_GOTICKET.md](../README_GOTICKET.md) để xem kiến trúc, luồng nghiệp vụ, tên database, bảng và cách tra dữ liệu. Các đoạn theo giai đoạn bên dưới cần đọc kèm mốc triển khai của chúng.
+
+
 GoCar owns operators, vehicles, routes, trips, staff assignments and issued tickets. Shared services own the commercial flow: Catalog publishes transport offers, BookingandInventory owns seat state and holds, CartandOrder owns orders and cash receipts, GoPay owns online payments and their settlement records, and GoID owns identity and vendor approval. See `BACKEND_REMAKE_PLAN.md` for the business scope and rollout gates.
 
 The current server keeps GoCar off until the production migration, GoTravel regression and canary gates are approved. `GOCAR_ENABLED=true` is an explicit opt-in. The GoCar frontend is outside this backend phase.

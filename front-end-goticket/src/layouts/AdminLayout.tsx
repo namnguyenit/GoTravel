@@ -5,7 +5,6 @@ import {
   Shield,
   Building2,
   UserCheck,
-  FileCheck2,
   AlertOctagon,
   RotateCcw,
   Ban,
@@ -35,14 +34,13 @@ export const AdminLayout: React.FC = () => {
       items: [
         { label: 'Quản lý Nhà xe', to: '/admin/operators', icon: Building2 },
         { label: 'Duyệt đơn KYC Nhà xe', to: '/admin/applications', icon: UserCheck },
-        { label: 'Kiểm duyệt Offer / Bài đăng', to: '/admin/offers', icon: FileCheck2 },
       ],
     },
     {
       groupTitle: 'Đơn hàng & Nghiệp vụ',
       items: [
-        { label: 'Đơn hàng cần xử lý', to: '/admin/orders', icon: AlertOctagon },
-        { label: 'Hoàn tiền & Nghiệp vụ vé', to: '/admin/refunds', icon: RotateCcw },
+        { label: 'Đơn vé & Tra cứu', to: '/admin/orders', icon: AlertOctagon },
+        { label: 'Khiếu nại & Hoàn tiền', to: '/admin/refunds', icon: RotateCcw },
         { label: 'Hủy chuyến xe', to: '/admin/cancellations', icon: Ban },
       ],
     },

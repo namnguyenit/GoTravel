@@ -1,4 +1,5 @@
 import { RouteStopOutput } from './create-route.output';
+import type { RouteDailyActivity } from '../../domain/repository/route.repository.interface';
 
 export interface RouteItemOutput {
   id: string;
@@ -6,6 +7,7 @@ export interface RouteItemOutput {
   origin: string;
   destination: string;
   status: string;
+  dailyActivity?: RouteDailyActivity;
   stops: RouteStopOutput[];
   createdAt: Date;
   updatedAt: Date;

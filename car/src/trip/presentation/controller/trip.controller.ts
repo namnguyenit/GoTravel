@@ -135,8 +135,12 @@ export class TripController {
     @Body() dto: CreateTripDto,
     @Req() request: AuthenticatedRequest,
   ) {
-    if (!hasRole(request.authUser!, 'TICKET_VENDOR'))
+    if (
+      !hasRole(request.authUser!, 'TICKET_VENDOR') &&
+      !hasRole(request.authUser!, 'STAFF')
+    ) {
       throw new ForbiddenException();
+    }
     const input = TripPresentationMapper.toCreateTripInput(
       dto,
       request.authUser!.id,
@@ -166,7 +170,7 @@ export class TripController {
     @Body() dto: UpdateTripStatusDto,
     @Req() request: AuthenticatedRequest,
   ) {
-    if (!hasRole(request.authUser!, 'TICKET_VENDOR'))
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR') && !hasRole(request.authUser!, 'STAFF'))
       throw new ForbiddenException();
     const input = TripPresentationMapper.toUpdateTripStatusInput(
       tripId,

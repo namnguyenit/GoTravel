@@ -19,7 +19,7 @@ export const TRIP_STATUS_LABELS: Record<TripStatus, string> = {
   CANCELLED: "Đã hủy",
   PUBLISHING: "Đang phát hành",
   ON_SALE: "Đang mở bán",
-  STOP_SALE: "Dừng bán vé",
+  STOP_SALE: "Đã ngừng bán",
 };
 
 export const TRIP_STATUS_BADGE_CLASSES: Record<TripStatus, string> = {
@@ -114,11 +114,11 @@ export class TripStatusVO {
       };
     }
 
-    if (from === TRIP_STATUS.SCHEDULED && to === TRIP_STATUS.COMPLETED) {
+    if ((from === TRIP_STATUS.DRAFT || from === TRIP_STATUS.PUBLISHING) && to === TRIP_STATUS.COMPLETED) {
       return {
         allowed: false,
         reason:
-          "Chỉ chuyến xe đang chạy (DEPARTED) mới có thể đánh dấu hoàn thành.",
+          "Chuyến chưa phát hành không thể đánh dấu hoàn thành.",
       };
     }
 

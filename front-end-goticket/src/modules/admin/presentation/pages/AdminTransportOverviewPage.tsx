@@ -38,6 +38,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
     attentionItems: 0,
     totalRevenueVnd: 0,
   });
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -46,60 +47,31 @@ export const AdminTransportOverviewPage: React.FC = () => {
       try {
         setLoading(true);
 
-        const toDate = new Date().toISOString().slice(0, 10);
-        const fromDate = new Date(Date.now() - 365 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-
-        const [appsRes, opsRes, reportRes, attentionRes] = await Promise.all([
-          httpClient
-            .get<any>('/api/v1/admin/ticket-vendors', {
-              params: { status: 'PENDING', page: 0, size: 1 },
-            })
-            .catch(() => null),
-          httpClient.get<any>('/api/v1/operators').catch(() => []),
-          httpClient
-            .get<any>('/api/v1/orders/transport/admin/reports/overview', {
-              params: { from: fromDate, to: toDate },
-            })
-            .catch(() => null),
-          httpClient
-            .get<any>('/api/v1/orders/transport/admin/item-operations/attention')
-            .catch(() => []),
+        setError('');
+        const [apps, operators, counts] = await Promise.all([
+          httpClient.get<any>('/api/v1/admin/ticket-vendors', {
+            params: { status: 'PENDING', page: 0, size: 1 },
+          }),
+          httpClient.get<any>('/api/v1/operators', {
+            params: { page: 1, limit: 1 },
+          }),
+          httpClient.get<Record<string, number>>(
+            '/api/v1/orders/transport/admin/summary',
+          ),
         ]);
-
         if (!isMounted) return;
-
-        const ops = Array.isArray(opsRes?.data) ? opsRes.data : Array.isArray(opsRes) ? opsRes : [];
-        const pending = Number(
-          appsRes?.totalElements ?? appsRes?.data?.totalElements ?? appsRes?.content?.length ?? 0,
-        );
-
-        const reportData = reportRes?.data || reportRes || {};
-        const ordersList = Array.isArray(reportData?.ordersByMethodAndStatus)
-          ? reportData.ordersByMethodAndStatus
-          : [];
-
-        let totalOrders = 0;
-        let totalRevenue = 0;
-        for (const row of ordersList) {
-          totalOrders += Number(row.order_count || 0);
-          totalRevenue += Number(row.booked_amount || 0);
-        }
-
-        const attentionList = Array.isArray(attentionRes?.data)
-          ? attentionRes.data
-          : Array.isArray(attentionRes)
-          ? attentionRes
-          : [];
-
         setStats({
-          totalOperators: ops.length,
-          pendingApplications: pending,
-          totalTransportOrders: totalOrders,
-          attentionItems: attentionList.length,
-          totalRevenueVnd: totalRevenue,
+          totalOperators: Number(operators.pagination?.total ?? 0),
+          pendingApplications: Number(apps.totalElements ?? 0),
+          totalTransportOrders: counts.ALL ?? 0,
+          attentionItems: counts.ATTENTION ?? 0,
+          totalRevenueVnd: 0,
         });
-      } catch {
-        // Safe fallback
+      } catch (e) {
+        if (isMounted)
+          setError(
+            e instanceof Error ? e.message : 'Không tải được số liệu quản trị.',
+          );
       } finally {
         if (isMounted) setLoading(false);
       }
@@ -123,20 +95,35 @@ export const AdminTransportOverviewPage: React.FC = () => {
           { label: 'Tổng quan' },
         ]}
         actions={
-          <Button asChild variant="default" className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm px-5 py-2.5 font-bold text-xs">
+          <Button
+            asChild
+            variant="default"
+            className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm px-5 py-2.5 font-bold text-xs"
+          >
             <Link to="/admin/applications" className="gap-2 flex items-center">
               <FileCheck2 className="w-4 h-4" />
-              <span>Duyệt hồ sơ ({stats.pendingApplications})</span>
+              <span>
+                Duyệt hồ sơ (
+                {loading || error ? '—' : stats.pendingApplications})
+              </span>
             </Link>
           </Button>
         }
       />
 
+      {error && (
+        <p
+          role="alert"
+          className="rounded-2xl border border-red-200 p-4 text-red-700"
+        >
+          {error} Số liệu chưa được xác nhận; vui lòng tải lại trang.
+        </p>
+      )}
       {/* KPI Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
         <MetricCard
           label="Hồ sơ chờ duyệt"
-          value={loading ? '...' : stats.pendingApplications}
+          value={loading || error ? '—' : stats.pendingApplications}
           subtext="Hồ sơ đăng ký nhà xe mới"
           icon={FileCheck2}
           variant="coral"
@@ -144,7 +131,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
 
         <MetricCard
           label="Nhà xe đối tác"
-          value={loading ? '...' : stats.totalOperators}
+          value={loading || error ? '—' : stats.totalOperators}
           subtext="Doanh nghiệp vận tải đã liên kết"
           icon={Building2}
           variant="default"
@@ -152,20 +139,20 @@ export const AdminTransportOverviewPage: React.FC = () => {
 
         <MetricCard
           label="Đơn vé xe toàn hệ thống"
-          value={loading ? '...' : stats.totalTransportOrders.toLocaleString('vi-VN')}
-          subtext={
-            stats.totalRevenueVnd > 0
-              ? `Doanh thu: ${formatVnd(stats.totalRevenueVnd.toString())}`
-              : 'Dữ liệu 365 ngày qua'
+          value={
+            loading || error
+              ? '—'
+              : stats.totalTransportOrders.toLocaleString('vi-VN')
           }
+          subtext="Toàn bộ lịch sử đơn GoTicket, không phải số chuyến"
           icon={TrendingUp}
           variant="emerald"
         />
 
         <MetricCard
-          label="Giao dịch cần can thiệp"
-          value={loading ? '...' : stats.attentionItems}
-          subtext="Ngoại lệ đổi vé, hoàn tiền, hủy chuyến"
+          label="Đơn vé cần can thiệp"
+          value={loading || error ? '—' : stats.attentionItems}
+          subtext="Đơn rà soát tiền, hoàn tiền và đồng bộ chậm"
           icon={AlertOctagon}
           variant={stats.attentionItems > 0 ? 'coral' : 'default'}
         />
@@ -178,7 +165,8 @@ export const AdminTransportOverviewPage: React.FC = () => {
             Phân hệ Quản trị & Vận hành
           </h2>
           <p className="text-xs text-[var(--gt-muted)] mt-1">
-            Truy cập nhanh vào các tính năng điều hành hệ sinh thái vé xe GoTicket
+            Truy cập nhanh vào các tính năng điều hành hệ sinh thái vé xe
+            GoTicket
           </p>
         </div>
 
@@ -192,7 +180,8 @@ export const AdminTransportOverviewPage: React.FC = () => {
                 Nhà xe & Trạng thái hoạt động
               </h3>
               <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
-                Xem toàn bộ {stats.totalOperators} nhà xe đối tác, tạm đình chỉ vi phạm hoặc kích hoạt lại sau kiểm tra chất lượng.
+                Xem toàn bộ {stats.totalOperators} nhà xe đối tác, tạm đình chỉ
+                vi phạm hoặc kích hoạt lại sau kiểm tra chất lượng.
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
@@ -215,7 +204,8 @@ export const AdminTransportOverviewPage: React.FC = () => {
                 Đơn hàng & Ngoại lệ tranh chấp
               </h3>
               <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
-                Tra cứu đơn hàng chéo nhà xe, duyệt hoàn tiền, xử lý yêu cầu hủy vé hoặc can thiệp sự cố vận hành phát sinh.
+                Tra cứu đơn hàng chéo nhà xe, duyệt hoàn tiền, xử lý yêu cầu hủy
+                vé hoặc can thiệp sự cố vận hành phát sinh.
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
@@ -238,7 +228,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
                 Trung tâm Vận hành Admin
               </h3>
               <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
-                7 chế độ chuyên sâu: Kiểm duyệt mở bán, hoàn tiền, hủy chuyến, đối soát số liệu, đối soát tiền mặt & hoa hồng.
+                Xử lý hoàn tiền, hủy chuyến, đối soát doanh thu và hoa hồng.
               </p>
             </div>
             <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
@@ -256,4 +246,3 @@ export const AdminTransportOverviewPage: React.FC = () => {
     </div>
   );
 };
-

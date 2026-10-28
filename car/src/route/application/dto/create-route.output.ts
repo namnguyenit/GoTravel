@@ -2,6 +2,8 @@ export interface RouteStopOutput {
   id: string;
   name: string;
   order: number;
+  address?: string | null;
+  province?: string | null;
 }
 
 export interface CreateRouteOutput {

@@ -14,6 +14,7 @@ import { Car } from '../../domain/entity/car.entity';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { CarMapper } from '../mapper/car.mapper';
 import { CarType } from '../../domain/value-object/car-type.enum';
+import { defaultSeatLayout } from '../../domain/default-seat-layout';
 
 @Injectable()
 export class PrismaCarRepository implements ICarRepository {
@@ -31,13 +32,14 @@ export class PrismaCarRepository implements ICarRepository {
         where: { id },
         include: { operator: true },
       });
-      if (!row || row.operator.userId !== ownerUserId)
+      if (!row || row.deletedAt || row.operator.userId !== ownerUserId)
         throw new NotFoundException('Không tìm thấy xe thuộc nhà xe');
       if (
         requireNoActiveTrips &&
         (await tx.trip.count({
           where: {
             carId: id,
+            arrivalTime: { gt: new Date() },
             status: {
               in: [
                 'PUBLISHING',
@@ -51,7 +53,7 @@ export class PrismaCarRepository implements ICarRepository {
         }))
       ) {
         throw new ConflictException(
-          'Xe đang có chuyến đã công bố hoặc đang hoạt động',
+          'Xe còn chuyến chưa kết thúc. Vui lòng kiểm tra lịch trình trước khi đổi trạng thái.',
         );
       }
       const car = CarMapper.toDomain(row);
@@ -74,7 +76,28 @@ export class PrismaCarRepository implements ICarRepository {
     });
   }
 
-  async save(car: Car): Promise<Car> {
+  async archiveOwned(id: string, ownerUserId: string): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      // Same vehicle lock as scheduling and publishing: no schedule can slip past deletion.
+      await tx.$queryRaw`SELECT id FROM cars WHERE id = ${id} FOR UPDATE`;
+      const car = await tx.car.findUnique({ where: { id }, include: { operator: true } });
+      if (!car || car.operator.userId !== ownerUserId)
+        throw new NotFoundException('Không tìm thấy xe thuộc nhà xe');
+      if (car.deletedAt) return; // Repeated deletion is harmless.
+      const nextTrip = await tx.trip.findFirst({
+        where: { carId: id, status: { notIn: ['COMPLETED', 'CANCELLED'] }, arrivalTime: { gt: new Date() } },
+        orderBy: { departureTime: 'asc' },
+      });
+      if (nextTrip) {
+        const date = nextTrip.departureTime.toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' });
+        throw new ConflictException(`Xe còn chuyến ${nextTrip.id.slice(0, 8)} khởi hành ${date} chưa kết thúc. Hãy đổi xe hoặc hủy chuyến này trước khi xóa xe.`);
+      }
+      await tx.car.update({ where: { id }, data: { deletedAt: new Date(), status: 'INACTIVE' } });
+      await tx.transportAudit.create({ data: { actorId: ownerUserId, action: 'ARCHIVE_CAR', detail: { carId: id, licensePlate: car.licensePlate } } });
+    });
+  }
+
+  async save(car: Car, layout?: { deckCount: number; lowerDeckSeats: number; seatClass: string; seatColumns?: number }): Promise<Car> {
     const rawData = CarMapper.toPersistence(car);
 
     const savedModel = await this.prisma.car.upsert({
@@ -86,6 +109,8 @@ export class PrismaCarRepository implements ICarRepository {
         status: rawData.status,
         licensePlate: rawData.licensePlate,
         totalSeats: rawData.totalSeats,
+        seatTemplates: { create: defaultSeatLayout(rawData.totalSeats,
+          layout?.lowerDeckSeats ?? rawData.totalSeats, layout?.seatClass ?? 'STANDARD', layout?.seatColumns ?? 3) },
       },
       update: {
         name: rawData.name,
@@ -113,8 +138,8 @@ export class PrismaCarRepository implements ICarRepository {
   }
 
   async findById(id: string): Promise<Car | null> {
-    const model = await this.prisma.car.findUnique({
-      where: { id },
+    const model = await this.prisma.car.findFirst({
+      where: { id, deletedAt: null },
     });
 
     if (!model) {
@@ -125,8 +150,8 @@ export class PrismaCarRepository implements ICarRepository {
   }
 
   async findByIdWithSeats(id: string): Promise<CarDetailResult | null> {
-    const model = await this.prisma.car.findUnique({
-      where: { id },
+    const model = await this.prisma.car.findFirst({
+      where: { id, deletedAt: null },
       include: {
         seatTemplates: {
           orderBy: [{ level: 'asc' }, { code: 'asc' }],
@@ -146,6 +171,8 @@ export class PrismaCarRepository implements ICarRepository {
         level: st.level,
         seatClass: st.seatClass,
         active: st.active,
+        row: st.row,
+        column: st.column,
       })),
     };
   }
@@ -154,6 +181,7 @@ export class PrismaCarRepository implements ICarRepository {
     return this.prisma.trip.count({
       where: {
         carId,
+        arrivalTime: { gt: new Date() },
         status: {
           in: ['PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED', 'DEPARTED'],
         },
@@ -184,7 +212,7 @@ export class PrismaCarRepository implements ICarRepository {
 
     // Build WHERE clause
     const where: Prisma.CarWhereInput = {
-      operatorId,
+      operatorId, deletedAt: null,
     };
 
     if (type) {
@@ -212,13 +240,13 @@ export class PrismaCarRepository implements ICarRepository {
         }),
         this.prisma.car.count({ where }),
         this.prisma.car.count({
-          where: { operatorId, type: CarType.SLEEPER as any },
+          where: { operatorId, deletedAt: null, type: CarType.SLEEPER as any },
         }),
         this.prisma.car.count({
-          where: { operatorId, type: CarType.LIMOUSINE as any },
+          where: { operatorId, deletedAt: null, type: CarType.LIMOUSINE as any },
         }),
         this.prisma.car.count({
-          where: { operatorId, type: CarType.SEAT as any },
+          where: { operatorId, deletedAt: null, type: CarType.SEAT as any },
         }),
       ]);
 

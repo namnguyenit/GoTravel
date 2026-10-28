@@ -6,8 +6,8 @@ export const ROUTE_STATUS = {
 } as const;
 
 export const ROUTE_STATUS_LABELS: Record<RouteStatus, string> = {
-  ACTIVE: "Đang hoạt động",
-  INACTIVE: "Tạm ngừng",
+  ACTIVE: "Cho phép tạo chuyến",
+  INACTIVE: "Đã khóa tạo chuyến",
 };
 
 export const ROUTE_STATUS_BADGE_CLASSES: Record<RouteStatus, string> = {

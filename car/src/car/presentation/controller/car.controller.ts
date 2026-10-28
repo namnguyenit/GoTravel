@@ -3,6 +3,7 @@ import {
   Post,
   Get,
   Patch,
+  Delete,
   Param,
   Body,
   Query,
@@ -23,10 +24,12 @@ import type { IGetCarDetailUseCase } from '../../application/port/get-car-detail
 import type { IUpdateCarUseCase } from '../../application/port/update-car.usecase.interface';
 import type { IUpdateCarStatusUseCase } from '../../application/port/update-car-status.usecase.interface';
 import { CarPresentationMapper } from '../mapper/car-presentation.mapper';
+import { DeleteCarUseCase } from '../../application/usecase/delete-car.usecase';
 
 @Controller('cars')
 export class CarController {
   constructor(
+    private readonly deleteCarUseCase: DeleteCarUseCase,
     @Inject('IAddCarUseCase')
     private readonly addCarUseCase: IAddCarUseCase,
     @Inject('IGetCarsUseCase')
@@ -81,6 +84,16 @@ export class CarController {
       request.authUser!.id,
     );
     return CarPresentationMapper.toCarDetailApiResponse(result);
+  }
+
+  @Delete(':id')
+  async deleteCar(
+    @Param('id', new ParseUUIDPipe()) carId: string,
+    @Req() request: AuthenticatedRequest,
+  ) {
+    if (!hasRole(request.authUser!, 'TICKET_VENDOR')) throw new ForbiddenException();
+    await this.deleteCarUseCase.execute(carId, request.authUser!.id);
+    return { success: true, code: 'DELETE_CAR_SUCCESS', message: 'Đã xóa xe khỏi đội xe. Lịch sử chuyến và vé được giữ nguyên.', data: { id: carId } };
   }
 
   @Patch(':id')

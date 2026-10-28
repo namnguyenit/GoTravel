@@ -62,6 +62,10 @@ export class UpdateRouteStatusUseCase implements IUpdateRouteStatusUseCase {
       origin: updatedRoute.origin,
       destination: updatedRoute.destination,
       status: updatedRoute.status,
+      stops: updatedRoute.stops.map((stop) => ({
+        id: stop.id!, name: stop.name, order: stop.order,
+        address: stop.address, province: stop.province,
+      })),
       createdAt: updatedRoute.createdAt!,
       updatedAt: updatedRoute.updatedAt!,
     };

@@ -53,8 +53,8 @@ public class TransportExchangeService {
             orders.findByIdForUpdate(second).orElseThrow(() -> conflict("Không có đơn cần đổi"));
             Integer itemOperations = jdbc.queryForObject("select count(*) from transport_item_operations where order_id in (?,?)",Integer.class,oldOrderId,newOrderId);
             if(itemOperations!=null && itemOperations>0)throw conflict("Đơn đã dùng đổi/hủy từng vé; không dùng luồng đổi toàn đơn cũ");
-            var oldOrder = orders.findById(oldOrderId).orElseThrow();
-            var newOrder = orders.findById(newOrderId).orElseThrow();
+            var oldOrder = orders.findWithItemsById(oldOrderId).orElseThrow();
+            var newOrder = orders.findWithItemsById(newOrderId).orElseThrow();
             if (oldOrder.getOrderKind() != OrderKind.GOCAR_TICKET ||
                     newOrder.getOrderKind() != OrderKind.GOCAR_TICKET ||
                     oldOrder.getPaymentMethod() != newOrder.getPaymentMethod() ||
@@ -125,13 +125,13 @@ public class TransportExchangeService {
     public void process(UUID oldOrderId) {
         var exchange = get(oldOrderId);
         if (java.util.List.of("REPLACEMENT_CANCELLED", "EXCEPTION_RESOLVED", "COMPLETED").contains(exchange.status())) return;
-        var replacement = orders.findById(exchange.newOrderId()).orElseThrow();
+        var replacement = orders.findWithItemsById(exchange.newOrderId()).orElseThrow();
         Integer cancelling = jdbc.queryForObject("select count(*) from transport_trip_cancellations where trip_id=?", Integer.class, replacement.getTransportTripId());
         if (cancelling != null && cancelling > 0) {
             jdbc.update("update transport_exchange_cases set status='REPLACEMENT_CANCELLED',last_error='REPLACEMENT_TRIP_CANCELLED',updated_at=now() where old_order_id=? and status in ('PROCESSING','REFUND_PENDING')", oldOrderId);
             return;
         }
-        var old = orders.findById(oldOrderId).orElseThrow();
+        var old = orders.findWithItemsById(oldOrderId).orElseThrow();
         if (old.getStatus() == OrderStatus.REFUNDED) {
             jdbc.update("update transport_exchange_cases set status='COMPLETED',last_error=null," +
                     "updated_at=now() where old_order_id=? and status in ('PROCESSING','REFUND_PENDING')", oldOrderId);
@@ -166,7 +166,7 @@ public class TransportExchangeService {
             UUID first = oldOrderId.compareTo(exchange.newOrderId()) < 0 ? oldOrderId : exchange.newOrderId();
             UUID second = first.equals(oldOrderId) ? exchange.newOrderId() : oldOrderId;
             orders.findByIdForUpdate(first).orElseThrow(); orders.findByIdForUpdate(second).orElseThrow();
-            var old = orders.findById(oldOrderId).orElseThrow(); var replacement = orders.findById(exchange.newOrderId()).orElseThrow();
+            var old = orders.findWithItemsById(oldOrderId).orElseThrow(); var replacement = orders.findWithItemsById(exchange.newOrderId()).orElseThrow();
             if ("EXCEPTION_RESOLVED".equals(exchange.status())) return;
             if (!"REPLACEMENT_CANCELLED".equals(exchange.status()) || replacement.getStatus()!=OrderStatus.REFUNDED ||
                     !java.util.List.of(OrderStatus.CONFIRMED,OrderStatus.COMPLETED,OrderStatus.REFUNDED).contains(old.getStatus()))

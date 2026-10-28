@@ -44,6 +44,7 @@ public class GoCarOperatorClient {
         payload.put("companyName", profile.getCompanyName());
         payload.put("companyAddress", profile.getCompanyAddress());
         payload.put("contactPhone", profile.getContactPhone());
+        payload.put("logoUrl", profile.getLogoUrl());
 
         try {
             http.postForEntity(

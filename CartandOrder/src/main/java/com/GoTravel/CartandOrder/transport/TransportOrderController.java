@@ -21,6 +21,17 @@ public class TransportOrderController {
     private final TransportOrderService service;
     private final TransportAmendmentService amendments;
     private final TransportOperationsReportService reports;
+    private final com.GoTravel.CartandOrder.transport.cash.application.CounterSalesReportService counterSales;
+
+    @GetMapping("/{orderId}/items/{itemId}/trip")
+    public ResponseEntity<ApiResponse<java.util.Map<String, Object>>> ticketTrip(
+            @AuthenticationPrincipal Jwt jwt, @PathVariable UUID orderId, @PathVariable UUID itemId) {
+        if (jwt == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        UUID actor;
+        try { actor = UUID.fromString(jwt.getSubject()); }
+        catch (IllegalArgumentException invalid) { throw new ResponseStatusException(HttpStatus.UNAUTHORIZED); }
+        return ResponseEntity.ok(ApiResponse.success(service.ticketTrip(actor, orderId, itemId)));
+    }
 
     @PostMapping("/checkout")
     public ResponseEntity<ApiResponse<OrderResponse>> checkout(
@@ -97,12 +108,13 @@ public class TransportOrderController {
     @GetMapping("/vendor/{orderId}")
     public ResponseEntity<ApiResponse<OrderResponse>> getVendorOrderDetail(
             @AuthenticationPrincipal Jwt jwt,
-            @PathVariable UUID orderId) {
+            @PathVariable UUID orderId,
+            @RequestParam(required = false) UUID operatorId) {
         if (jwt == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         UUID actorId;
         try { actorId = UUID.fromString(jwt.getSubject()); }
         catch (Exception e) { throw new ResponseStatusException(HttpStatus.UNAUTHORIZED); }
-        return ResponseEntity.ok(ApiResponse.success(service.getVendorOrderDetail(actorId, orderId)));
+        return ResponseEntity.ok(ApiResponse.success(service.getVendorOrderDetail(actorId, orderId, operatorId)));
     }
 
     @GetMapping("/vendor/{orderId}/items/{itemId}/ticket-document")
@@ -110,6 +122,24 @@ public class TransportOrderController {
         if(jwt==null)throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
         UUID actor;try{actor=UUID.fromString(jwt.getSubject());}catch(IllegalArgumentException e){throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);}
         return ResponseEntity.ok(ApiResponse.success(service.counterTicket(actor,orderId,itemId)));
+    }
+
+    @GetMapping("/vendor/counter-sales")
+    public ResponseEntity<ApiResponse<java.util.Map<String,Object>>> counterSales(
+            @AuthenticationPrincipal Jwt jwt, @RequestParam java.time.LocalDate from,
+            @RequestParam java.time.LocalDate to, @RequestParam(required=false) UUID cashierId,
+            @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="20") int size) {
+        if(jwt==null)throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.ok(ApiResponse.success(counterSales.summary(UUID.fromString(jwt.getSubject()),from,to,cashierId,page,size)));
+    }
+
+    @GetMapping("/vendor/counter-sales/{cashierId}")
+    public ResponseEntity<ApiResponse<java.util.Map<String,Object>>> counterSalesOrders(
+            @AuthenticationPrincipal Jwt jwt, @PathVariable UUID cashierId,
+            @RequestParam java.time.LocalDate from, @RequestParam java.time.LocalDate to,
+            @RequestParam(defaultValue="0") int page, @RequestParam(defaultValue="20") int size) {
+        if(jwt==null)throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        return ResponseEntity.ok(ApiResponse.success(counterSales.orders(UUID.fromString(jwt.getSubject()),from,to,cashierId,page,size)));
     }
 
     @GetMapping("/vendor/reports")

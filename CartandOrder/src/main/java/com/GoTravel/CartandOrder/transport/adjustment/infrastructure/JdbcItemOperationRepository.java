@@ -9,9 +9,9 @@ import java.util.*;
 @Repository @RequiredArgsConstructor
 public class JdbcItemOperationRepository implements ItemOperationRepository {
  private final JdbcTemplate jdbc;private final ObjectMapper json;
- public Operation get(UUID id){return jdbc.query("select * from transport_item_operations where id=?",(rs,row)->map(rs),id).stream().findFirst().orElse(null);}
+ public Operation get(UUID id){return jdbc.query("select op.*, r.reason_code, r.reason_text from transport_item_operations op left join transport_item_operation_reasons r on r.operation_id=op.id where op.id=?",(rs,row)->map(rs),id).stream().findFirst().orElse(null);}
  private Operation map(ResultSet rs)throws SQLException {
-  try{return new Operation(json.readValue(rs.getString("plan_json"),ItemOperationPlan.class),rs.getString("state"),rs.getTimestamp("expires_at").toInstant(),rs.getString("result_json"),rs.getString("error"),rs.getInt("attempts"));}
+  try{return new Operation(json.readValue(rs.getString("plan_json"),ItemOperationPlan.class),rs.getString("state"),rs.getTimestamp("expires_at").toInstant(),rs.getString("result_json"),rs.getString("error"),rs.getInt("attempts"),rs.getString("reason_code")==null?null:new Reason(rs.getString("reason_code"),rs.getString("reason_text")));}
   catch(java.io.IOException e){throw new IllegalStateException("Corrupt item operation",e);}
  }
  public Operation insert(ItemOperationPlan p){

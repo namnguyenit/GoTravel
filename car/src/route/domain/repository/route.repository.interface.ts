@@ -14,6 +14,13 @@ export interface RouteFilterParams {
 export interface RouteListQueryResult {
   routes: Route[];
   total: number;
+  dailyActivity?: Record<string, RouteDailyActivity>;
+}
+
+export interface RouteDailyActivity {
+  date: string;
+  totalTrips: number;
+  onSaleTrips: number;
 }
 
 export interface IRouteRepository {

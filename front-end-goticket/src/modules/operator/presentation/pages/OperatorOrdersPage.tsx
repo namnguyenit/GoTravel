@@ -1,5 +1,8 @@
+import { useLocation, useSearchParams } from 'react-router-dom';
+import { useAuth } from '@/modules/auth/presentation/context/AuthContext';
 import React, { useEffect, useState } from 'react';
 import { bookingService } from '@/modules/booking/composition';
+import { CashTicketDocuments } from '../components/CashTicketDocuments';
 import type { OrderEntity } from '@/modules/booking/domain/entity/order.entity';
 import { DateVo } from '@/shared/domain/date.vo';
 import {
@@ -34,6 +37,9 @@ import {
 } from 'lucide-react';
 
 export const OperatorOrdersPage: React.FC = () => {
+  const { user } = useAuth();
+  const [searchParams] = useSearchParams();
+  const isStaff = useLocation().pathname.startsWith('/staff');
   const [orders, setOrders] = useState<OrderEntity[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -46,7 +52,7 @@ export const OperatorOrdersPage: React.FC = () => {
 
   // Filter
   const [statusFilter, setStatusFilter] = useState<'ALL' | 'CONFIRMED' | 'PENDING' | 'CANCELLED'>('ALL');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>(() => searchParams.get('search') || '');
 
   // Detail Modal State
   const [selectedDetailOrder, setSelectedDetailOrder] = useState<OrderEntity | null>(null);
@@ -59,6 +65,7 @@ export const OperatorOrdersPage: React.FC = () => {
       const res = await bookingService.getVendorOrders(targetPage, limit, {
         status: statusFilter === 'ALL' ? undefined : statusFilter,
         search: searchQuery,
+        operatorId: isStaff ? user?.operatorId || undefined : undefined,
       });
       setOrders(res.orders);
       setTotalPages(res.totalPages);
@@ -73,7 +80,7 @@ export const OperatorOrdersPage: React.FC = () => {
 
   useEffect(() => {
     fetchVendorOrders(1);
-  }, [statusFilter]);
+  }, [statusFilter, user?.operatorId, isStaff]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -83,7 +90,7 @@ export const OperatorOrdersPage: React.FC = () => {
   const handleOpenDetail = async (orderId: string) => {
     try {
       setLoadingDetail(true);
-      const detail = await bookingService.getVendorOrderDetail(orderId);
+      const detail = await bookingService.getVendorOrderDetail(orderId, isStaff ? user?.operatorId || undefined : undefined);
       setSelectedDetailOrder(detail);
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Không thể tải chi tiết đơn hàng.');
@@ -96,9 +103,9 @@ export const OperatorOrdersPage: React.FC = () => {
     <div className="space-y-6">
       {/* Header */}
       <PageHeader
-        title="Quản lý đơn đặt vé"
-        eyebrow="Kênh Nhà Xe"
-        description="Theo dõi toàn bộ đơn đặt vé trực tuyến và vé đặt tại quầy thuộc các chuyến xe do nhà xe điều hành."
+        title={isStaff ? "Đơn hàng được phân công" : "Quản lý đơn đặt vé"}
+        eyebrow={isStaff ? "Kênh Nhân Viên" : "Kênh Nhà Xe"}
+        description={isStaff ? "Theo dõi các đơn đặt vé thuộc phạm vi chuyến xe được phân công tác nghiệp." : "Theo dõi toàn bộ đơn đặt vé trực tuyến và vé đặt tại quầy thuộc các chuyến xe do nhà xe điều hành."}
         actions={
           <div className="rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-semibold text-gray-500 shadow-2xs">
             Tổng số đơn: <strong className="text-gray-900 font-bold">{totalOrders}</strong>
@@ -337,6 +344,7 @@ export const OperatorOrdersPage: React.FC = () => {
               </div>
 
               {/* Ticket items table */}
+              {selectedDetailOrder.paymentMethod === 'CASH' && ['CONFIRMED', 'COMPLETED'].includes(selectedDetailOrder.status) && user?.canSellCash() && <CashTicketDocuments orderId={selectedDetailOrder.orderId} />}
               <div className="space-y-2 mt-3">
                 <h4 className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
                   <Ticket className="w-3.5 h-3.5 text-[#FF385C]" />

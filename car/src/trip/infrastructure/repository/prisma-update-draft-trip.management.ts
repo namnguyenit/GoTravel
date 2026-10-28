@@ -53,12 +53,7 @@ export class PrismaUpdateDraftTripManagement implements IUpdateDraftTripUseCase 
         throw new ConflictException('Chuyến vừa được sửa; thử lại');
 
       // Verify ownership or staff permission
-      if (operatorId) {
-        if (trip.operatorId !== operatorId)
-          throw new ForbiddenException(
-            'Không có quyền thao tác trên chuyến này',
-          );
-      } else {
+      if (trip.operatorId !== operatorId) {
         const staff = (await tx.operatorStaff.findFirst({
           where: { operatorId: trip.operatorId, userId, active: true },
         })) as any;
@@ -114,7 +109,8 @@ export class PrismaUpdateDraftTripManagement implements IUpdateDraftTripUseCase 
         if (
           !route ||
           route.operatorId !== trip.operatorId ||
-          route.status !== 'ACTIVE'
+          route.status !== 'ACTIVE' ||
+          route.deletedAt !== null
         ) {
           throw new BadRequestException(
             'Tuyến đường không hợp lệ hoặc đang ngừng hoạt động',
@@ -132,7 +128,7 @@ export class PrismaUpdateDraftTripManagement implements IUpdateDraftTripUseCase 
         if (
           !car ||
           car.operatorId !== trip.operatorId ||
-          car.status !== 'ACTIVE'
+          car.status !== 'ACTIVE' || car.deletedAt !== null
         ) {
           throw new BadRequestException(
             'Xe không hợp lệ hoặc đang ngừng hoạt động',
@@ -163,7 +159,8 @@ export class PrismaUpdateDraftTripManagement implements IUpdateDraftTripUseCase 
         where: { id: nextCarId },
         include: { seatTemplates: true },
       });
-      const activePrices = targetCar!.seatTemplates
+      if (!targetCar || targetCar.deletedAt || targetCar.status !== 'ACTIVE') throw new BadRequestException('Xe đã xóa hoặc đang ngừng hoạt động. Hãy chọn xe khác.');
+      const activePrices = targetCar.seatTemplates
         .filter((s) => s.active)
         .map((s) =>
           BigInt(

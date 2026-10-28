@@ -1,10 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { AdminPayoutsPage } from './AdminPayoutsPage';
+import { TransportCommissionSettings } from './TransportCommissionSettings';
+import { AdminStatusBadge as StatusBadge } from './AdminStatusBadge';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import {
   AlertTriangle,
   Ban,
   CheckCircle2,
   Coins,
-  FileCheck2,
   Loader2,
   RefreshCcw,
   RotateCcw,
@@ -30,13 +38,14 @@ import {
   PageHeader,
   MetricCard,
   SurfaceCard,
-  StatusBadge,
   MoneyText,
   IdText,
   Button,
   ConfirmDialog,
   EmptyState,
   LoadingState,
+  Pagination,
+  DateTimeText,
 } from '@/shared/presentation/components';
 import {
   Dialog,
@@ -47,10 +56,9 @@ import {
   DialogFooter,
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { useAuth } from '@/modules/auth/presentation/context/AuthContext';
 
 type Mode =
-  | 'offers'
-  | 'refunds'
   | 'cancellations'
   | 'reconciliation'
   | 'payouts'
@@ -73,44 +81,48 @@ const config: Record<
   Mode,
   { title: string; description: string; icon: React.ElementType }
 > = {
-  offers: {
-    title: 'Kiểm duyệt Nội dung Bán vé',
-    description: 'Duyệt, ẩn hoặc kích hoạt nội dung do nhà xe công bố trên Catalog GoTicket.',
-    icon: FileCheck2,
-  },
-  refunds: {
-    title: 'Hoàn tiền & Ngoại lệ Đơn vé',
-    description: 'Xử lý các đơn vận tải cần can thiệp và lưu bằng chứng hoàn tiền thủ công.',
-    icon: RotateCcw,
-  },
   cancellations: {
     title: 'Điều phối Hủy chuyến',
-    description: 'Hủy chuyến ở cấp quản trị và theo dõi tiến trình hoàn trả ghế, hủy vé, mở hoàn tiền.',
+    description:
+      'Hủy chuyến ở cấp quản trị và theo dõi tiến trình hoàn trả ghế, hủy vé, mở hoàn tiền.',
     icon: Ban,
   },
   reconciliation: {
     title: 'Đối soát & Hàng đợi Thông báo',
-    description: 'Theo dõi sai lệch trạng thái đơn hàng, email sự cố và ngoại lệ đổi vé.',
+    description:
+      'Một đơn có thể có nhiều cảnh báo. Hệ thống tự đóng cảnh báo khi đối chiếu lại đã khớp; ghi chú chỉ lưu nội dung xử lý. Theo dõi riêng email chờ gửi và ngoại lệ đổi vé.',
     icon: Scale,
   },
   payouts: {
     title: 'Quyết toán Doanh thu & Hoa hồng',
-    description: 'Đối soát số liệu, ghi nhận chi trả nhà xe và quản lý hoa hồng hệ thống.',
+    description:
+      'Đối soát số liệu, ghi nhận chi trả nhà xe và quản lý hoa hồng hệ thống.',
     icon: Coins,
   },
   accounts: {
     title: 'Tài khoản & Phân quyền',
-    description: 'Tra cứu danh tính người dùng, khóa/mở tài khoản và phân quyền quản trị.',
+    description:
+      'Danh tính dùng chung GoTravel / GoTicket. Khóa tài khoản ảnh hưởng toàn hệ sinh thái; quyền nhà xe qua duyệt KYC, nhân viên do nhà xe phân công.',
     icon: AlertTriangle,
   },
   policies: {
     title: 'Chính sách Hệ thống',
-    description: 'Cấu hình hoa hồng sàn và thông tin minh bạch các chính sách đang do máy chủ cố định.',
+    description:
+      'Cấu hình hoa hồng sàn và thông tin minh bạch các chính sách đang do máy chủ cố định.',
     icon: Scale,
   },
 };
 
-export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
+const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
+  const { user: currentUser } = useAuth();
+  const [listPage, setListPage] = useState(1);
+  const [keywordInput, setKeywordInput] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
+  const sequence = useRef(0);
+  const busyRef = useRef(false);
+  const [tripPreview, setTripPreview] = useState<Row | null>(null);
   const [rows, setRows] = useState<Row[]>([]);
   const [secondaryRows, setSecondaryRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
@@ -124,10 +136,6 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
   const [cancelProgress, setCancelProgress] = useState<Row | null>(null);
   const [showTechnicalDetails, setShowTechnicalDetails] = useState(false);
 
-  const [commission, setCommission] = useState<Row | null>(null);
-  const [commissionRate, setCommissionRate] = useState('');
-  const [commissionReason, setCommissionReason] = useState('');
-
   const [cashSummary, setCashSummary] = useState<Row | null>(null);
   const [cashShiftId, setCashShiftId] = useState('');
   const [cashAmount, setCashAmount] = useState('');
@@ -138,14 +146,6 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
   const [exchangeCase, setExchangeCase] = useState<Row | null>(null);
 
   // Dialog States replacing window.prompt
-  const [refundDialog, setRefundDialog] = useState<{
-    open: boolean;
-    row: Row | null;
-    amount: string;
-    reference: string;
-    evidenceUrl: string;
-  }>({ open: false, row: null, amount: '', reference: '', evidenceUrl: '' });
-
   const [cashPaidDialog, setCashPaidDialog] = useState<{
     open: boolean;
     reference: string;
@@ -173,7 +173,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
     userId: string;
     mode: 'GRANT' | 'REVOKE';
     role: string;
-  }>({ open: false, userId: '', mode: 'GRANT', role: 'TICKET_VENDOR' });
+  }>({ open: false, userId: '', mode: 'GRANT', role: 'USER' });
 
   // Confirmation dialog state
   const [confirmState, setConfirmState] = useState<{
@@ -196,63 +196,68 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
   const Icon = page.icon;
 
   const load = useCallback(async () => {
+    const current = ++sequence.current;
     setLoading(true);
     setError(null);
+    const fetch = async <T,>(
+      url: string,
+      options?: Parameters<typeof httpClient.get>[1],
+    ): Promise<T> => {
+      const data = await httpClient.get<T>(url, options);
+      if (sequence.current !== current) throw new Error('STALE_REQUEST');
+      return data;
+    };
     try {
-      if (mode === 'offers') {
-        const data = await httpClient.get<any>('/api/v1/catalog/admin/listings', {
-          params: { page: 0, size: 100 },
-        });
-        setRows(
-          unwrapRows(data).filter(
-            (row) =>
-              String(row.category ?? row.listingType ?? row.providerType ?? '').toUpperCase().includes('TRANSPORT') ||
-              String(row.metadata?.providerType ?? '').toUpperCase().includes('TRANSPORT')
-          )
-        );
-        setSecondaryRows([]);
-      } else if (mode === 'refunds') {
-        const [orders, operations] = await Promise.all([
-          httpClient.get<any>('/api/v1/orders/transport/admin/attention', { params: { page: 0, size: 100 } }),
-          httpClient.get<any>('/api/v1/orders/transport/admin/item-operations/attention'),
-        ]);
-        setRows([
-          ...unwrapRows(operations).map((row) => ({ ...row, _kind: 'ITEM_OPERATION' })),
-          ...unwrapRows(orders).map((row) => ({ ...row, _kind: 'ORDER_REFUND' })),
-        ]);
-        setSecondaryRows([]);
-      } else if (mode === 'reconciliation') {
+      if (mode === 'reconciliation') {
         const [findings, notifications, exchanges] = await Promise.all([
-          httpClient.get<any>('/api/v1/orders/transport/admin/reconciliation', { params: { limit: 100 } }),
-          httpClient.get<any>('/api/v1/orders/transport/admin/notifications'),
-          httpClient.get<any>('/api/v1/orders/transport/admin/exchanges/exceptions'),
+          fetch<any>('/api/v1/orders/transport/admin/reconciliation', {
+            params: { limit: 100 },
+          }),
+          fetch<any>('/api/v1/orders/transport/admin/notifications'),
+          fetch<any>('/api/v1/orders/transport/admin/exchanges/exceptions'),
         ]);
         setRows(unwrapRows(findings));
         setSecondaryRows([
-          ...unwrapRows(notifications).map((row) => ({ ...row, _kind: 'NOTIFICATION' })),
-          ...unwrapRows(exchanges).map((row) => ({ ...row, _kind: 'EXCHANGE' })),
+          ...unwrapRows(notifications).map((row) => ({
+            ...row,
+            eventId: row.id,
+            message: row.last_error || `Email ${row.kind}: ${row.status}`,
+            _kind: 'NOTIFICATION',
+          })),
+          ...unwrapRows(exchanges).map((row) => ({
+            ...row,
+            oldOrderId: row.old_order_id,
+            newOrderId: row.new_order_id,
+            message: row.last_error,
+            _kind: 'EXCHANGE',
+          })),
         ]);
       } else if (mode === 'payouts') {
-        const [payouts, currentCommission, currentCashSummary] = await Promise.all([
-          httpClient.get<any>('/api/v1/payouts/all', { params: { page: 0, size: 100 } }),
-          httpClient.get<any>('/api/v1/payouts/admin/commission'),
-          httpClient.get<any>('/api/v1/payouts/transport/cash-summary'),
+        const [payouts, , currentCashSummary] = await Promise.all([
+          fetch<any>('/api/v1/payouts/all', {
+            params: {
+              page: listPage - 1,
+              size: 20,
+              providerType: 'TRANSPORT',
+            },
+          }),
+          fetch<any>('/api/v1/payouts/transport/commission'),
+          fetch<any>('/api/v1/payouts/transport/cash-summary'),
         ]);
-        setRows(
-          unwrapRows(payouts).filter((row) => String(row.providerType ?? '').toUpperCase() === 'TRANSPORT')
-        );
-        setCommission(currentCommission ?? null);
-        setCommissionRate(String(currentCommission?.rate ?? ''));
+        setRows(unwrapRows(payouts));
+        setTotalPages(payouts.totalPages ?? 0);
+        setTotalItems(payouts.totalElements ?? 0);
         setCashSummary(currentCashSummary ?? null);
         setSecondaryRows([]);
       } else if (mode === 'accounts') {
-        const data = await httpClient.get<any>('/api/v1/admin/users', { params: { page: 0, size: 100 } });
+        const data = await fetch<any>('/api/v1/admin/users', {
+          params: { page: listPage - 1, size: 20, keyword },
+        });
         setRows(unwrapRows(data));
+        setTotalPages(data.totalPages ?? 0);
+        setTotalItems(data.totalElements ?? 0);
         setSecondaryRows([]);
       } else if (mode === 'policies') {
-        const currentCommission = await httpClient.get<any>('/api/v1/payouts/admin/commission');
-        setCommission(currentCommission ?? null);
-        setCommissionRate(String(currentCommission?.rate ?? ''));
         setRows([]);
         setSecondaryRows([]);
       } else {
@@ -260,126 +265,115 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         setSecondaryRows([]);
       }
     } catch (reason) {
-      setError(messageOf(reason));
+      if (sequence.current === current) setError(messageOf(reason));
     } finally {
-      setLoading(false);
+      if (sequence.current === current) setLoading(false);
     }
-  }, [mode]);
+  }, [mode, listPage, keyword]);
 
   useEffect(() => {
     void load();
+    return () => {
+      sequence.current++;
+    };
   }, [load]);
 
-  const run = async (key: string, action: () => Promise<unknown>, success: string) => {
+  const run = async (
+    key: string,
+    action: () => Promise<unknown>,
+    success: string,
+  ) => {
+    if (busyRef.current) return;
+    busyRef.current = true;
     setBusy(key);
     setError(null);
     setNotice(null);
     try {
       await action();
+      setConfirmState((c) => ({ ...c, open: false }));
+      setCashPaidDialog((c) => ({ ...c, open: false }));
+      setPayoutDialog((c) => ({ ...c, open: false }));
+      setRoleDialog((c) => ({ ...c, open: false }));
+      setNoteDialog((c) => ({ ...c, open: false }));
       setNotice(success);
       await load();
     } catch (reason) {
       setError(messageOf(reason));
     } finally {
+      busyRef.current = false;
       setBusy('');
     }
   };
 
-  const updateOffer = (row: Row, status: 'ACTIVE' | 'HIDDEN') => {
-    const id = row.listingId ?? row.id;
-    if (!id) return;
+  const lookupTrip = async () => {
+    setTripPreview(null);
+    setCancelProgress(null);
+    const requested = tripId.trim();
+    await run(
+      'trip-lookup',
+      async () => {
+        const data = await httpClient.get<Row>(
+          `/api/v1/trips/${requested}/admin-summary`,
+        );
+        setTripPreview(data);
+      },
+      'Đã tải thông tin chuyến. Kiểm tra kỹ trước khi thao tác.',
+    );
+  };
+
+  const submitCancellation = () => {
+    if (
+      !tripPreview ||
+      tripPreview.tripId !== tripId.trim() ||
+      !cancelReason.trim()
+    )
+      return;
+    const selectedId = tripPreview.tripId;
+    const reason = cancelReason.trim();
     setConfirmState({
       open: true,
-      title: status === 'ACTIVE' ? 'Duyệt công bố vé?' : 'Ẩn nội dung vé?',
-      description:
-        status === 'ACTIVE'
-          ? `Nội dung listing "${row.title ?? id}" sẽ được hiển thị trên catalog tìm kiếm cho khách hàng.`
-          : `Nội dung listing "${row.title ?? id}" sẽ bị ẩn khỏi kết quả tìm kiếm vé.`,
-      confirmText: status === 'ACTIVE' ? 'Duyệt công bố' : 'Ẩn nội dung',
-      variant: status === 'ACTIVE' ? 'primary' : 'danger',
-      onConfirm: async () => {
-        await run(
-          `offer-${id}`,
-          () => httpClient.patch(`/api/v1/catalog/admin/listings/${id}/status?status=${status}`),
-          `Đã chuyển nội dung sang ${status}.`
-        );
-      },
+      title: 'Hủy toàn bộ chuyến xe?',
+      description: `${tripPreview.origin} → ${tripPreview.destination}. Tất cả vé trên chuyến sẽ được xử lý hủy; các khoản đã thu sẽ phát sinh nghĩa vụ hoàn tiền. Lý do: ${reason}`,
+      confirmText: 'Xác nhận hủy chuyến',
+      variant: 'danger',
+      onConfirm: () =>
+        run(
+          'cancel',
+          async () => {
+            await httpClient.post(
+              `/api/v1/trips/${selectedId}/admin-cancellation`,
+              { reason },
+            );
+            const progress = await httpClient.get<Row>(
+              `/api/v1/orders/transport/admin/trip-cancellations/${selectedId}`,
+            );
+            setCancelProgress(progress);
+            setTripPreview(null);
+          },
+          'Đã gửi yêu cầu hủy chuyến. Việc hủy vé và hoàn tiền tiếp tục theo tiến trình, chưa đồng nghĩa đã hoàn tiền xong.',
+        ),
     });
-  };
-
-  const openRefundModal = (row: Row) => {
-    const defaultAmount = String(row.plan?.refundDue ?? row.totalAmount ?? row.refundAmount ?? '');
-    setRefundDialog({
-      open: true,
-      row,
-      amount: defaultAmount,
-      reference: '',
-      evidenceUrl: '',
-    });
-  };
-
-  const handleConfirmRefund = async () => {
-    const { row, amount, reference, evidenceUrl } = refundDialog;
-    if (!row || !amount.trim() || !reference.trim()) return;
-    const id = row.plan?.operationId ?? row.orderId ?? row.id;
-    const request =
-      row._kind === 'ITEM_OPERATION'
-        ? () =>
-            httpClient.post(`/api/v1/orders/transport/admin/item-operations/${id}/refund`, {
-              amount: amount.trim(),
-              reference: reference.trim(),
-              evidenceUrl: evidenceUrl.trim(),
-              refundMethod: row.plan?.paymentMethod === 'CASH' ? 'CASH' : 'GOPAY',
-              cashShiftId: row.plan?.originalCashShiftId ?? null,
-            })
-        : () =>
-            httpClient.put(`/api/v1/orders/transport/admin/refunds/${id}/complete`, {
-              amount: amount.trim(),
-              reference: reference.trim(),
-              evidenceUrl: evidenceUrl.trim(),
-            });
-    setRefundDialog((d) => ({ ...d, open: false }));
-    await run(`refund-${id}`, request, 'Đã lưu bằng chứng hoàn tiền thành công.');
-  };
-
-  const submitCancellation = async () => {
-    if (!tripId.trim() || !cancelReason.trim()) return;
-    setBusy('cancel');
-    setError(null);
-    setNotice(null);
-    try {
-      const result = await httpClient.post<Row>(
-        `/api/v1/trips/${tripId.trim()}/admin-cancellation`,
-        { reason: cancelReason.trim() }
-      );
-      setCancelProgress(result);
-      setNotice('Đã khởi tạo quy trình hủy chuyến xe. Tiến trình đang được saga xử lý.');
-    } catch (reason) {
-      setError(messageOf(reason));
-    } finally {
-      setBusy('');
-    }
   };
 
   const checkCancellation = async () => {
-    if (!tripId.trim()) return;
-    setBusy('progress');
-    setError(null);
-    try {
-      const res = await httpClient.get<Row>(
-        `/api/v1/orders/transport/admin/trip-cancellations/${tripId.trim()}`
-      );
-      setCancelProgress(res);
-      setNotice('Đã cập nhật trạng thái tiến trình hủy chuyến.');
-    } catch (reason) {
-      setError(messageOf(reason));
-    } finally {
-      setBusy('');
-    }
+    const id = tripId.trim();
+    if (!id) return;
+    await run(
+      'progress',
+      async () => {
+        setCancelProgress(
+          await httpClient.get<Row>(
+            `/api/v1/orders/transport/admin/trip-cancellations/${id}`,
+          ),
+        );
+      },
+      'Đã cập nhật tiến trình hủy chuyến.',
+    );
   };
 
-  const setAdminLifecycle = (status: 'DEPARTED' | 'COMPLETED') => {
-    if (!tripId.trim()) return;
+  const setAdminLifecycle = (status: 'COMPLETED') => {
+    if (!tripPreview || tripPreview.tripId !== tripId.trim()) return;
+    const selectedId = tripPreview.tripId;
     setConfirmState({
       open: true,
       title: `Chuyển trạng thái chuyến sang ${status}?`,
@@ -389,60 +383,55 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       onConfirm: async () => {
         await run(
           `lifecycle-${status}`,
-          () => httpClient.put(`/api/v1/trips/${tripId.trim()}/admin-lifecycle`, { status }),
-          `Đã chuyển chuyến xe sang ${status}.`
+          async () => {
+            await httpClient.put(
+              `/api/v1/trips/${selectedId}/admin-lifecycle`,
+              { status },
+            );
+            setTripPreview(null);
+          },
+          `Đã chuyển chuyến xe sang ${status}.`,
         );
       },
     });
   };
 
   const createAssistedExchange = async () => {
-    if (!exchangeOldOrderId.trim() || !exchangeNewOrderId.trim() || !exchangeReason.trim()) return;
+    if (
+      busyRef.current ||
+      !exchangeOldOrderId.trim() ||
+      !exchangeNewOrderId.trim() ||
+      !exchangeReason.trim()
+    )
+      return;
+    if (exchangeOldOrderId.trim() === exchangeNewOrderId.trim()) {
+      setError('Hai đơn đổi vé phải khác nhau.');
+      return;
+    }
+    busyRef.current = true;
     setBusy('exchange-create');
     setError(null);
     try {
-      const res = await httpClient.post<Row>('/api/v1/orders/transport/admin/exchanges', {
-        oldOrderId: exchangeOldOrderId.trim(),
-        newOrderId: exchangeNewOrderId.trim(),
-        reason: exchangeReason.trim(),
-      });
+      const res = await httpClient.post<Row>(
+        '/api/v1/orders/transport/admin/exchanges',
+        {
+          oldOrderId: exchangeOldOrderId.trim(),
+          newOrderId: exchangeNewOrderId.trim(),
+          reason: exchangeReason.trim(),
+        },
+      );
       setExchangeCase(res);
       setNotice('Đã tạo hồ sơ đổi vé hỗ trợ thành công.');
     } catch (reason) {
       setError(messageOf(reason));
     } finally {
+      busyRef.current = false;
       setBusy('');
     }
   };
 
-  const saveCommission = () => {
-    const rate = Number(commissionRate);
-    if (!Number.isFinite(rate) || rate < 0 || rate > 0.5) {
-      setError('Tỷ lệ hoa hồng phải nằm trong khoảng từ 0 đến 0.5 (tối đa 50%).');
-      return;
-    }
-    setConfirmState({
-      open: true,
-      title: 'Lưu thay đổi tỷ lệ hoa hồng?',
-      description: `Tỷ lệ hoa hồng mới sẽ là ${(rate * 100).toFixed(2)}%. Thao tác này sẽ ảnh hưởng đến các đơn vé phát sinh tiếp theo.`,
-      confirmText: 'Lưu hoa hồng',
-      variant: 'primary',
-      onConfirm: async () => {
-        await run(
-          'commission',
-          () =>
-            httpClient.put('/api/v1/payouts/admin/commission', {
-              rate,
-              reason: commissionReason.trim() || 'Cập nhật từ cổng quản trị vận tải GoTicket',
-            }),
-          'Đã cập nhật tỷ lệ hoa hồng hệ thống thành công.'
-        );
-      },
-    });
-  };
-
   const markCashCommissionPaid = () => {
-    if (!cashShiftId.trim() || !cashAmount.trim()) {
+    if (!cashShiftId.trim() || !/^\d+$/.test(cashAmount.trim())) {
       setError('Vui lòng nhập mã ca và số tiền hoa hồng cần ghi nhận.');
       return;
     }
@@ -455,8 +444,10 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
   const handleConfirmCashPaid = async () => {
     const { reference, evidenceUrl } = cashPaidDialog;
-    if (!reference.trim()) return;
-    setCashPaidDialog((d) => ({ ...d, open: false }));
+    if (!reference.trim() || !/^https:\/\/[^\s]+$/.test(evidenceUrl.trim())) {
+      setError('Cần mã giao dịch và đường dẫn chứng từ HTTPS hợp lệ.');
+      return;
+    }
     await run(
       'cash-paid',
       () =>
@@ -466,26 +457,45 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             amount: cashAmount,
             reference: reference.trim(),
             evidenceUrl: evidenceUrl.trim(),
-          }
+          },
         ),
-      'Đã ghi nhận hoa hồng tiền mặt của ca thành công.'
+      'Đã ghi nhận hoa hồng tiền mặt của ca thành công.',
     );
   };
 
-  const openPayoutModal = (row: Row) => {
-    setPayoutDialog({
-      open: true,
-      row,
-      reference: '',
-      evidenceUrl: '',
-    });
+  const openPayoutModal = async (row: Row) => {
+    if (busyRef.current || row.status !== 'REQUESTED') return;
+    busyRef.current = true;
+    setBusy('payout-prepare');
+    setError(null);
+    setNotice(null);
+    try {
+      const prepared = await httpClient.post<Row>(
+        `/api/v1/payouts/transport/${row.payoutId ?? row.id}/prepare`,
+      );
+      setPayoutDialog({
+        open: true,
+        row: prepared,
+        reference: '',
+        evidenceUrl: '',
+      });
+      await load();
+    } catch (reason) {
+      setError(messageOf(reason));
+    } finally {
+      busyRef.current = false;
+      setBusy('');
+    }
   };
 
   const handleConfirmPayout = async () => {
     const { row, reference, evidenceUrl } = payoutDialog;
-    if (!row || !reference.trim()) return;
+    if (!row || row.status !== 'REQUESTED') return;
+    if (!reference.trim() || !/^https:\/\/[^\s]+$/.test(evidenceUrl.trim())) {
+      setError('Cần mã giao dịch và chứng từ HTTPS hợp lệ.');
+      return;
+    }
     const id = row.payoutId ?? row.id;
-    setPayoutDialog((d) => ({ ...d, open: false }));
     await run(
       `paid-${id}`,
       () =>
@@ -494,25 +504,30 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
           reference: reference.trim(),
           evidenceUrl: evidenceUrl.trim(),
         }),
-      'Đã ghi nhận quyết toán chi trả cho nhà xe.'
+      'Đã ghi nhận quyết toán chi trả cho nhà xe.',
     );
   };
 
   const handleConfirmRoleChange = async () => {
     const { userId, mode, role } = roleDialog;
     if (!userId || !role) return;
-    setRoleDialog((d) => ({ ...d, open: false }));
     if (mode === 'GRANT') {
       await run(
         `grant-${userId}`,
-        () => httpClient.post(`/api/v1/admin/users/${userId}/role?role=${encodeURIComponent(role.trim().toUpperCase())}`),
-        `Đã cấp vai trò ${role} cho người dùng.`
+        () =>
+          httpClient.post(
+            `/api/v1/admin/users/${userId}/role?role=${encodeURIComponent(role.trim().toUpperCase())}`,
+          ),
+        `Đã cấp vai trò ${role} cho người dùng.`,
       );
     } else {
       await run(
         `revoke-${userId}`,
-        () => httpClient.post(`/api/v1/admin/users/${userId}/revokerole?role=${encodeURIComponent(role.trim().toUpperCase())}`),
-        `Đã thu hồi vai trò ${role} của người dùng.`
+        () =>
+          httpClient.post(
+            `/api/v1/admin/users/${userId}/revokerole?role=${encodeURIComponent(role.trim().toUpperCase())}`,
+          ),
+        `Đã thu hồi vai trò ${role} của người dùng.`,
       );
     }
   };
@@ -531,7 +546,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         actions={
           <div className="flex items-center gap-2">
             <span className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] text-xs font-bold border border-[var(--gt-coral)]/20 shadow-xs">
-              {rows.length} mục dữ liệu
+              {rows.length} mục trong lượt tải
             </span>
             <Button
               variant="outline"
@@ -540,7 +555,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               disabled={loading}
               className="rounded-full border-white/80 bg-white/80 backdrop-blur-md shadow-xs gap-2 px-4 py-2 text-xs font-bold"
             >
-              <RefreshCcw className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`} />
+              <RefreshCcw
+                className={`w-3.5 h-3.5 ${loading ? 'animate-spin' : ''}`}
+              />
               <span>Tải lại</span>
             </Button>
           </div>
@@ -572,23 +589,33 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 <span>Khởi tạo Hủy chuyến cấp Quản trị</span>
               </h2>
               <p className="text-xs text-[var(--gt-muted)]">
-                Hủy toàn bộ chuyến xe, tự động giải phóng ghế, đánh dấu hủy vé và chuyển các đơn đã thanh toán sang trạng thái hoàn tiền saga.
+                Hủy toàn bộ chuyến xe, tự động giải phóng ghế, đánh dấu hủy vé
+                và chuyển các đơn đã thanh toán sang trạng thái hoàn tiền saga.
               </p>
             </div>
 
             <div className="grid gap-4 sm:grid-cols-[1fr_1.8fr]">
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[var(--gt-ink)]">Mã UUID Chuyến xe</label>
+                <label className="text-xs font-bold text-[var(--gt-ink)]">
+                  Mã UUID Chuyến xe
+                </label>
                 <input
                   type="text"
                   value={tripId}
-                  onChange={(e) => setTripId(e.target.value)}
+                  disabled={busy !== ''}
+                  onChange={(e) => {
+                    setTripId(e.target.value);
+                    setTripPreview(null);
+                    setCancelProgress(null);
+                  }}
                   placeholder="Nhập UUID chuyến xe cần hủy..."
                   className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-xs font-bold text-[var(--gt-ink)]">Lý do hủy chuyến (bắt buộc)</label>
+                <label className="text-xs font-bold text-[var(--gt-ink)]">
+                  Lý do hủy chuyến (bắt buộc)
+                </label>
                 <input
                   type="text"
                   value={cancelReason}
@@ -600,6 +627,32 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               </div>
             </div>
 
+            <Button
+              variant="outline"
+              disabled={busy !== '' || !tripId.trim()}
+              onClick={() => void lookupTrip()}
+            >
+              Xem thông tin chuyến
+            </Button>
+            {tripPreview && (
+              <div className="rounded-2xl border p-4 space-y-2 text-sm">
+                <strong>
+                  {tripPreview.origin} → {tripPreview.destination}
+                </strong>
+                <p>
+                  {tripPreview.operator?.name} · {tripPreview.vehicle?.name} ·{' '}
+                  {tripPreview.vehicle?.licensePlate}
+                </p>
+                <p>
+                  Khởi hành: <DateTimeText value={tripPreview.departureAt} /> ·
+                  Đến: <DateTimeText value={tripPreview.arrivalAt} />
+                </p>
+                <StatusBadge status={tripPreview.status} />
+                {tripPreview.cancellationRequested && (
+                  <p>Chuyến đã có yêu cầu hủy. Xem tiến trình bên dưới.</p>
+                )}
+              </div>
+            )}
             <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[var(--gt-border)]/60">
               <div className="flex flex-wrap items-center gap-2">
                 <Button
@@ -614,16 +667,13 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 <Button
                   variant="outline"
                   size="sm"
-                  disabled={busy !== '' || !tripId.trim()}
-                  onClick={() => setAdminLifecycle('DEPARTED')}
-                  className="rounded-full text-xs font-bold px-4 py-2 border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
-                >
-                  Đánh dấu Đã khởi hành
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  disabled={busy !== '' || !tripId.trim()}
+                  disabled={
+                    busy !== '' ||
+                    !tripPreview ||
+                    tripPreview.tripId !== tripId.trim() ||
+                    ['CANCELLED', 'COMPLETED'].includes(tripPreview.status) ||
+                    new Date(tripPreview.arrivalAt).getTime() > Date.now()
+                  }
                   onClick={() => setAdminLifecycle('COMPLETED')}
                   className="rounded-full text-xs font-bold px-4 py-2 border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
                 >
@@ -634,7 +684,14 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               <Button
                 variant="destructive"
                 size="sm"
-                disabled={busy !== '' || !tripId.trim() || !cancelReason.trim()}
+                disabled={
+                  busy !== '' ||
+                  !tripPreview ||
+                  tripPreview.tripId !== tripId.trim() ||
+                  !cancelReason.trim() ||
+                  tripPreview.cancellationRequested ||
+                  ['CANCELLED', 'COMPLETED'].includes(tripPreview.status)
+                }
                 onClick={() => void submitCancellation()}
                 className="rounded-full text-xs font-bold px-5 py-2.5 shadow-xs"
               >
@@ -656,29 +713,45 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   </p>
                 </div>
                 <StatusBadge
-                  status={String(cancelProgress.status ?? cancelProgress.state ?? 'PROCESSING')}
+                  status={String(
+                    cancelProgress.status ??
+                      cancelProgress.state ??
+                      'PROCESSING',
+                  )}
                 />
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                 <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
-                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Mã chuyến</span>
-                  <div className="mt-1"><IdText id={tripId} /></div>
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">
+                    Mã chuyến
+                  </span>
+                  <div className="mt-1">
+                    <IdText id={tripId} />
+                  </div>
                 </div>
                 <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
-                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Số vé đã xử lý</span>
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">
+                    Số vé đã xử lý
+                  </span>
                   <span className="text-base font-black text-[var(--gt-ink)] block mt-0.5">
-                    {cancelProgress.processedTickets ?? cancelProgress.refundedCount ?? '—'}
+                    {cancelProgress.processedTickets ??
+                      cancelProgress.refundedCount ??
+                      '—'}
                   </span>
                 </div>
                 <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
-                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Tổng tiền hoàn</span>
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">
+                    Tổng tiền hoàn
+                  </span>
                   <span className="text-base font-black text-[var(--gt-coral)] block mt-0.5 font-mono">
                     {formatVnd(String(cancelProgress.totalRefundAmount ?? 0))}
                   </span>
                 </div>
                 <div className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
-                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">Lỗi ngoại lệ</span>
+                  <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">
+                    Lỗi ngoại lệ
+                  </span>
                   <span className="text-base font-black text-rose-600 block mt-0.5">
                     {cancelProgress.errors?.length ?? 0}
                   </span>
@@ -692,8 +765,16 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                   onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
                   className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--gt-coral)] hover:underline"
                 >
-                  {showTechnicalDetails ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronRight className="w-3.5 h-3.5" />}
-                  <span>{showTechnicalDetails ? 'Ẩn chi tiết kỹ thuật' : 'Xem chi tiết kỹ thuật (Saga Payload)'}</span>
+                  {showTechnicalDetails ? (
+                    <ChevronDown className="w-3.5 h-3.5" />
+                  ) : (
+                    <ChevronRight className="w-3.5 h-3.5" />
+                  )}
+                  <span>
+                    {showTechnicalDetails
+                      ? 'Ẩn chi tiết kỹ thuật'
+                      : 'Xem chi tiết kỹ thuật (Saga Payload)'}
+                  </span>
                 </button>
 
                 {showTechnicalDetails && (
@@ -707,59 +788,8 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         </div>
       )}
 
-      {/* MODE 2 & 7: POLICIES & PAYOUTS COMMISSION BAR */}
       {(mode === 'payouts' || mode === 'policies') && (
-        <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
-          <div className="space-y-0.5">
-            <h2 className="font-bold text-base text-[var(--gt-ink)] flex items-center gap-2">
-              <Coins className="w-5 h-5 text-[var(--gt-coral)]" />
-              <span>Cấu hình Tỷ lệ Hoa hồng Sàn GoTicket</span>
-            </h2>
-            <p className="text-xs text-[var(--gt-muted)]">
-              Tỷ lệ phần trăm doanh thu sàn khấu trừ trên mỗi vé bán thành công.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap items-end gap-3.5 pt-1">
-            <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">
-                Tỷ lệ hoa hồng (0 – 0.5)
-              </label>
-              <input
-                type="number"
-                min="0"
-                max="0.5"
-                step="0.0001"
-                value={commissionRate}
-                onChange={(e) => setCommissionRate(e.target.value)}
-                className="w-44 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
-              />
-            </div>
-
-            <div className="space-y-1.5 flex-1 min-w-[240px]">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">
-                Lý do điều chỉnh chính sách
-              </label>
-              <input
-                type="text"
-                value={commissionReason}
-                onChange={(e) => setCommissionReason(e.target.value)}
-                placeholder={String(commission?.reason ?? 'Nhập lý do thay đổi...')}
-                className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
-              />
-            </div>
-
-            <Button
-              variant="default"
-              size="sm"
-              disabled={busy !== ''}
-              onClick={saveCommission}
-              className="h-11 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-6 font-bold"
-            >
-              Lưu hoa hồng
-            </Button>
-          </div>
-        </SurfaceCard>
+        <TransportCommissionSettings />
       )}
 
       {/* CASH COMMISSION SETTLEMENT FOR PAYOUTS */}
@@ -771,7 +801,8 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               <span>Đối soát & Quyết toán Hoa hồng Tiền mặt</span>
             </h2>
             <p className="text-xs text-[var(--gt-muted)]">
-              Tổng kết thu chi ca bán vé tiền mặt tại quầy của các đối tác nhà xe.
+              Tổng kết thu chi ca bán vé tiền mặt tại quầy của các đối tác nhà
+              xe.
             </p>
           </div>
 
@@ -781,18 +812,33 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               { label: 'Số ca tiền mặt', key: 'shifts', isMoney: false },
               { label: 'Tổng doanh số', key: 'grossAmount', isMoney: true },
               { label: 'Đã hoàn tiền', key: 'refundedAmount', isMoney: true },
-              { label: 'Hoa hồng phải thu', key: 'commissionDue', isMoney: true },
-              { label: 'Hoa hồng đã nộp', key: 'commissionPaid', isMoney: true },
+              {
+                label: 'Hoa hồng phải thu',
+                key: 'commissionDue',
+                isMoney: true,
+              },
+              {
+                label: 'Hoa hồng đã nộp',
+                key: 'commissionPaid',
+                isMoney: true,
+              },
               { label: 'Còn thiếu', key: 'outstandingAmount', isMoney: true },
             ].map(({ label, key, isMoney }) => (
-              <div key={key} className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs">
+              <div
+                key={key}
+                className="rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-xs"
+              >
                 <span className="block text-[10px] font-bold uppercase text-[var(--gt-muted)] tracking-wider">
                   {label}
                 </span>
                 <strong className="mt-1 block text-sm font-black text-[var(--gt-ink)] font-mono">
                   {isMoney
-                    ? formatVnd(String(cashSummary?.[key] ?? 0))
-                    : String(cashSummary?.[key] ?? 0)}
+                    ? loading || error
+                      ? '—'
+                      : formatVnd(String(cashSummary?.[key] ?? 0))
+                    : loading || error
+                      ? '—'
+                      : String(cashSummary?.[key] ?? 0)}
                 </strong>
               </div>
             ))}
@@ -800,7 +846,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
 
           <div className="flex flex-wrap items-end gap-3.5 pt-3 border-t border-[var(--gt-border)]/60">
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">Mã ca tiền mặt</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
+                Mã ca tiền mặt
+              </label>
               <input
                 type="text"
                 value={cashShiftId}
@@ -811,12 +859,16 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             </div>
 
             <div className="space-y-1.5">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">Số tiền hoa hồng</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
+                Số tiền hoa hồng
+              </label>
               <input
                 type="text"
                 inputMode="numeric"
                 value={cashAmount}
-                onChange={(e) => setCashAmount(e.target.value.replace(/\D/g, ''))}
+                onChange={(e) =>
+                  setCashAmount(e.target.value.replace(/\D/g, ''))
+                }
                 placeholder="Số tiền VND..."
                 className="w-48 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
@@ -843,17 +895,28 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             <span>Chính sách nghiệp vụ được backend kiểm soát</span>
           </h2>
           <p className="text-xs text-amber-900 leading-relaxed font-medium">
-            Các chính sách như thời hạn giữ ghế tạm (hold TTL: 15 phút), điều kiện đổi vé, phí hủy vé tự động, thuế VAT và mã giảm giá hiện đang được cố định an toàn trong logic nghiệp vụ của backend. Giao diện không dựng các biểu mẫu lưu cấu hình giả lập.
+            Thời hạn giữ ghế, điều kiện đổi/hủy vé và phí liên quan hiện đang
+            được cố định an toàn trong logic nghiệp vụ của backend. Giao diện
+            không dựng các biểu mẫu lưu cấu hình giả lập.
           </p>
         </SurfaceCard>
       )}
 
       {/* MAIN DATA TABLE FOR GENERAL MODES */}
-      {mode !== 'cancellations' && mode !== 'policies' && (
+      {mode === 'accounts' && <form className="flex flex-wrap gap-3" onSubmit={event => { event.preventDefault(); setKeyword(keywordInput.trim()); setListPage(1); }}>
+        <input aria-label="Tìm tài khoản" value={keywordInput} maxLength={120} onChange={event => setKeywordInput(event.target.value)} placeholder="Tên tài khoản, họ tên, email hoặc số điện thoại" className="min-h-11 min-w-48 flex-1 rounded-xl border bg-white p-3 text-base" />
+        <Button type="submit" disabled={loading}>Tìm kiếm</Button>
+        {keyword && <Button type="button" variant="outline" onClick={() => { setKeyword(''); setKeywordInput(''); setListPage(1); }}>Xóa tìm kiếm</Button>}
+        <p className="w-full text-sm text-muted">Bản ghi mới nhất được hiển thị trước.</p>
+      </form>}
+      {mode !== 'cancellations' && mode !== 'policies' && !error && (
         <SurfaceCard className="p-0 overflow-hidden rounded-[32px]">
           <div className="p-5 sm:p-6 border-b border-[var(--gt-border)]/60 flex items-center justify-between">
             <h2 className="font-black text-base text-[var(--gt-ink)]">
-              Danh sách Hồ sơ Vận hành ({rows.length})
+              {mode === 'reconciliation'
+                ? 'Cảnh báo đối soát đang mở'
+                : 'Danh sách hồ sơ vận hành'}{' '}
+              ({rows.length})
             </h2>
           </div>
 
@@ -865,7 +928,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             <div className="p-14">
               <EmptyState
                 title="Không có hồ sơ nào cần xử lý"
-                description="Tất cả các nghiệp vụ trong phân hệ này đã được đồng bộ hoàn tất."
+                description="Không có bản ghi trong lượt tải này. Đây không phải xác nhận toàn hệ thống đã đối soát xong."
               />
             </div>
           ) : (
@@ -892,29 +955,66 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                     const status =
                       row.status ??
                       row.state ??
-                      row.code ??
+                      row.issueCode ??
                       row.severity ??
-                      (row.isActive === false ? 'BANNED' : 'ACTIVE');
+                      (row.isDeleted
+                        ? 'DELETED'
+                        : row.isActive === false
+                          ? 'BANNED'
+                          : 'ACTIVE');
 
                     return (
-                      <tr key={String(id)} className="hover:bg-white/60 transition-colors">
+                      <tr
+                        key={`${id}-${row.issueCode ?? index}`}
+                        className="hover:bg-white/60 transition-colors"
+                      >
                         <td className="px-5 py-4 font-mono font-bold text-[var(--gt-ink)]">
                           <IdText id={id} />
                         </td>
                         <td className="px-5 py-4">
                           <strong className="block text-[var(--gt-ink)] text-xs font-bold">
-                            {row.title ?? row.name ?? row.orderNumber ?? row.providerType ?? row.message ?? 'Hồ sơ vận tải'}
+                            {row.title ??
+                              row.userProfile?.fullName ??
+                              row.username ??
+                              row.name ??
+                              row.orderNumber ??
+                              row.providerType ??
+                              row.message ??
+                              'Hồ sơ vận tải'}
                           </strong>
                           <span className="text-[var(--gt-muted)] text-[11px] block mt-0.5 font-medium">
+                            {mode === 'reconciliation' && row.orderStatus && (
+                              <div className="my-1">
+                                Đơn:{' '}
+                                <StatusBadge
+                                  status={row.orderStatus}
+                                  size="sm"
+                                />
+                              </div>
+                            )}
                             {row.hostId
                               ? `Nhà cung cấp: ${String(row.hostId).slice(0, 8)}...`
                               : row.createdAt
-                              ? new Date(row.createdAt).toLocaleString('vi-VN')
-                              : ''}
+                                ? new Date(row.createdAt).toLocaleString(
+                                    'vi-VN',
+                                  )
+                                : ''}
                           </span>
                         </td>
                         <td className="px-5 py-4">
-                          <StatusBadge status={String(status)} size="sm" />
+                          <StatusBadge
+                            status={
+                              mode === 'reconciliation'
+                                ? 'PENDING'
+                                : String(status)
+                            }
+                            label={
+                              mode === 'reconciliation'
+                                ? 'Cần đối chiếu'
+                                : undefined
+                            }
+                            size="sm"
+                          />
                         </td>
                         <td className="px-5 py-4 text-[var(--gt-muted)] max-w-sm">
                           {mode === 'payouts' ? (
@@ -925,113 +1025,22 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                             />
                           ) : (
                             <span className="text-xs text-[var(--gt-ink)] block font-medium">
-                              {String(row.description ?? row.reason ?? row.detail ?? row.totalAmount ?? '—')}
+                              {mode === 'accounts'
+                                ? `${row.email || ''} · Quyền: ${(row.roles || []).join(', ')}`
+                                : String(
+                                    row.issueCode
+                                      ? row.detail || row.issueCode
+                                      : (row.description ??
+                                          row.reason ??
+                                          row.detail ??
+                                          row.totalAmount ??
+                                          '—'),
+                                  )}
                             </span>
                           )}
                         </td>
                         <td className="px-5 py-4 text-right">
                           <div className="flex items-center justify-end gap-1.5">
-                            {/* Offers actions */}
-                            {mode === 'offers' && (
-                              <>
-                                <Button
-                                  variant="default"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() => updateOffer(row, 'ACTIVE')}
-                                  className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
-                                >
-                                  Duyệt
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() => updateOffer(row, 'HIDDEN')}
-                                  className="h-8 rounded-full text-xs px-3 font-bold border-rose-200/80 text-rose-700 hover:bg-rose-50 shadow-xs"
-                                >
-                                  Ẩn
-                                </Button>
-                              </>
-                            )}
-
-                            {/* Refunds order refund actions */}
-                            {mode === 'refunds' && row._kind === 'ORDER_REFUND' && (
-                              <>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() =>
-                                    void run(
-                                      `review-${id}`,
-                                      () => httpClient.put(`/api/v1/orders/transport/admin/refunds/${id}/open-paid-review`),
-                                      'Đã mở hồ sơ rà soát hoàn tiền.'
-                                    )
-                                  }
-                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
-                                >
-                                  Mở rà soát
-                                </Button>
-                                <Button
-                                  variant="default"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() => openRefundModal(row)}
-                                  className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
-                                >
-                                  Ghi nhận hoàn
-                                </Button>
-                              </>
-                            )}
-
-                            {/* Refunds item operation actions */}
-                            {mode === 'refunds' && row._kind === 'ITEM_OPERATION' && (
-                              <>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() =>
-                                    void run(
-                                      `retry-${id}`,
-                                      () => httpClient.post(`/api/v1/orders/transport/admin/item-operations/${id}/retry`),
-                                      'Đã yêu cầu worker xử lý lại nghiệp vụ.'
-                                    )
-                                  }
-                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
-                                >
-                                  Chạy lại
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() =>
-                                    void run(
-                                      `abort-${id}`,
-                                      () => httpClient.post(`/api/v1/orders/transport/admin/item-operations/${id}/abort`),
-                                      'Đã yêu cầu dừng nghiệp vụ.'
-                                    )
-                                  }
-                                  className="h-8 rounded-full text-xs px-3 font-bold border-rose-200/80 text-rose-700 hover:bg-rose-50 shadow-xs"
-                                >
-                                  Dừng
-                                </Button>
-                                {Number(row.plan?.refundDue ?? 0) > 0 && (
-                                  <Button
-                                    variant="default"
-                                    size="sm"
-                                    disabled={busy !== ''}
-                                    onClick={() => openRefundModal(row)}
-                                    className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
-                                  >
-                                    Ghi nhận hoàn
-                                  </Button>
-                                )}
-                              </>
-                            )}
-
                             {/* Reconciliation actions */}
                             {mode === 'reconciliation' && (
                               <>
@@ -1042,8 +1051,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                   onClick={() =>
                                     void run(
                                       `refresh-${id}`,
-                                      () => httpClient.put(`/api/v1/orders/transport/admin/reconciliation/${row.orderId ?? id}/refresh`),
-                                      'Đã quét lại đơn hàng thành công.'
+                                      () =>
+                                        httpClient.put(
+                                          `/api/v1/orders/transport/admin/reconciliation/${row.orderId ?? id}/refresh`,
+                                        ),
+                                      'Đã quét lại đơn hàng thành công.',
                                     )
                                   }
                                   className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
@@ -1059,12 +1071,16 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                                     setNoteDialog({
                                       open: true,
                                       title: 'Ghi chú xử lý đối soát',
-                                      description: `Nhập ghi chú cho mã đơn ${row.orderId ?? id} và mã lỗi ${row.code}`,
+                                      description: `Nhập ghi chú cho đơn ${row.orderNumber ?? row.orderId ?? id}. Ghi chú không tự đóng cảnh báo; hệ thống sẽ đối chiếu lại để xác nhận đã khắc phục.`,
                                       onSubmit: async (note) => {
                                         await run(
                                           `note-${id}`,
-                                          () => httpClient.post(`/api/v1/orders/transport/admin/reconciliation/${row.orderId ?? id}/${row.code}/notes`, { note }),
-                                          'Đã lưu ghi chú đối soát.'
+                                          () =>
+                                            httpClient.post(
+                                              `/api/v1/orders/transport/admin/reconciliation/${row.orderId ?? id}/${row.issueCode}/notes`,
+                                              { note },
+                                            ),
+                                          'Đã lưu ghi chú đối soát.',
                                         );
                                       },
                                     });
@@ -1077,84 +1093,108 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                             )}
 
                             {/* Payouts actions */}
-                            {mode === 'payouts' && String(row.status).toUpperCase() !== 'PAID' && (
-                              <Button
-                                variant="default"
-                                size="sm"
-                                disabled={busy !== ''}
-                                onClick={() => openPayoutModal(row)}
-                                className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-4 font-bold"
-                              >
-                                Đánh dấu đã chi
-                              </Button>
-                            )}
+                            {mode === 'payouts' &&
+                              String(row.status).toUpperCase() ===
+                                'REQUESTED' && (
+                                <Button
+                                  variant="default"
+                                  size="sm"
+                                  disabled={busy !== ''}
+                                  onClick={() => openPayoutModal(row)}
+                                  className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-4 font-bold"
+                                >
+                                  Đối chiếu & Ghi chứng từ chi
+                                </Button>
+                              )}
 
                             {/* Accounts actions */}
-                            {mode === 'accounts' && (
-                              <>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() => {
-                                    const nextStatus = row.isActive === false ? 'ACTIVE' : 'BANNED';
-                                    setConfirmState({
-                                      open: true,
-                                      title: nextStatus === 'ACTIVE' ? 'Mở khóa tài khoản?' : 'Khóa tài khoản?',
-                                      description: `Xác nhận ${nextStatus === 'ACTIVE' ? 'mở khóa' : 'khóa'} tài khoản người dùng ${row.username ?? id}?`,
-                                      confirmText: nextStatus === 'ACTIVE' ? 'Mở khóa' : 'Khóa tài khoản',
-                                      variant: nextStatus === 'ACTIVE' ? 'primary' : 'danger',
-                                      onConfirm: async () => {
-                                        await run(
-                                          `status-${id}`,
-                                          () => httpClient.put(`/api/v1/admin/accounts/${id}/status`, { status: nextStatus }),
-                                          nextStatus === 'ACTIVE' ? 'Đã mở khóa tài khoản.' : 'Đã khóa tài khoản.'
-                                        );
-                                      },
-                                    });
-                                  }}
-                                  className={`h-8 rounded-full text-xs px-3 font-bold shadow-xs ${
-                                    row.isActive === false
-                                      ? 'border-emerald-200/80 text-emerald-700 hover:bg-emerald-50'
-                                      : 'border-rose-200/80 text-rose-700 hover:bg-rose-50'
-                                  }`}
-                                >
-                                  {row.isActive === false ? 'Mở khóa' : 'Khóa'}
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() =>
-                                    setRoleDialog({
-                                      open: true,
-                                      userId: id,
-                                      mode: 'GRANT',
-                                      role: 'TICKET_VENDOR',
-                                    })
-                                  }
-                                  className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
-                                >
-                                  Cấp quyền
-                                </Button>
-                                <Button
-                                  variant="outline"
-                                  size="sm"
-                                  disabled={busy !== ''}
-                                  onClick={() =>
-                                    setRoleDialog({
-                                      open: true,
-                                      userId: id,
-                                      mode: 'REVOKE',
-                                      role: 'TICKET_VENDOR',
-                                    })
-                                  }
-                                  className="h-8 rounded-full text-xs px-3 font-bold border-amber-200/80 text-amber-700 hover:bg-amber-50 shadow-xs"
-                                >
-                                  Thu hồi
-                                </Button>
-                              </>
-                            )}
+                            {mode === 'accounts' &&
+                              !row.isDeleted &&
+                              row.id !== currentUser?.id && (
+                                <>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={busy !== ''}
+                                    onClick={() => {
+                                      const nextStatus =
+                                        row.isActive === false
+                                          ? 'ACTIVE'
+                                          : 'BANNED';
+                                      setConfirmState({
+                                        open: true,
+                                        title:
+                                          nextStatus === 'ACTIVE'
+                                            ? 'Mở khóa tài khoản?'
+                                            : 'Khóa tài khoản?',
+                                        description: `Xác nhận ${nextStatus === 'ACTIVE' ? 'mở khóa' : 'khóa'} tài khoản người dùng ${row.username ?? id}?`,
+                                        confirmText:
+                                          nextStatus === 'ACTIVE'
+                                            ? 'Mở khóa'
+                                            : 'Khóa tài khoản',
+                                        variant:
+                                          nextStatus === 'ACTIVE'
+                                            ? 'primary'
+                                            : 'danger',
+                                        onConfirm: async () => {
+                                          await run(
+                                            `status-${id}`,
+                                            () =>
+                                              httpClient.put(
+                                                `/api/v1/admin/accounts/${id}/status`,
+                                                { status: nextStatus },
+                                              ),
+                                            nextStatus === 'ACTIVE'
+                                              ? 'Đã mở khóa tài khoản.'
+                                              : 'Đã khóa tài khoản.',
+                                          );
+                                        },
+                                      });
+                                    }}
+                                    className={`h-8 rounded-full text-xs px-3 font-bold shadow-xs ${
+                                      row.isActive === false
+                                        ? 'border-emerald-200/80 text-emerald-700 hover:bg-emerald-50'
+                                        : 'border-rose-200/80 text-rose-700 hover:bg-rose-50'
+                                    }`}
+                                  >
+                                    {row.isActive === false
+                                      ? 'Mở khóa'
+                                      : 'Khóa'}
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={busy !== ''}
+                                    onClick={() =>
+                                      setRoleDialog({
+                                        open: true,
+                                        userId: id,
+                                        mode: 'GRANT',
+                                        role: 'USER',
+                                      })
+                                    }
+                                    className="h-8 rounded-full text-xs px-3 font-bold border-white/80 bg-white/80 backdrop-blur-sm shadow-xs"
+                                  >
+                                    Cấp quyền
+                                  </Button>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    disabled={busy !== ''}
+                                    onClick={() =>
+                                      setRoleDialog({
+                                        open: true,
+                                        userId: id,
+                                        mode: 'REVOKE',
+                                        role: 'USER',
+                                      })
+                                    }
+                                    className="h-8 rounded-full text-xs px-3 font-bold border-amber-200/80 text-amber-700 hover:bg-amber-50 shadow-xs"
+                                  >
+                                    Thu hồi
+                                  </Button>
+                                </>
+                              )}
                           </div>
                         </td>
                       </tr>
@@ -1167,75 +1207,100 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
         </SurfaceCard>
       )}
 
-      {/* SECONDARY ROWS FOR RECONCILIATION */}
-      {mode === 'reconciliation' && secondaryRows.length > 0 && (
-        <SurfaceCard className="p-6 space-y-4">
-          <h2 className="text-base font-black text-[var(--gt-ink)] tracking-tight">
-            Thông báo Lỗi & Ngoại lệ Đổi vé ({secondaryRows.length})
-          </h2>
-          <div className="space-y-2.5">
-            {secondaryRows.map((row, index) => {
-              const id = row.eventId ?? row.oldOrderId ?? row.id ?? index;
-              return (
-                <div
-                  key={`${row._kind}-${id}`}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-4 text-xs shadow-xs"
-                >
-                  <div>
-                    <strong className="text-[var(--gt-ink)] font-bold">
-                      {row._kind === 'NOTIFICATION' ? 'Thông báo email chưa gửi' : 'Ngoại lệ đổi vé'}
-                    </strong>
-                    <p className="mt-0.5 text-[var(--gt-muted)]">
-                      {row.message ?? row.reason ?? String(id)}
-                    </p>
-                  </div>
-                  {row._kind === 'NOTIFICATION' ? (
-                    <Button
-                      variant="default"
-                      size="sm"
-                      disabled={busy !== ''}
-                      onClick={() =>
-                        void run(
-                          `notification-${id}`,
-                          () => httpClient.post(`/api/v1/orders/transport/admin/notifications/${id}/retry`),
-                          'Đã đưa thông báo vào hàng đợi gửi lại.'
-                        )
-                      }
-                      className="h-8 rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white text-xs px-4 font-bold shadow-coral-sm"
-                    >
-                      Gửi lại
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={busy !== ''}
-                      onClick={() => {
-                        setNoteInput('');
-                        setNoteDialog({
-                          open: true,
-                          title: 'Đóng ngoại lệ đổi vé',
-                          description: 'Nhập kết luận xử lý để hoàn tất đóng ngoại lệ',
-                          onSubmit: async (note) => {
-                            await run(
-                              `exchange-${id}`,
-                              () => httpClient.post(`/api/v1/orders/transport/admin/exchanges/${row.oldOrderId ?? id}/resolve-exception`, { note }),
-                              'Đã đóng ngoại lệ đổi vé.'
-                            );
-                          },
-                        });
-                      }}
-                      className="h-8 rounded-full border-white/80 bg-white/70 hover:bg-white text-[var(--gt-ink)] text-xs px-4 font-bold shadow-xs"
-                    >
-                      Đóng ngoại lệ
-                    </Button>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </SurfaceCard>
+      {['payouts', 'accounts'].includes(mode) && !error && (
+        <Pagination
+          currentPage={listPage}
+          totalPages={totalPages}
+          totalItems={totalItems}
+          onPageChange={setListPage}
+          disabled={loading || busy !== ''}
+        />
       )}
+
+      {/* SECONDARY ROWS FOR RECONCILIATION */}
+      {mode === 'reconciliation' &&
+        !loading &&
+        !error &&
+        secondaryRows.length > 0 && (
+          <SurfaceCard className="p-6 space-y-4">
+            <h2 className="text-base font-black text-[var(--gt-ink)] tracking-tight">
+              Email chờ gửi / Thất bại & Ngoại lệ đổi vé ({secondaryRows.length}
+              )
+            </h2>
+            <div className="space-y-2.5">
+              {secondaryRows.map((row, index) => {
+                const id = row.eventId ?? row.oldOrderId ?? row.id ?? index;
+                return (
+                  <div
+                    key={`${row._kind}-${id}`}
+                    className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-4 text-xs shadow-xs"
+                  >
+                    <div>
+                      <strong className="text-[var(--gt-ink)] font-bold">
+                        {row._kind === 'NOTIFICATION'
+                          ? 'Thông báo email chưa gửi'
+                          : 'Ngoại lệ đổi vé'}
+                      </strong>
+                      <p className="mt-0.5 text-[var(--gt-muted)]">
+                        {row.message ?? row.reason ?? String(id)}
+                        {row._kind === 'NOTIFICATION' && ` · ${row.status}`}
+                      </p>
+                    </div>
+                    {row._kind === 'NOTIFICATION' ? (
+                      <Button
+                        variant="default"
+                        size="sm"
+                        disabled={busy !== '' || row.status !== 'FAILED'}
+                        onClick={() =>
+                          void run(
+                            `notification-${id}`,
+                            () =>
+                              httpClient.post(
+                                `/api/v1/orders/transport/admin/notifications/${id}/retry`,
+                              ),
+                            'Đã đưa thông báo vào hàng đợi gửi lại.',
+                          )
+                        }
+                        className="h-8 rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white text-xs px-4 font-bold shadow-coral-sm"
+                      >
+                        Gửi lại
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={busy !== ''}
+                        onClick={() => {
+                          setNoteInput('');
+                          setNoteDialog({
+                            open: true,
+                            title: 'Đóng ngoại lệ đổi vé',
+                            description:
+                              'Nhập kết luận xử lý để hoàn tất đóng ngoại lệ',
+                            onSubmit: async (note) => {
+                              await run(
+                                `exchange-${id}`,
+                                () =>
+                                  httpClient.post(
+                                    `/api/v1/orders/transport/admin/exchanges/${row.oldOrderId ?? id}/resolve-exception`,
+                                    { note },
+                                  ),
+                                'Đã đóng ngoại lệ đổi vé.',
+                              );
+                            },
+                          });
+                        }}
+                        className="h-8 rounded-full border-white/80 bg-white/70 hover:bg-white text-[var(--gt-ink)] text-xs px-4 font-bold shadow-xs"
+                      >
+                        Đóng ngoại lệ
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </SurfaceCard>
+        )}
 
       {/* ASSISTED EXCHANGE FORM */}
       {mode === 'reconciliation' && (
@@ -1245,13 +1310,16 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               Đổi vé Hỗ trợ Giữa hai Đơn đã Thanh toán
             </h2>
             <p className="text-xs text-[var(--gt-muted)]">
-              Dành cho hồ sơ legacy cần đối chiếu thủ công; luồng đổi từng vé của khách vẫn chạy qua item operation.
+              Dành cho hồ sơ legacy cần đối chiếu thủ công; luồng đổi từng vé
+              của khách vẫn chạy qua item operation.
             </p>
           </div>
 
           <div className="grid gap-3 sm:grid-cols-3">
             <div className="space-y-1">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">Mã đơn cũ</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
+                Mã đơn cũ
+              </label>
               <input
                 type="text"
                 value={exchangeOldOrderId}
@@ -1261,7 +1329,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">Mã đơn mới</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
+                Mã đơn mới
+              </label>
               <input
                 type="text"
                 value={exchangeNewOrderId}
@@ -1271,7 +1341,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               />
             </div>
             <div className="space-y-1">
-              <label className="text-xs font-bold text-[var(--gt-ink)]">Lý do hỗ trợ</label>
+              <label className="text-xs font-bold text-[var(--gt-ink)]">
+                Lý do hỗ trợ
+              </label>
               <input
                 type="text"
                 value={exchangeReason}
@@ -1300,91 +1372,20 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
           {exchangeCase && (
             <div className="mt-3 rounded-2xl border border-white/80 bg-white/80 backdrop-blur-md p-4 text-xs font-mono text-[var(--gt-ink)] shadow-xs">
               <h4 className="font-bold mb-2">Hồ sơ đổi vé đã tạo:</h4>
-              <pre className="overflow-x-auto text-[11px]">{JSON.stringify(exchangeCase, null, 2)}</pre>
+              <pre className="overflow-x-auto text-[11px]">
+                {JSON.stringify(exchangeCase, null, 2)}
+              </pre>
             </div>
           )}
         </SurfaceCard>
       )}
 
-      {/* DIALOG 1: REFUND FORM DIALOG */}
-      <Dialog
-        open={refundDialog.open}
-        onOpenChange={(open) => setRefundDialog((d) => ({ ...d, open }))}
-      >
-        <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
-          <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
-            <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
-              Ghi nhận Hoàn tiền Thủ công
-            </DialogTitle>
-            <DialogDescription className="text-xs text-[var(--gt-muted)]">
-              Nhập chứng từ và số tiền hoàn trả cho khách hàng
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-3.5 py-2 text-xs">
-            <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Số tiền hoàn (VND) *</label>
-              <input
-                type="text"
-                value={refundDialog.amount}
-                onChange={(e) =>
-                  setRefundDialog((d) => ({ ...d, amount: e.target.value }))
-                }
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Mã tham chiếu giao dịch *</label>
-              <input
-                type="text"
-                value={refundDialog.reference}
-                onChange={(e) =>
-                  setRefundDialog((d) => ({ ...d, reference: e.target.value }))
-                }
-                placeholder="Ví dụ: REFUND_VNPAY_123456"
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
-              />
-            </div>
-            <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Đường dẫn bằng chứng / biên lai</label>
-              <input
-                type="text"
-                value={refundDialog.evidenceUrl}
-                onChange={(e) =>
-                  setRefundDialog((d) => ({ ...d, evidenceUrl: e.target.value }))
-                }
-                placeholder="https://..."
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
-              />
-            </div>
-          </div>
-
-          <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => setRefundDialog((d) => ({ ...d, open: false }))}
-              className="rounded-full px-5 text-xs font-semibold"
-            >
-              Hủy
-            </Button>
-            <Button
-              variant="default"
-              size="sm"
-              disabled={!refundDialog.amount.trim() || !refundDialog.reference.trim()}
-              onClick={handleConfirmRefund}
-              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
-            >
-              Lưu bằng chứng hoàn
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
       {/* DIALOG 2: CASH COMMISSION MARK PAID */}
       <Dialog
         open={cashPaidDialog.open}
-        onOpenChange={(open) => setCashPaidDialog((d) => ({ ...d, open }))}
+        onOpenChange={(open) => {
+          if (!busyRef.current) setCashPaidDialog((d) => ({ ...d, open }));
+        }}
       >
         <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
           <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
@@ -1392,30 +1393,41 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               Ghi nhận Nộp Hoa hồng Tiền mặt
             </DialogTitle>
             <DialogDescription className="text-xs text-[var(--gt-muted)]">
-              Xác nhận đã thu hoa hồng cho ca #{cashShiftId} với số tiền {formatVnd(cashAmount)}
+              Xác nhận đã thu hoa hồng cho ca #{cashShiftId} với số tiền{' '}
+              {formatVnd(cashAmount)}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Mã tham chiếu chứng từ *</label>
+              <label className="font-bold text-[var(--gt-ink)]">
+                Mã tham chiếu chứng từ *
+              </label>
               <input
                 type="text"
                 value={cashPaidDialog.reference}
                 onChange={(e) =>
-                  setCashPaidDialog((d) => ({ ...d, reference: e.target.value }))
+                  setCashPaidDialog((d) => ({
+                    ...d,
+                    reference: e.target.value,
+                  }))
                 }
                 placeholder="Ví dụ: CASH_RECEIPT_0987"
                 className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Đường dẫn biên lai</label>
+              <label className="font-bold text-[var(--gt-ink)]">
+                Đường dẫn biên lai
+              </label>
               <input
                 type="text"
                 value={cashPaidDialog.evidenceUrl}
                 onChange={(e) =>
-                  setCashPaidDialog((d) => ({ ...d, evidenceUrl: e.target.value }))
+                  setCashPaidDialog((d) => ({
+                    ...d,
+                    evidenceUrl: e.target.value,
+                  }))
                 }
                 placeholder="https://..."
                 className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
@@ -1423,6 +1435,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             </div>
           </div>
 
+          {error && (
+            <p role="alert" className="text-xs text-red-700">
+              {error}
+            </p>
+          )}
           <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
@@ -1435,7 +1452,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             <Button
               variant="default"
               size="sm"
-              disabled={!cashPaidDialog.reference.trim()}
+              disabled={
+                busy !== '' ||
+                !cashPaidDialog.reference.trim() ||
+                !cashPaidDialog.evidenceUrl.trim()
+              }
               onClick={handleConfirmCashPaid}
               className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
             >
@@ -1448,7 +1469,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       {/* DIALOG 3: NOTE DIALOG */}
       <Dialog
         open={noteDialog.open}
-        onOpenChange={(open) => setNoteDialog((d) => ({ ...d, open }))}
+        onOpenChange={(open) => {
+          if (!busyRef.current) setNoteDialog((d) => ({ ...d, open }));
+        }}
       >
         <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
           <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
@@ -1463,6 +1486,7 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
           <div className="space-y-3.5 py-2 text-xs">
             <textarea
               rows={3}
+              maxLength={1000}
               value={noteInput}
               onChange={(e) => setNoteInput(e.target.value)}
               placeholder="Nhập nội dung ghi chú..."
@@ -1470,6 +1494,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             />
           </div>
 
+          {error && (
+            <p role="alert" className="text-xs text-red-700">
+              {error}
+            </p>
+          )}
           <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
@@ -1482,10 +1511,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             <Button
               variant="default"
               size="sm"
-              disabled={!noteInput.trim()}
+              disabled={busy !== '' || !noteInput.trim()}
               onClick={async () => {
                 const text = noteInput.trim();
-                setNoteDialog((d) => ({ ...d, open: false }));
                 await noteDialog.onSubmit(text);
               }}
               className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
@@ -1499,7 +1527,9 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       {/* DIALOG 4: PAYOUT MARK PAID */}
       <Dialog
         open={payoutDialog.open}
-        onOpenChange={(open) => setPayoutDialog((d) => ({ ...d, open }))}
+        onOpenChange={(open) => {
+          if (!busyRef.current) setPayoutDialog((d) => ({ ...d, open }));
+        }}
       >
         <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
           <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
@@ -1507,13 +1537,17 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               Đánh dấu Đã Chi trả Quyết toán
             </DialogTitle>
             <DialogDescription className="text-xs text-[var(--gt-muted)]">
-              Xác nhận lệnh chuyển khoản cho đối tác nhà xe với số tiền {formatVnd(String(payoutDialog.row?.hostAmount ?? 0))}
+              Chỉ xác nhận sau khi đã chuyển tiền cho nhà xe. Thao tác này không
+              tự chuyển khoản. Số tiền đối chiếu mới nhất:{' '}
+              {formatVnd(String(payoutDialog.row?.hostAmount ?? 0))}
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Mã tham chiếu ngân hàng *</label>
+              <label className="font-bold text-[var(--gt-ink)]">
+                Mã tham chiếu ngân hàng *
+              </label>
               <input
                 type="text"
                 value={payoutDialog.reference}
@@ -1525,12 +1559,17 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
               />
             </div>
             <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Đường dẫn ủy nhiệm chi / biên lai</label>
+              <label className="font-bold text-[var(--gt-ink)]">
+                Đường dẫn ủy nhiệm chi / biên lai
+              </label>
               <input
                 type="text"
                 value={payoutDialog.evidenceUrl}
                 onChange={(e) =>
-                  setPayoutDialog((d) => ({ ...d, evidenceUrl: e.target.value }))
+                  setPayoutDialog((d) => ({
+                    ...d,
+                    evidenceUrl: e.target.value,
+                  }))
                 }
                 placeholder="https://..."
                 className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
@@ -1538,6 +1577,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             </div>
           </div>
 
+          {error && (
+            <p role="alert" className="text-xs text-red-700">
+              {error}
+            </p>
+          )}
           <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
@@ -1550,7 +1594,11 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             <Button
               variant="default"
               size="sm"
-              disabled={!payoutDialog.reference.trim()}
+              disabled={
+                busy !== '' ||
+                !payoutDialog.reference.trim() ||
+                !payoutDialog.evidenceUrl.trim()
+              }
               onClick={handleConfirmPayout}
               className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
             >
@@ -1563,21 +1611,28 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
       {/* DIALOG 5: ROLE ASSIGNMENT */}
       <Dialog
         open={roleDialog.open}
-        onOpenChange={(open) => setRoleDialog((d) => ({ ...d, open }))}
+        onOpenChange={(open) => {
+          if (!busyRef.current) setRoleDialog((d) => ({ ...d, open }));
+        }}
       >
         <DialogContent className="max-w-md p-6 sm:p-7 rounded-[32px] border-2 border-white/80 bg-white/95 backdrop-blur-2xl shadow-glass-xl text-[var(--gt-ink)]">
           <DialogHeader className="space-y-1.5 text-left border-b border-[var(--gt-border)]/60 pb-3.5">
             <DialogTitle className="text-xl font-black text-[var(--gt-ink)] tracking-tight">
-              {roleDialog.mode === 'GRANT' ? 'Cấp Vai trò Người dùng' : 'Thu hồi Vai trò'}
+              {roleDialog.mode === 'GRANT'
+                ? 'Cấp Vai trò Người dùng'
+                : 'Thu hồi Vai trò'}
             </DialogTitle>
             <DialogDescription className="text-xs text-[var(--gt-muted)]">
-              Tài khoản #{roleDialog.userId}
+              Tài khoản #{roleDialog.userId}. Quyền nhà xe được cấp qua duyệt
+              KYC; nhân viên do nhà xe mời và phân công.
             </DialogDescription>
           </DialogHeader>
 
           <div className="space-y-3.5 py-2 text-xs">
             <div className="space-y-1">
-              <label className="font-bold text-[var(--gt-ink)]">Chọn vai trò</label>
+              <label className="font-bold text-[var(--gt-ink)]">
+                Chọn vai trò
+              </label>
               <select
                 aria-label="Chọn vai trò người dùng"
                 value={roleDialog.role}
@@ -1586,14 +1641,22 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
                 }
                 className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all"
               >
-                <option value="TICKET_VENDOR">TICKET_VENDOR (Chủ nhà xe)</option>
-                <option value="STAFF">STAFF (Nhân viên vận hành)</option>
+                {roleDialog.mode === 'REVOKE' && (
+                  <option value="TICKET_VENDOR">
+                    TICKET_VENDOR (Chủ nhà xe)
+                  </option>
+                )}
                 <option value="ADMIN">ADMIN (Quản trị viên)</option>
                 <option value="USER">USER (Khách hàng thông thường)</option>
               </select>
             </div>
           </div>
 
+          {error && (
+            <p role="alert" className="text-xs text-red-700">
+              {error}
+            </p>
+          )}
           <DialogFooter className="gap-2 sm:justify-end pt-3 border-t border-[var(--gt-border)]/60">
             <Button
               variant="outline"
@@ -1606,12 +1669,13 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
             <Button
               variant={roleDialog.mode === 'GRANT' ? 'default' : 'destructive'}
               size="sm"
+              disabled={busy !== ''}
               onClick={handleConfirmRoleChange}
               className={cn(
-                "rounded-full px-5 text-xs font-bold",
+                'rounded-full px-5 text-xs font-bold',
                 roleDialog.mode === 'GRANT'
-                  ? "bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white shadow-coral-sm"
-                  : "bg-rose-600 hover:bg-rose-700 text-white shadow-xs"
+                  ? 'bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white shadow-coral-sm'
+                  : 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs',
               )}
             >
               {roleDialog.mode === 'GRANT' ? 'Cấp quyền' : 'Thu hồi'}
@@ -1634,3 +1698,10 @@ export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) => {
     </div>
   );
 };
+
+export const AdminOperationsPage: React.FC<{ mode: Mode }> = ({ mode }) =>
+  mode === 'payouts' ? (
+    <AdminPayoutsPage />
+  ) : (
+    <AdminOperationsContent mode={mode} />
+  );

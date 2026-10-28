@@ -76,7 +76,7 @@ public class TransportNotificationService {
         for (Job job : jobs) {
             try {
                 Mail mail = transactions.execute(status -> {
-                    var order = orders.findById(job.orderId()).orElseThrow();
+                    var order = orders.findWithItemsById(job.orderId()).orElseThrow();
                     var info = order.getCustomerInfo();
                     if (info == null || info.getEmail() == null || info.getEmail().isBlank()) return null;
                     if ("TICKET".equals(job.kind()) && !List.of(OrderStatus.CONFIRMED, OrderStatus.COMPLETED).contains(order.getStatus())) return null;
@@ -95,13 +95,20 @@ public class TransportNotificationService {
                     return new Mail(job.id(), job.kind(), info.getEmail(), info.getFullName(), order.getId(),
                             order.getOrderNumber(), order.getTotalAmount(), refundAmount,
                             order.getTransportCancellationReason(), frontendUrl.replaceAll("/+$", "") +
-                            "/orders/" + order.getId(), order.getItems().stream().filter(item -> eventItem==null||eventItem.equals(item.getId())).filter(item -> !"TICKET".equals(job.kind()) || java.util.List.of("ACTIVE","COMPLETED").contains(item.getTransportItemState())).map(item -> new Ticket(
+                            "/account/orders/" + order.getId(), order.getItems().stream().filter(item -> eventItem==null||eventItem.equals(item.getId())).filter(item -> !"TICKET".equals(job.kind()) || java.util.List.of("ACTIVE","COMPLETED").contains(item.getTransportItemState())).map(item -> new Ticket(
                                 item.getTransportTicketId(), item.getPassengerName(), item.getTransportSeatCode(),
                                 item.getListingTitle(), item.getTransportDepartureAt()==null?order.getTransportDepartureAt():item.getTransportDepartureAt(),
                                 "TICKET".equals(job.kind()) ? item.getTransportCheckInToken() : null,item.getTotalPrice())).toList());
                 });
                 if (mail == null) {
                     jdbc.update("update transport_notification_outbox set status='SKIPPED',lease_until=null where id=? and status='SENDING' and lease_version=? and lease_until>now()", job.id(), job.leaseVersion());
+                    continue;
+                }
+                // Reserved demo mailboxes cannot receive mail. Keep the result truthful;
+                // never mark these events DELIVERED or mutate non-demo order delivery.
+                if (mail.to().toLowerCase(java.util.Locale.ROOT).matches("gtd_[a-z0-9_]+@example\\.test")) {
+                    jdbc.update("update transport_notification_outbox set status='SKIPPED',lease_until=null,last_error='DEMO_RESERVED_DOMAIN_NO_DELIVERY' where id=? and status='SENDING' and lease_version=? and lease_until>now()",
+                            job.id(), job.leaseVersion());
                     continue;
                 }
                 var result = communication.sendTransportEmail(mail);
@@ -130,7 +137,9 @@ public class TransportNotificationService {
                 "where status in ('FAILED','PENDING','SENDING') order by created_at limit 200");
     }
     public void retry(UUID eventId) {
-        jdbc.update("update transport_notification_outbox set status='PENDING',attempts=0,next_attempt_at=now(),last_error=null " +
+        int updated = jdbc.update("update transport_notification_outbox set status='PENDING',attempts=0,next_attempt_at=now(),last_error=null " +
                 "where id=? and status='FAILED'", eventId);
+        if (updated == 0) throw new org.springframework.web.server.ResponseStatusException(
+                org.springframework.http.HttpStatus.CONFLICT, "Chỉ gửi lại email đang thất bại; hãy tải lại trạng thái mới nhất");
     }
 }

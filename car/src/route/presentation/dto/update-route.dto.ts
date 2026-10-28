@@ -19,8 +19,8 @@ export class UpdateRouteStopDto {
 
   @IsNotEmpty({ message: 'Tên điểm dừng không được để trống.' })
   @IsString({ message: 'Tên điểm dừng phải là chuỗi ký tự.' })
-  @Length(2, 100, {
-    message: 'Tên điểm dừng phải có độ dài từ 2 đến 100 ký tự.',
+  @Length(3, 100, {
+    message: 'Tên điểm dừng phải có độ dài từ 3 đến 100 ký tự.',
   })
   name!: string;
 

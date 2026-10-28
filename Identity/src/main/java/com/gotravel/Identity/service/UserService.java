@@ -110,7 +110,8 @@ public class UserService {
     }
 
     public PageResponse<UserResponse> getAllUsers(int page, int size, String keyword) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(Math.max(0, page), Math.min(100, Math.max(1, size)),
+                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Order.desc("createdAt"), org.springframework.data.domain.Sort.Order.desc("id")));
         String cleanKeyword = keyword == null ? "" : keyword.trim();
         Page<User> userPage = cleanKeyword.isBlank()
                 ? userRepository.findAllByRoles_Name("USER", pageable)
@@ -368,6 +369,7 @@ public class UserService {
             TicketVendorApplicationRequest request,
             MultipartFile frontImage,
             MultipartFile backImage,
+            MultipartFile logoImage,
             boolean updateExisting) {
         User user = findUserById(userId);
         TicketVendorProfile profile = user.getTicketVendorProfile();
@@ -386,6 +388,9 @@ public class UserService {
             user.setTicketVendorProfile(profile);
         }
 
+        boolean hasLogo = logoImage != null && !logoImage.isEmpty();
+        if (!hasLogo && (profile.getLogoUrl() == null || profile.getLogoUrl().isBlank())) throw new AppException(UserErrorCode.TICKET_VENDOR_LOGO_REQUIRED);
+        if (hasLogo) validateOperatorLogo(logoImage);
         profile.setCompanyName(request.getCompanyName().trim());
         profile.setCompanyAddress(request.getCompanyAddress().trim());
         profile.setRepresentativeName(request.getRepresentativeName().trim());
@@ -407,6 +412,7 @@ public class UserService {
             throw new AppException(UserErrorCode.TICKET_VENDOR_DOCUMENTS_REQUIRED);
         }
 
+        if (hasLogo) profile.setLogoUrl(uploadOperatorLogo(userId, logoImage));
         profile.setApprovalStatus(Approval_status.PENDING);
         profile.setRejectionReason(null);
         user.getRoles().removeIf(role -> "TICKET_VENDOR".equals(role.getName()));
@@ -423,19 +429,30 @@ public class UserService {
     }
 
     public PageResponse<UserResponse> getTicketVendorApplications(int page, int size, String status) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<TicketVendorProfile> profiles;
-        if (status == null || status.isBlank() || "ALL".equalsIgnoreCase(status)) {
-            profiles = ticketVendorProfileRepository.findAll(pageable);
-        } else {
-            Approval_status approvalStatus;
-            try {
-                approvalStatus = Approval_status.valueOf(status.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                throw new AppException(UserErrorCode.INVALID_APPROVAL_STATUS);
-            }
-            profiles = ticketVendorProfileRepository.findAllByApprovalStatus(approvalStatus, pageable);
-        }
+        return getTicketVendorApplications(page, size, status, null);
+    }
+
+    public PageResponse<UserResponse> getTicketVendorApplications(int page, int size, String status, String keyword) {
+        Pageable pageable = PageRequest.of(Math.max(0, page), Math.min(100, Math.max(1, size)),
+                org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Order.desc("createdAt"), org.springframework.data.domain.Sort.Order.desc("userId")));
+        Approval_status selectedStatus;
+        try { selectedStatus = status == null || status.isBlank() || "ALL".equalsIgnoreCase(status) ? null : Approval_status.valueOf(status.toUpperCase(java.util.Locale.ROOT)); }
+        catch (IllegalArgumentException invalid) { throw new AppException(UserErrorCode.INVALID_APPROVAL_STATUS); }
+        String term = keyword == null ? "" : keyword.trim().toLowerCase(java.util.Locale.ROOT);
+        if (term.length() > 120) throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Từ khóa quá dài");
+        String pattern = "%" + term.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
+        org.springframework.data.jpa.domain.Specification<TicketVendorProfile> filter = (root, query, builder) -> {
+            var conditions = new java.util.ArrayList<jakarta.persistence.criteria.Predicate>();
+            if (selectedStatus != null) conditions.add(builder.equal(root.get("approvalStatus"), selectedStatus));
+            if (!term.isBlank()) conditions.add(builder.or(
+                    builder.like(builder.lower(root.get("companyName")), pattern, '!'),
+                    builder.like(builder.lower(root.get("companyAddress")), pattern, '!'),
+                    builder.like(builder.lower(root.get("contactPhone")), pattern, '!'),
+                    builder.like(builder.lower(root.get("representativeName")), pattern, '!'),
+                    builder.like(builder.lower(root.get("userId")), pattern, '!')));
+            return builder.and(conditions.toArray(jakarta.persistence.criteria.Predicate[]::new));
+        };
+        Page<TicketVendorProfile> profiles = ticketVendorProfileRepository.findAll(filter, pageable);
         return PageResponse.<UserResponse>builder()
                 .content(profiles.getContent().stream().map(profile -> userMapper.userToUserResponse(profile.getUser())).toList())
                 .totalPages(profiles.getTotalPages())
@@ -464,6 +481,7 @@ public class UserService {
 
         profile.setApprovalStatus(Approval_status.valueOf(status));
         if (profile.getApprovalStatus() == Approval_status.APPROVED) {
+            if (profile.getLogoUrl() == null || profile.getLogoUrl().isBlank()) throw new AppException(UserErrorCode.TICKET_VENDOR_LOGO_REQUIRED);
             // Provision trước khi ghi APPROVED. Endpoint GoCar là upsert nên admin có
             // thể retry an toàn nếu mạng lỗi mà không tạo trùng nhà xe.
             goCarOperatorClient.provision(user.getId(), profile);
@@ -1096,6 +1114,37 @@ public class UserService {
         } catch (Exception e) {
             throw new AppException(UserErrorCode.UPLOAD_IMAGE_FAILED);
         }
+    }
+
+    private void validateOperatorLogo(MultipartFile file) {
+        if (file == null || file.isEmpty() || file.getSize() > 5L * 1024 * 1024) throw new AppException(UserErrorCode.TICKET_VENDOR_LOGO_INVALID);
+        String mime = file.getContentType() == null ? "" : file.getContentType().toLowerCase(java.util.Locale.ROOT);
+        try {
+            byte[] b = file.getBytes();
+            boolean jpeg = b.length >= 3 && (b[0]&255)==255 && (b[1]&255)==216 && (b[2]&255)==255;
+            boolean png = b.length >= 8 && (b[0]&255)==137 && b[1]==80 && b[2]==78 && b[3]==71 && b[4]==13 && b[5]==10 && b[6]==26 && b[7]==10;
+            boolean webp = b.length >= 12 && b[0]==82 && b[1]==73 && b[2]==70 && b[3]==70 && b[8]==87 && b[9]==69 && b[10]==66 && b[11]==80;
+            if (!(jpeg && java.util.List.of("image/jpeg","image/jpg").contains(mime) || png && "image/png".equals(mime) || webp && "image/webp".equals(mime))) throw new AppException(UserErrorCode.TICKET_VENDOR_LOGO_INVALID);
+        } catch (java.io.IOException e) { throw new AppException(UserErrorCode.TICKET_VENDOR_LOGO_INVALID); }
+    }
+
+    private String uploadOperatorLogo(String userId, MultipartFile file) {
+        if (mediaServiceToken == null || mediaServiceToken.isBlank()) throw new AppException(UserErrorCode.UPLOAD_IMAGE_FAILED);
+        try {
+            HttpHeaders headers = new HttpHeaders(); headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+            headers.set("x-internal-service-token", mediaServiceToken);
+            MultiValueMap<String,Object> body = new LinkedMultiValueMap<>();
+            body.add("file", toFilePart(file,"operator-logo.png"));
+            body.add("folder", "transport/" + userId + "/operator-logos");
+            var requestFactory = new org.springframework.http.client.SimpleClientHttpRequestFactory();
+            requestFactory.setConnectTimeout(5000); requestFactory.setReadTimeout(30000);
+            var response = new RestTemplate(requestFactory).postForEntity(mediaServiceUrl,new HttpEntity<>(body,headers),Map.class);
+            Map<?,?> data = response.getBody() == null ? null : (Map<?,?>)response.getBody().get("data");
+            String url = data == null ? null : (String)data.get("url");
+            if (!response.getStatusCode().is2xxSuccessful() || url == null || !url.startsWith("https://res.cloudinary.com/")) throw new AppException(UserErrorCode.UPLOAD_IMAGE_FAILED);
+            return url;
+        } catch (AppException e) { throw e; }
+        catch (Exception e) { throw new AppException(UserErrorCode.UPLOAD_IMAGE_FAILED); }
     }
 
     private List<String> uploadSecureDocuments(String userId, MultipartFile frontImage, MultipartFile backImage) {

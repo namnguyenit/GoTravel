@@ -27,6 +27,10 @@ public interface CashLedger {
 
     Shift open(UUID actorId, UUID operatorId, String commissionVersion, BigDecimal commissionRate);
     Shift active(UUID actorId);
+    /** Must run inside the order/proof transaction. No cashier opens or counts this batch. */
+    Shift prepareAutomatic(UUID actorId, UUID operatorId, String commissionVersion, BigDecimal commissionRate);
+    List<UUID> automaticBatchesToClose(int limit);
+    boolean closeAutomatic(UUID shiftId);
     Receipt record(UUID orderId, UUID shiftId, UUID actorId, UUID operatorId, BigDecimal amount);
     Receipt findReceipt(UUID orderId);
     ClosedShift close(UUID actorId, BigDecimal countedAmount);

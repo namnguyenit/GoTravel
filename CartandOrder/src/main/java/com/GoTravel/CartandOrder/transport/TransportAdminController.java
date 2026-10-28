@@ -27,6 +27,37 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @PreAuthorize("hasRole('ADMIN')")
 public class TransportAdminController {
+    private final TransportAdminQueryService queries;
+    private final com.GoTravel.CartandOrder.service.OrderDisputeService disputes;
+
+    @GetMapping("/orders")
+    public ResponseEntity<ApiResponse<Page<OrderResponse>>> orders(
+            @RequestParam(defaultValue = "ATTENTION") String view,
+            @RequestParam(required = false) String search, Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success(queries.list(view, search, pageable)));
+    }
+    @GetMapping("/summary")
+    public ResponseEntity<ApiResponse<java.util.Map<String,Long>>> orderSummary() {
+        return ResponseEntity.ok(ApiResponse.success(queries.summary()));
+    }
+    @GetMapping("/disputes")
+    public ResponseEntity<ApiResponse<Page<com.GoTravel.CartandOrder.dto.response.OrderDisputeResponse>>> disputes(
+            @RequestParam(required = false) com.GoTravel.CartandOrder.enums.DisputeStatus status,
+            @RequestParam(required = false) String search,
+            @RequestParam(defaultValue = "true") boolean active, Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success(disputes.getAdminDisputes(status, pageable,
+                com.GoTravel.CartandOrder.enums.OrderKind.GOCAR_TICKET, active, search)));
+    }
+    @PutMapping("/disputes/{id}/resolve")
+    public ResponseEntity<ApiResponse<com.GoTravel.CartandOrder.dto.response.OrderDisputeResponse>> resolveDispute(
+            @AuthenticationPrincipal Jwt jwt, @PathVariable UUID id,
+            @RequestBody @Valid com.GoTravel.CartandOrder.dto.request.ResolveOrderDisputeRequest request) {
+        if (jwt == null) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+        UUID actor;
+        try { actor = UUID.fromString(jwt.getSubject()); }
+        catch (IllegalArgumentException invalid) { throw new ResponseStatusException(HttpStatus.UNAUTHORIZED); }
+        return ResponseEntity.ok(ApiResponse.success(disputes.resolveTransportDispute(actor, id, request)));
+    }
     private final TransportOrderService service;
     private final TransportNotificationService notifications;
     private final TransportOperationsReportService reports;

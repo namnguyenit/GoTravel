@@ -46,6 +46,14 @@ public class HostPayoutService {
     private final PaymentTransactionRepository paymentTransactionRepository;
     private final PaymentMapper paymentMapper;
     private final com.gotravel.PaymentandWallet.transport.application.TransportSettlementService transportSettlement;
+    private final org.springframework.jdbc.core.JdbcTemplate jdbc;
+
+    private HostPayout lockTransportPayout(UUID id) {
+        var candidate=hostPayoutRepository.findById(id).orElseThrow(()->new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
+        if(!"TRANSPORT".equals(candidate.getProviderType()))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT,"Khoản chi không thuộc GoTicket.");
+        jdbc.query("select pg_advisory_xact_lock(hashtextextended(?,0))",rs->null,candidate.getOrderId().toString());
+        return hostPayoutRepository.findByIdForUpdate(id).orElseThrow();
+    }
     private static final String DEFAULT_COMMISSION_CONFIG_ID = "DEFAULT";
     private static final BigDecimal DEFAULT_COMMISSION_RATE = new BigDecimal("0.05");
 
@@ -62,6 +70,28 @@ public class HostPayoutService {
     public Page<HostPayoutResponse> getAllPayouts(Pageable pageable) {
         return hostPayoutRepository.findAllByOrderByCreatedAtDesc(pageable)
                 .map(paymentMapper::toHostPayoutResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<HostPayoutResponse> getAllPayouts(Pageable pageable, String providerType) {
+        if (providerType == null || providerType.isBlank()) return getAllPayouts(pageable);
+        String type = providerType.trim().toUpperCase(java.util.Locale.ROOT);
+        if (!java.util.List.of("HOST", "TRANSPORT").contains(type))
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Loại nhà cung cấp không hợp lệ");
+        var bounded = org.springframework.data.domain.PageRequest.of(Math.max(0, pageable.getPageNumber()), Math.min(100, Math.max(1, pageable.getPageSize())));
+        return hostPayoutRepository.findByProviderTypeOrderByCreatedAtDesc(type, bounded).map(paymentMapper::toHostPayoutResponse);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<HostPayoutResponse> getFilteredPayouts(Pageable pageable, String providerType, String status, UUID hostId) {
+        String type=providerType==null||providerType.isBlank()?null:providerType.trim().toUpperCase(java.util.Locale.ROOT);
+        if(type!=null&&!List.of("HOST","TRANSPORT").contains(type))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST,"Loại nhà cung cấp không hợp lệ");
+        if(type==null&&(status==null||status.isBlank())&&hostId==null)return getAllPayouts(pageable);
+        PayoutStatus selected=null;
+        if(status!=null&&!status.isBlank())try{selected=PayoutStatus.valueOf(status.trim().toUpperCase(java.util.Locale.ROOT));}
+        catch(IllegalArgumentException invalid){throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST,"Trạng thái quyết toán không hợp lệ");}
+        var bounded=org.springframework.data.domain.PageRequest.of(Math.max(0,pageable.getPageNumber()),Math.min(100,Math.max(1,pageable.getPageSize())),org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC,"createdAt").and(org.springframework.data.domain.Sort.by("id")));
+        return hostPayoutRepository.findFiltered(type,selected,hostId,bounded).map(paymentMapper::toHostPayoutResponse);
     }
 
     @Transactional(readOnly = true)
@@ -178,16 +208,27 @@ public class HostPayoutService {
 
     @Transactional
     public HostPayoutResponse requestTransportWithdrawal(UUID payoutId,UUID ownerId) {
-        var payout=hostPayoutRepository.findByIdForUpdate(payoutId).orElseThrow(()->new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
+        var payout=lockTransportPayout(payoutId);
         if(!ownerId.equals(payout.getHostId()) || !"TRANSPORT".equals(payout.getProviderType()) || !List.of(PayoutStatus.PENDING,PayoutStatus.REQUESTED).contains(payout.getStatus()))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT);
         applyNet(payout);payout.setStatus(PayoutStatus.REQUESTED);
         return paymentMapper.toHostPayoutResponse(hostPayoutRepository.save(payout));
     }
 
     @Transactional
+    public HostPayoutResponse prepareTransportPayout(UUID payoutId) {
+        var payout = lockTransportPayout(payoutId);
+        if (!"TRANSPORT".equals(payout.getProviderType()) || payout.getStatus() != PayoutStatus.REQUESTED)
+            throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT,
+                    "Chỉ đối chiếu khoản chi nhà xe đã yêu cầu rút");
+        applyNet(payout);
+        return paymentMapper.toHostPayoutResponse(hostPayoutRepository.save(payout));
+    }
+
+    @Transactional
     public void markTransportPaid(UUID payoutId,UUID actorId,BigDecimal amount,String reference,String evidence) {
-        HostPayout payout=hostPayoutRepository.findByIdForUpdate(payoutId).orElseThrow(()->new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
+        HostPayout payout=lockTransportPayout(payoutId);
         if(!"TRANSPORT".equals(payout.getProviderType()) || payout.getStatus()==PayoutStatus.CANCELLED)throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT);
+        if(!List.of(PayoutStatus.REQUESTED,PayoutStatus.PAID).contains(payout.getStatus()))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT,"Nhà xe cần gửi yêu cầu rút trước khi ghi nhận chi trả.");
         if(payout.getStatus()!=PayoutStatus.PAID)applyNet(payout);
         transportSettlement.proof(payout,actorId,amount,reference,evidence);
         if(payout.getStatus()!=PayoutStatus.PAID){payout.setStatus(PayoutStatus.PAID);payout.setPaidAt(LocalDateTime.now());hostPayoutRepository.save(payout);}

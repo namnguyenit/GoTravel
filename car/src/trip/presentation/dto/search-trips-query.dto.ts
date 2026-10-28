@@ -1,5 +1,8 @@
 import {
   IsEnum,
+  IsBoolean,
+  MaxLength,
+  IsIn,
   IsArray,
   ArrayMaxSize,
   IsInt,
@@ -12,24 +15,50 @@ import {
   Min,
   Max,
 } from 'class-validator';
-import { Type } from 'class-transformer';
+import { Type, Transform } from 'class-transformer';
 
 export class SearchTripsQueryDto {
-  @IsNotEmpty({ message: 'Điểm khởi hành (origin) không được để trống.' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  originRegion?: string;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  destinationRegion?: string;
+
+  @IsOptional()
+  @MaxLength(120)
   @IsString({ message: 'Điểm khởi hành phải là chuỗi ký tự.' })
-  origin: string;
+  origin?: string;
 
-  @IsNotEmpty({ message: 'Điểm đến (destination) không được để trống.' })
+  @IsOptional()
+  @MaxLength(120)
   @IsString({ message: 'Điểm đến phải là chuỗi ký tự.' })
-  destination: string;
+  destination?: string;
 
-  @IsNotEmpty({
-    message: 'Ngày khởi hành (departureDate) không được để trống.',
-  })
+  @IsOptional()
   @Matches(/^\d{4}-\d{2}-\d{2}$/, {
     message: 'Ngày khởi hành (departureDate) phải có định dạng YYYY-MM-DD.',
   })
-  departureDate: string;
+  departureDate?: string;
+
+  @IsOptional()
+  @Transform(({ value }) =>
+    value === 'true' ? true : value === 'false' ? false : value,
+  )
+  @IsBoolean()
+  discover?: boolean;
+
+  @IsOptional()
+  @IsString()
+  @MaxLength(120)
+  preferredOrigin?: string;
+
+  @IsOptional()
+  @IsIn(['EARLY_MORNING', 'MORNING', 'AFTERNOON', 'EVENING'])
+  timeRange?: string;
 
   @IsOptional()
   @IsEnum(['morning', 'afternoon', 'evening'])

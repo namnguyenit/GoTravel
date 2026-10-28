@@ -37,6 +37,8 @@ public class CancellationPolicy {
     }
 
     public Quote quote(Order order) { return quoteAmount(order,order.getTransportDepartureAt(),order.getTotalAmount()); }
+    public record Details(String version, int fullRefundMinutes, int refundCutoffMinutes, BigDecimal partialFeeRate) {}
+    public Details current() { return new Details(version, Math.multiplyExact(fullRefundHours, 60), Math.multiplyExact(partialRefundHours, 60), partialFeeRate); }
     public Quote quoteAmount(Order order,LocalDateTime departureAt,BigDecimal amount) {
         if (departureAt == null || order.getTransportFullRefundHours() == null ||
                 order.getTransportPartialRefundHours() == null || order.getTransportPartialFeeRate() == null) {
@@ -46,7 +48,7 @@ public class CancellationPolicy {
                 departureAt).toMinutes();
         if (minutes < (long) order.getTransportPartialRefundHours() * 60) {
             throw new ResponseStatusException(HttpStatus.CONFLICT,
-                    "Gần giờ khởi hành; chuyển bộ phận hỗ trợ xử lý hủy");
+                    "Không thể tự hủy/đổi và hoàn tiền khi còn dưới " + ((long) order.getTransportPartialRefundHours() * 60) + " phút trước khởi hành. Vui lòng liên hệ bộ phận hỗ trợ.");
         }
         BigDecimal fee = minutes >= (long) order.getTransportFullRefundHours() * 60
                 ? BigDecimal.ZERO

@@ -135,9 +135,10 @@ public class CatalogAdminController {
     public ResponseEntity<ApiResponse<PaginationResponse<com.Listing.CatalogandListing.dto.response.ListingDetailResponse>>> getListings(
             @RequestParam(required = false) String status,
             @RequestParam(required = false) String keyword,
+            @RequestParam(required = false) com.Listing.CatalogandListing.enums.ListingCategory category,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
-        PaginationResponse<com.Listing.CatalogandListing.dto.response.ListingDetailResponse> response = listingService.getAllListings(status, page, size, keyword);
+        PaginationResponse<com.Listing.CatalogandListing.dto.response.ListingDetailResponse> response = listingService.getAllListings(status, page, size, keyword, category);
         return ResponseEntity.ok(ApiResponse.success("Lấy danh sách dịch vụ thành công.", response));
     }
 

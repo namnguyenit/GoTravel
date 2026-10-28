@@ -42,12 +42,7 @@ export class PrismaSetTripStopsManagement implements ISetTripStopsUseCase {
       if (!trip) throw new NotFoundException('Không tìm thấy chuyến');
 
       // Verify ownership or staff permission
-      if (operatorId) {
-        if (trip.operatorId !== operatorId)
-          throw new ForbiddenException(
-            'Không có quyền thao tác trên chuyến này',
-          );
-      } else {
+      if (trip.operatorId !== operatorId) {
         const staff = await (tx as any).operatorStaff.findFirst({
           where: { operatorId: trip.operatorId, userId, active: true },
         });

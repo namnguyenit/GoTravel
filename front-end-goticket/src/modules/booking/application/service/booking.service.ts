@@ -41,13 +41,24 @@ export class BookingService implements IBookingService {
     return OrderEntity.fromApiResponse(rawOrder);
   }
 
-  async getUserOrders(page = 1, limit = 10): Promise<UserOrdersResult> {
+  async getTicketTrip(orderId: string, itemId: string): Promise<import('@/modules/trip/application/port/trip.service.interface').TripPublicDetail> {
+    return this.http.get(`/api/v1/orders/transport/${orderId}/items/${itemId}/trip`);
+  }
+
+  async getUserOrders(page = 1, limit = 10, tab: 'ALL' | 'CONFIRMED' | 'PENDING' | 'CANCELLED' = 'ALL', search = ''): Promise<UserOrdersResult> {
     const zeroBasedPage = Math.max(0, page - 1);
     const response = await this.http.get<any>('/api/v1/orders', {
       params: {
         page: zeroBasedPage,
         size: limit,
         orderKind: 'GOCAR_TICKET',
+        search: search.trim(),
+        statuses: {
+          ALL: undefined,
+          CONFIRMED: 'CONFIRMED,COMPLETED',
+          PENDING: 'PENDING,PAYMENT_PENDING,CASH_PENDING,FULFILLMENT_PENDING,PAID_REVIEW,CASH_RECEIVED_PENDING_RECONCILIATION',
+          CANCELLED: 'CANCELLED,CANCELLATION_PENDING,REFUND_PENDING,REFUNDED',
+        }[tab],
       },
     });
 
@@ -77,7 +88,7 @@ export class BookingService implements IBookingService {
     };
   }
 
-  async getVendorOrders(page = 1, limit = 10, filters?: { status?: string; tripId?: string; search?: string }): Promise<UserOrdersResult> {
+  async getVendorOrders(page = 1, limit = 10, filters?: { status?: string; tripId?: string; search?: string; operatorId?: string }): Promise<UserOrdersResult> {
     const zeroBasedPage = Math.max(0, page - 1);
     const params: Record<string, any> = {
       page: zeroBasedPage,
@@ -85,6 +96,7 @@ export class BookingService implements IBookingService {
     };
     if (filters?.status) params.status = filters.status;
     if (filters?.tripId) params.tripId = filters.tripId;
+    if (filters?.operatorId) params.operatorId = filters.operatorId;
     if (filters?.search?.trim()) params.search = filters.search.trim();
 
     const response = await this.http.get<any>('/api/v1/orders/transport/vendor', { params });
@@ -113,9 +125,9 @@ export class BookingService implements IBookingService {
     return this.getVendorOrders(page, limit);
   }
 
-  async getVendorOrderDetail(orderId: string): Promise<OrderEntity> {
+  async getVendorOrderDetail(orderId: string, operatorId?: string): Promise<OrderEntity> {
     if (!orderId?.trim()) throw new Error('Mã đơn hàng không hợp lệ');
-    const response = await this.http.get<any>(`/api/v1/orders/transport/vendor/${orderId.trim()}`);
+    const response = await this.http.get<any>(`/api/v1/orders/transport/vendor/${orderId.trim()}`, { params: { operatorId } });
     const data = response?.data || response;
     return OrderEntity.fromApiResponse(data);
   }
@@ -204,13 +216,13 @@ export class BookingService implements IBookingService {
     };
   }
 
-  async cancelItem(orderId: string, itemId: string, operationId?: string, _reason?: string): Promise<any> {
+  async cancelItem(orderId: string, itemId: string, operationId?: string, reason?: import('../../domain/refund-reasons').CancellationReason): Promise<any> {
     if (!orderId?.trim() || !itemId?.trim()) throw new Error('Thông tin vé không hợp lệ.');
     const opId = operationId || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : undefined);
     if (!opId) throw new Error('Không thể tạo operationId cho thao tác hủy vé.');
     return this.http.post<any>(
       `/api/v1/orders/transport/${orderId.trim()}/items/${itemId.trim()}/cancel`,
-      { operationId: opId }
+      { operationId: opId, reasonCode: reason?.code, reasonText: reason?.text?.trim() || undefined }
     );
   }
 

@@ -18,7 +18,10 @@ import {
 import { TripTimeVO } from "../../domain/value-object/trip-time.vo";
 import { TripPriceVO } from "../../domain/value-object/trip-price.vo";
 import { TripSearchQueryVO } from "../../domain/value-object/trip-search-query.vo";
-import { httpClient, type IHttpClient } from "@/shared/infrastructure/http/HttpPort";
+import {
+  httpClient,
+  type IHttpClient,
+} from "@/shared/infrastructure/http/HttpPort";
 import { routeService } from "@/modules/route/composition";
 
 export class TripService implements ITripService {
@@ -37,19 +40,24 @@ export class TripService implements ITripService {
     if (params?.status?.trim()) queryParams.status = params.status.trim();
     if (params?.routeId?.trim()) queryParams.routeId = params.routeId.trim();
     if (params?.carId?.trim()) queryParams.carId = params.carId.trim();
-    if (params?.departureDate?.trim()) queryParams.departureDate = params.departureDate.trim();
+    if (params?.departureDate?.trim())
+      queryParams.departureDate = params.departureDate.trim();
     if (params?.sortBy) queryParams.sortBy = params.sortBy;
     if (params?.sortOrder) queryParams.sortOrder = params.sortOrder;
 
-    const responseData = await this.http.get<any>('/api/v1/trips', { params: queryParams });
+    const responseData = await this.http.get<any>("/api/v1/trips", {
+      params: queryParams,
+    });
 
     const rawList = Array.isArray(responseData?.data)
       ? responseData.data
       : Array.isArray(responseData)
-      ? responseData
-      : [];
+        ? responseData
+        : [];
 
-    const tripEntities = rawList.map((item: any) => TripEntity.fromApiResponse(item));
+    const tripEntities = rawList.map((item: any) =>
+      TripEntity.fromApiResponse(item)
+    );
 
     const rawKpi = responseData?.kpi || {};
     const kpi = {
@@ -64,7 +72,9 @@ export class TripService implements ITripService {
     const pagination = {
       page: Number(rawPagination.page) || params?.page || 1,
       limit: Number(rawPagination.limit) || params?.limit || 10,
-      total: Number(rawPagination.total ?? rawPagination.totalItems) || tripEntities.length,
+      total:
+        Number(rawPagination.total ?? rawPagination.totalItems) ||
+        tripEntities.length,
       totalPages: Number(rawPagination.totalPages) || 1,
     };
 
@@ -79,12 +89,15 @@ export class TripService implements ITripService {
     if (!dto.routeId?.trim()) throw new Error("Vui lòng chọn tuyến đường.");
     if (!dto.carId?.trim()) throw new Error("Vui lòng chọn xe khách vận hành.");
 
-    const timeValidation = TripTimeVO.validate(dto.departureTime, dto.arrivalTime);
+    const timeValidation = TripTimeVO.validate(
+      dto.departureTime,
+      dto.arrivalTime
+    );
     if (!timeValidation.isValid) {
       throw new Error(
         timeValidation.departureError ||
-        timeValidation.arrivalError ||
-        "Khung giờ vận hành không hợp lệ."
+          timeValidation.arrivalError ||
+          "Khung giờ vận hành không hợp lệ."
       );
     }
 
@@ -101,81 +114,87 @@ export class TripService implements ITripService {
       pricePerSeat: Math.round(Number(dto.pricePerSeat)),
     };
 
-    const createdData = await this.http.post<any>('/api/v1/trips', payload);
+    const createdData = await this.http.post<any>("/api/v1/trips", payload);
     return TripEntity.fromApiResponse(createdData);
   }
 
-  async updateTripStatus(tripId: string, status: TripStatus): Promise<TripEntity> {
+  async updateTripStatus(
+    tripId: string,
+    status: TripStatus
+  ): Promise<TripEntity> {
     if (!tripId?.trim()) throw new Error("Mã chuyến xe không hợp lệ.");
-    if (!TripStatusVO.isValid(status)) throw new Error("Trạng thái chuyến xe không hợp lệ.");
+    if (!TripStatusVO.isValid(status))
+      throw new Error("Trạng thái chuyến xe không hợp lệ.");
 
-    const updatedData = await this.http.patch<any>(`/api/v1/trips/${tripId.trim()}/status`, { status });
+    const updatedData = await this.http.patch<any>(
+      `/api/v1/trips/${tripId.trim()}/status`,
+      { status }
+    );
     return TripEntity.fromApiResponse(updatedData);
   }
 
   async searchTrips(params: SearchTripsParams): Promise<SearchTripsResult> {
     const validation = TripSearchQueryVO.validate(params);
-    if (!validation.isValid) {
+    if (!params.discover && !validation.isValid) {
       const firstError = Object.values(validation.errors)[0];
       throw new Error(firstError || "Tiêu chí tìm kiếm không hợp lệ.");
     }
 
     const queryParams: Record<string, string | number | undefined> = {
-      origin: params.origin.trim(),
-      destination: params.destination.trim(),
-      departureDate: params.departureDate.trim(),
+      origin: params.origin.trim() || undefined,
+      destination: params.destination.trim() || undefined,
+      departureDate: params.departureDate.trim() || undefined,
+      discover: params.discover ? "true" : undefined,
+      preferredOrigin: params.discover ? params.preferredOrigin : undefined,
     };
 
     if (params.type?.trim()) queryParams.type = params.type.trim();
-    if (params.minPrice !== undefined && params.minPrice !== null) queryParams.minPrice = params.minPrice;
-    if (params.maxPrice !== undefined && params.maxPrice !== null) queryParams.maxPrice = params.maxPrice;
-    if (params.operatorId?.trim()) queryParams.operatorId = params.operatorId.trim();
+    if (params.minPrice !== undefined && params.minPrice !== null)
+      queryParams.minPrice = params.minPrice;
+    if (params.maxPrice !== undefined && params.maxPrice !== null)
+      queryParams.maxPrice = params.maxPrice;
+    if (params.operatorId?.trim())
+      queryParams.operatorId = params.operatorId.trim();
     if (params.sortBy) queryParams.sortBy = params.sortBy;
     if (params.sortOrder) queryParams.sortOrder = params.sortOrder;
     if (params.page) queryParams.page = params.page;
     if (params.limit) queryParams.limit = params.limit;
+    const timeSlots: Record<string, string> = {
+      EARLY_MORNING: "00:00-06:00",
+      MORNING: "06:00-12:00",
+      AFTERNOON: "12:00-18:00",
+      EVENING: "18:00-00:00",
+    };
+    if (params.timeRange && timeSlots[params.timeRange]) {
+      queryParams.timeRange = params.timeRange;
+    }
 
-    const responseData = await this.http.get<any>('/api/v1/trips/search', { params: queryParams });
+    const responseData = await this.http.get<any>("/api/v1/trips/search", {
+      params: queryParams,
+    });
 
     const rawList = Array.isArray(responseData?.data)
       ? responseData.data
       : Array.isArray(responseData)
-      ? responseData
-      : [];
+        ? responseData
+        : [];
 
-    let customerTrips = rawList.map((item: any) => CustomerTripEntity.fromApiResponse(item));
-
-    if (params.timeRange) {
-      customerTrips = customerTrips.filter((trip: CustomerTripEntity) => {
-        try {
-          const hour = new Date(trip.departureTime).getHours();
-          switch (params.timeRange) {
-            case "EARLY_MORNING":
-              return hour >= 0 && hour < 6;
-            case "MORNING":
-              return hour >= 6 && hour < 12;
-            case "AFTERNOON":
-              return hour >= 12 && hour < 18;
-            case "EVENING":
-              return hour >= 18 && hour < 24;
-            default:
-              return true;
-          }
-        } catch {
-          return true;
-        }
-      });
-    }
+    let customerTrips = rawList.map((item: any) =>
+      CustomerTripEntity.fromApiResponse(item)
+    );
 
     const rawPagination = responseData?.pagination || {};
     const pagination = {
       page: Number(rawPagination.page) || params.page || 1,
       limit: Number(rawPagination.limit) || params.limit || 10,
-      total: Number(rawPagination.total ?? rawPagination.totalItems) || customerTrips.length,
+      total:
+        Number(rawPagination.total ?? rawPagination.totalItems) ||
+        customerTrips.length,
       totalPages: Number(rawPagination.totalPages) || 1,
     };
 
     return {
+      discovery: responseData?.discovery,
       data: customerTrips,
       pagination,
     };
@@ -192,25 +211,31 @@ export class TripService implements ITripService {
 
   async getTripSeats(tripId: string): Promise<SeatEntity[]> {
     if (!tripId?.trim()) throw new Error("Mã chuyến xe không hợp lệ.");
-    const rawSeats = await this.http.get<any[]>(`/api/v1/trips/${tripId.trim()}/seats`);
+    const rawSeats = await this.http.get<any[]>(
+      `/api/v1/trips/${tripId.trim()}/seats`
+    );
     if (!Array.isArray(rawSeats)) return [];
     return rawSeats.map((item) => SeatEntity.fromApiResponse(item));
   }
 
   async getTripStops(tripId: string): Promise<TripStopItem[]> {
     if (!tripId?.trim()) throw new Error("Mã chuyến xe không hợp lệ.");
-    const rawStops = await this.http.get<TripStopItem[]>(`/api/v1/trips/${tripId.trim()}/stops`);
+    const rawStops = await this.http.get<TripStopItem[]>(
+      `/api/v1/trips/${tripId.trim()}/stops`
+    );
     if (!Array.isArray(rawStops)) return [];
     return rawStops;
   }
 
-  async getAssignedStaffTrips(): Promise<TripEntity[]> {
-    const responseData = await this.http.get<any>('/api/v1/staff/me/trips');
+  async getAssignedStaffTrips(operatorId?: string): Promise<TripEntity[]> {
+    const responseData = await this.http.get<any>("/api/v1/staff/me/trips");
     const rawList = Array.isArray(responseData?.data)
       ? responseData.data
       : Array.isArray(responseData)
-      ? responseData
-      : [];
-    return rawList.map((item: any) => TripEntity.fromApiResponse(item));
+        ? responseData
+        : [];
+    return rawList
+      .filter((item: any) => !operatorId || item.operatorId === operatorId)
+      .map((item: any) => TripEntity.fromApiResponse(item));
   }
 }

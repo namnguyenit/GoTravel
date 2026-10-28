@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { adminOperatorService } from "../../composition";
 import type { OperatorApplicationEntity } from "../../domain/entity/operator-application.entity";
 import {
@@ -11,6 +11,7 @@ import {
   ConfirmDialog,
   EmptyState,
   LoadingState,
+  Pagination,
 } from "@/shared/presentation/components";
 import {
   Building2,
@@ -35,7 +36,9 @@ import { AdminApplicationDetailModal } from "../components/AdminApplicationDetai
 type FilterStatus = "ALL" | "PENDING" | "APPROVED" | "REJECTED";
 
 export const AdminOperatorApplicationsPage: React.FC = () => {
-  const [applications, setApplications] = useState<OperatorApplicationEntity[]>([]);
+  const [applications, setApplications] = useState<OperatorApplicationEntity[]>(
+    []
+  );
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{
@@ -43,9 +46,30 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
     message: string;
   } | null>(null);
 
+  const [listPage, setListPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    totalPages: 0,
+    totalElements: 0,
+  });
+  const [counts, setCounts] = useState({
+    total: 0,
+    pending: 0,
+    approved: 0,
+    rejected: 0,
+  });
+  const request = useRef(0);
+  const mutation = useRef(false);
   // Filters
   const [selectedStatus, setSelectedStatus] = useState<FilterStatus>("PENDING");
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const [keyword, setKeyword] = useState("");
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setKeyword(searchTerm.trim());
+      setListPage(1);
+    }, 300);
+    return () => window.clearTimeout(timer);
+  }, [searchTerm]);
 
   // Modals state
   const [selectedUserModal, setSelectedUserModal] = useState<{
@@ -65,56 +89,59 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
   const [processing, setProcessing] = useState<boolean>(false);
 
   const fetchApplications = async () => {
+    const current = ++request.current;
     setLoading(true);
     setError(null);
     try {
-      const data = await adminOperatorService.getOperatorApplications();
-      setApplications(data);
-    } catch (err: unknown) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Không thể tải danh sách đơn đăng ký nhà xe."
+      const data = await adminOperatorService.getOperatorApplications(
+        selectedStatus,
+        listPage,
+        keyword
       );
+      if (current !== request.current) return;
+      if (data.totalPages > 0 && listPage > data.totalPages) {
+        setListPage(data.totalPages);
+        return;
+      }
+      setApplications(data.data);
+      setPagination(data);
+      setCounts({
+        total: data.counts.ALL,
+        pending: data.counts.PENDING,
+        approved: data.counts.APPROVED,
+        rejected: data.counts.REJECTED,
+      });
+    } catch (err: unknown) {
+      if (current === request.current)
+        setError(
+          err instanceof Error
+            ? err.message
+            : "Không thể tải danh sách đơn đăng ký nhà xe."
+        );
     } finally {
-      setLoading(false);
+      if (current === request.current) setLoading(false);
     }
   };
 
   useEffect(() => {
     void fetchApplications();
-  }, []);
+    return () => {
+      request.current++;
+    };
+  }, [selectedStatus, listPage, keyword]);
 
   // Filtered and searched data
-  const filteredApplications = useMemo(() => {
-    return applications.filter((app) => {
-      const matchesStatus =
-        selectedStatus === "ALL" ? true : app.status === selectedStatus;
-
-      const term = searchTerm.trim().toLowerCase();
-      const matchesSearch =
-        !term ||
-        app.name.toLowerCase().includes(term) ||
-        app.userId.toLowerCase().includes(term) ||
-        app.phone.toLowerCase().includes(term) ||
-        app.address.toLowerCase().includes(term);
-
-      return matchesStatus && matchesSearch;
-    });
-  }, [applications, selectedStatus, searchTerm]);
-
-  // Status counts
-  const counts = useMemo(() => {
-    const total = applications.length;
-    const pending = applications.filter((a) => a.isPending()).length;
-    const approved = applications.filter((a) => a.isApproved()).length;
-    const rejected = applications.filter((a) => a.isRejected()).length;
-    return { total, pending, approved, rejected };
-  }, [applications]);
+  const filteredApplications = applications;
 
   // Handle Approve
   const handleConfirmApprove = async () => {
-    if (!approvingApplication) return;
+    if (
+      !approvingApplication ||
+      !approvingApplication.isPending() ||
+      mutation.current
+    )
+      return;
+    mutation.current = true;
     setProcessing(true);
     try {
       await adminOperatorService.processOperatorApplication({
@@ -123,7 +150,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
       });
       setFeedback({
         type: "success",
-        message: `Đã phê duyệt đơn đăng ký của nhà xe "${approvingApplication.name}" thành công! Bản ghi Nhà xe đã được kích hoạt.`,
+        message: `Đã phê duyệt đơn đăng ký của nhà xe "${approvingApplication.name}" thành công! Hồ sơ đã được duyệt và đồng bộ sang dịch vụ nhà xe.`,
       });
       setApprovingApplication(null);
       await fetchApplications();
@@ -136,13 +163,21 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
             : "Đã có lỗi xảy ra khi phê duyệt đơn đăng ký.",
       });
     } finally {
+      mutation.current = false;
       setProcessing(false);
     }
   };
 
   // Handle Reject
   const handleConfirmReject = async (reason: string) => {
-    if (!rejectingApplication) return;
+    if (
+      !rejectingApplication ||
+      !rejectingApplication.isPending() ||
+      mutation.current ||
+      !reason.trim()
+    )
+      return;
+    mutation.current = true;
     setProcessing(true);
     try {
       await adminOperatorService.processOperatorApplication({
@@ -164,7 +199,9 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
             ? err.message
             : "Đã có lỗi xảy ra khi từ chối đơn đăng ký.",
       });
+      throw err;
     } finally {
+      mutation.current = false;
       setProcessing(false);
     }
   };
@@ -186,20 +223,27 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
             size="sm"
             onClick={fetchApplications}
             disabled={loading}
-            className="rounded-full border-white/80 bg-white/80 backdrop-blur-md shadow-xs gap-2 px-4 py-2 text-xs font-bold"
+            className="gap-2 rounded-full border-white/80 bg-white/80 px-4 py-2 text-xs font-bold shadow-xs backdrop-blur-md"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
+            <RefreshCw
+              className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`}
+            />
             <span>Làm mới</span>
           </Button>
         }
       />
 
       {/* KPI Metric Cards & Status Filter Pills */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         <button
           type="button"
-          onClick={() => setSelectedStatus("ALL")}
-          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
+          onClick={() => {
+            if (processing) return;
+            setSelectedStatus("ALL");
+            setListPage(1);
+            setSearchTerm("");
+          }}
+          className="w-full text-left transition-transform hover:-translate-y-0.5 focus:outline-none"
         >
           <MetricCard
             label="Tất cả hồ sơ"
@@ -212,8 +256,13 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => setSelectedStatus("PENDING")}
-          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
+          onClick={() => {
+            if (processing) return;
+            setSelectedStatus("PENDING");
+            setListPage(1);
+            setSearchTerm("");
+          }}
+          className="w-full text-left transition-transform hover:-translate-y-0.5 focus:outline-none"
         >
           <MetricCard
             label="Chờ xét duyệt"
@@ -226,8 +275,13 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => setSelectedStatus("APPROVED")}
-          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
+          onClick={() => {
+            if (processing) return;
+            setSelectedStatus("APPROVED");
+            setListPage(1);
+            setSearchTerm("");
+          }}
+          className="w-full text-left transition-transform hover:-translate-y-0.5 focus:outline-none"
         >
           <MetricCard
             label="Đã phê duyệt"
@@ -240,8 +294,13 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
 
         <button
           type="button"
-          onClick={() => setSelectedStatus("REJECTED")}
-          className="text-left w-full focus:outline-none transition-transform hover:-translate-y-0.5"
+          onClick={() => {
+            if (processing) return;
+            setSelectedStatus("REJECTED");
+            setListPage(1);
+            setSearchTerm("");
+          }}
+          className="w-full text-left transition-transform hover:-translate-y-0.5 focus:outline-none"
         >
           <MetricCard
             label="Đã từ chối"
@@ -256,7 +315,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
       {/* Feedback banner */}
       {feedback && (
         <div
-          className={`flex items-center justify-between rounded-[24px] p-4 text-xs sm:text-sm border backdrop-blur-md shadow-xs ${
+          className={`flex items-center justify-between rounded-[24px] border p-4 text-xs shadow-xs backdrop-blur-md sm:text-sm ${
             feedback.type === "success"
               ? "border-emerald-200/80 bg-emerald-50/80 text-emerald-800"
               : "border-rose-200/80 bg-rose-50/80 text-rose-800"
@@ -274,7 +333,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
             variant="ghost"
             size="sm"
             onClick={() => setFeedback(null)}
-            className="h-7 text-xs rounded-full"
+            className="h-7 rounded-full text-xs"
           >
             Đóng
           </Button>
@@ -282,10 +341,10 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
       )}
 
       {/* Search & Tabs Toolbar */}
-      <SurfaceCard className="p-4 sm:p-5 rounded-[28px]">
+      <SurfaceCard className="rounded-[28px] p-4 sm:p-5">
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           {/* Status Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 p-1 bg-white/60 backdrop-blur-sm rounded-full border border-white/80 shadow-xs">
+          <div className="flex flex-wrap items-center gap-1.5 rounded-full border border-white/80 bg-white/60 p-1 shadow-xs backdrop-blur-sm">
             {(
               [
                 ["ALL", `Tất cả (${counts.total})`],
@@ -297,10 +356,15 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
               <button
                 key={statusKey}
                 type="button"
-                onClick={() => setSelectedStatus(statusKey)}
-                className={`px-4 py-2 text-xs font-bold rounded-full transition-all ${
+                onClick={() => {
+                  if (processing) return;
+                  setSelectedStatus(statusKey);
+                  setListPage(1);
+                  setSearchTerm("");
+                }}
+                className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
                   selectedStatus === statusKey
-                    ? "bg-[#FF385C] text-white shadow-coral-sm"
+                    ? "shadow-coral-sm bg-[#FF385C] text-white"
                     : "text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
                 }`}
               >
@@ -310,22 +374,22 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
           </div>
 
           {/* Search Box */}
-          <div className="relative flex-1 max-w-sm">
+          <div className="relative max-w-sm flex-1">
             <Search className="absolute top-3 left-3.5 h-4 w-4 text-[var(--gt-muted)]" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Tìm theo tên nhà xe, SĐT, User ID..."
-              className="w-full h-10 pl-10 pr-8 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs"
+              placeholder="Tìm hồ sơ theo tên nhà xe, SĐT, địa chỉ hoặc mã tài khoản…"
+              className="h-10 w-full rounded-full border border-white/80 bg-white/70 pr-8 pl-10 text-xs shadow-xs backdrop-blur-md transition-all focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none"
             />
             {searchTerm && (
               <button
                 type="button"
                 onClick={() => setSearchTerm("")}
-                className="absolute right-3 top-3 text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
+                className="absolute top-3 right-3 text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
@@ -333,9 +397,9 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
       </SurfaceCard>
 
       {/* Main Content Area */}
-      <SurfaceCard className="p-0 overflow-hidden rounded-[32px]">
-        <div className="p-5 sm:p-6 border-b border-[var(--gt-border)]/60 flex items-center justify-between">
-          <h2 className="font-black text-base text-[var(--gt-ink)]">
+      <SurfaceCard className="overflow-hidden rounded-[32px] p-0">
+        <div className="flex items-center justify-between border-b border-[var(--gt-border)]/60 p-5 sm:p-6">
+          <h2 className="text-base font-black text-[var(--gt-ink)]">
             Danh sách đơn đăng ký ({filteredApplications.length})
           </h2>
         </div>
@@ -378,10 +442,10 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
         ) : (
           <>
             {/* Desktop Table View */}
-            <div className="hidden lg:block overflow-x-auto">
+            <div className="hidden overflow-x-auto lg:block">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-[var(--gt-border)]/60 bg-white/50 backdrop-blur-xs font-bold text-[var(--gt-muted)] uppercase tracking-wider text-[11px]">
+                  <tr className="border-b border-[var(--gt-border)]/60 bg-white/50 text-[11px] font-bold tracking-wider text-[var(--gt-muted)] uppercase backdrop-blur-xs">
                     <th className="px-5 py-4">Nhà xe</th>
                     <th className="px-5 py-4">Chủ sở hữu</th>
                     <th className="px-5 py-4">Liên hệ & Trụ sở</th>
@@ -394,15 +458,15 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                   {filteredApplications.map((app) => (
                     <tr
                       key={app.id}
-                      className="hover:bg-white/60 transition-colors"
+                      className="transition-colors hover:bg-white/60"
                     >
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-2.5">
-                          <div className="w-9 h-9 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center shrink-0 shadow-xs">
-                            <Building2 className="w-4.5 h-4.5" />
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] shadow-xs">
+                            <Building2 className="h-4.5 w-4.5" />
                           </div>
                           <div>
-                            <span className="font-bold text-[var(--gt-ink)] text-sm block">
+                            <span className="block text-sm font-bold text-[var(--gt-ink)]">
                               {app.name}
                             </span>
                             <IdText id={app.id} />
@@ -416,7 +480,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-6 w-6 p-0 rounded-full text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
+                            className="h-6 w-6 rounded-full p-0 text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
                             onClick={() =>
                               setSelectedUserModal({
                                 userId: app.userId,
@@ -424,24 +488,24 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                               })
                             }
                           >
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="h-3.5 w-3.5" />
                           </Button>
                         </div>
                       </td>
                       <td className="px-5 py-4 text-[var(--gt-muted)]">
                         <div className="space-y-0.5 font-medium">
-                          <div className="flex items-center gap-1.5 text-[var(--gt-ink)] font-bold">
-                            <Phone className="w-3.5 h-3.5 text-[var(--gt-coral)]" />
+                          <div className="flex items-center gap-1.5 font-bold text-[var(--gt-ink)]">
+                            <Phone className="h-3.5 w-3.5 text-[var(--gt-coral)]" />
                             <span>{app.phone}</span>
                           </div>
-                          <span className="text-[11px] block max-w-xs truncate text-[var(--gt-muted)]">
+                          <span className="block max-w-xs truncate text-[11px] text-[var(--gt-muted)]">
                             {app.address}
                           </span>
                         </div>
                       </td>
                       <td className="px-5 py-4 text-[var(--gt-muted)]">
                         <div className="flex items-center gap-1.5 font-medium">
-                          <Calendar className="w-3.5 h-3.5 text-[var(--gt-muted)]/80" />
+                          <Calendar className="h-3.5 w-3.5 text-[var(--gt-muted)]/80" />
                           <span>{app.getFormattedCreatedAt()}</span>
                         </div>
                       </td>
@@ -463,10 +527,10 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-8 px-3 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
+                            className="h-8 gap-1 rounded-full px-3 text-xs font-semibold text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
                             onClick={() => setDetailApplication(app)}
                           >
-                            <Eye className="w-3.5 h-3.5" />
+                            <Eye className="h-3.5 w-3.5" />
                             <span>Xem KYC</span>
                           </Button>
 
@@ -476,20 +540,26 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                                 type="button"
                                 variant="outline"
                                 size="sm"
-                                className="h-8 rounded-full border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs px-3 font-bold gap-1 shadow-xs"
+                                className="h-8 gap-1 rounded-full border-rose-200/80 px-3 text-xs font-bold text-rose-700 shadow-xs hover:bg-rose-50"
                                 onClick={() => setRejectingApplication(app)}
                               >
-                                <XCircle className="w-3.5 h-3.5" />
+                                <XCircle className="h-3.5 w-3.5" />
                                 <span>Từ chối</span>
                               </Button>
                               <Button
                                 type="button"
                                 variant="default"
                                 size="sm"
-                                className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold gap-1"
+                                className="shadow-coral-sm h-8 gap-1 rounded-full bg-[#FF385C] px-3.5 text-xs font-bold text-white hover:bg-[#E61E4F]"
+                                disabled={!app.logoUrl}
+                                title={
+                                  !app.logoUrl
+                                    ? "Nhà xe cần bổ sung logo trước khi duyệt"
+                                    : undefined
+                                }
                                 onClick={() => setApprovingApplication(app)}
                               >
-                                <CheckCircle className="w-3.5 h-3.5" />
+                                <CheckCircle className="h-3.5 w-3.5" />
                                 <span>Duyệt</span>
                               </Button>
                             </>
@@ -503,16 +573,19 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
             </div>
 
             {/* Mobile / Tablet Card View */}
-            <div className="block lg:hidden divide-y divide-white/60">
+            <div className="block divide-y divide-white/60 lg:hidden">
               {filteredApplications.map((app) => (
-                <div key={app.id} className="p-4 sm:p-5 space-y-3 hover:bg-white/50 transition-colors">
+                <div
+                  key={app.id}
+                  className="space-y-3 p-4 transition-colors hover:bg-white/50 sm:p-5"
+                >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      <div className="w-9 h-9 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center shrink-0 shadow-xs">
-                        <Building2 className="w-4.5 h-4.5" />
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] shadow-xs">
+                        <Building2 className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <h3 className="font-bold text-sm text-[var(--gt-ink)]">
+                        <h3 className="text-sm font-bold text-[var(--gt-ink)]">
                           {app.name}
                         </h3>
                         <IdText id={app.id} />
@@ -531,26 +604,26 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 text-xs text-[var(--gt-muted)] pt-1">
+                  <div className="grid grid-cols-2 gap-2 pt-1 text-xs text-[var(--gt-muted)]">
                     <div className="flex items-center gap-1.5 font-medium">
-                      <Phone className="w-3.5 h-3.5 text-[var(--gt-coral)] shrink-0" />
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-[var(--gt-coral)]" />
                       <span className="truncate">{app.phone}</span>
                     </div>
                     <div className="flex items-center gap-1.5 font-medium">
-                      <Calendar className="w-3.5 h-3.5 shrink-0" />
+                      <Calendar className="h-3.5 w-3.5 shrink-0" />
                       <span>{app.getFormattedCreatedAt()}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-end gap-2 pt-2.5 border-t border-[var(--gt-border)]/50">
+                  <div className="flex items-center justify-end gap-2 border-t border-[var(--gt-border)]/50 pt-2.5">
                     <Button
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="h-8 px-3 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
+                      className="h-8 gap-1 rounded-full px-3 text-xs font-semibold text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
                       onClick={() => setDetailApplication(app)}
                     >
-                      <Eye className="w-3.5 h-3.5" />
+                      <Eye className="h-3.5 w-3.5" />
                       <span>Chi tiết</span>
                     </Button>
 
@@ -560,20 +633,26 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                           type="button"
                           variant="outline"
                           size="sm"
-                          className="h-8 rounded-full border-rose-200/80 text-rose-700 hover:bg-rose-50 text-xs px-3 font-bold shadow-xs"
+                          className="h-8 rounded-full border-rose-200/80 px-3 text-xs font-bold text-rose-700 shadow-xs hover:bg-rose-50"
                           onClick={() => setRejectingApplication(app)}
                         >
-                          <XCircle className="w-3.5 h-3.5 mr-1" />
+                          <XCircle className="mr-1 h-3.5 w-3.5" />
                           <span>Từ chối</span>
                         </Button>
                         <Button
                           type="button"
                           variant="default"
                           size="sm"
-                          className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-3.5 font-bold"
+                          className="shadow-coral-sm h-8 rounded-full bg-[#FF385C] px-3.5 text-xs font-bold text-white hover:bg-[#E61E4F]"
+                          disabled={!app.logoUrl}
+                          title={
+                            !app.logoUrl
+                              ? "Nhà xe cần bổ sung logo trước khi duyệt"
+                              : undefined
+                          }
                           onClick={() => setApprovingApplication(app)}
                         >
-                          <CheckCircle className="w-3.5 h-3.5 mr-1" />
+                          <CheckCircle className="mr-1 h-3.5 w-3.5" />
                           <span>Duyệt</span>
                         </Button>
                       </>
@@ -628,6 +707,15 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
         onConfirm={handleConfirmApprove}
         loading={processing}
       />
+      {!error && (
+        <Pagination
+          currentPage={listPage}
+          totalPages={pagination.totalPages}
+          totalItems={pagination.totalElements}
+          onPageChange={setListPage}
+          disabled={loading || processing}
+        />
+      )}
     </div>
   );
 };

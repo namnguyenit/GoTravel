@@ -10,6 +10,8 @@ import { GetTripsOutput } from '../dto/get-trips.output';
 import type { ITripRepository } from '../../domain/repository/trip.repository.interface';
 import type { TransportIntegrations } from '../../../transport/application/transport-integrations.port';
 import { TripStatus } from '../../domain/value-object/trip-status.enum';
+import { vietnamDayBounds } from '../../domain/value-object/vietnam-day';
+import { TransportOperationsService } from '../../../transport/application/transport-operations.service';
 
 @Injectable()
 export class GetTripsUseCase implements IGetTripsUseCase {
@@ -18,6 +20,7 @@ export class GetTripsUseCase implements IGetTripsUseCase {
     private readonly tripRepository: ITripRepository,
     @Inject('TransportIntegrations')
     private readonly inventory: TransportIntegrations,
+    private readonly operations: TransportOperationsService,
   ) {}
 
   async execute(input: GetTripsInput): Promise<GetTripsOutput> {
@@ -42,6 +45,13 @@ export class GetTripsUseCase implements IGetTripsUseCase {
     const limit = Math.max(1, Math.min(100, input.limit || 10));
     const sortBy = input.sortBy || 'departureTime';
     const sortOrder = input.sortOrder || 'asc';
+    const departureDate = input.departureDate?.trim() || undefined;
+    try {
+      if (departureDate) vietnamDayBounds(departureDate);
+    } catch {
+      throw new BadRequestException('Ngày khởi hành không hợp lệ.');
+    }
+    await this.operations.closeElapsedSales();
 
     // 3. Truy vấn danh sách chuyến xe từ Repository
     const queryResult = await this.tripRepository.findManyByOperatorId({
@@ -50,7 +60,7 @@ export class GetTripsUseCase implements IGetTripsUseCase {
       status: input.status,
       routeId: input.routeId,
       carId: input.carId,
-      departureDate: input.departureDate,
+      departureDate,
       sortBy,
       sortOrder,
       page,
@@ -60,12 +70,12 @@ export class GetTripsUseCase implements IGetTripsUseCase {
     const blockedByTrip = new Map<string, number>();
     await Promise.all(
       queryResult.trips.map(async (item) => {
-        if (
+        if (item.inventoryInitialized && (
           item.trip.status === TripStatus.ON_SALE ||
           item.trip.status === TripStatus.STOP_SALE ||
           item.trip.status === TripStatus.DEPARTED ||
           item.trip.status === TripStatus.COMPLETED
-        ) {
+        )) {
           const seats = await this.inventory.getSeatStatus(item.trip.id!);
           item.bookedSeats = seats.filter((seat) =>
             ['HELD', 'SOLD'].includes(seat.status),

@@ -13,6 +13,10 @@ export class CarPresentationMapper {
       type: dto.type,
       licensePlate: dto.licensePlate,
       totalSeats: dto.totalSeats,
+      deckCount: dto.deckCount,
+      seatColumns: dto.seatColumns,
+      lowerDeckSeats: dto.lowerDeckSeats,
+      seatClass: dto.seatClass,
     };
   }
 
@@ -116,6 +120,12 @@ export class CarPresentationMapper {
       message: 'Cập nhật trạng thái xe thành công.',
       data: {
         id: car.id,
+        operatorId: car.operatorId,
+        name: car.name,
+        type: car.type,
+        licensePlate: car.licensePlate.getValue(),
+        totalSeats: car.totalSeats,
+        createdAt: car.createdAt,
         status: car.status,
         updatedAt: car.updatedAt,
       },

@@ -62,6 +62,11 @@ public class CashService {
         return ledger.listShiftsByActor(actorId, 50);
     }
 
+    public CashLedger.ShiftDetail getActiveShiftDetail(UUID actorId) {
+        var shift = ledger.active(actorId);
+        return shift == null ? null : getShiftDetail(actorId, shift.id());
+    }
+
     public List<CashLedger.Shift> listOperatorShifts(UUID actorId, UUID operatorId, int page, int size) {
         var response = car.readScope(actorId, operatorId);
         if (response == null || !response.isSuccess() || response.getData() == null) {
@@ -95,6 +100,14 @@ public class CashService {
         }
         if(!scope.allTrips() && !actorId.equals(scope.ownerUserId()))throw new ResponseStatusException(HttpStatus.FORBIDDEN,"Chỉ được xem ca của chính mình");
         return detail;
+    }
+
+    @Scheduled(fixedDelay = 30000)
+    public void closeAutomaticBatches() {
+        for (var id : ledger.automaticBatchesToClose(100)) {
+            try { transactions.executeWithoutResult(status -> ledger.closeAutomatic(id)); }
+            catch (Exception error) { log.warn("Automatic cash accounting batch {} pending", id, error); }
+        }
     }
 
     @Scheduled(fixedDelay = 30000)
@@ -132,7 +145,7 @@ public class CashService {
     public CashReceiptResult receive(UUID actorId, UUID orderId, BigDecimal amount) {
         if (amount == null || amount.signum() <= 0 || amount.scale() > 0)
             throw conflict("Số tiền thực thu không hợp lệ");
-        var order = orders.findById(orderId).orElseThrow(() -> conflict("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> conflict("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET ||
                 order.getPaymentMethod() != PaymentMethod.CASH ||
                 !actorId.equals(order.getTransportCashierId()) ||
@@ -147,10 +160,8 @@ public class CashService {
                 throw conflict("Giữ ghế đã hết hạn; không thể ghi nhận tiền mặt");
             }
             var allowed = car.authorizeStaff(actorId, order.getTransportTripId(), "SELL_CASH");
-            var shift = ledger.active(actorId);
             if (allowed == null || allowed.getData() == null ||
-                    shift == null || !allowed.getData().operatorId().equals(shift.operatorId()) ||
-                    !shift.id().equals(order.getTransportCashShiftId())) {
+                    order.getTransportCashShiftId() == null) {
                 throw conflict("Nhân viên không thuộc nhà xe");
             }
             var holdResponse = inventory.orderStatus(orderId);
@@ -178,7 +189,7 @@ public class CashService {
         } catch (Exception error) {
             log.warn("Cash received; ticket fulfillment pending for order {}", orderId, error);
         }
-        var current = orders.findById(orderId).orElseThrow();
+        var current = orders.findWithItemsById(orderId).orElseThrow();
         return new CashReceiptResult(receipt.id(), receipt.receiptNo(), orderId,
                 receipt.amount(), current.getStatus().name());
     }

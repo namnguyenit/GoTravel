@@ -1,17 +1,31 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
+import jwt from 'jsonwebtoken';
 import { settings } from "../gateway/configuration.js";
 
-export const readCookie = (req, name) => {
-  const pair = (req.headers.cookie || "")
+export const readCookies = (req, name) => (req.headers.cookie || "")
     .split(";")
     .map((part) => part.trim())
-    .find((part) => part.startsWith(`${name}=`));
-  if (!pair) return undefined;
-  try {
-    return decodeURIComponent(pair.slice(name.length + 1));
-  } catch {
-    return undefined;
-  }
+    .filter((part) => part.startsWith(`${name}=`))
+    .flatMap((pair) => {
+      try { return [decodeURIComponent(pair.slice(name.length + 1))]; }
+      catch { return []; }
+    });
+
+export const readCookie = (req, name) => readCookies(req, name)[0];
+
+export const SIGNED_OUT_COOKIE = 'goid_signed_out';
+
+export const readAccessToken = (req) => {
+  // A shared logout marker also disables old host-only cookies on sibling sites.
+  if (readCookies(req, SIGNED_OUT_COOKIE).includes('1')) return undefined;
+  const tokens = [...new Set(readCookies(req, 'access_token'))];
+  // Cookie headers omit Domain/Path. Prefer the newest login over legacy host cookies.
+  // These decoded claims ONLY select a candidate; verifyJWT still verifies its signature.
+  return tokens.map((token) => ({ token, claims: jwt.decode(token) }))
+    .sort((a, b) => {
+      const active = (claims) => Number(claims?.exp || 0) * 1000 > Date.now() ? 1 : 0;
+      return active(b.claims) - active(a.claims) || Number(b.claims?.iat || 0) - Number(a.claims?.iat || 0);
+    })[0]?.token;
 };
 
 const allowedOrigins = new Set([
@@ -88,7 +102,7 @@ export const csrfTokenFor = (accessToken) => {
 export const protectCookieRequests = (req, res, next) => {
   if (["GET", "HEAD", "OPTIONS"].includes(req.method)) return next();
 
-  const accessToken = readCookie(req, "access_token");
+  const accessToken = readAccessToken(req);
   const browserRequest = Boolean(
     req.get("origin") || req.get("referer") || req.get("sec-fetch-site"),
   );
@@ -123,10 +137,10 @@ export const protectCookieRequests = (req, res, next) => {
     });
   }
   try {
-    const cookieToken = readCookie(req, "csrf_token");
+    const cookieTokens = readCookies(req, "csrf_token");
     const headerToken = req.get("x-csrf-token");
     if (
-      !equal(cookieToken, headerToken) ||
+      !cookieTokens.some((cookieToken) => equal(cookieToken, headerToken)) ||
       !equal(headerToken, csrfTokenFor(accessToken))
     ) {
       return res.status(403).json({

@@ -10,9 +10,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { TripEntity } from "../../domain/entity/trip.entity";
-import type { RouteEntity } from "@/modules/route/domain/entity/route.entity";
+import { RouteEntity } from "@/modules/route/domain/entity/route.entity";
 import { RouteStopTimeline } from "@/modules/route/presentation/components/RouteStopTimeline";
-import { routeService } from "@/modules/route/composition";
+import { httpClient } from '@/shared/infrastructure/http/HttpPort';
 import {
   Waypoints,
   MapPin,
@@ -24,7 +24,7 @@ import {
   Loader2,
   AlertCircle,
 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 interface TripRouteDetailModalProps {
   trip: TripEntity | null;
@@ -38,13 +38,16 @@ export const TripRouteDetailModal: React.FC<TripRouteDetailModalProps> = ({
   onClose,
 }) => {
   const navigate = useNavigate();
+  const inStaffPortal = useLocation().pathname.startsWith('/staff');
   const [route, setRoute] = useState<RouteEntity | null>(null);
+  const [routeDeleted, setRouteDeleted] = useState(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!open || !trip?.routeId) {
+    if (!open || !trip?.id) {
       setRoute(null);
+      setRouteDeleted(false);
       setError(null);
       return;
     }
@@ -56,8 +59,11 @@ export const TripRouteDetailModal: React.FC<TripRouteDetailModalProps> = ({
       setError(null);
 
       try {
-        const found = await routeService.getRouteById(trip.routeId);
+        // Read through the trip's authorization scope, including archived routes.
+        const manage = await httpClient.get<any>(`/api/v1/trips/${trip.id}/manage`);
+        const found = manage?.route ? RouteEntity.fromApiResponse(manage.route) : null;
         if (isMounted) {
+          setRouteDeleted(Boolean(manage?.route?.deletedAt));
           if (found) {
             setRoute(found);
           } else {
@@ -86,7 +92,7 @@ export const TripRouteDetailModal: React.FC<TripRouteDetailModalProps> = ({
     return () => {
       isMounted = false;
     };
-  }, [open, trip?.routeId]);
+  }, [open, trip?.id]);
 
   if (!trip) return null;
 
@@ -121,7 +127,7 @@ export const TripRouteDetailModal: React.FC<TripRouteDetailModalProps> = ({
                           : "bg-zinc-400"
                       }`}
                     />
-                    {route.getStatusDisplayName()}
+                    {routeDeleted ? 'Đã xóa khỏi danh mục · Lịch sử' : route.getStatusDisplayName()}
                   </span>
                 )}
               </div>
@@ -266,7 +272,7 @@ export const TripRouteDetailModal: React.FC<TripRouteDetailModalProps> = ({
         </div>
 
         <DialogFooter className="flex flex-col-reverse gap-2 sm:flex-row sm:justify-between sm:gap-0">
-          <Button
+          {!inStaffPortal && <Button
             type="button"
             variant="outline"
             size="sm"
@@ -278,7 +284,7 @@ export const TripRouteDetailModal: React.FC<TripRouteDetailModalProps> = ({
           >
             <ExternalLink className="mr-1.5 h-3.5 w-3.5 text-gray-500" />
             Đến trang quản lý tuyến đường
-          </Button>
+          </Button>}
 
           <Button
             type="button"

@@ -137,9 +137,9 @@ export class Trip {
     if (this._status === TripStatus.COMPLETED) {
       throw new Error('Chuyến xe hiện đã ở trạng thái COMPLETED trước đó.');
     }
-    if (this._status !== TripStatus.DEPARTED) {
+    if (![TripStatus.DEPARTED, TripStatus.ON_SALE, TripStatus.STOP_SALE, TripStatus.SCHEDULED].includes(this._status)) {
       throw new Error(
-        'Chỉ chuyến xe đang chạy (DEPARTED) mới có thể đánh dấu hoàn thành.',
+        'Chỉ chuyến đã được lên lịch/mở bán mới có thể hoàn thành.',
       );
     }
     if (this._arrivalTime > new Date())

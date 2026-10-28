@@ -1,0 +1,18 @@
+{
+  "name": "goticket-demo-seed",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "seed": "node src/cli.mjs"
+  },
+  "dependencies": {
+    "bcryptjs": "3.0.3",
+    "dotenv": "17.2.3",
+    "pg": "8.16.3",
+    "yaml": "2.8.1"
+  }
+}

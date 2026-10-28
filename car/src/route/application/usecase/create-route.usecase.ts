@@ -45,6 +45,8 @@ export class CreateRouteUseCase implements ICreateRouteUseCase {
         RouteStop.create({
           name: stop.name,
           order: stop.order,
+          address: stop.address,
+          province: stop.province,
         }),
       );
     } catch (error: any) {
@@ -78,6 +80,8 @@ export class CreateRouteUseCase implements ICreateRouteUseCase {
         id: stop.id!,
         name: stop.name,
         order: stop.order,
+        address: stop.address,
+        province: stop.province,
       })),
       createdAt: savedRoute.createdAt!,
       updatedAt: savedRoute.updatedAt!,

@@ -15,9 +15,6 @@ export const Footer: React.FC = () => {
           <p className="text-xs text-gray-500 leading-relaxed">
             Nền tảng đặt vé xe khách liên tỉnh trực tuyến, tích hợp cùng hệ sinh thái GoTravel và cổng thanh toán GoPay.
           </p>
-          <div className="text-xs text-gray-600 pt-1">
-            Hotline hỗ trợ: <span className="font-bold text-[#FF385C]">1900 6868</span> <span className="text-gray-400">(8:00 - 21:00)</span>
-          </div>
         </div>
 
         <div>
@@ -36,17 +33,15 @@ export const Footer: React.FC = () => {
             <li><Link to="/become-operator" className="hover:text-[#FF385C] transition-colors">Đăng ký mở bán vé</Link></li>
             <li><Link to="/operator" className="hover:text-[#FF385C] transition-colors">Kênh quản lý nhà xe</Link></li>
             <li><Link to="/staff" className="hover:text-[#FF385C] transition-colors">Cổng nhân viên soát vé</Link></li>
-            <li><a href="https://pay.trungcaodev.io.vn" target="_blank" rel="noreferrer" className="hover:text-[#FF385C] transition-colors">Cổng quyết toán GoPay</a></li>
+            <li><Link to="/operator/reports" className="hover:text-[#FF385C] transition-colors">Báo cáo doanh thu & Quyết toán</Link></li>
           </ul>
         </div>
 
         <div>
-          <h5 className="font-bold text-[#111827] text-sm mb-3.5">Chính sách & Hỗ trợ</h5>
+          <h5 className="font-bold text-[#111827] text-sm mb-3.5">Hỗ trợ đặt vé</h5>
           <ul className="space-y-2.5 text-xs text-gray-500">
-            <li><span className="hover:text-[#FF385C] cursor-pointer transition-colors">Quy chế hoạt động sàn vận tải</span></li>
-            <li><span className="hover:text-[#FF385C] cursor-pointer transition-colors">Chính sách bảo mật hành khách</span></li>
-            <li><span className="hover:text-[#FF385C] cursor-pointer transition-colors">Quy trình xử lý khiếu nại</span></li>
-            <li><span className="hover:text-[#FF385C] cursor-pointer transition-colors">Điều khoản đổi/trả vé</span></li>
+            <li><Link to="/account/tickets" className="hover:text-[#FF385C] transition-colors">Tra cứu vé của tôi</Link></li>
+            <li><Link to="/account/disputes" className="hover:text-[#FF385C] transition-colors">Gửi yêu cầu hỗ trợ</Link></li>
           </ul>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { OperatorLogo } from "@/shared/presentation/components/operator/OperatorLogo";
 import type { CustomerTripEntity } from "../../domain/entity/customer-trip.entity";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -9,18 +10,20 @@ import {
   Users,
   MapPin,
   Check,
-  Bus,
 } from "lucide-react";
+import { TripTimeVO } from "../../domain/value-object/trip-time.vo";
 import { MoneyText } from "@/shared/presentation/components/data-display/MoneyText";
 
 interface CustomerTripCardProps {
   trip: CustomerTripEntity;
+  showDepartureDate?: boolean;
   onViewDetail: (trip: CustomerTripEntity) => void;
   onSelectTrip: (trip: CustomerTripEntity) => void;
 }
 
 export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
   trip,
+  showDepartureDate = false,
   onViewDetail,
   onSelectTrip,
 }) => {
@@ -28,25 +31,27 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
   const availableSeats = trip.getAvailableSeats();
 
   return (
-    <div className="group overflow-hidden rounded-3xl border border-white/80 bg-white/85 backdrop-blur-md shadow-2xs transition-all hover:border-[#FF385C]/40 hover:bg-white/92 hover:shadow-lg">
+    <div className="group overflow-hidden rounded-3xl border border-white/80 bg-white/85 shadow-2xs backdrop-blur-md transition-all hover:border-[#FF385C]/40 hover:bg-white/92 hover:shadow-lg">
       <div className="p-5 sm:p-6">
         {/* Card Header: Operator & Badges */}
         <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-gray-100/80 pb-3.5">
           <div className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-2xl bg-white/90 border border-gray-200/60 text-gray-700 flex items-center justify-center font-bold shadow-2xs">
-              <Bus className="w-4 h-4 text-[#FF385C]" />
-            </div>
+            <OperatorLogo
+              src={trip.operator.logoUrl}
+              name={trip.operator.name}
+              className="h-12 w-12"
+            />
             <div>
-              <h3 className="text-base font-bold text-[#111827] leading-snug">
+              <h3 className="text-base leading-snug font-bold text-[#111827]">
                 {trip.operator.name}
               </h3>
-              <div className="flex items-center gap-2 mt-0.5">
-                <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 bg-emerald-50/80 border border-emerald-500/20 px-2.5 py-0.5 rounded-full shadow-2xs">
+              <div className="mt-0.5 flex items-center gap-2">
+                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-50/80 px-2.5 py-0.5 text-[11px] font-semibold text-emerald-700 shadow-2xs">
                   <ShieldCheck className="h-3 w-3 text-emerald-600" />
                   Đối tác KYC
                 </span>
                 <span className="text-xs text-gray-400">•</span>
-                <span className="text-xs text-gray-500 font-medium">
+                <span className="text-xs font-medium text-gray-500">
                   {trip.car.name} ({trip.car.licensePlate})
                 </span>
               </div>
@@ -54,7 +59,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
           </div>
 
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-bold px-3 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-gray-200/60 text-gray-700 shadow-2xs">
+            <span className="rounded-full border border-gray-200/60 bg-white/80 px-3 py-1 text-xs font-bold text-gray-700 shadow-2xs backdrop-blur-xs">
               {trip.getCarTypeLabel()}
             </span>
 
@@ -63,7 +68,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
                 Hết vé
               </span>
             ) : (
-              <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-50/80 backdrop-blur-xs px-3 py-1 text-xs font-bold text-emerald-700 tabular-nums shadow-2xs">
+              <span className="flex items-center gap-1.5 rounded-full border border-emerald-500/25 bg-emerald-50/80 px-3 py-1 text-xs font-bold text-emerald-700 tabular-nums shadow-2xs backdrop-blur-xs">
                 <Users className="h-3 w-3" />
                 Còn {availableSeats} chỗ
               </span>
@@ -78,10 +83,19 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
             <div className="flex items-center justify-between sm:justify-start sm:space-x-8">
               {/* Departure */}
               <div>
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-[#111827] tabular-nums block">
+                <span className="block text-2xl font-black tracking-tight text-[#111827] tabular-nums sm:text-3xl">
                   {trip.getDepartureTimeOnly()}
                 </span>
-                <span className="block max-w-[150px] truncate text-xs font-bold text-gray-700 sm:max-w-[180px] mt-0.5">
+                {showDepartureDate && (
+                  <time
+                    dateTime={trip.departureTime}
+                    aria-label="Ngày khởi hành"
+                    className="mt-1 block text-xs font-semibold text-gray-700 tabular-nums"
+                  >
+                    {trip.getDepartureDateOnly()}
+                  </time>
+                )}
+                <span className="mt-0.5 block max-w-[150px] truncate text-xs font-bold text-gray-700 sm:max-w-[180px]">
                   {trip.getStartStopName()}
                 </span>
                 <span className="block text-[11px] text-gray-400">
@@ -95,22 +109,31 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
                   <Clock className="h-3 w-3" />
                   {trip.getDurationText()}
                 </span>
-                <div className="relative my-2 flex w-24 sm:w-32 items-center">
+                <div className="relative my-2 flex w-24 items-center sm:w-32">
                   <div className="h-2 w-2 rounded-full bg-[#FF385C] ring-4 ring-[#FFF0F2]" />
                   <div className="h-0.5 w-full bg-gray-200" />
                   <div className="h-2 w-2 rounded-full bg-[#111827]" />
                 </div>
-                <span className="text-[10px] font-semibold text-gray-400 uppercase tracking-wider">
+                <span className="text-[10px] font-semibold tracking-wider text-gray-400 uppercase">
                   Chạy thẳng
                 </span>
               </div>
 
               {/* Arrival */}
               <div>
-                <span className="text-2xl sm:text-3xl font-black tracking-tight text-[#111827] tabular-nums block">
+                <span className="block text-2xl font-black tracking-tight text-[#111827] tabular-nums sm:text-3xl">
                   {trip.getArrivalTimeOnly()}
                 </span>
-                <span className="block max-w-[150px] truncate text-xs font-bold text-gray-700 sm:max-w-[180px] mt-0.5">
+                {showDepartureDate && (
+                  <time
+                    dateTime={trip.arrivalTime}
+                    aria-label="Ngày đến"
+                    className="mt-1 block text-xs font-semibold text-gray-700 tabular-nums"
+                  >
+                    {TripTimeVO.formatDate(trip.arrivalTime)}
+                  </time>
+                )}
+                <span className="mt-0.5 block max-w-[150px] truncate text-xs font-bold text-gray-700 sm:max-w-[180px]">
                   {trip.getEndStopName()}
                 </span>
                 <span className="block text-[11px] text-gray-400">
@@ -121,9 +144,12 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
 
             {/* Quick Route Summary */}
             <div className="flex items-center space-x-2 pt-1 text-xs text-gray-500">
-              <MapPin className="h-3.5 w-3.5 text-[#FF385C] shrink-0" />
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-[#FF385C]" />
               <span className="truncate">
-                Lộ trình chính: <strong className="text-gray-800">{trip.getSummaryRoute()}</strong>
+                Lộ trình chính:{" "}
+                <strong className="text-gray-800">
+                  {trip.getSummaryRoute()}
+                </strong>
               </span>
             </div>
           </div>
@@ -131,11 +157,15 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
           {/* Pricing & CTA Button (5 cols) */}
           <div className="flex flex-col justify-between border-t border-gray-100 pt-3.5 lg:col-span-5 lg:border-t-0 lg:border-l lg:border-gray-100 lg:pt-0 lg:pl-6">
             <div className="lg:text-right">
-              <span className="block text-[11px] font-bold text-gray-400 uppercase tracking-wider">
+              <span className="block text-[11px] font-bold tracking-wider text-gray-400 uppercase">
                 Giá vé từ
               </span>
               <div className="mt-0.5">
-                <MoneyText amount={trip.pricePerSeat} size="2xl" variant="coral" />
+                <MoneyText
+                  amount={trip.pricePerSeat}
+                  size="2xl"
+                  variant="coral"
+                />
               </div>
               <span className="mt-0.5 block text-[11px] text-gray-400">
                 / hành khách / lượt
@@ -148,7 +178,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
                 variant="ghost"
                 size="sm"
                 onClick={() => onViewDetail(trip)}
-                className="h-10 text-xs font-bold text-gray-600 hover:bg-gray-100 rounded-full px-4"
+                className="h-10 rounded-full px-4 text-xs font-bold text-gray-600 hover:bg-gray-100"
               >
                 <span>Xem trạm dừng</span>
                 <ChevronRight className="ml-1 h-3.5 w-3.5" />
@@ -158,10 +188,10 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
                 type="button"
                 disabled={isSoldOut}
                 onClick={() => onSelectTrip(trip)}
-                className={`h-10 px-6 rounded-full text-xs font-bold shadow-xs transition-all cursor-pointer ${
+                className={`h-10 cursor-pointer rounded-full px-6 text-xs font-bold shadow-xs transition-all ${
                   isSoldOut
                     ? "cursor-not-allowed bg-gray-200 text-gray-400"
-                    : "bg-[#FF385C] text-white hover:bg-[#E61E4F] glow-coral-sm active:scale-95"
+                    : "glow-coral-sm bg-[#FF385C] text-white hover:bg-[#E61E4F] active:scale-95"
                 }`}
               >
                 {isSoldOut ? (

@@ -77,11 +77,11 @@ export const OperatorDashboardPage: React.FC = () => {
       actionText: "Xem đơn hàng",
     },
     {
-      title: "Quầy bán vé & Ca tiền mặt",
-      description: "Mở ca thu ngân, xuất vé trực tiếp tại bến xe và quản lý biên nhận tiền mặt.",
-      to: "/operator/counter",
+      title: "Bán vé theo nhân viên",
+      description: "Xem số vé từng nhân viên đã bán, tiền thu và các đơn hoàn/hủy.",
+      to: "/operator/counter-sales",
       icon: Store,
-      actionText: "Vào quầy bán vé",
+      actionText: "Xem doanh số nhân viên",
     },
     {
       title: "Báo cáo doanh thu & Payout",

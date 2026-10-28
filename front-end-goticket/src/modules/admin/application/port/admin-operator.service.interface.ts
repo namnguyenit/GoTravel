@@ -32,8 +32,8 @@ export interface IAdminOperatorService {
   getOperators(params?: GetOperatorsParams): Promise<GetOperatorsResult>;
   getUserDetailById(userId: string): Promise<AdminUserDetailEntity>;
   getOperatorApplications(
-    status?: string
-  ): Promise<OperatorApplicationEntity[]>;
+    status?: string, page?: number, keyword?: string
+  ): Promise<{ data: OperatorApplicationEntity[]; totalPages: number; totalElements: number; counts: Record<string, number> }>;
   processOperatorApplication(dto: ProcessApplicationDTO): Promise<void>;
   updateOperatorStatus(operatorId: string, status: "ACTIVE" | "SUSPENDED"): Promise<void>;
 }

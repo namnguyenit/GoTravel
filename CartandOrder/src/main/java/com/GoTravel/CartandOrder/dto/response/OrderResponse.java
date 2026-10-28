@@ -27,6 +27,15 @@ public class OrderResponse {
     @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING)
     private BigDecimal transportActiveFareAmount;
     private String transportOriginalChargeVnd;
+    @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING)
+    private BigDecimal transportRefundDue;
+    private boolean transportRefundSimulated;
+    @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING)
+    private BigDecimal transportPendingItemRefundDue;
+    private Integer transportPendingItemRefundCount;
+    private UUID transportPendingItemRefundOperationId;
+    private String transportCancellationReason;
+    private com.GoTravel.CartandOrder.transport.CancellationPolicy.Details transportCancellationPolicy;
     private String currency;
     private OrderCustomerInfo customerInfo;
     private LocalDateTime expiresAt;

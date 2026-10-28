@@ -14,6 +14,7 @@ import {
   OperatorGuard,
   StaffGuard,
   AdminGuard,
+  CapabilityGuard,
 } from './shared/presentation/guards/Guards';
 
 // Customer Pages
@@ -29,6 +30,7 @@ import { ExchangeTicketPage } from './modules/booking/presentation/pages/Exchang
 import { OperationProgressPage } from './modules/booking/presentation/pages/OperationProgressPage';
 import { AmendTicketPage } from './modules/booking/presentation/pages/AmendTicketPage';
 import { LoginPage } from './modules/auth/presentation/pages/LoginPage';
+import { AuthCallbackPage } from './modules/auth/presentation/pages/AuthCallbackPage';
 import { RegisterPage } from './modules/auth/presentation/pages/RegisterPage';
 import { ProfilePage } from './modules/user/presentation/pages/ProfilePage';
 import { OperatorRegisterPage } from './pages/OperatorRegisterPage';
@@ -42,7 +44,7 @@ import { OperatorRouteListPage } from './modules/route/presentation/pages/Operat
 import { OperatorTripListPage } from './modules/trip/presentation/pages/OperatorTripListPage';
 import { OperatorTripManagePage } from './modules/trip/presentation/pages/OperatorTripManagePage';
 import { OperatorCounterPage } from './modules/operator/presentation/pages/OperatorCounterPage';
-import { OperatorShiftsPage } from './modules/operator/presentation/pages/OperatorShiftsPage';
+import { OperatorCounterSalesPage } from './modules/operator/presentation/pages/OperatorCounterSalesPage';
 import { OperatorStaffPage } from './modules/operator/presentation/pages/OperatorStaffPage';
 import { OperatorOrdersPage } from './modules/operator/presentation/pages/OperatorOrdersPage';
 import { OperatorProfilePage } from './modules/operator/presentation/pages/OperatorProfilePage';
@@ -56,6 +58,7 @@ import { StaffCheckInPage } from './modules/staff/presentation/pages/StaffCheckI
 import { AdminTransportOverviewPage } from './modules/admin/presentation/pages/AdminTransportOverviewPage';
 import { AdminOperatorListPage } from './modules/admin/presentation/pages/AdminOperatorListPage';
 import { AdminOperatorApplicationsPage } from './modules/admin/presentation/pages/AdminOperatorApplicationsPage';
+import { AdminRefundsPage } from './modules/admin/presentation/pages/AdminRefundsPage';
 import { AdminOrdersPage } from './modules/admin/presentation/pages/AdminOrdersPage';
 import { AdminOperationsPage } from './modules/admin/presentation/pages/AdminOperationsPage';
 
@@ -64,6 +67,7 @@ export const App: React.FC = () => {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
           {/* 1. Customer Public & Protected Routes under CustomerLayout */}
           <Route element={<CustomerLayout />}>
             <Route path="/" element={<HomePage />} />
@@ -101,8 +105,9 @@ export const App: React.FC = () => {
               <Route path="/operator/trips" element={<OperatorTripListPage />} />
               <Route path="/operator/trips/:tripId/manage" element={<OperatorTripManagePage />} />
               <Route path="/operator/orders" element={<OperatorOrdersPage />} />
-              <Route path="/operator/counter" element={<OperatorCounterPage />} />
-              <Route path="/operator/shifts" element={<OperatorShiftsPage />} />
+              <Route path="/operator/counter" element={<Navigate to="/operator/orders" replace />} />
+              <Route path="/operator/counter-sales" element={<OperatorCounterSalesPage />} />
+              <Route path="/operator/shifts" element={<Navigate to="/operator/counter-sales" replace />} />
               <Route path="/operator/staff" element={<OperatorStaffPage />} />
               <Route path="/operator/reports" element={<OperatorReportsPage />} />
               <Route path="/operator/profile" element={<OperatorProfilePage />} />
@@ -115,9 +120,10 @@ export const App: React.FC = () => {
             <Route element={<StaffLayout />}>
               <Route path="/staff" element={<OperatorTripListPage />} />
               <Route path="/staff/trips" element={<OperatorTripListPage />} />
-              <Route path="/staff/check-in" element={<StaffCheckInPage />} />
-              <Route path="/staff/counter" element={<OperatorCounterPage />} />
-              <Route path="/staff/shifts" element={<OperatorShiftsPage />} />
+              <Route path="/staff/trips/:tripId/manage" element={<CapabilityGuard anyOf={['MANAGE_TRIP']}><OperatorTripManagePage /></CapabilityGuard>} />
+              <Route path="/staff/check-in" element={<CapabilityGuard anyOf={['CHECK_IN']}><StaffCheckInPage /></CapabilityGuard>} />
+              <Route path="/staff/counter" element={<CapabilityGuard anyOf={['SELL_CASH']}><OperatorCounterPage /></CapabilityGuard>} />
+              <Route path="/staff/shifts" element={<Navigate to="/staff/trips" replace />} />
               <Route path="/staff/orders" element={<OperatorOrdersPage />} />
             </Route>
           </Route>
@@ -130,13 +136,13 @@ export const App: React.FC = () => {
               <Route path="/admin/applications" element={<AdminOperatorApplicationsPage />} />
               <Route path="/admin/operator-applications" element={<AdminOperatorApplicationsPage />} />
               <Route path="/admin/orders" element={<AdminOrdersPage />} />
-              <Route path="/admin/offers" element={<AdminOperationsPage mode="offers" />} />
-              <Route path="/admin/refunds" element={<AdminOperationsPage mode="refunds" />} />
-              <Route path="/admin/cancellations" element={<AdminOperationsPage mode="cancellations" />} />
-              <Route path="/admin/reconciliation" element={<AdminOperationsPage mode="reconciliation" />} />
-              <Route path="/admin/payouts" element={<AdminOperationsPage mode="payouts" />} />
-              <Route path="/admin/accounts" element={<AdminOperationsPage mode="accounts" />} />
-              <Route path="/admin/policies" element={<AdminOperationsPage mode="policies" />} />
+              <Route path="/admin/offers" element={<Navigate to="/admin/operators" replace />} />
+              <Route path="/admin/refunds" element={<AdminRefundsPage />} />
+              <Route path="/admin/cancellations" element={<AdminOperationsPage key="cancellations" mode="cancellations" />} />
+              <Route path="/admin/reconciliation" element={<AdminOperationsPage key="reconciliation" mode="reconciliation" />} />
+              <Route path="/admin/payouts" element={<AdminOperationsPage key="payouts" mode="payouts" />} />
+              <Route path="/admin/accounts" element={<AdminOperationsPage key="accounts" mode="accounts" />} />
+              <Route path="/admin/policies" element={<AdminOperationsPage key="policies" mode="policies" />} />
             </Route>
           </Route>
 

@@ -55,7 +55,15 @@ export class AddCarUseCase implements IAddCarUseCase {
     }
 
     // 5. Lưu Entity thông qua Repository contract
-    const savedCar = await this.carRepository.save(carEntity);
+    const deckCount = input.deckCount ?? (input.type === 'SLEEPER' && input.totalSeats > 1 ? 2 : 1);
+    const lowerDeckSeats = deckCount === 1 ? input.totalSeats : input.lowerDeckSeats ?? Math.ceil(input.totalSeats / 2);
+    if (![1, 2].includes(deckCount) || lowerDeckSeats < 1 ||
+        (deckCount === 2 && lowerDeckSeats >= input.totalSeats)) {
+      throw new BadRequestException('Xe hai tầng cần ít nhất một ghế ở mỗi tầng.');
+    }
+    const savedCar = await this.carRepository.save(carEntity, {
+      deckCount, lowerDeckSeats, seatClass: input.seatClass ?? 'STANDARD', seatColumns: input.seatColumns ?? 3,
+    });
 
     // 6. Trả về Output DTO
     return {

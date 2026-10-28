@@ -340,6 +340,18 @@ export class TransportService implements OnModuleInit, OnModuleDestroy {
       throw new NotFoundException('Không tìm thấy chuyến');
     }
     await this.assertOfferActive(trip);
+    return this.detailView(trip);
+  }
+
+  async ticketTrip(orderId: string, tripId: string) {
+    const tickets = await this.repository.orderTickets(orderId);
+    if (!tickets.some((ticket) => ticket.tripId === tripId)) throw new NotFoundException('Chuyến không thuộc đơn vé');
+    const trip = await this.repository.findTrip(tripId);
+    if (!trip) throw new NotFoundException('Không tìm thấy chuyến của vé');
+    return this.detailView(trip);
+  }
+
+  private detailView(trip: TransportTrip) {
     return {
       id: trip.id,
       operatorId: trip.operatorId,

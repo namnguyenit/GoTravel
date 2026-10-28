@@ -30,11 +30,14 @@ export interface CarDetailResult {
     level: number;
     seatClass: string;
     active: boolean;
+    row: number;
+    column: number;
   }>;
 }
 
 export interface ICarRepository {
-  save(car: Car): Promise<Car>;
+  save(car: Car, layout?: { deckCount: number; lowerDeckSeats: number; seatClass: string; seatColumns?: number }): Promise<Car>;
+  archiveOwned(id: string, ownerUserId: string): Promise<void>;
   mutateOwned(
     id: string,
     ownerUserId: string,

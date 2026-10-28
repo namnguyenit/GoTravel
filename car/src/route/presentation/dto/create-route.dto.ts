@@ -2,6 +2,7 @@ import {
   IsArray,
   IsInt,
   IsNotEmpty,
+  IsOptional,
   IsString,
   Length,
   Min,
@@ -20,6 +21,14 @@ export class CreateRouteStopDto {
   @IsInt({ message: 'Thứ tự điểm dừng phải là số nguyên.' })
   @Min(0, { message: 'Thứ tự điểm dừng phải lớn hơn hoặc bằng 0.' })
   order: number;
+
+  @IsOptional()
+  @IsString({ message: 'Địa chỉ điểm dừng phải là chuỗi ký tự.' })
+  address?: string;
+
+  @IsOptional()
+  @IsString({ message: 'Tỉnh/thành của điểm dừng phải là chuỗi ký tự.' })
+  province?: string;
 }
 
 export class CreateRouteDto {

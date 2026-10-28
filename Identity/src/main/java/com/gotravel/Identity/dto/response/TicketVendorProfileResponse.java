@@ -16,6 +16,7 @@ public class TicketVendorProfileResponse {
     String representativeIdNumber;
     String taxCode;
     String contactPhone;
+    String logoUrl;
     String documentFrontUrl;
     String documentBackUrl;
     String approvalStatus;

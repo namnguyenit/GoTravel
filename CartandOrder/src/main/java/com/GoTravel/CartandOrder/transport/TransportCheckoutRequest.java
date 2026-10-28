@@ -13,7 +13,7 @@ import java.util.UUID;
 public record TransportCheckoutRequest(
         @NotNull UUID tripId,
         @NotBlank @Size(max = 255) String fullName,
-        @NotBlank @Email @Size(max = 255) String email,
+        @Email @Size(max = 255) String email,
         @NotBlank @Size(max = 30) String phone,
         @NotEmpty List<@Valid Passenger> passengers
 ) {

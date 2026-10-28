@@ -30,6 +30,14 @@ const pages = {
         ],
       },
       {
+        title: "Vị trí và gợi ý chuyến xe",
+        items: [
+          "Chỉ sử dụng vị trí thiết bị khi bạn cho phép trong trình duyệt; từ chối không ảnh hưởng việc tìm kiếm và đặt dịch vụ.",
+          "Sau khi được cấp quyền, trình duyệt gửi tọa độ hiện tại tới BigDataCloud để xác định tỉnh/thành phố. Hệ thống dùng tỉnh để gợi ý chuyến xe GoTicket đến nơi bạn đang xem.",
+          "Tọa độ không được lưu trong tài khoản hoặc database. Chỉ tên tỉnh/thành phố được nhớ trong tab tối đa 15 phút; dừng cập nhật vị trí khi tab bị ẩn. Bạn có thể thu hồi quyền tại cài đặt trang web của trình duyệt.",
+        ],
+      },
+      {
         title: "Bảo mật và chia sẻ",
         items: [
           "Dữ liệu nhạy cảm chỉ được dùng cho nghiệp vụ cần thiết trong hệ thống.",

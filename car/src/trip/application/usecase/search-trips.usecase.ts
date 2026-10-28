@@ -19,39 +19,28 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
   ) {}
 
   async execute(input: SearchTripsInput): Promise<SearchTripsOutput> {
-    // 1. Validate điểm đi và điểm đến
-    if (!input.origin || !input.origin.trim()) {
+    const discover = input.discover === true;
+    const origin = input.origin?.trim() || undefined;
+    const destination = input.destination?.trim() || undefined;
+    const departureDate = input.departureDate?.trim() || undefined;
+    if (!discover && (!origin || !destination)) {
       throw new BadRequestException(
-        'Điểm khởi hành (origin) không được để trống.',
+        'Vui lòng chọn điểm khởi hành và điểm đến.',
       );
     }
-
-    if (!input.destination || !input.destination.trim()) {
-      throw new BadRequestException(
-        'Điểm đến (destination) không được để trống.',
-      );
+    if (!discover && !departureDate) {
+      throw new BadRequestException('Vui lòng chọn ngày khởi hành.');
     }
-
-    // 2. Validate ngày khởi hành
-    if (
-      !input.departureDate ||
-      !/^\d{4}-\d{2}-\d{2}$/.test(input.departureDate)
-    ) {
-      throw new BadRequestException(
-        'Ngày khởi hành (departureDate) phải có định dạng YYYY-MM-DD.',
-      );
-    }
-
-    try {
-      vietnamDayBounds(input.departureDate);
-    } catch {
-      throw new BadRequestException('Ngày khởi hành không hợp lệ.');
-    }
-    const todayStr = vietnamToday();
-    if (input.departureDate < todayStr) {
-      throw new BadRequestException(
-        'Ngày khởi hành không được ở trong quá khứ.',
-      );
+    if (departureDate) {
+      try {
+        vietnamDayBounds(departureDate);
+      } catch {
+        throw new BadRequestException('Ngày khởi hành không hợp lệ.');
+      }
+      if (departureDate < vietnamToday())
+        throw new BadRequestException(
+          'Ngày khởi hành không được ở trong quá khứ.',
+        );
     }
 
     // 3. Chuẩn hóa phân trang & sắp xếp
@@ -69,9 +58,7 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
         'Giá tối đa phải lớn hơn hoặc bằng giá tối thiểu',
       );
     }
-    const { start: dayStart, end: dayEnd } = vietnamDayBounds(
-      input.departureDate,
-    );
+    const day = departureDate ? vietnamDayBounds(departureDate) : null;
     const slots = [...(input.timeSlots ?? [])];
     if (input.timeOfDay)
       slots.push(
@@ -81,33 +68,44 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
           evening: '18:00-00:00',
         }[input.timeOfDay],
       );
-    const departureRanges = slots.flatMap((slot) => {
+    const minuteRanges = slots.flatMap((slot) => {
       if (!/^(?:[01]\d|2[0-3]):[0-5]\d-(?:[01]\d|2[0-3]):[0-5]\d$/.test(slot))
         throw new BadRequestException('Khoảng giờ không hợp lệ');
-      const [from, to] = slot.split('-').map((time) => {
-        const [h, m] = time.split(':').map(Number);
+      const [from, to] = slot.split('-').map((value) => {
+        const [h, m] = value.split(':').map(Number);
         return h * 60 + m;
       });
       if (from === to)
         throw new BadRequestException('Khoảng giờ phải có độ dài lớn hơn 0');
-      const at = (minutes: number) =>
-        new Date(dayStart.getTime() + minutes * 60_000);
       return to > from
-        ? [{ start: at(from), end: at(to) }]
+        ? [{ start: from, end: to }]
         : [
-            { start: at(from), end: new Date(dayEnd.getTime() + 1) },
-            { start: dayStart, end: at(to) },
+            { start: from, end: 1440 },
+            { start: 0, end: to },
           ].filter((range) => range.start < range.end);
     });
+    const departureRanges = day
+      ? minuteRanges.map((range) => ({
+          start: new Date(day.start.getTime() + range.start * 60000),
+          end: new Date(day.start.getTime() + range.end * 60000),
+        }))
+      : [];
     const activeRouteIds = await this.inventory.activeOfferRoutes();
 
     // 4. Truy vấn chuyến xe từ Repository
-    const queryResult = await this.tripRepository.searchCustomerTrips({
+    const preferredOrigin =
+      discover && !origin && !destination && !input.originRegion && !input.destinationRegion
+        ? input.preferredOrigin?.trim() || undefined
+        : undefined;
+    const query = {
       activeRouteIds,
+      originRegion: input.originRegion?.trim() || undefined,
+      destinationRegion: input.destinationRegion?.trim() || undefined,
       departureRanges,
-      origin: input.origin.trim(),
-      destination: input.destination.trim(),
-      departureDate: input.departureDate,
+      minuteRanges: day ? [] : minuteRanges,
+      origin: origin || preferredOrigin,
+      destination,
+      departureDate,
       type: input.type,
       minPrice: input.minPrice,
       maxPrice: input.maxPrice,
@@ -116,7 +114,16 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
       sortOrder,
       page,
       limit,
-    });
+    };
+    let queryResult = await this.tripRepository.searchCustomerTrips(query);
+    let usedNearby = Boolean(preferredOrigin);
+    if (preferredOrigin && queryResult.total === 0) {
+      usedNearby = false;
+      queryResult = await this.tripRepository.searchCustomerTrips({
+        ...query,
+        origin: undefined,
+      });
+    }
 
     // Inventory is the source of truth for occupied seats. Fail the search
     // when it cannot be reached rather than advertising stale availability.
@@ -139,6 +146,13 @@ export class SearchTripsUseCase implements ISearchTripsUseCase {
 
     // 5. Trả về kết quả
     return {
+      discovery: discover
+        ? {
+            origin: preferredOrigin,
+            nearby: usedNearby,
+            fallback: Boolean(preferredOrigin) && !usedNearby,
+          }
+        : undefined,
       pagination: {
         page,
         limit,

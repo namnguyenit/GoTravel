@@ -59,7 +59,7 @@ public class TransportAmendmentService {
         if (request == null || request.commandId() == null || request.passengerName() == null ||
                 request.passengerName().isBlank() || request.passengerName().trim().length() > 120 ||
                 request.pickupStopId() == null || request.dropoffStopId() == null) throw badRequest("Thông tin sửa vé không hợp lệ; cần commandId UUID ổn định cho retry");
-        var initial = orders.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        var initial = orders.findWithItemsById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
         var initialItem=initial.getItems().stream().filter(i->i.getId().equals(orderItemId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         authorizeActor(actorId, initial, initialItem.getTransportTripId());
         AmendmentRecord command = transactions.execute(status -> {
@@ -76,7 +76,7 @@ public class TransportAmendmentService {
                 if (!replay.orderId().equals(orderId) || !replay.orderItemId().equals(orderItemId) || !replay.payloadHash().equals(hash)) throw conflict("commandId đã có payload khác");
                 return replay;
             }
-            if (order.getStatus() != OrderStatus.CONFIRMED || !"ACTIVE".equals(item.getTransportItemState()) || !"ACTIVE".equals(item.getTransportBoardingStatus())) throw conflict("Chỉ sửa vé đang có hiệu lực");
+            if (order.getStatus() != OrderStatus.CONFIRMED || !"ACTIVE".equals(item.getTransportItemState()) || item.getTransportBoardingStatus() != null) throw conflict("Chỉ sửa vé đang có hiệu lực");
             var pending = findPendingByItem(orderItemId);
             if (pending != null) throw conflict("Vé có yêu cầu chưa kết thúc, cần xử lý/retry command cũ");
             Integer other = jdbc.queryForObject("select count(*) from transport_exchange_cases where (old_order_id=? or new_order_id=?) and status not in ('COMPLETED','EXCEPTION_RESOLVED','REPLACEMENT_CANCELLED')", Integer.class, orderId, orderId);
@@ -131,7 +131,7 @@ public class TransportAmendmentService {
             entityManager.clear();
 
             // Enqueue notification for passenger revision
-            var order = orders.findById(orderId).orElse(null);
+            var order = orders.findWithItemsById(orderId).orElse(null);
             if (order != null) {
                 TransportNotificationService.enqueue(jdbc, order, "AMENDMENT", commandId.toString());
             }
@@ -156,7 +156,7 @@ public class TransportAmendmentService {
     public AmendmentRecord retry(UUID actorId, UUID commandId) {
         var command = findByCommandId(commandId);
         if (command == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-        var order=orders.findById(command.orderId()).orElseThrow();var item=order.getItems().stream().filter(i->i.getId().equals(command.orderItemId())).findFirst().orElseThrow();
+        var order=orders.findWithItemsById(command.orderId()).orElseThrow();var item=order.getItems().stream().filter(i->i.getId().equals(command.orderItemId())).findFirst().orElseThrow();
         authorizeActor(actorId, order, item.getTransportTripId());
         var ready = transactions.execute(status -> {
             entityManager.clear();
@@ -199,7 +199,7 @@ public class TransportAmendmentService {
     }
 
     public List<AmendmentRecord> listAmendmentsByItem(UUID actorId, UUID orderId, UUID orderItemId) {
-        var order = orders.findById(orderId)
+        var order = orders.findWithItemsById(orderId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy đơn hàng"));
         var item=order.getItems().stream().filter(i->i.getId().equals(orderItemId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         authorizeActor(actorId, order, item.getTransportTripId());

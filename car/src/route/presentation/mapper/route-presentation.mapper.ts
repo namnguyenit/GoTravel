@@ -19,6 +19,8 @@ export class RoutePresentationMapper {
       stops: (dto.stops || []).map((stop) => ({
         name: stop.name,
         order: stop.order,
+        address: stop.address,
+        province: stop.province,
       })),
     };
   }
@@ -81,6 +83,7 @@ export class RoutePresentationMapper {
         origin: output.origin,
         destination: output.destination,
         status: output.status,
+        stops: output.stops,
         createdAt: output.createdAt,
         updatedAt: output.updatedAt,
       },
@@ -117,6 +120,8 @@ export class RoutePresentationMapper {
           id: s.id,
           name: s.name,
           order: s.order,
+          address: s.address,
+          province: s.province,
         })),
         createdAt: route.createdAt,
         updatedAt: route.updatedAt,

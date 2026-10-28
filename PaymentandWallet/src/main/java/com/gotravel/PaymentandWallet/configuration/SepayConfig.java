@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 @Getter
 @Setter
 public class SepayConfig {
+    private boolean refundEnabled;
+    private String refundBankAccountId = "";
     private String bankAccount;
     private String bankName;
     private String apiToken;

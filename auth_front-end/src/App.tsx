@@ -97,6 +97,8 @@ export default function App() {
 
   // Loading & error/success messages
   const [loading, setLoading] = useState<boolean>(false);
+  const [checkingSession, setCheckingSession] = useState(true);
+  const handingOff = useRef(false);
   const [error, setError] = useState<string>("");
   const [success, setSuccess] = useState<string>("");
 
@@ -126,6 +128,8 @@ export default function App() {
 
   // Check URL parameters and active SSO session on mount
   useEffect(() => {
+    let active = true;
+    const controller = new AbortController();
     const params = new URLSearchParams(window.location.search);
     const target = safeRedirect(params.get("redirect_uri") || params.get("continue"), window.location.origin);
     const action = params.get("action") || "";
@@ -140,21 +144,29 @@ export default function App() {
     // Handle logout action
     if (action === "logout" || window.location.pathname === "/logout") {
       void clearAuthCookie()
-        .then(() => setSuccess("Bạn đã đăng xuất khỏi GoID."))
-        .catch(() => setError("Không thể đăng xuất lúc này. Vui lòng thử lại."));
-      return;
+        .then(() => {
+          if (!active) return;
+          setSuccess("Bạn đã đăng xuất khỏi GoID.");
+          setCheckingSession(false);
+          if (params.get('redirect_uri') || params.get('continue')) window.location.replace(target);
+        })
+        .catch(() => { if (active) { setError("Không thể đăng xuất lúc này. Vui lòng thử lại."); setCheckingSession(false); } });
+      return () => { active = false; controller.abort(); };
     }
 
     // NẾU NGƯỜI DÙNG ĐÃ ĐĂNG NHẬP: Tự động chuyển hướng ngay về GoTravel / redirect_uri
-    void AuthService.getMe().then((profile) => {
-      if (profile) {
+    void AuthService.getMe(controller.signal).then((profile) => {
+      if (active && profile) {
         window.location.replace(target);
       }
-    }).catch(() => setError('Chưa thể kiểm tra phiên đăng nhập hiện tại. Vui lòng tải lại trang để thử lại.'));
+    }).catch(() => { if (active) setError('Chưa thể kiểm tra phiên đăng nhập hiện tại. Vui lòng tải lại trang để thử lại.'); })
+      .finally(() => { if (active) setCheckingSession(false); });
+    return () => { active = false; controller.abort(); };
   }, []);
 
   // Completion handoff to redirect_uri or GoTravel
   const handleAuthSuccess = () => {
+    handingOff.current = true;
     const destination = redirectUri || safeRedirect(null, window.location.origin);
     setSuccess("Xác thực thành công. Đang chuyển hướng...");
     setTimeout(() => {
@@ -165,6 +177,7 @@ export default function App() {
   // Submit Login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading || checkingSession || handingOff.current) return;
     setError("");
     setSuccess("");
     setLoading(true);
@@ -189,13 +202,14 @@ export default function App() {
         "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.";
       setError(msg);
     } finally {
-      setLoading(false);
+      if (!handingOff.current) setLoading(false);
     }
   };
 
   // Submit Register
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading || checkingSession || handingOff.current) return;
     setError("");
     setSuccess("");
 
@@ -237,13 +251,14 @@ export default function App() {
       const authError = err as { message?: string };
       setError(authError.message || "Đăng ký thất bại. Vui lòng thử lại.");
     } finally {
-      setLoading(false);
+      if (!handingOff.current) setLoading(false);
     }
   };
 
   // Submit Forgot Password
   const handleForgotPassword = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading || checkingSession || handingOff.current) return;
     setError("");
     setSuccess("");
 
@@ -262,13 +277,14 @@ export default function App() {
       const authError = err as { message?: string };
       setError(authError.message || "Không thể gửi yêu cầu đặt lại mật khẩu.");
     } finally {
-      setLoading(false);
+      if (!handingOff.current) setLoading(false);
     }
   };
 
   // Submit Reset Password
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (loading || checkingSession || handingOff.current) return;
     setError("");
     setSuccess("");
 
@@ -297,7 +313,7 @@ export default function App() {
       const authError = err as { message?: string };
       setError(authError.message || "Mã xác thực không hợp lệ hoặc đã hết hạn.");
     } finally {
-      setLoading(false);
+      if (!handingOff.current) setLoading(false);
     }
   };
 
@@ -344,7 +360,9 @@ export default function App() {
             className="header-back-btn"
             onClick={() => {
               const backUrl = redirectUri || safeRedirect(null, window.location.origin);
-              window.location.href = backUrl;
+              const destination = new URL(backUrl);
+              // Cancelling sign-in returns to the site, not its unfinished SSO callback.
+              window.location.href = destination.pathname === '/auth/callback' ? new URL('/', destination).href : backUrl;
             }}
             aria-label="Quay lại dịch vụ trước đó"
             title="Quay lại"
@@ -429,8 +447,8 @@ export default function App() {
                 </button>
               </div>
 
-              <button type="submit" disabled={loading} className="gostay-submit-btn">
-                {loading ? (
+              <button type="submit" disabled={loading || checkingSession} className="gostay-submit-btn">
+                {loading || checkingSession ? (
                   <>
                     <div className="spinner-dot"></div>
                     <span>Đang xử lý...</span>
@@ -592,8 +610,8 @@ export default function App() {
                 </button>
               </div>
 
-              <button type="submit" disabled={loading} className="gostay-submit-btn">
-                {loading ? (
+              <button type="submit" disabled={loading || checkingSession} className="gostay-submit-btn">
+                {loading || checkingSession ? (
                   <>
                     <div className="spinner-dot"></div>
                     <span>Đang xử lý...</span>
@@ -639,8 +657,8 @@ export default function App() {
                 </label>
               </div>
 
-              <button type="submit" disabled={loading} className="gostay-submit-btn" style={{ marginTop: 8 }}>
-                {loading ? (
+              <button type="submit" disabled={loading || checkingSession} className="gostay-submit-btn" style={{ marginTop: 8 }}>
+                {loading || checkingSession ? (
                   <>
                     <div className="spinner-dot"></div>
                     <span>Đang gửi...</span>
@@ -742,8 +760,8 @@ export default function App() {
                 </label>
               </div>
 
-              <button type="submit" disabled={loading} className="gostay-submit-btn" style={{ marginTop: 8 }}>
-                {loading ? (
+              <button type="submit" disabled={loading || checkingSession} className="gostay-submit-btn" style={{ marginTop: 8 }}>
+                {loading || checkingSession ? (
                   <>
                     <div className="spinner-dot"></div>
                     <span>Đang xử lý...</span>

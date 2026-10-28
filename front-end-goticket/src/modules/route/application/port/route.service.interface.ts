@@ -4,6 +4,8 @@ import type { RouteStatus } from "../../domain/value-object/route-status.vo";
 export interface CreateRouteStopDTO {
   name: string;
   order: number;
+  address?: string;
+  province?: string;
 }
 
 export interface CreateRouteDTO {
@@ -39,5 +41,6 @@ export interface IRouteService {
   createRoute(dto: CreateRouteDTO): Promise<RouteEntity>;
   updateRoute(id: string, dto: Partial<CreateRouteDTO>): Promise<RouteEntity>;
   updateRouteStatus(id: string, status: RouteStatus): Promise<RouteEntity>;
+  deleteRoute(id: string): Promise<void>;
   getLocations(): Promise<string[]>;
 }

@@ -120,6 +120,15 @@ export class TransportController {
 export class TransportInternalController {
   constructor(private readonly service: TransportService) {}
 
+  @Get('orders/:orderId/trips/:tripId')
+  @Internal()
+  async ticketTrip(
+    @Param('orderId', new ParseUUIDPipe()) orderId: string,
+    @Param('tripId', new ParseUUIDPipe()) tripId: string,
+  ) {
+    return { success: true, data: await this.service.ticketTrip(orderId, tripId) };
+  }
+
   @Get('orders/:orderId/tickets')
   @Internal()
   async orderTickets(@Param('orderId', new ParseUUIDPipe()) orderId: string) {

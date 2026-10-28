@@ -1,7 +1,11 @@
 export interface SearchTripsInput {
-  origin: string;
-  destination: string;
-  departureDate: string;
+  originRegion?: string;
+  destinationRegion?: string;
+  origin?: string;
+  destination?: string;
+  departureDate?: string;
+  discover?: boolean;
+  preferredOrigin?: string;
   type?: string;
   timeOfDay?: 'morning' | 'afternoon' | 'evening';
   timeSlots?: string[];

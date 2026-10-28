@@ -89,7 +89,7 @@ export class SeatEntity {
       ? 'Đã bán'
       : 'Đã khóa';
     const priceText = Number(this.props.priceVnd).toLocaleString('vi-VN') + ' đồng';
-    return `Ghế ${this.props.code}, tầng ${this.deck}, ${statusText}, giá ${priceText}`;
+    return `Ghế ${this.props.code}, tầng ${this.deck}, hạng ${this.seatClass}, ${statusText}, giá ${priceText}`;
   }
 
   static fromApiResponse(raw: any): SeatEntity {

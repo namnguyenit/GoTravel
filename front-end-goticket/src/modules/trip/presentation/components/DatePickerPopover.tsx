@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Calendar, ChevronLeft, ChevronRight } from 'lucide-react';
+import { vietnamDate } from '@/shared/utils/vietnam-date';
 
 interface DatePickerPopoverProps {
   value: string; // YYYY-MM-DD
@@ -31,8 +32,7 @@ const formatDisplayDate = (dateStr: string): string => {
 };
 
 const getTodayString = (): string => {
-  const now = new Date();
-  return formatDateString(now.getFullYear(), now.getMonth(), now.getDate());
+  return vietnamDate();
 };
 
 

@@ -71,6 +71,9 @@ public class TransportOfferService {
             listing.setAverageRating(BigDecimal.ZERO);
             listing.setTotalReviews(0);
         }
+        // Transport route content does not require a second review after vendor KYC.
+        // Keep explicit HIDDEN/DELETED decisions intact.
+        if (listing.getStatus() == ListingStatus.PENDING) listing.setStatus(ListingStatus.ACTIVE);
         listing = listings.save(listing);
         return new OfferResult(listing.getId(), listing.getStatus().name());
     }
@@ -116,10 +119,20 @@ public class TransportOfferService {
         }
         listing.setTitle(content.title().trim()); listing.setDescription(content.description().trim());
         listing.setThumbnailUrl(content.thumbnailUrl());
-        // Content changes go through moderation. Suspension is never bypassed by editing.
-        if (listing.getStatus() == ListingStatus.ACTIVE) listing.setStatus(ListingStatus.PENDING);
+        // Content edits keep an active route available; legacy review-only pending content is released.
+        // Editing never restores a HIDDEN/DELETED listing.
+        if (listing.getStatus() == ListingStatus.PENDING) listing.setStatus(ListingStatus.ACTIVE);
         listings.save(listing);
         return new OfferResult(listing.getId(), listing.getStatus().name());
+    }
+
+    @Transactional(readOnly = true)
+    public ContentUpdate getContent(UUID userId, UUID listingId) {
+        Listing listing = listings.findById(listingId).orElseThrow(() ->
+                new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (listing.getCategory() != ListingCategory.TRANSPORT || !userId.equals(listing.getHostId()))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        return new ContentUpdate(listing.getTitle(), listing.getDescription(), listing.getThumbnailUrl());
     }
 
     private boolean blank(String value) {

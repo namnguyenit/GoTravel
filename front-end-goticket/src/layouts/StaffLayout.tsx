@@ -5,7 +5,6 @@ import {
   CalendarDays,
   QrCode,
   Store,
-  Wallet,
   ShoppingBag,
 } from 'lucide-react';
 import {
@@ -15,7 +14,7 @@ import {
 } from '@/shared/presentation/components';
 
 export const StaffLayout: React.FC = () => {
-  const { user } = useAuth();
+  const { user, selectStaffOperator } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const navGroups: PortalNavGroup[] = [
@@ -32,19 +31,13 @@ export const StaffLayout: React.FC = () => {
           label: 'Soát vé & Check-in',
           to: '/staff/check-in',
           icon: QrCode,
-          show: user?.hasCapability('CHECK_IN') || user?.isAdmin() || user?.isVendor(),
+          show: user?.hasCapability('CHECK_IN'),
         },
         {
           label: 'Bán vé tại quầy',
           to: '/staff/counter',
           icon: Store,
-          show: user?.hasCapability('SELL_CASH') || user?.isAdmin() || user?.isVendor(),
-        },
-        {
-          label: 'Ca thu tiền mặt',
-          to: '/staff/shifts',
-          icon: Wallet,
-          show: user?.hasCapability('CASH_VIEW') || user?.hasCapability('SELL_CASH') || user?.isAdmin() || user?.isVendor(),
+          show: user?.hasCapability('SELL_CASH'),
         },
         {
           label: 'Đơn hàng được phân công',
@@ -75,9 +68,14 @@ export const StaffLayout: React.FC = () => {
               <p className="text-[11px] uppercase font-bold tracking-wider text-[var(--gt-muted)]">
                 Quyền thao tác
               </p>
+              {user && user.staffAssignments.length > 1 && <label className="my-3 block text-xs font-semibold">Nhà xe đang tác nghiệp
+                <select aria-label="Nhà xe đang tác nghiệp" value={user.operatorId || ''} onChange={e => selectStaffOperator?.(e.target.value)} className="mt-2 min-h-11 w-full rounded-xl border border-gray-200 bg-white px-2 text-sm">
+                  {user.staffAssignments.map(a => <option key={a.operatorId} value={a.operatorId}>{a.operatorName}</option>)}
+                </select>
+              </label>}
               <div className="flex flex-wrap gap-1 mt-1.5">
-                {user?.staffCapabilities && user.staffCapabilities.length > 0 ? (
-                  user.staffCapabilities.map((cap) => (
+                {user?.staffCapabilities && user.staffCapabilities.some(cap => !['CLOSE_SHIFT', 'CASH_VIEW'].includes(cap)) ? (
+                  user.staffCapabilities.filter(cap => !['CLOSE_SHIFT', 'CASH_VIEW'].includes(cap)).map((cap) => (
                     <span
                       key={cap}
                       className="inline-block px-2 py-0.5 bg-[var(--gt-surface-soft)] border border-[var(--gt-border)] text-[var(--gt-ink)] text-[10px] font-bold rounded-full"

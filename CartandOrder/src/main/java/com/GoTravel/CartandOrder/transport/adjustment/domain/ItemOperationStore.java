@@ -16,6 +16,9 @@ public interface ItemOperationStore {
     void recordCash(UUID operationId,UUID shiftId,UUID actorId,BigDecimal amount,String reference);
     void recordRefund(UUID operationId,UUID actorId,BigDecimal amount,String reference,String evidence,String method,UUID shiftId);
     List<UUID> attentionIds();
+    org.springframework.data.domain.Page<UUID> attentionIds(String search, String state, org.springframework.data.domain.Pageable pageable);
     List<UUID> refundAckIds();
+    boolean automaticRefundBlocksManual(UUID operationId);
+    void recordReason(UUID operationId,UUID actor,String code,String text);
     void notify(Order order,String kind,String eventKey);
 }

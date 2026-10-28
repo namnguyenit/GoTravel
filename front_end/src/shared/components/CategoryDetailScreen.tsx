@@ -11,6 +11,7 @@ import { formatMoney } from "@/shared/utils";
 import ReviewSection from "./ReviewSection";
 import { useCart } from "@/shared/context/CartContext";
 import AddToCartModal from "./AddToCartModal";
+import TripTravelSuggestions from "./TripTravelSuggestions";
 
 type CategoryItem =
   | {
@@ -599,6 +600,7 @@ export default function CategoryDetailScreen({
 
           {/* RIGHT SIDE: LIST OF OTHER ITEMS (Col Span 5) */}
           <div className="lg:col-span-5 border-t lg:border-t-0 lg:border-l border-zinc-100 dark:border-zinc-800 lg:pl-8 pt-8 lg:pt-0">
+            <TripTravelSuggestions destination={detailData?.province || selectedItem?.province || selectedItem?.address} />
             <div className="mb-4">
               <h2 className="text-lg font-bold text-app-fg">Các lựa chọn quanh khu vực</h2>
               <p className="mt-1 text-sm text-app-muted-fg">

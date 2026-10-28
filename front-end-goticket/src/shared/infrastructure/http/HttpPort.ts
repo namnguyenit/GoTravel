@@ -28,6 +28,7 @@ export class ApiError extends Error {
 }
 
 export interface IHttpClient {
+  resetSession?(): void;
   get<T>(url: string, config?: RequestConfig): Promise<T>;
   post<T>(url: string, body?: unknown, config?: RequestConfig): Promise<T>;
   put<T>(url: string, body?: unknown, config?: RequestConfig): Promise<T>;
@@ -70,7 +71,7 @@ export class FetchHttpClient implements IHttpClient {
     return fullUrl;
   }
 
-  private async request<T>(endpoint: string, method: string, body?: unknown, config: RequestConfig = {}): Promise<T> {
+  private async request<T>(endpoint: string, method: string, body?: unknown, config: RequestConfig = {}, csrfRetried = false): Promise<T> {
     const { params, headers: customHeaders, skipCsrf, ...restConfig } = config;
     const url = this.buildUrl(endpoint, params);
 
@@ -87,7 +88,7 @@ export class FetchHttpClient implements IHttpClient {
     // Đính kèm CSRF token cho mutations
     const isMutation = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(method.toUpperCase());
     if (isMutation && !skipCsrf) {
-      const token = this.getCsrfTokenFromCookie() || this.csrfToken;
+      const token = this.csrfToken || this.getCsrfTokenFromCookie();
       if (token) {
         headers['X-CSRF-Token'] = token;
       }
@@ -132,6 +133,16 @@ export class FetchHttpClient implements IHttpClient {
     }
 
     if (!response.ok) {
+      // CSRF rejection occurs before the business handler; retry only this specific rejection once.
+      if (response.status === 403 && json?.code === 'INVALID_CSRF_TOKEN' && isMutation && !skipCsrf && !csrfRetried) {
+        this.csrfToken = null;
+        try {
+          await this.request('/api/v1/auth/session', 'GET', undefined, { cache: 'no-store', signal: config.signal }, true);
+        } catch (error) {
+          if (!(error instanceof ApiError) || error.status !== 401) throw error;
+        }
+        return this.request<T>(endpoint, method, body, config, true);
+      }
       let errorMessage = `Yêu cầu thất bại (${response.status})`;
       let errorCode = 'HTTP_ERROR';
       let details: unknown = null;
@@ -158,6 +169,8 @@ export class FetchHttpClient implements IHttpClient {
         if (json.success === false) {
           throw new ApiError(response.status, json.message || 'Thao tác không thành công', json.code || 'BUSINESS_ERROR', json);
         }
+        // Some GoCar endpoints carry pagination next to data (not inside it).
+        if ('pagination' in json && 'data' in json) return { data: json.data, pagination: json.pagination } as T;
         return (json.data !== undefined ? json.data : json) as T;
       }
 
@@ -176,6 +189,8 @@ export class FetchHttpClient implements IHttpClient {
   public get<T>(url: string, config?: RequestConfig): Promise<T> {
     return this.request<T>(url, 'GET', undefined, config);
   }
+
+  public resetSession(): void { this.csrfToken = null; }
 
   public post<T>(url: string, body?: unknown, config?: RequestConfig): Promise<T> {
     return this.request<T>(url, 'POST', body, config);

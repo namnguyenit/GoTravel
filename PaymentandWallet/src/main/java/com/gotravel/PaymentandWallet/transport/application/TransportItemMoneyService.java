@@ -15,6 +15,7 @@ import java.time.*;
 @Service @RequiredArgsConstructor
 public class TransportItemMoneyService {
  public record PlanView(ItemOperationPlan plan,String state){}
+ private final com.gotravel.PaymentandWallet.transport.refund.ProviderRefundService providerRefunds;
  private final OrderClient cart;private final PaymentRequestRepository payments;private final ItemMoneyLedger ledger;
  private ResponseStatusException conflict(String s){return new ResponseStatusException(HttpStatus.CONFLICT,s);}
  public Result apply(UUID id,String action){
@@ -55,6 +56,7 @@ public class TransportItemMoneyService {
   }
   if("refund".equals(action)){
    var proof=cart.itemRefundProof(id);if(proof==null||!proof.isSuccess()||proof.getData()==null)throw conflict("Chưa có chứng cứ hoàn thực tế");
+   providerRefunds.assertProofAllowed(id,proof.getData().reference());
    return ledger.refund(p,proof.getData());
   }
   throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

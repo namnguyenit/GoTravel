@@ -10,6 +10,7 @@ export interface OperatorStatusPatch {
   reason?: string;
 }
 export interface OperatorProvisionInput {
+  logoUrl?: string | null;
   userId: string;
   companyName: string;
   companyAddress?: string | null;

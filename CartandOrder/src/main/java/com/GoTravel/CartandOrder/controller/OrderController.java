@@ -56,8 +56,9 @@ public class OrderController {
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<ApiResponse<Page<OrderResponse>>> getAdminOrders(Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success("Lấy danh sách đơn hàng thành công", orderService.getAdminOrders(pageable)));
+    public ResponseEntity<ApiResponse<Page<OrderResponse>>> getAdminOrders(
+            @RequestParam(required = false) OrderKind orderKind, Pageable pageable) {
+        return ResponseEntity.ok(ApiResponse.success("Lấy danh sách đơn hàng thành công", orderService.getAdminOrders(orderKind, pageable)));
     }
 
     @PutMapping("/admin/{orderId}/force-cancel")
@@ -113,8 +114,11 @@ public class OrderController {
     @GetMapping("/disputes")
     public ResponseEntity<ApiResponse<Page<OrderDisputeResponse>>> getMyDisputes(
             @RequestHeader("X-User-Id") UUID userId,
+            @RequestParam(required = false) OrderKind orderKind,
+            @RequestParam(required = false) DisputeStatus status,
+            @RequestParam(required = false) String search,
             Pageable pageable) {
-        return ResponseEntity.ok(ApiResponse.success("Lấy danh sách khiếu nại thành công", orderDisputeService.getMyDisputes(userId, pageable)));
+        return ResponseEntity.ok(ApiResponse.success("Lấy danh sách khiếu nại thành công", orderDisputeService.getMyDisputes(userId, pageable, orderKind, status, search)));
     }
 
     @GetMapping("/host")

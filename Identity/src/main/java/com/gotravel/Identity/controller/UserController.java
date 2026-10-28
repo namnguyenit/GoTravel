@@ -86,10 +86,11 @@ public class UserController {
     @PreAuthorize("hasRole('ADMIN')")
     public ApiRequest<PageResponse<UserResponse>> getTicketVendorApplications(
             @RequestParam(defaultValue = "PENDING") String status,
+            @RequestParam(required = false) String keyword,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
         return ApiRequest.success(SuccessCode.GET_USERS_SUCCESS,
-                userService.getTicketVendorApplications(page, size, status));
+                userService.getTicketVendorApplications(page, size, status, keyword));
     }
 
     @PutMapping("/ticket-vendors/{accountId}/approval")
@@ -218,10 +219,11 @@ public class UserController {
     public ApiRequest<TicketVendorProfileResponse> applyToTicketVendor(
             @Valid @ModelAttribute TicketVendorApplicationRequest request,
             @RequestParam("frontImage") MultipartFile frontImage,
-            @RequestParam("backImage") MultipartFile backImage) {
+            @RequestParam("backImage") MultipartFile backImage,
+            @RequestParam("logoImage") MultipartFile logoImage) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         return ApiRequest.success(SuccessCode.APPLICATION_SUBMITTED_SUCCESS,
-                userService.submitTicketVendorApplication(userId, request, frontImage, backImage, false));
+                userService.submitTicketVendorApplication(userId, request, frontImage, backImage, logoImage, false));
     }
 
     @PutMapping(value = "/me/ticket-vendor-application", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -229,10 +231,11 @@ public class UserController {
     public ApiRequest<TicketVendorProfileResponse> updateTicketVendorApplication(
             @Valid @ModelAttribute TicketVendorApplicationRequest request,
             @RequestParam(value = "frontImage", required = false) MultipartFile frontImage,
-            @RequestParam(value = "backImage", required = false) MultipartFile backImage) {
+            @RequestParam(value = "backImage", required = false) MultipartFile backImage,
+            @RequestParam(value = "logoImage", required = false) MultipartFile logoImage) {
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         return ApiRequest.success(SuccessCode.APPLICATION_SUBMITTED_SUCCESS,
-                userService.submitTicketVendorApplication(userId, request, frontImage, backImage, true));
+                userService.submitTicketVendorApplication(userId, request, frontImage, backImage, logoImage, true));
     }
 
     @GetMapping("/me/ticket-vendor-profile")

@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { vietnamDate } from '@/shared/utils/vietnam-date';
+import { useSearchParams, useLocation } from "react-router-dom";
 import { tripService } from "../../composition";
 import type { TripEntity } from "../../domain/entity/trip.entity";
 import type {
@@ -32,7 +33,15 @@ import {
 export const OperatorTripListPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user } = useAuth();
-  const isStaffView = Boolean(user?.isStaff() && !user?.isVendor());
+  const inStaffPortal = useLocation().pathname.startsWith('/staff');
+  const isStaffView = inStaffPortal;
+  const [today, setToday] = useState(() => vietnamDate());
+  const selectedDate = searchParams.get('date') || today;
+  const appliedStatus = (searchParams.get('status') || '') as TripStatus | '';
+  const appliedKeyword = searchParams.get('search') || '';
+  const appliedSort = searchParams.get('sort') || 'departureTime_asc';
+  const selectedPage = Math.max(1, Number(searchParams.get('page')) || 1);
+  const requestSequence = useRef(0);
 
   const [trips, setTrips] = useState<TripEntity[]>([]);
   const [kpi, setKpi] = useState<TripKpiStats>({
@@ -53,10 +62,10 @@ export const OperatorTripListPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Filters & Sorting state
-  const [keywordInput, setKeywordInput] = useState<string>("");
-  const [statusFilter, setStatusFilter] = useState<TripStatus | "">("");
-  const [departureDateFilter, setDepartureDateFilter] = useState<string>("");
-  const [sortOption, setSortOption] = useState<string>("departureTime_asc");
+  const [keywordInput, setKeywordInput] = useState<string>(() => searchParams.get('search') || '');
+  const [statusFilter, setStatusFilter] = useState<TripStatus | "">(() => (searchParams.get('status') || '') as TripStatus | '');
+  const [departureDateFilter, setDepartureDateFilter] = useState<string>(selectedDate);
+  const [sortOption, setSortOption] = useState<string>(() => searchParams.get('sort') || 'departureTime_asc');
 
   // Modal & Toast state
   const [isCreateModalOpen, setIsCreateModalOpen] = useState<boolean>(false);
@@ -89,121 +98,105 @@ export const OperatorTripListPage: React.FC = () => {
     }
   };
 
+  // The URL is the applied filter; edits in the form never affect background refreshes.
   const fetchTrips = useCallback(
-    async (pageToFetch = pagination.page) => {
-      setLoading(true);
+    async (pageToFetch = selectedPage, silent = false) => {
+      const sequence = ++requestSequence.current;
+      if (!silent) setLoading(true);
       setError(null);
-
-      const { sortBy, sortOrder } = getSortParams(sortOption);
+      const { sortBy, sortOrder } = getSortParams(appliedSort);
 
       try {
         if (isStaffView) {
-          const assigned = await tripService.getAssignedStaffTrips();
-          let filtered = assigned;
-          if (statusFilter) {
-            filtered = filtered.filter((t) => t.status === statusFilter);
-          }
-          if (departureDateFilter) {
-            filtered = filtered.filter((t) => {
-              const d = new Date(t.departureTime);
-              return !isNaN(d.getTime()) && d.toISOString().startsWith(departureDateFilter);
-            });
-          }
-          if (keywordInput.trim()) {
-            const kw = keywordInput.toLowerCase().trim();
-            filtered = filtered.filter(
-              (t) =>
-                t.car?.name?.toLowerCase().includes(kw) ||
-                t.car?.licensePlate?.toLowerCase().includes(kw) ||
-                t.getSummaryRoute().toLowerCase().includes(kw)
+          const assigned = await tripService.getAssignedStaffTrips(user?.operatorId || undefined);
+          const dayTrips = assigned.filter((trip) => vietnamDate(trip.departureTime) === selectedDate);
+          let filtered = dayTrips;
+          if (appliedStatus) filtered = filtered.filter((trip) => trip.status === appliedStatus);
+          if (appliedKeyword.trim()) {
+            const keyword = appliedKeyword.toLowerCase().trim();
+            filtered = filtered.filter((trip) =>
+              trip.car?.name?.toLowerCase().includes(keyword) ||
+              trip.car?.licensePlate?.toLowerCase().includes(keyword) ||
+              trip.getSummaryRoute().toLowerCase().includes(keyword)
             );
           }
-
-          setTrips(filtered);
-          setPagination({
-            page: 1,
-            limit: Math.max(filtered.length, 1),
-            total: filtered.length,
-            totalPages: 1,
+          filtered = [...filtered].sort((a, b) => {
+            const direction = sortOrder === 'asc' ? 1 : -1;
+            if (sortBy === 'pricePerSeat') return (a.pricePerSeat - b.pricePerSeat) * direction;
+            return (new Date(a[sortBy]).getTime() - new Date(b[sortBy]).getTime()) * direction;
           });
+          if (sequence !== requestSequence.current) return;
+          const now = Date.now();
+          setTrips(filtered.slice((pageToFetch - 1) * 10, pageToFetch * 10));
+          setPagination({ page: pageToFetch, limit: 10, total: filtered.length, totalPages: Math.max(1, Math.ceil(filtered.length / 10)) });
           setKpi({
-            totalTrips: assigned.length,
-            scheduledTrips: assigned.filter((t) => t.isScheduled()).length,
-            departedTrips: assigned.filter((t) => t.isDeparted()).length,
-            completedTrips: assigned.filter((t) => t.isCompleted()).length,
-            cancelledTrips: assigned.filter((t) => t.isCancelled()).length,
+            totalTrips: dayTrips.length,
+            scheduledTrips: dayTrips.filter((trip) => !trip.isTerminal() && new Date(trip.departureTime).getTime() > now).length,
+            departedTrips: dayTrips.filter((trip) => !trip.isDraft() && !trip.isTerminal() && new Date(trip.departureTime).getTime() <= now).length,
+            completedTrips: dayTrips.filter((trip) => trip.isCompleted()).length,
+            cancelledTrips: dayTrips.filter((trip) => trip.isCancelled()).length,
           });
         } else {
           const result = await tripService.getTrips({
-            page: pageToFetch,
-            limit: pagination.limit,
-            keyword: keywordInput.trim() || undefined,
-            status: statusFilter || undefined,
-            departureDate: departureDateFilter || undefined,
-            sortBy,
-            sortOrder,
+            page: pageToFetch, limit: 10,
+            keyword: appliedKeyword.trim() || undefined,
+            status: appliedStatus || undefined,
+            departureDate: selectedDate,
+            sortBy, sortOrder,
           });
-
+          if (sequence !== requestSequence.current) return;
           setTrips(result.data);
           setKpi(result.kpi);
           setPagination(result.pagination);
         }
       } catch (err: unknown) {
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Không thể tải danh sách chuyến xe. Vui lòng thử lại sau."
-        );
+        if (sequence === requestSequence.current) {
+          setError(err instanceof Error ? err.message : 'Không thể tải danh sách chuyến xe. Vui lòng thử lại.');
+        }
       } finally {
-        setLoading(false);
+        if (sequence === requestSequence.current) setLoading(false);
       }
     },
-    [
-      isStaffView,
-      pagination.limit,
-      pagination.page,
-      sortOption,
-      statusFilter,
-      departureDateFilter,
-      keywordInput,
-    ]
+    [isStaffView, user?.operatorId, appliedSort, appliedStatus, appliedKeyword, selectedDate, selectedPage]
   );
 
   useEffect(() => {
-    const pageFromUrl = Number(searchParams.get("page")) || 1;
-    const statusFromUrl =
-      (searchParams.get("status") as TripStatus | "") || "";
-    const dateFromUrl = searchParams.get("date") || "";
-    const searchFromUrl = searchParams.get("search") || "";
-    const sortFromUrl = searchParams.get("sort") || "departureTime_asc";
+    setStatusFilter(appliedStatus);
+    setDepartureDateFilter(selectedDate);
+    setKeywordInput(appliedKeyword);
+    setSortOption(appliedSort);
+  }, [appliedStatus, selectedDate, appliedKeyword, appliedSort]);
 
-    setStatusFilter(statusFromUrl);
-    setDepartureDateFilter(dateFromUrl);
-    setKeywordInput(searchFromUrl);
-    setSortOption(sortFromUrl);
-
-    fetchTrips(pageFromUrl);
-  }, []);
+  useEffect(() => {
+    void fetchTrips();
+    const timer = window.setInterval(() => {
+      setToday(vietnamDate());
+      if (document.visibilityState === 'visible') void fetchTrips(selectedPage, true);
+    }, 30_000);
+    const onFocus = () => { setToday(vietnamDate()); void fetchTrips(selectedPage, true); };
+    window.addEventListener('focus', onFocus);
+    return () => {
+      window.clearInterval(timer);
+      window.removeEventListener('focus', onFocus);
+      requestSequence.current++;
+    };
+  }, [fetchTrips, selectedPage]);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     updateUrlParams({
-      page: "1",
-      search: keywordInput.trim() || null,
-      status: statusFilter || null,
-      date: departureDateFilter || null,
-      sort: sortOption !== "departureTime_asc" ? sortOption : null,
+      page: '1', search: keywordInput.trim() || null,
+      status: statusFilter || null, date: departureDateFilter || today,
+      sort: sortOption !== 'departureTime_asc' ? sortOption : null,
     });
-    fetchTrips(1);
   };
 
   const handleResetFilters = () => {
-    setKeywordInput("");
-    setStatusFilter("");
-    setDepartureDateFilter("");
-    setSortOption("departureTime_asc");
+    setKeywordInput('');
+    setStatusFilter('');
+    setDepartureDateFilter(today);
+    setSortOption('departureTime_asc');
     setSearchParams({});
-    fetchTrips(1);
   };
 
   const updateUrlParams = (params: Record<string, string | null>) => {
@@ -223,7 +216,9 @@ export const OperatorTripListPage: React.FC = () => {
     setSuccessToast(
       `Đã tạo chuyến xe dạng Nháp: "${newTrip.getSummaryRoute()}". Vui lòng bấm "Cấu hình & Mở bán vé" trên thẻ chuyến để chính thức mở bán cho khách đặt vé.`
     );
-    fetchTrips(1);
+    const createdDate = vietnamDate(newTrip.departureTime);
+    updateUrlParams({ date: createdDate, page: '1' });
+    if (createdDate === selectedDate && selectedPage === 1) void fetchTrips(1);
     setTimeout(() => {
       setSuccessToast(null);
     }, 8000);
@@ -298,7 +293,7 @@ export const OperatorTripListPage: React.FC = () => {
   const hasActiveFilters = Boolean(
     keywordInput ||
     statusFilter !== "" ||
-    departureDateFilter !== "" ||
+    departureDateFilter !== today ||
     sortOption !== "departureTime_asc"
   );
 
@@ -330,7 +325,7 @@ export const OperatorTripListPage: React.FC = () => {
         description={
           isStaffView
             ? "Theo dõi các chuyến xe thuộc phạm vi được nhà xe giao quyền vận hành."
-            : "Lên lịch trình vận hành các chuyến xe khách, theo dõi trạng thái di chuyển và tỷ lệ lấp đầy ghế."
+            : "Xem lịch chuyến theo ngày. Hệ thống tự ngừng bán khi đến giờ khởi hành, không cần xác nhận xuất bến."
         }
         actions={
           !isStaffView && (
@@ -344,6 +339,15 @@ export const OperatorTripListPage: React.FC = () => {
           )
         }
       />
+
+      <div className="flex flex-wrap items-center justify-between gap-3 text-sm">
+        <p className="font-semibold text-gray-700">
+          Lịch ngày {selectedDate.split('-').reverse().join('/')} {selectedDate === today ? '· Hôm nay' : ''}
+        </p>
+        <Button variant="outline" size="sm" onClick={() => updateUrlParams({ date: today, page: '1' })}>
+          <CalendarClock className="mr-2 h-4 w-4" />Hôm nay
+        </Button>
+      </div>
 
       {/* Overview KPI Cards */}
       <TripKpiCards kpi={kpi} loading={loading} />
@@ -383,7 +387,7 @@ export const OperatorTripListPage: React.FC = () => {
                 <option value="">Tất cả trạng thái</option>
                 <option value="DRAFT">Bản nháp (Chưa mở bán)</option>
                 <option value="ON_SALE">Đang mở bán</option>
-                <option value="STOP_SALE">Tạm dừng bán vé</option>
+                <option value="STOP_SALE">Đã ngừng bán</option>
                 <option value="SCHEDULED">Sắp chạy</option>
                 <option value="DEPARTED">Đang chạy</option>
                 <option value="COMPLETED">Hoàn thành</option>
@@ -399,7 +403,12 @@ export const OperatorTripListPage: React.FC = () => {
               <input
                 type="date"
                 value={departureDateFilter}
-                onChange={(e) => setDepartureDateFilter(e.target.value)}
+                onChange={(e) => {
+                  const day = e.target.value || today;
+                  setDepartureDateFilter(day);
+                  updateUrlParams({ date: day, page: '1' });
+                }}
+                aria-label="Ngày khởi hành"
                 className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
               />
             </div>
@@ -415,10 +424,10 @@ export const OperatorTripListPage: React.FC = () => {
                 className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
               >
                 <option value="departureTime_asc">
-                  Giờ xuất bến (Sớm nhất)
+                  Giờ khởi hành (Sớm nhất)
                 </option>
                 <option value="departureTime_desc">
-                  Giờ xuất bến (Muộn nhất)
+                  Giờ khởi hành (Muộn nhất)
                 </option>
                 <option value="pricePerSeat_asc">Giá vé (Thấp nhất)</option>
                 <option value="pricePerSeat_desc">Giá vé (Cao nhất)</option>
@@ -435,6 +444,7 @@ export const OperatorTripListPage: React.FC = () => {
 
             {hasActiveFilters && (
               <Button
+                type="button"
                 variant="ghost"
                 size="sm"
                 onClick={handleResetFilters}
@@ -460,12 +470,12 @@ export const OperatorTripListPage: React.FC = () => {
             title={
               hasActiveFilters
                 ? "Không tìm thấy chuyến xe phù hợp"
-                : "Chưa có chuyến xe nào được lên lịch"
+                : "Chưa có chuyến xe trong ngày này"
             }
             description={
               hasActiveFilters
-                ? "Thử thay đổi từ khóa tìm kiếm hoặc bỏ các bộ lọc để xem các chuyến xe khác."
-                : "Bắt đầu lên lịch trình chuyến xe đầu tiên phục vụ hành khách đặt vé."
+                ? "Thử thay đổi bộ lọc hoặc chọn ngày khác để xem lịch chuyến."
+                : "Ngày đang chọn chưa có chuyến xe. Bạn có thể tạo chuyến mới hoặc chọn ngày khác để xem lịch sử."
             }
             action={
               !isStaffView ? (
@@ -474,7 +484,7 @@ export const OperatorTripListPage: React.FC = () => {
                   className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
                 >
                   <Plus className="h-4 w-4 mr-2" />
-                  <span>Lên lịch chuyến xe đầu tiên</span>
+                  <span>Tạo chuyến xe mới</span>
                 </Button>
               ) : undefined
             }
@@ -491,6 +501,8 @@ export const OperatorTripListPage: React.FC = () => {
                   key={trip.id}
                   trip={trip}
                   index={itemIndex}
+                  managementPath={inStaffPortal ? '/staff/trips' : '/operator/trips'}
+                  canManage={Boolean(user?.canManageTrips())}
                   onViewRouteDetail={handleOpenRouteDetailModal}
                   onRequestUpdateStatus={
                     isStaffView && !user?.canManageTrips()
@@ -509,7 +521,6 @@ export const OperatorTripListPage: React.FC = () => {
                 totalPages={pagination.totalPages}
                 onPageChange={(p) => {
                   updateUrlParams({ page: String(p) });
-                  fetchTrips(p);
                 }}
               />
             </SurfaceCard>

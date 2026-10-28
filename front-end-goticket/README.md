@@ -1,5 +1,8 @@
 # GoTicket frontend — kế hoạch dựng lại
 
+> **Hướng dẫn hiện trạng (18/10/2026):** đọc [README_GOTICKET.md](../README_GOTICKET.md) để xem kiến trúc, luồng nghiệp vụ, tên database, bảng và cách tra dữ liệu. Các đoạn theo giai đoạn bên dưới cần đọc kèm mốc triển khai của chúng.
+
+
 Thư mục đã đổi từ `car_front-end` thành **`front-end-goticket`**. Frontend React đã triển khai và chạy bằng PM2 trên cổng `3334`; tiến độ và các kiểm thử còn lại nằm trong checklist P0–P5.
 
 ## SSO trên domain đang dùng

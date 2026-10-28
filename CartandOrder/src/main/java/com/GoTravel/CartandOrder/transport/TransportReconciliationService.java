@@ -42,7 +42,8 @@ public class TransportReconciliationService {
     private record Snapshot(UUID orderId, UUID tripId, OrderStatus status, PaymentMethod method,
                             LocalDateTime expiresAt, LocalDateTime updatedAt, List<Item> items) {}
     public record Finding(UUID orderId, String issueCode, String status, String detail,
-                          java.time.OffsetDateTime firstSeenAt, java.time.OffsetDateTime lastSeenAt) {}
+                          java.time.OffsetDateTime firstSeenAt, java.time.OffsetDateTime lastSeenAt,
+                          String orderNumber, String orderStatus) {}
 
     @Scheduled(fixedDelay = 120000)
     public void scanRecent() {
@@ -61,7 +62,7 @@ public class TransportReconciliationService {
 
     public List<Finding> scan(UUID orderId) {
         Snapshot snapshot = transactions.execute(status -> {
-            var order = orders.findById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+            var order = orders.findWithItemsById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             if (order.getOrderKind() != OrderKind.GOCAR_TICKET)
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             return new Snapshot(orderId, order.getTransportTripId(), order.getStatus(),
@@ -69,7 +70,9 @@ public class TransportReconciliationService {
                     order.getItems().stream().map(item -> new Item(item.getId(), item.getTransportSeatId(),item.getTransportTripId(),item.getTransportItemState())).toList());
         });
         Map<String, String> issues = new HashMap<>();
-        boolean complete = true;
+        // A dependency failure only makes its own observations unverifiable.
+        // It must not keep unrelated, already recovered findings OPEN.
+        Set<String> unverified = new HashSet<>();
         var now = LocalDateTime.now(java.time.ZoneId.of("Asia/Ho_Chi_Minh"));
         if (snapshot.status() == OrderStatus.PAID_REVIEW) issues.put("PAID_REVIEW", "Đã nhận tiền nhưng ghế/vé cần đối soát");
         if (snapshot.status() == OrderStatus.CASH_RECEIVED_PENDING_RECONCILIATION)
@@ -91,13 +94,16 @@ public class TransportReconciliationService {
             if(pending!=null&&pending>0)issues.put("ITEM_OPERATION_PENDING","Item operation/hoàn chênh lệch chưa kết thúc");
             for(var item:snapshot.items())if(List.of("ACTIVE","COMPLETED").contains(item.state())){
                 try{var owned=inventory.ownership(orderId,item.tripId(),item.seatId());if(owned==null||!owned.isSuccess()||owned.getData()==null||!"SOLD".equals(owned.getData().status()))issues.put("INVENTORY_MISMATCH","Ghế hiện tại không SOLD/không thuộc order");}
-                catch(Exception unavailable){complete=false;issues.put("INVENTORY_UNAVAILABLE","Chưa đối chiếu được ghế hiện tại");}
+                catch (FeignException.NotFound | FeignException.Conflict missing) { issues.put("INVENTORY_MISMATCH", "Ghế hiện tại không tồn tại hoặc không còn thuộc đơn"); }
+                catch(Exception unavailable){unverified.add("INVENTORY_MISMATCH");issues.put("INVENTORY_UNAVAILABLE","Chưa đối chiếu được ghế hiện tại");}
             }
         }
         if(!itemFlow) try {
             var response = inventory.orderStatus(orderId);
-            var hold = response == null ? null : response.getData();
-            if (hold == null || snapshot.tripId() == null || !snapshot.tripId().equals(hold.tripId())) {
+            if (response == null || !response.isSuccess() || response.getData() == null)
+                throw new IllegalStateException("Không nhận được trạng thái giữ ghế hợp lệ");
+            var hold = response.getData();
+            if (snapshot.tripId() == null || !snapshot.tripId().equals(hold.tripId())) {
                 issues.put("INVENTORY_MISMATCH", "Không có hold/ghế đúng chuyến");
             } else if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) && !"SOLD".equals(hold.status())) {
                 issues.put("INVENTORY_MISMATCH", "Đơn đã xác nhận nhưng ghế không ở trạng thái SOLD");
@@ -110,7 +116,7 @@ public class TransportReconciliationService {
             if (snapshot.status() != OrderStatus.CANCELLED && snapshot.status() != OrderStatus.PENDING)
                 issues.put("INVENTORY_MISMATCH", "Không tìm thấy hold của đơn");
         } catch (Exception unavailable) {
-            complete = false;
+            unverified.add("INVENTORY_MISMATCH");
             issues.put("INVENTORY_UNAVAILABLE", "Chưa truy vấn được Inventory");
         }
         try {
@@ -129,13 +135,15 @@ public class TransportReconciliationService {
                 issues.put("TICKETS_ACTIVE_AFTER_CANCEL", "Vé còn hiệu lực sau khi hủy/hoàn");
             }
         } catch (Exception unavailable) {
-            complete = false;
+            unverified.addAll(Set.of("TICKETS_MISMATCH", "TICKETS_ACTIVE_AFTER_CANCEL"));
             issues.put("GOCAR_UNAVAILABLE", "Chưa truy vấn được vé GoCar");
         }
         if (snapshot.method() == PaymentMethod.ONLINE) {
             try {
                 var response = payments.getPaymentStatus(orderId);
-                var payment = response == null ? null : response.getData();
+                if (response == null || !response.isSuccess() || response.getData() == null)
+                    throw new IllegalStateException("Không nhận được trạng thái thanh toán hợp lệ");
+                var payment = response.getData();
                 if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) &&
                         (payment == null || !"COMPLETED".equals(payment.status()))) {
                     issues.put("PAYMENT_MISMATCH", "Đơn có vé nhưng GoPay chưa ghi hoàn tất thanh toán");
@@ -150,7 +158,7 @@ public class TransportReconciliationService {
                         snapshot.status() == OrderStatus.REFUND_PENDING)
                     issues.put("PAYMENT_MISMATCH", "Không tìm thấy giao dịch GoPay của đơn");
             } catch (Exception unavailable) {
-                complete = false;
+                unverified.add("PAYMENT_MISMATCH");
                 issues.put("GOPAY_UNAVAILABLE", "Chưa truy vấn được GoPay");
             }
         } else if ((snapshot.status() == OrderStatus.CONFIRMED || snapshot.status() == OrderStatus.COMPLETED) ||
@@ -159,11 +167,10 @@ public class TransportReconciliationService {
                 if (cash.findReceipt(orderId) == null)
                     issues.put("CASH_RECEIPT_MISSING", "Đơn tiền mặt không có biên nhận");
             } catch (Exception unavailable) {
-                complete = false;
+                unverified.add("CASH_RECEIPT_MISSING");
                 issues.put("CASH_LEDGER_UNAVAILABLE", "Chưa đọc được sổ tiền mặt");
             }
         }
-        final boolean scanComplete = complete;
         transactions.executeWithoutResult(status -> {
             for (var issue : issues.entrySet()) {
                 jdbc.update("insert into transport_reconciliation_findings(order_id,issue_code,detail) " +
@@ -171,12 +178,12 @@ public class TransportReconciliationService {
                                 "status='OPEN',detail=excluded.detail,last_seen_at=now(),resolved_at=null",
                         orderId, issue.getKey(), issue.getValue());
             }
-            if (scanComplete) {
+            {
                 var existing = jdbc.query("select issue_code from transport_reconciliation_findings " +
                                 "where order_id=? and status='OPEN'",
                         (rs, row) -> rs.getString(1), orderId);
                 for (String code : existing) {
-                    if (!issues.containsKey(code)) {
+                    if (!issues.containsKey(code) && !unverified.contains(code)) {
                         jdbc.update("update transport_reconciliation_findings set status='RESOLVED'," +
                                 "resolved_at=now(),last_seen_at=now() where order_id=? and issue_code=?",
                                 orderId, code);
@@ -188,20 +195,20 @@ public class TransportReconciliationService {
     }
 
     public List<Finding> findings(UUID orderId) {
-        return jdbc.query("select order_id,issue_code,status,detail,first_seen_at,last_seen_at " +
-                        "from transport_reconciliation_findings where order_id=? order by status,issue_code",
+        return jdbc.query("select f.order_id,f.issue_code,f.status,f.detail,f.first_seen_at,f.last_seen_at,o.order_number,o.status as order_status " +
+                        "from transport_reconciliation_findings f join orders o on o.id=f.order_id where f.order_id=? order by f.status,f.issue_code",
                 (rs, row) -> new Finding(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getObject(5, java.time.OffsetDateTime.class),
-                        rs.getObject(6, java.time.OffsetDateTime.class)), orderId);
+                        rs.getObject(6, java.time.OffsetDateTime.class), rs.getString(7), rs.getString(8)), orderId);
     }
 
     public List<Finding> openFindings(int limit) {
-        return jdbc.query("select order_id,issue_code,status,detail,first_seen_at,last_seen_at " +
-                        "from transport_reconciliation_findings where status='OPEN' " +
-                        "order by last_seen_at desc limit ?",
+        return jdbc.query("select f.order_id,f.issue_code,f.status,f.detail,f.first_seen_at,f.last_seen_at,o.order_number,o.status as order_status " +
+                        "from transport_reconciliation_findings f join orders o on o.id=f.order_id where f.status='OPEN' " +
+                        "order by f.last_seen_at desc,f.order_id,f.issue_code limit ?",
                 (rs, row) -> new Finding(rs.getObject(1, UUID.class), rs.getString(2), rs.getString(3),
                         rs.getString(4), rs.getObject(5, java.time.OffsetDateTime.class),
-                        rs.getObject(6, java.time.OffsetDateTime.class)), Math.max(1, Math.min(limit, 200)));
+                        rs.getObject(6, java.time.OffsetDateTime.class), rs.getString(7), rs.getString(8)), Math.max(1, Math.min(limit, 200)));
     }
 
     public void addNote(UUID orderId, String code, UUID actorId, String note) {

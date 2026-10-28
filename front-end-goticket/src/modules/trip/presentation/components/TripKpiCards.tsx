@@ -15,7 +15,7 @@ export const TripKpiCards: React.FC<TripKpiCardsProps> = ({
   return (
     <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-5">
       <MetricCard
-        label="Tổng số chuyến"
+        label="Số chuyến trong ngày"
         value={loading ? "..." : kpi.totalTrips.toLocaleString("vi-VN")}
         icon={Bus}
         variant="default"
@@ -27,7 +27,7 @@ export const TripKpiCards: React.FC<TripKpiCardsProps> = ({
         variant="coral"
       />
       <MetricCard
-        label="Đang di chuyển"
+        label="Đã đến giờ khởi hành"
         value={loading ? "..." : kpi.departedTrips.toLocaleString("vi-VN")}
         icon={Clock}
         variant="coral"

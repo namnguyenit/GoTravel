@@ -35,6 +35,26 @@ public class JdbcItemOperationStore implements ItemOperationStore {
         if(amount.compareTo((BigDecimal)proof.get("amount"))!=0 || !java.util.Objects.equals(actor,proof.get("actor_id")) || !java.util.Objects.equals(reference,proof.get("reference")) || !java.util.Objects.equals(evidence,proof.get("evidence_url")) || !java.util.Objects.equals(method,proof.get("refund_method")) || !java.util.Objects.equals(shift,proof.get("shift_id")))throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.CONFLICT,"Đã ghi chứng cứ hoàn khác");
     }
     public List<UUID> attentionIds() {return jdbc.query("select id from transport_item_operations where state not in ('COMPLETED','ABORTED') and (error is not null or state in ('REFUND_PENDING','ABORT_REFUND_PENDING')) order by updated_at limit 200",(rs,row)->rs.getObject(1,UUID.class));}
+    public org.springframework.data.domain.Page<UUID> attentionIds(String search, String state, org.springframework.data.domain.Pageable pageable) {
+        String keyword = search == null ? "" : search.trim().toLowerCase(java.util.Locale.ROOT);
+        if (keyword.length() > 120) throw new org.springframework.web.server.ResponseStatusException(org.springframework.http.HttpStatus.BAD_REQUEST, "Từ khóa quá dài");
+        String pattern = "%" + keyword.replace("!", "!!").replace("%", "!%").replace("_", "!_") + "%";
+        String selected = state == null ? "" : state.trim();
+        String from = " from transport_item_operations op join orders o on o.id=op.order_id where o.order_kind='GOCAR_TICKET' and op.state not in ('COMPLETED','ABORTED') and (op.error is not null or op.state in ('REFUND_PENDING','ABORT_REFUND_PENDING')) and (?='' or op.state=?) and (?='' or lower(op.id::text) like ? escape '!' or lower(op.order_id::text) like ? escape '!' or lower(op.item_id::text) like ? escape '!' or lower(o.order_number) like ? escape '!' or lower(o.customer_info->>'fullName') like ? escape '!' or lower(o.customer_info->>'email') like ? escape '!' or lower(op.error) like ? escape '!')";
+        Object[] args = {selected, selected, keyword, pattern, pattern, pattern, pattern, pattern, pattern, pattern};
+        Long count = jdbc.queryForObject("select count(*)" + from, Long.class, args);
+        var params = new java.util.ArrayList<Object>(java.util.Arrays.asList(args));
+        params.add(pageable.getPageSize()); params.add(pageable.getOffset());
+        var ids = jdbc.query("select op.id" + from + " order by op.created_at desc,op.id desc limit ? offset ?", (rs,row) -> rs.getObject(1, UUID.class), params.toArray());
+        return new org.springframework.data.domain.PageImpl<>(ids, pageable, count == null ? 0 : count);
+    }
     public List<UUID> refundAckIds() {return jdbc.query("select o.id from transport_item_operations o join transport_operation_refund_proofs p on p.operation_id=o.id where o.state in ('REFUND_PENDING','ABORT_REFUND_PENDING') limit 50",(rs,row)->rs.getObject(1,UUID.class));}
+    public boolean automaticRefundBlocksManual(UUID id) {
+        Integer count=jdbc.queryForObject("select count(*) from transport_automatic_refund_requests where operation_id=? and state not in ('FAILED','MANUAL_REQUIRED')",Integer.class,id);
+        return count!=null && count>0;
+    }
+    public void recordReason(UUID id,UUID actor,String code,String text) {
+        jdbc.update("insert into transport_item_operation_reasons(operation_id,actor_id,reason_code,reason_text) values(?,?,?,?)",id,actor,code,text);
+    }
     public void notify(Order order,String kind,String eventKey) {TransportNotificationService.enqueue(jdbc,order,kind,eventKey);}
 }

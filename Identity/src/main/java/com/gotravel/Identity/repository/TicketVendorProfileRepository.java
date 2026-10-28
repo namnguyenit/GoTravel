@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TicketVendorProfileRepository extends JpaRepository<TicketVendorProfile, String> {
+public interface TicketVendorProfileRepository extends JpaRepository<TicketVendorProfile, String>, org.springframework.data.jpa.repository.JpaSpecificationExecutor<TicketVendorProfile> {
     Page<TicketVendorProfile> findAllByApprovalStatus(Approval_status status, Pageable pageable);
     long countByApprovalStatus(Approval_status status);
 }

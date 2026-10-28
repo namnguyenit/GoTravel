@@ -6,6 +6,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @FeignClient(name = "gocar-backend", url = "${services.car.url:http://127.0.0.1:3333}", configuration = InternalFeignConfig.class)
@@ -36,6 +37,10 @@ public interface GoCarClient {
 
     @GetMapping("/api/v1/internal/car/transport/orders/{orderId}/tickets")
     ApiResponse<List<TicketStatus>> orderTickets(@PathVariable("orderId") UUID orderId);
+
+    @GetMapping("/api/v1/internal/car/transport/orders/{orderId}/trips/{tripId}")
+    ApiResponse<Map<String, Object>> ticketTrip(@PathVariable("orderId") UUID orderId,
+                                               @PathVariable("tripId") UUID tripId);
 
     @GetMapping("/api/v1/internal/car/staff/authorize")
     ApiResponse<StaffAuthorization> authorizeStaff(@RequestParam("actorId") UUID actorId,

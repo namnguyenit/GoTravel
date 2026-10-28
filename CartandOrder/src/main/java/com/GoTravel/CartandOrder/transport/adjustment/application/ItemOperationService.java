@@ -30,12 +30,14 @@ public class ItemOperationService {
  private final CancellationPolicy policy;private final TransactionTemplate tx;private final ItemOperationStore store;private final ObjectMapper json;
  public record View(UUID operationId,UUID orderId,UUID itemId,String kind,String state,Instant expiresAt,
    UUID oldTripId,UUID oldSeatId,UUID newTripId,UUID newSeatId,
-   @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal oldAmount,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal newAmount,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal fee,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal topup,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal refundDue,String error){}
+   @com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal oldAmount,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal newAmount,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal fee,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal topup,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal refundDue,String error,String reasonCode,String reasonText,boolean refundSimulated){}
  public View view(UUID actor,ItemOperationRepository.Operation op){
    get(actor,op.plan().operationId());var p=op.plan();
-   return new View(p.operationId(),p.orderId(),p.itemId(),p.kind(),op.state(),p.expiresAt(),p.oldTripId(),p.oldSeatId(),p.newTripId(),p.newSeatId(),p.oldAmount(),p.newAmount(),p.fee(),p.topup(),op.state().startsWith("ABORT")?p.topup():p.refundDue(),op.error());
+   return new View(p.operationId(),p.orderId(),p.itemId(),p.kind(),op.state(),p.expiresAt(),p.oldTripId(),p.oldSeatId(),p.newTripId(),p.newSeatId(),p.oldAmount(),p.newAmount(),p.fee(),p.topup(),op.state().startsWith("ABORT")?p.topup():p.refundDue(),op.error(),op.reason()==null?null:op.reason().code(),op.reason()==null?null:op.reason().text(),"SIMULATED".equals(store.refundProof(p.operationId()).get("refund_method")));
  }
- public record Request(UUID operationId,UUID tripId,UUID seatId,UUID pickupStopId,UUID dropoffStopId){}
+ public record Request(UUID operationId,UUID tripId,UUID seatId,UUID pickupStopId,UUID dropoffStopId,String reasonCode,String reasonText){
+  public Request(UUID operationId,UUID tripId,UUID seatId,UUID pickupStopId,UUID dropoffStopId){this(operationId,tripId,seatId,pickupStopId,dropoffStopId,null,null);}
+ }
  private ResponseStatusException conflict(String s){return new ResponseStatusException(HttpStatus.CONFLICT,s);}
  public void paymentSignal(UUID id){
   var op=trusted(id);
@@ -47,7 +49,7 @@ public class ItemOperationService {
  public record Preview(String kind,String currency,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal oldAmount,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal newAmount,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal fee,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal topup,@com.fasterxml.jackson.annotation.JsonFormat(shape=com.fasterxml.jackson.annotation.JsonFormat.Shape.STRING) BigDecimal refundDue,String policyVersion){}
  public Preview preview(UUID actor,UUID orderId,UUID itemId,String kind,Request request){
   if(kind==null||!List.of("CANCEL","EXCHANGE").contains(kind))throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-  var order=orders.findById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));var item=findItem(order,itemId);authorize(actor,order,item.getTransportTripId());
+  var order=orders.findWithItemsById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));var item=findItem(order,itemId);authorize(actor,order,item.getTransportTripId());
   if(order.getStatus()!=OrderStatus.CONFIRMED || !"ACTIVE".equals(item.getTransportItemState()))throw conflict("Vé không đủ điều kiện đổi/hủy");
   var policyQuote=policy.quoteAmount(order,item.getTransportDepartureAt(),item.getTotalPrice());BigDecimal next=BigDecimal.ZERO;
   if("EXCHANGE".equals(kind)){
@@ -69,7 +71,7 @@ public class ItemOperationService {
  }
  public boolean exists(UUID id){return operations.get(id)!=null;}
  public ItemOperationRepository.Operation trusted(UUID id){var operation=operations.get(id);if(operation==null)throw new ResponseStatusException(HttpStatus.NOT_FOUND);return operation;}
- public ItemOperationRepository.Operation get(UUID actor,UUID id){var operation=trusted(id);var order=orders.findById(operation.plan().orderId()).orElseThrow();authorize(actor,order,operation.plan().oldTripId());if(operation.plan().newTripId()!=null && !actor.equals(order.getUserId()))authorize(actor,order,operation.plan().newTripId());return operation;}
+ public ItemOperationRepository.Operation get(UUID actor,UUID id){var operation=trusted(id);var order=orders.findWithItemsById(operation.plan().orderId()).orElseThrow();authorize(actor,order,operation.plan().oldTripId());if(operation.plan().newTripId()!=null && !actor.equals(order.getUserId()))authorize(actor,order,operation.plan().newTripId());return operation;}
  private void authorize(UUID actor,Order order,UUID trip){
   if(order.getOrderKind()!=OrderKind.GOCAR_TICKET)throw new ResponseStatusException(HttpStatus.NOT_FOUND);
   if(actor.equals(order.getUserId()))return;
@@ -80,11 +82,18 @@ public class ItemOperationService {
  public ItemOperationRepository.Operation request(UUID actor,UUID orderId,UUID itemId,String kind,Request r,boolean forced){
   if(r==null||r.operationId()==null||!List.of("CANCEL","EXCHANGE").contains(kind))throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
   if("CANCEL".equals(kind) && (r.tripId()!=null || r.seatId()!=null || r.pickupStopId()!=null || r.dropoffStopId()!=null))throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Hủy vé chỉ nhận operationId");
-  var original=orders.findById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+  var original=orders.findWithItemsById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
   var item=original.getItems().stream().filter(i->i.getId().equals(itemId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
   if(!forced)authorize(actor,original,item.getTransportTripId());
-  String hash=hash(orderId+":"+itemId+":"+kind+":"+r.tripId()+":"+r.seatId()+":"+r.pickupStopId()+":"+r.dropoffStopId()+":"+forced);
+  String hash=hash(orderId+":"+itemId+":"+kind+":"+r.tripId()+":"+r.seatId()+":"+r.pickupStopId()+":"+r.dropoffStopId()+":"+forced+(!forced&&r.reasonCode()!=null?"|reason="+r.reasonCode()+":"+(r.reasonText()==null?"":r.reasonText().trim()):""));
   var replay=operations.get(r.operationId());if(replay!=null){if(!replay.plan().orderId().equals(orderId)||!replay.plan().itemId().equals(itemId)||!replay.plan().requestHash().equals(hash))throw conflict("operationId đã có payload khác");return replay;}
+  if(!forced && "CANCEL".equals(kind)) {
+   if(r.reasonCode()==null || !List.of("CHANGE_OF_PLANS","WRONG_BOOKING","PERSONAL_REASON","OTHER").contains(r.reasonCode()))
+    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Vui lòng chọn lý do hủy/hoàn vé.");
+   if(r.reasonText()!=null && r.reasonText().trim().length()>1000)throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Lý do tối đa 1.000 ký tự.");
+   if("OTHER".equals(r.reasonCode()) && (r.reasonText()==null || r.reasonText().trim().length()<5))
+    throw new ResponseStatusException(HttpStatus.BAD_REQUEST,"Vui lòng nhập lý do khác, ít nhất 5 ký tự.");
+  }
   TransportQuote quote=null;
   if("EXCHANGE".equals(kind)){
    if(r.tripId()==null||r.seatId()==null||r.pickupStopId()==null||r.dropoffStopId()==null)throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -120,7 +129,10 @@ public class ItemOperationService {
     receipt==null?null:receipt.shiftId(),cashAmount,null,originalShift==null?null:originalShift.commissionVersion(),expires,forced);
    // Cash shift rate is read from immutable shift metadata; details return totals only.
    if(originalShift!=null){BigDecimal rate=store.commissionRate(originalShift.id());plan=new ItemOperationPlan(plan.operationId(),plan.orderId(),plan.itemId(),plan.actorId(),plan.kind(),plan.requestHash(),plan.oldTicketId(),plan.expectedRevision(),plan.oldTripId(),plan.oldSeatId(),plan.newTripId(),plan.newSeatId(),plan.passengerName(),plan.pickupStopId(),plan.dropoffStopId(),plan.newSeatCode(),plan.newListingId(),plan.newRouteTitle(),plan.newDepartureAt(),plan.quoteId(),plan.quoteHash(),plan.operatorId(),plan.ownerUserId(),plan.userId(),plan.paymentMethod(),plan.originalAmount(),plan.originalOrderAmount(),plan.oldAmount(),plan.newAmount(),plan.fee(),plan.topup(),plan.refundDue(),plan.originalCashShiftId(),plan.cashReceived(),rate,plan.commissionVersion(),plan.expiresAt(),forced);}
-   current.setTransportItemState("OPERATION_PENDING");orders.save(order);return operations.insert(plan);
+   current.setTransportItemState("OPERATION_PENDING");orders.save(order);
+   var inserted=operations.insert(plan);
+   if("CANCEL".equals(kind)) store.recordReason(plan.operationId(),actor,forced?"OPERATOR_CANCELLED_TRIP":r.reasonCode(),r.reasonText()==null?null:r.reasonText().trim());
+   return inserted;
   });
   process(operation.plan().operationId());return trusted(operation.plan().operationId());
  }
@@ -164,7 +176,7 @@ public class ItemOperationService {
    if(item.getTransportTicketRevision()>ticket.revision())throw conflict("Projection đã vượt revision");
    item.setTransportTicketRevision(ticket.revision());
    if("EXCHANGE".equals(p.kind())){item.setTransportTripId(p.newTripId());item.setTransportSeatId(p.newSeatId());item.setTransportSeatCode(p.newSeatCode());item.setPickupStopId(p.pickupStopId());item.setDropoffStopId(p.dropoffStopId());item.setListingId(p.newListingId());item.setListingTitle(p.newRouteTitle());item.setUnitPrice(p.newAmount());item.setTotalPrice(p.newAmount());item.setTransportCheckInToken(ticket.checkInToken());item.setTransportDepartureAt(LocalDateTime.ofInstant(p.newDepartureAt(),VN));item.setStartDate(p.newDepartureAt().atZone(VN).toLocalDate());item.setEndDate(item.getStartDate());item.setTransportItemState("ACTIVE");}
-   else{item.setTransportBoardingStatus("VOID");item.setTransportCheckInToken(null);item.setTransportItemState(p.refundDue().signum()>0?"REFUND_PENDING":"VOID");}
+   else{item.setTransportBoardingStatus(null);item.setTransportCheckInToken(null);item.setTransportItemState(p.refundDue().signum()>0?"REFUND_PENDING":"VOID");}
    orders.save(order);aggregate(order);operations.transition(p.operationId(),"SETTLING",p.refundDue().signum()>0?"REFUND_PENDING":"COMPLETED",null);
    store.notify(order,"EXCHANGE".equals(p.kind())?"TICKET":"CANCELLED",p.operationId().toString());
   });
@@ -187,7 +199,10 @@ public class ItemOperationService {
   });process(id);
  }
  public Map<String,Object> cashProof(UUID id){return store.cashProof(id);}
- public void refund(UUID admin,UUID id,BigDecimal amount,String reference,String evidence,String method,UUID cashShiftId){
+ public void refund(UUID admin,UUID id,BigDecimal amount,String reference,String evidence,String method,UUID cashShiftId){refund(admin,id,amount,reference,evidence,method,cashShiftId,false);}
+ public void refundAutomatic(UUID admin,UUID id,BigDecimal amount,String reference,String evidence){refund(admin,id,amount,reference,evidence,"BANK_TRANSFER",null,true);}
+ public void refundAutomatic(UUID admin,UUID id,BigDecimal amount,String reference,String evidence,boolean simulated){refund(admin,id,amount,reference,evidence,simulated?"SIMULATED":"BANK_TRANSFER",null,true);}
+ private void refund(UUID admin,UUID id,BigDecimal amount,String reference,String evidence,String method,UUID cashShiftId,boolean automatic){
   String refundMethod=method==null?"BANK_TRANSFER":method;
   String normalizedReference=reference==null?null:reference.trim();
   var op=trusted(id);if(!List.of("REFUND_PENDING","ABORT_REFUND_PENDING","COMPLETED","ABORTED").contains(op.state()))throw conflict("Operation chưa có nghĩa vụ hoàn");
@@ -195,15 +210,17 @@ public class ItemOperationService {
   var proof=store.refundProof(id);
   if(!proof.isEmpty()){var row=proof;if(amount==null||amount.compareTo((BigDecimal)row.get("amount"))!=0||!Objects.equals(normalizedReference,row.get("reference")) || !Objects.equals(refundMethod,row.get("refund_method")) || !Objects.equals(cashShiftId,row.get("shift_id"))||!Objects.equals(evidence,row.get("evidence_url"))||!admin.equals(row.get("actor_id")))throw conflict("Đã có chứng cứ hoàn khác");finishRefund(id);return;}
   if(amount==null||amount.compareTo(due)!=0||amount.signum()<=0||reference==null||reference.isBlank()||reference.length()>160||evidence==null||!evidence.startsWith("https://")||evidence.length()>1000)throw conflict("Chứng cứ hoàn tiền không hợp lệ");
-  if(!List.of("BANK_TRANSFER","CASH").contains(refundMethod))throw conflict("Phương thức hoàn không hợp lệ");
+  if(!List.of("BANK_TRANSFER","CASH").contains(refundMethod)&&!(automatic&&"SIMULATED".equals(refundMethod)&&(normalizedReference.startsWith("AUTO-SANDBOX-SIM-REFUND-")||normalizedReference.startsWith("AUTO-MOCK-REFUND-"))))throw conflict("Phương thức hoàn không hợp lệ");
   if("CASH".equals(refundMethod)){
     var shift=cash.active(admin);if(!"CASH".equals(op.plan().paymentMethod())||shift==null||!shift.id().equals(cashShiftId)||!shift.operatorId().equals(op.plan().operatorId()))throw conflict("Hoàn tại quầy cần ca tiền mặt của nhà xe đang mở");
     var authorized=car.authorizeStaff(admin,op.plan().oldTripId(),"SELL_CASH");if(authorized==null||authorized.getData()==null)throw new ResponseStatusException(HttpStatus.FORBIDDEN);
   }else if(cashShiftId!=null)throw conflict("Hoàn chuyển khoản không ghi giảm quỹ ca tiền mặt");
   tx.executeWithoutResult(s->{
-    orders.findByIdForUpdate(op.plan().orderId()).orElseThrow();
+    var refundOrder=orders.findByIdForUpdate(op.plan().orderId()).orElseThrow();
+    if(!automatic && store.automaticRefundBlocksManual(id))throw conflict("Đang có lệnh hoàn qua cổng. Hãy kiểm tra trạng thái; không hoàn thủ công đồng thời.");
     if(cashShiftId!=null && !store.lockOpenShift(cashShiftId,admin))throw conflict("Ca đã đóng");
     store.recordRefund(id,admin,amount,reference.trim(),evidence,refundMethod,cashShiftId);
+    if ("SIMULATED".equals(refundMethod)) { refundOrder.setTransportRefundSimulated(true); orders.save(refundOrder); }
   });
   finishRefund(id);
  }
@@ -214,6 +231,10 @@ public class ItemOperationService {
  }
  public Map<String,Object> refundProof(UUID id){return store.refundProof(id);}
  public List<ItemOperationRepository.Operation> attention(){return store.attentionIds().stream().map(this::trusted).toList();}
+ public org.springframework.data.domain.Page<ItemOperationRepository.Operation> attention(String search,String state,org.springframework.data.domain.Pageable page){
+  var bounded=org.springframework.data.domain.PageRequest.of(Math.max(0,page.getPageNumber()),Math.min(100,Math.max(1,page.getPageSize())));
+  return store.attentionIds(search,state,bounded).map(this::trusted);
+ }
  public void adminRetry(UUID id){trusted(id);process(id);}
  public OrderPaymentSummaryResponse paymentSummary(UUID id){var op=trusted(id);var p=op.plan();if(!"ONLINE".equals(p.paymentMethod()))throw conflict("Tiền mặt chỉ nhận qua cash-topup; không tạo thanh toán online cho operation này");return OrderPaymentSummaryResponse.builder().orderId(id).userId(p.userId()).hostId(p.ownerUserId()).orderKind("GOCAR_EXCHANGE").providerType("TRANSPORT").totalAmount(p.topup()).currency("VND").status("WAITING_FUNDS".equals(op.state())?"PAYMENT_PENDING":"PAID_REVIEW").expiresAt(LocalDateTime.ofInstant(p.expiresAt(),VN)).providerBreakdowns(List.of(OrderPaymentSummaryResponse.ProviderBreakdown.builder().hostId(p.ownerUserId()).totalAmount(p.topup()).build())).build();}
  @Scheduled(fixedDelay=15000)public void recover(){operations.pending().forEach(this::process);for(UUID id:store.refundAckIds()){try{finishRefund(id);}catch(Exception e){operations.retryLater(id,"REFUND_ACK_PENDING");}}}

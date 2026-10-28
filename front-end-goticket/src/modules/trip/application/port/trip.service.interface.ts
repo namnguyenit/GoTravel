@@ -24,6 +24,8 @@ export interface GetTripsParams {
 }
 
 export interface SearchTripsParams {
+  discover?: boolean;
+  preferredOrigin?: string;
   origin: string;
   destination: string;
   departureDate: string;
@@ -39,6 +41,7 @@ export interface SearchTripsParams {
 }
 
 export interface SearchTripsResult {
+  discovery?: { origin?: string; nearby: boolean; fallback: boolean };
   data: CustomerTripEntity[];
   pagination: TripPaginationMeta;
 }
@@ -97,6 +100,7 @@ export interface TripPublicDetail {
     amenities?: string[];
   };
   operator?: {
+    logoUrl?: string | null;
     name: string;
     phone?: string;
     address?: string;
@@ -118,5 +122,5 @@ export interface ITripService {
   getTripDetail(tripId: string): Promise<TripPublicDetail>;
   getTripSeats(tripId: string): Promise<SeatEntity[]>;
   getTripStops(tripId: string): Promise<TripStopItem[]>;
-  getAssignedStaffTrips(): Promise<TripEntity[]>;
+  getAssignedStaffTrips(operatorId?: string): Promise<TripEntity[]>;
 }

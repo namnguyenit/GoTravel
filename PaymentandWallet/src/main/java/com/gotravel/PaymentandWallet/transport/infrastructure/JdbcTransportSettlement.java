@@ -37,6 +37,10 @@ public class JdbcTransportSettlement implements TransportSettlementPort {
     }
     @Transactional
     public void recordProof(UUID payoutId,UUID orderId,UUID actorId,BigDecimal amount,String reference,String evidence) {
+        if(reference.startsWith("SIM-TRANSPORT-PAYOUT-")) {
+            var audit=jdbc.queryForList("select * from transport_settlement_simulations where kind='PAYOUT' and target_id=?",payoutId);
+            if(audit.size()!=1||!actorId.equals(audit.get(0).get("actor_id"))||amount.compareTo((BigDecimal)audit.get(0).get("amount"))!=0||!reference.equals(audit.get(0).get("reference"))||!evidence.equals(audit.get(0).get("evidence_url")))throw conflict("Thiếu hồ sơ chi trả mô phỏng đã xác nhận.");
+        }
         var prior=jdbc.queryForList("select * from transport_payout_proofs where payout_id=?",payoutId);
         if(!prior.isEmpty()) {
             var p=prior.get(0);

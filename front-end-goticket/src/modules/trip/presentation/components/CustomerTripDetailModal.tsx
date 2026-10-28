@@ -1,3 +1,4 @@
+import { OperatorLogo } from "@/shared/presentation/components/operator/OperatorLogo";
 import React from "react";
 import {
   Dialog,
@@ -37,10 +38,10 @@ export const CustomerTripDetailModal: React.FC<
 
   return (
     <Dialog open={open} onOpenChange={(val) => !val && onClose()}>
-      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-[640px] rounded-[28px] p-6 sm:p-7 border border-white/80 bg-white/95 backdrop-blur-2xl shadow-[0_24px_50px_rgba(15,23,42,0.18)]">
+      <DialogContent className="max-h-[90vh] overflow-y-auto rounded-[28px] border border-white/80 bg-white/95 p-6 shadow-[0_24px_50px_rgba(15,23,42,0.18)] backdrop-blur-2xl sm:max-w-[640px] sm:p-7">
         <DialogHeader>
           <div className="flex items-start space-x-3.5">
-            <div className="rounded-2xl bg-[#FFF0F2] p-3 text-[#FF385C] shrink-0 mt-0.5">
+            <div className="mt-0.5 shrink-0 rounded-2xl bg-[#FFF0F2] p-3 text-[#FF385C]">
               <Bus className="h-6 w-6" />
             </div>
             <div>
@@ -48,13 +49,19 @@ export const CustomerTripDetailModal: React.FC<
                 <DialogTitle className="text-lg font-bold text-gray-900 sm:text-xl">
                   {trip.getSummaryRoute()}
                 </DialogTitle>
-                <span className="text-xs font-bold px-2.5 py-0.5 rounded-full bg-gray-100 text-gray-700">
+                <span className="rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-bold text-gray-700">
                   {trip.getCarTypeLabel()}
                 </span>
               </div>
               <DialogDescription className="mt-1 text-xs text-gray-500">
-                Nhà xe: <strong className="text-gray-800 font-bold">{trip.operator.name}</strong>{" "}
-                • Ngày khởi hành: <span className="tabular-nums font-semibold">{trip.getDepartureDateOnly()}</span>
+                Nhà xe:{" "}
+                <strong className="font-bold text-gray-800">
+                  {trip.operator.name}
+                </strong>{" "}
+                • Ngày khởi hành:{" "}
+                <span className="font-semibold tabular-nums">
+                  {trip.getDepartureDateOnly()}
+                </span>
               </DialogDescription>
             </div>
           </div>
@@ -62,40 +69,40 @@ export const CustomerTripDetailModal: React.FC<
 
         <div className="space-y-4 py-2 text-xs">
           {/* Schedule Banner */}
-          <div className="rounded-2xl border border-gray-200/80 bg-[#FAF9F6] p-4 space-y-3">
+          <div className="space-y-3 rounded-2xl border border-gray-200/80 bg-[#FAF9F6] p-4">
             <div className="flex items-center justify-between border-b border-gray-200/60 pb-2.5">
-              <span className="flex items-center gap-1.5 font-bold tracking-wider text-gray-700 uppercase text-[11px]">
+              <span className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-gray-700 uppercase">
                 <Clock className="h-3.5 w-3.5 text-[#FF385C]" />
                 Lịch trình vận hành
               </span>
-              <span className="rounded-full bg-white px-3 py-0.5 text-xs font-bold text-[#FF385C] border border-gray-200/60 tabular-nums">
+              <span className="rounded-full border border-gray-200/60 bg-white px-3 py-0.5 text-xs font-bold text-[#FF385C] tabular-nums">
                 Thời lượng: {trip.getDurationText()}
               </span>
             </div>
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="rounded-xl border border-gray-200/80 bg-white p-3.5">
-                <span className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                <span className="block text-[10px] font-bold tracking-wider text-gray-400 uppercase">
                   Giờ xuất bến
                 </span>
                 <span className="mt-0.5 block text-xl font-black text-[#111827] tabular-nums">
                   {trip.getDepartureTimeOnly()}
                 </span>
-                <span className="mt-1 flex items-center gap-1 text-gray-600 font-semibold truncate">
-                  <MapPin className="h-3.5 w-3.5 text-[#FF385C] shrink-0" />
+                <span className="mt-1 flex items-center gap-1 truncate font-semibold text-gray-600">
+                  <MapPin className="h-3.5 w-3.5 shrink-0 text-[#FF385C]" />
                   {trip.getStartStopName()}
                 </span>
               </div>
 
               <div className="rounded-xl border border-gray-200/80 bg-white p-3.5">
-                <span className="block text-[10px] font-bold text-gray-400 uppercase tracking-wider">
+                <span className="block text-[10px] font-bold tracking-wider text-gray-400 uppercase">
                   Giờ đến dự kiến
                 </span>
                 <span className="mt-0.5 block text-xl font-black text-[#111827] tabular-nums">
                   {trip.getArrivalTimeOnly()}
                 </span>
-                <span className="mt-1 flex items-center gap-1 text-gray-600 font-semibold truncate">
-                  <MapPin className="h-3.5 w-3.5 text-gray-400 shrink-0" />
+                <span className="mt-1 flex items-center gap-1 truncate font-semibold text-gray-600">
+                  <MapPin className="h-3.5 w-3.5 shrink-0 text-gray-400" />
                   {trip.getEndStopName()}
                 </span>
               </div>
@@ -105,10 +112,15 @@ export const CustomerTripDetailModal: React.FC<
           {/* Vehicle & Operator Highlights */}
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="space-y-2 rounded-2xl border border-gray-200/80 bg-white p-4">
-              <span className="flex items-center gap-1.5 font-bold text-gray-800 uppercase text-[11px]">
+              <span className="flex items-center gap-1.5 text-[11px] font-bold text-gray-800 uppercase">
                 <Building2 className="h-3.5 w-3.5 text-[#FF385C]" />
                 Đơn vị vận chuyển
               </span>
+              <OperatorLogo
+                src={trip.operator.logoUrl}
+                name={trip.operator.name}
+                className="h-16 w-16"
+              />
               <div className="space-y-1.5 pt-1">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Nhà xe:</span>
@@ -119,14 +131,15 @@ export const CustomerTripDetailModal: React.FC<
                 <div className="flex justify-between">
                   <span className="text-gray-500">Kiểm định KYC:</span>
                   <span className="flex items-center gap-1 font-semibold text-emerald-700">
-                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Đã kiểm duyệt
+                    <ShieldCheck className="h-3.5 w-3.5 text-emerald-600" /> Đã
+                    kiểm duyệt
                   </span>
                 </div>
               </div>
             </div>
 
             <div className="space-y-2 rounded-2xl border border-gray-200/80 bg-white p-4">
-              <span className="flex items-center gap-1.5 font-bold text-gray-800 uppercase text-[11px]">
+              <span className="flex items-center gap-1.5 text-[11px] font-bold text-gray-800 uppercase">
                 <Users className="h-3.5 w-3.5 text-[#FF385C]" />
                 Tình trạng chỗ ngồi
               </span>
@@ -154,7 +167,7 @@ export const CustomerTripDetailModal: React.FC<
           {/* Route Stops Timeline */}
           <div className="rounded-2xl border border-gray-200/80 bg-white p-4 sm:p-5">
             <div className="mb-3.5 flex items-center justify-between border-b border-gray-100 pb-2.5">
-              <h4 className="font-bold tracking-wider text-gray-800 uppercase text-[11px]">
+              <h4 className="text-[11px] font-bold tracking-wider text-gray-800 uppercase">
                 Lộ trình trạm đón & trả khách ({stops.length} trạm)
               </h4>
               <span className="text-[11px] text-gray-400">
@@ -177,7 +190,7 @@ export const CustomerTripDetailModal: React.FC<
               type="button"
               variant="outline"
               onClick={onClose}
-              className="rounded-full px-5 text-xs font-semibold h-10 border-gray-200"
+              className="h-10 rounded-full border-gray-200 px-5 text-xs font-semibold"
             >
               Đóng
             </Button>
@@ -188,7 +201,7 @@ export const CustomerTripDetailModal: React.FC<
                   onClose();
                   onSelectTrip(trip);
                 }}
-                className="bg-[#FF385C] hover:bg-[#E61E4F] text-xs font-bold text-white rounded-full px-6 h-10 glow-coral-sm transition-all"
+                className="glow-coral-sm h-10 rounded-full bg-[#FF385C] px-6 text-xs font-bold text-white transition-all hover:bg-[#E61E4F]"
               >
                 <Check className="mr-1.5 h-3.5 w-3.5" />
                 <span>Chọn chuyến này</span>

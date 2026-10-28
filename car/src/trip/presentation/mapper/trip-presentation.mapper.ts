@@ -125,8 +125,21 @@ export class TripPresentationMapper {
     query: SearchTripsQueryDto,
   ): SearchTripsInput {
     return {
+      originRegion: query.originRegion,
+      destinationRegion: query.destinationRegion,
+      discover: query.discover,
+      preferredOrigin: query.preferredOrigin,
       timeOfDay: query.timeOfDay,
-      timeSlots: query.timeSlots,
+      timeSlots: query.timeRange
+        ? [
+            {
+              EARLY_MORNING: '00:00-06:00',
+              MORNING: '06:00-12:00',
+              AFTERNOON: '12:00-18:00',
+              EVENING: '18:00-00:00',
+            }[query.timeRange]!,
+          ]
+        : query.timeSlots,
       origin: query.origin,
       destination: query.destination,
       departureDate: query.departureDate,
@@ -150,6 +163,7 @@ export class TripPresentationMapper {
           ? 'Tìm kiếm chuyến xe thành công.'
           : 'Không tìm thấy chuyến xe phù hợp với điều kiện tìm kiếm.',
       data: {
+        discovery: output.discovery,
         pagination: output.pagination,
         data: output.data,
       },

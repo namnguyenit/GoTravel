@@ -1,14 +1,33 @@
-import React, { useEffect, useState, useMemo } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { tripService } from '../../composition';
-import { bookingService } from '@/modules/booking/composition';
-import type { TransportCheckoutPayload } from '@/modules/booking/application/port/booking.service.interface';
-import type { TripPublicDetail, TripStopItem } from '../../application/port/trip.service.interface';
-import type { SeatEntity } from '../../domain/entity/seat.entity';
-import { SeatMap } from '../components/SeatMap';
-import { PassengerForm, type PassengerInput } from '../components/PassengerForm';
-import { useAuth } from '@/modules/auth/presentation/context/AuthContext';
-import { MoneyVo, formatVnd } from '@/shared/domain/money.vo';
+import { OperatorLogo } from "@/shared/presentation/components/operator/OperatorLogo";
+import React, { useEffect, useState, useMemo } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import { tripService } from "../../composition";
+import { bookingService } from "@/modules/booking/composition";
+import type { TransportCheckoutPayload } from "@/modules/booking/application/port/booking.service.interface";
+import type {
+  TripPublicDetail,
+  TripStopItem,
+} from "../../application/port/trip.service.interface";
+import type { SeatEntity } from "../../domain/entity/seat.entity";
+import { SeatMap } from "../components/SeatMap";
+import { CancellationPolicyNotice } from "@/modules/booking/presentation/components/CancellationPolicyNotice";
+import {
+  PassengerForm,
+  type PassengerInput,
+} from "../components/PassengerForm";
+import { useAuth } from "@/modules/auth/presentation/context/AuthContext";
+import { MoneyVo, formatVnd } from "@/shared/domain/money.vo";
+import {
+  canPickupAt,
+  canDropoffAt,
+  isValidStopPair,
+  orderedTripStops,
+} from "../../domain/value-object/trip-stops";
+import { ApiError } from "@/shared/infrastructure/http/HttpPort";
+import {
+  stableCommand,
+  clearStableCommand,
+} from "@/shared/infrastructure/storage/stable-command";
 import {
   MapPin,
   ArrowLeft,
@@ -18,16 +37,16 @@ import {
   Bus,
   ShieldCheck,
   ChevronRight,
-} from 'lucide-react';
-import { CustomerPageContainer } from '@/shared/presentation/components/layout/CustomerPageContainer';
-import { LoadingState } from '@/shared/presentation/components/feedback/LoadingState';
-import { ErrorState } from '@/shared/presentation/components/feedback/ErrorState';
-import { MoneyText } from '@/shared/presentation/components/data-display/MoneyText';
+} from "lucide-react";
+import { CustomerPageContainer } from "@/shared/presentation/components/layout/CustomerPageContainer";
+import { LoadingState } from "@/shared/presentation/components/feedback/LoadingState";
+import { ErrorState } from "@/shared/presentation/components/feedback/ErrorState";
+import { MoneyText } from "@/shared/presentation/components/data-display/MoneyText";
 
 export const TripDetailPage: React.FC = () => {
   const { tripId } = useParams<{ tripId: string }>();
   const navigate = useNavigate();
-  const { user, login } = useAuth();
+  const { user, login, loading: sessionLoading } = useAuth();
 
   const [trip, setTrip] = useState<TripPublicDetail | null>(null);
   const [seats, setSeats] = useState<SeatEntity[]>([]);
@@ -37,19 +56,20 @@ export const TripDetailPage: React.FC = () => {
 
   // Selection states
   const [selectedSeatIds, setSelectedSeatIds] = useState<string[]>([]);
-  const [passengers, setPassengers] = useState<Record<string, PassengerInput>>({});
+  const [passengers, setPassengers] = useState<Record<string, PassengerInput>>(
+    {}
+  );
 
   // Contact Info
-  const [contactName, setContactName] = useState<string>('');
-  const [contactEmail, setContactEmail] = useState<string>('');
-  const [contactPhone, setContactPhone] = useState<string>('');
+  const [contactName, setContactName] = useState<string>("");
+  const [contactEmail, setContactEmail] = useState<string>("");
+  const [contactPhone, setContactPhone] = useState<string>("");
 
   // Submission state
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   // Stable idempotency key for this draft intent
-  const [idempotencyKey, setIdempotencyKey] = useState<string>(() => crypto.randomUUID());
 
   // Pre-fill contact info when user logs in
   useEffect(() => {
@@ -86,7 +106,7 @@ export const TripDetailPage: React.FC = () => {
           setError(
             err instanceof Error
               ? err.message
-              : 'Không thể tải thông tin chuyến xe hoặc sơ đồ ghế.'
+              : "Không thể tải thông tin chuyến xe hoặc sơ đồ ghế."
           );
         }
       } finally {
@@ -110,7 +130,9 @@ export const TripDetailPage: React.FC = () => {
               return s && s.isAvailable();
             });
             if (valid.length < currentSelected.length) {
-              setSubmitError('Một hoặc nhiều ghế bạn chọn vừa được người khác giữ chỗ hoặc đặt mua.');
+              setSubmitError(
+                "Một hoặc nhiều ghế bạn chọn vừa được người khác giữ chỗ hoặc đặt mua."
+              );
             }
             return valid;
           });
@@ -155,15 +177,17 @@ export const TripDetailPage: React.FC = () => {
       // Select
       setSelectedSeatIds((prev) => [...prev, seat.id]);
       // Initialize passenger input with defaults
-      const pickupStops = stops.filter((s) => s.pickupAllowed !== false);
-      const dropoffStops = stops.filter((s) => s.dropoffAllowed !== false);
+      const pickupStops = orderedTripStops(stops).filter(canPickupAt);
+      const dropoffStops = orderedTripStops(stops).filter(canDropoffAt);
       setPassengers((prev) => ({
         ...prev,
         [seat.id]: {
           seatId: seat.id,
-          name: contactName || (selectedSeatIds.length === 0 ? user?.fullName || '' : ''),
-          pickupStopId: pickupStops[0]?.id || '',
-          dropoffStopId: dropoffStops[dropoffStops.length - 1]?.id || '',
+          name:
+            contactName ||
+            (selectedSeatIds.length === 0 ? user?.fullName || "" : ""),
+          pickupStopId: pickupStops[0]?.id || "",
+          dropoffStopId: dropoffStops[dropoffStops.length - 1]?.id || "",
         },
       }));
       setSubmitError(null);
@@ -171,7 +195,10 @@ export const TripDetailPage: React.FC = () => {
   };
 
   // Handle passenger detail changes
-  const handlePassengerChange = (seatId: string, updated: Partial<PassengerInput>) => {
+  const handlePassengerChange = (
+    seatId: string,
+    updated: Partial<PassengerInput>
+  ) => {
     setPassengers((prev) => ({
       ...prev,
       [seatId]: {
@@ -184,7 +211,7 @@ export const TripDetailPage: React.FC = () => {
   // Submit and hold seats
   const handleProceedToCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!trip || selectedSeats.length === 0) return;
+    if (!trip || selectedSeats.length === 0 || submitting) return;
 
     // Check login
     if (!user) {
@@ -194,7 +221,9 @@ export const TripDetailPage: React.FC = () => {
 
     // Validation
     if (!contactName.trim() || !contactEmail.trim() || !contactPhone.trim()) {
-      setSubmitError('Vui lòng điền đầy đủ họ tên, email và số điện thoại người nhận vé.');
+      setSubmitError(
+        "Vui lòng điền đầy đủ họ tên, email và số điện thoại người nhận vé."
+      );
       return;
     }
 
@@ -204,8 +233,10 @@ export const TripDetailPage: React.FC = () => {
         setSubmitError(`Vui lòng nhập họ tên hành khách cho ghế ${seat.code}.`);
         return;
       }
-      if (!p.pickupStopId || !p.dropoffStopId) {
-        setSubmitError(`Vui lòng chọn điểm đón và điểm trả cho ghế ${seat.code}.`);
+      if (!isValidStopPair(stops, p.pickupStopId, p.dropoffStopId)) {
+        setSubmitError(
+          `Ghế ${seat.code}: điểm trả phải nằm sau điểm đón trên lộ trình.`
+        );
         return;
       }
     }
@@ -228,27 +259,45 @@ export const TripDetailPage: React.FC = () => {
         })),
       };
 
-      const order = await bookingService.checkout(idempotencyKey, payload);
+      const scope = `checkout:${user.id}:${trip.id}`;
+      const order = await bookingService.checkout(
+        stableCommand(scope, payload),
+        payload
+      );
       const orderId = order.orderId;
       if (!orderId) {
-        throw new Error('Máy chủ không trả về mã đơn hàng sau khi giữ chỗ.');
+        throw new Error("Máy chủ không trả về mã đơn hàng sau khi giữ chỗ.");
       }
 
+      clearStableCommand(scope);
       navigate(`/checkout/${orderId}`);
     } catch (err: unknown) {
-      setIdempotencyKey(crypto.randomUUID());
+      // Keep the key after a timeout/5xx: the server may already have created the order.
+      if (
+        err instanceof ApiError &&
+        err.status >= 400 &&
+        err.status < 500 &&
+        ![408, 429].includes(err.status)
+      ) {
+        clearStableCommand(`checkout:${user.id}:${trip.id}`);
+      }
       setSubmitError(
-        err instanceof Error ? err.message : 'Giữ chỗ không thành công. Ghế có thể đã có người khác chọn.'
+        err instanceof Error
+          ? err.message
+          : "Giữ chỗ không thành công. Ghế có thể đã có người khác chọn."
       );
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (loading) {
+  if (loading || sessionLoading) {
     return (
       <CustomerPageContainer className="py-16">
-        <LoadingState count={3} message="Đang tải sơ đồ ghế thời gian thực..." />
+        <LoadingState
+          count={3}
+          message="Đang tải sơ đồ ghế thời gian thực..."
+        />
       </CustomerPageContainer>
     );
   }
@@ -258,7 +307,7 @@ export const TripDetailPage: React.FC = () => {
       <CustomerPageContainer className="py-16">
         <ErrorState
           title="Không thể tải chuyến xe"
-          error={error || 'Chuyến xe không tồn tại hoặc đã ngừng bán.'}
+          error={error || "Chuyến xe không tồn tại hoặc đã ngừng bán."}
           onRetry={() => window.location.reload()}
         />
       </CustomerPageContainer>
@@ -269,76 +318,104 @@ export const TripDetailPage: React.FC = () => {
     <CustomerPageContainer className="space-y-6 pb-20">
       {/* Breadcrumb Navigation */}
       <div className="flex items-center gap-1.5 text-xs text-gray-400">
-        <Link to="/" className="hover:text-gray-900 transition-colors">Trang chủ</Link>
-        <ChevronRight className="w-3 h-3" />
-        <Link to="/search" className="hover:text-gray-900 transition-colors">Tìm chuyến</Link>
-        <ChevronRight className="w-3 h-3" />
+        <Link to="/" className="transition-colors hover:text-gray-900">
+          Trang chủ
+        </Link>
+        <ChevronRight className="h-3 w-3" />
+        <Link to="/search" className="transition-colors hover:text-gray-900">
+          Tìm chuyến
+        </Link>
+        <ChevronRight className="h-3 w-3" />
         <span className="font-bold text-gray-800">
           {trip.route.origin} → {trip.route.destination}
         </span>
       </div>
 
       {/* Trip Header Banner */}
-      <div className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-6 sm:p-7 shadow-md flex flex-wrap items-center justify-between gap-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 rounded-3xl border border-white/80 bg-white/85 p-6 shadow-md backdrop-blur-xl sm:p-7">
         <div className="space-y-1.5">
           <div className="flex flex-wrap items-center gap-3">
-            <h1 className="text-2xl sm:text-3xl font-black text-[#111827] font-editorial tracking-tight">
+            <h1 className="font-editorial text-2xl font-black tracking-tight text-[#111827] sm:text-3xl">
               {trip.route.origin} → {trip.route.destination}
             </h1>
-            <span className="px-3.5 py-1 rounded-full bg-white/80 backdrop-blur-xs border border-gray-200/60 text-gray-700 text-xs font-bold shadow-2xs">
-              {trip.vehicle?.type || 'Xe khách'}
+            <span className="rounded-full border border-gray-200/60 bg-white/80 px-3.5 py-1 text-xs font-bold text-gray-700 shadow-2xs backdrop-blur-xs">
+              {trip.vehicle?.type || "Xe khách"}
             </span>
           </div>
-          <p className="text-xs sm:text-sm text-gray-500 flex flex-wrap items-center gap-2">
-            <span>Nhà xe: <strong className="text-gray-800 font-bold">{trip.operator?.name || 'Nhà xe đối tác'}</strong></span>
+          <p className="flex flex-wrap items-center gap-2 text-xs text-gray-500 sm:text-sm">
+            <OperatorLogo
+              src={trip.operator?.logoUrl}
+              name={trip.operator?.name || "Nhà xe đối tác"}
+              className="h-12 w-12"
+            />
+            <span>
+              Nhà xe:{" "}
+              <strong className="font-bold text-gray-800">
+                {trip.operator?.name || "Nhà xe đối tác"}
+              </strong>
+            </span>
             {trip.vehicle?.name && (
               <>
                 <span>•</span>
-                <span>Xe: {trip.vehicle.name} ({trip.vehicle.licensePlate})</span>
+                <span>
+                  Xe: {trip.vehicle.name} ({trip.vehicle.licensePlate})
+                </span>
               </>
             )}
-            <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700 bg-emerald-50/80 border border-emerald-500/20 px-2.5 py-0.5 rounded-full ml-1 shadow-2xs">
-              <ShieldCheck className="w-3 h-3 text-emerald-600" /> Đã xác thực KYC
+            <span className="ml-1 inline-flex items-center gap-1 rounded-full border border-emerald-500/20 bg-emerald-50/80 px-2.5 py-0.5 text-[11px] font-bold text-emerald-700 shadow-2xs">
+              <ShieldCheck className="h-3 w-3 text-emerald-600" /> Đã xác thực
+              KYC
             </span>
           </p>
         </div>
 
         <div className="flex items-center gap-4 text-right">
           <div>
-            <span className="text-[11px] font-bold text-gray-400 uppercase tracking-wider block">
+            <span className="block text-[11px] font-bold tracking-wider text-gray-400 uppercase">
               Giá vé từ
             </span>
             <div className="mt-0.5">
-              <MoneyText amount={trip.fromPriceVnd} size="2xl" variant="coral" />
+              <MoneyText
+                amount={trip.fromPriceVnd}
+                size="2xl"
+                variant="coral"
+              />
             </div>
           </div>
         </div>
       </div>
 
       {/* Main Grid: Left Column (8 cols) & Right Sticky Column (4 cols) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
         {/* Left Column */}
-        <div className="lg:col-span-8 space-y-6">
+        <div className="space-y-6 lg:col-span-8">
           {/* Stops & Schedule Card */}
-          <div className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-6 sm:p-7 shadow-sm space-y-4">
-            <h3 className="font-bold text-base text-[#111827] flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-[#FF385C]" />
+          <div className="space-y-4 rounded-3xl border border-white/80 bg-white/85 p-6 shadow-sm backdrop-blur-md sm:p-7">
+            <h3 className="flex items-center gap-2 text-base font-bold text-[#111827]">
+              <MapPin className="h-4 w-4 text-[#FF385C]" />
               Lộ trình và các trạm dừng
             </h3>
 
-            <div className="space-y-4 relative pl-6 before:content-[''] before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-gray-200">
+            <div className="relative space-y-4 pl-6 before:absolute before:top-2 before:bottom-2 before:left-2 before:w-0.5 before:bg-gray-200 before:content-['']">
               {stops.map((stop, idx) => (
                 <div key={stop.id || idx} className="relative text-sm">
-                  <div className="absolute -left-6 top-1.5 w-3.5 h-3.5 rounded-full bg-white border-2 border-[#FF385C]" />
+                  <div className="absolute top-1.5 -left-6 h-3.5 w-3.5 rounded-full border-2 border-[#FF385C] bg-white" />
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-gray-900">{stop.name}</span>
                     {stop.plannedAt && (
-                      <span className="text-xs text-gray-500 tabular-nums font-semibold">
-                        {new Date(stop.plannedAt).toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' })}
+                      <span className="text-xs font-semibold text-gray-500 tabular-nums">
+                        {new Date(stop.plannedAt).toLocaleTimeString("vi-VN", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </span>
                     )}
                   </div>
-                  {stop.address && <p className="text-xs text-gray-400 mt-0.5">{stop.address}</p>}
+                  {stop.address && (
+                    <p className="mt-0.5 text-xs text-gray-400">
+                      {stop.address}
+                    </p>
+                  )}
                 </div>
               ))}
             </div>
@@ -346,10 +423,16 @@ export const TripDetailPage: React.FC = () => {
 
           {/* Interactive Seat Map */}
           <div>
-            <div className="flex items-center justify-between mb-3 px-1">
-              <h3 className="font-bold text-base text-[#111827]">Chọn vị trí ghế ngồi</h3>
+            <div className="mb-3 flex items-center justify-between px-1">
+              <h3 className="text-base font-bold text-[#111827]">
+                Chọn vị trí ghế ngồi
+              </h3>
               <span className="text-xs text-gray-500">
-                Đã chọn: <strong className="text-[#FF385C] font-black tabular-nums">{selectedSeatIds.length}</strong> / 10 ghế
+                Đã chọn:{" "}
+                <strong className="font-black text-[#FF385C] tabular-nums">
+                  {selectedSeatIds.length}
+                </strong>{" "}
+                / 10 ghế
               </span>
             </div>
             <SeatMap
@@ -361,21 +444,24 @@ export const TripDetailPage: React.FC = () => {
           </div>
 
           {/* Passenger Information Form */}
+          <CancellationPolicyNotice />
           <PassengerForm
             selectedSeats={selectedSeats}
             passengers={passengers}
             stops={stops}
+            origin={trip?.route.origin}
+            destination={trip?.route.destination}
             onChangePassenger={handlePassengerChange}
           />
         </div>
 
         {/* Right Sticky Summary Column */}
-        <div className="lg:col-span-4 sticky top-24 space-y-4">
+        <div className="sticky top-24 space-y-4 lg:col-span-4">
           <form
             onSubmit={handleProceedToCheckout}
-            className="bg-white/85 backdrop-blur-xl rounded-3xl border border-white/80 p-6 sm:p-7 space-y-5 shadow-md"
+            className="space-y-5 rounded-3xl border border-white/80 bg-white/85 p-6 shadow-md backdrop-blur-xl sm:p-7"
           >
-            <h3 className="font-bold text-base text-[#111827] border-b border-gray-100 pb-3">
+            <h3 className="border-b border-gray-100 pb-3 text-base font-bold text-[#111827]">
               Tóm tắt chuyến đi
             </h3>
 
@@ -383,19 +469,32 @@ export const TripDetailPage: React.FC = () => {
             <div className="space-y-2 text-xs sm:text-sm">
               <div className="flex items-center justify-between text-gray-500">
                 <span>Tuyến xe</span>
-                <span className="font-bold text-gray-900">{trip.route.origin} → {trip.route.destination}</span>
+                <span className="font-bold text-gray-900">
+                  {trip.route.origin} → {trip.route.destination}
+                </span>
               </div>
               <div className="flex items-center justify-between text-gray-500">
                 <span>Số ghế đã chọn</span>
-                <span className="font-bold text-gray-900 tabular-nums">{selectedSeats.length} ghế</span>
+                <span className="font-bold text-gray-900 tabular-nums">
+                  {selectedSeats.length} ghế
+                </span>
               </div>
 
               {selectedSeats.length > 0 && (
-                <div className="pt-2 border-t border-gray-100 space-y-1.5">
+                <div className="space-y-1.5 border-t border-gray-100 pt-2">
                   {selectedSeats.map((s) => (
-                    <div key={s.id} className="flex items-center justify-between text-xs">
-                      <span className="text-gray-500">Ghế {s.code} (Tầng {s.deck})</span>
-                      <MoneyText amount={s.priceVnd.toString()} size="xs" variant="ink" />
+                    <div
+                      key={s.id}
+                      className="flex items-center justify-between text-xs"
+                    >
+                      <span className="text-gray-500">
+                        Ghế {s.code} (Tầng {s.deck})
+                      </span>
+                      <MoneyText
+                        amount={s.priceVnd.toString()}
+                        size="xs"
+                        variant="ink"
+                      />
                     </div>
                   ))}
                 </div>
@@ -403,13 +502,13 @@ export const TripDetailPage: React.FC = () => {
             </div>
 
             {/* Buyer Contact Input */}
-            <div className="pt-3 border-t border-gray-100 space-y-3">
-              <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-gray-400">
+            <div className="space-y-3 border-t border-gray-100 pt-3">
+              <h4 className="text-[11px] font-extrabold tracking-wider text-gray-400 uppercase">
                 Thông tin người nhận vé
               </h4>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">
+                <label className="mb-1 block text-xs font-bold text-gray-700">
                   Họ và tên <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -418,12 +517,12 @@ export const TripDetailPage: React.FC = () => {
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                   placeholder="Nguyễn Văn A"
-                  className="w-full px-4 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden sm:text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">
+                <label className="mb-1 block text-xs font-bold text-gray-700">
                   Email nhận vé điện tử <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -432,12 +531,12 @@ export const TripDetailPage: React.FC = () => {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   placeholder="example@gmail.com"
-                  className="w-full px-4 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden sm:text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-gray-700 mb-1">
+                <label className="mb-1 block text-xs font-bold text-gray-700">
                   Số điện thoại <span className="text-rose-500">*</span>
                 </label>
                 <input
@@ -446,32 +545,41 @@ export const TripDetailPage: React.FC = () => {
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
                   placeholder="0912345678"
-                  className="w-full px-4 py-2 text-xs sm:text-sm bg-white/80 border border-gray-200/80 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white text-gray-900 transition-all font-medium"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden sm:text-sm"
                 />
               </div>
             </div>
 
             {/* Total Fare & Status */}
-            <div className="pt-3 border-t border-gray-100 space-y-1">
+            <div className="space-y-1 border-t border-gray-100 pt-3">
               <div className="flex items-center justify-between text-xs text-gray-500">
                 <span>Tổng tạm tính</span>
-                <span className="text-[11px] text-amber-800 bg-amber-50 px-2 py-0.5 rounded-full font-bold">
+                <span className="rounded-full bg-amber-50 px-2 py-0.5 text-[11px] font-bold text-amber-800">
                   Chưa giữ chỗ
                 </span>
               </div>
               <div className="flex items-center justify-between pt-1">
-                <span className="text-sm font-bold text-gray-900">Thành tiền</span>
-                <MoneyText amount={totalAmount.toString()} size="2xl" variant="coral" />
+                <span className="text-sm font-bold text-gray-900">
+                  Thành tiền
+                </span>
+                <MoneyText
+                  amount={totalAmount.toString()}
+                  size="2xl"
+                  variant="coral"
+                />
               </div>
-              <p className="text-[11px] text-gray-400 leading-relaxed pt-1">
-                * Ghế được giữ 15 phút thời gian thực sau khi bạn bấm tiếp tục đặt vé.
+              <p className="pt-1 text-[11px] leading-relaxed text-gray-400">
+                * Ghế được giữ 15 phút thời gian thực sau khi bạn bấm tiếp tục
+                đặt vé.
               </p>
             </div>
 
             {submitError && (
-              <div className="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-start gap-2">
-                <AlertCircle className="w-4 h-4 shrink-0 mt-0.5 text-rose-600" />
-                <span className="font-medium leading-relaxed">{submitError}</span>
+              <div className="flex items-start gap-2 rounded-2xl border border-rose-200 bg-rose-50 p-3.5 text-xs text-rose-800">
+                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0 text-rose-600" />
+                <span className="leading-relaxed font-medium">
+                  {submitError}
+                </span>
               </div>
             )}
 
@@ -479,18 +587,15 @@ export const TripDetailPage: React.FC = () => {
             <button
               type="submit"
               disabled={submitting || selectedSeats.length === 0}
-              className={`
-                w-full py-3.5 rounded-full font-bold text-xs sm:text-sm text-white transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer
-                ${
-                  submitting || selectedSeats.length === 0
-                    ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                    : 'bg-[#FF385C] hover:bg-[#E61E4F] glow-coral-sm active:scale-95'
-                }
-              `}
+              className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-3.5 text-xs font-bold text-white shadow-xs transition-all sm:text-sm ${
+                submitting || selectedSeats.length === 0
+                  ? "cursor-not-allowed bg-gray-200 text-gray-400 shadow-none"
+                  : "glow-coral-sm bg-[#FF385C] hover:bg-[#E61E4F] active:scale-95"
+              } `}
             >
               {submitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="h-4 w-4 animate-spin" />
                   <span>Đang giữ chỗ 15 phút...</span>
                 </>
               ) : (
@@ -503,25 +608,33 @@ export const TripDetailPage: React.FC = () => {
 
       {/* Floating Panoramic Glass Capsule Summary Dock (Mobile Only) */}
       {selectedSeats.length > 0 && (
-        <div className="lg:hidden fixed bottom-5 left-4 right-4 z-40 h-16 rounded-full bg-white/92 backdrop-blur-2xl border border-white/85 shadow-2xl px-5 flex items-center justify-between animate-in slide-in-from-bottom-4 duration-200">
+        <div className="animate-in slide-in-from-bottom-4 fixed right-4 bottom-5 left-4 z-40 flex h-16 items-center justify-between rounded-full border border-white/85 bg-white/92 px-5 shadow-2xl backdrop-blur-2xl duration-200 lg:hidden">
           <div className="flex flex-col">
             <span className="text-[11px] font-bold text-gray-500">
-              Đã chọn <strong className="text-gray-900 tabular-nums">{selectedSeats.length}</strong> ghế
+              Đã chọn{" "}
+              <strong className="text-gray-900 tabular-nums">
+                {selectedSeats.length}
+              </strong>{" "}
+              ghế
             </span>
-            <MoneyText amount={totalAmount.toString()} size="sm" variant="coral" />
+            <MoneyText
+              amount={totalAmount.toString()}
+              size="sm"
+              variant="coral"
+            />
           </div>
           <button
             type="button"
             onClick={handleProceedToCheckout}
             disabled={submitting}
-            className="h-10 px-5 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold glow-coral-sm transition-all cursor-pointer flex items-center gap-1.5"
+            className="glow-coral-sm flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-[#FF385C] px-5 text-xs font-bold text-white transition-all hover:bg-[#E61E4F]"
           >
             {submitting ? (
-              <Loader2 className="w-3.5 h-3.5 animate-spin" />
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
             ) : (
               <span>Tiếp tục</span>
             )}
-            <ChevronRight className="w-3.5 h-3.5" />
+            <ChevronRight className="h-3.5 w-3.5" />
           </button>
         </div>
       )}

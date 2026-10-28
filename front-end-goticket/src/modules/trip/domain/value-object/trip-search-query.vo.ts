@@ -1,3 +1,5 @@
+import { vietnamDate } from '@/shared/utils/vietnam-date';
+
 export interface TripSearchCriteria {
   origin: string;
   destination: string;
@@ -56,11 +58,7 @@ export class TripSearchQueryVO {
       if (!dateRegex.test(criteria.departureDate.trim())) {
         errors.departureDate = "Ngày khởi hành phải có định dạng YYYY-MM-DD.";
       } else {
-        const todayStr = new Date(
-          Date.now() - new Date().getTimezoneOffset() * 60000
-        )
-          .toISOString()
-          .slice(0, 10);
+        const todayStr = this.getTodayDateString();
         if (criteria.departureDate < todayStr) {
           errors.departureDate = "Ngày khởi hành không được ở trong quá khứ.";
         }
@@ -83,16 +81,10 @@ export class TripSearchQueryVO {
   }
 
   public static getTodayDateString(): string {
-    return new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      .toISOString()
-      .slice(0, 10);
+    return vietnamDate();
   }
 
   public static getTomorrowDateString(): string {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return new Date(tomorrow.getTime() - tomorrow.getTimezoneOffset() * 60000)
-      .toISOString()
-      .slice(0, 10);
+    return vietnamDate(Date.now() + 24 * 60 * 60_000);
   }
 }

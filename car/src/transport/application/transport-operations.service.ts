@@ -41,6 +41,7 @@ export class TransportOperationsService
   }
 
   onModuleInit() {
+    void this.reconcile();
     this.timer = setInterval(() => {
       void this.reconcile();
     }, 30_000);
@@ -72,6 +73,17 @@ export class TransportOperationsService
       reason,
       actorId,
     );
+  }
+
+  async adminSummary(tripId: string) {
+    const trip = await this.repository.findTrip(tripId);
+    if (!trip) throw new NotFoundException('Không tìm thấy chuyến xe');
+    return {
+      tripId: trip.id, origin: trip.origin, destination: trip.destination,
+      departureAt: trip.departureAt, arrivalAt: trip.arrivalAt, status: trip.status,
+      vehicle: trip.vehicle, operator: trip.operatorProfile,
+      cancellationRequested: await this.repository.hasTripCancellation(tripId),
+    };
   }
 
   async adminCancel(tripId: string, actorId: string, reason: string) {
@@ -130,6 +142,19 @@ export class TransportOperationsService
         seat: trip.seats.find((seat) => seat.id === ticket.seatId),
       })),
     };
+  }
+
+  async managedSeatMap(tripId: string, actorId: string) {
+    const trip = await this.managedTrip(tripId, actorId);
+    // Drafts have templates, not live inventory. Do not advertise bookable seats.
+    if (trip.status === 'DRAFT') return [];
+    const statuses = await this.integrations.getSeatStatus(tripId);
+    const geometry = new Map(trip.seats.map((seat) => [seat.id, seat]));
+    return statuses.map((seat) => ({
+      ...geometry.get(seat.seatId),
+      ...seat,
+      priceVnd: trip.classPrices?.[geometry.get(seat.seatId)?.seatClass ?? ''] ?? trip.priceVnd,
+    }));
   }
 
   async noShow(tripId: string, ticketId: string, actorId: string) {
@@ -205,8 +230,14 @@ export class TransportOperationsService
     if (this.running) return;
     this.running = true;
     try {
-      for (const id of await this.repository.pendingInventorySync())
-        await this.transport.synchronizeSale(id);
+      await this.closeElapsedSales();
+      for (const id of await this.repository.pendingInventorySync()) {
+        try {
+          await this.transport.synchronizeSale(id);
+        } catch (error) {
+          this.logger.warn(`Inventory sync ${id} retained for retry: ${String(error)}`);
+        }
+      }
       for (const trip of await this.repository.pendingPublications()) {
         try {
           await this.transport.publish(trip.id, trip.operatorUserId, 'SYSTEM');
@@ -242,5 +273,9 @@ export class TransportOperationsService
     } finally {
       this.running = false;
     }
+  }
+
+  async closeElapsedSales(): Promise<void> {
+    await this.repository.stopSalesAtDeparture();
   }
 }

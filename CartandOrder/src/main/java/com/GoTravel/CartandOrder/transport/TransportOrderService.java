@@ -54,6 +54,20 @@ public class TransportOrderService {
     private final JdbcTemplate jdbc;
     private final com.GoTravel.CartandOrder.transport.adjustment.application.ItemOperationService itemOperations;
 
+    public Map<String, Object> ticketTrip(UUID actorId, UUID orderId, UUID itemId) {
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (order.getOrderKind() != OrderKind.GOCAR_TICKET || !actorId.equals(order.getUserId()))
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        var item = order.getItems().stream().filter(candidate -> candidate.getId().equals(itemId))
+                .findFirst().orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (item.getTransportTripId() == null || item.getTransportTicketId() == null)
+            throw conflict("Vé chưa phát hành thông tin chuyến");
+        var response = car.ticketTrip(orderId, item.getTransportTripId());
+        if (response == null || !response.isSuccess() || response.getData() == null)
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Chưa đọc được lộ trình của vé");
+        return response.getData();
+    }
+
     public com.GoTravel.CartandOrder.dto.response.OrderResponse checkout(
             UUID userId, String idempotencyKey, TransportCheckoutRequest request) {
         return checkoutInternal(userId, null, null, PaymentMethod.ONLINE, idempotencyKey, request);
@@ -64,17 +78,19 @@ public class TransportOrderService {
         if (cashierId == null || request == null || request.tripId() == null)
             throw badRequest("Nhân viên hoặc chuyến không hợp lệ");
         var staff = car.authorizeStaff(cashierId, request.tripId(), "SELL_CASH").getData();
-        var shift = cashLedger.active(cashierId);
-        if (staff == null || shift == null || !shift.operatorId().equals(staff.operatorId()))
-            throw conflict("Nhân viên chưa có ca thu tiền của nhà xe");
-        return checkoutInternal(null, cashierId, shift.id(), PaymentMethod.CASH, idempotencyKey, request);
+        if (staff == null) throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Nhân viên chưa được phân công bán vé");
+        return checkoutInternal(null, cashierId, null, PaymentMethod.CASH, idempotencyKey, request);
     }
 
     private com.GoTravel.CartandOrder.dto.response.OrderResponse checkoutInternal(
             UUID userId, UUID cashierId, UUID shiftId, PaymentMethod method,
             String idempotencyKey, TransportCheckoutRequest request) {
+        if (method == PaymentMethod.ONLINE &&
+                (request == null || request.email() == null || request.email().isBlank())) {
+            throw badRequest("Đặt vé trực tuyến cần email nhận vé hợp lệ");
+        }
         if ((method == PaymentMethod.ONLINE && userId == null) ||
-                (method == PaymentMethod.CASH && (cashierId == null || shiftId == null)) ||
+                (method == PaymentMethod.CASH && cashierId == null) ||
                 idempotencyKey == null || !idempotencyKey.matches("[A-Za-z0-9_-]{8,120}") ||
                 request == null || request.passengers() == null || request.passengers().isEmpty() ||
                 request.passengers().size() > 10 ||
@@ -93,10 +109,8 @@ public class TransportOrderService {
         validateQuote(quote, request);
         if (method == PaymentMethod.CASH) {
             var staff = car.authorizeStaff(cashierId, quote.tripId(), "SELL_CASH").getData();
-            var activeShift = cashLedger.active(cashierId);
-            if (staff == null || !staff.operatorId().equals(quote.operatorId()) ||
-                    activeShift == null || !shiftId.equals(activeShift.id())) {
-                throw conflict("Ca thu tiền hoặc nhà xe không khớp chuyến");
+            if (staff == null || !staff.operatorId().equals(quote.operatorId())) {
+                throw conflict("Nhân viên không được bán vé của nhà xe này");
             }
         }
         var catalogResponse = catalog.getListingDetail(quote.listingId());
@@ -106,9 +120,17 @@ public class TransportOrderService {
                 !quote.operatorUserId().equals(offer.getHostId())) {
             throw conflict("Tuyến chưa mở bán trong Catalog");
         }
+        var commissionResponse = method == PaymentMethod.CASH ? payments.getTransportCommission() : null;
+        var commission = commissionResponse == null ? null : commissionResponse.getData();
+        if (method == PaymentMethod.CASH && (commission == null || commission.version() == null || commission.version().isBlank() ||
+                commission.rate() == null || commission.rate().signum() < 0 || commission.rate().compareTo(BigDecimal.ONE) >= 0))
+            throw conflict("Chưa đọc được cấu hình hoa hồng tiền mặt hợp lệ");
         Order order;
         try {
             order = transactions.execute(status -> {
+                var accountingBatchId = method == PaymentMethod.CASH
+                        ? cashLedger.prepareAutomatic(cashierId, quote.operatorId(), commission.version(), commission.rate()).id()
+                        : shiftId;
                 var created = Order.builder()
                         .userId(userId)
                         .hostId(quote.operatorUserId())
@@ -121,7 +143,7 @@ public class TransportOrderService {
                         .transportIdempotencyKey(idempotencyKey)
                         .transportRequestHash(requestHash)
                         .transportCashierId(cashierId)
-                        .transportCashShiftId(shiftId)
+                        .transportCashShiftId(accountingBatchId)
                         .orderNumber("CAR-" + UUID.randomUUID().toString().substring(0, 12).toUpperCase())
                         .status(OrderStatus.PENDING)
                         .totalAmount(quote.totalAmount())
@@ -224,20 +246,20 @@ public class TransportOrderService {
             }
             orders.save(order);
         });
-        var state = orders.findById(orderId).orElseThrow().getStatus();
+        var state = orders.findWithItemsById(orderId).orElseThrow().getStatus();
         if (state == OrderStatus.PAID_REVIEW) throw conflict("Tiền đã nhận nhưng ghế cần đối soát");
         if (state == OrderStatus.FULFILLMENT_PENDING) fulfill(orderId);
     }
 
     public void paymentFailed(UUID orderId) {
-        var paymentOrder = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var paymentOrder = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (paymentOrder.getPaymentMethod() != PaymentMethod.ONLINE) {
             throw conflict("Đơn tiền mặt không nhận callback GoPay");
         }
         var payment = paymentStatusOrNull(orderId);
         if (payment != null && payment.getData() != null &&
                 "COMPLETED".equals(payment.getData().status())) return;
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getStatus() == OrderStatus.COMPLETED || order.getStatus() == OrderStatus.REFUNDED ||
                     order.getStatus() == OrderStatus.REFUND_PENDING ||
                     order.getStatus() == OrderStatus.CONFIRMED || order.getStatus() == OrderStatus.FULFILLMENT_PENDING ||
@@ -292,7 +314,7 @@ public class TransportOrderService {
     }
 
     public void cancelCashUnpaid(UUID cashierId, UUID orderId) {
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET ||
                 order.getPaymentMethod() != PaymentMethod.CASH ||
                 !cashierId.equals(order.getTransportCashierId()) ||
@@ -309,7 +331,7 @@ public class TransportOrderService {
     }
 
     public CancellationPolicy.Quote cancellationPreview(UUID actorId, UUID orderId) {
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET || order.getStatus() != OrderStatus.CONFIRMED ||
                 !(actorId.equals(order.getUserId()) || actorId.equals(order.getTransportCashierId())))
             throw conflict("Không có quyền xem chính sách hủy của đơn");
@@ -327,7 +349,7 @@ public class TransportOrderService {
     }
 
     public void cancelPaid(UUID actorId, UUID orderId, String reason) {
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET || order.getStatus() != OrderStatus.CONFIRMED) {
             throw conflict("Đơn chưa đủ điều kiện hủy vé");
         }
@@ -362,7 +384,7 @@ public class TransportOrderService {
     }
 
     public void processPaidCancellation(UUID orderId) {
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getStatus() != OrderStatus.CANCELLATION_PENDING || order.getTransportRefundDue() == null) return;
         var voided = car.voidTickets(orderId);
         if (voided == null || !voided.isSuccess()) throw conflict("Chưa vô hiệu hóa được vé");
@@ -392,7 +414,7 @@ public class TransportOrderService {
 
     /** Called only by the durable trip-cancellation coordinator after sale was disabled. */
     private void cancelIssuedItems(UUID actorId,UUID orderId,UUID tripId,boolean forced) {
-        var order=orders.findById(orderId).orElseThrow();
+        var order=orders.findWithItemsById(orderId).orElseThrow();
         for(var item:order.getItems()) {
             if(tripId!=null&&!tripId.equals(item.getTransportTripId())) continue;
             if("OPERATION_PENDING".equals(item.getTransportItemState())) throw conflict("Vé đang có operation; worker sẽ tiếp tục hủy sau khi kết thúc");
@@ -402,7 +424,7 @@ public class TransportOrderService {
     }
 
     public void cancelForTrip(UUID orderId, UUID tripId, String reason) {
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET ||
                 order.getItems().stream().noneMatch(i->tripId.equals(i.getTransportTripId()))) throw conflict("Order không thuộc chuyến cần hủy");
         if (order.getItems().stream().anyMatch(i -> i.getTransportTicketId()!=null) && order.getStatus()!=OrderStatus.CANCELLED) {
@@ -469,7 +491,7 @@ public class TransportOrderService {
     }
 
     public void cancelForExchange(UUID oldOrderId, UUID newOrderId, String reason) {
-        var order = orders.findById(oldOrderId).orElseThrow(() -> badRequest("Không có đơn cũ"));
+        var order = orders.findWithItemsById(oldOrderId).orElseThrow(() -> badRequest("Không có đơn cũ"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET ||
                 (order.getStatus() != OrderStatus.CONFIRMED &&
                         order.getStatus() != OrderStatus.CANCELLATION_PENDING &&
@@ -485,7 +507,7 @@ public class TransportOrderService {
             UUID first = oldOrderId.compareTo(newOrderId)<0 ? oldOrderId : newOrderId;
             UUID second = first.equals(oldOrderId) ? newOrderId : oldOrderId;
             orders.findByIdForUpdate(first).orElseThrow(); orders.findByIdForUpdate(second).orElseThrow();
-            var replacement = orders.findById(newOrderId).orElseThrow();
+            var replacement = orders.findWithItemsById(newOrderId).orElseThrow();
             Integer cancelling = jdbc.queryForObject("select count(*) from transport_trip_cancellations where trip_id=?",Integer.class,replacement.getTransportTripId());
             if (replacement.getStatus()!=OrderStatus.CONFIRMED || (cancelling!=null && cancelling>0)) throw conflict("Chuyến/đơn thay thế đang hủy");
             markFullRefundForTrip(oldOrderId, reason);
@@ -495,13 +517,25 @@ public class TransportOrderService {
 
     public void completeManualRefund(UUID adminId, UUID orderId, BigDecimal amount,
                                      String reference, String evidenceUrl) {
+        if (reference != null && reference.trim().startsWith("AUTO-ORDER-SIM-REFUND-")) throw conflict("Dùng chức năng hoàn mô phỏng thay vì chứng từ thủ công.");
+        completeRefund(adminId, orderId, amount, reference, evidenceUrl, false);
+    }
+
+    public void completeSimulatedRefund(UUID adminId, UUID orderId, BigDecimal amount, String reference, String evidenceUrl) {
+        var audit = jdbc.queryForList("select actor_id,amount from transport_order_refund_requests where order_id=?", orderId);
+        if (audit.size()!=1 || !adminId.equals(audit.get(0).get("actor_id")) || amount.compareTo((BigDecimal)audit.get(0).get("amount"))!=0 || !("AUTO-ORDER-SIM-REFUND-"+orderId).equals(reference)) throw conflict("Thiếu hồ sơ duyệt hoàn mô phỏng tin cậy.");
+        completeRefund(adminId, orderId, amount, reference, evidenceUrl, true);
+    }
+
+    private void completeRefund(UUID adminId, UUID orderId, BigDecimal amount, String reference, String evidenceUrl, boolean simulated) {
         if (adminId == null || amount == null || amount.signum() <= 0 ||
                 amount.stripTrailingZeros().scale() > 0 || reference == null || reference.isBlank() ||
                 reference.length() > 160 || evidenceUrl == null || evidenceUrl.isBlank() ||
-                evidenceUrl.length() > 1000) throw badRequest("Bằng chứng hoàn tiền không hợp lệ");
+                evidenceUrl.length() > 1000 || !evidenceUrl.trim().startsWith("https://")) throw badRequest("Bằng chứng hoàn tiền không hợp lệ");
         reference = reference.trim();
         evidenceUrl = evidenceUrl.trim();
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        if (!simulated && jdbc.queryForObject("select count(*) from transport_order_refund_requests where order_id=? and state in ('REQUESTED','PENDING','COMPLETED')", Integer.class, orderId)>0) throw conflict("Đang có hồ sơ hoàn mô phỏng. Kiểm tra trạng thái trước khi ghi chứng từ khác.");
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getStatus() == OrderStatus.REFUNDED) {
             var proof = jdbc.query("select amount,reference,evidence_url,recorded_by from transport_refund_confirmations where order_id=?",
                     (rs, row) -> new Object[]{rs.getBigDecimal(1), rs.getString(2), rs.getString(3),
@@ -516,6 +550,8 @@ public class TransportOrderService {
                 amount.compareTo(order.getTransportRefundDue()) != 0) {
             throw conflict("Đơn chưa đủ điều kiện xác nhận đã hoàn tiền");
         }
+        Integer activeOperations = jdbc.queryForObject("select count(*) from transport_item_operations where order_id=? and state not in ('COMPLETED','ABORTED')", Integer.class, orderId);
+        if (activeOperations != null && activeOperations > 0) throw conflict("Cần hoàn tất nghiệp vụ từng vé trước khi ghi nhận hoàn toàn đơn");
         if (order.getPaymentMethod() == PaymentMethod.ONLINE) {
             var result = payments.recordManualTransportRefund(orderId,
                     new PaymentClient.ManualTransportRefundRequest(amount, reference, evidenceUrl, adminId));
@@ -525,10 +561,19 @@ public class TransportOrderService {
         final String savedEvidence = evidenceUrl;
         transactions.executeWithoutResult(status -> {
             var current = orders.findByIdForUpdate(orderId).orElseThrow();
-            if (current.getStatus() != OrderStatus.REFUND_PENDING) throw conflict("Đơn đã đổi trạng thái");
-            jdbc.update("insert into transport_refund_confirmations(id,order_id,amount,reference,evidence_url,payment_method,recorded_by) " +
-                            "values (?,?,?,?,?,?,?)", UUID.randomUUID(), orderId, amount, savedReference,
-                    savedEvidence, current.getPaymentMethod().name(), adminId);
+            if (current.getStatus() == OrderStatus.REFUNDED) {
+                var proofs = jdbc.queryForList("select reference from transport_refund_confirmations where order_id=?", orderId);
+                if (proofs.size()==1 && savedReference.equals(proofs.get(0).get("reference"))) return;
+                throw conflict("Đơn đã có bằng chứng hoàn tiền khác");
+            }
+            if (current.getStatus() != OrderStatus.REFUND_PENDING || current.getTransportRefundDue() == null ||
+                    current.getTransportRefundDue().compareTo(amount) != 0) throw conflict("Đơn đã đổi trạng thái hoặc số tiền hoàn");
+            jdbc.update("insert into transport_refund_confirmations(id,order_id,amount,reference,evidence_url,payment_method,recorded_by,simulated) " +
+                            "values (?,?,?,?,?,?,?,?)", UUID.randomUUID(), orderId, amount, savedReference,
+                    savedEvidence, current.getPaymentMethod().name(), adminId, simulated);
+            if (simulated) {
+                current.setTransportRefundSimulated(true);
+            }
             if (current.getPaymentMethod() == PaymentMethod.CASH) {
                 jdbc.update("insert into transport_cash_refund_outbox(order_id) values (?)", orderId);
             }
@@ -595,7 +640,7 @@ public class TransportOrderService {
     private record ReviewInfo(UUID tripId, BigDecimal amount) {}
 
     public void fulfill(UUID orderId) {
-        var order = orders.findById(orderId).orElseThrow(() -> badRequest("Không có order"));
+        var order = orders.findWithItemsById(orderId).orElseThrow(() -> badRequest("Không có order"));
         if (order.getStatus() != OrderStatus.FULFILLMENT_PENDING &&
                 order.getStatus() != OrderStatus.CASH_RECEIVED_PENDING_RECONCILIATION) return;
         try {
@@ -848,19 +893,27 @@ public class TransportOrderService {
             if(from!=null)predicates.add(cb.greaterThanOrEqualTo(root.get("createdAt"),from.atStartOfDay()));
             if(to!=null)predicates.add(cb.lessThan(root.get("createdAt"),to.plusDays(1).atStartOfDay()));
             if(search!=null&&!search.isBlank()){String term="%"+search.trim().toLowerCase(java.util.Locale.ROOT).replace("\\","\\\\").replace("%","\\%").replace("_","\\_")+"%";
-                predicates.add(cb.or(cb.like(cb.lower(root.get("orderNumber")),term,'\\'),cb.like(cb.lower(items.get("passengerName")),term,'\\')));}
+                predicates.add(cb.or(cb.like(cb.lower(root.get("orderNumber")),term,'\\'),cb.like(cb.lower(items.get("passengerName")),term,'\\'),
+                        cb.like(cb.lower(((org.hibernate.query.criteria.JpaExpression<UUID>)root.<UUID>get("id")).cast(String.class)),term,'\\'),
+                        cb.like(cb.lower(cb.function("jsonb_extract_path_text",String.class,root.get("customerInfo"),cb.literal("phone"))),term,'\\'),
+                        cb.like(cb.lower(cb.function("jsonb_extract_path_text",String.class,root.get("customerInfo"),cb.literal("fullName"))),term,'\\'),
+                        cb.like(cb.lower(cb.function("jsonb_extract_path_text",String.class,root.get("customerInfo"),cb.literal("email"))),term,'\\')));}
             return cb.and(predicates.toArray(jakarta.persistence.criteria.Predicate[]::new));
         },org.springframework.data.domain.PageRequest.of(pageable.getPageNumber(),pageable.getPageSize(),org.springframework.data.domain.Sort.by(org.springframework.data.domain.Sort.Direction.DESC,"createdAt")));
         return orderPage.map(order -> scopedVendorResponse(order,scope));
     }
 
     public com.GoTravel.CartandOrder.dto.response.OrderResponse getVendorOrderDetail(UUID actorId, UUID orderId) {
-        var order = orders.findById(orderId)
+        return getVendorOrderDetail(actorId, orderId, null);
+    }
+
+    public com.GoTravel.CartandOrder.dto.response.OrderResponse getVendorOrderDetail(UUID actorId, UUID orderId, UUID operatorId) {
+        var order = orders.findWithItemsById(orderId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Không tìm thấy đơn hàng"));
         if (order.getOrderKind() != OrderKind.GOCAR_TICKET) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Không phải đơn vé xe");
         }
-        var response = car.readScope(actorId, null);
+        var response = car.readScope(actorId, operatorId);
         if (response == null || !response.isSuccess() || response.getData() == null) {
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Không có quyền truy cập đơn này");
         }
@@ -878,7 +931,7 @@ public class TransportOrderService {
 
     public record CounterTicketDocument(UUID orderId,String orderNumber,UUID itemId,UUID ticketId,String passengerName,String routeTitle,UUID tripId,String seatCode,UUID pickupStopId,UUID dropoffStopId,LocalDateTime departureAt,int revision,String checkInToken){}
     public CounterTicketDocument counterTicket(UUID actorId,UUID orderId,UUID itemId){
-        var order=orders.findById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
+        var order=orders.findWithItemsById(orderId).orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         if(order.getOrderKind()!=OrderKind.GOCAR_TICKET || order.getPaymentMethod()!=PaymentMethod.CASH || cashLedger.findReceipt(orderId)==null)throw conflict("Chỉ cấp chứng từ vé cho đơn tiền mặt đã thực thu");
         var item=order.getItems().stream().filter(i->i.getId().equals(itemId)).findFirst().orElseThrow(()->new ResponseStatusException(HttpStatus.NOT_FOUND));
         var authorized=car.authorizeStaff(actorId,item.getTransportTripId(),"SELL_CASH");

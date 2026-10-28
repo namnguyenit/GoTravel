@@ -12,6 +12,7 @@ const proxyRules = {
   '/api': {
     target: 'http://localhost:5555',
     changeOrigin: true,
+    xfwd: true,
   },
   '/launch': portalProxy,
   '/session': portalProxy,

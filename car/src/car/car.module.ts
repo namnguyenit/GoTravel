@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { DeleteCarUseCase } from './application/usecase/delete-car.usecase';
+import { SeatClassController } from './presentation/controller/seat-class.controller';
+import { SeatClassService } from './application/seat-class.service';
 import { CarController } from './presentation/controller/car.controller';
 import { AddCarUseCase } from './application/usecase/add-car.usecase';
 import { GetCarsUseCase } from './application/usecase/get-cars.usecase';
@@ -8,8 +11,10 @@ import { UpdateCarStatusUseCase } from './application/usecase/update-car-status.
 import { PrismaCarRepository } from './infrastructure/repository/prisma-car.repository';
 
 @Module({
-  controllers: [CarController],
+  controllers: [SeatClassController, CarController],
   providers: [
+    DeleteCarUseCase,
+    SeatClassService,
     {
       provide: 'ICarRepository',
       useClass: PrismaCarRepository,

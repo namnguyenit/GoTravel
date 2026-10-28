@@ -12,7 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface OrderDisputeRepository extends JpaRepository<OrderDispute, UUID> {
+public interface OrderDisputeRepository extends JpaRepository<OrderDispute, UUID>, org.springframework.data.jpa.repository.JpaSpecificationExecutor<OrderDispute> {
     Page<OrderDispute> findByUserIdOrderByCreatedAtDesc(UUID userId, Pageable pageable);
     Page<OrderDispute> findByStatusOrderByCreatedAtDesc(DisputeStatus status, Pageable pageable);
     Page<OrderDispute> findAllByOrderByCreatedAtDesc(Pageable pageable);

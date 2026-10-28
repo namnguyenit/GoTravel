@@ -1,3 +1,4 @@
+import { PrismaService } from '../prisma/prisma.service';
 import {
   CanActivate,
   ExecutionContext,
@@ -34,7 +35,7 @@ export class AuthGuard implements CanActivate {
   private readonly identityUrl =
     process.env.IDENTITY_INTERNAL_URL || 'http://127.0.0.1:8080';
 
-  constructor(private readonly reflector: Reflector) {}
+  constructor(private readonly reflector: Reflector, private readonly prisma: PrismaService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     if (
@@ -119,6 +120,20 @@ export class AuthGuard implements CanActivate {
         ? claims.scope.split(/\s+/).filter(Boolean)
         : [],
     );
+    if (!roles.has('STAFF') && !roles.has('ROLE_STAFF')) {
+      try {
+        const assignment = await this.prisma.operatorStaff.findFirst({
+          where: { userId: claims.sub, active: true, operator: { status: 'ACTIVE' } },
+          select: { id: true },
+        });
+        if (assignment) {
+          roles.add('STAFF');
+          roles.add('ROLE_STAFF');
+        }
+      } catch (err) {
+        // ignore staff db check error
+      }
+    }
     await this.verifyAccountStatus(claims.sub, roles);
     request.authUser = { id: claims.sub, roles };
     return true;

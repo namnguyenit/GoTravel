@@ -11,6 +11,8 @@ import {
   Waypoints,
   Lock,
   Unlock,
+  Pencil,
+  Trash2,
 } from "lucide-react";
 
 interface RouteCardProps {
@@ -18,6 +20,7 @@ interface RouteCardProps {
   index: number;
   onToggleStatus?: (route: RouteEntity) => void;
   onEdit?: (route: RouteEntity) => void;
+  onDelete?: (route: RouteEntity) => void;
 }
 
 export const RouteCard: React.FC<RouteCardProps> = ({
@@ -25,6 +28,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
   index,
   onToggleStatus,
   onEdit,
+  onDelete,
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false);
 
@@ -58,7 +62,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
                 <h3 className="text-base font-bold text-gray-900">
                   {route.getSummaryRoute()}
                 </h3>
-                <StatusBadge status={route.isActive() ? "ACTIVE" : "INACTIVE"} />
+                <StatusBadge status={route.isActive() ? "ACTIVE" : "INACTIVE"} label={route.getStatusDisplayName()} />
               </div>
               <p className="font-mono text-[11px] text-gray-400">
                 Mã tuyến: {route.id}
@@ -72,12 +76,20 @@ export const RouteCard: React.FC<RouteCardProps> = ({
               <span>{totalStops} trạm dừng</span>
             </span>
 
-            <span className="flex items-center text-xs font-medium text-gray-500">
+            <span className="flex items-center text-xs font-medium text-gray-500" title="Ngày tạo tuyến, không phải ngày chạy">
               <Calendar className="mr-1 h-3.5 w-3.5" />
-              <span>{route.getFormattedCreatedAt()}</span>
+              <span>Tạo: {route.getFormattedCreatedAt()}</span>
             </span>
           </div>
         </div>
+
+        {route.dailyActivity && (
+          <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-gray-600">
+            <span className="font-semibold text-gray-800">Ngày {route.dailyActivity.date.split('-').reverse().join('/')}:</span>
+            <span>{route.dailyActivity.totalTrips === 0 ? 'Không có chuyến xe' : `${route.dailyActivity.totalTrips} chuyến trong lịch`}</span>
+            <span>{route.dailyActivity.onSaleTrips === 0 ? 'Không có chuyến đang mở bán' : `${route.dailyActivity.onSaleTrips} chuyến đang mở bán`}</span>
+          </div>
+        )}
 
         {/* Quick Station Summary */}
         <div className="mt-4 grid grid-cols-1 gap-2 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 p-3.5 sm:grid-cols-2">
@@ -130,16 +142,18 @@ export const RouteCard: React.FC<RouteCardProps> = ({
             <button
               type="button"
               onClick={() => onEdit(route)}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-1.5 text-xs font-bold text-gray-700 hover:border-[#FF385C] hover:text-[#FF385C] shadow-2xs transition cursor-pointer"
+              className="rounded-full border border-gray-200/90 bg-white px-3.5 py-1.5 text-xs font-bold text-gray-700 hover:border-[#FF385C] hover:text-[#FF385C] shadow-2xs transition cursor-pointer inline-flex items-center gap-1.5"
             >
-              Sửa lộ trình
+              <Pencil className="h-3.5 w-3.5 text-gray-500" />
+              <span>Sửa</span>
             </button>
           )}
+
           {onToggleStatus && (
             <button
               type="button"
               onClick={() => onToggleStatus(route)}
-              className={`rounded-full border px-4 py-1.5 text-xs font-bold inline-flex items-center gap-1.5 shadow-2xs transition cursor-pointer ${
+              className={`rounded-full border px-3.5 py-1.5 text-xs font-bold inline-flex items-center gap-1.5 shadow-2xs transition cursor-pointer ${
                 route.isActive()
                   ? "border-amber-200 bg-amber-50/80 text-amber-700 hover:bg-amber-100/80"
                   : "border-emerald-200 bg-emerald-50/80 text-emerald-700 hover:bg-emerald-100/80"
@@ -148,14 +162,25 @@ export const RouteCard: React.FC<RouteCardProps> = ({
               {route.isActive() ? (
                 <>
                   <Lock className="h-3.5 w-3.5 text-amber-600" />
-                  <span>Tạm khóa tuyến</span>
+                  <span>Tạm khóa</span>
                 </>
               ) : (
                 <>
                   <Unlock className="h-3.5 w-3.5 text-emerald-600" />
-                  <span>Mở khóa tuyến</span>
+                  <span>Mở khóa</span>
                 </>
               )}
+            </button>
+          )}
+
+          {onDelete && (
+            <button
+              type="button"
+              onClick={() => onDelete(route)}
+              className="rounded-full border border-gray-200/90 bg-white px-3.5 py-1.5 text-xs font-bold text-rose-600 hover:border-rose-300 hover:bg-rose-50 shadow-2xs transition cursor-pointer inline-flex items-center gap-1.5"
+            >
+              <Trash2 className="h-3.5 w-3.5 text-rose-500" />
+              <span>Xóa</span>
             </button>
           )}
         </div>

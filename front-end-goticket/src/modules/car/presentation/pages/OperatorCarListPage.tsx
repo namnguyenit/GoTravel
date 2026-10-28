@@ -36,9 +36,6 @@ import {
   Grid3X3,
   Edit2,
   Trash2,
-  Filter,
-  CheckCircle2,
-  AlertCircle,
 } from "lucide-react";
 
 export const OperatorCarListPage: React.FC = () => {
@@ -63,6 +60,8 @@ export const OperatorCarListPage: React.FC = () => {
 
   // Filters & Sorting state
   const [keywordInput, setKeywordInput] = useState<string>("");
+  const [appliedKeyword, setAppliedKeyword] = useState("");
+  const [deleteTarget, setDeleteTarget] = useState<CarEntity | null>(null);
   const [selectedType, setSelectedType] = useState<string>("");
   const [sortOption, setSortOption] = useState<string>("createdAt_desc");
 
@@ -98,7 +97,7 @@ export const OperatorCarListPage: React.FC = () => {
   };
 
   const fetchCars = useCallback(
-    async (pageToFetch = pagination.page) => {
+    async (pageToFetch = 1) => {
       setLoading(true);
       setError(null);
 
@@ -108,7 +107,7 @@ export const OperatorCarListPage: React.FC = () => {
         const res = await carService.getCars({
           page: pageToFetch,
           limit: pagination.limit,
-          keyword: keywordInput,
+          keyword: appliedKeyword,
           type: selectedType as CarType | "",
           sortBy,
           sortOrder,
@@ -127,7 +126,7 @@ export const OperatorCarListPage: React.FC = () => {
         setLoading(false);
       }
     },
-    [pagination.page, pagination.limit, keywordInput, selectedType, sortOption]
+    [pagination.limit, appliedKeyword, selectedType, sortOption]
   );
 
   // Automatically open modal if ?action=new or ?action=add
@@ -146,27 +145,13 @@ export const OperatorCarListPage: React.FC = () => {
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    fetchCars(1);
+    if (appliedKeyword === keywordInput.trim()) void fetchCars(1);
+    else setAppliedKeyword(keywordInput.trim());
   };
 
   const handleCarCreated = (newCar: CarEntity) => {
     setSuccessToast(`Thêm xe "${newCar.name}" thành công!`);
-    setCars((prev) => [newCar, ...prev.filter((c) => c.id !== newCar.id)]);
-    setKpi((prev) => ({
-      ...prev,
-      totalCars: prev.totalCars + 1,
-      sleeperCars:
-        newCar.type === "SLEEPER" ? prev.sleeperCars + 1 : prev.sleeperCars,
-      limousineCars:
-        newCar.type === "LIMOUSINE"
-          ? prev.limousineCars + 1
-          : prev.limousineCars,
-      seatCars: newCar.type === "SEAT" ? prev.seatCars + 1 : prev.seatCars,
-    }));
-    setPagination((prev) => ({
-      ...prev,
-      totalItems: prev.totalItems + 1,
-    }));
+    void fetchCars(1);
 
     setTimeout(() => {
       setSuccessToast(null);
@@ -215,7 +200,7 @@ export const OperatorCarListPage: React.FC = () => {
       setCars((items) =>
         items.map((item) => (item.id === updated.id ? updated : item))
       );
-      setSuccessToast(`Đã chuyển trạng thái xe sang "${nextStatus}".`);
+      setSuccessToast(`Đã cập nhật trạng thái xe "${updated.name}".`);
       setStatusConfirmTarget(null);
     } catch (reason) {
       setError(
@@ -224,6 +209,20 @@ export const OperatorCarListPage: React.FC = () => {
     } finally {
       setUpdatingCarId(null);
     }
+  };
+
+  const executeDelete = async () => {
+    if (!deleteTarget || updatingCarId) return;
+    setUpdatingCarId(deleteTarget.id); setError(null);
+    try {
+      await carService.deleteCar(deleteTarget.id);
+      setSuccessToast(`Đã xóa xe "${deleteTarget.name}" khỏi đội xe. Lịch sử chuyến và vé được giữ nguyên.`);
+      setDeleteTarget(null);
+      await fetchCars(cars.length === 1 ? Math.max(1, pagination.page - 1) : pagination.page);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : 'Không thể xóa xe.');
+      setDeleteTarget(null);
+    } finally { setUpdatingCarId(null); }
   };
 
   return (
@@ -250,8 +249,7 @@ export const OperatorCarListPage: React.FC = () => {
       {/* Page Header */}
       <PageHeader
         title="Quản lý đội xe khách"
-        description="Theo dõi, phân loại và đăng ký mới các phương tiện xe khách phục vụ bán vé liên tỉnh."
-        eyebrow="Kênh Nhà Xe"
+        description="Chọn một xe để xem sơ đồ, chỉnh thông tin hoặc quản lý trạng thái hoạt động."
         actions={
           <Button
             onClick={() => setIsAddModalOpen(true)}
@@ -279,7 +277,7 @@ export const OperatorCarListPage: React.FC = () => {
               placeholder="Tìm theo tên xe, biển số..."
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
-              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-11 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-11 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 shadow-2xs"
             />
           </div>
 
@@ -287,7 +285,7 @@ export const OperatorCarListPage: React.FC = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral shadow-2xs"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
             >
               <option value="">Tất cả loại xe</option>
               <option value="SLEEPER">Xe giường nằm</option>
@@ -298,7 +296,7 @@ export const OperatorCarListPage: React.FC = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral shadow-2xs"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
             >
               <option value="createdAt_desc">Mới nhất trước</option>
               <option value="name_asc">Tên xe (A-Z)</option>
@@ -338,113 +336,30 @@ export const OperatorCarListPage: React.FC = () => {
           />
         </SurfaceCard>
       ) : (
-        <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-3xl">
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse text-xs">
-              <thead>
-                <tr className="border-b border-gray-100/80 bg-white/50 text-[11px] font-bold uppercase tracking-wider text-gray-400">
-                  <th className="py-3.5 px-5">Tên xe & Phương tiện</th>
-                  <th className="py-3.5 px-5">Biển số</th>
-                  <th className="py-3.5 px-5">Phân loại xe</th>
-                  <th className="py-3.5 px-5 text-center">Tổng số ghế</th>
-                  <th className="py-3.5 px-5 text-center">Trạng thái</th>
-                  <th className="py-3.5 px-5 text-right">Thao tác</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100/60">
-                {cars.map((car) => (
-                  <tr
-                    key={car.id}
-                    className="hover:bg-white/60 transition-colors"
-                  >
-                    <td className="py-4 px-5">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-9 w-9 items-center justify-center rounded-2xl bg-coral-soft text-coral shrink-0 border border-coral/20">
-                          <Bus className="h-4 w-4" />
-                        </div>
-                        <div>
-                          <p className="font-bold text-sm text-gray-900">
-                            {car.name}
-                          </p>
-                          <p className="text-[11px] text-gray-400 font-mono">
-                            ID: {car.id.slice(0, 8)}...
-                          </p>
-                        </div>
-                      </div>
-                    </td>
-
-                    <td className="py-4 px-5">
-                      <span className="rounded-full px-3 py-1 bg-white/90 border border-gray-200/90 font-mono text-xs font-bold text-gray-800 shadow-2xs">
-                        {car.licensePlate}
-                      </span>
-                    </td>
-
-                    <td className="py-4 px-5">
-                      <CarTypeBadge type={car.type} />
-                    </td>
-
-                    <td className="py-4 px-5 text-center font-bold text-sm tabular-nums text-gray-900">
-                      {car.totalSeats} ghế
-                    </td>
-
-                    <td className="py-4 px-5 text-center">
-                      <StatusBadge status={car.status} />
-                    </td>
-
-                    <td className="py-4 px-5 text-right">
-                      <div className="flex items-center justify-end gap-2">
-                        <Link
-                          to={`/operator/cars/${car.id}/seats`}
-                          className="inline-flex items-center gap-1.5 rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-bold text-gray-800 transition hover:border-coral hover:text-coral shadow-2xs"
-                          title="Cấu hình sơ đồ ghế"
-                        >
-                          <Grid3X3 className="h-3.5 w-3.5" />
-                          <span className="hidden sm:inline">Sơ đồ ghế</span>
-                        </Link>
-
-                        <button
-                          type="button"
-                          onClick={() => openEditDialog(car)}
-                          className="rounded-full border border-gray-200/80 bg-white/90 p-1.5 text-gray-500 transition hover:text-gray-900 hover:border-gray-400 shadow-2xs cursor-pointer"
-                          title="Sửa thông tin xe"
-                        >
-                          <Edit2 className="h-3.5 w-3.5" />
-                        </button>
-
-                        <select
-                          value={car.status}
-                          disabled={updatingCarId === car.id}
-                          onChange={(e) =>
-                            setStatusConfirmTarget({
-                              car,
-                              nextStatus: e.target.value as CarStatus,
-                            })
-                          }
-                          className="rounded-full border border-gray-200/80 bg-white/90 px-2.5 py-1 text-xs font-semibold text-gray-800 outline-none shadow-2xs"
-                        >
-                          <option value="ACTIVE">Hoạt động</option>
-                          <option value="MAINTENANCE">Bảo trì</option>
-                          <option value="INACTIVE">Ngưng chạy</option>
-                        </select>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="space-y-5">
+          <div className="grid gap-4 xl:grid-cols-2">
+            {cars.map(car => <SurfaceCard key={car.id} className="p-5 sm:p-6">
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <div className="flex min-w-0 items-start gap-3">
+                  <Bus className="mt-1 h-6 w-6 shrink-0 text-[#B8173B]" />
+                  <div className="min-w-0"><Link to={`/operator/cars/${car.id}/seats`} className="block break-words text-lg font-bold text-gray-900 hover:text-[#B8173B] focus-visible:outline-[#FF385C]">{car.name}</Link>
+                    <p className="mt-1 text-sm font-semibold text-gray-600">{car.licensePlate}</p></div>
+                </div>
+                <StatusBadge status={car.status} />
+              </div>
+              <div className="my-5 flex flex-wrap items-center gap-3 text-sm"><CarTypeBadge type={car.type} /><span className="text-gray-700">{car.totalSeats} ghế</span></div>
+              <div className="flex flex-wrap gap-2 border-t border-gray-100 pt-4">
+                <Link to={`/operator/cars/${car.id}/seats`} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--gt-coral-soft)] px-4 text-sm font-semibold text-[#B8173B] hover:bg-rose-100"><Grid3X3 size={16} />Xem & sửa sơ đồ</Link>
+                <Button variant="outline" disabled={Boolean(updatingCarId)} onClick={() => openEditDialog(car)}><Edit2 size={16} className="mr-2" />Thông tin xe</Button>
+                <Button variant="outline" disabled={Boolean(updatingCarId)} onClick={() => setDeleteTarget(car)} aria-label={`Xóa xe ${car.name}`} className="text-red-700 hover:bg-red-50"><Trash2 size={16} className="mr-2" />Xóa xe</Button>
+              </div>
+            </SurfaceCard>)}
           </div>
-
-          {/* Pagination */}
-          <div className="border-t border-gray-100/80 p-4">
-            <Pagination
-              currentPage={pagination.page}
-              totalPages={pagination.totalPages}
-              onPageChange={(p) => fetchCars(p)}
-            />
-          </div>
-        </SurfaceCard>
+          <Pagination currentPage={pagination.page} totalPages={pagination.totalPages} onPageChange={p => void fetchCars(p)} />
+        </div>
       )}
 
+      <ConfirmDialog open={Boolean(deleteTarget)} onOpenChange={open => !open && setDeleteTarget(null)} title={`Xóa xe ${deleteTarget?.name || ''}?`} description="Xe sẽ biến mất khỏi đội xe và không thể chọn cho lịch trình mới. Lịch sử chuyến và vé vẫn giữ nguyên. Chỉ xóa được khi xe không còn lịch chưa kết thúc; cần đổi xe hoặc hủy các lịch đó trước." variant="danger" confirmLabel="Xóa khỏi đội xe" loading={Boolean(updatingCarId)} onConfirm={executeDelete} />
       {/* Add Car Modal */}
       <AddCarModal
         open={isAddModalOpen}
@@ -488,6 +403,14 @@ export const OperatorCarListPage: React.FC = () => {
                 className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 font-mono text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
               />
             </div>
+
+            {editingCar && <div className="rounded-xl bg-gray-50 p-3 text-sm">
+              <label htmlFor="edit-car-status" className="font-semibold">Trạng thái vận hành</label>
+              <select id="edit-car-status" value={editingCar.status} disabled={Boolean(updatingCarId)} onChange={e => { if ((editName !== editingCar.name || editPlate !== editingCar.licensePlate) && !window.confirm("Tên hoặc biển số chưa lưu. Bỏ các thay đổi này để đổi trạng thái?")) return; setStatusConfirmTarget({ car: editingCar, nextStatus: e.target.value as CarStatus }); setEditingCar(null); }} className="mt-2 min-h-11 w-full rounded-lg border border-gray-200 bg-white px-3">
+                <option value="ACTIVE">Hoạt động</option><option value="MAINTENANCE">Bảo trì</option><option value="INACTIVE">Ngưng chạy</option>
+              </select>
+              <p className="mt-2 text-gray-600">Đổi trạng thái cần xác nhận riêng. Lưu tên và biển số trước nếu đã chỉnh sửa.</p>
+            </div>}
 
             <DialogFooter className="pt-2 gap-2">
               <button

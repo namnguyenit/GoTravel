@@ -68,6 +68,25 @@ public class PaymentService {
     private String transportCommissionVersion;
     @Value("${payment.mock-enabled:false}")
     private boolean mockEnabled;
+    @Value("${payment.mock-demo-user-file:}")
+    private String mockDemoUserFile;
+
+    /** Narrow demo permission: only explicitly seeded buyers and transport orders. */
+    private boolean demoMockAllowed(UUID userId, UUID orderId) {
+        if (mockDemoUserFile == null || mockDemoUserFile.isBlank() || userId == null || orderId == null) return false;
+        try {
+            var path = java.nio.file.Path.of(mockDemoUserFile);
+            if (!java.nio.file.Files.isRegularFile(path) || java.nio.file.Files.size(path) > 262144) return false;
+            boolean listed;
+            try (var lines = java.nio.file.Files.lines(path)) {
+                listed = lines.anyMatch(line -> line.trim().equals(userId.toString()));
+            }
+            if (!listed) return false;
+            var order = getInternalOrderPaymentSummary(orderId);
+            return userId.equals(order.getUserId()) &&
+                    ("GOCAR_TICKET".equals(order.getOrderKind()) || "GOCAR_EXCHANGE".equals(order.getOrderKind()));
+        } catch (Exception unavailable) { return false; }
+    }
 
     private static final String DEFAULT_COMMISSION_CONFIG_ID = "DEFAULT";
     private static final BigDecimal DEFAULT_COMMISSION_RATE = new BigDecimal("0.05"); // 5% hoa hồng GoStay
@@ -127,7 +146,7 @@ public class PaymentService {
      */
     @Transactional
     public PaymentResponse createMockPayment(UUID userId, CreatePaymentRequest request) {
-        if (!mockEnabled) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
+        if (!mockEnabled && !demoMockAllowed(userId, request.getOrderId())) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
         PaymentResponse created = createPayment(userId, request);
         PaymentRequest payment = paymentRequestRepository.findByIdForUpdate(created.getPaymentId())
                 .orElseThrow(() -> new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
@@ -286,6 +305,10 @@ public class PaymentService {
                 recordedBy == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Bằng chứng hoàn tiền không hợp lệ");
         }
+        if (reference.trim().startsWith("AUTO-ORDER-SIM-REFUND-")) {
+            var audit=jdbc.queryForList("select actor_id,amount,reference,evidence_url from transport_order_refund_simulations where order_id=?",orderId);
+            if(audit.size()!=1||!recordedBy.equals(audit.get(0).get("actor_id"))||amount.compareTo((BigDecimal)audit.get(0).get("amount"))!=0||!reference.trim().equals(audit.get(0).get("reference"))||!evidenceUrl.trim().equals(audit.get(0).get("evidence_url")))throw new ResponseStatusException(HttpStatus.CONFLICT,"Thiếu hồ sơ mô phỏng đã xác thực.");
+        }
         Integer itemAccounts=jdbc.queryForObject("select count(*) from transport_item_accounts where order_id=?",Integer.class,orderId);
         if(itemAccounts!=null&&itemAccounts>0)throw new ResponseStatusException(HttpStatus.CONFLICT,"Đơn đã phân bổ tiền theo item; dùng item refund coordinator");
         var candidate = paymentRequestRepository.findByOrderId(orderId)
@@ -350,12 +373,90 @@ public class PaymentService {
     }
 
     public TransportCommission transportCommission() {
+        var configured = commissionConfigRepository.findById("TRANSPORT");
+        if (configured.isPresent()) {
+            var value = configured.get();
+            String version = value.getUpdatedAt() == null ? "transport-config-v1" :
+                    "transport-" + value.getUpdatedAt().atZone(VnpayService.ZONE).toInstant().toEpochMilli();
+            return new TransportCommission(version, value.getRate());
+        }
         if (transportCommissionRate == null || transportCommissionRate.signum() < 0 ||
                 transportCommissionRate.compareTo(BigDecimal.ONE) >= 0 ||
                 transportCommissionVersion == null || transportCommissionVersion.isBlank()) {
             throw new IllegalStateException("Invalid transport commission configuration");
         }
         return new TransportCommission(transportCommissionVersion, transportCommissionRate);
+    }
+
+    public com.gotravel.PaymentandWallet.dto.response.CommissionConfigResponse getTransportCommissionConfig() {
+        var configured = commissionConfigRepository.findById("TRANSPORT");
+        var rate = transportCommission().rate();
+        return com.gotravel.PaymentandWallet.dto.response.CommissionConfigResponse.builder()
+                .rate(rate).percent(rate.multiply(BigDecimal.valueOf(100)))
+                .reason(configured.map(CommissionConfig::getReason).orElse("Tỷ lệ mặc định của GoTicket"))
+                .updatedBy(configured.map(CommissionConfig::getUpdatedBy).orElse(null))
+                .updatedAt(configured.map(CommissionConfig::getUpdatedAt).orElse(null)).build();
+    }
+
+    @Transactional
+    public com.gotravel.PaymentandWallet.dto.response.CommissionConfigResponse updateTransportCommissionConfig(
+            UUID adminId, com.gotravel.PaymentandWallet.dto.request.UpdateCommissionConfigRequest request) {
+        if (request.getRate() == null || request.getRate().signum() < 0 ||
+                request.getRate().compareTo(new BigDecimal("0.5")) > 0 || request.getRate().stripTrailingZeros().scale() > 4 ||
+                request.getReason() == null || request.getReason().isBlank() || request.getReason().trim().length() > 500)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Nhập tỷ lệ 0–50%, tối đa 2 chữ số thập phân và lý do tối đa 500 ký tự");
+        var config = commissionConfigRepository.findById("TRANSPORT").orElseGet(() ->
+                CommissionConfig.builder().id("TRANSPORT").build());
+        config.setRate(request.getRate()); config.setReason(request.getReason().trim()); config.setUpdatedBy(adminId);
+        commissionConfigRepository.saveAndFlush(config);
+        return getTransportCommissionConfig();
+    }
+
+    public record CashSettlementRow(UUID shiftId, UUID operatorId, BigDecimal grossAmount,
+            BigDecimal refundedAmount, BigDecimal commissionRate, BigDecimal commissionDue,
+            BigDecimal commissionPaid, BigDecimal outstandingAmount, boolean paymentRecorded,
+            java.time.OffsetDateTime recordedAt, boolean settlementSimulated, BigDecimal simulationAmount) {}
+
+    @Transactional(readOnly = true)
+    public org.springframework.data.domain.Page<CashSettlementRow> cashSettlements(
+            UUID operatorId, org.springframework.data.domain.Pageable pageable) {
+        var page = org.springframework.data.domain.PageRequest.of(Math.max(0, pageable.getPageNumber()),
+                Math.min(100, Math.max(1, pageable.getPageSize())));
+        String from = """
+            from transport_cash_settlements s
+            left join (select shift_id,sum(refund_amount) amount,sum(commission_reversal) reversal
+              from transport_cash_refund_adjustments group by shift_id) r on r.shift_id=s.shift_id
+            left join (select a.shift_id,sum(a.amount) amount,sum(a.commission_reversal) reversal
+              from transport_item_cash_refund_allocations a join transport_item_money_events e
+              on e.operation_id=a.operation_id and e.kind='REFUND' group by a.shift_id) i on i.shift_id=s.shift_id
+            left join (select shift_id,sum(amount) amount,count(*) entries from (
+              select shift_id,amount from transport_cash_commission_payments
+              union all select target_id,amount from transport_settlement_simulations where kind='CASH_COMMISSION'
+            ) credits group by shift_id) p on p.shift_id=s.shift_id
+            left join transport_settlement_simulations sim on sim.kind='CASH_COMMISSION' and sim.target_id=s.shift_id
+            where (?::uuid is null or s.operator_id=?)
+            """;
+        String due = "round(s.gross_amount*s.commission_rate-coalesce(r.amount,0)*s.commission_rate-coalesce(i.reversal,0),0)";
+        var rows = jdbc.query("select s.shift_id,s.operator_id,s.gross_amount,coalesce(r.amount,0)+coalesce(i.amount,0)," +
+                "s.commission_rate," + due + ",coalesce(p.amount,0)," + due + "-coalesce(p.amount,0)," +
+                "coalesce(p.entries,0)>0,s.recorded_at,sim.target_id is not null,coalesce(sim.amount,0) " + from + " order by s.recorded_at desc,s.shift_id limit ? offset ?",
+                (rs,n) -> new CashSettlementRow(rs.getObject(1,UUID.class),rs.getObject(2,UUID.class),
+                        rs.getBigDecimal(3),rs.getBigDecimal(4),rs.getBigDecimal(5),rs.getBigDecimal(6),
+                        rs.getBigDecimal(7),rs.getBigDecimal(8),rs.getBoolean(9),rs.getObject(10,java.time.OffsetDateTime.class),rs.getBoolean(11),rs.getBigDecimal(12)),
+                operatorId,operatorId,page.getPageSize(),page.getOffset());
+        Long count=jdbc.queryForObject("select count(*) from transport_cash_settlements s where (?::uuid is null or s.operator_id=?)",Long.class,operatorId,operatorId);
+        return new org.springframework.data.domain.PageImpl<>(rows,page,count==null?0:count);
+    }
+
+    public BigDecimal cashCommissionOutstanding(UUID shiftId) {
+        return jdbc.queryForObject("""
+          select round(s.gross_amount*s.commission_rate
+            -coalesce((select sum(r.refund_amount*s.commission_rate) from transport_cash_refund_adjustments r where r.shift_id=s.shift_id),0)
+            -coalesce((select sum(a.commission_reversal) from transport_item_cash_refund_allocations a join transport_item_money_events e on e.operation_id=a.operation_id and e.kind='REFUND' where a.shift_id=s.shift_id),0),0)
+            -coalesce((select sum(p.amount) from transport_cash_commission_payments p where p.shift_id=s.shift_id),0)
+            -coalesce((select sum(p.amount) from transport_settlement_simulations p where p.kind='CASH_COMMISSION' and p.target_id=s.shift_id),0)
+          from transport_cash_settlements s where s.shift_id=?
+          """,BigDecimal.class,shiftId);
     }
 
     public record TransportCommission(String version, BigDecimal rate) {}
@@ -462,15 +563,16 @@ public class PaymentService {
         var base = jdbc.query("select count(*),coalesce(sum(gross_amount),0),coalesce(sum(commission_due),0) " +
                         "from transport_cash_settlements" + where,
                 (rs, row) -> new Object[]{rs.getLong(1), rs.getBigDecimal(2), rs.getBigDecimal(3)}, args).get(0);
-        var refunds = jdbc.query("select coalesce(sum(refund_amount),0),coalesce(sum(commission_reversal),0) " +
-                        "from transport_cash_refund_adjustments" + where,
+        var refunds = jdbc.query("select coalesce(sum(r.refund_amount),0),coalesce(sum(r.commission_reversal),0) " +
+                        "from transport_cash_refund_adjustments r join transport_cash_settlements s on s.shift_id=r.shift_id" +
+                        (operatorId == null ? "" : " where s.operator_id=?"),
                 (rs, row) -> new BigDecimal[]{rs.getBigDecimal(1), rs.getBigDecimal(2)}, args).get(0);
         String itemWhere=operatorId==null?"":" and s.operator_id=?";
         var itemRefunds=jdbc.query("select coalesce(sum(a.amount),0),coalesce(sum(a.commission_reversal),0) from transport_item_cash_refund_allocations a join transport_item_money_events e on e.operation_id=a.operation_id and e.kind='REFUND' join transport_cash_settlements s on s.shift_id=a.shift_id where 1=1"+itemWhere,(rs,row)->new BigDecimal[]{rs.getBigDecimal(1),rs.getBigDecimal(2)},args).get(0);
         refunds[0]=refunds[0].add(itemRefunds[0]);refunds[1]=refunds[1].add(itemRefunds[1]);
         String paidWhere = operatorId == null ? "" : " where s.operator_id=?";
         BigDecimal paid = jdbc.queryForObject("select coalesce(sum(p.amount),0) " +
-                        "from transport_cash_commission_payments p " +
+                        "from (select shift_id,amount from transport_cash_commission_payments union all select target_id,amount from transport_settlement_simulations where kind='CASH_COMMISSION') p " +
                         "join transport_cash_settlements s on s.shift_id=p.shift_id" + paidWhere,
                 BigDecimal.class, args);
         BigDecimal due = jdbc.queryForObject("""
@@ -507,6 +609,8 @@ public class PaymentService {
                     evidenceUrl.trim().equals(prior[2]) && adminId.equals(prior[3])) return;
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Ca đã có chứng từ nộp hoa hồng khác");
         }
+        if(jdbc.queryForObject("select count(*) from transport_settlement_simulations where kind='CASH_COMMISSION' and target_id=?",Integer.class,shiftId)>0)throw new ResponseStatusException(HttpStatus.CONFLICT,"Ca đã ghi nhận nộp hoa hồng mô phỏng; không ghi thêm chứng từ trùng.");
+        if(reference.trim().startsWith("SIM-CASH-COMMISSION-"))throw new ResponseStatusException(HttpStatus.CONFLICT,"Dùng chức năng mô phỏng để ghi nhận khoản nộp thử nghiệm.");
         BigDecimal reversal = jdbc.queryForObject("select coalesce(sum(r.refund_amount*s.commission_rate),0) from transport_cash_refund_adjustments r join transport_cash_settlements s on s.shift_id=r.shift_id where r.shift_id=?",BigDecimal.class,shiftId);
         BigDecimal itemReversal=jdbc.queryForObject("select coalesce(sum(a.commission_reversal),0) from transport_item_cash_refund_allocations a join transport_item_money_events e on e.operation_id=a.operation_id and e.kind='REFUND' where a.shift_id=?",BigDecimal.class,shiftId);
         reversal=reversal.add(itemReversal);
@@ -601,11 +705,11 @@ public class PaymentService {
 
     @Transactional
     public void mockPaymentSuccess(UUID userId, UUID paymentId) {
-        if (!mockEnabled) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
         PaymentRequest paymentRequest = paymentRequestRepository.findByIdAndUserId(paymentId, userId)
                 .orElseThrow(() -> new AppException(PaymentErrorCode.PAYMENT_NOT_FOUND));
 
-        if ("VNPAY".equals(paymentRequest.getProvider())) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
+        if (!mockEnabled && !demoMockAllowed(userId, paymentRequest.getOrderId())) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
+        if (!"MOCK".equals(paymentRequest.getProvider())) throw new AppException(PaymentErrorCode.MOCK_PAYMENT_DISABLED);
         if (paymentRequest.getStatus() == PaymentStatus.COMPLETED) {
             return;
         }
@@ -711,7 +815,7 @@ public class PaymentService {
 
             BigDecimal providerTotal = breakdown.getTotalAmount();
             boolean transport = "TRANSPORT".equals(order.getProviderType());
-            BigDecimal commissionRate = transport ? transportCommissionRate : getCurrentCommissionRate();
+            BigDecimal commissionRate = transport ? transportCommission().rate() : getCurrentCommissionRate();
             if (commissionRate == null || commissionRate.signum() < 0 ||
                     commissionRate.compareTo(BigDecimal.ONE) >= 0) {
                 throw new IllegalStateException("Invalid provider commission rate");

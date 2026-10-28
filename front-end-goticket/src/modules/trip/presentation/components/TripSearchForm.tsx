@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArrowLeftRight, Calendar, Search, Sparkles, Armchair, Bus } from "lucide-react";
 import { TripSearchQueryVO } from "../../domain/value-object/trip-search-query.vo";
-import { tripService } from "../../composition";
+import { PROVINCES } from "@/shared/constants/provinces";
 import { LocationCombobox } from "./LocationCombobox";
 import { DatePickerPopover } from "./DatePickerPopover";
 
@@ -30,8 +30,32 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
   const [destination, setDestination] = useState(initialDestination);
   const [departureDate, setDepartureDate] = useState(initialDate || todayStr);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [locations, setLocations] = useState<string[]>([]);
-  const [loadingLocations, setLoadingLocations] = useState(true);
+  const locations = PROVINCES;
+  const loadingLocations = false;
+  const dockRef = React.useRef<HTMLDivElement>(null);
+  const swapRef = React.useRef<HTMLDivElement>(null);
+  const [dockMetrics, setDockMetrics] = useState({ width: 1024, height: 76, swapX: 375 });
+
+  useEffect(() => {
+    if (compact) return;
+    const updateMetrics = () => {
+      if (!dockRef.current || !swapRef.current) return;
+      const dockRect = dockRef.current.getBoundingClientRect();
+      const swapRect = swapRef.current.getBoundingClientRect();
+      if (dockRect.width > 0) setDockMetrics({
+        width: dockRect.width, height: dockRect.height,
+        swapX: swapRect.left - dockRect.left + swapRect.width / 2,
+      });
+    };
+    updateMetrics();
+    const observer = new ResizeObserver(updateMetrics);
+    if (dockRef.current) observer.observe(dockRef.current);
+    window.addEventListener('resize', updateMetrics);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', updateMetrics);
+    };
+  }, [compact]);
 
   useEffect(() => setOrigin(initialOrigin), [initialOrigin]);
   useEffect(() => setDestination(initialDestination), [initialDestination]);
@@ -39,27 +63,6 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
     () => setDepartureDate(initialDate || todayStr),
     [initialDate, todayStr]
   );
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchLocations = async () => {
-      setLoadingLocations(true);
-      try {
-        const result = await tripService.getLocations();
-        if (isMounted) setLocations(result);
-      } catch {
-        if (isMounted) setLocations([]);
-      } finally {
-        if (isMounted) setLoadingLocations(false);
-      }
-    };
-
-    void fetchLocations();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
 
   const clearLocationErrors = (field: "origin" | "destination") => {
     setErrors((current) => {
@@ -201,44 +204,6 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
       </form>
     );
   }
-
-  const dockRef = React.useRef<HTMLDivElement>(null);
-  const swapRef = React.useRef<HTMLDivElement>(null);
-  const [dockMetrics, setDockMetrics] = useState<{
-    width: number;
-    height: number;
-    swapX: number;
-  }>({
-    width: 1024,
-    height: 76,
-    swapX: 375,
-  });
-
-  useEffect(() => {
-    const updateMetrics = () => {
-      if (!dockRef.current || !swapRef.current) return;
-      const dockRect = dockRef.current.getBoundingClientRect();
-      const swapRect = swapRef.current.getBoundingClientRect();
-      if (dockRect.width > 0) {
-        setDockMetrics({
-          width: dockRect.width,
-          height: dockRect.height,
-          swapX: swapRect.left - dockRect.left + swapRect.width / 2,
-        });
-      }
-    };
-
-    updateMetrics();
-    const observer = new ResizeObserver(updateMetrics);
-    if (dockRef.current) observer.observe(dockRef.current);
-    window.addEventListener("resize", updateMetrics);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", updateMetrics);
-    };
-  }, []);
-
 
   const buildWavePath = (width: number, height: number, swapX: number) => {
     const crestH = 16;

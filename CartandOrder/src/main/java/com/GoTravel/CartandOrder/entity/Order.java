@@ -92,6 +92,10 @@ public class Order {
     @Column(name = "transport_refund_due", precision = 18, scale = 0)
     private BigDecimal transportRefundDue;
 
+    @Column(name = "transport_refund_simulated", nullable = false)
+    @Builder.Default
+    private boolean transportRefundSimulated = false;
+
     @Column(name = "transport_cancellation_reason", length = 500)
     private String transportCancellationReason;
 

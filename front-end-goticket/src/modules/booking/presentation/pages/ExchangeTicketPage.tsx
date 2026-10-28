@@ -1,6 +1,9 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { bookingService } from '../../composition';
+import { canPickupAt, canDropoffAt, isValidStopPair } from '@/modules/trip/domain/value-object/trip-stops';
+import { stableCommand, clearStableCommand } from '@/shared/infrastructure/storage/stable-command';
+import { ApiError } from '@/shared/infrastructure/http/HttpPort';
 import { tripService } from '@/modules/trip/composition';
 import type { OrderEntity, OrderItemEntity } from '../../domain/entity/order.entity';
 import type { CustomerTripEntity } from '@/modules/trip/domain/entity/customer-trip.entity';
@@ -40,6 +43,7 @@ export const ExchangeTicketPage: React.FC = () => {
   const [pickupStopId, setPickupStopId] = useState('');
   const [dropoffStopId, setDropoffStopId] = useState('');
   const [preview, setPreview] = useState<ItemOperationPreview | null>(null);
+  const [previewRequest, setPreviewRequest] = useState('');
   const [loading, setLoading] = useState(true);
   const [searching, setSearching] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -53,7 +57,7 @@ export const ExchangeTicketPage: React.FC = () => {
         const loadedOrder = await bookingService.getOrder(orderId);
         const loadedItem = loadedOrder.items.find((candidate) => candidate.itemId === itemId);
         if (!loadedItem || !loadedItem.isExchangeable()) throw new Error('Vé này không còn đủ điều kiện đổi.');
-        const detail = await tripService.getTripDetail(loadedItem.transportTripId);
+        const detail = await bookingService.getTicketTrip(orderId, itemId);
         if (!active) return;
         setOrder(loadedOrder);
         setItem(loadedItem);
@@ -69,10 +73,14 @@ export const ExchangeTicketPage: React.FC = () => {
   }, [orderId, itemId]);
 
   const searchTrips = async () => {
-    if (!oldTrip) return;
+    if (!oldTrip || searching || submitting) return;
     setSearching(true);
     setError(null);
     setPreview(null);
+    setSelectedTrip(null);
+    setSeatId('');
+    setSeats([]);
+    setStops([]);
     try {
       const result = await tripService.searchTrips({
         origin: oldTrip.route.origin,
@@ -82,7 +90,7 @@ export const ExchangeTicketPage: React.FC = () => {
         page: 1,
         limit: 50,
       });
-      setTrips(result.data.filter((trip) => trip.id !== item?.transportTripId && !trip.isSoldOut()));
+      setTrips(result.data.filter((trip) => !trip.isSoldOut()));
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Không thể tìm chuyến thay thế.');
     } finally {
@@ -91,11 +99,14 @@ export const ExchangeTicketPage: React.FC = () => {
   };
 
   const chooseTrip = async (trip: CustomerTripEntity) => {
+    if (searching || submitting) return;
     setSelectedTrip(trip);
     setSeatId('');
     setPickupStopId('');
     setDropoffStopId('');
     setPreview(null);
+    setSeats([]);
+    setStops([]);
     setSearching(true);
     try {
       const [seatList, stopList] = await Promise.all([
@@ -115,8 +126,8 @@ export const ExchangeTicketPage: React.FC = () => {
     () => [...stops].sort((a, b) => Number(a.orderIndex ?? a.order ?? 0) - Number(b.orderIndex ?? b.order ?? 0)),
     [stops]
   );
-  const pickupStops = orderedStops.filter((stop) => stop.pickupAllowed !== false && stop.stopType !== 'DROPOFF' && stop.type !== 'DROPOFF');
-  const dropoffStops = orderedStops.filter((stop) => stop.dropoffAllowed !== false && stop.stopType !== 'PICKUP' && stop.type !== 'PICKUP');
+  const pickupStops = orderedStops.filter(canPickupAt);
+  const dropoffStops = orderedStops.filter(canDropoffAt);
 
   const selectedSeatObj = useMemo(() => seats.find((s) => s.seatId === seatId), [seats, seatId]);
   const selectedPickupObj = useMemo(() => pickupStops.find((s) => s.id === pickupStopId), [pickupStops, pickupStopId]);
@@ -127,11 +138,17 @@ export const ExchangeTicketPage: React.FC = () => {
     : null;
 
   const loadPreview = async () => {
-    if (!orderId || !itemId || !request) return;
+    if (!orderId || !itemId || !request || searching || submitting) return;
+    if (!isValidStopPair(stops, pickupStopId, dropoffStopId)) {
+      setError('Điểm trả phải nằm sau điểm đón trên lộ trình.');
+      return;
+    }
     setSearching(true);
     setError(null);
     try {
-      setPreview(await bookingService.previewExchangeItem(orderId, itemId, request));
+      const result = await bookingService.previewExchangeItem(orderId, itemId, request);
+      setPreview(result);
+      setPreviewRequest(JSON.stringify(request));
     } catch (err) {
       setPreview(null);
       setError(err instanceof Error ? err.message : 'Không thể tính chênh lệch đổi vé.');
@@ -141,23 +158,29 @@ export const ExchangeTicketPage: React.FC = () => {
   };
 
   const submit = async () => {
-    if (!orderId || !itemId || !request || !preview) return;
+    if (!orderId || !itemId || !request || !preview || submitting || searching) return;
+    if (previewRequest !== JSON.stringify(request)) {
+      setPreview(null);
+      setError('Lựa chọn đã thay đổi. Vui lòng xem lại chi phí đổi vé trước khi xác nhận.');
+      return;
+    }
     const storageKey = `goticket:exchange:${orderId}:${itemId}`;
-    const operationId = sessionStorage.getItem(storageKey) || crypto.randomUUID();
-    sessionStorage.setItem(storageKey, operationId);
     setSubmitting(true);
     setError(null);
     try {
+      const operationId = stableCommand(storageKey, request);
       const operation = await bookingService.exchangeItem(orderId, itemId, operationId, request);
       sessionStorage.setItem(`goticket:operation:${operation.operationId}`, JSON.stringify({ orderId, itemId }));
       sessionStorage.removeItem(storageKey);
+      clearStableCommand(storageKey);
       if (operation.state === 'WAITING_FUNDS' && Number(operation.topup) > 0) {
-        const handoff = await bookingService.launchOperationPayment(operation.operationId);
-        window.location.assign(handoff.url);
+        // The operation already exists; a portal error must not create another exchange.
+        navigate(`/account/operations/${operation.operationId}`);
         return;
       }
       navigate(`/account/operations/${operation.operationId}`);
     } catch (err) {
+      if (err instanceof ApiError && err.status >= 400 && err.status < 500 && ![408, 429].includes(err.status)) clearStableCommand(storageKey);
       setError(err instanceof Error ? err.message : 'Không thể gửi yêu cầu đổi vé. Bạn có thể thử lại với cùng lựa chọn.');
       setSubmitting(false);
     }
@@ -222,7 +245,15 @@ export const ExchangeTicketPage: React.FC = () => {
                   type="date"
                   min={tomorrow()}
                   value={date}
-                  onChange={(e) => setDate(e.target.value)}
+                  onChange={(e) => {
+                    setDate(e.target.value);
+                    setSelectedTrip(null);
+                    setPreview(null);
+                    setTrips([]);
+                    setSeats([]);
+                    setStops([]);
+                    setSeatId('');
+                  }}
                   className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
                 />
               </div>

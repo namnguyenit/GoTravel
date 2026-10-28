@@ -44,6 +44,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
+    @ExceptionHandler(org.springframework.web.server.ResponseStatusException.class)
+    public ResponseEntity<ApiResponse<Void>> handleResponseStatusException(org.springframework.web.server.ResponseStatusException exception) {
+        ApiResponse<Void> response = new ApiResponse<>();
+        response.setSuccess(false);
+        response.setStatus(exception.getStatusCode().value());
+        response.setCode("HTTP_" + exception.getStatusCode().value());
+        response.setMessage(exception.getReason() == null ? "Không thể xử lý yêu cầu" : exception.getReason());
+        return ResponseEntity.status(exception.getStatusCode()).body(response);
+    }
+
     @ExceptionHandler(value = RuntimeException.class)
     public ResponseEntity<ApiResponse<Void>> handleRuntimeException(RuntimeException runtimeException) {
         log.error("Unhandled exception", runtimeException);

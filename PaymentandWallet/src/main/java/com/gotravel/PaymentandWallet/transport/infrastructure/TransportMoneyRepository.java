@@ -72,6 +72,8 @@ public class TransportMoneyRepository implements ItemMoneyLedger {
   for(var lot:lots){if(remaining.signum()==0)break;BigDecimal used=remaining.min((BigDecimal)lot.get("remaining_amount"));if(used.signum()==0)continue;
    jdbc.update("update transport_item_fund_lots set remaining_amount=remaining_amount-? where id=?",used,lot.get("id"));remaining=remaining.subtract(used);
    if(refund){
+    jdbc.update("insert into transport_operation_refund_sources(operation_id,lot_id,payment_order_id,method,amount) values(?,?,?,?,?) on conflict(operation_id,lot_id) do update set amount=transport_operation_refund_sources.amount+excluded.amount",
+      p.operationId(),lot.get("id"),lot.get("source_operation_id")==null?p.orderId():lot.get("source_operation_id"),lot.get("cash_shift_id")==null?"ONLINE":"CASH",used);
     BigDecimal reversal=used.multiply((BigDecimal)lot.get("commission_rate"));totalReversal=totalReversal.add(reversal);
     if(lot.get("cash_shift_id")!=null)jdbc.update("insert into transport_item_cash_refund_allocations(operation_id,shift_id,amount,commission_reversal) values(?,?,?,?) on conflict(operation_id,shift_id) do update set amount=transport_item_cash_refund_allocations.amount+excluded.amount,commission_reversal=transport_item_cash_refund_allocations.commission_reversal+excluded.commission_reversal",p.operationId(),lot.get("cash_shift_id"),used,reversal);
    }
@@ -95,6 +97,7 @@ public class TransportMoneyRepository implements ItemMoneyLedger {
     jdbc.update("insert into transport_item_cash_refund_allocations(operation_id,shift_id,amount,commission_reversal) values(?,?,?,?) on conflict(operation_id,shift_id) do nothing",p.operationId(),cashProof.shift_id(),p.topup(),reversal);
   }
   if(received){
+   jdbc.update("insert into transport_operation_refund_sources(operation_id,lot_id,payment_order_id,method,amount) values(?,?,?,?,?) on conflict(operation_id,lot_id) do nothing",p.operationId(),p.operationId(),p.operationId(),p.paymentMethod(),p.topup());
    BigDecimal rate=cashProof==null?originalCommission(p.orderId()).rate():cashProof.commission_rate();
    BigDecimal reversal=p.topup().multiply(rate);
    event(p,"TOPUP_COMMISSION",reversal,null,null,p.actorId());

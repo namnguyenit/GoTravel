@@ -110,10 +110,12 @@ export class TripTimeVO {
       if (isNaN(date.getTime())) return isoString;
 
       const time = date.toLocaleTimeString("vi-VN", {
+        timeZone: "Asia/Ho_Chi_Minh",
         hour: "2-digit",
         minute: "2-digit",
       });
       const day = date.toLocaleDateString("vi-VN", {
+        timeZone: "Asia/Ho_Chi_Minh",
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
@@ -132,6 +134,7 @@ export class TripTimeVO {
       if (isNaN(date.getTime())) return isoString;
 
       return date.toLocaleTimeString("vi-VN", {
+        timeZone: "Asia/Ho_Chi_Minh",
         hour: "2-digit",
         minute: "2-digit",
       });
@@ -147,6 +150,7 @@ export class TripTimeVO {
       if (isNaN(date.getTime())) return isoString;
 
       return date.toLocaleDateString("vi-VN", {
+        timeZone: "Asia/Ho_Chi_Minh",
         day: "2-digit",
         month: "2-digit",
         year: "numeric",

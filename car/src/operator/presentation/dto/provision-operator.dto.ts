@@ -1,6 +1,17 @@
-import { IsOptional, IsString, IsUUID, MaxLength } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsUUID,
+  MaxLength,
+  IsUrl,
+} from 'class-validator';
 
 export class ProvisionOperatorDto {
+  @IsOptional()
+  @IsUrl({ protocols: ['https'], require_protocol: true })
+  @MaxLength(2048)
+  logoUrl?: string;
+
   @IsUUID()
   userId!: string;
 

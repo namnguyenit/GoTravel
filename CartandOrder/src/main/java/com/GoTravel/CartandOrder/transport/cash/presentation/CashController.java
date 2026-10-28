@@ -34,7 +34,7 @@ public class CashController {
     public record ReceiveRequest(@NotNull @DecimalMin("0.01") @Digits(integer = 18, fraction = 0)
                                  BigDecimal amount) {}
 
-    @PostMapping("/shifts")
+    @PostMapping({"/shifts", "/shifts/open"})
     public ResponseEntity<ApiResponse<CashLedger.Shift>> openShift(@AuthenticationPrincipal Jwt jwt,
             @RequestBody @Valid OpenShiftRequest request) {
         return ResponseEntity.ok(ApiResponse.success(cash.openShift(actor(jwt), request.tripId())));
@@ -43,6 +43,11 @@ public class CashController {
     @GetMapping("/shifts/me")
     public ResponseEntity<ApiResponse<java.util.List<CashLedger.Shift>>> getMyShifts(@AuthenticationPrincipal Jwt jwt) {
         return ResponseEntity.ok(ApiResponse.success(cash.getMyShifts(actor(jwt))));
+    }
+
+    @GetMapping("/shifts/active/detail")
+    public ResponseEntity<ApiResponse<CashLedger.ShiftDetail>> getActiveShiftDetail(@AuthenticationPrincipal Jwt jwt) {
+        return ResponseEntity.ok(ApiResponse.success(cash.getActiveShiftDetail(actor(jwt))));
     }
 
     @GetMapping("/shifts")

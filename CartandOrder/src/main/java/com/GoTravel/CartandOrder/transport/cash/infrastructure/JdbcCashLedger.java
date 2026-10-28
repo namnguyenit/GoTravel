@@ -47,6 +47,55 @@ public class JdbcCashLedger implements CashLedger {
     }
 
     @Override
+    public Shift prepareAutomatic(UUID actorId, UUID operatorId, String version, BigDecimal rate) {
+        // Serializes batch creation for this cashier, including concurrent tabs.
+        jdbc.queryForList("select pg_advisory_xact_lock(hashtextextended(?::text, 0))", actorId.toString());
+        var activeRows = jdbc.query("select * from transport_cash_shifts where actor_id=? and closed_at is null for update",
+                (rs, row) -> new Shift(rs.getObject("id", UUID.class), rs.getObject("actor_id", UUID.class),
+                        rs.getObject("operator_id", UUID.class), rs.getTimestamp("opened_at").toInstant(),
+                        rs.getString("commission_version"), rs.getBigDecimal("commission_rate")), actorId);
+        if (!activeRows.isEmpty()) {
+            var current = activeRows.get(0);
+            boolean oldDay = current.openedAt().atZone(java.time.ZoneId.of("Asia/Ho_Chi_Minh")).toLocalDate()
+                    .isBefore(java.time.LocalDate.now(java.time.ZoneId.of("Asia/Ho_Chi_Minh")));
+            jdbc.update("update transport_cash_shifts set auto_managed=true where id=?", current.id());
+            if (!current.operatorId().equals(operatorId) || oldDay) {
+                boolean closed = closeAutomatic(current.id());
+                if (!closed && !current.operatorId().equals(operatorId))
+                    throw conflict("Còn đơn chưa nhận tiền ở nhà xe khác. Hoàn tất hoặc hủy giữ chỗ trước khi đổi nhà xe.");
+                if (!closed) return current;
+            } else return current;
+        }
+        var id = UUID.randomUUID();
+        jdbc.update("insert into transport_cash_shifts(id,actor_id,operator_id,commission_version,commission_rate,auto_managed) values(?,?,?,?,?,true)",
+                id, actorId, operatorId, version, rate);
+        return active(actorId);
+    }
+
+    @Override
+    public List<UUID> automaticBatchesToClose(int limit) {
+        return jdbc.queryForList("select id from transport_cash_shifts where auto_managed=true and closed_at is null " +
+                "and opened_at < date_trunc('day',now() at time zone 'Asia/Ho_Chi_Minh') at time zone 'Asia/Ho_Chi_Minh' " +
+                "order by opened_at limit ?", UUID.class, limit);
+    }
+
+    @Override
+    public boolean closeAutomatic(UUID shiftId) {
+        var rows = jdbc.queryForList("select commission_rate from transport_cash_shifts where id=? and auto_managed=true and closed_at is null for update", shiftId);
+        if (rows.isEmpty()) return false;
+        // Check AFTER taking the row lock shared with order/proof creation.
+        var pending = jdbc.queryForObject("select count(*) from orders where transport_cash_shift_id=? and status in ('PENDING','CASH_PENDING')", Long.class, shiftId);
+        if (pending != null && pending > 0) return false;
+        var totals = cashTotals(shiftId);
+        var rate = (BigDecimal) rows.get(0).get("commission_rate");
+        jdbc.update("update transport_cash_shifts set closed_at=now(),gross_amount=?,cash_refund_amount=?,expected_amount=?," +
+                        "counted_amount=null,variance=null,commission_due=? where id=?",
+                totals.gross(), totals.refunds(), totals.gross().subtract(totals.refunds()),
+                totals.gross().multiply(rate).setScale(0,RoundingMode.HALF_UP), shiftId);
+        return true;
+    }
+
+    @Override
     public Receipt record(UUID orderId, UUID shiftId, UUID actorId, UUID operatorId, BigDecimal amount) {
         var prior = findReceipt(orderId);
         if (prior != null) {
@@ -84,16 +133,9 @@ public class JdbcCashLedger implements CashLedger {
         UUID shiftId = (UUID) shifts.get(0)[0];
         BigDecimal commissionRate = (BigDecimal) shifts.get(0)[1];
         String commissionVersion = (String) shifts.get(0)[2];
-        BigDecimal gross = jdbc.queryForObject(
-                "select (select coalesce(sum(amount),0) from transport_cash_receipts where shift_id=?)+(select coalesce(sum(amount),0) from transport_operation_cash_proofs where shift_id=?)",
-                BigDecimal.class, shiftId,shiftId);
-        BigDecimal refunds = jdbc.queryForObject(
-                "select coalesce(sum(c.amount),0) from transport_refund_confirmations c " +
-                        "join transport_cash_receipts r on r.order_id=c.order_id " +
-                        "where r.shift_id=? and c.payment_method='CASH'",
-                BigDecimal.class, shiftId);
-        BigDecimal itemRefunds=jdbc.queryForObject("select coalesce(sum(p.amount),0) from transport_operation_refund_proofs p where p.refund_method='CASH' and p.shift_id=?",BigDecimal.class,shiftId);
-        refunds=refunds.add(itemRefunds);
+        var totals = cashTotals(shiftId);
+        BigDecimal gross = totals.gross();
+        BigDecimal refunds = totals.refunds();
         BigDecimal expected = gross.subtract(refunds);
         BigDecimal variance = countedAmount.subtract(expected);
         BigDecimal commissionDue = gross.multiply(commissionRate).setScale(0, RoundingMode.HALF_UP);
@@ -179,13 +221,30 @@ public class JdbcCashLedger implements CashLedger {
                         rs.getString("receipt_no"), rs.getObject("order_id", UUID.class),
                         rs.getObject("shift_id", UUID.class), rs.getBigDecimal("amount"),
                         rs.getTimestamp("received_at").toInstant()), shiftId);
+        var totals = shift.closedAt() == null ? cashTotals(shiftId) : null;
+        BigDecimal rate = totals == null ? null : jdbc.queryForObject(
+                "select commission_rate from transport_cash_shifts where id=?", BigDecimal.class, shiftId);
         return new ShiftDetail(shift.id(), shift.actorId(), shift.operatorId(), shift.openedAt(),
-                shift.closedAt(), shift.grossAmount(), shift.expectedAmount(), shift.countedAmount(),
-                shift.variance(), shift.commissionDue(), shift.commissionVersion(), receipts,
+                shift.closedAt(), totals == null ? shift.grossAmount() : totals.gross(),
+                totals == null ? shift.expectedAmount() : totals.gross().subtract(totals.refunds()), shift.countedAmount(),
+                shift.variance(), totals == null ? shift.commissionDue() : totals.gross().multiply(rate).setScale(0, RoundingMode.HALF_UP), shift.commissionVersion(), receipts,
                 jdbc.queryForList("select 'TOPUP' as kind,p.operation_id,p.amount,p.reference,p.received_at as recorded_at from transport_operation_cash_proofs p where p.shift_id=? union all select 'REFUND' as kind,p.operation_id,p.amount,p.reference,p.recorded_at from transport_operation_refund_proofs p where p.refund_method='CASH' and p.shift_id=?",shiftId,shiftId));
     }
 
     private ResponseStatusException conflict(String message) {
         return new ResponseStatusException(HttpStatus.CONFLICT, message);
+    }
+
+    private record CashTotals(BigDecimal gross, BigDecimal refunds) {}
+
+    /** Share the same receipt ledger between the open view and the closing snapshot. */
+    private CashTotals cashTotals(UUID shiftId) {
+        return jdbc.queryForObject("select " +
+                "(select coalesce(sum(amount),0) from transport_cash_receipts where shift_id=?) + " +
+                "(select coalesce(sum(amount),0) from transport_operation_cash_proofs where shift_id=?) as gross, " +
+                "(select coalesce(sum(c.amount),0) from transport_refund_confirmations c join transport_cash_receipts r on r.order_id=c.order_id where r.shift_id=? and c.payment_method='CASH') + " +
+                "(select coalesce(sum(amount),0) from transport_operation_refund_proofs where refund_method='CASH' and shift_id=?) as refunds",
+                (rs,row) -> new CashTotals(rs.getBigDecimal("gross"), rs.getBigDecimal("refunds")),
+                shiftId, shiftId, shiftId, shiftId);
     }
 }

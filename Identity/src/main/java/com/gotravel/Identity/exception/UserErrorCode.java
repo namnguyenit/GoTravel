@@ -21,6 +21,8 @@ public enum UserErrorCode implements ErrorCode {
     TICKET_VENDOR_ALREADY_APPROVED(409, "TICKET_VENDOR_ALREADY_APPROVED", "Ticket vendor application is already approved", HttpStatus.CONFLICT),
     TICKET_VENDOR_AWAITING_APPROVAL(409, "TICKET_VENDOR_AWAITING_APPROVAL", "Ticket vendor application is awaiting approval", HttpStatus.CONFLICT),
     TICKET_VENDOR_NOT_PENDING(409, "TICKET_VENDOR_NOT_PENDING", "Ticket vendor application is not pending", HttpStatus.CONFLICT),
+    TICKET_VENDOR_LOGO_REQUIRED(400, "TICKET_VENDOR_LOGO_REQUIRED", "Vui lòng tải logo nhà xe từ máy trước khi gửi hoặc duyệt hồ sơ.", HttpStatus.BAD_REQUEST),
+    TICKET_VENDOR_LOGO_INVALID(400, "TICKET_VENDOR_LOGO_INVALID", "Logo phải là ảnh JPG, PNG hoặc WebP hợp lệ, tối đa 5MB.", HttpStatus.BAD_REQUEST),
     TICKET_VENDOR_DOCUMENTS_REQUIRED(400, "TICKET_VENDOR_DOCUMENTS_REQUIRED", "Two identity document images are required", HttpStatus.BAD_REQUEST),
     TICKET_VENDOR_REJECTION_REASON_REQUIRED(400, "TICKET_VENDOR_REJECTION_REASON_REQUIRED", "A rejection reason is required", HttpStatus.BAD_REQUEST),
     INVALID_APPROVAL_STATUS(400, "INVALID_APPROVAL_STATUS", "Invalid approval status", HttpStatus.BAD_REQUEST);

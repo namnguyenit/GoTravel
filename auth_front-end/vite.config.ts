@@ -12,6 +12,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5555',
         changeOrigin: true,
+        xfwd: true,
       },
     },
   },
@@ -23,6 +24,7 @@ export default defineConfig({
       '/api': {
         target: 'http://localhost:5555',
         changeOrigin: true,
+        xfwd: true,
       },
     },
   },

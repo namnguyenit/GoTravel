@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { ArrowLeft, Image as ImageIcon, Loader2, Save } from 'lucide-react';
 import { httpClient } from '@/shared/infrastructure/http/HttpPort';
@@ -19,20 +19,41 @@ export const OperatorOfferContentPage: React.FC = () => {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [imageError, setImageError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setLoaded(false);
+    if (!listingId) return;
+    void httpClient.get<{ title: string; description: string; thumbnailUrl?: string }>(
+      `/api/v1/catalog/host/transport/offers/${listingId}/content`,
+    ).then((content) => {
+      if (!active) return;
+      setTitle(content.title || '');
+      setDescription(content.description || '');
+      setThumbnailUrl(content.thumbnailUrl || '');
+      setLoaded(true);
+    }).catch((reason) => {
+      if (active) setError(reason instanceof Error ? reason.message : 'Không thể đọc nội dung niêm yết.');
+    }).finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [listingId]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!listingId) return;
+    if (!listingId || saving || loading || !loaded) return;
     setSaving(true);
     setError('');
     setMessage('');
     try {
-      await httpClient.put(`/api/v1/catalog/transport/offers/${listingId}/content`, {
+      const result = await httpClient.put<{ status: string }>(`/api/v1/catalog/host/transport/offers/${listingId}/content`, {
         title: title.trim(),
         description: description.trim(),
         thumbnailUrl: thumbnailUrl.trim() || null,
       });
-      setMessage('Đã cập nhật nội dung hiển thị của listing trên GoTicket thành công.');
+      setMessage(result.status === 'ACTIVE' ? 'Đã cập nhật nội dung niêm yết.' : 'Đã lưu nội dung. Niêm yết vẫn giữ trạng thái ẩn hoặc xóa hiện tại.');
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : 'Không thể cập nhật nội dung.');
     } finally {
@@ -141,7 +162,7 @@ export const OperatorOfferContentPage: React.FC = () => {
           <div className="pt-4 border-t border-gray-100/80 flex justify-end">
             <Button
               type="submit"
-              disabled={saving}
+              disabled={saving || loading || !loaded}
               className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full px-7 py-2.5 font-bold shadow-md glow-coral-sm cursor-pointer"
             >
               {saving ? (

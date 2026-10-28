@@ -4,6 +4,14 @@ import { DateVo } from '@/shared/domain/date.vo';
 export type OrderStatus =
   | 'PENDING'
   | 'PAYMENT_PENDING'
+  | 'CASH_PENDING'
+  | 'PAID'
+  | 'PROCESSING'
+  | 'FULFILLMENT_PENDING'
+  | 'CANCELLATION_PENDING'
+  | 'PAID_REVIEW'
+  | 'CASH_RECEIVED_PENDING_RECONCILIATION'
+  | 'REFUND_PENDING'
   | 'CONFIRMED'
   | 'COMPLETED'
   | 'CANCELLED'
@@ -50,6 +58,7 @@ export interface OrderItemProps {
   transportTicketRevision?: number;
   transportItemState?: ItemState | string;
   transportFareVnd?: string;
+  transportRefundTotal?: string;
   transportDepartureAt?: string;
   listingTitle?: string;
 }
@@ -116,6 +125,9 @@ export class OrderItemEntity {
   get transportFareVnd(): MoneyVo {
     return new MoneyVo(this.props.transportFareVnd || '0');
   }
+  get transportRefundTotal(): MoneyVo {
+    return new MoneyVo(this.props.transportRefundTotal || '0');
+  }
 
   get transportDepartureAt(): string | undefined {
     return this.props.transportDepartureAt;
@@ -126,11 +138,13 @@ export class OrderItemEntity {
   }
 
   public isCancelable(): boolean {
-    return this.transportItemState === 'ACTIVE' && this.transportBoardingStatus === 'ACTIVE';
+    return Boolean(this.transportTicketId) && this.transportItemState === 'ACTIVE' &&
+      this.transportBoardingStatus === 'ACTIVE' && Boolean(this.transportDepartureAt) &&
+      DateVo.parseLocalDateTime(this.transportDepartureAt).getTime() > Date.now();
   }
 
   public isExchangeable(): boolean {
-    return this.transportItemState === 'ACTIVE' && this.transportBoardingStatus === 'ACTIVE';
+    return this.isCancelable();
   }
 
   static fromApiResponse(raw: any): OrderItemEntity {
@@ -150,6 +164,7 @@ export class OrderItemEntity {
       transportTicketRevision: raw.transportTicketRevision,
       transportItemState: raw.transportItemState,
       transportFareVnd: raw.transportFareVnd || String(raw.totalPrice || raw.unitPrice || '0'),
+      transportRefundTotal: String(raw.transportRefundedVnd ?? raw.transportRefundTotal ?? '0').replace(/\.0+$/, ''),
       transportDepartureAt: raw.transportDepartureAt,
       listingTitle: raw.listingTitle,
     });
@@ -164,11 +179,21 @@ export interface OrderProps {
   orderKind: string;
   paymentMethod?: string;
   totalAmount: MoneyVo;
+  transportRefundDue?: string;
+  transportRefundSimulated?: boolean;
+  transportCancellationPolicy?: TransportCancellationPolicy;
   currency: string;
   customerInfo: OrderCustomerInfo;
   expiresAt?: string;
   createdAt: string;
   items: OrderItemEntity[];
+}
+
+export interface TransportCancellationPolicy {
+  version: string;
+  fullRefundMinutes: number;
+  refundCutoffMinutes: number;
+  partialFeeRate: string | number;
 }
 
 export class OrderEntity {
@@ -202,8 +227,17 @@ export class OrderEntity {
     return this.props.paymentMethod;
   }
 
+  get transportCancellationPolicy(): TransportCancellationPolicy | undefined {
+    return this.props.transportCancellationPolicy;
+  }
+
   get totalAmount(): MoneyVo {
     return this.props.totalAmount;
+  }
+  get transportRefundSimulated(): boolean { return Boolean(this.props.transportRefundSimulated); }
+
+  get transportRefundDue(): MoneyVo {
+    return new MoneyVo(this.props.transportRefundDue || '0');
   }
 
   get customerInfo(): OrderCustomerInfo {
@@ -223,7 +257,7 @@ export class OrderEntity {
   }
 
   public isPending(): boolean {
-    return ['PENDING', 'PAYMENT_PENDING'].includes(this.props.status);
+    return ['PENDING', 'PAYMENT_PENDING', 'CASH_PENDING'].includes(this.props.status);
   }
 
   public isConfirmed(): boolean {
@@ -231,12 +265,16 @@ export class OrderEntity {
   }
 
   public isCancelled(): boolean {
-    return this.props.status === 'CANCELLED';
+    return ['CANCELLED', 'CANCELLATION_PENDING', 'REFUND_PENDING', 'REFUNDED'].includes(this.props.status);
+  }
+
+  public isAwaitingTickets(): boolean {
+    return ['FULFILLMENT_PENDING', 'PAID_REVIEW', 'CASH_RECEIVED_PENDING_RECONCILIATION'].includes(this.props.status);
   }
 
   public isHoldActive(now: Date = new Date()): boolean {
     if (!this.isPending()) return false;
-    if (!this.props.expiresAt) return true;
+    if (!this.props.expiresAt) return false;
     const expiry = DateVo.parseLocalDateTime(this.props.expiresAt);
     return expiry.getTime() > now.getTime();
   }
@@ -245,7 +283,7 @@ export class OrderEntity {
     if (!this.props.expiresAt) return 0;
     const expiry = DateVo.parseLocalDateTime(this.props.expiresAt);
     const diff = Math.floor((expiry.getTime() - now.getTime()) / 1000);
-    return Math.max(0, diff);
+    return Number.isFinite(diff) ? Math.max(0, diff) : 0;
   }
 
   static fromApiResponse(raw: any): OrderEntity {
@@ -260,6 +298,9 @@ export class OrderEntity {
       orderKind: raw.orderKind || 'GOCAR_TICKET',
       paymentMethod: raw.paymentMethod,
       totalAmount: new MoneyVo(raw.totalAmount || raw.transportActiveFareAmount || 0),
+      transportRefundDue: String(raw.transportRefundDue ?? '0').replace(/\.0+$/, ''),
+      transportRefundSimulated: raw.transportRefundSimulated === true,
+      transportCancellationPolicy: raw.transportCancellationPolicy,
       currency: raw.currency || 'VND',
       customerInfo: {
         fullName: raw.customerInfo?.fullName || '',

@@ -4,6 +4,7 @@ import { TripPriceVO } from "../value-object/trip-price.vo";
 import { RouteStopEntity } from "@/modules/route/domain/entity/route.entity";
 
 export interface CustomerTripOperatorInfo {
+  logoUrl?: string | null;
   id: string;
   name: string;
 }
@@ -211,6 +212,7 @@ export class CustomerTripEntity {
       status: raw.status || "SCHEDULED",
       operator: {
         id: raw.operator?.id || "",
+        logoUrl: raw.operator?.logoUrl || null,
         name: raw.operator?.name || "Nhà xe GoTicket",
       },
       route: {

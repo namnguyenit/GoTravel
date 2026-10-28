@@ -1,3 +1,4 @@
+import { resolveProvince } from '../../domain/value-object/province';
 import { vietnamDayBounds } from '../../domain/value-object/vietnam-day';
 import {
   BadRequestException,
@@ -36,7 +37,7 @@ export class PrismaTripRepository implements ITripRepository {
       where: { id: routeId },
     });
 
-    if (!route) {
+    if (!route || route.deletedAt) {
       return null;
     }
 
@@ -162,7 +163,9 @@ export class PrismaTripRepository implements ITripRepository {
         car.operatorId !== raw.operatorId ||
         route.operatorId !== raw.operatorId ||
         car.status !== 'ACTIVE' ||
+        car.deletedAt !== null ||
         route.status !== 'ACTIVE' ||
+        route.deletedAt !== null ||
         operator.status !== 'ACTIVE'
       )
         throw new BadRequestException(
@@ -252,6 +255,11 @@ export class PrismaTripRepository implements ITripRepository {
     }
 
     const skip = (page - 1) * limit;
+    const dayScope: Prisma.TripWhereInput = {
+      operatorId,
+      departureTime: where.departureTime,
+    };
+    const now = new Date();
 
     const [
       tripModels,
@@ -278,23 +286,33 @@ export class PrismaTripRepository implements ITripRepository {
         },
       }),
       this.prisma.trip.count({ where }),
-      this.prisma.trip.count({ where: { operatorId } }),
+      this.prisma.trip.count({ where: dayScope }),
       this.prisma.trip.count({
         where: {
-          operatorId,
+          ...dayScope,
+          AND: [{ departureTime: { gt: now } }],
           status: {
             in: ['DRAFT', 'PUBLISHING', 'ON_SALE', 'STOP_SALE', 'SCHEDULED'],
           },
         },
       }),
-      this.prisma.trip.count({ where: { operatorId, status: 'DEPARTED' } }),
-      this.prisma.trip.count({ where: { operatorId, status: 'COMPLETED' } }),
-      this.prisma.trip.count({ where: { operatorId, status: 'CANCELLED' } }),
+      this.prisma.trip.count({
+        where: {
+          ...dayScope,
+          OR: [
+            { status: 'DEPARTED' },
+            { status: 'STOP_SALE', AND: [{ departureTime: { lte: now } }] },
+          ],
+        },
+      }),
+      this.prisma.trip.count({ where: { ...dayScope, status: 'COMPLETED' } }),
+      this.prisma.trip.count({ where: { ...dayScope, status: 'CANCELLED' } }),
     ]);
 
     return {
       trips: tripModels.map((model) => ({
         trip: TripMapper.toDomain(model),
+        inventoryInitialized: Boolean(model.offerListingId),
         route: {
           id: model.route.id,
           origin: model.route.origin,
@@ -337,8 +355,25 @@ export class PrismaTripRepository implements ITripRepository {
       limit = 10,
     } = params;
 
-    const { start: startOfDay, end: endOfDay } =
-      vietnamDayBounds(departureDate);
+    const originRegion = resolveProvince(params.originRegion || origin);
+    const destinationRegion = resolveProvince(params.destinationRegion || destination);
+    let routeIds = params.activeRouteIds ?? [];
+    // Unknown explicit region must not turn into a global trip suggestion.
+    if ((params.originRegion && !originRegion) || (params.destinationRegion && !destinationRegion)
+      || (originRegion && destinationRegion && originRegion === destinationRegion)) routeIds = [];
+    else if (originRegion || destinationRegion) {
+      const routes = await this.prisma.route.findMany({
+        where: { id: { in: routeIds }, deletedAt: null, status: 'ACTIVE' },
+        select: { id: true, origin: true, destination: true,
+          stops: { orderBy: { order: 'asc' }, select: { province: true } } },
+      });
+      routeIds = routes.filter(route => {
+        const from = resolveProvince(route.origin) || resolveProvince(route.stops[0]?.province);
+        const to = resolveProvince(route.destination) || resolveProvince(route.stops.at(-1)?.province);
+        return (!originRegion || from === originRegion) && (!destinationRegion || to === destinationRegion);
+      }).map(route => route.id);
+    }
+    const day = departureDate ? vietnamDayBounds(departureDate) : null;
     const now = new Date(Date.now() + 15 * 60_000);
 
     const where: Prisma.TripWhereInput = {
@@ -348,14 +383,22 @@ export class PrismaTripRepository implements ITripRepository {
       },
       operator: { status: 'ACTIVE' },
       departureTime: {
-        gte: startOfDay > now ? startOfDay : now,
-        lte: endOfDay,
+        gte: day && day.start > now ? day.start : now,
+        ...(day ? { lte: day.end } : {}),
       },
       route: {
-        status: 'ACTIVE',
-        id: { in: params.activeRouteIds ?? [] },
-        origin: { contains: origin, mode: 'insensitive' },
-        destination: { contains: destination, mode: 'insensitive' },
+        id: { in: routeIds },
+        ...(origin && !originRegion
+          ? { origin: { contains: origin, mode: 'insensitive' as const } }
+          : {}),
+        ...(destination && !destinationRegion
+          ? {
+              destination: {
+                contains: destination,
+                mode: 'insensitive' as const,
+              },
+            }
+          : {}),
       },
       car: {
         status: 'ACTIVE',
@@ -393,14 +436,32 @@ export class PrismaTripRepository implements ITripRepository {
         },
       ];
 
+    const minuteRanges = params.minuteRanges ?? [];
+    if (minuteRanges.length) {
+      const clock = Prisma.sql`(extract(hour from (departure_time + interval '7 hours')) * 60 + extract(minute from (departure_time + interval '7 hours')))`;
+      const conditions = minuteRanges.map(
+        (range) =>
+          Prisma.sql`(${clock} >= ${range.start} and ${clock} < ${range.end})`,
+      );
+      const timed = await this.prisma.$queryRaw<
+        Array<{ id: string }>
+      >(Prisma.sql`
+        select id from trips where status='ON_SALE' and departure_time>=${now}
+        and (${Prisma.join(conditions, ' OR ')})
+      `);
+      where.id = { in: timed.map((row) => row.id) };
+    }
     const skip = (page - 1) * limit;
 
     const [tripModels, total] = await Promise.all([
       this.prisma.trip.findMany({
         where,
-        orderBy: {
-          [sortBy === 'pricePerSeat' ? 'searchPriceVnd' : sortBy]: sortOrder,
-        },
+        orderBy: [
+          {
+            [sortBy === 'pricePerSeat' ? 'searchPriceVnd' : sortBy]: sortOrder,
+          },
+          { id: 'asc' },
+        ],
         skip,
         take: limit,
         include: {
@@ -408,6 +469,7 @@ export class PrismaTripRepository implements ITripRepository {
             select: {
               id: true,
               name: true,
+              logoUrl: true,
             },
           },
           route: {
@@ -446,6 +508,10 @@ export class PrismaTripRepository implements ITripRepository {
         status: item.status as any,
         operator: {
           id: item.operator.id,
+          logoUrl:
+            item.operator.logoUrl ??
+            (item as any).saleSnapshot?.operatorProfile?.logoUrl ??
+            null,
           name:
             (item as any).saleSnapshot?.operatorProfile?.name ??
             item.operator.name,

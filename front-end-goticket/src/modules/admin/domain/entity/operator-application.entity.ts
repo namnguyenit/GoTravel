@@ -5,6 +5,7 @@ export interface OperatorApplicationProps {
   id: string;
   userId: string;
   name: string;
+  logoUrl?: string;
   phone: string;
   address: string;
   representativeName?: string;
@@ -22,6 +23,7 @@ export class OperatorApplicationEntity {
   public readonly id: string;
   public readonly userId: string;
   public readonly name: string;
+  public readonly logoUrl?: string;
   public readonly phone: string;
   public readonly address: string;
   public readonly representativeName?: string;
@@ -38,6 +40,7 @@ export class OperatorApplicationEntity {
     this.id = props.id;
     this.userId = props.userId;
     this.name = props.name;
+    this.logoUrl = props.logoUrl;
     this.phone = props.phone;
     this.address = props.address;
     this.representativeName = props.representativeName;
@@ -147,6 +150,7 @@ export class OperatorApplicationEntity {
       id: raw.id || "",
       userId: raw.userId || raw.user_id || "",
       name: raw.name || "",
+      logoUrl: raw.logoUrl,
       phone: raw.phone || "",
       address: raw.address || "",
       representativeName: raw.representativeName,

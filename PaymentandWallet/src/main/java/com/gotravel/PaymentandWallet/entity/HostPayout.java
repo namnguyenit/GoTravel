@@ -58,6 +58,10 @@ public class HostPayout {
     @Column(name = "paid_at")
     private LocalDateTime paidAt;
 
+    @Column(name = "settlement_simulated", nullable = false)
+    @Builder.Default
+    private boolean settlementSimulated = false;
+
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

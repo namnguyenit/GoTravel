@@ -16,6 +16,7 @@ export interface TripFilterParams {
 
 export interface TripListItem {
   trip: Trip;
+  inventoryInitialized?: boolean;
   route: {
     id: string;
     origin: string;
@@ -66,9 +67,12 @@ export interface CarRef {
 export interface CustomerTripSearchParams {
   activeRouteIds?: string[];
   departureRanges?: Array<{ start: Date; end: Date }>;
-  origin: string;
-  destination: string;
-  departureDate: string;
+  originRegion?: string;
+  destinationRegion?: string;
+  origin?: string;
+  destination?: string;
+  departureDate?: string;
+  minuteRanges?: Array<{ start: number; end: number }>;
   type?: string;
   minPrice?: string;
   maxPrice?: string;
@@ -89,6 +93,7 @@ export interface CustomerTripItem {
   operator: {
     id: string;
     name: string;
+    logoUrl?: string | null;
   };
   route: {
     id: string;

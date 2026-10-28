@@ -16,6 +16,10 @@ import java.net.URI;
 @Setter
 public class VnpayConfig {
     private boolean enabled;
+    private boolean refundEnabled = true;
+    private boolean sandboxRefundSimulationEnabled;
+    private String refundIpAddress = "127.0.0.1";
+    private String refundApiUrl = "";
     private String tmnCode = "";
     private String hashSecret = "";
     private String paymentUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { bookingService } from '../../composition';
 import type { OrderEntity } from '../../domain/entity/order.entity';
+import { CancellationPolicyNotice } from '../components/CancellationPolicyNotice';
 import {
   Clock,
   ShieldCheck,
@@ -47,6 +48,12 @@ export const CheckoutPage: React.FC = () => {
       setError(null);
       const data = await bookingService.getOrder(orderId);
       setOrder(data);
+      setIsExpired(false);
+
+      if (data.isAwaitingTickets()) {
+        navigate(`/payment/return?orderId=${orderId}`, { replace: true });
+        return;
+      }
 
       if (data.isConfirmed()) {
         navigate(`/account/orders/${orderId}`, { replace: true });
@@ -76,25 +83,24 @@ export const CheckoutPage: React.FC = () => {
 
   // Countdown timer tick
   useEffect(() => {
-    if (!order || isExpired || remainingSeconds <= 0) return;
+    if (!order || isExpired || !order.isPending()) return;
 
     const timer = setInterval(() => {
-      setRemainingSeconds((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          setIsExpired(true);
-          return 0;
-        }
-        return prev - 1;
-      });
+      const seconds = order.getRemainingSeconds();
+      setRemainingSeconds(seconds);
+      if (seconds <= 0) {
+        clearInterval(timer);
+        setIsExpired(true);
+        void fetchOrder();
+      }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [order, isExpired, remainingSeconds]);
+  }, [order, isExpired]);
 
   // Launch GoPay payment
   const handleLaunchPayment = async () => {
-    if (!orderId || isExpired) return;
+    if (!orderId || isExpired || launching || !order?.isPending() || order.paymentMethod === 'CASH') return;
     try {
       setLaunching(true);
       setLaunchError(null);
@@ -188,6 +194,7 @@ export const CheckoutPage: React.FC = () => {
       </div>
 
       {/* Expiration Banner */}
+      <CancellationPolicyNotice policy={order.transportCancellationPolicy} snapshot />
       {isExpired ? (
         <div className="p-5 sm:p-6 bg-rose-50/90 backdrop-blur-md rounded-3xl border border-rose-300/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-sm">
           <div className="flex items-center gap-3.5 text-rose-700">
@@ -364,7 +371,7 @@ export const CheckoutPage: React.FC = () => {
             )}
 
             {/* Launch CTA */}
-            {!isExpired && (
+            {!isExpired && order.isPending() && order.paymentMethod !== 'CASH' && (
               <button
                 type="button"
                 disabled={launching}

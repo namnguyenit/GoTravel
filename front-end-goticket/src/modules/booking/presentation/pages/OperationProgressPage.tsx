@@ -1,3 +1,4 @@
+import { refundReasonLabel } from '../../domain/refund-reasons';
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { bookingService } from '../../composition';
@@ -15,7 +16,7 @@ import {
 } from '@/shared/presentation/components';
 import { ArrowLeft, CheckCircle2, Clock, CreditCard, RefreshCw, Undo2 } from 'lucide-react';
 
-const terminalStates = new Set(['COMPLETED', 'REFUND_PENDING', 'ABORTED', 'ABORT_REFUND_PENDING']);
+const terminalStates = new Set(['COMPLETED', 'ABORTED']);
 const retryableStates = new Set(['PREPARED', 'HELD', 'WAITING_FUNDS', 'COMMITTING', 'TICKET_COMMITTED', 'SETTLING', 'ABORTING']);
 
 const stateLabel = (state: string) => ({
@@ -62,7 +63,7 @@ export const OperationProgressPage: React.FC = () => {
     void load();
     const timer = window.setInterval(() => {
       if (document.visibilityState === 'visible' && !terminalStates.has(operation?.state || '')) void load(true);
-    }, 3000);
+    }, ['REFUND_PENDING', 'ABORT_REFUND_PENDING'].includes(operation?.state || '') ? 10000 : 3000);
     return () => window.clearInterval(timer);
   }, [load, operation?.state]);
 
@@ -121,7 +122,7 @@ export const OperationProgressPage: React.FC = () => {
               )}
             </div>
             <h1 className="mt-1 font-serif text-2xl font-bold text-gray-900">
-              {operation ? stateLabel(operation.state) : 'Đang xử lý yêu cầu...'}
+              {operation ? operation.state === 'REFUND_PENDING' && operation.kind === 'CANCEL' ? 'Đã hủy vé, chờ hoàn tiền' : stateLabel(operation.state) : 'Đang xử lý yêu cầu...'}
             </h1>
             <div className="mt-2 flex items-center gap-2">
               <span className="text-xs text-gray-400 font-medium">Mã yêu cầu:</span>
@@ -131,6 +132,12 @@ export const OperationProgressPage: React.FC = () => {
 
           {operation && <StatusBadge status={operation.state} />}
         </div>
+
+        {operation?.kind === 'CANCEL' && operation.reasonCode && <div className="mt-5 rounded-xl border p-4 text-sm">
+          <p><strong>Lý do yêu cầu:</strong> {refundReasonLabel(operation.reasonCode)}</p>
+          {operation.reasonText && <p className="mt-2 whitespace-pre-wrap break-words">{operation.reasonText}</p>}
+        </div>}
+        {operation?.refundSimulated && <InlineAlert variant="info" title="Đã hoàn tiền mô phỏng" message="Khoản hoàn này dùng để kiểm thử trên sandbox. Vé đã được cập nhật trong ứng dụng; không có chuyển tiền ngân hàng." />}
 
         {loading && !operation ? (
           <div className="py-12">
@@ -152,6 +159,10 @@ export const OperationProgressPage: React.FC = () => {
               <OperationTimeline
                 currentState={operation.state}
                 kind={operation.kind}
+                steps={['REFUND_PENDING', 'ABORT_REFUND_PENDING'].includes(operation.state) ? [
+                  { title: operation.state === 'ABORT_REFUND_PENDING' ? 'Đã dừng yêu cầu thay đổi vé' : operation.kind === 'CANCEL' ? 'Đã hủy vé' : 'Đã đổi vé', status: 'SUCCESS' },
+                  { title: 'Chờ xác nhận khoản hoàn tiền', status: 'RUNNING' },
+                ] : undefined}
               />
             </div>
 
@@ -209,6 +220,7 @@ export const OperationProgressPage: React.FC = () => {
 
             {/* Action Buttons */}
             <div className="flex flex-col gap-3 sm:flex-row">
+              <button type="button" disabled={loading || acting} onClick={() => void load()} className="min-h-11 rounded-xl border px-4 text-sm font-semibold disabled:opacity-50">Cập nhật trạng thái</button>
               {operation.state === 'WAITING_FUNDS' && Number(operation.topup) > 0 && (
                 <button
                   type="button"

@@ -40,10 +40,7 @@ export class PrismaGetManageTripDetailManagement implements IGetManageTripDetail
     if (!trip) throw new NotFoundException('Không tìm thấy chuyến');
 
     // Verify ownership or staff access
-    if (operatorId) {
-      if (trip.operatorId !== operatorId)
-        throw new ForbiddenException('Không có quyền xem chuyến này');
-    } else {
+    if (trip.operatorId !== operatorId) {
       const staff = (await this.prisma.operatorStaff.findFirst({
         where: { operatorId: trip.operatorId, userId, active: true },
       })) as any;
@@ -70,6 +67,7 @@ export class PrismaGetManageTripDetailManagement implements IGetManageTripDetail
       searchPriceVnd: (trip as any).searchPriceVnd?.toString(),
       classPrices: (trip as any).classPrices,
       status: trip.status,
+      offerListingId: trip.offerListingId,
       saleSnapshot: (trip as any).saleSnapshot,
       inventorySyncVersion: (trip as any).inventorySyncVersion,
       inventorySyncedVersion: (trip as any).inventorySyncedVersion,
@@ -89,6 +87,9 @@ export class PrismaGetManageTripDetailManagement implements IGetManageTripDetail
         origin: trip.route.origin,
         destination: trip.route.destination,
         status: trip.route.status,
+        deletedAt: trip.route.deletedAt,
+        createdAt: trip.route.createdAt,
+        updatedAt: trip.route.updatedAt,
         stops: trip.route.stops,
       },
     };

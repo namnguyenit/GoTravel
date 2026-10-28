@@ -1,4 +1,5 @@
 import type { OrderEntity } from '../../domain/entity/order.entity';
+import type { CancellationReason } from '../../domain/refund-reasons';
 
 export interface CancelPreviewResult {
   orderId: string;
@@ -27,6 +28,9 @@ export interface ItemOperationView {
   topup: string;
   refundDue: string;
   error?: string;
+  reasonCode?: string;
+  reasonText?: string;
+  refundSimulated?: boolean;
 }
 
 export interface ExchangeRequest {
@@ -96,10 +100,11 @@ export interface TransportCheckoutPayload {
 export interface IBookingService {
   checkout(idempotencyKey: string, payload: TransportCheckoutPayload): Promise<OrderEntity>;
   getOrder(orderId: string): Promise<OrderEntity>;
-  getUserOrders(page?: number, limit?: number): Promise<UserOrdersResult>;
+  getUserOrders(page?: number, limit?: number, tab?: 'ALL' | 'CONFIRMED' | 'PENDING' | 'CANCELLED', search?: string): Promise<UserOrdersResult>;
+  getTicketTrip(orderId: string, itemId: string): Promise<import('@/modules/trip/application/port/trip.service.interface').TripPublicDetail>;
   getHostOrders(page?: number, limit?: number): Promise<UserOrdersResult>;
-  getVendorOrders(page?: number, limit?: number, filters?: { status?: string; tripId?: string; search?: string }): Promise<UserOrdersResult>;
-  getVendorOrderDetail(orderId: string): Promise<OrderEntity>;
+  getVendorOrders(page?: number, limit?: number, filters?: { status?: string; tripId?: string; search?: string; operatorId?: string }): Promise<UserOrdersResult>;
+  getVendorOrderDetail(orderId: string, operatorId?: string): Promise<OrderEntity>;
   resendTicketEmail(orderId: string): Promise<void>;
   getItemOperation(operationId: string): Promise<ItemOperationView>;
   retryItemOperation(operationId: string): Promise<ItemOperationView>;
@@ -108,7 +113,7 @@ export interface IBookingService {
   launchPayment(orderId: string): Promise<{ url: string }>;
   launchOperationPayment(operationId: string): Promise<{ url: string }>;
   previewCancelItem(orderId: string, itemId: string): Promise<CancelPreviewResult>;
-  cancelItem(orderId: string, itemId: string, operationId?: string, reason?: string): Promise<any>;
+  cancelItem(orderId: string, itemId: string, operationId?: string, reason?: CancellationReason): Promise<any>;
   previewExchangeItem(orderId: string, itemId: string, request: ExchangeRequest): Promise<ItemOperationPreview>;
   exchangeItem(orderId: string, itemId: string, operationId: string, request: ExchangeRequest): Promise<ItemOperationView>;
   getItemAmendments(orderId: string, itemId: string): Promise<TicketAmendmentRecord[]>;

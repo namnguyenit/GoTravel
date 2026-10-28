@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { httpClient } from '@/shared/infrastructure/http/HttpPort';
 import {
   MapPin,
@@ -17,6 +17,9 @@ import {
   ConfirmDialog,
   LoadingState,
   EmptyState,
+  ProvinceCombobox,
+  Pagination,
+  Button,
 } from '@/shared/presentation/components';
 import {
   Dialog,
@@ -40,6 +43,12 @@ export const OperatorStopsPage: React.FC = () => {
   const [stops, setStops] = useState<StopItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [keywordInput, setKeywordInput] = useState('');
+  const [keyword, setKeyword] = useState('');
+  const [active, setActive] = useState('');
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
+  const request = useRef(0);
 
   // Form states
   const [name, setName] = useState<string>('');
@@ -58,10 +67,12 @@ export const OperatorStopsPage: React.FC = () => {
   const [archiveTarget, setArchiveTarget] = useState<StopItem | null>(null);
 
   const fetchStops = async () => {
+    const current = ++request.current;
     try {
       setLoading(true);
       setError(null);
-      const res = await httpClient.get<any>('/api/v1/operators/me/stops');
+      const res = await httpClient.get<any>('/api/v1/operators/me/stops', { params: { page, limit: 20, keyword, active } });
+      if (current !== request.current) return;
       const list = Array.isArray(res?.stops)
         ? res.stops
         : Array.isArray(res?.data)
@@ -70,16 +81,20 @@ export const OperatorStopsPage: React.FC = () => {
         ? res
         : [];
       setStops(list.map((stop: any) => ({ ...stop, archived: stop.active === false })));
+      setTotal(Number(res.total || 0));
+      if (page > Math.max(1, Math.ceil(Number(res.total || 0) / 20))) setPage(Math.max(1, Math.ceil(Number(res.total || 0) / 20)));
     } catch (err: unknown) {
+      if (current !== request.current) return;
       setError(err instanceof Error ? err.message : 'Không thể tải danh sách điểm dừng.');
     } finally {
-      setLoading(false);
+      if (current === request.current) setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchStops();
-  }, []);
+    return () => { request.current++; };
+  }, [page, keyword, active]);
 
   const handleCreateStop = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -202,19 +217,13 @@ export const OperatorStopsPage: React.FC = () => {
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Tỉnh / Thành phố <span className="text-coral">*</span>
-              </label>
-              <input
-                type="text"
-                required
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-                placeholder="VD: TP. Hồ Chí Minh"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
-              />
-            </div>
+            <ProvinceCombobox
+              label="Tỉnh / Thành phố"
+              required
+              value={city}
+              onChange={setCity}
+              placeholder="Chọn tỉnh/thành phố chuẩn hóa..."
+            />
 
             <button
               type="submit"
@@ -230,10 +239,17 @@ export const OperatorStopsPage: React.FC = () => {
         <div className="lg:col-span-7 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="font-bold text-base text-gray-900">
-              Danh sách điểm đón / trả ({stops.length})
+              Danh sách điểm đón / trả ({total})
             </h2>
           </div>
 
+          <form className="flex flex-wrap gap-2" onSubmit={event => { event.preventDefault(); setKeyword(keywordInput.trim()); setPage(1); }}>
+            <input aria-label="Tìm điểm đón trả" value={keywordInput} maxLength={120} onChange={event => setKeywordInput(event.target.value)} placeholder="Tên điểm đón trả hoặc địa chỉ" className="min-h-11 min-w-40 flex-1 rounded-xl border bg-white p-3 text-base" />
+            <select aria-label="Trạng thái điểm dừng" value={active} onChange={event => { setActive(event.target.value); setPage(1); }} className="min-h-11 rounded-xl border bg-white p-3 text-base"><option value="">Mọi trạng thái</option><option value="true">Đang sử dụng</option><option value="false">Đã ngừng sử dụng</option></select>
+            <Button type="submit">Tìm kiếm</Button>
+          </form>
+          <p className="text-sm text-muted">Điểm mới nhất được hiển thị trước.</p>
+          <Pagination currentPage={page} totalPages={Math.ceil(total / 20)} totalItems={total} onPageChange={setPage} disabled={loading} />
           {loading ? (
             <SurfaceCard variant="glass" className="p-8 rounded-3xl">
               <LoadingState message="Đang tải danh sách điểm đón trả..." />
@@ -242,8 +258,8 @@ export const OperatorStopsPage: React.FC = () => {
             <SurfaceCard variant="glass" className="p-8 rounded-3xl">
               <EmptyState
                 icon={MapPin}
-                title="Chưa có điểm đón/trả nào"
-                description="Hãy dùng form bên trái để tạo các trạm đón và điểm trung chuyển đầu tiên."
+                title="Không có điểm đón/trả phù hợp"
+                description="Thay đổi từ khóa hoặc trạng thái để tìm lại, hoặc thêm điểm đón trả mới."
               />
             </SurfaceCard>
           ) : (
@@ -338,16 +354,12 @@ export const OperatorStopsPage: React.FC = () => {
               />
             </div>
 
-            <div className="space-y-1.5">
-              <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Tỉnh / Thành phố
-              </label>
-              <input
-                value={editProvince}
-                onChange={(e) => setEditProvince(e.target.value)}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
-              />
-            </div>
+            <ProvinceCombobox
+              label="Tỉnh / Thành phố"
+              value={editProvince}
+              onChange={setEditProvince}
+              placeholder="Chọn tỉnh/thành phố chuẩn hóa..."
+            />
 
             <DialogFooter className="pt-2 gap-2">
               <button

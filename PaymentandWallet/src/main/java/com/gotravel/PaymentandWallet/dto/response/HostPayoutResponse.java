@@ -23,6 +23,7 @@ public class HostPayoutResponse {
     private BigDecimal commissionAmount;
     private BigDecimal hostAmount;
     private String status;
+    private boolean settlementSimulated;
     private LocalDateTime paidAt;
     private LocalDateTime createdAt;
 }

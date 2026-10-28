@@ -7,7 +7,10 @@ import type {
 import { OperatorEntity } from "../../domain/entity/operator.entity";
 import { AdminUserDetailEntity } from "../../domain/entity/admin-user-detail.entity";
 import { OperatorApplicationEntity } from "../../domain/entity/operator-application.entity";
-import { httpClient, type IHttpClient } from "@/shared/infrastructure/http/HttpPort";
+import {
+  httpClient,
+  type IHttpClient,
+} from "@/shared/infrastructure/http/HttpPort";
 
 export class AdminOperatorService implements IAdminOperatorService {
   private readonly http: IHttpClient;
@@ -24,8 +27,14 @@ export class AdminOperatorService implements IAdminOperatorService {
     if (params?.sortBy) queryParams.sortBy = params.sortBy;
     if (params?.sortOrder) queryParams.sortOrder = params.sortOrder;
 
-    const json = await this.http.get<any>("/api/v1/operators", { params: queryParams });
-    const rawList = Array.isArray(json?.data) ? json.data : Array.isArray(json) ? json : [];
+    const json = await this.http.get<any>("/api/v1/operators", {
+      params: queryParams,
+    });
+    const rawList = Array.isArray(json?.data)
+      ? json.data
+      : Array.isArray(json)
+        ? json
+        : [];
     const items = rawList.map((item: any) => new OperatorEntity(item));
 
     const pagination = json?.pagination || {
@@ -41,53 +50,75 @@ export class AdminOperatorService implements IAdminOperatorService {
     };
   }
 
-  async getOperatorApplications(status?: string): Promise<OperatorApplicationEntity[]> {
-    const statuses = status?.trim()
-      ? [status.trim().toUpperCase()]
-      : ["PENDING", "APPROVED", "REJECTED"];
-    const pages = await Promise.all(
-      statuses.map((approvalStatus) =>
+  async getOperatorApplications(
+    status = "PENDING",
+    pageNumber = 1,
+    keyword = ""
+  ) {
+    const [page, ...counters] = await Promise.all([
+      this.http.get<any>("/api/v1/admin/ticket-vendors", {
+        params: { status, keyword, page: pageNumber - 1, size: 20 },
+      }),
+      ...["PENDING", "APPROVED", "REJECTED"].map((status) =>
         this.http.get<any>("/api/v1/admin/ticket-vendors", {
-          params: { status: approvalStatus, page: 0, size: 100 },
-        }),
+          params: { status, page: 0, size: 1 },
+        })
       ),
+    ]);
+    const counts: Record<string, number> = {};
+    ["PENDING", "APPROVED", "REJECTED"].forEach((key, index) => {
+      counts[key] = Number(counters[index].totalElements ?? 0);
+    });
+    counts.ALL = Object.values(counts).reduce(
+      (total, count) => total + count,
+      0
     );
-    return pages.flatMap((page) => {
-      const rows = Array.isArray(page?.content) ? page.content : [];
-      return rows.map((user: any) => {
-        const profile = user.ticketVendorProfile || {};
-        return new OperatorApplicationEntity({
-          id: user.id,
-          userId: user.id,
-          name: profile.companyName || user.username || "Nhà xe",
-          phone: profile.contactPhone || user.userProfile?.phoneNumber || "",
-          address: profile.companyAddress || "",
-          representativeName: profile.representativeName || "",
-          representativeIdNumber: profile.representativeIdNumber || "",
-          taxCode: profile.taxCode || "",
-          documentFrontUrl: profile.documentFrontUrl || "",
-          documentBackUrl: profile.documentBackUrl || "",
-          status: profile.approvalStatus || "PENDING",
-          rejectReason: profile.rejectionReason || null,
-          createdAt: profile.createdAt || user.createdAt || "",
-          updatedAt: profile.updatedAt || profile.createdAt || user.createdAt || "",
-        });
+    const data = (page.content || []).map((user: any) => {
+      const profile = user.ticketVendorProfile || {};
+      return new OperatorApplicationEntity({
+        id: user.id,
+        userId: user.id,
+        logoUrl: profile.logoUrl || "",
+        name: profile.companyName || user.username || "Nhà xe",
+        phone: profile.contactPhone || user.userProfile?.phoneNumber || "",
+        address: profile.companyAddress || "",
+        representativeName: profile.representativeName || "",
+        representativeIdNumber: profile.representativeIdNumber || "",
+        taxCode: profile.taxCode || "",
+        documentFrontUrl: profile.documentFrontUrl || "",
+        documentBackUrl: profile.documentBackUrl || "",
+        status: profile.approvalStatus || "PENDING",
+        rejectReason: profile.rejectionReason || null,
+        createdAt: profile.createdAt || user.createdAt || "",
+        updatedAt:
+          profile.updatedAt || profile.createdAt || user.createdAt || "",
       });
     });
+    return {
+      data,
+      counts,
+      totalPages: Number(page.totalPages ?? 0),
+      totalElements: Number(page.totalElements ?? 0),
+    };
   }
 
   async processOperatorApplication(dto: ProcessApplicationDTO): Promise<void> {
-    await this.http.put<any>(`/api/v1/admin/ticket-vendors/${dto.applicationId}/approval`, {
-      status: dto.status,
-      reason: dto.rejectReason,
-    });
+    await this.http.put<any>(
+      `/api/v1/admin/ticket-vendors/${dto.applicationId}/approval`,
+      {
+        status: dto.status,
+        reason: dto.rejectReason,
+      }
+    );
   }
 
   async updateOperatorStatus(
     operatorId: string,
     status: "ACTIVE" | "SUSPENDED" | "INACTIVE"
   ): Promise<void> {
-    await this.http.patch<any>(`/api/v1/operators/${operatorId}/status`, { status });
+    await this.http.patch<any>(`/api/v1/operators/${operatorId}/status`, {
+      status,
+    });
   }
 
   async getUserDetailById(userId: string): Promise<AdminUserDetailEntity> {

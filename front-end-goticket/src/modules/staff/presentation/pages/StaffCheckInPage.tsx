@@ -1,3 +1,4 @@
+import jsQR from 'jsqr';
 import React, { useEffect, useRef, useState } from 'react';
 import { ApiError, httpClient } from '@/shared/infrastructure/http/HttpPort';
 import { useAuth } from '@/modules/auth/presentation/context/AuthContext';
@@ -50,6 +51,7 @@ interface ManifestPassenger {
 
 export const StaffCheckInPage: React.FC = () => {
   const { user } = useAuth();
+  const queueKey = `goticket-checkin-queue:${user?.id || 'anonymous'}`;
   const [tokenInput, setTokenInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -59,10 +61,13 @@ export const StaffCheckInPage: React.FC = () => {
   const [manifest, setManifest] = useState<ManifestPassenger[]>([]);
   const [manifestLoading, setManifestLoading] = useState(false);
   const [cameraOpen, setCameraOpen] = useState(false);
+  const [cameraStarting, setCameraStarting] = useState(false);
+  const cameraRequest = useRef(0);
   const [cameraHint, setCameraHint] = useState('');
   const [offlineQueue, setOfflineQueue] = useState<string[]>(() => {
     try {
-      return JSON.parse(sessionStorage.getItem('goticket-checkin-queue') || '[]');
+      const saved = JSON.parse(sessionStorage.getItem(queueKey) || '[]');
+      return Array.isArray(saved) ? saved.filter((token) => typeof token === 'string') : [];
     } catch {
       return [];
     }
@@ -74,8 +79,18 @@ export const StaffCheckInPage: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const scanTimerRef = useRef<number | null>(null);
+  const manifestRequest = useRef(0);
+
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem(queueKey) || '[]');
+      setOfflineQueue(Array.isArray(saved) ? saved.filter((token) => typeof token === 'string') : []);
+    } catch { setOfflineQueue([]); }
+  }, [queueKey]);
 
   const stopCamera = () => {
+    cameraRequest.current++;
+    setCameraStarting(false);
     if (scanTimerRef.current !== null) window.clearInterval(scanTimerRef.current);
     scanTimerRef.current = null;
     streamRef.current?.getTracks().forEach((track) => track.stop());
@@ -87,7 +102,7 @@ export const StaffCheckInPage: React.FC = () => {
   const saveOfflineQueue = (tokens: string[]) => {
     const unique = [...new Set(tokens)].slice(-50);
     setOfflineQueue(unique);
-    sessionStorage.setItem('goticket-checkin-queue', JSON.stringify(unique));
+    sessionStorage.setItem(queueKey, JSON.stringify(unique));
   };
 
   const toCheckInResult = (response: any): CheckInResult => ({
@@ -125,82 +140,121 @@ export const StaffCheckInPage: React.FC = () => {
 
   useEffect(() => () => stopCamera(), []);
 
-  const startCamera = async () => {
-    setError(null);
-    setCameraHint('Đang mở camera…');
+  useEffect(() => {
+    if (!cameraOpen || !videoRef.current || !streamRef.current) return;
+    const video = videoRef.current;
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     const Detector = (window as any).BarcodeDetector;
-    if (!Detector) {
-      setError('Trình duyệt này chưa hỗ trợ đọc QR trực tiếp. Hãy dùng Chrome/Edge mới hoặc nhập mã token bên dưới.');
-      setCameraHint('');
+    let detector: any = null;
+    try { if (Detector) detector = new Detector({ formats: ['qr_code'] }); } catch { /* Use JS decoder. */ }
+    let disposed = false;
+    let scanning = false;
+    video.srcObject = streamRef.current;
+    void video.play().catch(() => {
+      if (!disposed) { stopCamera(); setError('Camera chưa phát được hình. Hãy đóng rồi mở lại camera và kiểm tra quyền truy cập.'); }
+    });
+    scanTimerRef.current = window.setInterval(async () => {
+      if (disposed || scanning || video.readyState < 2 || !video.videoWidth) return;
+      scanning = true;
+      try {
+        let value = '';
+        if (detector) {
+          try { value = String((await detector.detect(video))?.[0]?.rawValue ?? '').trim(); }
+          catch { detector = null; }
+        }
+        if (!value && !detector && ctx) {
+          const scale = Math.min(1, 800 / video.videoWidth);
+          canvas.width = Math.round(video.videoWidth * scale);
+          canvas.height = Math.round(video.videoHeight * scale);
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+          const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          value = jsQR(frame.data, frame.width, frame.height, { inversionAttempts: 'attemptBoth' })?.data?.trim() || '';
+        }
+        if (value && !disposed) {
+          setTokenInput(value);
+          stopCamera();
+          setCameraHint('Đã đọc QR. Kiểm tra mã và bấm Xác nhận soát vé.');
+        }
+      } catch { /* Skip an unreadable frame; keep the camera usable. */ }
+      finally { scanning = false; }
+    }, 300);
+    return () => {
+      disposed = true;
+      if (scanTimerRef.current !== null) window.clearInterval(scanTimerRef.current);
+      scanTimerRef.current = null;
+      video.srcObject = null;
+    };
+  }, [cameraOpen]);
+
+  const startCamera = async () => {
+    if (cameraStarting) return;
+    setError(null); setCameraHint('');
+    if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+      setError('Camera cần kết nối HTTPS và trình duyệt hỗ trợ quyền truy cập camera. Hãy mở trang bằng HTTPS hoặc nhập mã vé.');
       return;
     }
+    const request = ++cameraRequest.current;
+    setCameraStarting(true);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' } },
-        audio: false,
+        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 } }, audio: false,
       });
+      if (request !== cameraRequest.current) { stream.getTracks().forEach(track => track.stop()); return; }
       streamRef.current = stream;
       setCameraOpen(true);
-      setCameraHint('Đưa toàn bộ mã QR trên vé điện tử vào giữa khung hình camera.');
-      window.setTimeout(async () => {
-        if (!videoRef.current || !streamRef.current) return;
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-        const detector = new Detector({ formats: ['qr_code'] });
-        scanTimerRef.current = window.setInterval(async () => {
-          const video = videoRef.current;
-          if (!video || video.readyState < 2) return;
-          try {
-            const codes = await detector.detect(video);
-            const value = String(codes?.[0]?.rawValue ?? '').trim();
-            if (value) {
-              setTokenInput(value);
-              setCameraHint('Đã đọc mã thành công. Vui lòng bấm Xác nhận soát vé.');
-              stopCamera();
-            }
-          } catch {
-            /* skip unclear frame */
-          }
-        }, 350);
-      }, 0);
+      setCameraHint('Đưa mã QR trên vé vào giữa khung hình.');
     } catch (reason) {
-      stopCamera();
-      setCameraHint('');
-      setError(
-        reason instanceof Error ? `Không thể mở camera: ${reason.message}` : 'Không thể mở camera.'
-      );
-    }
+      if (request !== cameraRequest.current) return;
+      const name = reason instanceof DOMException ? reason.name : '';
+      setError(name === 'NotAllowedError' ? 'Bạn chưa cho phép dùng camera. Mở quyền Camera trong cài đặt trang rồi thử lại.'
+        : name === 'NotFoundError' ? 'Không tìm thấy camera trên thiết bị. Bạn có thể nhập mã vé.'
+        : name === 'NotReadableError' ? 'Camera đang được ứng dụng khác sử dụng. Đóng ứng dụng đó rồi thử lại.'
+        : 'Không mở được camera. Kiểm tra quyền truy cập và kết nối thiết bị rồi thử lại.');
+    } finally { if (request === cameraRequest.current) setCameraStarting(false); }
   };
 
   useEffect(() => {
     const loadTrips = async () => {
       try {
         const rows =
-          user?.isStaff() && !user?.isVendor()
-            ? await tripService.getAssignedStaffTrips()
-            : (await tripService.getTrips({ page: 1, limit: 100 })).data;
-        setTrips(rows);
-      } catch {
+          await tripService.getAssignedStaffTrips(user?.operatorId || undefined);
+        const sorted = (rows || []).sort(
+          (a, b) => new Date(a.departureTime).getTime() - new Date(b.departureTime).getTime()
+        );
+        setTrips(sorted);
+        if (sorted.length > 0) {
+          const defaultTrip = sorted.find(t => t.status === 'ON_SALE' || t.status === 'STOP_SALE') || sorted[0];
+          setSelectedTripId(defaultTrip.id);
+          void loadManifest(defaultTrip.id);
+        }
+      } catch (reason) {
         setTrips([]);
+        setError(reason instanceof Error ? reason.message : 'Không tải được chuyến được phân công. Hãy thử tải lại trang.');
       }
     };
     void loadTrips();
   }, [user]);
 
   const loadManifest = async (tripId = selectedTripId) => {
+    const requestId = ++manifestRequest.current;
+    setManifest([]);
     if (!tripId) {
       setManifest([]);
+      setManifestLoading(false);
       return;
     }
     setManifestLoading(true);
     setError(null);
     try {
       const data = await httpClient.get<any>(`/api/v1/trips/${tripId}/manifest`);
+      if (requestId !== manifestRequest.current) return;
       setManifest(Array.isArray(data?.passengers) ? data.passengers : []);
     } catch (reason) {
+      if (requestId !== manifestRequest.current) return;
       setError(reason instanceof Error ? reason.message : 'Không thể tải danh sách hành khách.');
     } finally {
-      setManifestLoading(false);
+      if (requestId === manifestRequest.current) setManifestLoading(false);
     }
   };
 
@@ -222,7 +276,7 @@ export const StaffCheckInPage: React.FC = () => {
 
   const handleCheckIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!tokenInput.trim()) return;
+    if (!tokenInput.trim() || loading || !user?.canCheckIn()) return;
 
     setLoading(true);
     setError(null);
@@ -326,7 +380,7 @@ export const StaffCheckInPage: React.FC = () => {
               <div className="absolute top-4 inset-x-4 flex items-center justify-between pointer-events-auto">
                 <div className="flex items-center gap-2 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-xs font-semibold text-white">
                   <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-                  <span>AI QR SCANNER SẴN SÀNG</span>
+                  <span>Camera quét vé</span>
                 </div>
                 <button
                   type="button"
@@ -391,6 +445,7 @@ export const StaffCheckInPage: React.FC = () => {
             <Button
               type="button"
               variant="outline"
+              disabled={cameraStarting}
               onClick={() => (cameraOpen ? stopCamera() : void startCamera())}
               className="py-4 rounded-full text-xs font-bold border-white/80 bg-white/70 backdrop-blur-md hover:bg-white text-[var(--gt-ink)] shadow-glass transition-all flex items-center justify-center gap-2"
             >
@@ -402,7 +457,7 @@ export const StaffCheckInPage: React.FC = () => {
               ) : (
                 <>
                   <Camera className="h-4 w-4 text-[var(--gt-coral)]" />
-                  Mở camera quét QR trực tiếp
+                  {cameraStarting ? 'Đang mở camera...' : 'Mở camera quét QR trực tiếp'}
                 </>
               )}
             </Button>
@@ -510,7 +565,7 @@ export const StaffCheckInPage: React.FC = () => {
           <div className="py-12">
             <LoadingState message="Đang tải danh sách hành khách..." />
           </div>
-        ) : selectedTripId && manifest.length === 0 ? (
+        ) : !error && selectedTripId && manifest.length === 0 ? (
           <div className="py-12 text-center text-xs text-[var(--gt-muted)]">
             Chuyến này chưa có hành khách đặt chỗ.
           </div>

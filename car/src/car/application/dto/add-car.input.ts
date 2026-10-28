@@ -6,4 +6,8 @@ export interface AddCarInput {
   type: CarType;
   licensePlate: string;
   totalSeats: number;
+  deckCount?: number;
+  seatColumns?: number;
+  lowerDeckSeats?: number;
+  seatClass?: string;
 }

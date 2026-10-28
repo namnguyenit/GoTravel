@@ -52,6 +52,11 @@ class SeatBlockDto {
 @Controller('trips')
 export class TransportOperationsController {
   constructor(private readonly service: TransportOperationsService) {}
+  @Get(':tripId/admin-summary')
+  adminSummary(@Param('tripId', new ParseUUIDPipe()) tripId: string, @Req() req: AuthenticatedRequest) {
+    if (!hasRole(req.authUser!, 'ADMIN')) throw new ForbiddenException();
+    return this.service.adminSummary(tripId);
+  }
   @Post(':tripId/admin-cancellation')
   adminCancel(
     @Param('tripId', new ParseUUIDPipe()) tripId: string,
@@ -84,6 +89,13 @@ export class TransportOperationsController {
     @Req() req: AuthenticatedRequest,
   ) {
     return this.service.manifest(tripId, req.authUser!.id);
+  }
+  @Get(':tripId/manage/seats')
+  managedSeats(
+    @Param('tripId', new ParseUUIDPipe()) tripId: string,
+    @Req() req: AuthenticatedRequest,
+  ) {
+    return this.service.managedSeatMap(tripId, req.authUser!.id);
   }
   @Post(':tripId/tickets/:ticketId/no-show')
   noShow(

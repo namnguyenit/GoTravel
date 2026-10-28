@@ -9,6 +9,8 @@ export interface RouteStopProps {
   routeId?: string;
   name: string;
   order: number;
+  address?: string;
+  province?: string;
   createdAt?: string;
 }
 
@@ -39,12 +41,17 @@ export class RouteStopEntity {
     return this.props.createdAt;
   }
 
+  get address(): string | undefined { return this.props.address; }
+  get province(): string | undefined { return this.props.province; }
+
   public static fromApiResponse(raw: any): RouteStopEntity {
     return new RouteStopEntity({
       id: raw.id || "",
       routeId: raw.routeId,
       name: raw.name || "",
       order: Number(raw.order) || 0,
+      address: raw.address ?? undefined,
+      province: raw.province ?? undefined,
       createdAt: raw.createdAt,
     });
   }
@@ -59,6 +66,7 @@ export interface RouteProps {
   stops: RouteStopEntity[];
   createdAt: string;
   updatedAt: string;
+  dailyActivity?: { date: string; totalTrips: number; onSaleTrips: number };
 }
 
 export class RouteEntity {
@@ -87,6 +95,8 @@ export class RouteEntity {
   get status(): RouteStatus {
     return this.props.status;
   }
+
+  get dailyActivity(): RouteProps['dailyActivity'] { return this.props.dailyActivity; }
 
   public isActive(): boolean {
     return this.props.status === ROUTE_STATUS.ACTIVE;
@@ -149,6 +159,7 @@ export class RouteEntity {
     try {
       const date = new Date(this.props.createdAt);
       return date.toLocaleDateString("vi-VN", {
+        timeZone: "Asia/Ho_Chi_Minh",
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
@@ -165,6 +176,7 @@ export class RouteEntity {
     try {
       const date = new Date(this.props.updatedAt);
       return date.toLocaleDateString("vi-VN", {
+        timeZone: "Asia/Ho_Chi_Minh",
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
@@ -191,6 +203,11 @@ export class RouteEntity {
       stops: stopEntities,
       createdAt: raw.createdAt || new Date().toISOString(),
       updatedAt: raw.updatedAt || new Date().toISOString(),
+      dailyActivity: raw.dailyActivity ? {
+        date: raw.dailyActivity.date,
+        totalTrips: Number(raw.dailyActivity.totalTrips) || 0,
+        onSaleTrips: Number(raw.dailyActivity.onSaleTrips) || 0,
+      } : undefined,
     });
   }
 }

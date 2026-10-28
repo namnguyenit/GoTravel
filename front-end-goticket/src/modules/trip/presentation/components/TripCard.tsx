@@ -1,4 +1,5 @@
 import React from "react";
+import { vietnamDate } from '@/shared/utils/vietnam-date';
 import { Link } from "react-router-dom";
 import type { TripEntity } from "../../domain/entity/trip.entity";
 import {
@@ -17,7 +18,6 @@ import {
   Bus,
   Users,
   Waypoints,
-  Play,
   CheckCircle2,
   Ban,
   ArrowRight,
@@ -29,6 +29,8 @@ interface TripCardProps {
   index: number;
   onViewRouteDetail?: (trip: TripEntity) => void;
   onRequestUpdateStatus?: (trip: TripEntity, targetStatus: TripStatus) => void;
+  managementPath?: string;
+  canManage?: boolean;
 }
 
 export const TripCard: React.FC<TripCardProps> = ({
@@ -36,11 +38,16 @@ export const TripCard: React.FC<TripCardProps> = ({
   index,
   onViewRouteDetail,
   onRequestUpdateStatus,
+  managementPath = '/operator/trips',
+  canManage = true,
 }) => {
   const occupancyRate = trip.getOccupancyRate();
 
   // Use actual trip status with first-class DRAFT and ON_SALE support
-  const badgeStatus = trip.status;
+  const departureReached = new Date(trip.departureTime).getTime() <= Date.now();
+  const badgeStatus = departureReached && ['ON_SALE', 'PUBLISHING', 'SCHEDULED'].includes(trip.status)
+    ? 'STOP_SALE' : trip.status;
+  const historicalDay = vietnamDate(trip.departureTime) < vietnamDate();
 
   return (
     <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 hover:border-[#FF385C]/50 hover:shadow-glass-lg transition-all duration-300">
@@ -56,7 +63,10 @@ export const TripCard: React.FC<TripCardProps> = ({
                 <h3 className="text-base font-bold text-gray-900">
                   {trip.getSummaryRoute()}
                 </h3>
-                <StatusBadge status={badgeStatus} />
+                <StatusBadge status={badgeStatus} label={badgeStatus === 'STOP_SALE' ? departureReached ? 'Đã đến giờ · Ngừng bán' : 'Đã ngừng bán' : undefined} />
+                {['COMPLETED', 'CANCELLED', 'DEPARTED'].includes(badgeStatus) && (
+                  <StatusBadge status="STOP_SALE" label="Đã ngừng bán" />
+                )}
                 {trip.isDraft() && (
                   <span className="text-[11px] font-semibold text-amber-700 bg-amber-50/90 px-2.5 py-0.5 rounded-full border border-amber-300/60 shadow-2xs">
                     Chưa mở bán cho khách
@@ -65,6 +75,7 @@ export const TripCard: React.FC<TripCardProps> = ({
               </div>
               <div className="mt-0.5">
                 <IdText id={trip.id} prefix="Chuyến" />
+                {historicalDay && <p className="mt-1 text-xs text-gray-500">Lịch sử ngày {vietnamDate(trip.departureTime).split('-').reverse().join('/')}{trip.isDraft() ? ' · Bản nháp quá hạn' : ' · Không nhận đặt vé mới'}</p>}
               </div>
             </div>
           </div>
@@ -101,7 +112,7 @@ export const TripCard: React.FC<TripCardProps> = ({
 
           <div className="space-y-1 pt-1 text-xs">
             <div className="flex items-center justify-between">
-              <span className="text-gray-500">Xuất bến:</span>
+              <span className="text-gray-500">Khởi hành:</span>
               <span className="font-bold text-gray-900">
                 {trip.getFormattedDepartureTime()}
               </span>
@@ -177,8 +188,8 @@ export const TripCard: React.FC<TripCardProps> = ({
       {/* Footer Actions */}
       <div className="flex flex-col gap-2.5 border-t border-gray-100/80 bg-white/70 backdrop-blur-md px-4 py-3 sm:flex-row sm:items-center sm:justify-between rounded-b-[28px]">
         <div className="flex items-center space-x-2">
-          <Link
-            to={`/operator/trips/${trip.id}/manage`}
+          {canManage && <Link
+            to={`${managementPath}/${trip.id}/manage`}
             className={
               trip.isDraft()
                 ? "inline-flex h-8 items-center gap-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 text-xs font-bold transition-all shadow-xs glow-emerald-sm"
@@ -187,7 +198,7 @@ export const TripCard: React.FC<TripCardProps> = ({
           >
             <Sliders className="h-3.5 w-3.5" />
             <span>{trip.isDraft() ? "Cấu hình & Mở bán vé" : "Vận hành & Giá ghế"}</span>
-          </Link>
+          </Link>}
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
@@ -204,17 +215,6 @@ export const TripCard: React.FC<TripCardProps> = ({
           )}
 
           {/* Lifecycle actions */}
-          {onRequestUpdateStatus && trip.canDepart() && (
-            <button
-              type="button"
-              onClick={() => onRequestUpdateStatus(trip, TRIP_STATUS.DEPARTED)}
-              className="inline-flex h-8 items-center gap-1.5 rounded-full border border-amber-300 bg-amber-50/90 px-3.5 text-xs font-bold text-amber-800 hover:bg-amber-100 shadow-2xs transition cursor-pointer"
-            >
-              <Play className="h-3 w-3 fill-amber-700 text-amber-700" />
-              <span>Xuất bến</span>
-            </button>
-          )}
-
           {onRequestUpdateStatus && trip.canComplete() && (
             <button
               type="button"

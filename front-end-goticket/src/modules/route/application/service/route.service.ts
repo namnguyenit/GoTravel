@@ -89,11 +89,14 @@ export class RouteService implements IRouteService {
       destination: dto.destination.trim(),
       stops: rawStops.map((s, idx) => ({
         name: s.name.trim(),
-        order: s.order ?? idx + 1,
+        order: s.order ?? idx,
+        address: s.address,
+        province: s.province,
       })),
     };
 
     const createdData = await this.http.post<any>("/api/v1/routes", payload);
+    this.cachedLocations = null;
     return RouteEntity.fromApiResponse(createdData?.data || createdData);
   }
 
@@ -106,6 +109,7 @@ export class RouteService implements IRouteService {
       `/api/v1/routes/${id.trim()}/status`,
       { status }
     );
+    this.cachedLocations = null;
     return RouteEntity.fromApiResponse(res?.data || res);
   }
 
@@ -136,13 +140,22 @@ export class RouteService implements IRouteService {
       stops: dto.stops?.map((stop, index) => ({
         name: stop.name.trim(),
         order: index,
+        address: stop.address,
+        province: stop.province,
       })),
     };
     const res = await this.http.patch<any>(
       `/api/v1/routes/${id.trim()}`,
       payload
     );
+    this.cachedLocations = null;
     return RouteEntity.fromApiResponse(res?.data || res);
+  }
+
+  async deleteRoute(id: string): Promise<void> {
+    if (!id?.trim()) throw new Error("Mã tuyến đường không hợp lệ.");
+    await this.http.delete(`/api/v1/routes/${id.trim()}`);
+    this.cachedLocations = null;
   }
 
   async getLocations(): Promise<string[]> {

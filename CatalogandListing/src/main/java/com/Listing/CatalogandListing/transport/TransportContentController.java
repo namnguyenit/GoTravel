@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/catalog/transport/offers")
+@RequestMapping({"/api/v1/catalog/transport/offers", "/api/v1/catalog/host/transport/offers"})
 @RequiredArgsConstructor
-@PreAuthorize("hasAuthority('TICKET_VENDOR')")
+@PreAuthorize("hasRole('TICKET_VENDOR')")
 public class TransportContentController {
     private final TransportOfferService service;
     public record Content(@NotBlank @Size(max=200) String title,
                           @NotBlank @Size(max=10000) String description,
                           @Size(max=1000) String thumbnailUrl) {}
+    @GetMapping("/{listingId}/content")
+    public ApiResponse<TransportOfferService.ContentUpdate> get(@AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID listingId) {
+        return ApiResponse.success(service.getContent(UUID.fromString(jwt.getSubject()), listingId));
+    }
     @PutMapping("/{listingId}/content")
     public ApiResponse<TransportOfferService.OfferResult> update(@AuthenticationPrincipal Jwt jwt,
             @PathVariable UUID listingId, @RequestBody @Valid Content content) {

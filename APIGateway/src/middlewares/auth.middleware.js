@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
 import NodeCache from "node-cache";
 import { buildErorRespone, GatewayError } from "../utils/response.helper.js";
-import { readCookie } from "./csrf.middleware.js";
+import { readAccessToken } from "./csrf.middleware.js";
 import { identityTarget, settings } from "../gateway/configuration.js";
 
 const clients = new Map();
@@ -50,7 +50,7 @@ export const verifyJWT = (req, res, next) => {
     typeof authHeader === "string" && /^Bearer [^\s]+$/.test(authHeader)
       ? authHeader.slice(7)
       : undefined;
-  const cookieToken = readCookie(req, "access_token");
+  const cookieToken = readAccessToken(req);
   const token = bearer || cookieToken;
 
   if (!token) {
