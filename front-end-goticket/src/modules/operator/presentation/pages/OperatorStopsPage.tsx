@@ -180,7 +180,7 @@ export const OperatorStopsPage: React.FC = () => {
         {/* Create Stop Form (5 cols) */}
         <SurfaceCard variant="glass" className="lg:col-span-5 p-6 space-y-4 rounded-3xl">
           <div className="flex items-center gap-2 border-b border-gray-100/80 pb-3">
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-soft text-coral border border-coral/20">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-soft text-brand border border-brand/20">
               <Plus className="w-3.5 h-3.5" />
             </div>
             <h2 className="font-bold text-base text-gray-900">
@@ -191,7 +191,7 @@ export const OperatorStopsPage: React.FC = () => {
           <form onSubmit={handleCreateStop} className="space-y-4 pt-1">
             <div className="space-y-1.5">
               <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Tên điểm dừng <span className="text-coral">*</span>
+                Tên điểm dừng <span className="text-brand">*</span>
               </label>
               <input
                 type="text"
@@ -199,13 +199,13 @@ export const OperatorStopsPage: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="VD: Bến xe Miền Đông mới / VP Quận 1"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
               />
             </div>
 
             <div className="space-y-1.5">
               <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                Địa chỉ chi tiết <span className="text-coral">*</span>
+                Địa chỉ chi tiết <span className="text-brand">*</span>
               </label>
               <input
                 type="text"
@@ -213,7 +213,7 @@ export const OperatorStopsPage: React.FC = () => {
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="VD: 501 Hoàng Hữu Nam, Long Bình"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
               />
             </div>
 
@@ -228,7 +228,7 @@ export const OperatorStopsPage: React.FC = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white py-3 text-xs font-bold shadow-md glow-coral-sm transition-all disabled:opacity-50 cursor-pointer"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white py-3 text-xs font-bold shadow-md shadow-brand-sm transition-all disabled:opacity-50 cursor-pointer"
             >
               {submitting ? 'Đang tạo...' : 'Lưu điểm đón/trả mới'}
             </button>
@@ -274,7 +274,7 @@ export const OperatorStopsPage: React.FC = () => {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-start gap-3">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-coral-soft text-coral mt-0.5 border border-coral/20 shadow-2xs">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-brand mt-0.5 border border-brand/20 shadow-2xs">
                         <MapPin className="h-4 w-4" />
                       </div>
                       <div>
@@ -333,13 +333,13 @@ export const OperatorStopsPage: React.FC = () => {
           <form onSubmit={submitEditStop} className="space-y-4 pt-2">
             <div className="space-y-1.5">
               <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Tên điểm <span className="text-[var(--gt-coral)]">*</span>
+                Tên điểm <span className="text-[var(--gt-brand)]">*</span>
               </label>
               <input
                 required
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-brand)]"
               />
             </div>
 
@@ -350,7 +350,7 @@ export const OperatorStopsPage: React.FC = () => {
               <input
                 value={editAddress}
                 onChange={(e) => setEditAddress(e.target.value)}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-xs font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-brand)]"
               />
             </div>
 
@@ -372,7 +372,7 @@ export const OperatorStopsPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={submitting}
-                className="btn-coral px-5 py-2 text-xs font-bold shadow-sm disabled:opacity-50"
+                className="btn-brand px-5 py-2 text-xs font-bold shadow-sm disabled:opacity-50"
               >
                 {submitting ? 'Đang lưu...' : 'Lưu thay đổi'}
               </button>

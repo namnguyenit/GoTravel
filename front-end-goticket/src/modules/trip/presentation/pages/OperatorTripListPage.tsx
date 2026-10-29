@@ -331,7 +331,7 @@ export const OperatorTripListPage: React.FC = () => {
           !isStaffView && (
             <Button
               onClick={() => setIsCreateModalOpen(true)}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white"
+              className="bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white"
             >
               <Plus className="h-4 w-4 mr-2" />
               <span>Tạo chuyến xe mới</span>
@@ -366,7 +366,7 @@ export const OperatorTripListPage: React.FC = () => {
               placeholder="Lộ trình, tên xe, biển số..."
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
-              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-10 pr-3.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 shadow-2xs"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-10 pr-3.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/20 shadow-2xs"
             />
           </div>
 
@@ -382,7 +382,7 @@ export const OperatorTripListPage: React.FC = () => {
                 onChange={(e) =>
                   setStatusFilter(e.target.value as TripStatus | "")
                 }
-                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
+                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[var(--gt-brand)] focus:outline-none shadow-2xs"
               >
                 <option value="">Tất cả trạng thái</option>
                 <option value="DRAFT">Bản nháp (Chưa mở bán)</option>
@@ -409,7 +409,7 @@ export const OperatorTripListPage: React.FC = () => {
                   updateUrlParams({ date: day, page: '1' });
                 }}
                 aria-label="Ngày khởi hành"
-                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
+                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[var(--gt-brand)] focus:outline-none shadow-2xs"
               />
             </div>
 
@@ -421,7 +421,7 @@ export const OperatorTripListPage: React.FC = () => {
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[#FF385C] focus:outline-none shadow-2xs"
+                className="rounded-full border border-gray-200/80 bg-white/90 px-3.5 py-2 text-xs font-semibold text-gray-900 focus:border-[var(--gt-brand)] focus:outline-none shadow-2xs"
               >
                 <option value="departureTime_asc">
                   Giờ khởi hành (Sớm nhất)
@@ -481,7 +481,7 @@ export const OperatorTripListPage: React.FC = () => {
               !isStaffView ? (
                 <Button
                   onClick={() => setIsCreateModalOpen(true)}
-                  className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
+                  className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   <span>Tạo chuyến xe mới</span>

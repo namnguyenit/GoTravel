@@ -120,7 +120,7 @@ export const ProfilePage: React.FC = () => {
       <SurfaceCard variant="glass" className="overflow-hidden p-6 sm:p-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-5">
-            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-coral-soft text-3xl font-extrabold text-coral border border-coral/20 shadow-2xs">
+            <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-brand-soft text-3xl font-extrabold text-brand border border-brand/20 shadow-2xs">
               {profile?.avatarUrl ? (
                 <img
                   src={profile.avatarUrl}
@@ -154,7 +154,7 @@ export const ProfilePage: React.FC = () => {
             className={`inline-flex items-center justify-center rounded-full px-5 py-2.5 text-xs font-bold transition shadow-2xs cursor-pointer ${
               isEditing
                 ? "border border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
-                : "border border-white/80 bg-white/80 text-gray-900 hover:border-coral hover:text-coral hover:bg-white"
+                : "border border-white/80 bg-white/80 text-gray-900 hover:border-brand hover:text-brand hover:bg-white"
             }`}
           >
             {isEditing ? "Hủy chỉnh sửa" : "Chỉnh sửa hồ sơ"}
@@ -179,14 +179,14 @@ export const ProfilePage: React.FC = () => {
             <form onSubmit={handleUpdate} className="space-y-5">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  Họ và tên <span className="text-coral">*</span>
+                  Họ và tên <span className="text-brand">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                   placeholder="Nhập họ và tên"
                 />
               </div>
@@ -200,7 +200,7 @@ export const ProfilePage: React.FC = () => {
                     type="tel"
                     value={phoneNumber}
                     onChange={(e) => setPhoneNumber(e.target.value)}
-                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                     placeholder="Nhập số điện thoại"
                   />
                 </div>
@@ -213,7 +213,7 @@ export const ProfilePage: React.FC = () => {
                     type="text"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                     placeholder="Nhập địa chỉ"
                   />
                 </div>
@@ -230,7 +230,7 @@ export const ProfilePage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex items-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white px-6 py-2.5 text-xs font-bold shadow-md glow-coral-sm disabled:opacity-50 transition-all cursor-pointer"
+                  className="flex items-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white px-6 py-2.5 text-xs font-bold shadow-md shadow-brand-sm disabled:opacity-50 transition-all cursor-pointer"
                 >
                   {saving ? <RefreshCw className="h-3.5 w-3.5 animate-spin" /> : <Check className="h-3.5 w-3.5" />}
                   {saving ? "Đang lưu..." : "Lưu thay đổi"}
@@ -241,7 +241,7 @@ export const ProfilePage: React.FC = () => {
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div className="rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xs p-4.5 shadow-2xs">
                 <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                  <User className="h-4 w-4 text-coral" />
+                  <User className="h-4 w-4 text-brand" />
                   Họ và tên
                 </span>
                 <p className="mt-2 text-sm font-bold text-gray-900">
@@ -251,7 +251,7 @@ export const ProfilePage: React.FC = () => {
 
               <div className="rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xs p-4.5 shadow-2xs">
                 <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                  <Mail className="h-4 w-4 text-coral" />
+                  <Mail className="h-4 w-4 text-brand" />
                   Email liên hệ
                 </span>
                 <p className="mt-2 text-sm font-bold text-gray-900">
@@ -261,7 +261,7 @@ export const ProfilePage: React.FC = () => {
 
               <div className="rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xs p-4.5 shadow-2xs">
                 <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                  <Phone className="h-4 w-4 text-coral" />
+                  <Phone className="h-4 w-4 text-brand" />
                   Số điện thoại
                 </span>
                 <p className="mt-2 text-sm font-bold text-gray-900">
@@ -271,7 +271,7 @@ export const ProfilePage: React.FC = () => {
 
               <div className="rounded-3xl border border-white/80 bg-white/70 backdrop-blur-xs p-4.5 shadow-2xs">
                 <span className="flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
-                  <MapPin className="h-4 w-4 text-coral" />
+                  <MapPin className="h-4 w-4 text-brand" />
                   Địa chỉ
                 </span>
                 <p className="mt-2 text-sm font-bold text-gray-900">
@@ -293,7 +293,7 @@ export const ProfilePage: React.FC = () => {
           <SurfaceCard variant="glass" className="p-6 md:p-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral-soft text-coral border border-coral/20">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand border border-brand/20">
                   <Shield className="h-6 w-6" />
                 </div>
                 <div>
@@ -307,7 +307,7 @@ export const ProfilePage: React.FC = () => {
               </div>
               <Link
                 to="/admin/operators"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white whitespace-nowrap px-6 py-3 text-xs font-bold shadow-md glow-coral-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white whitespace-nowrap px-6 py-3 text-xs font-bold shadow-md shadow-brand-sm transition-all"
               >
                 <UserCheck className="h-4 w-4" />
                 Vào Quản trị Nhà xe
@@ -318,7 +318,7 @@ export const ProfilePage: React.FC = () => {
           <SurfaceCard variant="glass" className="p-6 md:p-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral-soft text-coral border border-coral/20">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand border border-brand/20">
                   <LayoutDashboard className="h-6 w-6" />
                 </div>
                 <div>
@@ -332,7 +332,7 @@ export const ProfilePage: React.FC = () => {
               </div>
               <Link
                 to="/operator/dashboard"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white whitespace-nowrap px-6 py-3 text-xs font-bold shadow-md glow-coral-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white whitespace-nowrap px-6 py-3 text-xs font-bold shadow-md shadow-brand-sm transition-all"
               >
                 <LayoutDashboard className="h-4 w-4" />
                 Vào Kênh Nhà xe
@@ -343,7 +343,7 @@ export const ProfilePage: React.FC = () => {
           <SurfaceCard variant="glass" className="p-6 md:p-8">
             <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-coral-soft text-coral border border-coral/20">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-soft text-brand border border-brand/20">
                   <ShieldCheck className="h-6 w-6" />
                 </div>
                 <div>
@@ -357,7 +357,7 @@ export const ProfilePage: React.FC = () => {
               </div>
               <Link
                 to="/operator/register"
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white whitespace-nowrap px-6 py-3 text-xs font-bold shadow-md glow-coral-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white whitespace-nowrap px-6 py-3 text-xs font-bold shadow-md shadow-brand-sm transition-all"
               >
                 Đăng ký ngay
                 <ArrowRight className="h-4 w-4" />

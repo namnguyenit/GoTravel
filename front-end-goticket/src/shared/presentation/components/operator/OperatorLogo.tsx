@@ -31,7 +31,7 @@ export function OperatorLogo({
       ) : (
         <span
           aria-label={name}
-          className="px-1 text-sm font-bold text-[#D91D45]"
+          className="px-1 text-sm font-bold text-[var(--gt-brand-ink)]"
         >
           {initials}
         </span>

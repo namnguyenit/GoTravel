@@ -11,7 +11,7 @@ export const SeatLegend: React.FC<{ className?: string }> = ({ className = '' })
     {
       label: 'Đang chọn',
       element: (
-        <div className="w-5 h-5 rounded-lg bg-[#FF385C] border-2 border-[#FF385C] shadow-2xs" />
+        <div className="w-5 h-5 rounded-lg bg-[var(--gt-brand)] border-2 border-[var(--gt-brand)] shadow-2xs" />
       ),
     },
     {

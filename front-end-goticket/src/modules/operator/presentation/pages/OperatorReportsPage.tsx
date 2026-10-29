@@ -162,7 +162,7 @@ export const OperatorReportsPage: React.FC = () => {
             value={from}
             max={to}
             onChange={(e) => setFrom(e.target.value)}
-            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
+            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[var(--gt-brand)]"
           />
         </div>
         <div>
@@ -174,13 +174,13 @@ export const OperatorReportsPage: React.FC = () => {
             value={to}
             min={from}
             onChange={(e) => setTo(e.target.value)}
-            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
+            className="block rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[var(--gt-brand)]"
           />
         </div>
         <Button
           onClick={() => void load()}
           disabled={loading}
-          className="glow-coral-sm cursor-pointer rounded-full bg-[#FF385C] px-5 py-2 text-xs font-bold text-white shadow-md hover:bg-[#E61E4F]"
+          className="shadow-brand-sm cursor-pointer rounded-full bg-[var(--gt-brand)] px-5 py-2 text-xs font-bold text-white shadow-md hover:bg-[var(--gt-brand-hover)]"
         >
           <RefreshCw
             className={`mr-2 h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`}

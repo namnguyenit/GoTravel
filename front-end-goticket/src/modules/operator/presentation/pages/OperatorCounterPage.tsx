@@ -358,7 +358,7 @@ export const OperatorCounterPage: React.FC = () => {
         eyebrow="Kênh Nhà Xe · Tác nghiệp trực tiếp"
         description="Chọn chuyến và ghế, nhập thông tin khách, rồi xác nhận số tiền thực nhận để phát hành vé."
         actions={
-          <div className="flex items-center gap-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-bold text-[#FF385C] shadow-2xs">
+          <div className="flex items-center gap-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-bold text-[var(--gt-brand)] shadow-2xs">
             <Wallet className="w-3.5 h-3.5" />
             <span>Quyền: SELL_CASH</span>
           </div>
@@ -450,7 +450,7 @@ export const OperatorCounterPage: React.FC = () => {
               <div className="pt-2 flex justify-center gap-3 print:hidden">
                 <Button
                   onClick={() => setSuccessOrder(null)}
-                  className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full shadow-md glow-coral-sm"
+                  className="bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white rounded-full shadow-md shadow-brand-sm"
                 >
                   Bán vé cho khách tiếp theo
                 </Button>
@@ -540,7 +540,7 @@ export const OperatorCounterPage: React.FC = () => {
               </label>
               {loadingTrips ? (
                 <div className="py-4 text-xs text-gray-500 flex items-center gap-2">
-                  <Loader2 className="w-4 h-4 animate-spin text-[#FF385C]" />
+                  <Loader2 className="w-4 h-4 animate-spin text-[var(--gt-brand)]" />
                   <span>Đang tải các chuyến xe...</span>
                 </div>
               ) : trips.length === 0 ? (
@@ -552,7 +552,7 @@ export const OperatorCounterPage: React.FC = () => {
                     setError(null);
                     setSelectedTripId(e.target.value);
                   }}
-                  className="w-full px-4 py-2.5 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 font-semibold outline-none shadow-2xs"
+                  className="w-full px-4 py-2.5 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[var(--gt-brand)] text-gray-900 font-semibold outline-none shadow-2xs"
                 >
                   {trips.map((t) => {
                     const isPassed = new Date(t.departureTime).getTime() <= Date.now();
@@ -603,7 +603,7 @@ export const OperatorCounterPage: React.FC = () => {
               {/* Stops Selection */}
               <div className="space-y-3 p-4 bg-white/70 backdrop-blur-md rounded-2xl border border-white/80 shadow-2xs">
                 <h3 className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-[#FF385C]" />
+                  <MapPin className="w-3.5 h-3.5 text-[var(--gt-brand)]" />
                   Điểm đón & Điểm trả thực tế
                 </h3>
 
@@ -614,7 +614,7 @@ export const OperatorCounterPage: React.FC = () => {
                   <select
                     value={selectedPickupStopId}
                     onChange={(e) => setSelectedPickupStopId(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
+                    className="w-full px-3.5 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[var(--gt-brand)] text-gray-900 outline-none font-medium shadow-2xs"
                   >
                     {pickupStops.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -631,7 +631,7 @@ export const OperatorCounterPage: React.FC = () => {
                   <select
                     value={selectedDropoffStopId}
                     onChange={(e) => setSelectedDropoffStopId(e.target.value)}
-                    className="w-full px-3.5 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
+                    className="w-full px-3.5 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[var(--gt-brand)] text-gray-900 outline-none font-medium shadow-2xs"
                   >
                     {dropoffStops.map((s) => (
                       <option key={s.id} value={s.id}>
@@ -653,7 +653,7 @@ export const OperatorCounterPage: React.FC = () => {
                   value={customerName}
                   onChange={(e) => setCustomerName(e.target.value)}
                   placeholder="VD: Trần Văn B"
-                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
+                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[var(--gt-brand)] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>
 
@@ -667,7 +667,7 @@ export const OperatorCounterPage: React.FC = () => {
                   value={customerPhone}
                   onChange={(e) => setCustomerPhone(e.target.value)}
                   placeholder="VD: 0912345678"
-                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
+                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[var(--gt-brand)] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>
 
@@ -680,7 +680,7 @@ export const OperatorCounterPage: React.FC = () => {
                   value={customerEmail}
                   onChange={(e) => setCustomerEmail(e.target.value)}
                   placeholder="Không bắt buộc khi nhận vé tại quầy"
-                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[#FF385C] text-gray-900 outline-none font-medium shadow-2xs"
+                  className="w-full px-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full focus:border-[var(--gt-brand)] text-gray-900 outline-none font-medium shadow-2xs"
                 />
               </div>
 
@@ -708,7 +708,7 @@ export const OperatorCounterPage: React.FC = () => {
               <Button
                 type="submit"
                 disabled={submitting || selectedSeats.length === 0}
-                className="w-full py-3 bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold rounded-full shadow-md glow-coral-sm cursor-pointer"
+                className="w-full py-3 bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white text-xs font-bold rounded-full shadow-md shadow-brand-sm cursor-pointer"
               >
                 {submitting ? (
                   <>

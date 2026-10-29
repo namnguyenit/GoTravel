@@ -18,7 +18,8 @@ const proxyRules = {
   '/session': portalProxy,
   '^/pay(\\?.*)?$': portalProxy,
   '/vnpay': portalProxy,
-  '/brand': portalProxy,
+  // Keep GoPay assets available without intercepting GoTicket's own brand files.
+  '^/brand/gopay-': portalProxy,
   '/fonts': portalProxy,
   '/gopay-mark.svg': portalProxy,
   '/styles.css': portalProxy,

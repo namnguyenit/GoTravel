@@ -211,7 +211,7 @@ export const ExchangeTicketPage: React.FC = () => {
     <CustomerPageContainer className="space-y-6 py-8">
       <Link
         to={`/account/orders/${orderId}`}
-        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--gt-muted)] transition-colors hover:text-[var(--gt-coral)]"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--gt-muted)] transition-colors hover:text-[var(--gt-brand)]"
       >
         <ArrowLeft className="h-4 w-4" /> Quay lại đơn vé
       </Link>
@@ -228,7 +228,7 @@ export const ExchangeTicketPage: React.FC = () => {
           {/* Step 1: Chọn ngày và chuyến */}
           <SurfaceCard variant="glass" className="p-6 md:p-7">
             <div className="flex items-center gap-3">
-              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-coral-soft text-xs font-black text-coral border border-coral/25 shadow-2xs">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft text-xs font-black text-brand border border-brand/25 shadow-2xs">
                 1
               </span>
               <h2 className="text-base font-bold text-gray-900">
@@ -254,7 +254,7 @@ export const ExchangeTicketPage: React.FC = () => {
                     setStops([]);
                     setSeatId('');
                   }}
-                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                 />
               </div>
               <button
@@ -283,13 +283,13 @@ export const ExchangeTicketPage: React.FC = () => {
                         onClick={() => void chooseTrip(trip)}
                         className={`rounded-3xl border p-4 text-left transition backdrop-blur-xs cursor-pointer ${
                           isSelected
-                            ? 'border-coral bg-coral-soft/50 ring-2 ring-coral/30 shadow-sm'
-                            : 'border-white/80 bg-white/70 hover:border-coral/40 hover:bg-white/90'
+                            ? 'border-brand bg-brand-soft/50 ring-2 ring-brand/30 shadow-sm'
+                            : 'border-white/80 bg-white/70 hover:border-brand/40 hover:bg-white/90'
                         }`}
                       >
                         <div className="flex items-center justify-between">
                           <span className="flex items-center gap-1.5 text-sm font-bold text-gray-900">
-                            <Clock className="h-4 w-4 text-coral" />
+                            <Clock className="h-4 w-4 text-brand" />
                             {trip.getFormattedDepartureTime()}
                           </span>
                           <StatusBadge status="AVAILABLE" label={trip.getAvailableSeatsText()} />
@@ -310,7 +310,7 @@ export const ExchangeTicketPage: React.FC = () => {
           {selectedTrip && (
             <SurfaceCard variant="glass" className="p-6 md:p-7">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-coral-soft text-xs font-black text-coral border border-coral/25 shadow-2xs">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft text-xs font-black text-brand border border-brand/25 shadow-2xs">
                   2
                 </span>
                 <h2 className="text-base font-bold text-gray-900">
@@ -343,8 +343,8 @@ export const ExchangeTicketPage: React.FC = () => {
                           }}
                           className={`flex h-11 items-center justify-center rounded-2xl text-xs font-bold transition shadow-2xs cursor-pointer ${
                             isChosen
-                              ? 'bg-coral text-white shadow-md glow-coral-sm ring-2 ring-coral/40'
-                              : 'border border-gray-200/80 bg-white/80 text-gray-900 hover:border-coral/50 hover:bg-coral-soft/40'
+                              ? 'bg-brand text-white shadow-md shadow-brand-sm ring-2 ring-brand/40'
+                              : 'border border-gray-200/80 bg-white/80 text-gray-900 hover:border-brand/50 hover:bg-brand-soft/40'
                           }`}
                         >
                           {seat.code}
@@ -361,7 +361,7 @@ export const ExchangeTicketPage: React.FC = () => {
           {selectedTrip && seatId && (
             <SurfaceCard variant="glass" className="p-6 md:p-7">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-coral-soft text-xs font-black text-coral border border-coral/25 shadow-2xs">
+                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft text-xs font-black text-brand border border-brand/25 shadow-2xs">
                   3
                 </span>
                 <h2 className="text-base font-bold text-gray-900">
@@ -380,7 +380,7 @@ export const ExchangeTicketPage: React.FC = () => {
                       setPickupStopId(e.target.value);
                       setPreview(null);
                     }}
-                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                   >
                     <option value="">Chọn trạm hoặc điểm đón</option>
                     {pickupStops.map((stop) => (
@@ -401,7 +401,7 @@ export const ExchangeTicketPage: React.FC = () => {
                       setDropoffStopId(e.target.value);
                       setPreview(null);
                     }}
-                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                   >
                     <option value="">Chọn trạm hoặc điểm trả</option>
                     {dropoffStops.map((stop) => (
@@ -459,17 +459,17 @@ export const ExchangeTicketPage: React.FC = () => {
             </div>
 
             {/* Mũi tên chuyển đổi */}
-            <div className="my-2 flex justify-center text-coral">
+            <div className="my-2 flex justify-center text-brand">
               <ArrowRight className="h-5 w-5" />
             </div>
 
             {/* Vé dự kiến mới */}
             <div className={`rounded-3xl border p-4 transition backdrop-blur-xs ${
               selectedTrip
-                ? 'border-coral/40 bg-coral-soft/40 shadow-2xs'
+                ? 'border-brand/40 bg-brand-soft/40 shadow-2xs'
                 : 'border-dashed border-gray-200 bg-white/40 text-gray-400'
             }`}>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-coral">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-brand">
                 Chuyến mới dự kiến
               </span>
               {selectedTrip ? (
@@ -481,7 +481,7 @@ export const ExchangeTicketPage: React.FC = () => {
                     Khởi hành: <strong className="text-gray-900">{selectedTrip.getFormattedDepartureTime()}</strong>
                   </p>
                   <p className="text-xs text-gray-500">
-                    Ghế mới: <strong className="text-coral font-bold">{selectedSeatObj?.code || 'Chưa chọn'}</strong> · {selectedPickupObj?.name || 'Chưa chọn điểm đón'}
+                    Ghế mới: <strong className="text-brand font-bold">{selectedSeatObj?.code || 'Chưa chọn'}</strong> · {selectedPickupObj?.name || 'Chưa chọn điểm đón'}
                   </p>
                 </div>
               ) : (
@@ -513,8 +513,8 @@ export const ExchangeTicketPage: React.FC = () => {
 
                   <div className="border-t border-gray-100 pt-3">
                     {Number(preview.topup) > 0 ? (
-                      <div className="flex items-center justify-between rounded-2xl bg-coral-soft/80 p-3.5 border border-coral/20">
-                        <span className="font-bold text-coral">Cần thanh toán thêm</span>
+                      <div className="flex items-center justify-between rounded-2xl bg-brand-soft/80 p-3.5 border border-brand/20">
+                        <span className="font-bold text-brand">Cần thanh toán thêm</span>
                         <MoneyText amount={preview.topup} size="lg" weight="extrabold" variant="coral" />
                       </div>
                     ) : (
@@ -530,7 +530,7 @@ export const ExchangeTicketPage: React.FC = () => {
                   type="button"
                   disabled={submitting}
                   onClick={() => void submit()}
-                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white py-3.5 text-sm font-bold shadow-md glow-coral-sm transition-all disabled:opacity-50 cursor-pointer"
+                  className="mt-5 flex w-full items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white py-3.5 text-sm font-bold shadow-md shadow-brand-sm transition-all disabled:opacity-50 cursor-pointer"
                 >
                   {submitting ? (
                     <RefreshCw className="h-4 w-4 animate-spin" />

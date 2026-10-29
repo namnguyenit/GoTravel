@@ -19,7 +19,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
   if (variant === 'spinner') {
     return (
       <div className={`flex flex-col items-center justify-center py-12 text-center ${className}`}>
-        <Loader2 className="w-8 h-8 animate-spin text-[#FF385C] mb-3" />
+        <Loader2 className="w-8 h-8 animate-spin text-[var(--gt-brand)] mb-3" />
         <p className="text-sm font-semibold text-gray-700">{message}</p>
         {submessage && <p className="text-xs text-gray-400 mt-1">{submessage}</p>}
       </div>
@@ -56,7 +56,7 @@ export const LoadingState: React.FC<LoadingStateProps> = ({
           <div className="h-8 w-2/3 bg-gray-100 rounded-lg" />
           <div className="flex justify-between items-center pt-2">
             <div className="h-4 w-24 bg-gray-100 rounded-md" />
-            <div className="h-8 w-28 bg-[#FFF0F2] rounded-full" />
+            <div className="h-8 w-28 bg-[var(--gt-brand-soft)] rounded-full" />
           </div>
         </div>
       ))}

@@ -31,7 +31,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
   const availableSeats = trip.getAvailableSeats();
 
   return (
-    <div className="group overflow-hidden rounded-3xl border border-white/80 bg-white/85 shadow-2xs backdrop-blur-md transition-all hover:border-[#FF385C]/40 hover:bg-white/92 hover:shadow-lg">
+    <div className="group overflow-hidden rounded-3xl border border-white/80 bg-white/85 shadow-2xs backdrop-blur-md transition-all hover:border-[var(--gt-brand)]/40 hover:bg-white/92 hover:shadow-lg">
       <div className="p-5 sm:p-6">
         {/* Card Header: Operator & Badges */}
         <div className="flex flex-wrap items-center justify-between gap-2.5 border-b border-gray-100/80 pb-3.5">
@@ -105,12 +105,12 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
 
               {/* Journey Duration Bar */}
               <div className="flex flex-col items-center px-2">
-                <span className="flex items-center gap-1 text-[11px] font-bold text-[#FF385C] tabular-nums">
+                <span className="flex items-center gap-1 text-[11px] font-bold text-[var(--gt-brand)] tabular-nums">
                   <Clock className="h-3 w-3" />
                   {trip.getDurationText()}
                 </span>
                 <div className="relative my-2 flex w-24 items-center sm:w-32">
-                  <div className="h-2 w-2 rounded-full bg-[#FF385C] ring-4 ring-[#FFF0F2]" />
+                  <div className="h-2 w-2 rounded-full bg-[var(--gt-brand)] ring-4 ring-[var(--gt-brand-soft)]" />
                   <div className="h-0.5 w-full bg-gray-200" />
                   <div className="h-2 w-2 rounded-full bg-[#111827]" />
                 </div>
@@ -144,7 +144,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
 
             {/* Quick Route Summary */}
             <div className="flex items-center space-x-2 pt-1 text-xs text-gray-500">
-              <MapPin className="h-3.5 w-3.5 shrink-0 text-[#FF385C]" />
+              <MapPin className="h-3.5 w-3.5 shrink-0 text-[var(--gt-brand)]" />
               <span className="truncate">
                 Lộ trình chính:{" "}
                 <strong className="text-gray-800">
@@ -191,7 +191,7 @@ export const CustomerTripCard: React.FC<CustomerTripCardProps> = ({
                 className={`h-10 cursor-pointer rounded-full px-6 text-xs font-bold shadow-xs transition-all ${
                   isSoldOut
                     ? "cursor-not-allowed bg-gray-200 text-gray-400"
-                    : "glow-coral-sm bg-[#FF385C] text-white hover:bg-[#E61E4F] active:scale-95"
+                    : "shadow-brand-sm bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)] active:scale-95"
                 }`}
               >
                 {isSoldOut ? (

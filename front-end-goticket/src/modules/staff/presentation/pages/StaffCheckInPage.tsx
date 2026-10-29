@@ -316,7 +316,7 @@ export const StaffCheckInPage: React.FC = () => {
         eyebrow="Kênh Nhân Viên · Tác nghiệp bến xe"
         description="Quét mã QR trên vé điện tử hành khách hoặc nhập token để xác thực và đánh dấu lên xe theo thời gian thực."
         actions={
-          <div className="flex items-center gap-2 rounded-full bg-[var(--gt-coral-soft)]/80 backdrop-blur-md border border-[var(--gt-coral)]/20 px-4 py-2 text-xs font-bold text-[var(--gt-coral)] shadow-xs">
+          <div className="flex items-center gap-2 rounded-full bg-[var(--gt-brand-soft)]/80 backdrop-blur-md border border-[var(--gt-brand)]/20 px-4 py-2 text-xs font-bold text-[var(--gt-brand)] shadow-xs">
             <ShieldCheck className="w-4 h-4" />
             <span>Quyền: CHECK_IN</span>
           </div>
@@ -366,13 +366,13 @@ export const StaffCheckInPage: React.FC = () => {
                 {/* Target Frame Box */}
                 <div className="relative w-64 h-64 sm:w-72 sm:h-72 border-2 border-white/40 rounded-3xl p-3 flex flex-col justify-between">
                   {/* Corner accents */}
-                  <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-[var(--gt-coral)] rounded-tl-xl shadow-[0_0_12px_#FF385C]" />
-                  <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-[var(--gt-coral)] rounded-tr-xl shadow-[0_0_12px_#FF385C]" />
-                  <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-[var(--gt-coral)] rounded-bl-xl shadow-[0_0_12px_#FF385C]" />
-                  <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-[var(--gt-coral)] rounded-br-xl shadow-[0_0_12px_#FF385C]" />
+                  <div className="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-[var(--gt-brand)] rounded-tl-xl shadow-[0_0_12px_var(--gt-brand)]" />
+                  <div className="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-[var(--gt-brand)] rounded-tr-xl shadow-[0_0_12px_var(--gt-brand)]" />
+                  <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-[var(--gt-brand)] rounded-bl-xl shadow-[0_0_12px_var(--gt-brand)]" />
+                  <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-[var(--gt-brand)] rounded-br-xl shadow-[0_0_12px_var(--gt-brand)]" />
 
                   {/* Pulsing Scanline */}
-                  <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--gt-coral)] to-transparent shadow-[0_0_16px_#FF385C] animate-pulse" />
+                  <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-r from-transparent via-[var(--gt-brand)] to-transparent shadow-[0_0_16px_var(--gt-brand)] animate-pulse" />
                 </div>
               </div>
 
@@ -408,7 +408,7 @@ export const StaffCheckInPage: React.FC = () => {
               Mã vé điện tử / Token soát vé (QR Token)
             </label>
             <div className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[var(--gt-muted)] group-focus-within:text-[var(--gt-coral)] transition-colors">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-[var(--gt-muted)] group-focus-within:text-[var(--gt-brand)] transition-colors">
                 <QrCode className="w-5 h-5" />
               </div>
               <input
@@ -418,7 +418,7 @@ export const StaffCheckInPage: React.FC = () => {
                 value={tokenInput}
                 onChange={(e) => setTokenInput(e.target.value)}
                 placeholder="Quét mã QR hoặc dán chuỗi token vé tại đây..."
-                className="w-full pl-12 pr-4 py-3.5 bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl text-base font-mono text-[var(--gt-ink)] placeholder:text-[var(--gt-muted)]/60 focus:outline-none focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 shadow-glass transition-all font-semibold"
+                className="w-full pl-12 pr-4 py-3.5 bg-white/70 backdrop-blur-md border border-white/80 rounded-2xl text-base font-mono text-[var(--gt-ink)] placeholder:text-[var(--gt-muted)]/60 focus:outline-none focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 shadow-glass transition-all font-semibold"
               />
             </div>
           </div>
@@ -427,7 +427,7 @@ export const StaffCheckInPage: React.FC = () => {
             <Button
               type="submit"
               disabled={loading || !tokenInput.trim()}
-              className="py-4 rounded-full text-xs font-bold text-white bg-[#FF385C] hover:bg-[#E61E4F] shadow-coral-sm hover:shadow-coral-md transition-all flex items-center justify-center gap-2"
+              className="py-4 rounded-full text-xs font-bold text-white bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] shadow-brand-sm hover:shadow-brand-md transition-all flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -456,7 +456,7 @@ export const StaffCheckInPage: React.FC = () => {
                 </>
               ) : (
                 <>
-                  <Camera className="h-4 w-4 text-[var(--gt-coral)]" />
+                  <Camera className="h-4 w-4 text-[var(--gt-brand)]" />
                   {cameraStarting ? 'Đang mở camera...' : 'Mở camera quét QR trực tiếp'}
                 </>
               )}
@@ -523,7 +523,7 @@ export const StaffCheckInPage: React.FC = () => {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between border-b border-[var(--gt-border)]/60 pb-4">
           <div>
             <h2 className="flex items-center gap-2 font-bold text-base text-[var(--gt-ink)]">
-              <User className="h-4.5 w-4.5 text-[var(--gt-coral)]" />
+              <User className="h-4.5 w-4.5 text-[var(--gt-brand)]" />
               Danh sách hành khách theo chuyến (Manifest)
             </h2>
             <p className="mt-1 text-xs text-[var(--gt-muted)]">
@@ -538,7 +538,7 @@ export const StaffCheckInPage: React.FC = () => {
                 setSelectedTripId(event.target.value);
                 void loadManifest(event.target.value);
               }}
-              className="min-h-10 max-w-xs rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none shadow-xs"
+              className="min-h-10 max-w-xs rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-4 py-2 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-brand)] outline-none shadow-xs"
             >
               <option value="">Chọn chuyến xe</option>
               {trips.map((trip) => (
@@ -584,7 +584,7 @@ export const StaffCheckInPage: React.FC = () => {
               <tbody className="divide-y divide-white/60">
                 {manifest.map((passenger) => (
                   <tr key={passenger.ticketId} className="hover:bg-white/60 transition-colors">
-                    <td className="px-4 py-3.5 font-mono font-bold text-[var(--gt-coral)]">
+                    <td className="px-4 py-3.5 font-mono font-bold text-[var(--gt-brand)]">
                       <div className="flex items-center gap-1.5">
                         <Armchair className="h-4 w-4" />
                         <span>{passenger.seat?.code || '—'}</span>

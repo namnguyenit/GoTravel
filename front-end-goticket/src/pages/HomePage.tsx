@@ -100,7 +100,7 @@ export const HomePage: React.FC = () => {
               <Link
                 key={dest.title}
                 to={`/search?${new URLSearchParams({ origin: dest.origin, destination: dest.destination, departureDate: todayStr })}`}
-                className="group cursor-pointer bg-white rounded-3xl border border-gray-200/90 overflow-hidden hover:border-[#FF385C] hover:shadow-xl transition-all duration-300 flex flex-col"
+                className="group cursor-pointer bg-white rounded-3xl border border-gray-200/90 overflow-hidden hover:border-[var(--gt-brand)] hover:shadow-xl transition-all duration-300 flex flex-col"
               >
                 <div className="relative h-52 w-full overflow-hidden bg-[#EDF2F5]">
                   <img
@@ -120,12 +120,12 @@ export const HomePage: React.FC = () => {
 
                 <div className="p-5 flex items-center justify-between bg-white flex-1">
                   <div>
-                    <h3 className="font-extrabold text-lg text-[#1A1D20] group-hover:text-[#FF385C] transition-colors">
+                    <h3 className="font-extrabold text-lg text-[#1A1D20] group-hover:text-[var(--gt-brand)] transition-colors">
                       {dest.title}
                     </h3>
                     <p className="text-xs text-[#6B7280] mt-1 font-medium">{dest.subtitle}</p>
                   </div>
-                  <div className="w-10 h-10 rounded-full bg-gray-50 group-hover:bg-[#FF385C] group-hover:text-white flex items-center justify-center text-[#6B7280] group-hover:shadow-md transition-all duration-200 shrink-0">
+                  <div className="w-10 h-10 rounded-full bg-gray-50 group-hover:bg-[var(--gt-brand)] group-hover:text-white flex items-center justify-center text-[#6B7280] group-hover:shadow-md transition-all duration-200 shrink-0">
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
                   </div>
                 </div>

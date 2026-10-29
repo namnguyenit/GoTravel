@@ -50,7 +50,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
         )}
 
         {eyebrow && (
-          <div className="text-xs font-bold uppercase tracking-wider text-[#FF385C]">
+          <div className="text-xs font-bold uppercase tracking-wider text-[var(--gt-brand)]">
             {eyebrow}
           </div>
         )}

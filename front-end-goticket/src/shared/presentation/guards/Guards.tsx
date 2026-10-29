@@ -28,7 +28,7 @@ const SessionUnavailable: React.FC = () => {
         type="button"
         disabled={loading}
         onClick={() => void refreshSession()}
-        className="mt-5 min-h-11 rounded-xl bg-coral hover:bg-coral-dark px-5 text-sm font-semibold text-white disabled:opacity-50 transition-colors"
+        className="mt-5 min-h-11 rounded-xl bg-brand hover:bg-brand-dark px-5 text-sm font-semibold text-white disabled:opacity-50 transition-colors"
       >
         Thử lại
       </button>
@@ -43,7 +43,7 @@ export const AuthGuard: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-coral border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-brand border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -53,7 +53,7 @@ export const AuthGuard: React.FC = () => {
   if (!user) {
     return (
       <div className="max-w-md mx-auto my-16 p-8 bg-surface rounded-2xl border border-line text-center shadow-card">
-        <div className="w-12 h-12 bg-coral-soft text-coral rounded-2xl flex items-center justify-center mx-auto mb-4">
+        <div className="w-12 h-12 bg-brand-soft text-brand rounded-2xl flex items-center justify-center mx-auto mb-4">
           <LogIn className="w-6 h-6" />
         </div>
         <h3 className="text-lg font-serif font-bold text-ink mb-2">Yêu cầu đăng nhập</h3>
@@ -63,7 +63,7 @@ export const AuthGuard: React.FC = () => {
         <button
           type="button"
           onClick={() => login(`${location.pathname}${location.search}${location.hash}`)}
-          className="w-full py-2.5 bg-coral hover:bg-coral-dark text-white font-medium rounded-xl transition-colors shadow-xs"
+          className="w-full py-2.5 bg-brand hover:bg-brand-dark text-white font-medium rounded-xl transition-colors shadow-xs"
         >
           Đăng nhập ngay
         </button>
@@ -98,7 +98,7 @@ export const OperatorGuard: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-coral border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-brand border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -125,7 +125,7 @@ export const OperatorGuard: React.FC = () => {
           </button>
           <Link
             to="/become-operator"
-            className="w-full py-2.5 bg-coral hover:bg-coral-dark text-white font-medium rounded-xl transition-colors"
+            className="w-full py-2.5 bg-brand hover:bg-brand-dark text-white font-medium rounded-xl transition-colors"
           >
             Đăng ký mở bán vé xe
           </Link>
@@ -144,7 +144,7 @@ export const OperatorGuard: React.FC = () => {
     return <div role="alert" className="mx-auto my-16 max-w-lg space-y-4 px-6 text-center">
       <h2 className="text-lg font-bold">Chưa thể mở kênh Nhà xe</h2>
       <p className="text-sm text-muted">{profileError || 'Nhà xe đang tạm ngừng hoạt động. Vui lòng liên hệ quản trị viên để được hỗ trợ.'}</p>
-      <button type="button" onClick={() => setAttempt(value => value + 1)} className="min-h-11 rounded-xl bg-coral px-5 font-semibold text-white">Tải lại hồ sơ nhà xe</button>
+      <button type="button" onClick={() => setAttempt(value => value + 1)} className="min-h-11 rounded-xl bg-brand px-5 font-semibold text-white">Tải lại hồ sơ nhà xe</button>
       <Link to="/" className="block text-sm underline">Về trang chủ</Link>
     </div>;
   }
@@ -159,7 +159,7 @@ export const StaffGuard: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-coral border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-brand border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -206,7 +206,7 @@ export const AdminGuard: React.FC = () => {
   if (loading) {
     return (
       <div className="min-h-[50vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-coral border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-brand border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

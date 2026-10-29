@@ -600,7 +600,7 @@ export const CreateTripModal: React.FC<CreateTripModalProps> = ({
                   disabled={
                     submitting || routes.length === 0 || cars.length === 0
                   }
-                  className="rounded-full bg-[#FF385C] font-bold text-white hover:bg-[#E61E4F] shadow-md glow-coral-sm"
+                  className="rounded-full bg-[var(--gt-brand)] font-bold text-white hover:bg-[var(--gt-brand-hover)] shadow-md shadow-brand-sm"
                 >
                   {submitting ? (
                     <>

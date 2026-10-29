@@ -55,7 +55,7 @@ export function AutomaticRefundButton({ operationId, amount, source = 'ITEM', di
     finally { inFlight.current = false; setSending(false); }
   };
   return <>
-    <Button size="sm" className="min-h-10 rounded-full bg-[#D91D45] px-4 text-white hover:bg-[#BD1639]" disabled={disabled} onClick={() => setOpen(true)}><FlaskConical aria-hidden="true" />Hoàn mô phỏng</Button>
+    <Button size="sm" className="min-h-10 rounded-full bg-[var(--gt-brand-ink)] px-4 text-white hover:bg-[var(--gt-brand-ink)]" disabled={disabled} onClick={() => setOpen(true)}><FlaskConical aria-hidden="true" />Hoàn mô phỏng</Button>
     <Dialog open={open} onOpenChange={value => { if (!inFlight.current) setOpen(value); }}>
       <DialogContent className="max-w-lg max-h-[90dvh] overflow-y-auto">
         <DialogHeader>
@@ -72,7 +72,7 @@ export function AutomaticRefundButton({ operationId, amount, source = 'ITEM', di
         <div className="flex flex-wrap justify-end gap-2 pt-2">
           <Button variant="outline" disabled={sending} onClick={() => setOpen(false)}>Đóng</Button>
           {(!canSimulate || error) && <Button variant="outline" disabled={loading || sending} onClick={() => void refresh()}><RefreshCw aria-hidden="true" />Kiểm tra lại</Button>}
-          {canSimulate && <Button className="bg-[#D91D45] text-white hover:bg-[#BD1639]" disabled={loading || sending || mismatch} onClick={() => void confirm()}>{sending ? 'Đang ghi nhận…' : 'Xác nhận hoàn mô phỏng'}</Button>}
+          {canSimulate && <Button className="bg-[var(--gt-brand-ink)] text-white hover:bg-[var(--gt-brand-ink)]" disabled={loading || sending || mismatch} onClick={() => void confirm()}>{sending ? 'Đang ghi nhận…' : 'Xác nhận hoàn mô phỏng'}</Button>}
         </div>
       </DialogContent>
     </Dialog>

@@ -61,9 +61,9 @@ export const AdminLayout: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[var(--gt-canvas)] flex flex-col font-sans relative overflow-x-hidden selection:bg-[var(--gt-coral)]/20 selection:text-[var(--gt-coral)]">
+    <div className="min-h-screen bg-[var(--gt-canvas)] flex flex-col font-sans relative overflow-x-hidden selection:bg-[var(--gt-brand)]/20 selection:text-[var(--gt-brand)]">
       {/* Ambient optical chromatic orbs */}
-      <div className="fixed top-[-100px] left-[-80px] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#FF385C]/10 via-[#FF6B8B]/5 to-transparent blur-[120px] pointer-events-none -z-10" />
+      <div className="fixed top-[-100px] left-[-80px] w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[var(--gt-brand)]/10 via-[#8CC5EC]/5 to-transparent blur-[120px] pointer-events-none -z-10" />
       <div className="fixed top-[20%] right-[-120px] w-[550px] h-[550px] rounded-full bg-gradient-to-bl from-blue-400/8 via-sky-300/5 to-transparent blur-[130px] pointer-events-none -z-10" />
       <div className="fixed bottom-[-100px] left-[25%] w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-amber-400/8 via-rose-300/5 to-transparent blur-[140px] pointer-events-none -z-10" />
 

@@ -33,7 +33,7 @@ export const TripSummaryCard: React.FC<TripSummaryCardProps> = ({
     >
       <div className="flex items-center justify-between text-xs text-gray-500 pb-2 border-b border-gray-100">
         <div className="flex items-center gap-2 font-bold text-gray-800">
-          <Bus className="w-4 h-4 text-[#FF385C]" />
+          <Bus className="w-4 h-4 text-[var(--gt-brand)]" />
           <span>{operatorName || 'Nhà xe GoTicket'}</span>
           {carType && (
             <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600">
@@ -55,7 +55,7 @@ export const TripSummaryCard: React.FC<TripSummaryCardProps> = ({
             {origin}
           </div>
           {departureTime && (
-            <div className="text-xs font-bold text-[#FF385C] tabular-nums flex items-center gap-1 mt-0.5">
+            <div className="text-xs font-bold text-[var(--gt-brand)] tabular-nums flex items-center gap-1 mt-0.5">
               <Clock className="w-3 h-3" />
               {departureTime}
             </div>
@@ -85,7 +85,7 @@ export const TripSummaryCard: React.FC<TripSummaryCardProps> = ({
           {seatCode ? (
             <div className="flex items-center gap-1.5 text-gray-700">
               <span className="text-gray-400">Vị trí ghế:</span>
-              <span className="font-extrabold px-2 py-0.5 rounded-md bg-[#FFF0F2] text-[#FF385C]">
+              <span className="font-extrabold px-2 py-0.5 rounded-md bg-[var(--gt-brand-soft)] text-[var(--gt-brand)]">
                 {seatCode}
               </span>
             </div>

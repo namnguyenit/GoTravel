@@ -79,7 +79,7 @@ export const PortalSidebar: React.FC<PortalSidebarProps> = ({
                         flex items-center justify-between px-3.5 py-2.5 rounded-full text-sm font-semibold transition-all
                         ${
                           isActive
-                            ? 'bg-[#FFF0F2] text-[#FF385C] shadow-2xs font-bold border border-[#FF385C]/20'
+                            ? 'bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] shadow-2xs font-bold border border-[var(--gt-brand)]/20'
                             : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
                         }
                       `}

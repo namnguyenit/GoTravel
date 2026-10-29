@@ -174,13 +174,13 @@ export const CheckoutPage: React.FC = () => {
             </div>
             <span className="text-xs font-bold text-emerald-700">Giữ chỗ</span>
           </div>
-          <div className="flex-1 h-0.5 bg-[#FF385C] mx-2" />
+          <div className="flex-1 h-0.5 bg-[var(--gt-brand)] mx-2" />
 
           <div className="flex flex-col items-center gap-1.5 text-center">
-            <div className="w-8 h-8 rounded-full bg-[#FF385C] text-white flex items-center justify-center font-black text-xs ring-4 ring-[#FFF0F2] shadow-xs glow-coral-sm">
+            <div className="w-8 h-8 rounded-full bg-[var(--gt-brand)] text-white flex items-center justify-center font-black text-xs ring-4 ring-[var(--gt-brand-soft)] shadow-xs shadow-brand-sm">
               3
             </div>
-            <span className="text-xs font-black text-[#FF385C]">Thanh toán</span>
+            <span className="text-xs font-black text-[var(--gt-brand)]">Thanh toán</span>
           </div>
           <div className="flex-1 h-0.5 bg-gray-200 mx-2" />
 
@@ -226,7 +226,7 @@ export const CheckoutPage: React.FC = () => {
           <div className="flex items-center gap-3.5">
             <div
               className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 shadow-2xs ${
-                isLowTime ? 'bg-amber-100 text-amber-700 border border-amber-200' : 'bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20'
+                isLowTime ? 'bg-amber-100 text-amber-700 border border-amber-200' : 'bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] border border-[var(--gt-brand)]/20'
               }`}
             >
               <Clock className="w-5 h-5" />
@@ -244,7 +244,7 @@ export const CheckoutPage: React.FC = () => {
             </span>
             <span
               className={`text-2xl sm:text-3xl font-black tabular-nums tracking-tight ${
-                isLowTime ? 'text-amber-600 animate-pulse' : 'text-[#FF385C]'
+                isLowTime ? 'text-amber-600 animate-pulse' : 'text-[var(--gt-brand)]'
               }`}
             >
               {formatTimer(remainingSeconds)}
@@ -268,7 +268,7 @@ export const CheckoutPage: React.FC = () => {
                   {order.orderNumber}
                 </p>
               </div>
-              <span className="px-3.5 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20 text-xs font-bold shadow-2xs">
+              <span className="px-3.5 py-1 rounded-full bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] border border-[var(--gt-brand)]/20 text-xs font-bold shadow-2xs">
                 {order.items.length} vé xe khách
               </span>
             </div>
@@ -299,7 +299,7 @@ export const CheckoutPage: React.FC = () => {
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-black text-[#FF385C] px-2 py-0.5 rounded-md bg-[#FFF0F2]">
+                    <span className="text-sm font-black text-[var(--gt-brand)] px-2 py-0.5 rounded-md bg-[var(--gt-brand-soft)]">
                       Ghế {item.transportSeatCode}
                     </span>
                     <span className="text-xs text-gray-300">•</span>
@@ -381,7 +381,7 @@ export const CheckoutPage: React.FC = () => {
                   ${
                     launching
                       ? 'bg-gray-200 text-gray-400 cursor-not-allowed shadow-none'
-                      : 'bg-[#FF385C] hover:bg-[#E61E4F] glow-coral active:scale-95'
+                      : 'bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] shadow-brand active:scale-95'
                   }
                 `}
               >
@@ -406,7 +406,7 @@ export const CheckoutPage: React.FC = () => {
                 <span>Bảo mật giao dịch đa tầng qua GoPay / VNPAY.</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#FF385C] shrink-0" />
+                <CheckCircle2 className="w-4 h-4 text-[var(--gt-brand)] shrink-0" />
                 <span>Nhận mã vé điện tử QR tức thì sau khi thanh toán.</span>
               </div>
             </div>

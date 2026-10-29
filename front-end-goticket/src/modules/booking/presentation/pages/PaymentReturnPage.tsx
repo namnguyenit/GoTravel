@@ -75,7 +75,7 @@ export const PaymentReturnPage: React.FC = () => {
           <div className="pt-2">
             <Link
               to="/"
-              className="inline-flex px-6 py-2.5 bg-[#111827] hover:bg-[#FF385C] text-white text-xs font-bold rounded-full transition-colors"
+              className="inline-flex px-6 py-2.5 bg-[#111827] hover:bg-[var(--gt-brand)] text-white text-xs font-bold rounded-full transition-colors"
             >
               Về trang chủ
             </Link>
@@ -94,7 +94,7 @@ export const PaymentReturnPage: React.FC = () => {
       <div className="max-w-xl mx-auto bg-white/85 backdrop-blur-2xl rounded-[32px] border border-white/80 p-8 sm:p-10 shadow-2xl text-center space-y-6">
         {loading || (isPending && pollCount < 8) ? (
           <div className="space-y-4 py-8">
-            <div className="w-16 h-16 rounded-full bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center mx-auto">
+            <div className="w-16 h-16 rounded-full bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] flex items-center justify-center mx-auto">
               <Loader2 className="w-8 h-8 animate-spin" />
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-gray-900 tracking-tight">
@@ -133,7 +133,7 @@ export const PaymentReturnPage: React.FC = () => {
               </div>
               <div className="flex items-center justify-between text-gray-500">
                 <span>Ghế đã đặt</span>
-                <span className="font-black text-[#FF385C]">
+                <span className="font-black text-[var(--gt-brand)]">
                   {order.items.map((i) => i.transportSeatCode).join(', ')}
                 </span>
               </div>
@@ -146,7 +146,7 @@ export const PaymentReturnPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
               <Link
                 to={`/account/orders/${order.orderId}`}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs sm:text-sm font-bold glow-coral-sm transition-all"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white text-xs sm:text-sm font-bold shadow-brand-sm transition-all"
               >
                 <QrCode className="w-4 h-4" />
                 <span>Xem vé & Mã QR lên xe</span>
@@ -174,7 +174,7 @@ export const PaymentReturnPage: React.FC = () => {
             </div>
             <Link
               to="/search"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs sm:text-sm font-bold transition-all glow-coral-sm"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white text-xs sm:text-sm font-bold transition-all shadow-brand-sm"
             >
               <span>Tìm chuyến xe khác</span>
               <ArrowRight className="w-4 h-4" />
@@ -197,7 +197,7 @@ export const PaymentReturnPage: React.FC = () => {
               <button
                 type="button"
                 onClick={() => checkStatus()}
-                className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-[#111827] hover:bg-[#FF385C] text-white text-xs font-bold transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-[#111827] hover:bg-[var(--gt-brand)] text-white text-xs font-bold transition-colors cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 Kiểm tra lại

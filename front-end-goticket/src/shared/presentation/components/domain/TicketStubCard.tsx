@@ -64,7 +64,7 @@ export const TicketStubCard: React.FC<TicketStubCardProps> = ({
 
           <div>
             <span className="text-gray-400 block mb-0.5">Số ghế</span>
-            <span className="font-black text-[#FF385C] text-base tabular-nums">
+            <span className="font-black text-[var(--gt-brand)] text-base tabular-nums">
               {seatCode}
             </span>
           </div>
@@ -86,7 +86,7 @@ export const TicketStubCard: React.FC<TicketStubCardProps> = ({
 
         <div className="bg-white/70 backdrop-blur-sm p-3.5 rounded-2xl space-y-2 border border-white/80 shadow-2xs">
           <div className="flex items-start gap-2 text-xs">
-            <MapPin className="w-3.5 h-3.5 text-[#FF385C] shrink-0 mt-0.5" />
+            <MapPin className="w-3.5 h-3.5 text-[var(--gt-brand)] shrink-0 mt-0.5" />
             <div className="min-w-0">
               <span className="font-bold text-gray-900">{origin}</span>
               {pickupAddress && (

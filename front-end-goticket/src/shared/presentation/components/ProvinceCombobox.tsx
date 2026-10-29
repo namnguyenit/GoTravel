@@ -109,9 +109,9 @@ export const ProvinceCombobox: React.FC<ProvinceComboboxProps> = ({
           htmlFor={inputId}
           className="flex items-center gap-1 text-xs font-semibold text-gray-700 uppercase tracking-wider"
         >
-          <MapPin className="h-3.5 w-3.5 text-[#FF385C]" />
+          <MapPin className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
           <span>{label}</span>
-          {required && <span className="text-[#FF385C]">*</span>}
+          {required && <span className="text-[var(--gt-brand)]">*</span>}
         </label>
       )}
 
@@ -128,14 +128,14 @@ export const ProvinceCombobox: React.FC<ProvinceComboboxProps> = ({
             : error
             ? "border-rose-400 ring-2 ring-rose-200"
             : isOpen
-            ? "border-[#FF385C] ring-2 ring-[#FF385C]/20 shadow-xs"
+            ? "border-[var(--gt-brand)] ring-2 ring-[var(--gt-brand)]/20 shadow-xs"
             : "border-gray-200 hover:border-gray-300"
         }`}
       >
         <div className="flex items-center gap-2 min-w-0 flex-1">
           <MapPin
             className={`h-3.5 w-3.5 shrink-0 ${
-              selectedProvince ? "text-[#FF385C]" : "text-gray-400"
+              selectedProvince ? "text-[var(--gt-brand)]" : "text-gray-400"
             }`}
           />
           {selectedProvince ? (
@@ -162,7 +162,7 @@ export const ProvinceCombobox: React.FC<ProvinceComboboxProps> = ({
           )}
           <ChevronDown
             className={`h-3.5 w-3.5 text-gray-400 transition-transform ${
-              isOpen ? "rotate-180 text-[#FF385C]" : ""
+              isOpen ? "rotate-180 text-[var(--gt-brand)]" : ""
             }`}
           />
         </div>
@@ -185,7 +185,7 @@ export const ProvinceCombobox: React.FC<ProvinceComboboxProps> = ({
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Gõ để lọc tỉnh / thành phố..."
-              className="w-full rounded-lg border border-gray-200 bg-gray-50/80 py-1.5 pl-8 pr-3 text-xs outline-none transition focus:border-[#FF385C] focus:bg-white focus:ring-1 focus:ring-[#FF385C]"
+              className="w-full rounded-lg border border-gray-200 bg-gray-50/80 py-1.5 pl-8 pr-3 text-xs outline-none transition focus:border-[var(--gt-brand)] focus:bg-white focus:ring-1 focus:ring-[var(--gt-brand)]"
             />
           </div>
 
@@ -207,13 +207,13 @@ export const ProvinceCombobox: React.FC<ProvinceComboboxProps> = ({
                     onClick={() => handleSelect(province)}
                     className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-xs font-medium transition cursor-pointer ${
                       isSelected
-                        ? "bg-[#FFF0F2] text-[#FF385C] font-bold"
+                        ? "bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] font-bold"
                         : "text-gray-700 hover:bg-gray-100/80"
                     }`}
                   >
                     <span className="truncate">{province}</span>
                     {isSelected && (
-                      <Check className="h-3.5 w-3.5 text-[#FF385C] shrink-0" />
+                      <Check className="h-3.5 w-3.5 text-[var(--gt-brand)] shrink-0" />
                     )}
                   </button>
                 );

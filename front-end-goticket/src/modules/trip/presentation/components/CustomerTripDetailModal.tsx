@@ -41,7 +41,7 @@ export const CustomerTripDetailModal: React.FC<
       <DialogContent className="max-h-[90vh] overflow-y-auto rounded-[28px] border border-white/80 bg-white/95 p-6 shadow-[0_24px_50px_rgba(15,23,42,0.18)] backdrop-blur-2xl sm:max-w-[640px] sm:p-7">
         <DialogHeader>
           <div className="flex items-start space-x-3.5">
-            <div className="mt-0.5 shrink-0 rounded-2xl bg-[#FFF0F2] p-3 text-[#FF385C]">
+            <div className="mt-0.5 shrink-0 rounded-2xl bg-[var(--gt-brand-soft)] p-3 text-[var(--gt-brand)]">
               <Bus className="h-6 w-6" />
             </div>
             <div>
@@ -72,10 +72,10 @@ export const CustomerTripDetailModal: React.FC<
           <div className="space-y-3 rounded-2xl border border-gray-200/80 bg-[#FAF9F6] p-4">
             <div className="flex items-center justify-between border-b border-gray-200/60 pb-2.5">
               <span className="flex items-center gap-1.5 text-[11px] font-bold tracking-wider text-gray-700 uppercase">
-                <Clock className="h-3.5 w-3.5 text-[#FF385C]" />
+                <Clock className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
                 Lịch trình vận hành
               </span>
-              <span className="rounded-full border border-gray-200/60 bg-white px-3 py-0.5 text-xs font-bold text-[#FF385C] tabular-nums">
+              <span className="rounded-full border border-gray-200/60 bg-white px-3 py-0.5 text-xs font-bold text-[var(--gt-brand)] tabular-nums">
                 Thời lượng: {trip.getDurationText()}
               </span>
             </div>
@@ -89,7 +89,7 @@ export const CustomerTripDetailModal: React.FC<
                   {trip.getDepartureTimeOnly()}
                 </span>
                 <span className="mt-1 flex items-center gap-1 truncate font-semibold text-gray-600">
-                  <MapPin className="h-3.5 w-3.5 shrink-0 text-[#FF385C]" />
+                  <MapPin className="h-3.5 w-3.5 shrink-0 text-[var(--gt-brand)]" />
                   {trip.getStartStopName()}
                 </span>
               </div>
@@ -113,7 +113,7 @@ export const CustomerTripDetailModal: React.FC<
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="space-y-2 rounded-2xl border border-gray-200/80 bg-white p-4">
               <span className="flex items-center gap-1.5 text-[11px] font-bold text-gray-800 uppercase">
-                <Building2 className="h-3.5 w-3.5 text-[#FF385C]" />
+                <Building2 className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
                 Đơn vị vận chuyển
               </span>
               <OperatorLogo
@@ -140,7 +140,7 @@ export const CustomerTripDetailModal: React.FC<
 
             <div className="space-y-2 rounded-2xl border border-gray-200/80 bg-white p-4">
               <span className="flex items-center gap-1.5 text-[11px] font-bold text-gray-800 uppercase">
-                <Users className="h-3.5 w-3.5 text-[#FF385C]" />
+                <Users className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
                 Tình trạng chỗ ngồi
               </span>
               <div className="space-y-1.5 pt-1">
@@ -201,7 +201,7 @@ export const CustomerTripDetailModal: React.FC<
                   onClose();
                   onSelectTrip(trip);
                 }}
-                className="glow-coral-sm h-10 rounded-full bg-[#FF385C] px-6 text-xs font-bold text-white transition-all hover:bg-[#E61E4F]"
+                className="shadow-brand-sm h-10 rounded-full bg-[var(--gt-brand)] px-6 text-xs font-bold text-white transition-all hover:bg-[var(--gt-brand-hover)]"
               >
                 <Check className="mr-1.5 h-3.5 w-3.5" />
                 <span>Chọn chuyến này</span>

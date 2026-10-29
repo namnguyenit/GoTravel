@@ -50,12 +50,12 @@ export const TripCard: React.FC<TripCardProps> = ({
   const historicalDay = vietnamDate(trip.departureTime) < vietnamDate();
 
   return (
-    <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 hover:border-[#FF385C]/50 hover:shadow-glass-lg transition-all duration-300">
+    <SurfaceCard variant="glass" className="overflow-hidden p-0 rounded-[28px] border border-white/80 hover:border-[var(--gt-brand)]/50 hover:shadow-glass-lg transition-all duration-300">
       {/* Header */}
       <div className="border-b border-gray-100/80 p-4 sm:p-5 bg-white/70 backdrop-blur-md">
         <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <div className="flex items-center space-x-3">
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-coral-soft font-mono text-xs font-bold text-[#FF385C] border border-[#FF385C]/20">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-soft font-mono text-xs font-bold text-[var(--gt-brand)] border border-[var(--gt-brand)]/20">
               #{index}
             </span>
             <div>
@@ -102,10 +102,10 @@ export const TripCard: React.FC<TripCardProps> = ({
         <div className="space-y-2 rounded-2xl bg-white/85 backdrop-blur-md border border-white/90 shadow-2xs p-3.5">
           <div className="flex items-center justify-between text-xs text-gray-500">
             <span className="flex items-center gap-1 font-semibold text-gray-900">
-              <Clock className="h-3.5 w-3.5 text-[#FF385C]" />
+              <Clock className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
               Lịch trình
             </span>
-            <span className="rounded-full bg-coral-soft px-2.5 py-0.5 text-[11px] font-bold text-[#FF385C]">
+            <span className="rounded-full bg-brand-soft px-2.5 py-0.5 text-[11px] font-bold text-[var(--gt-brand)]">
               {trip.getDurationText()}
             </span>
           </div>
@@ -193,7 +193,7 @@ export const TripCard: React.FC<TripCardProps> = ({
             className={
               trip.isDraft()
                 ? "inline-flex h-8 items-center gap-1.5 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white px-4 text-xs font-bold transition-all shadow-xs glow-emerald-sm"
-                : "inline-flex h-8 items-center gap-1.5 rounded-full bg-coral-soft border border-[#FF385C]/20 px-3.5 text-xs font-bold text-[#FF385C] hover:bg-[#FF385C] hover:text-white transition-all shadow-2xs"
+                : "inline-flex h-8 items-center gap-1.5 rounded-full bg-brand-soft border border-[var(--gt-brand)]/20 px-3.5 text-xs font-bold text-[var(--gt-brand)] hover:bg-[var(--gt-brand)] hover:text-white transition-all shadow-2xs"
             }
           >
             <Sliders className="h-3.5 w-3.5" />
@@ -207,9 +207,9 @@ export const TripCard: React.FC<TripCardProps> = ({
             <button
               type="button"
               onClick={() => onViewRouteDetail(trip)}
-              className="inline-flex h-8 items-center gap-1.5 rounded-full border border-gray-200/80 bg-white/90 px-3.5 text-xs font-semibold text-gray-700 hover:border-[#FF385C] hover:text-[#FF385C] shadow-2xs transition cursor-pointer"
+              className="inline-flex h-8 items-center gap-1.5 rounded-full border border-gray-200/80 bg-white/90 px-3.5 text-xs font-semibold text-gray-700 hover:border-[var(--gt-brand)] hover:text-[var(--gt-brand)] shadow-2xs transition cursor-pointer"
             >
-              <Waypoints className="h-3.5 w-3.5 text-[#FF385C]" />
+              <Waypoints className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
               <span>Lộ trình chi tiết</span>
             </button>
           )}

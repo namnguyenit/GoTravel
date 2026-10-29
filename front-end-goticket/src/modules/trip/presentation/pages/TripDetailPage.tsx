@@ -392,14 +392,14 @@ export const TripDetailPage: React.FC = () => {
           {/* Stops & Schedule Card */}
           <div className="space-y-4 rounded-3xl border border-white/80 bg-white/85 p-6 shadow-sm backdrop-blur-md sm:p-7">
             <h3 className="flex items-center gap-2 text-base font-bold text-[#111827]">
-              <MapPin className="h-4 w-4 text-[#FF385C]" />
+              <MapPin className="h-4 w-4 text-[var(--gt-brand)]" />
               Lộ trình và các trạm dừng
             </h3>
 
             <div className="relative space-y-4 pl-6 before:absolute before:top-2 before:bottom-2 before:left-2 before:w-0.5 before:bg-gray-200 before:content-['']">
               {stops.map((stop, idx) => (
                 <div key={stop.id || idx} className="relative text-sm">
-                  <div className="absolute top-1.5 -left-6 h-3.5 w-3.5 rounded-full border-2 border-[#FF385C] bg-white" />
+                  <div className="absolute top-1.5 -left-6 h-3.5 w-3.5 rounded-full border-2 border-[var(--gt-brand)] bg-white" />
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-gray-900">{stop.name}</span>
                     {stop.plannedAt && (
@@ -429,7 +429,7 @@ export const TripDetailPage: React.FC = () => {
               </h3>
               <span className="text-xs text-gray-500">
                 Đã chọn:{" "}
-                <strong className="font-black text-[#FF385C] tabular-nums">
+                <strong className="font-black text-[var(--gt-brand)] tabular-nums">
                   {selectedSeatIds.length}
                 </strong>{" "}
                 / 10 ghế
@@ -517,7 +517,7 @@ export const TripDetailPage: React.FC = () => {
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
                   placeholder="Nguyễn Văn A"
-                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden sm:text-sm"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[var(--gt-brand)] focus:bg-white focus:outline-hidden sm:text-sm"
                 />
               </div>
 
@@ -531,7 +531,7 @@ export const TripDetailPage: React.FC = () => {
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
                   placeholder="example@gmail.com"
-                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden sm:text-sm"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[var(--gt-brand)] focus:bg-white focus:outline-hidden sm:text-sm"
                 />
               </div>
 
@@ -545,7 +545,7 @@ export const TripDetailPage: React.FC = () => {
                   value={contactPhone}
                   onChange={(e) => setContactPhone(e.target.value)}
                   placeholder="0912345678"
-                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden sm:text-sm"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/80 px-4 py-2 text-xs font-medium text-gray-900 transition-all focus:border-[var(--gt-brand)] focus:bg-white focus:outline-hidden sm:text-sm"
                 />
               </div>
             </div>
@@ -590,7 +590,7 @@ export const TripDetailPage: React.FC = () => {
               className={`flex w-full cursor-pointer items-center justify-center gap-2 rounded-full py-3.5 text-xs font-bold text-white shadow-xs transition-all sm:text-sm ${
                 submitting || selectedSeats.length === 0
                   ? "cursor-not-allowed bg-gray-200 text-gray-400 shadow-none"
-                  : "glow-coral-sm bg-[#FF385C] hover:bg-[#E61E4F] active:scale-95"
+                  : "shadow-brand-sm bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] active:scale-95"
               } `}
             >
               {submitting ? (
@@ -627,7 +627,7 @@ export const TripDetailPage: React.FC = () => {
             type="button"
             onClick={handleProceedToCheckout}
             disabled={submitting}
-            className="glow-coral-sm flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-[#FF385C] px-5 text-xs font-bold text-white transition-all hover:bg-[#E61E4F]"
+            className="shadow-brand-sm flex h-10 cursor-pointer items-center gap-1.5 rounded-full bg-[var(--gt-brand)] px-5 text-xs font-bold text-white transition-all hover:bg-[var(--gt-brand-hover)]"
           >
             {submitting ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />

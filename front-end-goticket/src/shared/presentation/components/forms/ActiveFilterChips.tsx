@@ -28,14 +28,14 @@ export const ActiveFilterChips: React.FC<ActiveFilterChipsProps> = ({
       {chips.map((chip) => (
         <span
           key={chip.id}
-          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20 font-medium"
+          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] border border-[var(--gt-brand)]/20 font-medium"
         >
           <span className="text-gray-500 font-normal">{chip.label}:</span>
           <span className="font-bold">{chip.valueDisplay}</span>
           <button
             type="button"
             onClick={() => onRemove(chip.id)}
-            className="hover:bg-[#FF385C]/15 rounded-full p-0.5 text-[#FF385C] transition-colors"
+            className="hover:bg-[var(--gt-brand)]/15 rounded-full p-0.5 text-[var(--gt-brand)] transition-colors"
             aria-label={`Xóa bộ lọc ${chip.label}`}
           >
             <X className="w-3 h-3" />

@@ -103,7 +103,7 @@ export const OperationProgressPage: React.FC = () => {
     <CustomerPageContainer className="max-w-3xl space-y-6 py-8">
       <Link
         to="/account/tickets"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--gt-muted)] transition-colors hover:text-[var(--gt-coral)]"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--gt-muted)] transition-colors hover:text-[var(--gt-brand)]"
       >
         <ArrowLeft className="h-4 w-4" /> Danh sách vé của tôi
       </Link>
@@ -112,12 +112,12 @@ export const OperationProgressPage: React.FC = () => {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-gray-100/80 pb-6">
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-coral">
+              <span className="text-xs font-bold uppercase tracking-wider text-brand">
                 {operation?.kind === 'EXCHANGE' ? 'Tiến trình đổi vé' : 'Tiến trình hủy vé'}
               </span>
               {!isTerminal && (
                 <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-gray-500">
-                  <RefreshCw className="h-3 w-3 animate-spin text-coral" /> Đang đồng bộ
+                  <RefreshCw className="h-3 w-3 animate-spin text-brand" /> Đang đồng bộ
                 </span>
               )}
             </div>
@@ -226,7 +226,7 @@ export const OperationProgressPage: React.FC = () => {
                   type="button"
                   disabled={acting}
                   onClick={() => void runAction('pay')}
-                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white py-3.5 text-sm font-bold shadow-md glow-coral-sm transition-all disabled:opacity-50 cursor-pointer"
+                  className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white py-3.5 text-sm font-bold shadow-md shadow-brand-sm transition-all disabled:opacity-50 cursor-pointer"
                 >
                   <CreditCard className="h-4 w-4" />
                   Thanh toán thêm <MoneyText amount={operation.topup} size="sm" weight="bold" />
@@ -261,7 +261,7 @@ export const OperationProgressPage: React.FC = () => {
               <div className="border-t border-gray-100/80 pt-4 text-center">
                 <Link
                   to={`/account/orders/${operation.orderId}`}
-                  className="text-xs font-bold text-coral hover:underline"
+                  className="text-xs font-bold text-brand hover:underline"
                 >
                   Xem chi tiết đơn vé liên quan →
                 </Link>

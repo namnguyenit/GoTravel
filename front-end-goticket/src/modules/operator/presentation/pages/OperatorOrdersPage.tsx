@@ -134,7 +134,7 @@ export const OperatorOrdersPage: React.FC = () => {
                 px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer shadow-2xs
                 ${
                   statusFilter === st
-                    ? 'bg-[#FF385C] text-white shadow-md glow-coral-sm'
+                    ? 'bg-[var(--gt-brand)] text-white shadow-md shadow-brand-sm'
                     : 'bg-white/90 text-gray-600 hover:text-gray-900 hover:bg-white border border-gray-200/80'
                 }
               `}
@@ -158,7 +158,7 @@ export const OperatorOrdersPage: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Tìm theo mã đơn hoặc SĐT..."
-              className="pl-10 pr-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full w-64 focus:outline-none focus:border-[#FF385C] text-gray-900 font-medium shadow-2xs"
+              className="pl-10 pr-4 py-2 text-xs bg-white/90 border border-gray-200/80 rounded-full w-64 focus:outline-none focus:border-[var(--gt-brand)] text-gray-900 font-medium shadow-2xs"
             />
           </div>
           <Button
@@ -215,7 +215,7 @@ export const OperatorOrdersPage: React.FC = () => {
                       <div className="space-y-1">
                         {order.items.slice(0, 2).map((item, idx) => (
                           <div key={idx} className="flex items-center gap-1.5">
-                            <span className="px-2.5 py-0.5 rounded-full bg-coral-soft text-[10px] font-bold text-[#FF385C] border border-[#FF385C]/20 shadow-2xs">
+                            <span className="px-2.5 py-0.5 rounded-full bg-brand-soft text-[10px] font-bold text-[var(--gt-brand)] border border-[var(--gt-brand)]/20 shadow-2xs">
                               Ghế {item.transportSeatCode}
                             </span>
                           </div>
@@ -249,9 +249,9 @@ export const OperatorOrdersPage: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => handleOpenDetail(order.orderId)}
-                        className="inline-flex h-8 items-center gap-1 rounded-full border border-gray-200/80 bg-white/90 px-3.5 text-xs font-semibold text-gray-700 hover:border-[#FF385C] hover:text-[#FF385C] shadow-2xs transition cursor-pointer"
+                        className="inline-flex h-8 items-center gap-1 rounded-full border border-gray-200/80 bg-white/90 px-3.5 text-xs font-semibold text-gray-700 hover:border-[var(--gt-brand)] hover:text-[var(--gt-brand)] shadow-2xs transition cursor-pointer"
                       >
-                        <Eye className="w-3.5 h-3.5 text-[#FF385C]" />
+                        <Eye className="w-3.5 h-3.5 text-[var(--gt-brand)]" />
                         <span>Chi tiết</span>
                       </button>
                     </td>
@@ -308,7 +308,7 @@ export const OperatorOrdersPage: React.FC = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 bg-white/70 backdrop-blur-md rounded-2xl text-xs border border-white/80 shadow-2xs my-2">
                 <div className="space-y-1.5">
                   <span className="text-gray-500 font-semibold flex items-center gap-1">
-                    <User className="w-3.5 h-3.5 text-[#FF385C]" />
+                    <User className="w-3.5 h-3.5 text-[var(--gt-brand)]" />
                     Hành khách liên hệ:
                   </span>
                   <strong className="text-sm font-bold text-gray-900 block">
@@ -347,7 +347,7 @@ export const OperatorOrdersPage: React.FC = () => {
               {selectedDetailOrder.paymentMethod === 'CASH' && ['CONFIRMED', 'COMPLETED'].includes(selectedDetailOrder.status) && user?.canSellCash() && <CashTicketDocuments orderId={selectedDetailOrder.orderId} />}
               <div className="space-y-2 mt-3">
                 <h4 className="text-xs font-bold text-gray-900 flex items-center gap-1.5">
-                  <Ticket className="w-3.5 h-3.5 text-[#FF385C]" />
+                  <Ticket className="w-3.5 h-3.5 text-[var(--gt-brand)]" />
                   Danh sách vé & ghế ({selectedDetailOrder.items.length})
                 </h4>
 
@@ -364,7 +364,7 @@ export const OperatorOrdersPage: React.FC = () => {
                     <tbody className="divide-y divide-gray-100/80">
                       {selectedDetailOrder.items.map((item, idx) => (
                         <tr key={idx} className="hover:bg-white/60">
-                          <td className="py-2.5 px-3 font-mono font-bold text-[#FF385C]">
+                          <td className="py-2.5 px-3 font-mono font-bold text-[var(--gt-brand)]">
                             {item.transportSeatCode}
                           </td>
                           <td className="py-2.5 px-3">

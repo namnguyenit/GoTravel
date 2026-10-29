@@ -42,7 +42,7 @@ export const AdminApplicationDetailModal: React.FC<
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
       <DialogContent className="shadow-glass-xl max-h-[90vh] max-w-2xl overflow-y-auto rounded-[32px] border-2 border-white/80 bg-white/95 p-6 text-[var(--gt-ink)] backdrop-blur-2xl sm:p-7">
         <DialogHeader className="space-y-1.5 border-b border-[var(--gt-border)]/60 pb-4 text-left">
-          <div className="flex items-center space-x-1.5 text-xs font-bold tracking-wider text-[var(--gt-coral)] uppercase">
+          <div className="flex items-center space-x-1.5 text-xs font-bold tracking-wider text-[var(--gt-brand)] uppercase">
             <Building2 className="h-4 w-4" />
             <span>Hồ sơ Thẩm định KYC Nhà xe</span>
           </div>
@@ -125,7 +125,7 @@ export const AdminApplicationDetailModal: React.FC<
           {/* Section 1: Thông tin Pháp nhân */}
           <div className="space-y-3 rounded-2xl border border-white/80 bg-white/60 p-4.5 shadow-xs backdrop-blur-sm">
             <h4 className="flex items-center gap-2 border-b border-[var(--gt-border)]/50 pb-2 text-xs font-bold tracking-wider text-[var(--gt-ink)] uppercase">
-              <Building2 className="h-4 w-4 text-[var(--gt-coral)]" />
+              <Building2 className="h-4 w-4 text-[var(--gt-brand)]" />
               <span>Thông tin Pháp nhân & Trụ sở</span>
             </h4>
 
@@ -162,7 +162,7 @@ export const AdminApplicationDetailModal: React.FC<
               </span>
               <a
                 href={`tel:${application.phone}`}
-                className="flex items-center gap-1.5 font-bold text-[var(--gt-coral)] hover:underline"
+                className="flex items-center gap-1.5 font-bold text-[var(--gt-brand)] hover:underline"
               >
                 <Phone className="h-3.5 w-3.5" />
                 <span>{application.phone}</span>
@@ -173,7 +173,7 @@ export const AdminApplicationDetailModal: React.FC<
           {/* Section 2: Người đại diện & Tài khoản chủ sở hữu */}
           <div className="space-y-3 rounded-2xl border border-white/80 bg-white/60 p-4.5 shadow-xs backdrop-blur-sm">
             <h4 className="flex items-center gap-2 border-b border-[var(--gt-border)]/50 pb-2 text-xs font-bold tracking-wider text-[var(--gt-ink)] uppercase">
-              <User className="h-4 w-4 text-[var(--gt-coral)]" />
+              <User className="h-4 w-4 text-[var(--gt-brand)]" />
               <span>Người đại diện & Tài khoản liên kết</span>
             </h4>
 
@@ -210,7 +210,7 @@ export const AdminApplicationDetailModal: React.FC<
                   onClick={() =>
                     onViewUser(application.userId, application.name)
                   }
-                  className="h-6 rounded-full px-2.5 text-[11px] font-bold text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
+                  className="h-6 rounded-full px-2.5 text-[11px] font-bold text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)]"
                 >
                   Xem hồ sơ User
                 </Button>
@@ -221,7 +221,7 @@ export const AdminApplicationDetailModal: React.FC<
           {/* Section 3: Giấy tờ xác minh (CCCD / Giấy phép) */}
           <div className="space-y-3 rounded-2xl border border-white/80 bg-white/60 p-4.5 shadow-xs backdrop-blur-sm">
             <h4 className="flex items-center gap-2 border-b border-[var(--gt-border)]/50 pb-2 text-xs font-bold tracking-wider text-[var(--gt-ink)] uppercase">
-              <FileText className="h-4 w-4 text-[var(--gt-coral)]" />
+              <FileText className="h-4 w-4 text-[var(--gt-brand)]" />
               <span>Giấy tờ xác minh KYC</span>
             </h4>
 
@@ -238,7 +238,7 @@ export const AdminApplicationDetailModal: React.FC<
                     href={url}
                     target="_blank"
                     rel="noreferrer"
-                    className="group block overflow-hidden rounded-2xl border border-white/80 shadow-xs transition-all hover:border-[var(--gt-coral)]"
+                    className="group block overflow-hidden rounded-2xl border border-white/80 shadow-xs transition-all hover:border-[var(--gt-brand)]"
                   >
                     <img
                       src={url}
@@ -246,7 +246,7 @@ export const AdminApplicationDetailModal: React.FC<
                       className="h-32 w-full object-cover transition-transform group-hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="flex items-center justify-center gap-1.5 border-t border-white/80 bg-white/80 p-2 text-[11px] font-bold text-[var(--gt-coral)] backdrop-blur-xs group-hover:text-[var(--gt-coral-hover)]">
+                    <div className="flex items-center justify-center gap-1.5 border-t border-white/80 bg-white/80 p-2 text-[11px] font-bold text-[var(--gt-brand)] backdrop-blur-xs group-hover:text-[var(--gt-brand-hover)]">
                       <span>{label}</span>
                       <ExternalLink className="h-3.5 w-3.5" />
                     </div>
@@ -317,7 +317,7 @@ export const AdminApplicationDetailModal: React.FC<
                 type="button"
                 variant="default"
                 size="sm"
-                className="shadow-coral-sm rounded-full bg-[#FF385C] px-5 py-2 text-xs font-bold text-white hover:bg-[#E61E4F]"
+                className="shadow-brand-sm rounded-full bg-[var(--gt-brand)] px-5 py-2 text-xs font-bold text-white hover:bg-[var(--gt-brand-hover)]"
                 disabled={!application.logoUrl}
                 title={
                   !application.logoUrl

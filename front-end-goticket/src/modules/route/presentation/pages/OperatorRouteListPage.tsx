@@ -288,7 +288,7 @@ export const OperatorRouteListPage: React.FC = () => {
         actions={
           <Button
             onClick={handleOpenCreate}
-            className="bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm font-bold"
+            className="bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm font-bold"
           >
             <Plus className="h-4 w-4 mr-2" />
             Tạo tuyến mới
@@ -309,7 +309,7 @@ export const OperatorRouteListPage: React.FC = () => {
               placeholder="Tìm theo điểm đi, điểm đến hoặc mã tuyến..."
               value={searchInput}
               onChange={(e) => setSearchInput(e.target.value)}
-              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-10 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 shadow-2xs"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-10 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/20 shadow-2xs"
             />
           </div>
 
@@ -317,7 +317,7 @@ export const OperatorRouteListPage: React.FC = () => {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as RouteStatus | "")}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] shadow-2xs"
             >
               <option value="">Tất cả trạng thái</option>
               <option value={ROUTE_STATUS.ACTIVE}>Cho phép tạo chuyến</option>
@@ -327,7 +327,7 @@ export const OperatorRouteListPage: React.FC = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] shadow-2xs"
             >
               <option value="createdAt_desc">Mới nhất trước</option>
               <option value="origin_asc">Điểm đi (A-Z)</option>
@@ -358,7 +358,7 @@ export const OperatorRouteListPage: React.FC = () => {
             action={
               <Button
                 onClick={handleOpenCreate}
-                className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm font-bold"
+                className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm font-bold"
               >
                 Tạo tuyến mới ngay
               </Button>

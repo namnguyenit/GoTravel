@@ -185,7 +185,7 @@ export const OperatorRegisterPage: React.FC = () => {
               className="h-20 w-20"
             />
           </div>
-          <p className="text-coral mt-4 text-xs font-bold tracking-wider uppercase">
+          <p className="text-brand mt-4 text-xs font-bold tracking-wider uppercase">
             Hồ sơ đối tác GoTicket
           </p>
           <h1 className="mt-2 font-serif text-2xl font-bold text-gray-900 sm:text-3xl">
@@ -207,7 +207,7 @@ export const OperatorRegisterPage: React.FC = () => {
                 </p>
                 <Link
                   to="/operator/dashboard"
-                  className="glow-coral-sm inline-flex items-center gap-2 rounded-full bg-[#FF385C] px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:bg-[#E61E4F]"
+                  className="shadow-brand-sm inline-flex items-center gap-2 rounded-full bg-[var(--gt-brand)] px-6 py-3 text-xs font-bold text-white shadow-md transition-all hover:bg-[var(--gt-brand-hover)]"
                 >
                   Truy cập Kênh Nhà Xe <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -263,7 +263,7 @@ export const OperatorRegisterPage: React.FC = () => {
       <form onSubmit={submit} className="space-y-6">
         <SurfaceCard variant="glass" className="p-6 md:p-8">
           <div className="flex items-center gap-2.5 border-b border-gray-100/80 pb-4">
-            <Building2 className="text-coral h-5 w-5" />
+            <Building2 className="text-brand h-5 w-5" />
             <div>
               <h2 className="text-base font-bold text-gray-900">
                 Thông tin pháp nhân doanh nghiệp / Hộ kinh doanh
@@ -289,28 +289,28 @@ export const OperatorRegisterPage: React.FC = () => {
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <div className="space-y-1.5 sm:col-span-2">
               <label className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
-                Tên công ty / Tên nhà xe <span className="text-coral">*</span>
+                Tên công ty / Tên nhà xe <span className="text-brand">*</span>
               </label>
               <input
                 required
                 value={form.companyName}
                 onChange={(e) => update("companyName", e.target.value)}
                 maxLength={255}
-                className="focus:border-coral focus:ring-coral/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
+                className="focus:border-brand focus:ring-brand/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
                 placeholder="Ví dụ: Công ty TNHH Vận Tải Hành Khách Phương Trang"
               />
             </div>
 
             <div className="space-y-1.5 sm:col-span-2">
               <label className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
-                Địa chỉ trụ sở kinh doanh <span className="text-coral">*</span>
+                Địa chỉ trụ sở kinh doanh <span className="text-brand">*</span>
               </label>
               <input
                 required
                 value={form.companyAddress}
                 onChange={(e) => update("companyAddress", e.target.value)}
                 maxLength={255}
-                className="focus:border-coral focus:ring-coral/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
+                className="focus:border-brand focus:ring-brand/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
                 placeholder="Địa chỉ đăng ký doanh nghiệp"
               />
             </div>
@@ -318,14 +318,14 @@ export const OperatorRegisterPage: React.FC = () => {
             <div className="space-y-1.5">
               <label className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                 Họ tên người đại diện pháp luật{" "}
-                <span className="text-coral">*</span>
+                <span className="text-brand">*</span>
               </label>
               <input
                 required
                 value={form.representativeName}
                 onChange={(e) => update("representativeName", e.target.value)}
                 maxLength={255}
-                className="focus:border-coral focus:ring-coral/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
+                className="focus:border-brand focus:ring-brand/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
                 placeholder="Nguyễn Văn A"
               />
             </div>
@@ -333,7 +333,7 @@ export const OperatorRegisterPage: React.FC = () => {
             <div className="space-y-1.5">
               <label className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                 Số CCCD / Hộ chiếu người đại diện{" "}
-                <span className="text-coral">*</span>
+                <span className="text-brand">*</span>
               </label>
               <input
                 required
@@ -342,7 +342,7 @@ export const OperatorRegisterPage: React.FC = () => {
                   update("representativeIdNumber", e.target.value)
                 }
                 maxLength={30}
-                className="focus:border-coral focus:ring-coral/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
+                className="focus:border-brand focus:ring-brand/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
                 placeholder="Số căn cước 12 chữ số"
               />
             </div>
@@ -355,7 +355,7 @@ export const OperatorRegisterPage: React.FC = () => {
                 value={form.taxCode}
                 onChange={(e) => update("taxCode", e.target.value)}
                 maxLength={255}
-                className="focus:border-coral focus:ring-coral/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
+                className="focus:border-brand focus:ring-brand/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
                 placeholder="Mã số thuế (nếu có)"
               />
             </div>
@@ -369,7 +369,7 @@ export const OperatorRegisterPage: React.FC = () => {
                 value={form.contactPhone}
                 onChange={(e) => update("contactPhone", e.target.value)}
                 maxLength={255}
-                className="focus:border-coral focus:ring-coral/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
+                className="focus:border-brand focus:ring-brand/20 w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 shadow-2xs transition outline-none focus:ring-2"
                 placeholder="Số hotline hoặc số di động"
               />
             </div>
@@ -379,7 +379,7 @@ export const OperatorRegisterPage: React.FC = () => {
         {/* Giấy tờ xác thực */}
         <SurfaceCard variant="glass" className="p-6 md:p-8">
           <div className="flex items-center gap-2.5 border-b border-gray-100/80 pb-4">
-            <FileCheck2 className="text-coral h-5 w-5" />
+            <FileCheck2 className="text-brand h-5 w-5" />
             <div>
               <h2 className="text-base font-bold text-gray-900">
                 Ảnh giấy tờ tùy thân của người đại diện
@@ -396,10 +396,10 @@ export const OperatorRegisterPage: React.FC = () => {
               <label className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                 Mặt trước CCCD{" "}
                 {!profile?.documentFrontUrl && (
-                  <span className="text-coral">*</span>
+                  <span className="text-brand">*</span>
                 )}
               </label>
-              <div className="hover:border-coral/50 rounded-3xl border-2 border-dashed border-gray-200 bg-white/60 p-5 text-center backdrop-blur-xs transition">
+              <div className="hover:border-brand/50 rounded-3xl border-2 border-dashed border-gray-200 bg-white/60 p-5 text-center backdrop-blur-xs transition">
                 <input
                   type="file"
                   id="front"
@@ -426,10 +426,10 @@ export const OperatorRegisterPage: React.FC = () => {
               <label className="text-xs font-semibold tracking-wider text-gray-500 uppercase">
                 Mặt sau CCCD{" "}
                 {!profile?.documentBackUrl && (
-                  <span className="text-coral">*</span>
+                  <span className="text-brand">*</span>
                 )}
               </label>
-              <div className="hover:border-coral/50 rounded-3xl border-2 border-dashed border-gray-200 bg-white/60 p-5 text-center backdrop-blur-xs transition">
+              <div className="hover:border-brand/50 rounded-3xl border-2 border-dashed border-gray-200 bg-white/60 p-5 text-center backdrop-blur-xs transition">
                 <input
                   type="file"
                   id="back"
@@ -462,7 +462,7 @@ export const OperatorRegisterPage: React.FC = () => {
           <button
             type="submit"
             disabled={saving}
-            className="glow-coral-sm flex cursor-pointer items-center gap-2 rounded-full bg-[#FF385C] px-8 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[#E61E4F] disabled:opacity-50"
+            className="shadow-brand-sm flex cursor-pointer items-center gap-2 rounded-full bg-[var(--gt-brand)] px-8 py-3.5 text-sm font-bold text-white shadow-md transition-all hover:bg-[var(--gt-brand-hover)] disabled:opacity-50"
           >
             {saving
               ? "Đang gửi..."

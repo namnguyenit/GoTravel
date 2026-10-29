@@ -25,4 +25,4 @@ Bộ biểu tượng gốc được dựng bằng SVG: vòng chữ G mở, nét 
 
 Dùng bản màu trên nền sáng, bản trắng trên nền tối. Giữ khoảng trống ít nhất bằng 1/4 chiều cao biểu tượng; không kéo méo hoặc thêm viền/đổ bóng vào logo. Với kích thước 16–24px ưu tiên biểu tượng hoặc favicon, không thu nhỏ cả logo có chữ. Tệp `public/brand` tại các ứng dụng là các bản triển khai cho web.
 
-GoTicket có cùng bộ logo được gắn vào source header/footer/favicon tại `/home/DoANLienNganh/GoTicket/front-end`. Không khởi chạy lại backend GoTicket trong đợt thiết kế nhận diện này.
+GoTicket hiện triển khai tại `front-end-goticket/`, dùng bộ logo gốc ở header, footer, các cổng quản trị và favicon. Màu tương tác xanh được quản lý qua token chung. Chi tiết cập nhật ngày 29/10/2026: [Đồng bộ nhận diện GoTicket](../front-end-goticket/GOTICKET_BRAND_SYNC_20261029.md).

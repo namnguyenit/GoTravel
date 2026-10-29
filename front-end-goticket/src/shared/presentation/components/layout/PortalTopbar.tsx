@@ -46,7 +46,7 @@ export const PortalTopbar: React.FC<PortalTopbarProps> = ({
 
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md text-xs font-medium text-gray-700 shadow-2xs hover:text-[#FF385C] hover:border-[#FF385C]/40 hover:bg-[#FFF0F2] transition-all"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-white/80 bg-white/80 backdrop-blur-md text-xs font-medium text-gray-700 shadow-2xs hover:text-[var(--gt-brand)] hover:border-[var(--gt-brand)]/40 hover:bg-[var(--gt-brand-soft)] transition-all"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Kênh khách hàng</span>

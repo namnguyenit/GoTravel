@@ -574,7 +574,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
       <Dialog open={open} onOpenChange={(isOpen) => !isOpen && handleClose()}>
         <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto p-6 sm:rounded-[28px] border border-gray-100 shadow-2xl bg-white">
           <DialogHeader className="space-y-1.5 text-left pb-1">
-            <div className="flex items-center space-x-2 text-xs font-semibold text-[#FF385C]">
+            <div className="flex items-center space-x-2 text-xs font-semibold text-[var(--gt-brand)]">
               {isEditMode ? <Pencil className="h-4 w-4" /> : <MapPin className="h-4 w-4" />}
               <span>{isEditMode ? "Chỉnh Sửa Lộ Trình" : "Thiết Lập Tuyến Đường"}</span>
             </div>
@@ -684,7 +684,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                       variant="outline"
                       size="sm"
                       onClick={handleAddOriginTransit}
-                      className="h-7 text-[11px] font-bold text-[#FF385C] border-[#FF385C]/30 bg-white hover:bg-[#FFF0F2] rounded-full"
+                      className="h-7 text-[11px] font-bold text-[var(--gt-brand)] border-[var(--gt-brand)]/30 bg-white hover:bg-[var(--gt-brand-soft)] rounded-full"
                     >
                       <Plus className="mr-1 h-3 w-3" />
                       <span>Thêm điểm đón</span>
@@ -701,7 +701,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                     <button
                       type="button"
                       onClick={() => openPicker({ type: "origin_main" }, origin)}
-                      className="text-[11px] font-semibold text-[#FF385C] hover:underline cursor-pointer"
+                      className="text-[11px] font-semibold text-[var(--gt-brand)] hover:underline cursor-pointer"
                     >
                       Chọn trạm
                     </button>
@@ -812,7 +812,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
               <div className="rounded-2xl border border-gray-200/90 bg-gray-50/60 p-4 space-y-3">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#FF385C] text-white">
+                    <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[var(--gt-brand)] text-white">
                       <Flag className="h-3 w-3 fill-white" />
                     </div>
                     <span className="text-xs font-bold text-gray-900">
@@ -838,7 +838,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                       variant="outline"
                       size="sm"
                       onClick={handleAddDestTransit}
-                      className="h-7 text-[11px] font-bold text-[#FF385C] border-[#FF385C]/30 bg-white hover:bg-[#FFF0F2] rounded-full"
+                      className="h-7 text-[11px] font-bold text-[var(--gt-brand)] border-[var(--gt-brand)]/30 bg-white hover:bg-[var(--gt-brand-soft)] rounded-full"
                     >
                       <Plus className="mr-1 h-3 w-3" />
                       <span>Thêm điểm trả</span>
@@ -936,7 +936,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                     <button
                       type="button"
                       onClick={() => openPicker({ type: "dest_main" }, destination)}
-                      className="text-[11px] font-semibold text-[#FF385C] hover:underline cursor-pointer"
+                      className="text-[11px] font-semibold text-[var(--gt-brand)] hover:underline cursor-pointer"
                     >
                       Chọn trạm
                     </button>
@@ -970,7 +970,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                   </span>
                   <div className="flex flex-wrap items-center gap-1.5 text-xs">
                     <span className="inline-flex items-center gap-1 rounded-full bg-white border border-gray-200 text-gray-800 px-2.5 py-0.5 font-bold text-[11px]">
-                      <Navigation className="h-3 w-3 text-[#FF385C]" />
+                      <Navigation className="h-3 w-3 text-[var(--gt-brand)]" />
                       {originMainStop.name.trim() || "Bến xuất phát"}
                     </span>
 
@@ -1026,7 +1026,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                 type="submit"
                 size="sm"
                 disabled={loading}
-                className="rounded-full bg-[#FF385C] text-white hover:bg-[#E61E4F] font-bold shadow-md glow-coral-sm text-xs"
+                className="rounded-full bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)] font-bold shadow-md shadow-brand-sm text-xs"
               >
                 {loading ? (
                   <>
@@ -1088,8 +1088,8 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                   onClick={() => setPickerFilterProvince(origin)}
                   className={`rounded-full px-2.5 py-0.5 text-[11px] font-semibold transition cursor-pointer ${
                     pickerFilterProvince === origin
-                      ? "bg-[#FF385C] text-white"
-                      : "bg-[#FFF0F2] text-[#FF385C] hover:bg-[#FFE0E5]"
+                      ? "bg-[var(--gt-brand)] text-white"
+                      : "bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft-hover)]"
                   }`}
                 >
                   {origin} ({originOperatorStops.length})
@@ -1113,7 +1113,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
 
           {loadingStops ? (
             <div className="py-6 text-center text-xs text-gray-400">
-              <Loader2 className="h-5 w-5 animate-spin mx-auto text-[#FF385C] mb-1.5" />
+              <Loader2 className="h-5 w-5 animate-spin mx-auto text-[var(--gt-brand)] mb-1.5" />
               Đang tải danh sách...
             </div>
           ) : filteredPickerStops.length === 0 ? (
@@ -1141,7 +1141,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                     }}
                     className={`flex items-start justify-between p-2.5 rounded-xl border transition cursor-pointer ${
                       isSelected
-                        ? "border-[#FF385C] bg-[#FFF0F2]"
+                        ? "border-[var(--gt-brand)] bg-[var(--gt-brand-soft)]"
                         : "border-gray-200/80 bg-white hover:border-gray-300"
                     }`}
                   >
@@ -1171,7 +1171,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                           e.stopPropagation();
                           handleSelectSingleStop(stop);
                         }}
-                        className="h-6 text-[10px] bg-[#FF385C] text-white rounded-full font-bold px-2.5 shrink-0"
+                        className="h-6 text-[10px] bg-[var(--gt-brand)] text-white rounded-full font-bold px-2.5 shrink-0"
                       >
                         Chọn
                       </Button>
@@ -1179,7 +1179,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                       <div
                         className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border mt-0.5 ${
                           isSelected
-                            ? "bg-[#FF385C] border-[#FF385C] text-white"
+                            ? "bg-[var(--gt-brand)] border-[var(--gt-brand)] text-white"
                             : "border-gray-300 bg-white"
                         }`}
                       >
@@ -1212,7 +1212,7 @@ export const CreateRouteModal: React.FC<CreateRouteModalProps> = ({
                 size="sm"
                 onClick={handleApplyMultiStops}
                 disabled={selectedPickerStops.length === 0}
-                className="rounded-full bg-[#FF385C] text-white hover:bg-[#E61E4F] font-bold text-xs"
+                className="rounded-full bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)] font-bold text-xs"
               >
                 Thêm {selectedPickerStops.length} điểm
               </Button>

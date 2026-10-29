@@ -1,12 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --primary: #FF385C;
-  --primary-hover: #E61E4F;
-  --accent: #FF385C;
-  --accent-hover: #E0264A;
-  --gostay-coral: #FF385C;
-  --gostay-crimson: #E61E4F;
+  --primary: #1074BC;
+  --primary-hover: #0E5B94;
+  --primary-foreground: #FFFFFF;
+  --accent: #1074BC;
+  --accent-hover: #0E5B94;
   --background: #FAF9F6;
   --surface: #FFFFFF;
   --foreground: #1A1D20;
@@ -18,7 +17,7 @@
   --destructive: #B42318;
   --radius: 14px;
 
-  /* GoTicket Design Tokens (Section 3.1) */
+  /* GoTicket brand family: mark #147FCC; accessible action shade #1074BC. */
   --gt-canvas: #FAF9F6;
   --gt-surface: #FFFFFF;
   --gt-surface-soft: #F7F5F2;
@@ -28,9 +27,12 @@
   --gt-faint: #9CA3AF;
   --gt-border: #E5E7EB;
   --gt-border-soft: #F3F4F6;
-  --gt-coral: #FF385C;
-  --gt-coral-hover: #E61E4F;
-  --gt-coral-soft: #FFF0F2;
+  --gt-brand-mark: #147FCC;
+  --gt-brand: #1074BC;
+  --gt-brand-ink: #0B4C7D;
+  --gt-brand-soft-hover: #D7EAF8;
+  --gt-brand-hover: #0E5B94;
+  --gt-brand-soft: #EAF4FC;
   --gt-success: #176B47;
   --gt-success-soft: #ECFDF3;
   --gt-warning: #875800;
@@ -145,12 +147,12 @@ body {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
-.glow-coral {
-  box-shadow: 0 12px 28px -6px rgba(255, 56, 92, 0.42), 0 8px 12px -6px rgba(255, 56, 92, 0.25);
+.shadow-brand {
+  box-shadow: 0 12px 28px -6px rgba(20, 127, 204, 0.42), 0 8px 12px -6px rgba(20, 127, 204, 0.25);
 }
 
-.glow-coral-sm {
-  box-shadow: 0 4px 14px -2px rgba(255, 56, 92, 0.28);
+.shadow-brand-sm {
+  box-shadow: 0 4px 14px -2px rgba(20, 127, 204, 0.28);
 }
 
 /* Print Stylesheet (Section 5.1 & 14) */
@@ -164,3 +166,31 @@ body {
   }
 }
 
+
+/* Tailwind v4 bridge: shared controls and direct brand utilities use one palette. */
+@theme inline {
+  --color-brand: var(--gt-brand);
+  --color-brand-hover: var(--gt-brand-hover);
+  --color-brand-soft: var(--gt-brand-soft);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-ring: var(--gt-brand);
+  --color-input: var(--border);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--gt-brand-soft);
+  --color-accent-foreground: var(--gt-brand-ink);
+  --color-secondary: var(--gt-surface-soft);
+  --color-secondary-foreground: var(--gt-ink);
+  --color-muted-foreground: var(--gt-muted);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: #FFFFFF;
+}
+
+::selection { background: #D7EAF8; color: #0B4C7D; }
+input, textarea { caret-color: var(--gt-brand); }
+:focus-visible { outline: 2px solid var(--gt-brand); outline-offset: 3px; }
+.goticket-brand-image { width: auto; flex-shrink: 0; }
+@media print {
+  .goticket-brand-print { display: block !important; height: 32px; width: auto; margin-bottom: 12px; }
+}

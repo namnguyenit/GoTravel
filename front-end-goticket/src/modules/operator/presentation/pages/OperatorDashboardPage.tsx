@@ -99,7 +99,7 @@ export const OperatorDashboardPage: React.FC = () => {
         description={`Mã đối tác: ${operatorId} · Kênh điều hành vận tải hành khách liên tỉnh`}
         eyebrow="Bảng điều khiển nhà xe"
         actions={
-          <Button asChild className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md transition-all">
+          <Button asChild className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-brand-sm shadow-md transition-all">
             <Link to="/operator/cars?action=new">
               <PlusCircle className="h-4 w-4 mr-2" />
               Thêm Xe Khách
@@ -116,10 +116,10 @@ export const OperatorDashboardPage: React.FC = () => {
             <SurfaceCard key={item.to} variant="glass-interactive" className="p-6 flex flex-col justify-between">
               <div>
                 <div className="flex items-center justify-between">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-coral-soft text-coral border border-coral/20 shadow-2xs">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-brand-soft text-brand border border-brand/20 shadow-2xs">
                     <Icon className="h-5 w-5" />
                   </div>
-                  <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-coral group-hover:translate-x-0.5 transition-all" />
+                  <ArrowRight className="h-4 w-4 text-gray-400 group-hover:text-brand group-hover:translate-x-0.5 transition-all" />
                 </div>
                 <h3 className="mt-4 font-bold text-base text-gray-900">
                   {item.title}
@@ -132,7 +132,7 @@ export const OperatorDashboardPage: React.FC = () => {
               <div className="mt-5 pt-4 border-t border-gray-100/80">
                 <Link
                   to={item.to}
-                  className="text-xs font-bold text-coral hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-bold text-brand hover:underline inline-flex items-center gap-1"
                 >
                   {item.actionText} →
                 </Link>

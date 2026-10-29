@@ -36,7 +36,7 @@ export const MoneyText: React.FC<MoneyTextProps> = ({
   }[size];
 
   const variantClasses = {
-    coral: 'text-[#FF385C]',
+    coral: 'text-[var(--gt-brand)]',
     ink: 'text-[#111827]',
     muted: 'text-[#4B5563]',
     success: 'text-emerald-600',

@@ -110,7 +110,7 @@ export const OperatorOfferContentPage: React.FC = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="VD: Xe Limousine Sài Gòn - Đà Lạt giường phòng VIP"
-              className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
             />
           </div>
 
@@ -125,7 +125,7 @@ export const OperatorOfferContentPage: React.FC = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Mô tả các tiện ích: wifi, cổng sạc, nước uống, chính sách đón trả tận nơi..."
-              className="w-full rounded-[24px] border border-gray-200/80 bg-white/90 p-4 text-xs font-medium text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+              className="w-full rounded-[24px] border border-gray-200/80 bg-white/90 p-4 text-xs font-medium text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
             />
           </div>
 
@@ -143,7 +143,7 @@ export const OperatorOfferContentPage: React.FC = () => {
                   setThumbnailUrl(e.target.value);
                 }}
                 placeholder="https://..."
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-medium text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-medium text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
               />
             </div>
           </div>
@@ -163,7 +163,7 @@ export const OperatorOfferContentPage: React.FC = () => {
             <Button
               type="submit"
               disabled={saving || loading || !loaded}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full px-7 py-2.5 font-bold shadow-md glow-coral-sm cursor-pointer"
+              className="bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white rounded-full px-7 py-2.5 font-bold shadow-md shadow-brand-sm cursor-pointer"
             >
               {saving ? (
                 <>

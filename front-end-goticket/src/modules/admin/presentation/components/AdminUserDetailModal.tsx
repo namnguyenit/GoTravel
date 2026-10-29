@@ -144,7 +144,7 @@ export const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
       <DialogContent className="max-w-md p-6 sm:rounded-2xl border-line">
         <DialogHeader className="space-y-1">
           {operatorName && (
-            <div className="flex items-center space-x-1.5 text-xs font-semibold text-coral">
+            <div className="flex items-center space-x-1.5 text-xs font-semibold text-brand">
               <Building2 className="h-3.5 w-3.5" />
               <span>Nhà xe: {operatorName}</span>
             </div>
@@ -159,7 +159,7 @@ export const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
 
         {loading ? (
           <div className="flex min-h-[200px] flex-col items-center justify-center space-y-3 py-6">
-            <RefreshCw className="h-6 w-6 animate-spin text-coral" />
+            <RefreshCw className="h-6 w-6 animate-spin text-brand" />
             <p className="text-xs font-medium text-muted">
               Đang tải thông tin tài khoản #{userId}...
             </p>
@@ -199,7 +199,7 @@ export const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
             <div className="flex items-center space-x-3.5 rounded-2xl border border-line bg-canvas p-3.5">
               <Avatar className="h-12 w-12 border border-line">
                 <AvatarImage src={user.avatarUrl} alt={user.getDisplayName()} />
-                <AvatarFallback className="bg-coral-soft font-bold text-coral text-sm">
+                <AvatarFallback className="bg-brand-soft font-bold text-brand text-sm">
                   {user.getInitials()}
                 </AvatarFallback>
               </Avatar>
@@ -221,7 +221,7 @@ export const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                   {getDisplayRoles().map((role) => (
                     <span
                       key={role}
-                      className="inline-flex items-center gap-1 rounded-full border border-coral/30 bg-coral-soft px-2 py-0.5 text-[10px] font-semibold text-coral"
+                      className="inline-flex items-center gap-1 rounded-full border border-brand/30 bg-brand-soft px-2 py-0.5 text-[10px] font-semibold text-brand"
                     >
                       <Shield className="h-2.5 w-2.5" />
                       {role}
@@ -264,7 +264,7 @@ export const AdminUserDetailModal: React.FC<AdminUserDetailModalProps> = ({
                 </span>
                 <a
                   href={`mailto:${user.email}`}
-                  className="font-medium text-coral hover:underline"
+                  className="font-medium text-brand hover:underline"
                 >
                   {user.email || "Chưa cập nhật"}
                 </a>

@@ -279,7 +279,7 @@ export const OperatorStaffPage: React.FC = () => {
           className="lg:col-span-5 p-6 space-y-5 rounded-[28px] border border-white/80 shadow-glass"
         >
           <div className="flex items-center gap-2 border-b border-gray-100/80 pb-3">
-            <UserPlus className="w-4 h-4 text-[#FF385C]" />
+            <UserPlus className="w-4 h-4 text-[var(--gt-brand)]" />
             <h2 className="font-bold text-base text-gray-900">
               Phân công & Cấp quyền nhân viên
             </h2>
@@ -289,7 +289,7 @@ export const OperatorStaffPage: React.FC = () => {
           {!selectedStaff ? (
             <div className="space-y-3">
               <label className="block text-xs font-semibold text-gray-700 uppercase tracking-wider">
-                Tìm kiếm nhân viên trong hệ thống <span className="text-[#FF385C]">*</span>
+                Tìm kiếm nhân viên trong hệ thống <span className="text-[var(--gt-brand)]">*</span>
               </label>
 
               <form onSubmit={handleSearchStaff} className="flex gap-2">
@@ -300,13 +300,13 @@ export const OperatorStaffPage: React.FC = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Nhập Email, Username hoặc SĐT..."
-                    className="w-full pl-9 pr-3 py-2 text-xs bg-white/95 border border-gray-200/90 rounded-full focus:border-[#FF385C] text-gray-900 outline-none shadow-2xs"
+                    className="w-full pl-9 pr-3 py-2 text-xs bg-white/95 border border-gray-200/90 rounded-full focus:border-[var(--gt-brand)] text-gray-900 outline-none shadow-2xs"
                   />
                 </div>
                 <Button
                   type="submit"
                   disabled={searching || !searchQuery.trim()}
-                  className="rounded-full bg-[#FF385C] text-white hover:bg-[#E61E4F] text-xs font-bold px-4 h-9 shadow-2xs"
+                  className="rounded-full bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)] text-xs font-bold px-4 h-9 shadow-2xs"
                 >
                   {searching ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -376,7 +376,7 @@ export const OperatorStaffPage: React.FC = () => {
             </div>
           ) : (
             /* THẺ NHÂN VIÊN ĐANG ĐƯỢC CHỌN ĐỂ CẤP QUYỀN */
-            <div className="p-4 rounded-2xl border-2 border-[#FF385C]/60 bg-[#FFF0F2]/70 space-y-2 relative">
+            <div className="p-4 rounded-2xl border-2 border-[var(--gt-brand)]/60 bg-[var(--gt-brand-soft)]/70 space-y-2 relative">
               <button
                 type="button"
                 onClick={handleResetSelectedStaff}
@@ -386,7 +386,7 @@ export const OperatorStaffPage: React.FC = () => {
                 <X className="w-4 h-4" />
               </button>
 
-              <span className="text-[10px] font-bold text-[#FF385C] uppercase tracking-wider flex items-center gap-1">
+              <span className="text-[10px] font-bold text-[var(--gt-brand)] uppercase tracking-wider flex items-center gap-1">
                 <UserCheck className="w-3.5 h-3.5" />
                 Đang thiết lập quyền cho:
               </span>
@@ -407,7 +407,7 @@ export const OperatorStaffPage: React.FC = () => {
               <button
                 type="button"
                 onClick={handleResetSelectedStaff}
-                className="text-[11px] font-bold text-[#FF385C] hover:underline block pt-1"
+                className="text-[11px] font-bold text-[var(--gt-brand)] hover:underline block pt-1"
               >
                 ← Chọn hoặc tìm nhân viên khác
               </button>
@@ -422,13 +422,13 @@ export const OperatorStaffPage: React.FC = () => {
               </label>
               <div className="space-y-2">
                 {/* canCheckIn */}
-                <label className="flex items-start gap-3 p-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md cursor-pointer hover:border-[#FF385C]/50 shadow-2xs transition-all">
+                <label className="flex items-start gap-3 p-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md cursor-pointer hover:border-[var(--gt-brand)]/50 shadow-2xs transition-all">
                   <input
                     type="checkbox"
                     disabled={submitting || toggling}
                     checked={canCheckIn}
                     onChange={(e) => setCanCheckIn(e.target.checked)}
-                    className="mt-0.5 rounded border-gray-300 text-[#FF385C] focus:ring-[#FF385C]"
+                    className="mt-0.5 rounded border-gray-300 text-[var(--gt-brand)] focus:ring-[var(--gt-brand)]"
                   />
                   <div>
                     <strong className="block text-xs font-bold text-gray-900">
@@ -441,13 +441,13 @@ export const OperatorStaffPage: React.FC = () => {
                 </label>
 
                 {/* canSellCash */}
-                <label className="flex items-start gap-3 p-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md cursor-pointer hover:border-[#FF385C]/50 shadow-2xs transition-all">
+                <label className="flex items-start gap-3 p-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md cursor-pointer hover:border-[var(--gt-brand)]/50 shadow-2xs transition-all">
                   <input
                     type="checkbox"
                     disabled={submitting || toggling}
                     checked={canSellCash}
                     onChange={(e) => setCanSellCash(e.target.checked)}
-                    className="mt-0.5 rounded border-gray-300 text-[#FF385C] focus:ring-[#FF385C]"
+                    className="mt-0.5 rounded border-gray-300 text-[var(--gt-brand)] focus:ring-[var(--gt-brand)]"
                   />
                   <div>
                     <strong className="block text-xs font-bold text-gray-900">
@@ -460,13 +460,13 @@ export const OperatorStaffPage: React.FC = () => {
                 </label>
 
                 {/* canManageTrip */}
-                <label className="flex items-start gap-3 p-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md cursor-pointer hover:border-[#FF385C]/50 shadow-2xs transition-all">
+                <label className="flex items-start gap-3 p-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md cursor-pointer hover:border-[var(--gt-brand)]/50 shadow-2xs transition-all">
                   <input
                     type="checkbox"
                     disabled={submitting || toggling}
                     checked={canManageTrip}
                     onChange={(e) => setCanManageTrip(e.target.checked)}
-                    className="mt-0.5 rounded border-gray-300 text-[#FF385C] focus:ring-[#FF385C]"
+                    className="mt-0.5 rounded border-gray-300 text-[var(--gt-brand)] focus:ring-[var(--gt-brand)]"
                   />
                   <div>
                     <strong className="block text-xs font-bold text-gray-900">
@@ -500,7 +500,7 @@ export const OperatorStaffPage: React.FC = () => {
             <Button
               type="submit"
               disabled={loading || submitting || toggling || (!selectedStaff && !newUserId.trim())}
-              className="w-full py-3 rounded-full font-bold text-xs text-white bg-[#FF385C] hover:bg-[#E61E4F] shadow-md glow-coral-sm cursor-pointer disabled:opacity-50"
+              className="w-full py-3 rounded-full font-bold text-xs text-white bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] shadow-md shadow-brand-sm cursor-pointer disabled:opacity-50"
             >
               {submitting ? (
                 <>
@@ -551,7 +551,7 @@ export const OperatorStaffPage: React.FC = () => {
               {visibleStaff.map((staff, idx) => (
                 <div
                   key={staff.id || staff.userId || idx}
-                  className="p-4 rounded-2xl border border-white/80 bg-white/80 backdrop-blur-md space-y-2.5 shadow-2xs hover:border-[#FF385C]/50 transition-all"
+                  className="p-4 rounded-2xl border border-white/80 bg-white/80 backdrop-blur-md space-y-2.5 shadow-2xs hover:border-[var(--gt-brand)]/50 transition-all"
                 >
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
@@ -567,7 +567,7 @@ export const OperatorStaffPage: React.FC = () => {
                         disabled={submitting || toggling}
                         aria-label={`Sửa quyền ${staff.fullName || staff.username || staff.userId}`}
                         onClick={() => handleSelectToEdit(staff)}
-                        className="text-[11px] font-bold text-[#FF385C] hover:underline px-2.5 py-1 cursor-pointer"
+                        className="text-[11px] font-bold text-[var(--gt-brand)] hover:underline px-2.5 py-1 cursor-pointer"
                       >
                         Sửa quyền
                       </button>

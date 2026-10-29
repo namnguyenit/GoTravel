@@ -40,7 +40,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
     <div
       className={`overflow-hidden rounded-[28px] border backdrop-blur-xl transition-all duration-300 ${
         route.isActive()
-          ? "border-white/80 bg-white/85 shadow-glass hover:shadow-glass-lg hover:border-[#FF385C]/40"
+          ? "border-white/80 bg-white/85 shadow-glass hover:shadow-glass-lg hover:border-[var(--gt-brand)]/40"
           : "border-white/60 bg-white/60 opacity-80 shadow-2xs"
       }`}
     >
@@ -51,7 +51,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
             <span
               className={`flex h-8 px-3 items-center justify-center rounded-full font-mono text-xs font-bold ${
                 route.isActive()
-                  ? "bg-coral-soft text-[#FF385C] border border-[#FF385C]/20"
+                  ? "bg-brand-soft text-[var(--gt-brand)] border border-[var(--gt-brand)]/20"
                   : "bg-gray-100 text-gray-500 border border-gray-200"
               }`}
             >
@@ -72,7 +72,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
 
           <div className="flex items-center space-x-3">
             <span className="inline-flex items-center gap-1.5 rounded-full bg-white/80 backdrop-blur-md border border-white/90 shadow-2xs px-3.5 py-1 text-xs font-bold text-gray-700">
-              <Waypoints className="h-3.5 w-3.5 text-[#FF385C]" />
+              <Waypoints className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
               <span>{totalStops} trạm dừng</span>
             </span>
 
@@ -95,7 +95,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
         <div className="mt-4 grid grid-cols-1 gap-2 rounded-2xl bg-white/60 backdrop-blur-md border border-white/70 p-3.5 sm:grid-cols-2">
           {/* Start Station */}
           <div className="flex items-center space-x-2.5">
-            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-coral-soft text-[#FF385C]">
+            <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-soft text-[var(--gt-brand)]">
               <Navigation className="h-3.5 w-3.5" />
             </div>
             <div className="min-w-0 flex-1">
@@ -142,7 +142,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
             <button
               type="button"
               onClick={() => onEdit(route)}
-              className="rounded-full border border-gray-200/90 bg-white px-3.5 py-1.5 text-xs font-bold text-gray-700 hover:border-[#FF385C] hover:text-[#FF385C] shadow-2xs transition cursor-pointer inline-flex items-center gap-1.5"
+              className="rounded-full border border-gray-200/90 bg-white px-3.5 py-1.5 text-xs font-bold text-gray-700 hover:border-[var(--gt-brand)] hover:text-[var(--gt-brand)] shadow-2xs transition cursor-pointer inline-flex items-center gap-1.5"
             >
               <Pencil className="h-3.5 w-3.5 text-gray-500" />
               <span>Sửa</span>
@@ -188,7 +188,7 @@ export const RouteCard: React.FC<RouteCardProps> = ({
         <button
           type="button"
           onClick={() => setExpanded(!expanded)}
-          className="text-xs font-bold text-[#FF385C] hover:text-[#E61E4F] inline-flex items-center gap-1 transition cursor-pointer"
+          className="text-xs font-bold text-[var(--gt-brand)] hover:text-[var(--gt-brand-hover)] inline-flex items-center gap-1 transition cursor-pointer"
         >
           <span>
             {expanded

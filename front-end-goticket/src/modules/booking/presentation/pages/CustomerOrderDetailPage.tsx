@@ -243,9 +243,9 @@ export const CustomerOrderDetailPage: React.FC = () => {
       {/* Breadcrumb Navigation & Top Actions */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-gray-100/70 pb-4 print:hidden">
         <div className="inline-flex items-center gap-2 text-xs text-gray-500 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full border border-white/80 shadow-2xs">
-          <Link to="/" className="hover:text-coral transition-colors">Trang chủ</Link>
+          <Link to="/" className="hover:text-brand transition-colors">Trang chủ</Link>
           <ChevronRight className="w-3 h-3 text-gray-400" />
-          <Link to="/account/tickets" className="hover:text-coral transition-colors">Vé của tôi</Link>
+          <Link to="/account/tickets" className="hover:text-brand transition-colors">Vé của tôi</Link>
           <ChevronRight className="w-3 h-3 text-gray-400" />
           <span className="font-bold text-gray-900 font-mono">#{order.orderNumber}</span>
         </div>
@@ -332,7 +332,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
       </div>}
       <div className="space-y-4">
         <h2 className="text-lg font-bold text-gray-900 flex items-center gap-2">
-          <Ticket className="w-5 h-5 text-[#FF385C]" />
+          <Ticket className="w-5 h-5 text-[var(--gt-brand)]" />
           Danh sách vé lên xe ({order.items.length} vé)
         </h2>
 
@@ -350,14 +350,14 @@ export const CustomerOrderDetailPage: React.FC = () => {
               key={item.itemId || index}
               className={`
                 rounded-3xl border p-6 sm:p-7 shadow-md space-y-6 transition-all backdrop-blur-md
-                ${isInvalidTicket ? 'border-rose-200/80 bg-rose-50/30' : 'border-white/80 bg-white/85 hover:border-coral/30 hover:shadow-xl'}
+                ${isInvalidTicket ? 'border-rose-200/80 bg-rose-50/30' : 'border-white/80 bg-white/85 hover:border-brand/30 hover:shadow-xl'}
               `}
             >
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 {/* Left: Ticket Info */}
                 <div className="space-y-4 flex-1">
                   <div className="flex flex-wrap items-center gap-2.5">
-                    <span className="text-2xl font-black text-[#FF385C] tabular-nums px-3.5 py-1 rounded-full bg-[#FFF0F2] border border-[#FF385C]/20">
+                    <span className="text-2xl font-black text-[var(--gt-brand)] tabular-nums px-3.5 py-1 rounded-full bg-[var(--gt-brand-soft)] border border-[var(--gt-brand)]/20">
                       Ghế {item.transportSeatCode}
                     </span>
                     <span className="text-xs font-bold px-3 py-1 rounded-full bg-gray-100 text-gray-800">
@@ -404,7 +404,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-gray-500 bg-white/60 backdrop-blur-xs p-4 rounded-2xl border border-white/70 shadow-2xs">
                     {item.transportDepartureAt && (
                       <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-[#FF385C]" />
+                        <Calendar className="w-4 h-4 text-[var(--gt-brand)]" />
                         <span>Giờ đi: <strong>{DateVo.formatVietnamDateTime(item.transportDepartureAt)}</strong></span>
                       </div>
                     )}
@@ -519,7 +519,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
 
           {previewLoading ? (
             <div className="py-12 text-center text-gray-500">
-              <Loader2 className="w-6 h-6 animate-spin mx-auto text-[#FF385C] mb-2" />
+              <Loader2 className="w-6 h-6 animate-spin mx-auto text-[var(--gt-brand)] mb-2" />
               <p className="text-xs font-semibold">Đang tính toán chính sách hoàn tiền từ hệ thống...</p>
             </div>
           ) : previewError ? (
@@ -636,7 +636,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
                 onChange={(e) => setReviewComment(e.target.value)}
                 placeholder="Chia sẻ trải nghiệm về tài xế, độ đúng giờ, sự tiện nghi của xe..."
                 rows={3}
-                className="w-full rounded-2xl border border-gray-200 p-3 text-xs sm:text-sm text-gray-900 focus:outline-hidden focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/15 transition-all resize-none"
+                className="w-full rounded-2xl border border-gray-200 p-3 text-xs sm:text-sm text-gray-900 focus:outline-hidden focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/15 transition-all resize-none"
               />
             </div>
 
@@ -661,7 +661,7 @@ export const CustomerOrderDetailPage: React.FC = () => {
               type="button"
               disabled={reviewing}
               onClick={handleSubmitReview}
-              className="bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full px-5 text-xs font-bold h-10 transition-all glow-coral-sm"
+              className="bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white rounded-full px-5 text-xs font-bold h-10 transition-all shadow-brand-sm"
             >
               {reviewing && <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />}
               Gửi đánh giá

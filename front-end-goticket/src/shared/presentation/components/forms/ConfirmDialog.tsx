@@ -37,7 +37,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
 
   const confirmBtnStyles = isDanger
     ? 'bg-[#B42318] hover:bg-rose-700 text-white'
-    : 'bg-[#FF385C] hover:bg-[#E61E4F] text-white';
+    : 'bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white';
 
   return (
     <Dialog open={open} onOpenChange={loading ? undefined : onOpenChange}>
@@ -46,7 +46,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
           <div className="flex items-center gap-3">
             <div
               className={`w-10 h-10 rounded-2xl flex items-center justify-center shrink-0 ${
-                isDanger ? 'bg-rose-50 text-rose-600' : 'bg-[#FFF0F2] text-[#FF385C]'
+                isDanger ? 'bg-rose-50 text-rose-600' : 'bg-[var(--gt-brand-soft)] text-[var(--gt-brand)]'
               }`}
             >
               {isDanger ? <AlertTriangle className="w-5 h-5" /> : <Info className="w-5 h-5" />}

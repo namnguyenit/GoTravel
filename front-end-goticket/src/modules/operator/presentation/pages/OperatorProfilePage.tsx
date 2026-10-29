@@ -157,7 +157,7 @@ export const OperatorProfilePage: React.FC = () => {
                   onError={() => setLogoPreviewError(true)}
                 />
               ) : (
-                <Building2 className="h-7 w-7 text-[#FF385C]" />
+                <Building2 className="h-7 w-7 text-[var(--gt-brand)]" />
               )}
             </div>
             <div>
@@ -231,7 +231,7 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.displayName}
                 onChange={(e) => update("displayName", e.target.value)}
                 placeholder="VD: Xe Khách Phương Trang"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[var(--gt-brand)]"
               />
             </div>
 
@@ -244,7 +244,7 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.contactPhone}
                 onChange={(e) => update("contactPhone", e.target.value)}
                 placeholder="VD: 1900 6067"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[var(--gt-brand)]"
               />
             </div>
 
@@ -257,7 +257,7 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.contactAddress}
                 onChange={(e) => update("contactAddress", e.target.value)}
                 placeholder="VD: 272 Đề Thám, Phường Phạm Ngũ Lão, Quận 1, TP. Hồ Chí Minh"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 shadow-2xs outline-none focus:border-[var(--gt-brand)]"
               />
             </div>
 
@@ -285,7 +285,7 @@ export const OperatorProfilePage: React.FC = () => {
                 value={form.description}
                 onChange={(e) => update("description", e.target.value)}
                 placeholder="Giới thiệu về kinh nghiệm phục vụ, các tuyến thế mạnh, tiêu chuẩn dòng xe..."
-                className="w-full rounded-[24px] border border-gray-200/80 bg-white/90 p-4 text-xs font-medium text-gray-900 shadow-2xs outline-none focus:border-[#FF385C]"
+                className="w-full rounded-[24px] border border-gray-200/80 bg-white/90 p-4 text-xs font-medium text-gray-900 shadow-2xs outline-none focus:border-[var(--gt-brand)]"
               />
             </div>
           </div>
@@ -294,7 +294,7 @@ export const OperatorProfilePage: React.FC = () => {
             <Button
               type="submit"
               disabled={saving}
-              className="glow-coral-sm cursor-pointer rounded-full bg-[#FF385C] px-7 py-2.5 font-bold text-white shadow-md hover:bg-[#E61E4F]"
+              className="shadow-brand-sm cursor-pointer rounded-full bg-[var(--gt-brand)] px-7 py-2.5 font-bold text-white shadow-md hover:bg-[var(--gt-brand-hover)]"
             >
               {saving ? (
                 <>

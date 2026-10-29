@@ -68,7 +68,7 @@ export const CustomerTicketsPage: React.FC = () => {
         actions={
           <Link
             to="/search"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold glow-coral-sm transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white text-xs font-bold shadow-brand-sm transition-all"
           >
             <Search className="w-3.5 h-3.5" />
             <span>Tìm chuyến xe mới</span>
@@ -95,7 +95,7 @@ export const CustomerTicketsPage: React.FC = () => {
             onClick={() => setTab('CONFIRMED')}
             className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
               tab === 'CONFIRMED'
-                ? 'bg-coral-soft text-coral border border-coral/30 shadow-xs'
+                ? 'bg-brand-soft text-brand border border-brand/30 shadow-xs'
                 : 'text-gray-600 hover:text-gray-900 hover:bg-white/70'
             }`}
           >
@@ -128,7 +128,7 @@ export const CustomerTicketsPage: React.FC = () => {
 
       <form className="flex flex-wrap gap-3" onSubmit={event => { event.preventDefault(); setSearch(searchInput.trim()); }}>
         <input aria-label="Tìm vé đã đặt" maxLength={120} value={searchInput} onChange={event => setSearchInput(event.target.value)} placeholder="Mã đơn vé hoặc tên chuyến" className="min-h-11 min-w-48 flex-1 rounded-xl border bg-white p-3 text-base" />
-        <button type="submit" className="min-h-11 rounded-xl bg-coral px-5 font-semibold text-white">Tìm kiếm</button>
+        <button type="submit" className="min-h-11 rounded-xl bg-brand px-5 font-semibold text-white">Tìm kiếm</button>
         {search && <button type="button" onClick={() => { setSearch(''); setSearchInput(''); }} className="min-h-11 rounded-xl border px-4">Xóa tìm kiếm</button>}
         <Link to="/account/disputes" className="inline-flex min-h-11 items-center rounded-xl border px-4 font-semibold">Khiếu nại & Hỗ trợ</Link>
       </form>
@@ -158,7 +158,7 @@ export const CustomerTicketsPage: React.FC = () => {
           action={
             <Link
               to="/search"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold glow-coral-sm transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white text-xs font-bold shadow-brand-sm transition-all"
             >
               <Search className="w-3.5 h-3.5" />
               <span>Tìm chuyến xe ngay</span>
@@ -174,7 +174,7 @@ export const CustomerTicketsPage: React.FC = () => {
             return (
               <div
                 key={order.orderId}
-                className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-5 sm:p-6 shadow-md hover:border-[#FF385C]/35 hover:shadow-xl transition-all space-y-4"
+                className="bg-white/85 backdrop-blur-md rounded-3xl border border-white/80 p-5 sm:p-6 shadow-md hover:border-[var(--gt-brand)]/35 hover:shadow-xl transition-all space-y-4"
               >
                 {/* Header Row */}
                 <div className="flex flex-wrap items-center justify-between gap-3 border-b border-gray-100/80 pb-3.5">
@@ -201,7 +201,7 @@ export const CustomerTicketsPage: React.FC = () => {
                       className="p-3.5 bg-white/60 backdrop-blur-xs rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-2 border border-white/70 shadow-2xs"
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="text-xs font-black px-3 py-1 rounded-full bg-[#FFF0F2] text-[#FF385C] border border-[#FF385C]/20 tabular-nums">
+                        <span className="text-xs font-black px-3 py-1 rounded-full bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] border border-[var(--gt-brand)]/20 tabular-nums">
                           Ghế {item.transportSeatCode}
                         </span>
                         <span className="text-xs font-bold text-gray-900">
@@ -236,7 +236,7 @@ export const CustomerTicketsPage: React.FC = () => {
                     {isPending && order.paymentMethod !== 'CASH' ? (
                       <Link
                         to={`/checkout/${order.orderId}`}
-                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white text-xs font-bold glow-coral-sm transition-all"
+                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white text-xs font-bold shadow-brand-sm transition-all"
                       >
                         <Clock className="w-3.5 h-3.5" />
                         <span>Thanh toán ngay</span>
@@ -244,7 +244,7 @@ export const CustomerTicketsPage: React.FC = () => {
                     ) : isConfirmed ? (
                       <Link
                         to={`/account/orders/${order.orderId}`}
-                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#111827] hover:bg-[#FF385C] text-white text-xs font-bold shadow-xs hover:glow-coral-sm transition-all"
+                        className="inline-flex items-center gap-1.5 px-5 py-2 rounded-full bg-[#111827] hover:bg-[var(--gt-brand)] text-white text-xs font-bold shadow-xs hover:shadow-brand-sm transition-all"
                       >
                         <QrCode className="w-3.5 h-3.5" />
                         <span>Xem vé QR</span>

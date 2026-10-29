@@ -16,7 +16,7 @@ export const RegisterPage: React.FC = () => {
         <div className="mb-6 flex justify-center">
           <BrandWordmark size="lg" />
         </div>
-        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gt-coral-soft)] text-[var(--gt-coral)]">
+        <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-[var(--gt-brand-soft)] text-[var(--gt-brand)]">
           <RefreshCw className="h-6 w-6 animate-spin" />
         </div>
         <h2 className="text-base font-bold text-[var(--gt-ink)]">
@@ -28,7 +28,7 @@ export const RegisterPage: React.FC = () => {
 
         <a
           href={targetUrl}
-          className="mt-6 inline-block text-xs font-bold text-[var(--gt-coral)] hover:underline"
+          className="mt-6 inline-block text-xs font-bold text-[var(--gt-brand)] hover:underline"
         >
           Bấm vào đây nếu trình duyệt không tự chuyển hướng →
         </a>

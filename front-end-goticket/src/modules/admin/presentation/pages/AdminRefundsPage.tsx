@@ -27,7 +27,7 @@ type Action = { kind: 'claim'; claim: Claim; value: string; title: string } | { 
 const base = '/api/v1/orders/transport/admin';
 const categories: [Category, string][] = [['PENDING', 'Chờ xử lý'], ['COMPLETED', 'Đã hoàn'], ['REVIEW', 'Cần rà soát']];
 const positive = (value: string) => /^\d+(?:\.0+)?$/.test(value) && BigInt(value.replace(/\.0+$/, '')) > 0n;
-const field = 'min-h-11 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 outline-none focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/15';
+const field = 'min-h-11 w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm text-stone-900 outline-none focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/15';
 const reason = (row: RefundCase) => row.reasonText || (row.reasonCode ? refundReasonLabel(row.reasonCode) : row.operationKind === 'ORDER' ? 'Hủy đơn vé' : row.operationKind === 'CANCEL' ? 'Hủy vé' : 'Hoàn chênh lệch đổi vé');
 
 export const AdminRefundsPage = () => {
@@ -97,17 +97,17 @@ export const AdminRefundsPage = () => {
     } catch (failure) { setDialogError(failure instanceof Error ? failure.message : 'Chưa lưu được. Kiểm tra lại thông tin và thử lại.'); }
     finally { locked.current = false; setBusy(false); }
   };
-  const orderLink = (id: string, label?: string) => <Link className="font-semibold text-[#D91D45] underline decoration-[#D91D45]/30 underline-offset-4 hover:decoration-current break-all" to={`/admin/orders?search=${encodeURIComponent(id)}`}>{label || id}</Link>;
+  const orderLink = (id: string, label?: string) => <Link className="font-semibold text-[var(--gt-brand-ink)] underline decoration-[var(--gt-brand-ink)]/30 underline-offset-4 hover:decoration-current break-all" to={`/admin/orders?search=${encodeURIComponent(id)}`}>{label || id}</Link>;
   const changeTab = (value: Tab) => navigate({ tab: value, category: '', history: '', search: '' });
   return <div className="space-y-5">
     <PageHeader variant="portal" title="Khiếu nại & Hoàn tiền" description="Xử lý khoản hoàn theo vé hoặc toàn đơn; tiếp nhận và phản hồi yêu cầu của khách." actions={<Button variant="outline" className="rounded-full" disabled={loading || busy} onClick={() => void load()}><RefreshCw aria-hidden="true" className={loading ? 'animate-spin' : ''} />Tải lại</Button>} />
     <div className="flex gap-5 border-b border-stone-200" aria-label="Nhóm hồ sơ">
-      {([['refunds', 'Hoàn tiền'], ['claims', 'Khiếu nại']] as const).map(([value, label]) => <button key={value} type="button" aria-current={tab === value ? 'page' : undefined} onClick={() => changeTab(value)} className={`min-h-12 border-b-2 px-1 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#FF385C] ${tab === value ? 'border-[#FF385C] text-[#D91D45]' : 'border-transparent text-stone-600 hover:text-stone-900'}`}>{label}</button>)}
+      {([['refunds', 'Hoàn tiền'], ['claims', 'Khiếu nại']] as const).map(([value, label]) => <button key={value} type="button" aria-current={tab === value ? 'page' : undefined} onClick={() => changeTab(value)} className={`min-h-12 border-b-2 px-1 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--gt-brand)] ${tab === value ? 'border-[var(--gt-brand)] text-[var(--gt-brand-ink)]' : 'border-transparent text-stone-600 hover:text-stone-900'}`}>{label}</button>)}
     </div>
     {tab === 'refunds' && <p className="flex items-start gap-2 rounded-xl bg-amber-50 px-4 py-3 text-sm text-amber-950"><FlaskConical aria-hidden="true" className="mt-0.5 size-4 shrink-0" />Chế độ demo: VNPAY sandbox và thanh toán mô phỏng được hoàn trong ứng dụng. Không chuyển tiền ngân hàng.</p>}
     <SurfaceCard className="space-y-5 p-4 sm:p-6">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-        {tab === 'refunds' ? <div className="grid grid-cols-3 gap-1 rounded-xl bg-stone-100 p-1 xl:flex" aria-label="Trạng thái khoản hoàn">{categories.map(([value, label]) => <button key={value} type="button" aria-pressed={category === value} onClick={() => navigate({ category: value })} className={`min-h-10 whitespace-nowrap rounded-lg px-3 text-xs sm:text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-[#FF385C] ${category === value ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-stone-900'}`}>{label}</button>)}</div> : <label className="flex min-h-10 items-center gap-2 text-sm text-stone-700"><input type="checkbox" className="size-4 accent-[#FF385C]" checked={history} onChange={event => navigate({ history: event.target.checked ? 'true' : '' })} />Hiện cả phiếu đã đóng</label>}
+        {tab === 'refunds' ? <div className="grid grid-cols-3 gap-1 rounded-xl bg-stone-100 p-1 xl:flex" aria-label="Trạng thái khoản hoàn">{categories.map(([value, label]) => <button key={value} type="button" aria-pressed={category === value} onClick={() => navigate({ category: value })} className={`min-h-10 whitespace-nowrap rounded-lg px-3 text-xs sm:text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-[var(--gt-brand)] ${category === value ? 'bg-white text-stone-900 shadow-sm' : 'text-stone-600 hover:text-stone-900'}`}>{label}</button>)}</div> : <label className="flex min-h-10 items-center gap-2 text-sm text-stone-700"><input type="checkbox" className="size-4 accent-[var(--gt-brand)]" checked={history} onChange={event => navigate({ history: event.target.checked ? 'true' : '' })} />Hiện cả phiếu đã đóng</label>}
         <form className="flex w-full gap-2 xl:max-w-md" onSubmit={event => { event.preventDefault(); navigate({ search: input.trim() }); }}>
           <input aria-label="Tìm hồ sơ theo mã đơn, mã hồ sơ, tên hoặc email" maxLength={120} className={field} value={input} onChange={event => setInput(event.target.value)} placeholder="Mã đơn, tên hoặc email khách…" />
           <Button aria-label="Tìm kiếm hồ sơ" className="h-11 shrink-0 rounded-xl bg-[#111827] text-white hover:bg-[#374151]" type="submit"><Search aria-hidden="true" /><span className="hidden sm:inline">Tìm</span></Button>
@@ -133,7 +133,7 @@ export const AdminRefundsPage = () => {
                 <details className="w-full"><summary className="w-fit cursor-pointer py-2 text-xs text-stone-600 underline underline-offset-4 focus-visible:outline-2">Đã hoàn bên ngoài ứng dụng?</summary><div className="flex flex-wrap items-center gap-3 py-2"><p className="max-w-xl text-xs text-stone-600">Chỉ ghi nhận khi đã trả tiền thực tế và có chứng từ. Không dùng đồng thời với hoàn qua cổng.</p><Button size="sm" variant="outline" disabled={busy} onClick={() => open({ kind: 'proof', refund: row, title: 'Ghi nhận khoản đã hoàn thực tế' })}>Nhập chứng từ đã hoàn</Button></div></details>
               </>}
               {category === 'REVIEW' && row.source === 'ORDER' && row.operationState === 'PAID_REVIEW' && <Button size="sm" disabled={busy} onClick={() => open({ kind: 'review', refund: row, title: 'Kiểm tra và mở khoản hoàn' })}>Kiểm tra điều kiện hoàn</Button>}
-              {category === 'REVIEW' && <Link className="inline-flex min-h-10 items-center gap-1 text-sm text-[#D91D45] underline underline-offset-4" to={`/admin/reconciliation?search=${encodeURIComponent(row.orderId)}`}>Xem đối soát<ChevronRight aria-hidden="true" className="size-4" /></Link>}
+              {category === 'REVIEW' && <Link className="inline-flex min-h-10 items-center gap-1 text-sm text-[var(--gt-brand-ink)] underline underline-offset-4" to={`/admin/reconciliation?search=${encodeURIComponent(row.orderId)}`}>Xem đối soát<ChevronRight aria-hidden="true" className="size-4" /></Link>}
             </div>
           </article>)}
           {tab === 'claims' && claims.map(claim => <article key={claim.disputeId} className="space-y-3 py-5 first:pt-0">
@@ -142,7 +142,7 @@ export const AdminRefundsPage = () => {
             {claim.description && <p className="whitespace-pre-wrap break-words text-sm text-stone-700">{claim.description}</p>}
             {claim.adminNote && <p className="whitespace-pre-wrap break-words rounded-xl bg-stone-100 p-3 text-sm text-stone-700"><strong>Phản hồi: </strong>{claim.adminNote}</p>}
             <div className="flex flex-wrap gap-2">
-              {['OPEN', 'IN_REVIEW'].includes(claim.status) && <Button size="sm" className="min-h-10 rounded-full bg-[#D91D45] px-4 text-white hover:bg-[#BD1639]" onClick={() => open({ kind: 'claim', claim, value: claim.status === 'OPEN' ? 'IN_REVIEW' : 'RESOLVE', title: 'Phản hồi yêu cầu hỗ trợ' })}><MessageSquare aria-hidden="true" />Phản hồi / Xử lý</Button>}
+              {['OPEN', 'IN_REVIEW'].includes(claim.status) && <Button size="sm" className="min-h-10 rounded-full bg-[var(--gt-brand-ink)] px-4 text-white hover:bg-[var(--gt-brand-ink)]" onClick={() => open({ kind: 'claim', claim, value: claim.status === 'OPEN' ? 'IN_REVIEW' : 'RESOLVE', title: 'Phản hồi yêu cầu hỗ trợ' })}><MessageSquare aria-hidden="true" />Phản hồi / Xử lý</Button>}
               <Button size="sm" variant="ghost" className="min-h-10" onClick={() => navigate({ tab: 'refunds', search: claim.orderId, category: claim.orderStatus === 'REFUNDED' ? 'COMPLETED' : 'PENDING', history: '' })}>Xem khoản hoàn của đơn<ChevronRight aria-hidden="true" /></Button>
             </div>
           </article>)}
@@ -160,7 +160,7 @@ export const AdminRefundsPage = () => {
           </>}
           {action?.kind === 'proof' && <><p>Số tiền đã hoàn: <MoneyText amount={action.refund.amount} /></p><label className="block space-y-2 text-sm"><span>Mã giao dịch / Biên nhận *</span><input className={field} required maxLength={160} value={reference} onChange={event => setReference(event.target.value)} disabled={busy} /></label><label className="block space-y-2 text-sm"><span>Đường dẫn chứng từ HTTPS *</span><input className={field} required type="url" maxLength={1000} value={evidence} onChange={event => setEvidence(event.target.value)} disabled={busy} placeholder="https://…" /></label></>}
           {dialogError && <p role="alert" className="text-sm text-red-700">{dialogError}</p>}
-          <div className="flex justify-end gap-2"><Button variant="outline" type="button" disabled={busy} onClick={() => setAction(null)}>Đóng</Button><Button type="submit" className="bg-[#D91D45] text-white hover:bg-[#BD1639]" disabled={busy}>{busy ? 'Đang lưu…' : action?.kind === 'claim' ? 'Lưu phản hồi' : action?.kind === 'proof' ? 'Xác nhận đã hoàn' : 'Kiểm tra và mở hoàn'}</Button></div>
+          <div className="flex justify-end gap-2"><Button variant="outline" type="button" disabled={busy} onClick={() => setAction(null)}>Đóng</Button><Button type="submit" className="bg-[var(--gt-brand-ink)] text-white hover:bg-[var(--gt-brand-ink)]" disabled={busy}>{busy ? 'Đang lưu…' : action?.kind === 'claim' ? 'Lưu phản hồi' : action?.kind === 'proof' ? 'Xác nhận đã hoàn' : 'Kiểm tra và mở hoàn'}</Button></div>
         </form>
       </DialogContent>
     </Dialog>

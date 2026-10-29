@@ -253,7 +253,7 @@ export const OperatorCarListPage: React.FC = () => {
         actions={
           <Button
             onClick={() => setIsAddModalOpen(true)}
-            className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md transition-all cursor-pointer"
+            className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-brand-sm shadow-md transition-all cursor-pointer"
           >
             <Plus className="h-4 w-4 mr-2" />
             Thêm xe mới
@@ -277,7 +277,7 @@ export const OperatorCarListPage: React.FC = () => {
               placeholder="Tìm theo tên xe, biển số..."
               value={keywordInput}
               onChange={(e) => setKeywordInput(e.target.value)}
-              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-11 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/20 shadow-2xs"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 py-2.5 pl-11 pr-4 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/20 shadow-2xs"
             />
           </div>
 
@@ -285,7 +285,7 @@ export const OperatorCarListPage: React.FC = () => {
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] shadow-2xs"
             >
               <option value="">Tất cả loại xe</option>
               <option value="SLEEPER">Xe giường nằm</option>
@@ -296,7 +296,7 @@ export const OperatorCarListPage: React.FC = () => {
             <select
               value={sortOption}
               onChange={(e) => setSortOption(e.target.value)}
-              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[#FF385C] shadow-2xs"
+              className="rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none transition focus:border-[var(--gt-brand)] shadow-2xs"
             >
               <option value="createdAt_desc">Mới nhất trước</option>
               <option value="name_asc">Tên xe (A-Z)</option>
@@ -328,7 +328,7 @@ export const OperatorCarListPage: React.FC = () => {
             action={
               <Button
                 onClick={() => setIsAddModalOpen(true)}
-                className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white glow-coral-sm shadow-md"
+                className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-brand-sm shadow-md"
               >
                 Đăng ký xe mới ngay
               </Button>
@@ -341,15 +341,15 @@ export const OperatorCarListPage: React.FC = () => {
             {cars.map(car => <SurfaceCard key={car.id} className="p-5 sm:p-6">
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div className="flex min-w-0 items-start gap-3">
-                  <Bus className="mt-1 h-6 w-6 shrink-0 text-[#B8173B]" />
-                  <div className="min-w-0"><Link to={`/operator/cars/${car.id}/seats`} className="block break-words text-lg font-bold text-gray-900 hover:text-[#B8173B] focus-visible:outline-[#FF385C]">{car.name}</Link>
+                  <Bus className="mt-1 h-6 w-6 shrink-0 text-[var(--gt-brand-ink)]" />
+                  <div className="min-w-0"><Link to={`/operator/cars/${car.id}/seats`} className="block break-words text-lg font-bold text-gray-900 hover:text-[var(--gt-brand-ink)] focus-visible:outline-[var(--gt-brand)]">{car.name}</Link>
                     <p className="mt-1 text-sm font-semibold text-gray-600">{car.licensePlate}</p></div>
                 </div>
                 <StatusBadge status={car.status} />
               </div>
               <div className="my-5 flex flex-wrap items-center gap-3 text-sm"><CarTypeBadge type={car.type} /><span className="text-gray-700">{car.totalSeats} ghế</span></div>
               <div className="flex flex-wrap gap-2 border-t border-gray-100 pt-4">
-                <Link to={`/operator/cars/${car.id}/seats`} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--gt-coral-soft)] px-4 text-sm font-semibold text-[#B8173B] hover:bg-rose-100"><Grid3X3 size={16} />Xem & sửa sơ đồ</Link>
+                <Link to={`/operator/cars/${car.id}/seats`} className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--gt-brand-soft)] px-4 text-sm font-semibold text-[var(--gt-brand-ink)] hover:bg-sky-100"><Grid3X3 size={16} />Xem & sửa sơ đồ</Link>
                 <Button variant="outline" disabled={Boolean(updatingCarId)} onClick={() => openEditDialog(car)}><Edit2 size={16} className="mr-2" />Thông tin xe</Button>
                 <Button variant="outline" disabled={Boolean(updatingCarId)} onClick={() => setDeleteTarget(car)} aria-label={`Xóa xe ${car.name}`} className="text-red-700 hover:bg-red-50"><Trash2 size={16} className="mr-2" />Xóa xe</Button>
               </div>
@@ -382,25 +382,25 @@ export const OperatorCarListPage: React.FC = () => {
           <form onSubmit={submitEditCar} className="space-y-4 pt-2">
             <div className="space-y-1.5">
               <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Tên hiển thị xe <span className="text-[var(--gt-coral)]">*</span>
+                Tên hiển thị xe <span className="text-[var(--gt-brand)]">*</span>
               </label>
               <input
                 required
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-brand)]"
               />
             </div>
 
             <div className="space-y-1.5">
               <label className="text-xs font-semibold uppercase tracking-wider text-[var(--gt-muted)]">
-                Biển số kiểm soát <span className="text-[var(--gt-coral)]">*</span>
+                Biển số kiểm soát <span className="text-[var(--gt-brand)]">*</span>
               </label>
               <input
                 required
                 value={editPlate}
                 onChange={(e) => setEditPlate(e.target.value.toUpperCase())}
-                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 font-mono text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-coral)]"
+                className="w-full rounded-2xl border border-[var(--gt-border)] bg-white px-3.5 py-2.5 font-mono text-sm font-semibold text-[var(--gt-ink)] outline-none transition focus:border-[var(--gt-brand)]"
               />
             </div>
 
@@ -423,7 +423,7 @@ export const OperatorCarListPage: React.FC = () => {
               <button
                 type="submit"
                 disabled={Boolean(updatingCarId)}
-                className="btn-coral px-5 py-2 text-xs font-bold shadow-sm disabled:opacity-50"
+                className="btn-brand px-5 py-2 text-xs font-bold shadow-sm disabled:opacity-50"
               >
                 {updatingCarId ? "Đang lưu..." : "Lưu thay đổi"}
               </button>

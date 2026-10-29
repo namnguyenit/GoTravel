@@ -364,7 +364,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                 }}
                 className={`rounded-full px-4 py-2 text-xs font-bold transition-all ${
                   selectedStatus === statusKey
-                    ? "shadow-coral-sm bg-[#FF385C] text-white"
+                    ? "shadow-brand-sm bg-[var(--gt-brand)] text-white"
                     : "text-[var(--gt-muted)] hover:text-[var(--gt-ink)]"
                 }`}
               >
@@ -381,7 +381,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Tìm hồ sơ theo tên nhà xe, SĐT, địa chỉ hoặc mã tài khoản…"
-              className="h-10 w-full rounded-full border border-white/80 bg-white/70 pr-8 pl-10 text-xs shadow-xs backdrop-blur-md transition-all focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none"
+              className="h-10 w-full rounded-full border border-white/80 bg-white/70 pr-8 pl-10 text-xs shadow-xs backdrop-blur-md transition-all focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 focus:outline-none"
             />
             {searchTerm && (
               <button
@@ -462,7 +462,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                     >
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-2.5">
-                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] shadow-xs">
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] shadow-xs">
                             <Building2 className="h-4.5 w-4.5" />
                           </div>
                           <div>
@@ -480,7 +480,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-6 w-6 rounded-full p-0 text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
+                            className="h-6 w-6 rounded-full p-0 text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)]"
                             onClick={() =>
                               setSelectedUserModal({
                                 userId: app.userId,
@@ -495,7 +495,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                       <td className="px-5 py-4 text-[var(--gt-muted)]">
                         <div className="space-y-0.5 font-medium">
                           <div className="flex items-center gap-1.5 font-bold text-[var(--gt-ink)]">
-                            <Phone className="h-3.5 w-3.5 text-[var(--gt-coral)]" />
+                            <Phone className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
                             <span>{app.phone}</span>
                           </div>
                           <span className="block max-w-xs truncate text-[11px] text-[var(--gt-muted)]">
@@ -527,7 +527,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                             type="button"
                             variant="ghost"
                             size="sm"
-                            className="h-8 gap-1 rounded-full px-3 text-xs font-semibold text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
+                            className="h-8 gap-1 rounded-full px-3 text-xs font-semibold text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)]"
                             onClick={() => setDetailApplication(app)}
                           >
                             <Eye className="h-3.5 w-3.5" />
@@ -550,7 +550,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                                 type="button"
                                 variant="default"
                                 size="sm"
-                                className="shadow-coral-sm h-8 gap-1 rounded-full bg-[#FF385C] px-3.5 text-xs font-bold text-white hover:bg-[#E61E4F]"
+                                className="shadow-brand-sm h-8 gap-1 rounded-full bg-[var(--gt-brand)] px-3.5 text-xs font-bold text-white hover:bg-[var(--gt-brand-hover)]"
                                 disabled={!app.logoUrl}
                                 title={
                                   !app.logoUrl
@@ -581,7 +581,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                 >
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex items-center gap-2.5">
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] shadow-xs">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] shadow-xs">
                         <Building2 className="h-4.5 w-4.5" />
                       </div>
                       <div>
@@ -606,7 +606,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-2 pt-1 text-xs text-[var(--gt-muted)]">
                     <div className="flex items-center gap-1.5 font-medium">
-                      <Phone className="h-3.5 w-3.5 shrink-0 text-[var(--gt-coral)]" />
+                      <Phone className="h-3.5 w-3.5 shrink-0 text-[var(--gt-brand)]" />
                       <span className="truncate">{app.phone}</span>
                     </div>
                     <div className="flex items-center gap-1.5 font-medium">
@@ -620,7 +620,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                       type="button"
                       variant="ghost"
                       size="sm"
-                      className="h-8 gap-1 rounded-full px-3 text-xs font-semibold text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)]"
+                      className="h-8 gap-1 rounded-full px-3 text-xs font-semibold text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)]"
                       onClick={() => setDetailApplication(app)}
                     >
                       <Eye className="h-3.5 w-3.5" />
@@ -643,7 +643,7 @@ export const AdminOperatorApplicationsPage: React.FC = () => {
                           type="button"
                           variant="default"
                           size="sm"
-                          className="shadow-coral-sm h-8 rounded-full bg-[#FF385C] px-3.5 text-xs font-bold text-white hover:bg-[#E61E4F]"
+                          className="shadow-brand-sm h-8 rounded-full bg-[var(--gt-brand)] px-3.5 text-xs font-bold text-white hover:bg-[var(--gt-brand-hover)]"
                           disabled={!app.logoUrl}
                           title={
                             !app.logoUrl

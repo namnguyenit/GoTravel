@@ -103,7 +103,7 @@ export function SettlementSimulationButton({
     <>
       <Button
         size="sm"
-        className="min-h-9 rounded-full bg-[#D91D45] text-white hover:bg-[#BD1639]"
+        className="min-h-9 rounded-full bg-[var(--gt-brand-ink)] text-white hover:bg-[var(--gt-brand-ink)]"
         disabled={disabled}
         onClick={() => setOpen(true)}
       >
@@ -168,7 +168,7 @@ export function SettlementSimulationButton({
             </Button>
             {data && (
               <Button
-                className="bg-[#D91D45] text-white hover:bg-[#BD1639]"
+                className="bg-[var(--gt-brand-ink)] text-white hover:bg-[var(--gt-brand-ink)]"
                 disabled={loading || sending}
                 onClick={() => void confirm()}
               >

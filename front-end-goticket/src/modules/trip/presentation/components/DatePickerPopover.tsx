@@ -124,7 +124,7 @@ export const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({
             error
               ? 'ring-2 ring-red-400 bg-red-50/40'
               : isOpen
-              ? 'ring-2 ring-[#FF385C]/30 bg-white shadow-md'
+              ? 'ring-2 ring-[var(--gt-brand)]/30 bg-white shadow-md'
               : 'bg-white/95 hover:bg-white'
           }`}
         >
@@ -140,11 +140,11 @@ export const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({
             error
               ? 'bg-red-50/50 ring-2 ring-red-400'
               : isOpen
-              ? 'bg-white ring-2 ring-[#FF385C]/30'
+              ? 'bg-white ring-2 ring-[var(--gt-brand)]/30'
               : 'hover:bg-gray-50'
           }`}
         >
-          <Calendar className="h-4 w-4 shrink-0 text-[#FF385C]" />
+          <Calendar className="h-4 w-4 shrink-0 text-[var(--gt-brand)]" />
           <span className="text-sm font-bold text-[#1A1D20]">
             {formatDisplayDate(value)}
           </span>
@@ -194,7 +194,7 @@ export const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({
               <span
                 key={dayName}
                 className={`text-[11px] font-bold py-1 ${
-                  idx === 6 ? 'text-[#FF385C]' : 'text-gray-400'
+                  idx === 6 ? 'text-[var(--gt-brand)]' : 'text-gray-400'
                 }`}
               >
                 {dayName}
@@ -225,12 +225,12 @@ export const DatePickerPopover: React.FC<DatePickerPopoverProps> = ({
                   onClick={() => handleSelectDay(day)}
                   className={`w-9 h-9 sm:w-10 sm:h-10 mx-auto rounded-full text-xs sm:text-sm font-semibold flex items-center justify-center transition-all ${
                     isSelected
-                      ? 'bg-[#FF385C] text-white font-bold shadow-md shadow-[#FF385C]/35 scale-105'
+                      ? 'bg-[var(--gt-brand)] text-white font-bold shadow-md shadow-[var(--gt-brand)]/35 scale-105'
                       : isPast
                       ? 'text-gray-300 cursor-not-allowed'
                       : isToday
-                      ? 'ring-1.5 ring-[#FF385C] text-[#FF385C] font-bold hover:bg-[#FFF0F2]'
-                      : 'text-[#111827] hover:bg-[#FFF0F2] hover:text-[#FF385C] cursor-pointer'
+                      ? 'ring-1.5 ring-[var(--gt-brand)] text-[var(--gt-brand)] font-bold hover:bg-[var(--gt-brand-soft)]'
+                      : 'text-[#111827] hover:bg-[var(--gt-brand-soft)] hover:text-[var(--gt-brand)] cursor-pointer'
                   }`}
                 >
                   {day}

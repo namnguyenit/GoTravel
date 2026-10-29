@@ -87,9 +87,9 @@ export function TransportCommissionSettings() {
     <>
       <SurfaceCard className="rounded-[28px] p-5 sm:p-6">
         <details>
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg font-semibold text-[var(--gt-ink)] focus-visible:outline-2 focus-visible:outline-[var(--gt-coral)]">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 rounded-lg font-semibold text-[var(--gt-ink)] focus-visible:outline-2 focus-visible:outline-[var(--gt-brand)]">
             <span className="flex items-center gap-2">
-              <Coins className="h-5 w-5 text-[var(--gt-coral)]" /> Hoa hồng
+              <Coins className="h-5 w-5 text-[var(--gt-brand)]" /> Hoa hồng
               GoTicket
             </span>
             <span className="text-sm text-[var(--gt-muted)]">
@@ -116,7 +116,7 @@ export function TransportCommissionSettings() {
                 value={value}
                 disabled={!current || busy}
                 onChange={(e) => setValue(e.target.value)}
-                className="h-11 w-full rounded-xl border border-[var(--gt-border)] bg-white px-3 focus:outline-2 focus:outline-[var(--gt-coral)]"
+                className="h-11 w-full rounded-xl border border-[var(--gt-border)] bg-white px-3 focus:outline-2 focus:outline-[var(--gt-brand)]"
               />
             </div>
             <div>
@@ -133,13 +133,13 @@ export function TransportCommissionSettings() {
                 disabled={!current || busy}
                 onChange={(e) => setReason(e.target.value)}
                 placeholder="Ví dụ: điều chỉnh chính sách dành cho nhà xe"
-                className="h-11 w-full rounded-xl border border-[var(--gt-border)] bg-white px-3 focus:outline-2 focus:outline-[var(--gt-coral)]"
+                className="h-11 w-full rounded-xl border border-[var(--gt-border)] bg-white px-3 focus:outline-2 focus:outline-[var(--gt-brand)]"
               />
             </div>
             <Button
               disabled={!current || busy}
               onClick={validate}
-              className="h-11 rounded-full bg-[var(--gt-coral)] px-5 text-white"
+              className="h-11 rounded-full bg-[var(--gt-brand)] px-5 text-white"
             >
               Lưu hoa hồng
             </Button>

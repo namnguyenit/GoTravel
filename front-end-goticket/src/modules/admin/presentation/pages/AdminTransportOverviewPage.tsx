@@ -98,7 +98,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
           <Button
             asChild
             variant="default"
-            className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm px-5 py-2.5 font-bold text-xs"
+            className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-brand-sm px-5 py-2.5 font-bold text-xs"
           >
             <Link to="/admin/applications" className="gap-2 flex items-center">
               <FileCheck2 className="w-4 h-4" />
@@ -171,12 +171,12 @@ export const AdminTransportOverviewPage: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-coral)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
+          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-brand)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
             <div className="space-y-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
                 <Building2 className="w-5.5 h-5.5" />
               </div>
-              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-coral)] transition-colors">
+              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-brand)] transition-colors">
                 Nhà xe & Trạng thái hoạt động
               </h3>
               <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
@@ -187,7 +187,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
             <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
               <Link
                 to="/admin/operators"
-                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-coral)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
+                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-brand)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
               >
                 <span>Mở quản lý nhà xe</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -195,12 +195,12 @@ export const AdminTransportOverviewPage: React.FC = () => {
             </div>
           </SurfaceCard>
 
-          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-coral)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
+          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-brand)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
             <div className="space-y-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
                 <Receipt className="w-5.5 h-5.5" />
               </div>
-              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-coral)] transition-colors">
+              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-brand)] transition-colors">
                 Đơn hàng & Ngoại lệ tranh chấp
               </h3>
               <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
@@ -211,7 +211,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
             <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
               <Link
                 to="/admin/orders"
-                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-coral)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
+                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-brand)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
               >
                 <span>Tra cứu đơn hàng</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -219,12 +219,12 @@ export const AdminTransportOverviewPage: React.FC = () => {
             </div>
           </SurfaceCard>
 
-          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-coral)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
+          <SurfaceCard className="p-6 sm:p-7 rounded-[28px] flex flex-col justify-between hover:border-[var(--gt-brand)]/40 transition-all hover:shadow-glass-lg hover:-translate-y-1 group">
             <div className="space-y-3.5">
-              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
+              <div className="w-12 h-12 rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] flex items-center justify-center transition-transform group-hover:scale-105 shadow-xs">
                 <Scale className="w-5.5 h-5.5" />
               </div>
-              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-coral)] transition-colors">
+              <h3 className="font-bold text-base text-[var(--gt-ink)] group-hover:text-[var(--gt-brand)] transition-colors">
                 Trung tâm Vận hành Admin
               </h3>
               <p className="text-xs text-[var(--gt-muted)] leading-relaxed">
@@ -234,7 +234,7 @@ export const AdminTransportOverviewPage: React.FC = () => {
             <div className="pt-4 mt-4 border-t border-[var(--gt-border)]/60">
               <Link
                 to="/admin/reconciliation"
-                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-coral)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
+                className="inline-flex items-center justify-between w-full rounded-full px-4 py-2 bg-stone-100/70 hover:bg-[var(--gt-brand)] text-stone-700 hover:text-white transition-all text-xs font-bold group-hover:shadow-xs"
               >
                 <span>Mở trung tâm vận hành</span>
                 <ArrowRight className="w-3.5 h-3.5" />

@@ -87,7 +87,7 @@ export const OperationTimeline: React.FC<OperationTimelineProps> = ({
         const icon = isSuccess ? (
           <CheckCircle2 className="w-5 h-5 text-emerald-500" />
         ) : isRunning ? (
-          <Loader2 className="w-5 h-5 text-[#FF385C] animate-spin" />
+          <Loader2 className="w-5 h-5 text-[var(--gt-brand)] animate-spin" />
         ) : isFailed ? (
           <AlertCircle className="w-5 h-5 text-rose-500" />
         ) : (
@@ -104,7 +104,7 @@ export const OperationTimeline: React.FC<OperationTimelineProps> = ({
                     isSuccess
                       ? 'text-gray-900'
                       : isRunning
-                      ? 'text-[#FF385C]'
+                      ? 'text-[var(--gt-brand)]'
                       : isFailed
                       ? 'text-rose-600'
                       : 'text-gray-400'

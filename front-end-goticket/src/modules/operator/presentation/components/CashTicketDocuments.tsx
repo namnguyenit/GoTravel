@@ -49,6 +49,7 @@ export function CashTicketDocuments({ orderId }: { orderId: string }) {
     </> : !documents.length ? <p className="text-sm text-muted">Đơn không còn vé đang hoạt động để in.</p> : <>
       {documents.map(document => <article key={document.itemId} className="flex flex-wrap items-center justify-between gap-5 rounded-2xl border bg-white p-5 print:break-inside-avoid">
         <div className="space-y-2 text-sm">
+          <img src="/brand/goticket-lockup-black.svg" alt="GoTicket" width={112} height={32} className="goticket-brand-print h-8 w-auto" />
           <h4 className="font-bold">{document.routeTitle}</h4>
           <p>Đơn vé: {document.orderNumber}</p>
           <p>Hành khách: <strong>{document.passengerName}</strong></p>

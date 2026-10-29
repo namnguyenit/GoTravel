@@ -8,7 +8,7 @@ import { DEFAULT_SEAT_CLASSES, type SeatClassOption } from '../../domain/seat-cl
 type SeatDraft = { code: string; level: number; seatClass: string; row: number; column: number };
 type CarDetail = { id: string; name: string; licensePlate: string; totalSeats: number; seatTemplates: SeatDraft[] };
 const columnCount = (rows: SeatDraft[]) => Math.max(1, ...rows.map(s => s.column + 1));
-const inputClass = 'min-h-11 w-full rounded-lg border border-gray-200 bg-white px-3 text-base text-gray-900 focus:border-[#FF385C] focus:outline-none focus:ring-2 focus:ring-[#FF385C]/20';
+const inputClass = 'min-h-11 w-full rounded-lg border border-gray-200 bg-white px-3 text-base text-gray-900 focus:border-[var(--gt-brand)] focus:outline-none focus:ring-2 focus:ring-[var(--gt-brand)]/20';
 
 export const OperatorSeatLayoutPage: React.FC = () => {
   const { carId } = useParams<{ carId: string }>();
@@ -137,14 +137,14 @@ export const OperatorSeatLayoutPage: React.FC = () => {
     setDirty(true); setError(''); setMessage('');
   };
   return <div className="space-y-6">
-    <Link to="/operator/cars" onClick={e => { if (dirty && !window.confirm('Bạn chưa lưu sơ đồ. Rời trang và bỏ các thay đổi?')) e.preventDefault(); }} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#B8173B]"><ArrowLeft size={16} />Đội xe</Link>
-    <PageHeader title={car?.name || 'Sơ đồ ghế'} description={`${car?.licensePlate || ''} · ${seats.length} ghế. Sửa sơ đồ không làm thay đổi vé và chuyến đã mở bán.`} actions={<Button className="min-h-11 bg-[#BE123C] text-white hover:bg-[#9F1239]" onClick={() => void save()} disabled={saving || !dirty || !car}><Save size={16} className="mr-2" />{saving ? 'Đang lưu...' : dirty ? 'Lưu thay đổi' : 'Sơ đồ đã lưu'}</Button>} />
+    <Link to="/operator/cars" onClick={e => { if (dirty && !window.confirm('Bạn chưa lưu sơ đồ. Rời trang và bỏ các thay đổi?')) e.preventDefault(); }} className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[var(--gt-brand-ink)]"><ArrowLeft size={16} />Đội xe</Link>
+    <PageHeader title={car?.name || 'Sơ đồ ghế'} description={`${car?.licensePlate || ''} · ${seats.length} ghế. Sửa sơ đồ không làm thay đổi vé và chuyến đã mở bán.`} actions={<Button className="min-h-11 bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)]" onClick={() => void save()} disabled={saving || !dirty || !car}><Save size={16} className="mr-2" />{saving ? 'Đang lưu...' : dirty ? 'Lưu thay đổi' : 'Sơ đồ đã lưu'}</Button>} />
     {error && <InlineAlert variant="error" title="Chưa hoàn tất" message={error} onClose={() => setError('')} />}
     {message && <InlineAlert variant="success" title="Đã cập nhật" message={message} onClose={() => setMessage('')} />}
     {dirty && <p role="status" className="text-sm font-semibold text-amber-800">Có thay đổi chưa lưu. Bấm “Lưu thay đổi” để áp dụng cho các chuyến mở bán sau.</p>}
     <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,340px)]">
       <SurfaceCard className="space-y-5 p-4 sm:p-6">
-        <div className="flex flex-wrap gap-2" aria-label="Chọn tầng">{decks.map(level => <Button key={level} variant={deck === level ? 'default' : 'outline'} aria-pressed={deck === level} className={`min-h-11 border ${deck === level ? 'border-[#BE123C] bg-[#FFF0F2] text-[#9F1239]' : 'border-gray-200 bg-white text-gray-700'}`} disabled={saving} onClick={() => { setDeck(level); setFocused(null); }}>Tầng {level} · {seats.filter(s => s.level === level).length} ghế</Button>)}</div>
+        <div className="flex flex-wrap gap-2" aria-label="Chọn tầng">{decks.map(level => <Button key={level} variant={deck === level ? 'default' : 'outline'} aria-pressed={deck === level} className={`min-h-11 border ${deck === level ? 'border-[var(--gt-brand)] bg-[var(--gt-brand-soft)] text-[var(--gt-brand-hover)]' : 'border-gray-200 bg-white text-gray-700'}`} disabled={saving} onClick={() => { setDeck(level); setFocused(null); }}>Tầng {level} · {seats.filter(s => s.level === level).length} ghế</Button>)}</div>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <p className="text-sm text-gray-600">{multiSelect ? 'Chọn các ghế cần đổi hạng, sau đó áp dụng ở bên cạnh.' : 'Bấm một ghế để xem và chỉnh sửa chi tiết.'}</p>
           <Button variant="outline" disabled={saving} aria-pressed={multiSelect} onClick={() => { setMultiSelect(!multiSelect); setSelected([]); }}> {multiSelect ? 'Xong chọn nhiều' : 'Chọn nhiều ghế'}</Button>
@@ -170,7 +170,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
                   setFocused(index);
                   if (window.innerWidth < 1024) requestAnimationFrame(() => document.getElementById('seat-detail-panel')?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' }));
                   if (multiSelect) setSelected(prev => prev.includes(index) ? prev.filter(i => i !== index) : [...prev, index]);
-                }} className={`flex min-h-20 flex-col items-center justify-center gap-1 rounded-xl border-2 px-1 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#FF385C] disabled:opacity-50 ${highlighted ? 'border-[#FF385C] bg-[var(--gt-coral-soft)] text-[#B8173B]' : 'border-gray-200 bg-white text-gray-800 hover:border-[#FF385C]'}`}>
+                }} className={`flex min-h-20 flex-col items-center justify-center gap-1 rounded-xl border-2 px-1 py-2 text-sm transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--gt-brand)] disabled:opacity-50 ${highlighted ? 'border-[var(--gt-brand)] bg-[var(--gt-brand-soft)] text-[var(--gt-brand-ink)]' : 'border-gray-200 bg-white text-gray-800 hover:border-[var(--gt-brand)]'}`}>
                   {highlighted ? <Check size={19} /> : <Armchair size={19} />}<strong className="max-w-full truncate">{seat.code}</strong>
                   <span className="w-full truncate text-[11px]" title={classLabel(seat.seatClass)}>{classLabel(seat.seatClass)}</span>
                 </button>;
@@ -191,14 +191,14 @@ export const OperatorSeatLayoutPage: React.FC = () => {
           <p className="text-sm text-gray-600">Đã chọn {selected.length} ghế trên các tầng.</p>
           <label className="flex min-h-11 items-center gap-2 text-sm"><input type="checkbox" disabled={!visible.length || saving} checked={visible.length > 0 && visible.every(r => selected.includes(r.index))} onChange={e => setSelected(prev => e.target.checked ? [...new Set([...prev, ...visible.map(r => r.index)])] : prev.filter(i => !visible.some(r => r.index === i)))} />Chọn cả tầng {deck}</label>
           <label className="block text-sm font-semibold">Hạng ghế<select aria-label="Hạng ghế áp dụng hàng loạt" className={`${inputClass} mt-2`} disabled={saving} value={bulkClass} onChange={e => setBulkClass(e.target.value)}>{classes.map(c => <option key={c.code} value={c.code}>{c.label}</option>)}</select></label>
-          <Button className="min-h-11 bg-[#BE123C] text-white hover:bg-[#9F1239]" disabled={!selected.length || saving} onClick={() => { setSeats(rows => rows.map((s, i) => selected.includes(i) ? { ...s, seatClass: bulkClass } : s)); setDirty(true); setMessage(''); }}>Áp dụng cho {selected.length} ghế</Button>
+          <Button className="min-h-11 bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)]" disabled={!selected.length || saving} onClick={() => { setSeats(rows => rows.map((s, i) => selected.includes(i) ? { ...s, seatClass: bulkClass } : s)); setDirty(true); setMessage(''); }}>Áp dụng cho {selected.length} ghế</Button>
         </> : chosen && focused !== null ? <fieldset disabled={saving} className="space-y-4">
           <legend className="mb-3 text-lg font-bold">Chi tiết ghế {chosen.code}</legend>
           <label className="block text-sm font-semibold">Mã ghế<input aria-label="Mã ghế đang chọn" className={`${inputClass} mt-2`} maxLength={32} value={chosen.code} onChange={e => update(focused, { code: e.target.value.toUpperCase() })} /></label>
           <label className="block text-sm font-semibold">Hạng ghế<select aria-label="Hạng ghế đang chọn" className={`${inputClass} mt-2`} value={chosen.seatClass} onChange={e => update(focused, { seatClass: e.target.value })}>{!classes.some(c => c.code === chosen.seatClass) && <option value={chosen.seatClass}>{chosen.seatClass} (hạng cũ)</option>}{classes.map(c => <option key={c.code} value={c.code}>{c.label}</option>)}</select></label>
           <label className="block text-sm font-semibold">Tầng<select aria-label="Tầng ghế đang chọn" className={`${inputClass} mt-2`} value={chosen.level} onChange={e => { update(focused, { level: Number(e.target.value) }); setDeck(Number(e.target.value)); }}>{decks.map(n => <option key={n} value={n}>Tầng {n}</option>)}</select></label>
           <p className="text-sm text-gray-600">Những thay đổi này nằm trong bản chỉnh sửa. Bấm “Lưu thay đổi” ở đầu trang để lưu sơ đồ.</p>
-        </fieldset> : <div className="py-6 text-center"><MousePointer2 className="mx-auto mb-3 text-[#B8173B]" size={28} /><h2 className="font-bold">Chọn ghế trên sơ đồ</h2><p className="mt-2 text-sm text-gray-600">Bấm một ghế để sửa mã, hạng và tầng. Có thể đổi hạng nhiều ghế cùng lúc.</p></div>}
+        </fieldset> : <div className="py-6 text-center"><MousePointer2 className="mx-auto mb-3 text-[var(--gt-brand-ink)]" size={28} /><h2 className="font-bold">Chọn ghế trên sơ đồ</h2><p className="mt-2 text-sm text-gray-600">Bấm một ghế để sửa mã, hạng và tầng. Có thể đổi hạng nhiều ghế cùng lúc.</p></div>}
       </SurfaceCard>
     </div>
     <SurfaceCard className="p-5"><details><summary className="min-h-11 cursor-pointer py-2 text-base font-semibold">Hạng ghế dùng chung cho đội xe</summary><p className="my-3 text-sm text-gray-600">Lưu trước hạng ghế để chọn cho mọi xe của nhà xe. Giá bán được cấu hình riêng ở từng chuyến.</p>
@@ -206,7 +206,7 @@ export const OperatorSeatLayoutPage: React.FC = () => {
       <form onSubmit={addPreset} className="flex flex-wrap items-end gap-3">
         <label className="text-sm">Mã hạng<input aria-label="Mã hạng mới" required maxLength={32} pattern="[A-Z0-9_]+" placeholder="VD: CABIN_DOI" value={presetCode} onChange={e => setPresetCode(e.target.value.toUpperCase())} className={`${inputClass} mt-1`} /></label>
         <label className="text-sm">Tên hiển thị<input aria-label="Tên hạng mới" required maxLength={80} placeholder="VD: Cabin đôi" value={presetLabel} onChange={e => setPresetLabel(e.target.value)} className={`${inputClass} mt-1`} /></label>
-        <Button type="submit" className="min-h-11 bg-[#BE123C] text-white hover:bg-[#9F1239]" disabled={savingPreset}>{savingPreset ? 'Đang lưu...' : 'Lưu hạng ghế'}</Button>
+        <Button type="submit" className="min-h-11 bg-[var(--gt-brand)] text-white hover:bg-[var(--gt-brand-hover)]" disabled={savingPreset}>{savingPreset ? 'Đang lưu...' : 'Lưu hạng ghế'}</Button>
       </form></details></SurfaceCard>
   </div>;
 };

@@ -55,7 +55,7 @@ export const QrTicketPanel: React.FC<QrTicketPanelProps> = ({
             <span className="font-semibold text-gray-700 truncate">{passengerName}</span>
           )}
           {seatCode && (
-            <span className="font-extrabold text-[#FF385C] px-2 py-0.5 bg-[#FFF0F2] rounded-md">
+            <span className="font-extrabold text-[var(--gt-brand)] px-2 py-0.5 bg-[var(--gt-brand-soft)] rounded-md">
               Ghế {seatCode}
             </span>
           )}

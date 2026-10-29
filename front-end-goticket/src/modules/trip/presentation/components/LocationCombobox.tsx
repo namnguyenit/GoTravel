@@ -31,15 +31,15 @@ const toneStyles: Record<
 > = {
   origin: {
     icon: "text-[#1A1D20]",
-    selected: "border-[#FF385C]/30 bg-[#FFF0F2] text-[#FF385C]",
-    check: "text-[#FF385C]",
-    focus: "border-[#FF385C] ring-[#FF385C]/20",
+    selected: "border-[var(--gt-brand)]/30 bg-[var(--gt-brand-soft)] text-[var(--gt-brand)]",
+    check: "text-[var(--gt-brand)]",
+    focus: "border-[var(--gt-brand)] ring-[var(--gt-brand)]/20",
   },
   destination: {
-    icon: "text-[#FF385C]",
-    selected: "border-[#FF385C]/30 bg-[#FFF0F2] text-[#FF385C]",
-    check: "text-[#FF385C]",
-    focus: "border-[#FF385C] ring-[#FF385C]/20",
+    icon: "text-[var(--gt-brand)]",
+    selected: "border-[var(--gt-brand)]/30 bg-[var(--gt-brand-soft)] text-[var(--gt-brand)]",
+    check: "text-[var(--gt-brand)]",
+    focus: "border-[var(--gt-brand)] ring-[var(--gt-brand)]/20",
   },
 };
 
@@ -182,7 +182,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
                 error
                   ? "ring-2 ring-red-400 bg-red-50/40"
                   : isOpen
-                    ? "ring-2 ring-[#FF385C]/30 bg-white shadow-md"
+                    ? "ring-2 ring-[var(--gt-brand)]/30 bg-white shadow-md"
                     : "bg-white/95 hover:bg-white"
               }`
             : `rounded-xl border bg-gray-50/70 px-3 py-2.5 gap-2.5 ${
@@ -313,7 +313,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
                       onClick={() => selectLocation(location)}
                       className={`flex w-full items-center justify-between gap-3 rounded-2xl px-3.5 py-2.5 text-left transition-all cursor-pointer ${
                         isSelected
-                          ? "bg-[#FFF0F2] text-[#FF385C]"
+                          ? "bg-[var(--gt-brand-soft)] text-[var(--gt-brand)]"
                           : isActive
                             ? "bg-gray-100/80 text-gray-900"
                             : "text-[#111827] hover:bg-gray-50"
@@ -323,7 +323,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
                         <div
                           className={`w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-colors ${
                             isSelected
-                              ? "bg-[#FFE2E7] text-[#FF385C]"
+                              ? "bg-[var(--gt-brand-soft-hover)] text-[var(--gt-brand)]"
                               : "bg-gray-100 text-gray-600"
                           }`}
                         >
@@ -334,7 +334,7 @@ export const LocationCombobox: React.FC<LocationComboboxProps> = ({
                         </span>
                       </div>
                       {isSelected && (
-                        <Check className="h-4 w-4 shrink-0 text-[#FF385C]" />
+                        <Check className="h-4 w-4 shrink-0 text-[var(--gt-brand)]" />
                       )}
                     </button>
                   );

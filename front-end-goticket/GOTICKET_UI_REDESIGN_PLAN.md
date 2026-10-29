@@ -1,4 +1,6 @@
 # KẾ HOẠCH ĐỒNG BỘ GIAO DIỆN TOÀN BỘ GOTICKET
+
+> Cập nhật nhận diện 29/10/2026: logo và màu thương hiệu GoTicket theo [bộ Go family đã áp dụng](GOTICKET_BRAND_SYNC_20261029.md). Các chỉ dẫn về màu san hô GoTravel trong kế hoạch cũ bên dưới không còn là màu thương hiệu hiện hành của GoTicket.
 ## CHUẨN THIẾT KẾ: PANORAMIC GLASS CAPSULE & ORGANIC GLASSMORPHISM
 
 > **Tài liệu Single Source of Truth (SSOT)** bàn giao cho quá trình hoàn thiện và nâng cấp giao diện toàn diện hệ thống `front-end-goticket`.  

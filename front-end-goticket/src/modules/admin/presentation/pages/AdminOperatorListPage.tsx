@@ -201,7 +201,7 @@ export const AdminOperatorListPage: React.FC = () => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Tìm kiếm theo tên nhà xe..."
-                className="w-full h-10 pl-10 pr-8 text-xs sm:text-sm bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs"
+                className="w-full h-10 pl-10 pr-8 text-xs sm:text-sm bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 focus:outline-none transition-all shadow-xs"
               />
               {searchTerm && (
                 <button
@@ -216,7 +216,7 @@ export const AdminOperatorListPage: React.FC = () => {
             <Button
               type="submit"
               size="sm"
-              className="rounded-full px-5 h-10 bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm font-bold text-xs"
+              className="rounded-full px-5 h-10 bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-brand-sm font-bold text-xs"
             >
               Tìm kiếm
             </Button>
@@ -250,7 +250,7 @@ export const AdminOperatorListPage: React.FC = () => {
                         ? "name_asc"
                         : "name_desc"
                 }
-                className="h-9 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-3 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none shadow-xs"
+                className="h-9 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-3 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-brand)] outline-none shadow-xs"
               >
                 <option value="newest">Ngày tạo: Mới nhất</option>
                 <option value="oldest">Ngày tạo: Cũ nhất</option>
@@ -268,7 +268,7 @@ export const AdminOperatorListPage: React.FC = () => {
                   setLimit(Number(e.target.value));
                   setPage(1);
                 }}
-                className="h-9 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-3 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-coral)] outline-none shadow-xs"
+                className="h-9 rounded-full border border-white/80 bg-white/80 backdrop-blur-md px-3 text-xs font-semibold text-[var(--gt-ink)] focus:border-[var(--gt-brand)] outline-none shadow-xs"
               >
                 <option value={10}>10 bản ghi</option>
                 <option value={20}>20 bản ghi</option>
@@ -352,7 +352,7 @@ export const AdminOperatorListPage: React.FC = () => {
                         </td>
                         <td className="px-5 py-4">
                           <div className="flex items-center gap-2.5">
-                            <div className="w-9 h-9 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center shrink-0 shadow-xs">
+                            <div className="w-9 h-9 rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] flex items-center justify-center shrink-0 shadow-xs">
                               <Building2 className="w-4.5 h-4.5" />
                             </div>
                             <span className="font-bold text-[var(--gt-ink)] text-sm">
@@ -370,7 +370,7 @@ export const AdminOperatorListPage: React.FC = () => {
                               type="button"
                               variant="ghost"
                               size="sm"
-                              className="h-7 px-2.5 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
+                              className="h-7 px-2.5 text-xs text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)] rounded-full gap-1 font-semibold"
                               onClick={() =>
                                 setSelectedUserForModal({
                                   userId: op.userId,
@@ -428,7 +428,7 @@ export const AdminOperatorListPage: React.FC = () => {
                     <div className="flex items-start justify-between gap-2">
                       <div className="flex items-center gap-2.5">
                         <span className="text-xs font-bold text-[var(--gt-muted)] w-5">#{stt}</span>
-                        <div className="w-9 h-9 rounded-2xl bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] flex items-center justify-center shrink-0 shadow-xs">
+                        <div className="w-9 h-9 rounded-2xl bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] flex items-center justify-center shrink-0 shadow-xs">
                           <Building2 className="w-4.5 h-4.5" />
                         </div>
                         <div>
@@ -460,7 +460,7 @@ export const AdminOperatorListPage: React.FC = () => {
                         type="button"
                         variant="ghost"
                         size="sm"
-                        className="h-8 px-3 text-xs text-[var(--gt-coral)] hover:bg-[var(--gt-coral-soft)] rounded-full gap-1 font-semibold"
+                        className="h-8 px-3 text-xs text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)] rounded-full gap-1 font-semibold"
                         onClick={() =>
                           setSelectedUserForModal({
                             userId: op.userId,

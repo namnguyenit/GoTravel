@@ -107,7 +107,7 @@ const time = (value?: string) => {
       }).format(date);
 };
 const field =
-  "h-11 rounded-xl border border-[var(--gt-border)] bg-white px-3 text-sm text-[var(--gt-ink)] focus:outline-2 focus:outline-[var(--gt-coral)] disabled:opacity-60";
+  "h-11 rounded-xl border border-[var(--gt-border)] bg-white px-3 text-sm text-[var(--gt-ink)] focus:outline-2 focus:outline-[var(--gt-brand)] disabled:opacity-60";
 
 export function AdminPayoutsPage() {
   const [tab, setTab] = useState<"online" | "cash">("online");
@@ -592,7 +592,7 @@ export function AdminPayoutsPage() {
                       ? rows.map((row) => (
                           <tr
                             key={row.payoutId}
-                            className="align-top hover:bg-[var(--gt-coral-soft)]/30"
+                            className="align-top hover:bg-[var(--gt-brand-soft)]/30"
                           >
                             <td className="px-6 py-4">
                               <div className="max-w-64 font-semibold text-[var(--gt-ink)]">
@@ -672,7 +672,7 @@ export function AdminPayoutsPage() {
                       : shifts.map((row) => (
                           <tr
                             key={row.shiftId}
-                            className="align-top hover:bg-[var(--gt-coral-soft)]/30"
+                            className="align-top hover:bg-[var(--gt-brand-soft)]/30"
                           >
                             <td className="px-6 py-4">
                               <div className="max-w-64 font-semibold">
@@ -849,7 +849,7 @@ export function AdminPayoutsPage() {
           </DialogHeader>
           {proof && (
             <div className="space-y-4">
-              <div className="rounded-2xl bg-[var(--gt-coral-soft)] p-4">
+              <div className="rounded-2xl bg-[var(--gt-brand-soft)] p-4">
                 <p className="text-xs text-[var(--gt-muted)]">
                   Số tiền đã đối chiếu
                 </p>

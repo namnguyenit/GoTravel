@@ -37,14 +37,14 @@ export const RouteStopTimeline: React.FC<RouteStopTimelineProps> = ({
               <div
                 className={`absolute -left-7 flex h-6 w-6 items-center justify-center rounded-full border-2 bg-white ${
                   isFirst
-                    ? "border-[#FF385C] text-[#FF385C] shadow-2xs"
+                    ? "border-[var(--gt-brand)] text-[var(--gt-brand)] shadow-2xs"
                     : isLast
                     ? "border-[#111827] text-[#111827] shadow-2xs"
                     : "border-gray-300 text-gray-400"
                 }`}
               >
                 {isFirst ? (
-                  <Navigation className="h-3 w-3 fill-[#FF385C]" />
+                  <Navigation className="h-3 w-3 fill-[var(--gt-brand)]" />
                 ) : isLast ? (
                   <Flag className="h-3 w-3 fill-[#111827]" />
                 ) : (
@@ -58,7 +58,7 @@ export const RouteStopTimeline: React.FC<RouteStopTimelineProps> = ({
                   <span
                     className={`text-xs font-bold ${
                       isFirst
-                        ? "text-[#FF385C]"
+                        ? "text-[var(--gt-brand)]"
                         : isLast
                         ? "text-[#111827]"
                         : "text-gray-800"
@@ -67,7 +67,7 @@ export const RouteStopTimeline: React.FC<RouteStopTimelineProps> = ({
                     {stop.name}
                   </span>
                   {isFirst && (
-                    <span className="border border-[#FF385C]/20 bg-[#FFF0F2] text-[10px] font-bold text-[#FF385C] px-2 py-0.5 rounded-full">
+                    <span className="border border-[var(--gt-brand)]/20 bg-[var(--gt-brand-soft)] text-[10px] font-bold text-[var(--gt-brand)] px-2 py-0.5 rounded-full">
                       Bến xuất phát
                     </span>
                   )}

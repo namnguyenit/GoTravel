@@ -59,7 +59,7 @@ export function DataTable<T>({
             {loading ? (
               <tr>
                 <td colSpan={columns.length} className="py-16 text-center text-gray-400">
-                  <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-[#FF385C]" />
+                  <Loader2 className="w-6 h-6 animate-spin mx-auto mb-2 text-[var(--gt-brand)]" />
                   <span className="text-xs font-semibold text-gray-600">Đang tải dữ liệu...</span>
                 </td>
               </tr>
@@ -80,7 +80,7 @@ export function DataTable<T>({
                   onClick={() => onRowClick && onRowClick(item)}
                   className={`transition-colors ${
                     onRowClick
-                      ? 'cursor-pointer hover:bg-[#FFF0F2]/30'
+                      ? 'cursor-pointer hover:bg-[var(--gt-brand-soft)]/30'
                       : 'hover:bg-gray-50/60'
                   }`}
                 >

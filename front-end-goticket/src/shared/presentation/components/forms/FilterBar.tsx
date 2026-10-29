@@ -38,7 +38,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               value={searchValue || ''}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder={searchPlaceholder}
-              className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200/90 rounded-full focus:outline-hidden focus:border-[#FF385C] focus:bg-white transition-all text-gray-900"
+              className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-gray-50 border border-gray-200/90 rounded-full focus:outline-hidden focus:border-[var(--gt-brand)] focus:bg-white transition-all text-gray-900"
             />
           </div>
         )}
@@ -51,7 +51,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
             variant="ghost"
             size="sm"
             onClick={onReset}
-            className="text-xs text-gray-500 hover:text-[#FF385C] hover:bg-[#FFF0F2] rounded-full px-3 h-9"
+            className="text-xs text-gray-500 hover:text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)] rounded-full px-3 h-9"
           >
             <RotateCcw className="w-3.5 h-3.5 mr-1" />
             Đặt lại

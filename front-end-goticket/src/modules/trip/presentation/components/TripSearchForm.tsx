@@ -144,7 +144,7 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
               onClick={handleSwap}
               title="Đổi chiều đi và đến"
               aria-label="Đổi chiều đi và đến"
-              className="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-[#FF385C] hover:bg-[#FFF0F2] hover:scale-105 active:scale-95 transition-all group"
+              className="w-9 h-9 rounded-full bg-gray-50 border border-gray-200 flex items-center justify-center text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)] hover:scale-105 active:scale-95 transition-all group"
             >
               <ArrowLeftRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180" />
             </button>
@@ -194,7 +194,7 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
           <div className="shrink-0 pt-1 lg:pt-0">
             <button
               type="submit"
-              className="w-full lg:w-auto h-11 px-6 rounded-full bg-gradient-to-r from-[#FF385C] to-[#E61E4F] text-white font-bold text-sm flex items-center justify-center gap-2 glow-coral-sm hover:brightness-105 active:scale-95 transition-all cursor-pointer"
+              className="w-full lg:w-auto h-11 px-6 rounded-full bg-gradient-to-r from-[var(--gt-brand)] to-[var(--gt-brand-hover)] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-brand-sm hover:brightness-105 active:scale-95 transition-all cursor-pointer"
             >
               <Search className="h-4 w-4" />
               <span>Tìm chuyến</span>
@@ -329,7 +329,7 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
               onClick={handleSwap}
               title="Đổi chiều đi và đến"
               aria-label="Đổi chiều đi và đến"
-              className="w-12 h-12 rounded-full bg-white shadow-md border border-white/90 flex items-center justify-center text-[#FF385C] hover:scale-110 active:scale-95 transition-all duration-200 group cursor-pointer"
+              className="w-12 h-12 rounded-full bg-white shadow-md border border-white/90 flex items-center justify-center text-[var(--gt-brand)] hover:scale-110 active:scale-95 transition-all duration-200 group cursor-pointer"
             >
               <ArrowLeftRight className="w-4 h-4 transition-transform duration-300 group-hover:rotate-180" />
             </button>
@@ -375,7 +375,7 @@ export const TripSearchForm: React.FC<TripSearchFormProps> = ({
           <div className="shrink-0 pt-1 lg:pt-0">
             <button
               type="submit"
-              className="w-full lg:w-auto h-14 px-8 rounded-full bg-gradient-to-r from-[#FF385C] to-[#E61E4F] text-white font-bold text-base flex items-center justify-center gap-2 glow-coral hover:brightness-105 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer shadow-[0_0_28px_rgba(255,56,92,0.6)]"
+              className="w-full lg:w-auto h-14 px-8 rounded-full bg-gradient-to-r from-[var(--gt-brand)] to-[var(--gt-brand-hover)] text-white font-bold text-base flex items-center justify-center gap-2 shadow-brand hover:brightness-105 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer shadow-[0_0_28px_rgba(20, 127, 204,0.6)]"
             >
               <span>Tìm kiếm</span>
             </button>

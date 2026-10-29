@@ -37,8 +37,8 @@ export const Navbar: React.FC = () => {
             to="/search"
             className={`text-sm font-semibold transition-all px-3 py-1.5 rounded-full ${
               isSearchActive
-                ? 'text-[#FF385C] bg-[#FFF0F2]'
-                : 'text-gray-700 hover:text-[#FF385C] hover:bg-gray-50'
+                ? 'text-[var(--gt-brand)] bg-[var(--gt-brand-soft)]'
+                : 'text-gray-700 hover:text-[var(--gt-brand)] hover:bg-gray-50'
             }`}
           >
             Khám phá
@@ -47,8 +47,8 @@ export const Navbar: React.FC = () => {
             to="/account/tickets"
             className={`text-sm font-semibold transition-all px-3 py-1.5 rounded-full ${
               isTicketsActive
-                ? 'text-[#FF385C] bg-[#FFF0F2]'
-                : 'text-gray-700 hover:text-[#FF385C] hover:bg-gray-50'
+                ? 'text-[var(--gt-brand)] bg-[var(--gt-brand-soft)]'
+                : 'text-gray-700 hover:text-[var(--gt-brand)] hover:bg-gray-50'
             }`}
           >
             Xem vé
@@ -74,7 +74,7 @@ export const Navbar: React.FC = () => {
                 onClick={() => setDropdownOpen((prev) => !prev)}
                 className="flex items-center gap-1.5 p-1 rounded-full hover:bg-gray-100 transition-all cursor-pointer ring-1 ring-gray-200/60"
               >
-                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#FF385C] to-[#FFA07A] text-white flex items-center justify-center font-bold text-xs ring-2 ring-white shadow-xs">
+                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[var(--gt-brand)] to-[#5DAEE5] text-white flex items-center justify-center font-bold text-xs ring-2 ring-white shadow-xs">
                   {user.fullName.charAt(0).toUpperCase()}
                 </div>
                 <ChevronDown className="w-3.5 h-3.5 text-gray-500 mr-1" />
@@ -131,9 +131,9 @@ export const Navbar: React.FC = () => {
                           <Link
                             to="/operator"
                             onClick={() => setDropdownOpen(false)}
-                            className="flex items-center gap-2.5 px-4 py-2 text-[#FF385C] font-semibold hover:bg-[#FFF0F2]"
+                            className="flex items-center gap-2.5 px-4 py-2 text-[var(--gt-brand)] font-semibold hover:bg-[var(--gt-brand-soft)]"
                           >
-                            <Building2 className="w-4 h-4 text-[#FF385C]" />
+                            <Building2 className="w-4 h-4 text-[var(--gt-brand)]" />
                             Kênh Nhà xe
                           </Link>
                         )}
@@ -195,13 +195,13 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => login()}
-                className="px-4 py-2 rounded-full text-xs font-bold text-[#FF385C] hover:bg-[#FFF0F2] transition-colors cursor-pointer"
+                className="px-4 py-2 rounded-full text-xs font-bold text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)] transition-colors cursor-pointer"
               >
                 Đăng nhập
               </button>
               <Link
                 to="/become-operator"
-                className="px-4 py-2 rounded-full text-xs font-bold bg-[#111827] text-white hover:bg-[#FF385C] shadow-xs transition-colors"
+                className="px-4 py-2 rounded-full text-xs font-bold bg-[#111827] text-white hover:bg-[var(--gt-brand)] shadow-xs transition-colors"
               >
                 Mở nhà xe
               </Link>
@@ -230,17 +230,17 @@ export const Navbar: React.FC = () => {
             <Link
               to="/search"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[#FFF0F2] hover:text-[#FF385C]"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[var(--gt-brand-soft)] hover:text-[var(--gt-brand)]"
             >
-              <Compass className="w-4 h-4 text-[#FF385C]" />
+              <Compass className="w-4 h-4 text-[var(--gt-brand)]" />
               Khám phá
             </Link>
             <Link
               to="/account/tickets"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[#FFF0F2] hover:text-[#FF385C]"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-gray-900 hover:bg-[var(--gt-brand-soft)] hover:text-[var(--gt-brand)]"
             >
-              <Ticket className="w-4 h-4 text-[#FF385C]" />
+              <Ticket className="w-4 h-4 text-[var(--gt-brand)]" />
               Vé của tôi
             </Link>
           </div>
@@ -254,7 +254,7 @@ export const Navbar: React.FC = () => {
                 <Link
                   to="/operator"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[#FF385C] hover:bg-[#FFF0F2]"
+                  className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)]"
                 >
                   <Building2 className="w-4 h-4" />
                   Kênh quản lý nhà xe
@@ -300,7 +300,7 @@ export const Navbar: React.FC = () => {
               <button
                 type="button"
                 onClick={() => login()}
-                className="w-full py-3 bg-[#FF385C] hover:bg-[#E61E4F] text-white rounded-full text-sm font-bold shadow-md transition-colors"
+                className="w-full py-3 bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white rounded-full text-sm font-bold shadow-md transition-colors"
               >
                 Đăng nhập SSO
               </button>

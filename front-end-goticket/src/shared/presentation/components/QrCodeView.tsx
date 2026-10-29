@@ -68,7 +68,7 @@ export const QrCodeView: React.FC<QrCodeViewProps> = ({
         style={{ width: size, height: size }}
         className={`flex items-center justify-center bg-gray-50 border border-gray-200 rounded-xl ${className}`}
       >
-        <div className="w-5 h-5 border-2 border-[#FF385C] border-t-transparent rounded-full animate-spin" />
+        <div className="w-5 h-5 border-2 border-[var(--gt-brand)] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

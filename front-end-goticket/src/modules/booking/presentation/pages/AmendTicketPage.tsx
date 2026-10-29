@@ -162,7 +162,7 @@ export const AmendTicketPage: React.FC = () => {
     <CustomerPageContainer className="space-y-6 py-8">
       <Link
         to={`/account/orders/${orderId}`}
-        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--gt-muted)] transition-colors hover:text-[var(--gt-coral)]"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--gt-muted)] transition-colors hover:text-[var(--gt-brand)]"
       >
         <ArrowLeft className="h-4 w-4" /> Quay lại chi tiết vé
       </Link>
@@ -178,7 +178,7 @@ export const AmendTicketPage: React.FC = () => {
         <div className="lg:col-span-7">
           <SurfaceCard variant="glass" className="p-6 md:p-8">
             <div className="flex items-center gap-2.5 border-b border-gray-100/80 pb-4">
-              <PencilLine className="h-5 w-5 text-coral" />
+              <PencilLine className="h-5 w-5 text-brand" />
               <h2 className="text-base font-bold text-gray-900">
                 Cập nhật thông tin hành khách & điểm đón/trả
               </h2>
@@ -187,14 +187,14 @@ export const AmendTicketPage: React.FC = () => {
             <form onSubmit={submit} className="mt-6 space-y-5">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                  Họ và tên hành khách <span className="text-coral">*</span>
+                  Họ và tên hành khách <span className="text-brand">*</span>
                 </label>
                 <input
                   required
                   maxLength={120}
                   value={passengerName}
                   onChange={(e) => setPassengerName(e.target.value)}
-                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                  className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                   placeholder="Ví dụ: Nguyễn Văn A"
                 />
               </div>
@@ -202,13 +202,13 @@ export const AmendTicketPage: React.FC = () => {
               <div className="grid gap-4 sm:grid-cols-2">
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                    Điểm đón khách <span className="text-coral">*</span>
+                    Điểm đón khách <span className="text-brand">*</span>
                   </label>
                   <select
                     required
                     value={pickupStopId}
                     onChange={(e) => setPickupStopId(e.target.value)}
-                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                   >
                     <option value="">Chọn điểm đón</option>
                     {pickupStops.map((stop) => (
@@ -221,13 +221,13 @@ export const AmendTicketPage: React.FC = () => {
 
                 <div className="space-y-1.5">
                   <label className="text-xs font-semibold uppercase tracking-wider text-gray-500">
-                    Điểm trả khách <span className="text-coral">*</span>
+                    Điểm trả khách <span className="text-brand">*</span>
                   </label>
                   <select
                     required
                     value={dropoffStopId}
                     onChange={(e) => setDropoffStopId(e.target.value)}
-                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-coral focus:ring-2 focus:ring-coral/20 shadow-2xs"
+                    className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-3 text-sm font-semibold text-gray-900 outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20 shadow-2xs"
                   >
                     <option value="">Chọn điểm trả</option>
                     {dropoffStops.map((stop) => (
@@ -250,7 +250,7 @@ export const AmendTicketPage: React.FC = () => {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white py-3.5 text-sm font-bold shadow-md glow-coral-sm transition-all disabled:opacity-50 sm:w-auto sm:px-8 cursor-pointer"
+                  className="flex w-full items-center justify-center gap-2 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white py-3.5 text-sm font-bold shadow-md shadow-brand-sm transition-all disabled:opacity-50 sm:w-auto sm:px-8 cursor-pointer"
                 >
                   {saving ? (
                     <RefreshCw className="h-4 w-4 animate-spin" />
@@ -308,7 +308,7 @@ export const AmendTicketPage: React.FC = () => {
                         type="button"
                         disabled={saving}
                         onClick={() => void retry(row.commandId)}
-                        className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-800 transition hover:border-coral hover:text-coral cursor-pointer"
+                        className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-semibold text-gray-800 transition hover:border-brand hover:text-brand cursor-pointer"
                       >
                         <RefreshCw className="h-3 w-3" /> Thử đồng bộ lại
                       </button>

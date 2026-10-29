@@ -13,7 +13,7 @@ export const AuthCallbackPage = () => {
       <p role="alert" className="mt-3 text-sm text-gray-600">{sessionError || 'GoTicket chưa nhận được phiên SSO. Vui lòng thử lại.'}</p>
       <div className="mt-6 flex flex-wrap justify-center gap-3">
         <button type="button" onClick={() => void refreshSession()} className="rounded-full border border-gray-300 px-5 py-2 text-sm font-semibold">Kiểm tra lại phiên</button>
-        <button type="button" onClick={() => login(params.get('returnTo') || undefined)} className="rounded-full bg-[#FF385C] px-5 py-2 text-sm font-semibold text-white">Đăng nhập lại</button>
+        <button type="button" onClick={() => login(params.get('returnTo') || undefined)} className="rounded-full bg-[var(--gt-brand)] px-5 py-2 text-sm font-semibold text-white">Đăng nhập lại</button>
       </div>
     </div>
   );

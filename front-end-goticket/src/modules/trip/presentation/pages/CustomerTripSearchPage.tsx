@@ -251,7 +251,7 @@ export const CustomerTripSearchPage: React.FC = () => {
       <div className="relative z-30 space-y-4 rounded-3xl border border-white/80 bg-white/85 p-5 shadow-md backdrop-blur-xl sm:p-7">
         <div className="flex flex-col justify-between gap-2 border-b border-gray-100/80 pb-3.5 sm:flex-row sm:items-center">
           <div>
-            <div className="text-xs font-bold tracking-wider text-[#FF385C] uppercase">
+            <div className="text-xs font-bold tracking-wider text-[var(--gt-brand)] uppercase">
               Tìm chuyến xe khách
             </div>
             <h1 className="font-editorial mt-0.5 text-xl font-black tracking-tight text-[#111827] sm:text-2xl">
@@ -268,7 +268,7 @@ export const CustomerTripSearchPage: React.FC = () => {
           </div>
           {currentDepartureDate && (
             <div className="flex w-fit items-center gap-1.5 rounded-full border border-white/80 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-gray-700 shadow-2xs backdrop-blur-xs">
-              <Calendar className="h-3.5 w-3.5 text-[#FF385C]" />
+              <Calendar className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
               <span>
                 {discovering && !queryDate ? "Từ hôm nay: " : "Khởi hành: "}
               </span>
@@ -312,9 +312,9 @@ export const CustomerTripSearchPage: React.FC = () => {
                 variant="outline"
                 size="sm"
                 onClick={() => setMobileFilterOpen(true)}
-                className="h-9 rounded-full border-gray-200 px-3.5 text-xs font-bold text-gray-700 hover:text-[#FF385C] lg:hidden"
+                className="h-9 rounded-full border-gray-200 px-3.5 text-xs font-bold text-gray-700 hover:text-[var(--gt-brand)] lg:hidden"
               >
-                <Filter className="mr-1.5 h-3.5 w-3.5 text-[#FF385C]" />
+                <Filter className="mr-1.5 h-3.5 w-3.5 text-[var(--gt-brand)]" />
                 Bộ lọc {activeChips.length > 0 && `(${activeChips.length})`}
               </Button>
 
@@ -355,7 +355,7 @@ export const CustomerTripSearchPage: React.FC = () => {
               <select
                 value={sortOption}
                 onChange={(e) => setSortOption(e.target.value)}
-                className="cursor-pointer rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-bold text-gray-700 transition-all focus:border-[#FF385C] focus:bg-white focus:outline-hidden"
+                className="cursor-pointer rounded-full border border-gray-200 bg-gray-50 px-3 py-1.5 text-xs font-bold text-gray-700 transition-all focus:border-[var(--gt-brand)] focus:bg-white focus:outline-hidden"
               >
                 <option value="departureTime_asc">Giờ chạy: Sớm nhất</option>
                 <option value="departureTime_desc">Giờ chạy: Muộn nhất</option>
@@ -421,7 +421,7 @@ export const CustomerTripSearchPage: React.FC = () => {
                           departureDate: nextDayStr,
                         });
                       }}
-                      className="glow-coral-sm h-9 rounded-full bg-[#FF385C] px-5 text-xs font-bold text-white transition-all hover:bg-[#E61E4F]"
+                      className="shadow-brand-sm h-9 rounded-full bg-[var(--gt-brand)] px-5 text-xs font-bold text-white transition-all hover:bg-[var(--gt-brand-hover)]"
                     >
                       Xem ngày hôm sau (
                       {new Date(
@@ -496,7 +496,7 @@ export const CustomerTripSearchPage: React.FC = () => {
               <Button
                 type="button"
                 onClick={() => setMobileFilterOpen(false)}
-                className="h-11 w-full rounded-full bg-[#FF385C] text-xs font-bold text-white hover:bg-[#E61E4F]"
+                className="h-11 w-full rounded-full bg-[var(--gt-brand)] text-xs font-bold text-white hover:bg-[var(--gt-brand-hover)]"
               >
                 Áp dụng bộ lọc
               </Button>

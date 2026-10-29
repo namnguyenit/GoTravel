@@ -31,7 +31,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items, className = '' }) => 
         const dotBg = isCompleted
           ? 'bg-emerald-500 ring-4 ring-emerald-50 text-white'
           : isActive
-          ? 'bg-[#FF385C] ring-4 ring-[#FFF0F2] text-white animate-pulse'
+          ? 'bg-[var(--gt-brand)] ring-4 ring-[var(--gt-brand-soft)] text-white animate-pulse'
           : isCancelled
           ? 'bg-rose-500 ring-4 ring-rose-50 text-white'
           : 'bg-gray-300 ring-4 ring-gray-100 text-gray-500';

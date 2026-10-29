@@ -255,7 +255,7 @@ export const OperatorTripManagePage: React.FC = () => {
       {isDraft && (
         <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
           <div className="flex items-center gap-2 mb-1">
-            <Sliders className="h-4 w-4 text-[#FF385C]" />
+            <Sliders className="h-4 w-4 text-[var(--gt-brand)]" />
             <h2 className="text-base font-bold text-gray-900">Cấu hình chuyến nháp</h2>
           </div>
           <p className="text-xs text-gray-500 mb-5">
@@ -271,7 +271,7 @@ export const OperatorTripManagePage: React.FC = () => {
                 type="datetime-local"
                 value={departureTime}
                 onChange={(e) => setDepartureTime(e.target.value)}
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
               />
             </div>
             <div>
@@ -282,7 +282,7 @@ export const OperatorTripManagePage: React.FC = () => {
                 type="datetime-local"
                 value={arrivalTime}
                 onChange={(e) => setArrivalTime(e.target.value)}
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
               />
             </div>
             <div>
@@ -294,7 +294,7 @@ export const OperatorTripManagePage: React.FC = () => {
                 value={basePrice}
                 onChange={(e) => setBasePrice(e.target.value.replace(/\D/g, ''))}
                 placeholder="250000"
-                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+                className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2.5 text-xs font-semibold text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
               />
             </div>
           </div>
@@ -303,7 +303,7 @@ export const OperatorTripManagePage: React.FC = () => {
             <Button
               disabled={busy || !departureTime || !arrivalTime || !basePrice}
               onClick={() => void saveDraft()}
-              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm"
             >
               <Save className="h-4 w-4 mr-2" />
               Lưu thông tin nháp
@@ -316,7 +316,7 @@ export const OperatorTripManagePage: React.FC = () => {
       {isDraft && routeStops.length >= 2 && (
         <SurfaceCard variant="glass" className="p-6 rounded-[28px]">
           <div className="flex items-center gap-2 mb-1">
-            <MapPin className="h-4 w-4 text-[#FF385C]" />
+            <MapPin className="h-4 w-4 text-[var(--gt-brand)]" />
             <h2 className="text-base font-bold text-gray-900">Lộ trình & Điểm đón trả</h2>
           </div>
           <p className="text-xs text-gray-500 mb-5">
@@ -332,7 +332,7 @@ export const OperatorTripManagePage: React.FC = () => {
                   key={routeStop.id}
                   className="grid items-center gap-3 rounded-2xl border border-white/80 bg-white/70 backdrop-blur-md p-3.5 shadow-2xs md:grid-cols-[48px_1fr_180px_220px]"
                 >
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-coral-soft font-mono text-xs font-bold text-[#FF385C] border border-[#FF385C]/20 shadow-xs">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-soft font-mono text-xs font-bold text-[var(--gt-brand)] border border-[var(--gt-brand)]/20 shadow-xs">
                     #{index + 1}
                   </span>
                   <div>
@@ -362,7 +362,7 @@ export const OperatorTripManagePage: React.FC = () => {
                           )
                         )
                       }
-                      className="w-full rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-gray-900 focus:border-[#FF385C] shadow-2xs"
+                      className="w-full rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-gray-900 focus:border-[var(--gt-brand)] shadow-2xs"
                     >
                       <option value="BOTH">Đón và trả</option>
                       <option value="PICKUP">Chỉ đón</option>
@@ -383,7 +383,7 @@ export const OperatorTripManagePage: React.FC = () => {
                           )
                         )
                       }
-                      className="w-full rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-gray-900 focus:border-[#FF385C] shadow-2xs"
+                      className="w-full rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-xs font-semibold text-gray-900 focus:border-[var(--gt-brand)] shadow-2xs"
                     />
                   </div>
                 </div>
@@ -395,7 +395,7 @@ export const OperatorTripManagePage: React.FC = () => {
             <Button
               disabled={busy}
               onClick={() => void saveStops()}
-              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm"
             >
               <Save className="h-4 w-4 mr-2" />
               Lưu cấu hình điểm dừng
@@ -510,7 +510,7 @@ export const OperatorTripManagePage: React.FC = () => {
                       }))
                     }
                     placeholder="250000"
-                    className="w-36 rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-right font-mono text-xs font-bold outline-none focus:border-[#FF385C] shadow-2xs"
+                    className="w-36 rounded-full border border-gray-200/80 bg-white/90 px-3 py-1.5 text-right font-mono text-xs font-bold outline-none focus:border-[var(--gt-brand)] shadow-2xs"
                   />
                   <span className="text-xs font-semibold text-gray-500">VNĐ</span>
                 </div>
@@ -522,7 +522,7 @@ export const OperatorTripManagePage: React.FC = () => {
             <Button
               disabled={busy}
               onClick={() => void savePrices()}
-              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm"
             >
               <Save className="h-4 w-4 mr-2" />
               Lưu bảng giá ghế
@@ -540,7 +540,7 @@ export const OperatorTripManagePage: React.FC = () => {
           <input
             value={reason}
             onChange={(e) => setReason(e.target.value)}
-            className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-medium text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs mb-3"
+            className="w-full rounded-full border border-gray-200/80 bg-white/90 px-4 py-2 text-xs font-medium text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs mb-3"
             placeholder="Lý do khóa / mở ghế (ví dụ: Bảo trì ghế hỏng)"
           />
 
@@ -562,10 +562,10 @@ export const OperatorTripManagePage: React.FC = () => {
                     }
                     className={`h-9 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-[#FF385C] text-white shadow-xs glow-coral-sm'
+                        ? 'bg-[var(--gt-brand)] text-white shadow-xs shadow-brand-sm'
                         : isBlocked
                         ? 'bg-rose-100 text-rose-700 border border-rose-200'
-                        : 'bg-white/90 text-gray-900 border border-gray-200/80 hover:border-[#FF385C]'
+                        : 'bg-white/90 text-gray-900 border border-gray-200/80 hover:border-[var(--gt-brand)]'
                     }`}
                   >
                     {seat.code || id.slice(0, 4)}
@@ -662,7 +662,7 @@ export const OperatorTripManagePage: React.FC = () => {
               value={newClassNameInput}
               onChange={(e) => setNewClassNameInput(e.target.value.toUpperCase())}
               placeholder="VIP"
-              className="w-full rounded-full border border-gray-200/80 bg-white/90 p-3 font-mono text-xs font-bold text-gray-900 outline-none focus:border-[#FF385C] shadow-2xs"
+              className="w-full rounded-full border border-gray-200/80 bg-white/90 p-3 font-mono text-xs font-bold text-gray-900 outline-none focus:border-[var(--gt-brand)] shadow-2xs"
             />
           </div>
 
@@ -673,7 +673,7 @@ export const OperatorTripManagePage: React.FC = () => {
             <Button
               disabled={!newClassNameInput.trim()}
               onClick={handleConfirmAddClass}
-              className="rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-md glow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-md shadow-brand-sm"
             >
               Thêm hạng ghế
             </Button>

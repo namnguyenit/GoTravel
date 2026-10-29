@@ -48,7 +48,7 @@ export function OperatorLogoInput({
             disabled={disabled}
             aria-invalid={Boolean(error)}
             aria-describedby={`${id}-hint`}
-            className="block w-full min-w-0 text-sm text-gray-700 file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-[#FFF0F2] file:px-4 file:py-2 file:font-semibold file:text-[#D91D45] disabled:opacity-60"
+            className="block w-full min-w-0 text-sm text-gray-700 file:mr-3 file:cursor-pointer file:rounded-full file:border-0 file:bg-[var(--gt-brand-soft)] file:px-4 file:py-2 file:font-semibold file:text-[var(--gt-brand-ink)] disabled:opacity-60"
             onChange={(event) => {
               const next = event.target.files?.[0] || null;
               if (

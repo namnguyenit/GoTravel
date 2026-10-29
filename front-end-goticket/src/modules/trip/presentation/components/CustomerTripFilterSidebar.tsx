@@ -51,7 +51,7 @@ export const CustomerTripFilterSidebar: React.FC<
       {/* Header */}
       <div className="flex items-center justify-between border-b border-gray-100/80 pb-3.5">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full bg-[#FFF0F2] text-[#FF385C] flex items-center justify-center border border-[#FF385C]/20 shadow-2xs">
+          <div className="w-8 h-8 rounded-full bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] flex items-center justify-center border border-[var(--gt-brand)]/20 shadow-2xs">
             <Filter className="h-4 w-4" />
           </div>
           <h3 className="text-sm font-bold text-[#111827]">Bộ lọc tìm kiếm</h3>
@@ -60,7 +60,7 @@ export const CustomerTripFilterSidebar: React.FC<
           <button
             type="button"
             onClick={onReset}
-            className="flex items-center gap-1 text-xs font-bold text-[#FF385C] hover:opacity-80 transition-opacity cursor-pointer"
+            className="flex items-center gap-1 text-xs font-bold text-[var(--gt-brand)] hover:opacity-80 transition-opacity cursor-pointer"
           >
             <RotateCcw className="h-3 w-3" />
             Đặt lại
@@ -71,7 +71,7 @@ export const CustomerTripFilterSidebar: React.FC<
       {/* Car Type Filter */}
       <div className="space-y-2.5">
         <label className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wider text-gray-400 uppercase">
-          <Bus className="h-3.5 w-3.5 text-[#FF385C]" />
+          <Bus className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
           Loại xe khách
         </label>
         <div className="space-y-1.5">
@@ -84,12 +84,12 @@ export const CustomerTripFilterSidebar: React.FC<
                 onClick={() => onChange({ ...filters, carType: type.value })}
                 className={`w-full flex items-center justify-between rounded-full px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
                   isSelected
-                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold border border-[#FF385C]/25 shadow-2xs"
+                    ? "bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] font-bold border border-[var(--gt-brand)]/25 shadow-2xs"
                     : "text-gray-700 hover:bg-white/70 hover:text-gray-900 border border-transparent"
                 }`}
               >
                 <span>{type.label}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-[#FF385C]" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-[var(--gt-brand)]" />}
               </button>
             );
           })}
@@ -99,7 +99,7 @@ export const CustomerTripFilterSidebar: React.FC<
       {/* Time Range Filter */}
       <div className="space-y-2.5 border-t border-gray-100/80 pt-4">
         <label className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wider text-gray-400 uppercase">
-          <Clock className="h-3.5 w-3.5 text-[#FF385C]" />
+          <Clock className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
           Giờ xuất bến
         </label>
         <div className="space-y-1.5">
@@ -112,12 +112,12 @@ export const CustomerTripFilterSidebar: React.FC<
                 onClick={() => onChange({ ...filters, timeRange: tr.value })}
                 className={`w-full flex items-center justify-between rounded-full px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
                   isSelected
-                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold border border-[#FF385C]/25 shadow-2xs"
+                    ? "bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] font-bold border border-[var(--gt-brand)]/25 shadow-2xs"
                     : "text-gray-700 hover:bg-white/70 hover:text-gray-900 border border-transparent"
                 }`}
               >
                 <span>{tr.label}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-[#FF385C]" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-[var(--gt-brand)]" />}
               </button>
             );
           })}
@@ -127,7 +127,7 @@ export const CustomerTripFilterSidebar: React.FC<
       {/* Price Range Filter */}
       <div className="space-y-2.5 border-t border-gray-100/80 pt-4">
         <label className="flex items-center gap-1.5 text-[11px] font-extrabold tracking-wider text-gray-400 uppercase">
-          <DollarSign className="h-3.5 w-3.5 text-[#FF385C]" />
+          <DollarSign className="h-3.5 w-3.5 text-[var(--gt-brand)]" />
           Mức giá vé
         </label>
         <div className="space-y-1.5">
@@ -140,12 +140,12 @@ export const CustomerTripFilterSidebar: React.FC<
                 onClick={() => onChange({ ...filters, priceRange: pr.value })}
                 className={`w-full flex items-center justify-between rounded-full px-3.5 py-2 text-xs font-semibold transition-all cursor-pointer text-left ${
                   isSelected
-                    ? "bg-[#FFF0F2] text-[#FF385C] font-bold border border-[#FF385C]/25 shadow-2xs"
+                    ? "bg-[var(--gt-brand-soft)] text-[var(--gt-brand)] font-bold border border-[var(--gt-brand)]/25 shadow-2xs"
                     : "text-gray-700 hover:bg-white/70 hover:text-gray-900 border border-transparent"
                 }`}
               >
                 <span>{pr.label}</span>
-                {isSelected && <Check className="w-3.5 h-3.5 text-[#FF385C]" />}
+                {isSelected && <Check className="w-3.5 h-3.5 text-[var(--gt-brand)]" />}
               </button>
             );
           })}

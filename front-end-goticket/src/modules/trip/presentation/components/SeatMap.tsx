@@ -67,7 +67,7 @@ export const SeatMap: React.FC<SeatMapProps> = ({
               aria-pressed={shownDeck === deckNumber}
               className={`min-h-11 px-4 py-2.5 rounded-full text-sm font-bold transition-all cursor-pointer ${
                 shownDeck === deckNumber
-                  ? 'bg-[#FF385C] text-white shadow-xs glow-coral-sm'
+                  ? 'bg-[var(--gt-brand)] text-white shadow-xs shadow-brand-sm'
                   : 'bg-white/80 border border-gray-200/60 text-gray-600 hover:bg-white hover:text-gray-900'
               }`}
             >
@@ -114,9 +114,9 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                   const isSold = seat.isSold();
                   const isBlocked = seat.isBlocked();
 
-                  let buttonClass = 'bg-white/95 border-gray-200/80 text-gray-800 hover:border-[#FF385C] hover:bg-[#FFF0F2] shadow-2xs';
+                  let buttonClass = 'bg-white/95 border-gray-200/80 text-gray-800 hover:border-[var(--gt-brand)] hover:bg-[var(--gt-brand-soft)] shadow-2xs';
                   if (isSelected) {
-                    buttonClass = 'bg-[#FF385C] border-[#FF385C] text-white ring-4 ring-[#FF385C]/25 shadow-lg scale-105 glow-coral-sm';
+                    buttonClass = 'bg-[var(--gt-brand)] border-[var(--gt-brand)] text-white ring-4 ring-[var(--gt-brand)]/25 shadow-lg scale-105 shadow-brand-sm';
                   } else if (isHeld) {
                     buttonClass = 'bg-amber-50/90 border-amber-300 text-amber-800 cursor-not-allowed opacity-80';
                   } else if (isSold) {
@@ -154,13 +154,13 @@ export const SeatMap: React.FC<SeatMapProps> = ({
                         ) : isBlocked ? (
                           <Ban className="w-3 h-3 text-rose-600" />
                         ) : (
-                          <Armchair className="w-3.5 h-3.5 text-gray-400 group-hover:text-[#FF385C]" />
+                          <Armchair className="w-3.5 h-3.5 text-gray-400 group-hover:text-[var(--gt-brand)]" />
                         )}
                       </div>
 
                       {/* Seat class indicator dot */}
                       {seat.seatClass === 'VIP' && !isSelected && isAvailable && (
-                        <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[#FF385C]" title="Ghế VIP" />
+                        <div className="absolute top-1 right-1 w-1.5 h-1.5 rounded-full bg-[var(--gt-brand)]" title="Ghế VIP" />
                       )}
                     </button>
                   );

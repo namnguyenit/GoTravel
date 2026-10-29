@@ -545,7 +545,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
         ]}
         actions={
           <div className="flex items-center gap-2">
-            <span className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--gt-coral-soft)]/80 text-[var(--gt-coral)] text-xs font-bold border border-[var(--gt-coral)]/20 shadow-xs">
+            <span className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-[var(--gt-brand-soft)]/80 text-[var(--gt-brand)] text-xs font-bold border border-[var(--gt-brand)]/20 shadow-xs">
               {rows.length} mục trong lượt tải
             </span>
             <Button
@@ -585,7 +585,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
           <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
             <div className="space-y-1">
               <h2 className="font-black text-base text-[var(--gt-ink)] flex items-center gap-2">
-                <Ban className="w-5 h-5 text-[var(--gt-coral)]" />
+                <Ban className="w-5 h-5 text-[var(--gt-brand)]" />
                 <span>Khởi tạo Hủy chuyến cấp Quản trị</span>
               </h2>
               <p className="text-xs text-[var(--gt-muted)]">
@@ -609,7 +609,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                     setCancelProgress(null);
                   }}
                   placeholder="Nhập UUID chuyến xe cần hủy..."
-                  className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
+                  className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 focus:outline-none transition-all shadow-xs font-semibold"
                 />
               </div>
               <div className="space-y-1.5">
@@ -622,7 +622,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   onChange={(e) => setCancelReason(e.target.value)}
                   placeholder="Lý do hủy chuyến (Ví dụ: Thời tiết bão lũ, sự cố kỹ thuật xe...)"
                   maxLength={500}
-                  className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
+                  className="w-full h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 focus:outline-none transition-all shadow-xs font-semibold"
                 />
               </div>
             </div>
@@ -744,7 +744,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   <span className="text-[10px] text-[var(--gt-muted)] font-bold uppercase tracking-wider">
                     Tổng tiền hoàn
                   </span>
-                  <span className="text-base font-black text-[var(--gt-coral)] block mt-0.5 font-mono">
+                  <span className="text-base font-black text-[var(--gt-brand)] block mt-0.5 font-mono">
                     {formatVnd(String(cancelProgress.totalRefundAmount ?? 0))}
                   </span>
                 </div>
@@ -763,7 +763,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 <button
                   type="button"
                   onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--gt-coral)] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[var(--gt-brand)] hover:underline"
                 >
                   {showTechnicalDetails ? (
                     <ChevronDown className="w-3.5 h-3.5" />
@@ -797,7 +797,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
         <SurfaceCard className="p-6 sm:p-7 space-y-5 rounded-[32px]">
           <div className="space-y-0.5">
             <h2 className="font-bold text-base text-[var(--gt-ink)] flex items-center gap-2">
-              <CreditCard className="w-5 h-5 text-[var(--gt-coral)]" />
+              <CreditCard className="w-5 h-5 text-[var(--gt-brand)]" />
               <span>Đối soát & Quyết toán Hoa hồng Tiền mặt</span>
             </h2>
             <p className="text-xs text-[var(--gt-muted)]">
@@ -854,7 +854,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 value={cashShiftId}
                 onChange={(e) => setCashShiftId(e.target.value)}
                 placeholder="UUID ca tiền mặt..."
-                className="w-64 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
+                className="w-64 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
             </div>
 
@@ -870,7 +870,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setCashAmount(e.target.value.replace(/\D/g, ''))
                 }
                 placeholder="Số tiền VND..."
-                className="w-48 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-coral)] focus:ring-4 focus:ring-[var(--gt-coral)]/10 focus:outline-none transition-all shadow-xs font-semibold"
+                className="w-48 h-11 px-4 text-xs bg-white/70 backdrop-blur-md border border-white/80 rounded-full focus:border-[var(--gt-brand)] focus:ring-4 focus:ring-[var(--gt-brand)]/10 focus:outline-none transition-all shadow-xs font-semibold"
               />
             </div>
 
@@ -1101,7 +1101,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                                   size="sm"
                                   disabled={busy !== ''}
                                   onClick={() => openPayoutModal(row)}
-                                  className="h-8 rounded-full bg-[#FF385C] hover:bg-[#E61E4F] text-white shadow-coral-sm text-xs px-4 font-bold"
+                                  className="h-8 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white shadow-brand-sm text-xs px-4 font-bold"
                                 >
                                   Đối chiếu & Ghi chứng từ chi
                                 </Button>
@@ -1261,7 +1261,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                             'Đã đưa thông báo vào hàng đợi gửi lại.',
                           )
                         }
-                        className="h-8 rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white text-xs px-4 font-bold shadow-coral-sm"
+                        className="h-8 rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-dark)] text-white text-xs px-4 font-bold shadow-brand-sm"
                       >
                         Gửi lại
                       </Button>
@@ -1325,7 +1325,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 value={exchangeOldOrderId}
                 onChange={(e) => setExchangeOldOrderId(e.target.value)}
                 placeholder="UUID đơn cũ..."
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
@@ -1337,7 +1337,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 value={exchangeNewOrderId}
                 onChange={(e) => setExchangeNewOrderId(e.target.value)}
                 placeholder="UUID đơn mới..."
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
@@ -1349,7 +1349,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 value={exchangeReason}
                 onChange={(e) => setExchangeReason(e.target.value)}
                 placeholder="Lý do đổi vé hỗ trợ..."
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
@@ -1364,7 +1364,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
               !exchangeReason.trim()
             }
             onClick={() => void createAssistedExchange()}
-            className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 py-2 text-xs font-bold shadow-coral-sm"
+            className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-dark)] text-white px-5 py-2 text-xs font-bold shadow-brand-sm"
           >
             Tạo hồ sơ đổi vé
           </Button>
@@ -1413,7 +1413,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   }))
                 }
                 placeholder="Ví dụ: CASH_RECEIPT_0987"
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
@@ -1430,7 +1430,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   }))
                 }
                 placeholder="https://..."
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
@@ -1458,7 +1458,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 !cashPaidDialog.evidenceUrl.trim()
               }
               onClick={handleConfirmCashPaid}
-              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-dark)] text-white px-5 text-xs font-bold shadow-brand-sm"
             >
               Xác nhận đã nộp
             </Button>
@@ -1490,7 +1490,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
               value={noteInput}
               onChange={(e) => setNoteInput(e.target.value)}
               placeholder="Nhập nội dung ghi chú..."
-              className="w-full p-3.5 bg-white/80 border border-white/80 rounded-2xl focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] text-xs shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+              className="w-full p-3.5 bg-white/80 border border-white/80 rounded-2xl focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] text-xs shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
             />
           </div>
 
@@ -1516,7 +1516,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 const text = noteInput.trim();
                 await noteDialog.onSubmit(text);
               }}
-              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-dark)] text-white px-5 text-xs font-bold shadow-brand-sm"
             >
               Lưu ghi chú
             </Button>
@@ -1555,7 +1555,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   setPayoutDialog((d) => ({ ...d, reference: e.target.value }))
                 }
                 placeholder="Ví dụ: FT2310129994"
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
             <div className="space-y-1">
@@ -1572,7 +1572,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                   }))
                 }
                 placeholder="https://..."
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all placeholder:text-[var(--gt-muted)]/70"
               />
             </div>
           </div>
@@ -1600,7 +1600,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 !payoutDialog.evidenceUrl.trim()
               }
               onClick={handleConfirmPayout}
-              className="rounded-full bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white px-5 text-xs font-bold shadow-coral-sm"
+              className="rounded-full bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-dark)] text-white px-5 text-xs font-bold shadow-brand-sm"
             >
               Xác nhận đã chi
             </Button>
@@ -1639,7 +1639,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
                 onChange={(e) =>
                   setRoleDialog((d) => ({ ...d, role: e.target.value }))
                 }
-                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-coral)]/30 focus:border-[var(--gt-coral)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all"
+                className="w-full h-10 px-4 text-xs bg-white/80 border border-white/80 rounded-full focus:ring-2 focus:ring-[var(--gt-brand)]/30 focus:border-[var(--gt-brand)] focus:outline-none text-[var(--gt-ink)] shadow-xs backdrop-blur-sm transition-all"
               >
                 {roleDialog.mode === 'REVOKE' && (
                   <option value="TICKET_VENDOR">
@@ -1674,7 +1674,7 @@ const AdminOperationsContent: React.FC<{ mode: Mode }> = ({ mode }) => {
               className={cn(
                 'rounded-full px-5 text-xs font-bold',
                 roleDialog.mode === 'GRANT'
-                  ? 'bg-[var(--gt-coral)] hover:bg-[var(--gt-coral-dark)] text-white shadow-coral-sm'
+                  ? 'bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-dark)] text-white shadow-brand-sm'
                   : 'bg-rose-600 hover:bg-rose-700 text-white shadow-xs',
               )}
             >

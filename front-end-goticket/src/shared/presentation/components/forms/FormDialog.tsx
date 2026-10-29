@@ -87,7 +87,7 @@ export const FormDialog: React.FC<FormDialogProps> = ({
                 placeholder={placeholder}
                 rows={3}
                 disabled={loading}
-                className="w-full rounded-2xl border border-gray-200 p-3 text-xs sm:text-sm text-gray-900 focus:outline-hidden focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/15 transition-all resize-none"
+                className="w-full rounded-2xl border border-gray-200 p-3 text-xs sm:text-sm text-gray-900 focus:outline-hidden focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/15 transition-all resize-none"
               />
             ) : (
               <input
@@ -96,7 +96,7 @@ export const FormDialog: React.FC<FormDialogProps> = ({
                 onChange={(e) => setValue(e.target.value)}
                 placeholder={placeholder}
                 disabled={loading}
-                className="w-full rounded-full border border-gray-200 px-4 py-2.5 text-xs sm:text-sm text-gray-900 focus:outline-hidden focus:border-[#FF385C] focus:ring-2 focus:ring-[#FF385C]/15 transition-all"
+                className="w-full rounded-full border border-gray-200 px-4 py-2.5 text-xs sm:text-sm text-gray-900 focus:outline-hidden focus:border-[var(--gt-brand)] focus:ring-2 focus:ring-[var(--gt-brand)]/15 transition-all"
               />
             )}
             {error && <p className="text-[11px] font-semibold text-rose-600 mt-1">{error}</p>}
@@ -115,7 +115,7 @@ export const FormDialog: React.FC<FormDialogProps> = ({
             <Button
               type="submit"
               disabled={loading}
-              className="rounded-full px-5 text-xs font-bold h-10 bg-[#FF385C] hover:bg-[#E61E4F] text-white transition-all"
+              className="rounded-full px-5 text-xs font-bold h-10 bg-[var(--gt-brand)] hover:bg-[var(--gt-brand-hover)] text-white transition-all"
             >
               {loading && <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />}
               {confirmLabel}

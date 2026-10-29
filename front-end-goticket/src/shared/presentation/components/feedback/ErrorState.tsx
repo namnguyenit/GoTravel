@@ -55,7 +55,7 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
           <Button
             type="button"
             onClick={handleAction}
-            className="rounded-full bg-[#111827] hover:bg-[#FF385C] text-white text-xs font-bold px-5 py-2.5 h-auto transition-colors cursor-pointer"
+            className="rounded-full bg-[#111827] hover:bg-[var(--gt-brand)] text-white text-xs font-bold px-5 py-2.5 h-auto transition-colors cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5 mr-1.5" />
             {actionLabel}
